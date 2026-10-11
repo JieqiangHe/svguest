@@ -158,7 +158,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 </div>
 <div id="mChat">
 <details id="mCfg"><summary>AI settings</summary>
-<label title="Looks at an attached image first and describes it, so a drawing model that can't see images can still redraw it">Read images with<span class="two"><select id="mVis"></select><select id="mThinkR" title="Thinking effort for reading the image"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
+<label title="Looks at an attached image first and describes it, so a drawing model that can't see images can still redraw it">Read images with<span class="two"><select id="mVis"></select><select id="mThinkR" title="Thinking effort for reading the image"><option value="low">Low</option><option value="high">High</option><option value="max" selected>Max</option></select></span></label>
 <label title="The model that writes the SVG">Draw with<span class="two"><select id="mModel"></select><select id="mThink" title="Thinking effort for drawing; a reply that was cut off is continued with Low"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
 <p id="mRoute"></p>
 <label data-p="Glm">GLM key<input id="mKeyGlm" type="password" autocomplete="off" placeholder="API key"></label>
@@ -1065,7 +1065,7 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
 {const br=tbBridge(),all=Object.entries(AI).flatMap(([p,[,...ms]])=>ms.map(m=>p+':'+m)),has=(s,x)=>!!x&&[...s.options].some(o=>o.value===x),M=$('mModel'),V=$('mVis'),th=$('mThink');
   M.replaceChildren(...br?[new Option('TBtools','Tb')]:[],...all.map(x=>new Option(nameOf(who(x)),x)));
   V.replaceChildren(new Option('Same as Draw with','self'),...all.filter(x=>VIS.has(who(x).m)).map(x=>new Option(nameOf(who(x)),x)),...br?[new Option('TBtools','Tb')]:[]);
-  const TR=$('mThinkR'),old=ls('msbAi'),dm=ls('msbDraw')||(AI[old]?old+':'+(ls('msb'+old+'Model')||AI[old][1]):br?'Tb':'');M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('msbVis'))?ls('msbVis'):'self';
+  const TR=$('mThinkR'),old=ls('msbAi'),dm=ls('msbDraw')||(AI[old]?old+':'+(ls('msb'+old+'Model')||AI[old].at(-1)):br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('msbVis'))?ls('msbVis'):'self';
   const tv=ls('msbThink'),tr=ls('msbThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){$('mKey'+p).value=ls('msb'+p+'Key')||'';$('mEp'+p).value=ls('msb'+p+'Ep')||AI[p][0];
     $('mKey'+p).onchange=()=>ls('msb'+p+'Key',$('mKey'+p).value.trim());$('mEp'+p).onchange=()=>ls('msb'+p+'Ep',$('mEp'+p).value.trim())}
   M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);

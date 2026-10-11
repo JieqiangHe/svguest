@@ -21,7 +21,9 @@ button{font:inherit;padding:2px 5px;border:1px solid var(--btnb);border-radius:3
 button:hover{background:var(--btnh)}button:disabled{opacity:.4;cursor:default}button.on{background:var(--on);border-color:var(--onb);color:var(--onfg)}
 input,select{font:inherit}
 #mBar{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:3px;padding:4px;background:var(--bar);border-bottom:1px solid var(--line)}
-#mBar button,#mSt button,#mHelp header button{border-color:transparent;background:transparent}#mBar button:hover,#mSt button:hover,#mHelp header button:hover{background:var(--btnh)}#mBar button.on{background:var(--on);color:var(--onfg)}#mSt button{margin-left:auto;flex:none;padding:0 8px;line-height:16px}
+#mBar button,#mSt button,#mHelp header button,#mLay header button{border-color:transparent;background:transparent}#mBar button:hover,#mSt button:hover,#mHelp header button:hover,#mLay header button:hover{background:var(--btnh)}#mBar button.on{background:var(--on);color:var(--onfg)}#mSt button{flex:none;padding:0 8px;line-height:16px}
+#mBar #mKb{margin-left:auto;display:flex;align-items:center;gap:6px;width:210px;height:22px;padding:0 6px;border:1px solid var(--btnb);border-radius:4px;background:var(--btn);color:var(--h4);cursor:text}#mBar #mKb:hover{border-color:var(--swb)}[data-theme=dark] #mBar #mKb{border-color:#404040}[data-theme=dark] #mBar #mKb:hover{border-color:#a3a3a3}
+#mKb svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}#mKb kbd{margin-left:auto}#mKb kbd,#mK kbd{border:0;background:none;padding:0;opacity:.6}
 #mHelp{padding:0;width:min(1160px,96vw);max-width:none;max-height:92vh}
 #mHelp form{padding:12px 20px;font-size:12.5px;line-height:1.45}
 #mHelp header{display:flex;align-items:center}
@@ -35,14 +37,13 @@ input,select{font:inherit}
 #mHelp dd{margin:0}
 #mHelp .ft{margin:12px 0 0;padding-top:8px;border-top:1px solid var(--h4b);color:var(--h4)}
 kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);border-radius:3px;background:var(--btn)}
-#mMsg{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .dd{position:relative}
 .menu{display:none;position:absolute;left:0;top:100%;margin-top:3px;z-index:20;min-width:170px;padding:4px;background:var(--btn);border:1px solid var(--btnb);border-radius:4px;box-shadow:0 4px 12px #0003}
 .dd.open .menu{display:block}
 #mBar .dd.open>.ddb{background:var(--btnh)}
-#mBar .menu button,#mCM button{display:flex;justify-content:space-between;gap:16px;width:100%;padding:3px 8px 3px 22px;position:relative;text-align:left;white-space:nowrap}
-#mBar .menu button.on{background:transparent;color:var(--bfg)}
-#mBar .menu button:hover,#mCM button:hover{background:var(--btnh)}
+#mBar .menu button,#mSt .menu button,#mCM button{display:flex;justify-content:space-between;gap:16px;width:100%;padding:3px 8px 3px 22px;position:relative;text-align:left;white-space:nowrap}
+#mBar .menu button.on,#mSt .menu button.on{background:transparent;color:var(--bfg)}
+#mBar .menu button:hover,#mSt .menu button:hover,#mCM button:hover{background:var(--btnh)}
 #mBar button:disabled:hover,#mCM button:disabled:hover{background:transparent}
 .menu button.on::before{content:'✓';position:absolute;left:7px}
 .menu kbd{border:0;background:none;padding:0;opacity:.6}
@@ -51,7 +52,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mTools{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;background:var(--bar);border-right:1px solid var(--line)}
 #mTools button{width:30px;height:30px;padding:0;display:grid;place-items:center}
 #mTools svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
-#mTools a{margin-top:auto;width:30px;height:30px;display:grid;place-items:center;color:inherit;opacity:.6}#mTools a:hover{opacity:1}
+#mTools a{margin-top:auto;width:30px;height:30px;display:grid;place-items:center;color:inherit;opacity:.6}#mTools a+a{margin-top:0}#mTools a.tb{opacity:.85}#mTools a:hover{opacity:1}
 #mTools>i{width:22px;height:1px;background:var(--line);margin:3px 0}
 #mFS{position:relative;flex:none;width:30px;height:30px}#mFS label{position:absolute;width:18px;height:18px;border:1px solid var(--swb);border-radius:2px;background-color:var(--c,#fff);cursor:pointer}
 #mFS label.no{background-image:linear-gradient(to top right,#0000 44%,#e00 44%,#e00 56%,#0000 56%)}#mFS input{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
@@ -68,13 +69,14 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mGhost{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
 #mCap{position:absolute;inset:0}
 #mHud{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-#mRx,#mRy{position:absolute;left:0;top:0;width:100%;height:18px;pointer-events:none}#mRy{width:18px;height:100%}
-#mSx,#mSy{position:absolute;right:0;bottom:0;opacity:.55;transition:opacity .25s}#mSx{left:18px;right:16px;height:16px}#mSy{top:18px;bottom:16px;width:16px}.noR #mSx{left:0}.noR #mSy{top:0}
+#mRx,#mRy{position:absolute;left:0;top:0;width:100%;height:20px}#mRy{width:20px;height:100%}
+#mSx,#mSy{position:absolute;right:0;bottom:0;opacity:.55;transition:opacity .25s}#mSx{left:20px;right:16px;height:16px}#mSy{top:20px;bottom:16px;width:16px}.noR #mSx{left:0}.noR #mSy{top:0}
 #mView.sbOn #mSx,#mView.sbOn #mSy,#mSx:hover,#mSy:hover,#mSx.on,#mSy.on{opacity:1}
 #mSx::before,#mSy::before{content:"";position:absolute;inset:2px;border-radius:6px;background:var(--sbk);opacity:0;transition:opacity .15s}#mSx:hover::before,#mSy:hover::before,#mSx.on::before,#mSy.on::before{opacity:1}
 #mSx i,#mSy i{position:absolute;border-radius:4px;background:var(--sbt);transition:top .12s,bottom .12s,left .12s,right .12s,background .12s}#mSx i{top:5px;bottom:5px}#mSy i{left:5px;right:5px}
 #mSx:hover i,#mSx.on i{top:3px;bottom:3px;background:var(--sbh)}#mSy:hover i,#mSy.on i{left:3px;right:3px;background:var(--sbh)}
 #mHud [data-h]{pointer-events:all;cursor:pointer}
+#mLb{position:absolute;top:28px;right:24px;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:var(--btnb);border-radius:4px;box-shadow:0 1px 4px #0002;opacity:.85}#mLb:hover{opacity:1}#mLb.on{opacity:1}.noR #mLb{top:8px}#mLb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
 #mSide{overflow:auto;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}
 #mSide h4{margin:8px 0 4px;padding-bottom:2px;color:var(--h4);border-bottom:1px solid var(--h4b)}#mSide h4:first-child{margin-top:4px}#mSide h4 small{font-weight:normal}
 #mSide label{display:inline-flex;align-items:center;gap:4px;margin:2px 0}
@@ -84,9 +86,23 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .ic button{height:24px;padding:0;display:grid;place-items:center}.ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.ic rect{stroke:none}
 #mSide select{width:100%}#mPg{flex:1;width:auto!important;min-width:0}#mSide .row .ori{flex:0 0 28px}
 #mSide input[type=number]{width:62px;-moz-appearance:textfield}#mSide input::-webkit-inner-spin-button{display:none}
-#mSt{grid-column:1/-1;height:22px;display:flex;align-items:center;gap:18px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap;overflow:hidden}
+#mSt{grid-column:1/-1;height:24px;display:flex;align-items:center;gap:16px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap}
+#mSt>span{min-width:0;overflow:hidden;text-overflow:ellipsis}#mDoc{color:var(--h4)}#mMsg{flex:0 1000 auto}#mCtx{max-width:300px}#mPos{flex:none;min-width:11ch;font-variant-numeric:tabular-nums}
+#mZw{flex:none;display:flex;align-items:center;gap:2px}#mZw .dd{display:flex;align-items:center}#mSt .menu{top:auto;bottom:100%;margin:0 0 3px;min-width:150px}#mZw button{padding:0 5px}#mZw>button{width:20px;padding:0;font-size:14px}
+#mZoom{width:52px;height:18px;padding:0 4px;border:1px solid transparent;border-radius:3px;background:transparent;color:inherit;text-align:right;font:inherit;font-variant-numeric:tabular-nums}#mZoom:hover{border-color:var(--btnb)}#mZoom:focus{outline:none;border-color:var(--onb);background:var(--btn)}
+#mZs,[data-theme=dark] #mZs{-webkit-appearance:none;appearance:none;width:110px;height:16px;margin:0 2px;padding:0;border:0;border-radius:0;background:linear-gradient(#8a8a8a99,#8a8a8a99) center/1px 9px no-repeat;cursor:pointer}#mZs:focus{outline:none}
+#mZs::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-moz-range-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-4.5px;border:1px solid var(--swb);border-radius:50%;background:var(--btn);box-shadow:0 1px 2px #0003}#mZs::-moz-range-thumb{width:9px;height:9px;border:1px solid var(--swb);border-radius:50%;background:var(--btn)}#mZs:hover::-webkit-slider-thumb{border-color:var(--fg)}#mZs:hover::-moz-range-thumb{border-color:var(--fg)}#mSt>i{width:1px;height:14px;flex:none;margin-left:auto;background:var(--line)}
 .ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}::selection{background:#1a73e8;color:#fff}
-body.chat{grid-template-columns:40px 1fr 236px 300px}
+body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-columns:40px 1fr 220px 236px}body.lay.chat{grid-template-columns:40px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}.lay #mChat{grid-area:2/5}
+#mLay{display:none;grid-area:2/3;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
+#mLl{flex:1;overflow:auto;position:relative}#mLl>div{position:relative}#mLl p{margin:8px;color:var(--h4)}#mLl .r{position:absolute;left:0;right:0;height:20px;display:flex;align-items:center;gap:4px;padding-right:2px;white-space:nowrap;cursor:default}#mLl .r:hover,#mLl .r.hv{background:var(--btnh)}#mLl .r.on{background:var(--on);color:var(--onfg)}#mLl .r.in{box-shadow:inset 2px 0 var(--onb)}
+#mLl .r>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}#mLl small{opacity:.55;margin-left:4px}#mLl svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}#mLl .t{opacity:.7}#mLl .r>.c{width:12px;flex:none;display:grid;place-items:center}#mLl .c svg{width:10px;height:10px;stroke-width:1.8}#mLl .r.o .c svg{transform:rotate(90deg)}
+#mLl i{width:9px;height:9px;flex:none;border:1px solid var(--swb);border-radius:2px}#mLl b{width:18px;height:18px;flex:none;display:grid;place-items:center;border-radius:3px;visibility:hidden}#mLl .r:hover b,#mLl b.x{visibility:visible}#mLl b:hover{background:var(--line)}#mLl b.y{opacity:.4}#mLl .r.hid>span,#mLl .r.hid>.t{opacity:.4}
+#mK{position:fixed;inset:0;z-index:40;background:#0003}#mK[hidden]{display:none}#mK>div{position:absolute;left:50%;top:15vh;transform:translateX(-50%);width:min(560px,100vw - 32px);padding:4px;background:var(--btn);color:var(--bfg);border:1px solid var(--btnb);border-radius:4px;box-shadow:0 4px 12px #0003}
+#mKq,[data-theme=dark] #mKq{display:block;width:100%;padding:6px 8px;font-size:14px;color:inherit;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}#mKl{max-height:min(52vh,420px);overflow:auto;padding:2px 0}#mKl h4{margin:6px 8px 2px;font-size:11px;color:var(--h4)}#mKl p{margin:10px 8px;color:var(--h4)}
+#mKl div{display:flex;align-items:center;gap:8px;padding:3px 8px;border-radius:3px;white-space:nowrap;cursor:pointer}#mKl div.on{background:var(--btnh)}#mKl div.d{opacity:.4;cursor:default}#mKl kbd{margin-left:auto;padding-left:16px}#mKl .ki{width:16px;height:16px;flex:none;display:grid;place-items:center}#mKl .ki svg{width:16px;height:16px}
+.ki.t svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}.ki.f svg{fill:currentColor;stroke:currentColor}.ki.f rect{stroke:none}#mK>div>p{margin:0;padding:5px 8px 2px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mK>div>p kbd{margin:0 3px 0 10px}#mK>div>p kbd:first-child{margin-left:0}
+@media(prefers-reduced-motion:no-preference){#mK{animation:mKf .15s}}@keyframes mKf{from{opacity:0}}
 #mChat{display:none;grid-area:2/4;flex-direction:column;gap:4px;overflow:hidden;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}
 #mChat summary{cursor:pointer;color:var(--h4)}#mRoute{margin:2px 0 4px;color:var(--h4);font-size:11.5px;line-height:1.35}#mChat details label small{grid-column:2;color:var(--h4);font-size:11px;line-height:1.3}#mChat details select{min-width:0;width:100%}#mChat .two{display:flex;gap:4px;min-width:0}#mChat .two select{width:auto;flex:1}#mChat .two select+select{flex:0 0 64px}#mChat details label{display:grid;grid-template-columns:104px 1fr;align-items:center;margin:2px 0}#mChat details label[hidden]{display:none}#mChat details input{min-width:0}
 #mLog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px}#mLog>div{white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 6px;border-radius:4px}#mLog .u{align-self:flex-end;max-width:90%;background:var(--btnh)}#mLog .a{border:1px solid var(--line)}#mLog .tm{opacity:.6}#mLog p{display:flex;gap:3px;margin:4px 0 0}
@@ -101,8 +117,8 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 <div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><button data-a="imp" title="Place an SVG, PNG or JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><button data-a="p300">Export PNG 300 dpi</button><button data-a="p600">Export PNG 600 dpi</button><button data-a="j300" title="White background, highest quality">Export JPG 300 dpi</button><button data-a="j600" title="White background, highest quality">Export JPG 600 dpi</button><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
-<div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
-<button data-a="chat" class="on" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><div class="dd"><button class="ddb">Pseudocolor ▾</button><div class="menu"><button data-a="tintRed" title="Tint the selected grayscale images; colour images turn gray first">Tint red</button><button data-a="tintGreen">Tint green</button><button data-a="tintBlue">Tint blue</button><button data-a="tintCyan">Tint cyan</button><button data-a="tintMagenta">Tint magenta</button><button data-a="tintYellow">Tint yellow</button><button data-a="tintGray">Tint gray</button><button data-a="tint">Remove tint</button><hr><button data-a="xmg" title="Overlay copies of 2 to 7 images with Screen blending, sized to the first, to the right of the selection">Merge channels</button></div></div>
+<div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
+<button data-a="chat" class="on" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><div class="dd"><button class="ddb">Pseudocolor ▾</button><div class="menu"><button data-a="tintRed" title="Tint the selected grayscale images; colour images turn gray first">Tint red</button><button data-a="tintGreen">Tint green</button><button data-a="tintBlue">Tint blue</button><button data-a="tintCyan">Tint cyan</button><button data-a="tintMagenta">Tint magenta</button><button data-a="tintYellow">Tint yellow</button><button data-a="tintGray">Tint gray</button><button data-a="tint">Remove tint</button><hr><button data-a="xmg" title="Overlay copies of 2 to 7 images with Screen blending, sized to the first, to the right of the selection">Merge channels</button></div></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg>Search…<kbd>Ctrl+K</kbd></button>
 </div>
 <div id="mTools">
 <button data-t="sel" class="on" title="Select (V)"><svg viewBox="0 0 24 24"><path d="M6 3v16l4.5-4.5 3 6.5 2.5-1.2-3-6.3H19z"/></svg></button>
@@ -112,9 +128,11 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 <button data-t="line" title="Line (\)"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button>
 <button data-t="arrow" title="Arrow (A): activation, positive regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 5h9v9"/></svg></button><button data-t="inhibit" title="Inhibition (B): blunt-ended line, negative regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M14 2l8 8"/></svg></button><button data-t="drop" title="Eyedropper (I): click an object to give the selection its style; Alt+click applies the picked style to an object"><svg viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><path d="M8.5 8.5V5a3.5 3.5 0 0 1 7 0v3.5M7 8.5h10M10.2 8.5v9.5l1.8 4 1.8-4V8.5"/></g></svg></button><button data-t="crop" title="Crop a photo (C): drag across it; drag again to change the crop, or past its edges to remove it"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg></button>
 <div id="mFS"><label id="mFF" title="Fill: of the selection, or of new shapes when nothing is selected"><input type="color" id="mFc"></label><label id="mSF" title="Stroke: of the selection, or of new shapes when nothing is selected"><input type="color" id="mSc"></label><button data-a="swap" title="Swap fill and stroke (Shift+X)"><svg viewBox="0 0 12 12"><path d="M1.5 2.5h6a2 2 0 0 1 2 2v6M3.5.8 1.5 2.5l2 1.7M7.8 8.5l1.7 2 1.7-2"/></svg></button><button data-a="dflt" id="mFD" title="Default fill and stroke: none and black (D)"><svg viewBox="0 0 12 12"><path d="M1 1h5.5v5.5H1zM6.5 4.5H11V11H4.5V6.5"/></svg></button></div><i></i>
+<a href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; minisvg also runs in it as a plugin" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/></svg></a>
 <a href="https://github.com/JieqiangHe/minisvg" target="_blank" rel="noopener" title="minisvg on GitHub"><svg viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 </div>
-<div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div></div>
+<div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)" aria-label="Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button></div>
+<div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLl"><div></div></div></div>
 <div id="mSide">
 <h4>Page <small>mm</small></h4>
 <div class="row ic"><select data-f="pg" id="mPg" title="Page size"><option value="">Custom</option><option value="210,297">A4</option><option value="297,420">A3</option><option value="148,210">A5</option><option value="215.9,279.4">US Letter</option></select><button data-a="portrait" class="ori" title="Portrait"><svg viewBox="0 0 16 16"><rect x="4" y="1.5" width="8" height="13"/></svg></button><button data-a="landscape" class="ori" title="Landscape"><svg viewBox="0 0 16 16"><rect x="1.5" y="4" width="13" height="8"/></svg></button></div>
@@ -171,14 +189,15 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 <div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div>
 <div class="row"><button id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read">Attach</button><input type="file" id="mAttF" multiple hidden><button id="mSend">Send</button><button id="mClr" title="Start a new conversation">Clear</button></div>
 </div>
-<div id="mSt"><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><span id="mPos"></span><span id="mZoom"></span><button data-a="theme">Theme</button></div>
+<div id="mSt"><span id="mDoc" title="File, number of SVG elements and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><span id="mPos"></span><i></i><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme">Theme</button></div>
 <input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" hidden>
 <div id="mCM" class="menu"></div>
+<div id="mK" hidden><div role="dialog" aria-label="Commands"><input id="mKq" placeholder="Type a command…" spellcheck="false" autocomplete="off"><div id="mKl" role="listbox"></div><p><kbd>↑↓</kbd>Navigate<kbd>↵</kbd>Run<kbd>Esc</kbd>Close</p></div></div>
 <dialog id="mHelp"><form method="dialog"><header><h3>Shortcuts and tips</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header><div class="cols">
 <div>
 <section><h4>Select</h4><dl><dt>Click</dt><dd>Select what is under the pointer (outlined as you hover)</dd><dt>Right-click</dt><dd>Menu of common actions</dd><dt><kbd>Shift</kbd>+click</dt><dd>Add to or remove from the selection</dd><dt><kbd>Ctrl</kbd>+click</dt><dd>Select its whole group</dd><dt>Drag on empty</dt><dd>Box select (also on a page background); with <kbd>Ctrl</kbd>, whole objects; <kbd>Shift</kbd>+drag adds, and also starts over objects</dd><dt><kbd>Alt</kbd>+drag on empty</dt><dd>Box select everything the box touches</dd><dt><kbd>Alt</kbd>+click</dt><dd>Select the object below; again to go deeper</dd><dt><kbd>Esc</kbd></dt><dd>Select the enclosing group, then nothing</dd><dt><kbd>Ctrl+A</kbd></dt><dd>Select all in the group; <kbd>Ctrl+Shift+A</kbd> deselects</dd></dl></section>
 <section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (<kbd>Shift</kbd>: 45°)</dd></dl></section>
-<section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>?</kbd></dt><dd>This help</dd></dl></section>
+<section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end); Head in Appearance sizes the ends</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
@@ -327,7 +346,7 @@ function load(txt,nm){const d=parse(txt);prolog='';
   fit();stage.insertBefore(root,$('mGW'));
   for(const a of[...ghost.attributes])a.name!=='id'&&ghost.removeAttribute(a.name);
   for(const a of root.attributes)if(!a.prefix&&!/^(id|width|height|x|y|version|preserveAspectRatio|xmlns)$/.test(a.name))ghost.setAttribute(a.name,a.value);
-  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;fh=null;refImg=null;
+  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;fh=null;refImg=null;gl=[];gp=gq=null;
   mo=new MutationObserver(r=>add(pend,r));
   mo.observe(root,{subtree:true,childList:true,attributes:true,attributeOldValue:true,characterData:true,characterDataOldValue:true});
   sizes();refresh()}
@@ -386,33 +405,53 @@ function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opt
   for(let n=0;n*a<=vb.w*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x+n*a/U} ${vb.y}V${vb.y+vb.h}`;
   for(let n=0;n*a<=vb.h*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x} ${vb.y+n*a/U}H${vb.x+vb.w}`;
   gr.children[0].setAttribute('d',d[0]);gr.children[1].setAttribute('d',d[1])}
-function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;ed&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();sbWake();$('mZoom').textContent=round(Z*k/U*2540/96)+'%'}
+function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;ed&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();sbWake();zUI()}
 function syncPage(){const b=root.viewBox.baseVal,u=unitOf(root,b.width);if(b.x===vb.x&&b.y===vb.y&&b.width===vb.w&&b.height===vb.h&&u===U)return;
   vb=rb(b.x,b.y,b.width,b.height);U=u;ghost.setAttribute('viewBox',root.getAttribute('viewBox'));fit()}
 function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('viewBox',[x,y,w,h].map(fm).join(' '));root.setAttribute('width',fm(w*U)+'mm');root.setAttribute('height',fm(h*U)+'mm');commit()}
-function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect();Z=min((r.width-40)/vb.w,(r.height-40)/vb.h);k=1;tx=(r.width-vb.w*Z)/2;ty=(r.height-vb.h*Z)/2;size();place()}
+function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min((r.width-o-40)/vb.w,(r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
 function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;place();clearTimeout(zt);zt=setTimeout(()=>{Z*=k;k=1;size();place()},250)}
 
 function setSel(a,q){const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
-function bar(){const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['xmg',sel.length<2||sel.length>7],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
-  document.title=(dirty?'• ':'')+name+' — minisvg'}
+function bar(){const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['xmg',sel.length<2||sel.length>7],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
+  document.title=(dirty?'• ':'')+name+' — minisvg';doc()}
+const doc=()=>{const m=performance.memory;$('mDoc').textContent=[(dirty?'• ':'')+name,root.getElementsByTagName('*').length.toLocaleString('en-US')+' elements',m&&'Memory '+round(m.usedJSHeapSize/1048576)+' MB'].filter(Boolean).join(' · ')};
+setInterval(()=>root&&!document.hidden&&doc(),5e3);
 function refresh(){if(!root)return;syncPage();bar();sb=null;sbs=[];memoize(()=>{for(const e of sel){const b=bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
   cb=top_(ctx)?null:bbox(ctx);hud();panel();
   const lab=e=>e===root?'Document':e.getAttributeNS(NS.inkscape,'label')||e.id||e.localName,c=[];
   for(let e=ctx;e&&e!==root.parentNode;e=e.parentNode)c.unshift(lab(e));
   $('mCtx').textContent='Context: '+c.join(' › ');
-  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip()}
-function rulers(){if(!root||!opts.rulers)return;const d=devicePixelRatio||1,cs=gcs(document.documentElement),v=n=>cs.getPropertyValue(n),ppm=Z*k/U,st=[1,2,5,10,20,50,100,200,500,1000].find(s=>s*ppm>=45)||1000,m=st/5,R=18;
-  for(const[c,h]of[[$('mRx'),1],[$('mRy'),0]]){const W=c.clientWidth,Hh=c.clientHeight,L=h?W:Hh,o=h?tx:ty,g=c.getContext('2d');
+  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef()}
+const RW=20,GC='#0ea5e9';let gl=[],gq=null,gp=null;
+const gv=(h,a)=>{const z=Z*k,st=10**Math.floor(Math.log10(U/z));return(h?vb.x:vb.y)+round((a-(h?tx:ty))/z*U/st)*st/U},gmm=G=>`${G.h?'x':'y'} ${f6((G.v-(G.h?vb.x:vb.y))*U)} mm`,
+  gAt=(e,h)=>{const p=vp(e),a=h?p[0]:p[1];if(a<RW)return null;let i=-1,d=5;gl.forEach((G,j)=>{const x=abs(toS({x:G.v,y:G.v})[G.h?0:1]-a);G.h===h&&x<d&&(d=x,i=j)});return{h,a,i}};
+function rulers(){if(!root||!opts.rulers)return;const d=devicePixelRatio||1,cs=gcs(document.documentElement),v=n=>cs.getPropertyValue(n),ppm=Z*k/U,R=RW,
+  st=[.1,.2,.5,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4].find(s=>s*ppm>=50)||1e4,n=/5/.test(st)?5:10,m=st/n;
+  for(const[c,h]of[[$('mRx'),1],[$('mRy'),0]]){const W=c.clientWidth,Hh=c.clientHeight,L=h?W:Hh,o=h?tx:ty,g=c.getContext('2d'),P=(h?vb.w:vb.h)*Z*k,
+      pin=(a,col,al=1)=>{a=round(a);g.globalAlpha=al;g.fillStyle=col;g.fillRect(a,0,1,R);g.beginPath();g.moveTo(a-4,R-6);g.lineTo(a+5,R-6);g.lineTo(a+.5,R-1);g.fill();g.globalAlpha=1};
     if(c.width!==W*d||c.height!==Hh*d){c.width=W*d;c.height=Hh*d}
-    g.setTransform(d,0,0,d,0,0);g.fillStyle=v('--bar');g.fillRect(0,0,W,Hh);
-    if(sb){const a=o+(h?sb.x-vb.x:sb.y-vb.y)*Z*k,b=(h?sb.w:sb.h)*Z*k;g.fillStyle='#1a73e855';h?g.fillRect(a,0,b,R):g.fillRect(0,a,R,b)}
-    g.strokeStyle=g.fillStyle=v('--fg');g.lineWidth=1;g.font='9px system-ui,sans-serif';g.beginPath();
-    for(let x=Math.floor(-o/ppm/m)*m;o+x*ppm<L;x+=m){const p=round(o+x*ppm)+.5,M=abs(x/st-round(x/st))<1e-6,t=M?R:R/3;
-      h?(g.moveTo(p,R),g.lineTo(p,R-t)):(g.moveTo(R,p),g.lineTo(R-t,p));
-      if(M){const s=String(+x.toFixed(3));if(h)g.fillText(s,p+2,9);else{g.save();g.translate(9,p-2);g.rotate(-PI/2);g.fillText(s,0,0);g.restore()}}}
-    g.stroke();g.strokeStyle=v('--line');g.beginPath();h?(g.moveTo(0,R-.5),g.lineTo(W,R-.5)):(g.moveTo(R-.5,0),g.lineTo(R-.5,Hh));g.stroke();
-    if(mouse){const p=round(h?mouse[0]:mouse[1])+.5;g.strokeStyle='#e8711a';g.beginPath();h?(g.moveTo(p,0),g.lineTo(p,R)):(g.moveTo(0,p),g.lineTo(R,p));g.stroke()}}}
+    g.setTransform(h?d:0,h?0:d,h?0:d,h?d:0,0,0);g.fillStyle=v('--bar');g.fillRect(0,0,L,R);g.fillStyle=v('--btn');g.fillRect(o,0,P,R);
+    if(sb){const a=o+(h?sb.x-vb.x:sb.y-vb.y)*Z*k,b=(h?sb.w:sb.h)*Z*k;g.fillStyle='#1a73e824';g.fillRect(a,0,b,R);g.fillStyle='#1a73e8aa';g.fillRect(round(a),0,1,R);g.fillRect(round(a+b)-1,0,1,R)}
+    g.fillStyle=v('--line');g.fillRect(0,R-1,L,1);g.strokeStyle=v('--h4');g.lineWidth=1;const lab=[],tk=[new Path2D,new Path2D];
+    for(let i=Math.floor(-o/ppm/m),x;o+(x=i*m)*ppm<L;i++){const p=round(o+x*ppm)+.5,j=(i%n+n)%n,t=!j?11:n===10&&j===5?6:3.5;tk[+!j].moveTo(p,R-1);tk[+!j].lineTo(p,R-1-t);j||lab.push([p,String(+x.toFixed(2))])}
+    g.globalAlpha=.5;g.stroke(tk[0]);g.globalAlpha=1;g.stroke(tk[1]);
+    gl.forEach((G,i)=>G.h===h&&pin(o+(G.v-(h?vb.x:vb.y))*Z*k,gq&&gq.h===h&&gq.i===i?'#e5534b':GC));
+    const q=gp&&gp.h===h?gp:gq&&gq.h===h&&gq.i<0&&!gp?{v:gv(h,gq.a)}:null;q&&pin(o+(q.v-(h?vb.x:vb.y))*Z*k,GC,.55);
+    mouse&&!gp&&!(gq&&gq.h===h)&&(g.fillStyle='#e8711a',g.fillRect(round(h?mouse[0]:mouse[1]),0,1,R));
+    g.setTransform(d,0,0,d,0,0);g.fillStyle=v('--h4');g.font='10px system-ui,sans-serif';
+    for(const[p,s]of lab)if(h)g.fillText(s,p+3,10);else{g.save();g.translate(10,p-3);g.rotate(-PI/2);g.fillText(s,0,0);g.restore()}
+    if(!h){g.fillStyle=v('--bar');g.fillRect(0,0,R,R);g.fillStyle=v('--line');g.fillRect(R-1,0,1,R);g.fillRect(0,R-1,R,1);g.fillStyle=v('--h4');g.font='9px system-ui,sans-serif';g.textAlign='center';g.fillText('mm',R/2-.5,R/2+3);g.textAlign='start'}}}
+for(const h of[1,0]){const c=$(h?'mRx':'mRy');let G=null;
+  c.title='Click to pin a guide here; click a guide\'s mark to remove it, drag it to move it, or drag into the page for a guide across';
+  c.onpointerdown=e=>{e.stopPropagation();if(e.button||!root)return;cmOff();const s=gAt(e,h);if(!s)return;finish(true);c.setPointerCapture(e.pointerId);G={s,o:s.i>=0?gl[s.i]:null,on:0};G.o||(gp={h,v:gv(h,s.a)});rulers();hud()};
+  c.onpointermove=e=>{if(!G){if(e.buttons||D)return;const s=gAt(e,h);if(s?.i!==gq?.i||s?.a!==gq?.a){gq=s;c.style.cursor=s&&s.i>=0?(h?'ew-resize':'ns-resize'):'';hud()}return}
+    const p=vp(e),a=h?p[0]:p[1],b=h?p[1]:p[0];if(!G.on&&abs(a-G.s.a)<3&&b<RW)return;G.on=1;gq=null;
+    if(G.o){G.o.v=gv(h,a);msg('Guide at '+gmm(G.o))}else{gp=b>RW+2?{h:1-h,v:gv(1-h,b)}:{h,v:gv(h,a)};msg('Guide at '+gmm(gp))}hud()};
+  c.onpointerup=c.onpointercancel=e=>{const g=G;G=null;if(!g)return;
+    if(e.type==='pointerup')if(g.o&&!g.on){gl.splice(gl.indexOf(g.o),1);msg('Removed the guide')}else if(gp){gl.push(gp);msg(`Guide at ${gmm(gp)}; click its mark on the ruler to remove it`)}
+    gp=null;gq=null;c.style.cursor='';bar();hud()};
+  c.onpointerleave=()=>{G||(gq=null,c.style.cursor='',hud())};c.ondblclick=c.oncontextmenu=e=>{e.preventDefault();e.stopPropagation()}}
 let sbR=[];const sbg=h=>{const W=h?view.clientWidth:view.clientHeight,o=h?-tx:-ty,P=(h?vb.w:vb.h)*Z*k,R=sbR[+!h]||[min(-20,o),max(P+20,o+W)];return{W,o,R,s:W/(R[1]-R[0])}};
 let sbT=0;const sbWake=()=>{view.classList.add('sbOn');clearTimeout(sbT);sbT=setTimeout(()=>view.classList.remove('sbOn'),1200)};
 function bars(){for(const h of[1,0]){const b=$(h?'mSx':'mSy'),g=root&&sbg(h);if(b.hidden=!g||g.s>.999)continue;const L=h?b.clientWidth:b.clientHeight,t=max(32,g.s*L);if(b.hidden=t>=L)continue;
@@ -423,6 +462,8 @@ function seg(e){if(!e)return null;if(e.localName==='line')return[['x1','y1'],['x
 function setSeg(e,[a,b]){e.localName==='line'?[['x1',a.x],['y1',a.y],['x2',b.x],['y2',b.y]].forEach(([n,v])=>e.setAttribute(n,fc(v))):e.setAttribute('d',`M ${fc(a.x)},${fc(a.y)} L ${fc(b.x)},${fc(b.y)}`)}
 const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,i,a)=>i<4?v:v||e.ry.baseVal.value);
 function hud(M){H.replaceChildren();if(!root)return;rulers();
+  const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(p?';stroke-dasharray:4 3;opacity:.7':''))};
+  gl.forEach((G,i)=>gL(G,gq&&gq.h===G.h&&gq.i===i?'#e5534b':GC));gp?gL(gp,GC,1):gq&&gq.i<0&&gL({h:gq.h,v:gv(gq.h,gq.a)},GC,1);
   const B='fill:#fff;stroke:#1a73e8;',sq=([x,y],s,h,st=B+'cursor:move')=>mk('rect',{x:x-s/2,y:y-s/2,width:s,height:s,'data-h':h,style:st},H),
     poly=(b,st,m)=>{const p=[[b.x,b.y],[b.x+b.w,b.y],[b.x+b.w,b.y+b.h],[b.x,b.y+b.h]].map(([x,y])=>toS(m?m.transformPoint({x,y}):{x,y}));mk('polygon',{points:p.join(' '),style:'fill:none;'+st},H);return p};
   const HS='stroke:#1a73e8;stroke-width:1.5;stroke-opacity:.8';hov&&!M&&!D&&root.contains(hov)&&!sel.some(e=>e.contains(hov))&&(hovL?hovL.forEach(l=>mk('polyline',{points:l.map(q=>toS(q)).join(' '),style:'fill:none;'+HS},H)):hovB&&poly(hovB,HS));
@@ -535,7 +576,7 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
     if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.t==='band'&&bandPrev();return hud()}
   D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
-  c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));D.s0=sb;D.sn=[X,Y]}
+  c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
 const tog=(t,w)=>{let[ob,c]=grab(t,w);const o=sel.find(s=>s!==ob&&s.contains(ob));o?ob=o:ctx=c;setSel(sel.includes(ob)?sel.filter(x=>x!==ob):[...sel,ob])};
 function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);
   if(d.t==='pan')return;
@@ -805,10 +846,11 @@ function unlock(){finish(true);const a=[...root.querySelectorAll('[*|insensitive
 const lkd=e=>{for(;e&&e!==root;e=e.parentNode)if(e.getAttributeNS(NS.sodipodi,'insensitive')&&!isLayer(e))return true;return false};
 let hov=null,hovL=null,hovB=null,hovE=null,hovQ=0,hovT=0,hovSlow=0,ctl=0,edgeR=0,edgeE=null,cmE=null;
 function hoverAt(e){hovE=e;ctl=cmd(e);if(hovSlow){clearTimeout(hovT);hovT=setTimeout(hovCalc,90)}else if(!hovQ){hovQ=1;requestAnimationFrame(()=>{hovQ=0;hovCalc()})}}
-function hovCalc(){const e=hovE;let h=null;
-  if(e&&root&&!D&&!ed&&!space&&/^(sel|drop|text)$/.test(tool)&&view.contains(e.target)&&!e.target.closest('#mHud [data-h],#mSx,#mSy,.ed')){const t0=performance.now(),t=hit(e);hovSlow=performance.now()-t0>12;
+function hovCalc(){const e=hovE,r=e&&e.target.closest?.('#mLl .r');let h=null;
+  if(r){const x=Ly.rows[+r.dataset.i]?.[0];h=root&&x&&root.contains(x)?x:null}
+  else if(e&&root&&!D&&!ed&&!space&&/^(sel|drop|text)$/.test(tool)&&view.contains(e.target)&&!e.target.closest('#mHud [data-h],#mSx,#mSy,#mRx,#mRy,#mLb,.ed')){const t0=performance.now(),t=hit(e);hovSlow=performance.now()-t0>12;
     if(t)h=tool==='text'?t.closest('text'):tool==='drop'?t.closest('text')||t:grab(t,ctl)[0]}
-  if(h===hov)return;hov=h;hovL=hovB=null;if(h){hovL=LF.test(h.localName)&&h.localName!=='text'&&outl(h)||null;hovL||(hovB=memoize(()=>bbox(h)))}hud()}
+  if(h===hov)return;hov=h;hovL=hovB=null;if(h){hovL=LF.test(h.localName)&&h.localName!=='text'&&outl(h)||null;hovL||(hovB=memoize(()=>bbox(h)))}hud();lyHv()}
 function edgeTick(){edgeR=0;const d=D,e=edgeE;if(!d||d.t==='pan'||!d.on||!e)return;const r=view.getBoundingClientRect(),I=24,f=v=>-Math.sign(v)*min(24,abs(v)*.35),
     ox=e.clientX<r.left+I?e.clientX-r.left-I:e.clientX>r.right-I?e.clientX-r.right+I:0,oy=e.clientY<r.top+I?e.clientY-r.top-I:e.clientY>r.bottom-I?e.clientY-r.bottom+I:0;
   if(!ox&&!oy)return;const px=ox&&f(ox),py=oy&&f(oy);tx+=px;ty+=py;d.p=[d.p[0]+px,d.p[1]+py];place();edgeR=requestAnimationFrame(edgeTick);move(e)}
@@ -1102,9 +1144,89 @@ const zv=(f,p)=>{const z=Z*k*f;z>1e-3&&z<1e4&&zoomAt(p||(r=>[r.width/2,r.height/
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
 A.chat=()=>{const on=document.body.classList.toggle('chat');ls('msbChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
+A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
+A.layers=()=>{const on=document.body.classList.toggle('lay');qa('layers').classList.toggle('on',on);$('mLb').classList.toggle('on',on);place();on?(Ly.ps=[],lyBuild(1)):(hov=null,hud())};
+const zPct=()=>Z*k/U*2540/96,zTo=p=>{p=parseFloat(p);p>0&&isFinite(p)&&zv(p/zPct())},
+  zUI=()=>{const p=zPct(),i=$('mZoom');document.activeElement===i||(i.value=round(p)+'%');$('mZs').value=1e3*Math.log(p/5)/Math.log(400);for(const b of $('mZm').children)b.dataset.z&&b.classList.toggle('on',+b.dataset.z===round(p))};
+$('mZm').append(...[25,50,75,100,150,200,400,800].map(z=>{const b=el('button',0,z+'%');b.dataset.z=z;return b}),el('hr'),(b=>(b.dataset.a='fit',b.append(el('kbd',0,'Ctrl+0')),b))(el('button',0,'Fit to window')));
+$('mZm').onclick=e=>{const b=e.target.closest('[data-z]');b&&zTo(b.dataset.z)};
+let zf=0;$('mZoom').onfocus=e=>{e.target.select();zf=1};$('mZoom').onmouseup=e=>{zf&&e.preventDefault();zf=0};$('mZoom').onblur=()=>{zf=0;zUI()};
+$('mZoom').onkeydown=e=>{if(e.key==='Enter'){zTo(e.target.value);e.target.blur()}else if(e.key==='Escape')e.target.blur()};
+$('mZs').oninput=e=>zTo(5*400**(e.target.value/1e3));$('mZs').onchange=e=>e.target.blur();
+const LN={g:'Group',a:'Link',switch:'Switch',path:'Path',rect:'Rectangle',circle:'Circle',ellipse:'Ellipse',line:'Line',polyline:'Polyline',polygon:'Polygon',text:'Text',image:'Image',use:'Clone',svg:'SVG',foreignObject:'Object'},
+  LI={g:'M1.5 4.5h5l1.5 1.5h6.5v7h-13z',L:'M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5',text:'M3.5 4.5V3h9v1.5M8 3v10M6 13h4',rect:'M2.5 3.5h11v9h-11z',circle:'M2.5 8a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0-11 0',line:'M3 13 13 3',polyline:'M2 12l4-5 3 3 5-6',
+    polygon:'M8 2.5l6 10.5H2z',path:'M2 13C3 3 13 13 14 3',image:'M2 3h12v10H2zM2 11l4-4 3 3 2-2 3 3',use:'M7 9l2-2M6 6 4.5 7.5a2.1 2.1 0 0 0 3 3L9 9M10 10l1.5-1.5a2.1 2.1 0 0 0-3-3L7 7',c:'M6 4l4 4-4 4',
+    eye:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',off:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM2.5 13.5l11-11',lk:'M4 7.5h8v6H4zM5.5 7.5V5.5a2.5 2.5 0 0 1 5 0v2',ul:'M4 7.5h8v6H4zM5.5 7.5V5.5a2.5 2.5 0 0 1 5 0'},
+  ico=(d,c)=>{const v=mk('svg',{viewBox:'0 0 16 16'});c&&v.setAttribute('class',c);mk('path',{d},v);return v},
+  Ly={rows:[],open:new WeakSet,doc:null,an:null,q:'',ps:[],me:0,raf:0,sr:0,ft:0},lyOn=()=>document.body.classList.contains('lay'),
+  lyName=e=>e.getAttributeNS(NS.inkscape,'label')||(e.localName==='text'?e.textContent.replace(/\s+/g,' ').trim().slice(0,120)||'Text':isLayer(e)?'Layer':LN[e.localName]||e.localName),
+  lyX=e=>{const r=e.target.closest('#mLl .r'),x=r&&Ly.rows[+r.dataset.i]?.[0];return root&&x&&root.contains(x)?x:null},
+  lyHv=()=>{if(lyOn())for(const r of $('mLl').firstChild.children)r.dataset.i&&r.classList.toggle('hv',Ly.rows[+r.dataset.i]?.[0]===hov)};
+function lyWalk(p,d,o){for(let c=p.lastElementChild;c;c=c.previousElementSibling)if(isG(c)){o.push([c,d]);isGrp(c)&&Ly.open.has(c)&&lyWalk(c,d+1,o)}return o}
+function lyBuild(rv){if(!lyOn()||!root)return;const L=$('mLl'),q=Ly.q.toLowerCase(),o=[];
+  if(Ly.doc!==root){Ly.doc=root;Ly.open=new WeakSet;Ly.an=null;for(let p=root,c;;p=c){const g=[...p.children].filter(isG);if(g.length!==1||!isGrp(c=g[0]))break;Ly.open.add(c)}}
+  if(q){const f=p=>{for(let c=p.firstElementChild;c&&o.length<5e3;c=c.nextElementSibling)if(isG(c)){(lyName(c)+' '+LN[c.localName]+' '+c.id).toLowerCase().includes(q)&&o.push([c,0]);c.localName==='text'||f(c)}};f(root);o.reverse()}
+  else{if(rv)for(const e of sel.slice(0,20))for(let a=e.parentNode;a&&a!==root;a=a.parentNode)Ly.open.add(a);lyWalk(root,0,o)}
+  Ly.rows=o;L.firstChild.style.height=o.length*20+'px';
+  if(rv&&sel.length){const i=o.findIndex(r=>r[0]===sel[0]);i>=0&&(i*20<L.scrollTop||i*20+20>L.scrollTop+L.clientHeight)&&(L.scrollTop=i*20-L.clientHeight/2)}lyDraw()}
+function lyDraw(){if(!lyOn())return;const L=$('mLl'),B=L.firstChild,n=Ly.rows.length,a=max(0,Math.floor(L.scrollTop/20)-4),b=min(n,a+Math.ceil(L.clientHeight/20)+8),S=new Set(sel);
+  B.replaceChildren();if(!n)return B.append(el('p',0,Ly.q?`Nothing matches “${Ly.q}”`:'The page is empty'));for(let i=a;i<b;i++)B.append(lyRow(i,S))}
+function lyRow(i,S){const[e,d]=Ly.rows[i],cs=gcs(e),g=isGrp(e)&&[...e.children].some(isG),own=cs.display==='none',lk=e.hasAttributeNS(NS.sodipodi,'insensitive'),il=!lk&&lkd(e),n=e.localName;let hid=own,inS=0;
+  for(let a=e.parentNode;a&&a!==root;a=a.parentNode){hid||=gcs(a).display==='none';inS||=S.has(a)}
+  const r=el('div','r'+(S.has(e)?' on':inS?' in':'')+(e===hov?' hv':'')+(g&&Ly.open.has(e)?' o':'')+(hid?' hid':'')),c=el('span','c'),nm=el('span',0,lyName(e)),sw=el('i'),v=el('b',own?'x':''),l=el('b',lk?'x':il?'x y':''),
+    f=/^(path|rect|circle|ellipse|line|polyline|polygon|text)$/.test(n)&&(n==='line'?[cs.stroke]:[cs.fill,cs.stroke]).find(x=>/^rgb/.test(x)&&!/^rgba.*, 0\)$/.test(x));
+  r.dataset.i=i;r.style.top=i*20+'px';r.style.paddingLeft=4+d*12+'px';r.title=n+(e.id?' #'+e.id:'')+(e.getAttribute('clip-path')?' · clipped':'')+(hid?' · hidden':'')+(lk||il?' · locked':'');
+  g&&c.append(ico(LI.c));g&&nm.append(el('small',0,e.childElementCount));f?sw.style.background=f:sw.style.visibility='hidden';
+  v.dataset.k='v';v.title=own?'Show':'Hide';v.append(ico(own?LI.off:LI.eye));l.dataset.k='l';l.title=lk?'Unlock':il?'Locked with its group':'Lock';l.append(ico(lk||il?LI.lk:LI.ul));
+  r.append(c,ico(LI[isLayer(e)?'L':isGrp(e)?'g':n==='ellipse'?'circle':/^(text|rect|circle|line|polyline|polygon|path|image|use)$/.test(n)?n:'rect'],'t'),sw,nm,v,l);return r}
+function lyRef(){if(!lyOn())return;cancelAnimationFrame(Ly.raf);Ly.raf=requestAnimationFrame(()=>{const c=!same(sel,Ly.ps);Ly.ps=sel.slice();lyBuild(c&&!Ly.me);Ly.me=0})}
+function lyPick(x,e){if(lkd(x))return msg('Locked: click its lock in Layers to unlock it');finish(true);const L=isLayer(x);let a=L?cands(x):[x];
+  if(cmd(e))a=sel.includes(x)?sel.filter(s=>s!==x):[...sel,...a];
+  else if(e.shiftKey&&Ly.an&&root.contains(Ly.an)){const r=Ly.rows.map(r=>r[0]),i=r.indexOf(Ly.an),j=r.indexOf(x);i>=0&&j>=0&&(a=r.slice(min(i,j),max(i,j)+1).filter(y=>!lkd(y)&&!isLayer(y)))}
+  e.shiftKey||(Ly.an=x);Ly.me=1;ctx=L?x:x.parentNode;setSel(a);L&&!a.length&&msg('Nothing in this layer')}
+$('mLl').onmousedown=e=>e.target.closest('.r')&&e.preventDefault();$('mLb').onpointerdown=$('mLb').ondblclick=e=>e.stopPropagation();$('mLb').oncontextmenu=e=>{e.preventDefault();e.stopPropagation()};
+$('mLl').onclick=e=>{const x=lyX(e);if(!x)return;document.activeElement?.blur();const b=e.target.closest('[data-k],.c');if(!b)return lyPick(x,e);
+  if(b.classList.contains('c')){const o=!Ly.open.has(x);for(const g of e.altKey?[x,...x.querySelectorAll('g,a,switch')]:[x])o?Ly.open.add(g):Ly.open.delete(g);return lyBuild()}
+  finish(true);if(b.dataset.k==='v'){const h=gcs(x).display!=='none';setSt(x,'display',h?'none':null);h||gcs(x).display!=='none'||setSt(x,'display','inline');h&&setSel(sel.filter(s=>!x.contains(s)),1);msg((h?'Hid ':'Showing ')+lyName(x)+(h?'; click the eye again to show it':''))}
+  else{const l=x.hasAttributeNS(NS.sodipodi,'insensitive');l?x.removeAttributeNS(NS.sodipodi,'insensitive'):(xns('sodipodi'),setA(x,'sodipodi:insensitive','true'),setSel(sel.filter(s=>!x.contains(s)),1));msg((l?'Unlocked ':'Locked ')+lyName(x))}commit()};
+$('mLl').ondblclick=e=>{const x=lyX(e);x&&isGrp(x)&&!e.target.closest('[data-k],.c')&&(Ly.open.has(x)?Ly.open.delete(x):Ly.open.add(x),lyBuild())};
+$('mLl').oncontextmenu=e=>{const x=lyX(e);if(!x||lkd(x)||e.ctrlKey)return e.preventDefault();sel.includes(x)||lyPick(x,{});cmenu(e);cmE=null;$('mCM').querySelector('[data-a=pasteHere]').disabled=true};
+$('mLl').onscroll=()=>{cancelAnimationFrame(Ly.sr);Ly.sr=requestAnimationFrame(lyDraw)};new ResizeObserver(()=>lyDraw()).observe($('mLl'));
+$('mLf').oninput=()=>{clearTimeout(Ly.ft);Ly.ft=setTimeout(()=>{Ly.q=$('mLf').value.trim();$('mLl').scrollTop=0;lyBuild()},150)};
+$('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.ft);$('mLf').value=Ly.q='';$('mLf').blur();lyBuild(1)}
+  else if(e.key==='Enter'&&!e.isComposing){clearTimeout(Ly.ft);Ly.q=$('mLf').value.trim();if(!Ly.q)return;lyBuild();const a=Ly.rows.map(r=>r[0]).filter(x=>!lkd(x)&&!isLayer(x));finish(true);
+    ctx=a.length&&a.every(x=>x.parentNode===a[0].parentNode)?a[0].parentNode:root;Ly.me=1;setSel(a);msg(a.length?`Selected ${nObj(sel.length)} matching “${Ly.q}”`:'Nothing to select');$('mLf').blur()}};
+const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥'):s;let kC=[],kR=[],kI=0,kM='';
+$('mKb').lastChild.textContent=kTx('Ctrl+K');
+function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled});
+  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
+  for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,tx(b),b.querySelector('kbd')?.textContent||'')}
+  for(const b of document.querySelectorAll('#mTools [data-t],#mFS [data-a]'))ad('Tools',b,/^[^(:]*/.exec(b.title)[0].trim(),kt(b.title),'t');
+  let g='';for(const c of $('mSide').children){if(c.tagName==='H4'){g=c.firstChild.data.trim();continue}if(c.id==='mSizes')continue;
+    for(const b of c.matches('[data-a]')?[c]:c.querySelectorAll('[data-a]')){const x=b.textContent.trim();ad(g,b,x.length>2?x:b.title.split(':')[0],kt(b.title),'f')}}
+  return o}
+function kSc(c,q){const n=c.n.toLowerCase();if(n.startsWith(q))return 5;if([...n.matchAll(/[^a-z0-9]+/g)].some(m=>n.startsWith(q,m.index+m[0].length)))return 4;if(n.includes(q))return 3;
+  if((c.g+' '+c.t+' '+c.k).toLowerCase().includes(q))return 2;let j=0;for(const ch of n)ch===q[j]&&j++;return j===q.length?1:0}
+function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEach((c,i)=>c.g in gi||(gi[c.g]=i));
+  kR=kC.map((c,i)=>({c,i,s:q?kSc(c,q):1})).filter(x=>x.s);kR.forEach(x=>gm[x.c.g]=max(gm[x.c.g]||0,x.s));kR.sort((a,b)=>gm[b.c.g]-gm[a.c.g]||gi[a.c.g]-gi[b.c.g]||b.s-a.s||a.i-b.i);kI=0;kDraw()}
+function kDraw(){const L=$('mKl');L.replaceChildren();L.scrollTop=0;let g;if(!kR.length)return L.append(el('p',0,`No command matches “${$('mKq').value.trim()}”`));
+  kR.forEach((x,i)=>{const c=x.c,r=el('div',(i===kI?'on':'')+(c.off?' d':'')),k=el('span','ki '+(c.ic||'')),v=c.b.querySelector('svg');c.g!==g&&L.append(el('h4',0,g=c.g));
+    if(v){const w=v.cloneNode(true);c.ic==='t'&&(w.style.strokeWidth=gcs(v).strokeWidth);k.append(w)}else c.b.classList.contains('on')&&(k.textContent='✓');
+    r.dataset.i=i;r.setAttribute('role','option');r.title=c.t;r.append(k,el('span',0,c.n));c.k&&r.append(el('kbd',0,kTx(c.k)));L.append(r)})}
+function kMove(d){if(!kR.length)return;kI=(kI+d+kR.length)%kR.length;const rs=$('mKl').querySelectorAll('div');rs.forEach((r,i)=>r.classList.toggle('on',i===kI));rs[kI].scrollIntoView({block:'nearest'})}
+function kOpen(){if(!root)return;menuOff();cmOff();kC=kCol();$('mKq').value='';$('mK').hidden=false;kFil();$('mKq').focus()}
+function kClose(){$('mK').hidden=true;$('mKq').blur()}
+function kRun(i){const x=kR[i];if(!x||x.c.off)return;kClose();setTimeout(()=>x.c.b.click(),60)}
+$('mKb').onclick=kOpen;$('mKq').oninput=kFil;$('mK').onclick=e=>e.target===$('mK')&&kClose();$('mKl').onmousedown=e=>e.preventDefault();$('mKl').onclick=e=>{const r=e.target.closest('#mKl div');r&&kRun(+r.dataset.i)};
+$('mKl').onmousemove=e=>{const r=e.target.closest('#mKl div'),m=e.screenX+','+e.screenY;if(m===kM||!r)return;kM=m;kI=+r.dataset.i;$('mKl').querySelectorAll('div').forEach((x,i)=>x.classList.toggle('on',i===kI))};
+addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowerCase()==='k'&&(MAC?e.metaKey&&!e.ctrlKey:e.ctrlKey&&!e.metaKey)&&!e.shiftKey&&!e.altKey;
+  if(k&&!o&&(t.isContentEditable||t.closest?.('.ed')||document.querySelector('dialog[open]')))return;
+  if(k){e.preventDefault();e.stopImmediatePropagation();return o?kClose():kOpen()}
+  if(!o)return;e.stopImmediatePropagation();if(e.isComposing||e.keyCode===229)return;
+  if(e.key==='Escape'){e.preventDefault();kClose()}else if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();kMove(e.key==='ArrowUp'?-1:1)}else if(e.key==='Enter'){e.preventDefault();kRun(kI)}},true);
 
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
-document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mCM button')&&e.preventDefault());
+document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mCM button,#mSt button,#mLay button,#mLb')&&e.preventDefault());
 const menuOff=x=>document.querySelectorAll('.dd.open').forEach(d=>d!==x&&d.classList.remove('open'));
 addEventListener('click',e=>{const d=e.target.closest('.dd');menuOff(d);d&&(e.target.closest('.ddb')?d.classList.toggle('open'):e.target.closest('.menu button')&&d.classList.remove('open'))});
 $('mBar').addEventListener('mouseover',e=>{const d=e.target.closest('.dd');d&&!d.classList.contains('open')&&document.querySelector('.dd.open')&&(menuOff(),d.classList.add('open'))});
@@ -1176,9 +1298,9 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
   else if(!root)return;
   else if(c)f={BracketRight:e.shiftKey?A.top:A.up,BracketLeft:e.shiftKey?A.bot:A.dn,Digit0:fit,Numpad0:fit,Digit1:A.z100,Numpad1:A.z100,Equal:A.zin,NumpadAdd:A.zin,Minus:A.zout,NumpadSubtract:A.zout,Quote:A.grid,
     Period:e.shiftKey&&(()=>fsz(1)),Comma:e.shiftKey&&(()=>fsz(-1)),KeyG:e.shiftKey&&e.altKey&&ungroupAll,Digit2:e.altKey?A.unlock:A.lock}[e.code]||{z:()=>undo(e.shiftKey),y:()=>undo(1),c:copyOut,x:()=>{copyOut();del()},v:e.shiftKey?A.pplace:()=>{pv=1;setTimeout(()=>{pv&&paste();pv=0})},
-    d:tAgain,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
+    d:tAgain,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,l:e.shiftKey&&A.layers,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
   else if(ar)f=sel.length&&(()=>once(()=>nudge(ar[0],ar[1],e.shiftKey),e.repeat));
-  else f={Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,d:dflt}[K]||TK[kl]&&(()=>setTool(TK[kl]));
+  else f={Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,d:dflt,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{stage.style.willChange=gw.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
@@ -1187,7 +1309,7 @@ let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.c
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=e.clipboardData.getData('text/plain');
   if(root&&!f&&t&&t!==lastOut&&/^\s*(<svg|<\?xml)/i.test(t)){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});
-const opts={rulers:ls('msbRulers')==='1',grid:ls('msbGrid')==='1'};
+const opts={rulers:ls('msbRulers')!=='0',grid:ls('msbGrid')==='1'};
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
 function toggle(o){opts[o]=!opts[o];ls('msb'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
 function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';const b=qa('theme');b.textContent='Theme: '+(d?'Dark':'Light');b.title=d?'Switch to light interface':'Switch to dark interface';rulers()}

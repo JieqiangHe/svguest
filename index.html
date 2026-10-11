@@ -88,7 +88,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}::selection{background:#1a73e8;color:#fff}
 body.chat{grid-template-columns:40px 1fr 236px 300px}
 #mChat{display:none;grid-area:2/4;flex-direction:column;gap:4px;overflow:hidden;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}
-#mChat summary{cursor:pointer;color:var(--h4)}#mRoute{margin:2px 0 4px;color:var(--h4);font-size:11.5px;line-height:1.35}#mAdv summary{font-size:11.5px}#mChat details select{min-width:0;width:100%}#mChat .two{display:flex;gap:4px;min-width:0}#mChat .two select{width:auto;flex:1}#mChat .two select+select{flex:0 0 64px}#mChat details label{display:grid;grid-template-columns:104px 1fr;align-items:center;margin:2px 0}#mChat details label[hidden]{display:none}#mChat details input{min-width:0}
+#mChat summary{cursor:pointer;color:var(--h4)}#mRoute{margin:2px 0 4px;color:var(--h4);font-size:11.5px;line-height:1.35}#mChat details label small{grid-column:2;color:var(--h4);font-size:11px;line-height:1.3}#mChat details select{min-width:0;width:100%}#mChat .two{display:flex;gap:4px;min-width:0}#mChat .two select{width:auto;flex:1}#mChat .two select+select{flex:0 0 64px}#mChat details label{display:grid;grid-template-columns:104px 1fr;align-items:center;margin:2px 0}#mChat details label[hidden]{display:none}#mChat details input{min-width:0}
 #mLog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px}#mLog>div{white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 6px;border-radius:4px}#mLog .u{align-self:flex-end;max-width:90%;background:var(--btnh)}#mLog .a{border:1px solid var(--line)}#mLog .tm{opacity:.6}#mLog p{display:flex;gap:3px;margin:4px 0 0}
 #mAskW{position:relative}#mAsk{width:100%;resize:none;display:block;font:inherit}#mGrip{position:absolute;top:2px;right:2px;width:11px;height:11px;cursor:ns-resize;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Cpath d='M2 0l9 9M6 0l5 5' stroke='%23888' stroke-width='1.2'/%3E%3C/svg%3E")}#mImgs .rq{flex-basis:100%;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 #mHello{margin:6px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
@@ -161,14 +161,8 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 <label title="Looks at an attached image first and describes it, so a drawing model that can't see images can still redraw it">Read images with<span class="two"><select id="mVis"></select><select id="mThinkR" title="Thinking effort for reading the image"><option value="low">Low</option><option value="high">High</option><option value="max" selected>Max</option></select></span></label>
 <label title="The model that writes the SVG">Draw with<span class="two"><select id="mModel"></select><select id="mThink" title="Thinking effort for drawing; a reply that was cut off is continued with Low"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
 <p id="mRoute"></p>
-<label data-p="Glm">GLM key<input id="mKeyGlm" type="password" autocomplete="off" placeholder="API key"></label>
-<label data-p="Gcp" title="Create it under Coding Plan on bigmodel.cn; a standard API key draws on the account balance">Coding Plan key<input id="mKeyGcp" type="password" autocomplete="off" placeholder="Coding Plan API key"></label>
-<label data-p="Ds">DeepSeek key<input id="mKeyDs" type="password" autocomplete="off" placeholder="API key"></label>
-<details id="mAdv"><summary>Endpoints</summary>
-<label data-p="Glm">GLM URL<input id="mEpGlm"></label>
-<label data-p="Gcp">Coding Plan URL<input id="mEpGcp"></label>
-<label data-p="Ds">DeepSeek URL<input id="mEpDs"></label>
-</details>
+<label data-p="Glm" title="A standard API key or a Coding Plan key; it is tested when entered">GLM key<input id="mKeyGlm" type="password" autocomplete="off" placeholder="API key"><small id="mKsGlm"></small></label>
+<label data-p="Ds">DeepSeek key<input id="mKeyDs" type="password" autocomplete="off" placeholder="API key"><small id="mKsDs"></small></label>
 </details>
 <p id="mHello"><b>minisvg</b>: I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.</p>
 <div id="mLog"></div>
@@ -835,9 +829,9 @@ function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,refImg=null;
-const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Gcp:'GLM Coding Plan',Ds:'DeepSeek',Tb:'TBtools'},
-  AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Gcp:['https://open.bigmodel.cn/api/coding/paas/v4/chat/completions','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
-  VIS=new Set(['glm-5.3-flash','deepseek-flash']);
+const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Ds:'DeepSeek',Tb:'TBtools'},
+  AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
+  PLAN={Glm:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions'},KS={},VIS=new Set(['glm-5.3-flash','deepseek-flash']);
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block; if the user only asks a question, answer it briefly with no SVG. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers and 7-10 pt text is font-size 25-35. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`,
   look:'You describe a figure image for a drawing model that cannot see it. Reply with JSON only: {"items":[...]}. Coordinates: 0-1000 on each axis of the image, x to the right, y down. List items back to front; each has "k" and the fields that apply: rect "b":[x0,y0,x1,y1] and "r" (corner radius); ellipse "b"; line, arrow or inhibit "p":[[x,y],...] (the head is at the last point); path "p", "closed", "smooth"; text "b", "t" (the exact text; keep Greek letters, write super- and subscripts as ^{} and _{}), "bold", "italic", "anchor" (start, middle or end), "rot" (degrees); picture "b" (a photo or micrograph that should stay an image); axis "p" (its two ends) and "ticks":[{"at":[x,y],"t":"label"}]. Paint: "fill" and "stroke" as #rrggbb or none, "sw" (stroke width), "dash":true, "op" (opacity 0-1). "g" names the panel an item belongs to (A, B, ... or its title). Transcribe every text exactly, invent nothing, and add "?":1 to items you are unsure of.',
@@ -933,8 +927,8 @@ const tbBridge=()=>window.tbtools?.ai,
     while(b[1]&&n()>TBMAX)b.shift();while(b.length>2&&b[0].role!=='user')b.shift();return n()>TBMAX?null:[{role:'system',content:s},...b]},
   tbWhy={aborted:'Stopped',denied:'TBtools declined this request.',busy:'TBtools is busy. Try again in a moment.',closed:'The TBtools model bridge is closed.',invalid:'TBtools could not read this request.',too_many:'This conversation is too long for TBtools.',too_large:'This message is too large for TBtools.',empty:'Empty reply'};
 const NAME={'glm-5.3-flash':'GLM-5.3 Flash','glm-5.3':'GLM-5.3','deepseek-flash':'DeepSeek Flash','deepseek-v4-pro':'DeepSeek V4 Pro'},
-  who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':(NAME[t.m]||t.m)+(t.p==='Gcp'?' Coding Plan':''),canSee=t=>t.p==='Tb'||VIS.has(t.m),
-  cfg=p=>({url:($('mEp'+p)?.value||'').trim()||AI[p]?.[0],key:($('mKey'+p)?.value||'').trim()}),
+  who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':NAME[t.m]||t.m,canSee=t=>t.p==='Tb'||VIS.has(t.m),
+  cfg=p=>({key:($('mKey'+p)?.value||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),ksay=u=>u===PLAN.Glm?'Connected: Coding Plan':u===AI.Glm[0]?'Connected: standard API':'Connected',
   drawTo=()=>who($('mModel').value),reader=()=>{const v=$('mVis').value;return v&&v!=='self'?who(v):null},
   looker=c=>reader()||(c&&canSee(drawTo())?drawTo():null);
 function mmSpec(items,z){const s=min(vb.w*U/z.w,vb.h*U/z.h),FW=round(z.w*s*10),FH=round(z.h*s*10);
@@ -945,12 +939,16 @@ const side=(a,b)=>Promise.all([a,b].map(u=>new Promise((ok,no)=>{const m=new Ima
   g.fillStyle='#fff';g.fillRect(0,0,c.width,h);g.drawImage(x,0,0,wa,h);g.fillStyle='#e00';g.fillRect(wa+6,0,4,h);g.drawImage(y,wa+16,0,wb,h);return c.toDataURL('image/png')});
 async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getReader(),js=function*(a){for(const l of a){const d=l.startsWith('data:')&&l.slice(5).trim();if(d&&d!=='[DONE]')yield JSON.parse(d)}};let buf='';
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
+async function probe(p){const{key}=cfg(p),s=$('mKs'+p),er=[],cur=()=>cfg(p).key===key;s.textContent='Checking the key…';
+  for(const u of[AI[p][0],PLAN[p]].filter(Boolean))try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({model:AI[p].at(-1),messages:[{role:'user',content:'Hi'}],max_tokens:16})});
+    if(r.ok){cur()&&(ls('msb'+p+'Ep',u),s.textContent=ksay(u));return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
+  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('msb'+p+'Ep','');KS[p]=null;s.textContent='Not connected: '+m}throw Error(m)}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
     if(o.img)p=B.chatImage(o.prompt,o.img,mime(o.img));else{const m=tbFit(msgs);if(!m)throw Error('too_large');p=B.chat(m,{onDelta:s=>o.on&&o.on(s||'')})}
     const id=p.requestId;id&&o.rids.add(id);try{const out=await p||'';o.on&&o.on(out);return{out,cut:0}}finally{o.rids.delete(id)}}
-  const{url,key}=cfg(to.p),r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,
+  const{key}=cfg(to.p),r=await fetch(await ep(to.p),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,
     body:JSON.stringify({model:to.m,messages:msgs,stream:true,thinking:{type:'enabled'},reasoning_effort:o.eff})});
   if(!r.ok)throw Error(`${r.status} ${(await r.text()).slice(0,300)}`);
   let out='',cut=0,u=null;
@@ -1060,16 +1058,16 @@ function land({out,cut,miss},sl,ri,ui){const b=ui.b,cmpB=()=>refImg&&aiG&&root.c
   p.append(ins,btn('Open as new',()=>put(s,1)));put(s);
   ri?refImg={...ri,vb:vbOf(s)}:refImg&&(refImg.vb=vbOf(s));bar();p.append(...cmpB())}
 function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=self]'),ok=canSee(d);self.disabled=!ok;self.textContent=ok?'Same as Draw with':'Same as Draw with (it can\'t read images)';
-  if(!ok&&(v.value==='self'||!v.value)){const m=AI[d.p]?.slice(1).find(m=>VIS.has(m));v.value=m?d.p+':'+m:[...v.options].find(o=>!o.disabled).value}
+  if(!ok&&(v.value==='self'||!v.value))v.value=AI[d.p]?d.p+':'+AI[d.p].slice(1).find(m=>VIS.has(m)):[...v.options].find(o=>!o.disabled).value;
   const r=reader(),api=t=>t.p!=='Tb',use=new Set([d,r].filter(x=>x&&api(x)).map(x=>x.p));
-  for(const l of $('mCfg').querySelectorAll('label[data-p]'))l.hidden=!use.has(l.dataset.p);$('mAdv').hidden=!use.size;$('mThink').hidden=!api(d);$('mThinkR').hidden=!(r&&api(r));
+  for(const l of $('mCfg').querySelectorAll('label[data-p]'))l.hidden=!use.has(l.dataset.p);$('mThink').hidden=!api(d);$('mThinkR').hidden=!(r&&api(r));
   const nb=x=>Object.assign(el('span',0,nameOf(x)),{style:'white-space:nowrap'});$('mRoute').replaceChildren(...r?['With an image: ',nb(r),' reads it, then ',nb(d),' draws. Without one: ',nb(d),' draws.']:[nb(d),' reads images and draws.']);thumbs()}
 {const br=tbBridge(),all=Object.entries(AI).flatMap(([p,[,...ms]])=>ms.map(m=>p+':'+m)),has=(s,x)=>!!x&&[...s.options].some(o=>o.value===x),M=$('mModel'),V=$('mVis'),th=$('mThink');
   M.replaceChildren(...br?[new Option('TBtools','Tb')]:[],...all.map(x=>new Option(nameOf(who(x)),x)));
   V.replaceChildren(new Option('Same as Draw with','self'),...all.filter(x=>VIS.has(who(x).m)).map(x=>new Option(nameOf(who(x)),x)),...br?[new Option('TBtools','Tb')]:[]);
   const TR=$('mThinkR'),old=ls('msbAi'),dm=ls('msbDraw')||(AI[old]?old+':'+(ls('msb'+old+'Model')||AI[old].at(-1)):br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('msbVis'))?ls('msbVis'):'self';
-  const tv=ls('msbThink'),tr=ls('msbThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){$('mKey'+p).value=ls('msb'+p+'Key')||'';$('mEp'+p).value=ls('msb'+p+'Ep')||AI[p][0];
-    $('mKey'+p).onchange=()=>ls('msb'+p+'Key',$('mKey'+p).value.trim());$('mEp'+p).onchange=()=>ls('msb'+p+'Ep',$('mEp'+p).value.trim())}
+  const tv=ls('msbThink'),tr=ls('msbThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){const k=$('mKey'+p),u=ls('msb'+p+'Ep');k.value=ls('msb'+p+'Key')||'';k.onchange=()=>{ls('msb'+p+'Key',k.value.trim());KS[p]=null;k.value.trim()?ep(p).catch(()=>{}):$('mKs'+p).textContent=''};
+    k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
   M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
 $('mSend').onclick=()=>ask();$('mClr').onclick=()=>{ac&&ac.abort();hist=[];aiG=null;refImg=null;bar();imgs=[];files=[];thumbs();LG.replaceChildren();$('mHello').hidden=false};

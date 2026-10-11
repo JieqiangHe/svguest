@@ -162,9 +162,11 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}
 <label title="The model that writes the SVG">Draw with<span class="two"><select id="mModel"></select><select id="mThink" title="Thinking effort for drawing; a reply that was cut off is continued with Low"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
 <p id="mRoute"></p>
 <label data-p="Glm">GLM key<input id="mKeyGlm" type="password" autocomplete="off" placeholder="API key"></label>
+<label data-p="Gcp" title="Create it under Coding Plan on bigmodel.cn; a standard API key draws on the account balance">Coding Plan key<input id="mKeyGcp" type="password" autocomplete="off" placeholder="Coding Plan API key"></label>
 <label data-p="Ds">DeepSeek key<input id="mKeyDs" type="password" autocomplete="off" placeholder="API key"></label>
 <details id="mAdv"><summary>Endpoints</summary>
 <label data-p="Glm">GLM URL<input id="mEpGlm"></label>
+<label data-p="Gcp">Coding Plan URL<input id="mEpGcp"></label>
 <label data-p="Ds">DeepSeek URL<input id="mEpDs"></label>
 </details>
 </details>
@@ -833,8 +835,8 @@ function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,refImg=null;
-const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Ds:'DeepSeek',Tb:'TBtools'},
-  AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
+const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Gcp:'GLM Coding Plan',Ds:'DeepSeek',Tb:'TBtools'},
+  AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Gcp:['https://open.bigmodel.cn/api/coding/paas/v4/chat/completions','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
   VIS=new Set(['glm-5.3-flash','deepseek-flash']);
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block; if the user only asks a question, answer it briefly with no SVG. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers and 7-10 pt text is font-size 25-35. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`,
@@ -931,7 +933,7 @@ const tbBridge=()=>window.tbtools?.ai,
     while(b[1]&&n()>TBMAX)b.shift();while(b.length>2&&b[0].role!=='user')b.shift();return n()>TBMAX?null:[{role:'system',content:s},...b]},
   tbWhy={aborted:'Stopped',denied:'TBtools declined this request.',busy:'TBtools is busy. Try again in a moment.',closed:'The TBtools model bridge is closed.',invalid:'TBtools could not read this request.',too_many:'This conversation is too long for TBtools.',too_large:'This message is too large for TBtools.',empty:'Empty reply'};
 const NAME={'glm-5.3-flash':'GLM-5.3 Flash','glm-5.3':'GLM-5.3','deepseek-flash':'DeepSeek Flash','deepseek-v4-pro':'DeepSeek V4 Pro'},
-  who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':NAME[t.m]||t.m,canSee=t=>t.p==='Tb'||VIS.has(t.m),
+  who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':(NAME[t.m]||t.m)+(t.p==='Gcp'?' Coding Plan':''),canSee=t=>t.p==='Tb'||VIS.has(t.m),
   cfg=p=>({url:($('mEp'+p)?.value||'').trim()||AI[p]?.[0],key:($('mKey'+p)?.value||'').trim()}),
   drawTo=()=>who($('mModel').value),reader=()=>{const v=$('mVis').value;return v&&v!=='self'?who(v):null},
   looker=c=>reader()||(c&&canSee(drawTo())?drawTo():null);
@@ -1058,7 +1060,7 @@ function land({out,cut,miss},sl,ri,ui){const b=ui.b,cmpB=()=>refImg&&aiG&&root.c
   p.append(ins,btn('Open as new',()=>put(s,1)));put(s);
   ri?refImg={...ri,vb:vbOf(s)}:refImg&&(refImg.vb=vbOf(s));bar();p.append(...cmpB())}
 function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=self]'),ok=canSee(d);self.disabled=!ok;self.textContent=ok?'Same as Draw with':'Same as Draw with (it can\'t read images)';
-  if(!ok&&(v.value==='self'||!v.value))v.value=AI[d.p]?d.p+':'+AI[d.p].slice(1).find(m=>VIS.has(m)):[...v.options].find(o=>!o.disabled).value;
+  if(!ok&&(v.value==='self'||!v.value)){const m=AI[d.p]?.slice(1).find(m=>VIS.has(m));v.value=m?d.p+':'+m:[...v.options].find(o=>!o.disabled).value}
   const r=reader(),api=t=>t.p!=='Tb',use=new Set([d,r].filter(x=>x&&api(x)).map(x=>x.p));
   for(const l of $('mCfg').querySelectorAll('label[data-p]'))l.hidden=!use.has(l.dataset.p);$('mAdv').hidden=!use.size;$('mThink').hidden=!api(d);$('mThinkR').hidden=!(r&&api(r));
   const nb=x=>Object.assign(el('span',0,nameOf(x)),{style:'white-space:nowrap'});$('mRoute').replaceChildren(...r?['With an image: ',nb(r),' reads it, then ',nb(d),' draws. Without one: ',nb(d),' draws.']:[nb(d),' reads images and draws.']);thumbs()}

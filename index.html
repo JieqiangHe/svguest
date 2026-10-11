@@ -39,7 +39,7 @@ input,select{font:inherit}
 kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);border-radius:3px;background:var(--btn)}
 .dd{position:relative}
 .menu{display:none;position:absolute;left:0;top:100%;margin-top:3px;z-index:20;min-width:170px;padding:4px;background:var(--btn);border:1px solid var(--btnb);border-radius:4px;box-shadow:0 4px 12px #0003}
-.dd.open .menu{display:block}
+.dd.open>.menu{display:block}
 #mBar .dd.open>.ddb{background:var(--btnh)}
 #mBar .menu button,#mSt .menu button,#mCM button{display:flex;justify-content:space-between;gap:16px;width:100%;padding:3px 8px 3px 22px;position:relative;text-align:left;white-space:nowrap}
 #mBar .menu button.on,#mSt .menu button.on{background:transparent;color:var(--bfg)}
@@ -47,13 +47,15 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mBar button:disabled:hover,#mCM button:disabled:hover{background:transparent}
 .menu button.on::before{content:'✓';position:absolute;left:7px}
 .menu kbd{border:0;background:none;padding:0;opacity:.6}
-.menu hr{border:0;border-top:1px solid var(--line);margin:4px 2px}
+.menu hr{border:0;border-top:1px solid var(--line);margin:4px 2px}.menu .sub{position:relative}.menu .sub>.menu{left:100%;top:-5px;margin:0;min-width:110px}.menu .sub:hover>.menu,.menu .sub.open>.menu{display:block}.menu .sub:hover>.sb,.menu .sub.open>.sb{background:var(--btnh)}.sb i{font-style:normal;opacity:.6}
 #mBar>i{width:1px;height:18px;background:var(--line);margin:0 4px}
 #mTools{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;background:var(--bar);border-right:1px solid var(--line)}
 #mTools button{width:30px;height:30px;padding:0;display:grid;place-items:center}
 #mTools svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
 #mTools a{margin-top:auto;width:30px;height:30px;display:grid;place-items:center;color:inherit;opacity:.6}#mTools a+a{margin-top:0}#mTools a.tb{opacity:.85}#mTools a:hover{opacity:1}
 #mTools>i{width:22px;height:1px;background:var(--line);margin:3px 0}
+#mTools .ddb{position:relative}#mTools .ddb::after{content:"";position:absolute;right:2px;bottom:2px;border:2.5px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.75}#mTools .menu{left:100%;top:0;margin:0 0 0 5px;min-width:150px}
+#mTools .menu button{width:100%;height:auto;display:flex;align-items:center;gap:8px;padding:3px 8px;border-color:transparent;background:transparent;white-space:nowrap}#mTools .menu button:hover{background:var(--btnh)}#mTools .menu button.on{background:var(--on);color:var(--onfg)}#mTools .menu button.on::before{content:none}#mTools .menu kbd{margin-left:auto;padding:0 0 0 16px;border:0;background:none;opacity:.6}
 #mFS{position:relative;flex:none;width:30px;height:30px}#mFS label{position:absolute;width:18px;height:18px;border:1px solid var(--swb);border-radius:2px;background-color:var(--c,#fff);cursor:pointer}
 #mFS label.no{background-image:linear-gradient(to top right,#0000 44%,#e00 44%,#e00 56%,#0000 56%)}#mFS input{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
 #mFF{left:0;top:0;z-index:1}#mSF{right:0;bottom:0;z-index:0}#mSF::after{content:"";position:absolute;inset:4px;background:var(--bar);border:1px solid var(--swb)}#mSF.no::after{background:none}
@@ -76,6 +78,8 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mSx i,#mSy i{position:absolute;border-radius:4px;background:var(--sbt);transition:top .12s,bottom .12s,left .12s,right .12s,background .12s}#mSx i{top:5px;bottom:5px}#mSy i{left:5px;right:5px}
 #mSx:hover i,#mSx.on i{top:3px;bottom:3px;background:var(--sbh)}#mSy:hover i,#mSy.on i{left:3px;right:3px;background:var(--sbh)}
 #mHud [data-h]{pointer-events:all;cursor:pointer}
+#mQ{position:absolute;top:28px;right:58px;display:flex;flex-direction:column;gap:4px;padding:6px;background:var(--btn);color:var(--bfg);border:1px solid var(--btnb);border-radius:6px;box-shadow:0 4px 12px #0003}#mQ[hidden]{display:none}.noR #mQ{top:8px}#mQ>div{display:flex;align-items:center;gap:3px}#mQ input{width:180px;height:22px;padding:0 6px}
+#mQ button{height:22px;min-width:22px;padding:0 5px;border-color:transparent;background:transparent}#mQ button:hover{background:var(--btnh)}#mQ button.on{background:var(--on);color:var(--onfg)}#mQo,#mQa{border-color:var(--btnb)!important}#mQn{min-width:66px;color:var(--h4);text-align:center;font-variant-numeric:tabular-nums}
 #mLb{position:absolute;top:28px;right:24px;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:var(--btnb);border-radius:4px;box-shadow:0 1px 4px #0002;opacity:.85}#mLb:hover{opacity:1}#mLb.on{opacity:1}.noR #mLb{top:8px}#mLb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round}
 #mSide{overflow:auto;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}
 #mSide h4{margin:8px 0 4px;padding-bottom:2px;color:var(--h4);border-bottom:1px solid var(--h4b)}#mSide h4:first-child{margin-top:4px}#mSide h4 small{font-weight:normal}
@@ -85,7 +89,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .row{display:flex;gap:3px}.row button{flex:1}#mSide .row{margin:2px 0}#mSide .row button{min-width:0;padding:2px}
 .ic button{height:24px;padding:0;display:grid;place-items:center}.ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.ic rect{stroke:none}
 #mSide select{width:100%}#mPg{flex:1;width:auto!important;min-width:0}#mSide .row .ori{flex:0 0 28px}
-#mSide input[type=number]{width:62px;-moz-appearance:textfield}#mSide input::-webkit-inner-spin-button{display:none}
+#mSide input[type=number]{width:62px;-moz-appearance:textfield}#mSide .kv input.k{width:46px}#mSide .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center}#mSide input::-webkit-inner-spin-button{display:none}
 #mSt{grid-column:1/-1;height:24px;display:flex;align-items:center;gap:16px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap}
 #mSt>span{min-width:0;overflow:hidden;text-overflow:ellipsis}#mDoc{color:var(--h4)}#mMsg{flex:0 1000 auto}#mCtx{max-width:300px}#mPos{flex:none;min-width:11ch;font-variant-numeric:tabular-nums}
 #mZw{flex:none;display:flex;align-items:center;gap:2px}#mZw .dd{display:flex;align-items:center}#mSt .menu{top:auto;bottom:100%;margin:0 0 3px;min-width:150px}#mZw button{padding:0 5px}#mZw>button{width:20px;padding:0;font-size:14px}
@@ -112,26 +116,26 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 </style>
 <style>@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
-<body class="chat">
+<body>
 <div id="mBar">
-<div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><button data-a="imp" title="Place an SVG, PNG or JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><button data-a="p300">Export PNG 300 dpi</button><button data-a="p600">Export PNG 600 dpi</button><button data-a="j300" title="White background, highest quality">Export JPG 300 dpi</button><button data-a="j600" title="White background, highest quality">Export JPG 600 dpi</button><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
-<div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button></div></div>
+<div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><button data-a="imp" title="Place an SVG, PNG or JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
+<div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
-<button data-a="chat" class="on" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><div class="dd"><button class="ddb">Pseudocolor ▾</button><div class="menu"><button data-a="tintRed" title="Tint the selected grayscale images; colour images turn gray first">Tint red</button><button data-a="tintGreen">Tint green</button><button data-a="tintBlue">Tint blue</button><button data-a="tintCyan">Tint cyan</button><button data-a="tintMagenta">Tint magenta</button><button data-a="tintYellow">Tint yellow</button><button data-a="tintGray">Tint gray</button><button data-a="tint">Remove tint</button><hr><button data-a="xmg" title="Overlay copies of 2 to 7 images with Screen blending, sized to the first, to the right of the selection">Merge channels</button></div></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg>Search…<kbd>Ctrl+K</kbd></button>
+<button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><div class="dd"><button class="ddb">Pseudocolor ▾</button><div class="menu"><button data-a="tintRed" title="Tint the selected grayscale images; colour images turn gray first">Tint red</button><button data-a="tintGreen">Tint green</button><button data-a="tintBlue">Tint blue</button><button data-a="tintCyan">Tint cyan</button><button data-a="tintMagenta">Tint magenta</button><button data-a="tintYellow">Tint yellow</button><button data-a="tintGray">Tint gray</button><button data-a="tint">Remove tint</button><hr><button data-a="xmg" title="Overlay copies of 2 to 7 images with Screen blending, sized to the first, to the right of the selection">Merge channels</button></div></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg>Search…<kbd>Ctrl+K</kbd></button>
 </div>
 <div id="mTools">
 <button data-t="sel" class="on" title="Select (V)"><svg viewBox="0 0 24 24"><path d="M6 3v16l4.5-4.5 3 6.5 2.5-1.2-3-6.3H19z"/></svg></button>
 <button data-t="text" title="Text (T)"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
-<button data-t="rect" title="Rectangle (M), Shift for square"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg></button>
-<button data-t="ellipse" title="Ellipse (L), Shift for circle"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></svg></button>
-<button data-t="line" title="Line (\)"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button>
-<button data-t="arrow" title="Arrow (A): activation, positive regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 5h9v9"/></svg></button><button data-t="inhibit" title="Inhibition (B): blunt-ended line, negative regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M14 2l8 8"/></svg></button><button data-t="drop" title="Eyedropper (I): click an object to give the selection its style; Alt+click applies the picked style to an object"><svg viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><path d="M8.5 8.5V5a3.5 3.5 0 0 1 7 0v3.5M7 8.5h10M10.2 8.5v9.5l1.8 4 1.8-4V8.5"/></g></svg></button><button data-t="crop" title="Crop a photo (C): drag across it; drag again to change the crop, or past its edges to remove it"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg></button>
+<div class="dd"><button data-t="rect" class="ddb" title="Rectangle (M) or ellipse (L): click to choose"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg></button><div class="menu"><button data-t="rect" title="Rectangle (M), Shift for square"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg>Rectangle<kbd>M</kbd></button><button data-t="ellipse" title="Ellipse (L), Shift for circle"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></svg>Ellipse<kbd>L</kbd></button></div></div>
+<div class="dd" id="mLg"><button data-t="line" id="mLt" class="ddb" title="Line (\), arrow (A) or inhibition (B): click to choose"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button><div class="menu" id="mLv"><button data-t="line" title="Line (\)"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg>Line<kbd>\</kbd></button><button data-t="arrow" title="Arrow (A): activation, positive regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 5h9v9"/></svg>Arrow<kbd>A</kbd></button><button data-t="inhibit" title="Inhibition (B): blunt-ended line, negative regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M14 2l8 8"/></svg>Inhibition<kbd>B</kbd></button></div></div>
+<button data-t="drop" title="Eyedropper (I): click an object to give the selection its style; Alt+click applies the picked style to an object"><svg viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><path d="M8.5 8.5V5a3.5 3.5 0 0 1 7 0v3.5M7 8.5h10M10.2 8.5v9.5l1.8 4 1.8-4V8.5"/></g></svg></button><button data-t="crop" title="Crop a photo (C): drag across it; drag again to change the crop, or past its edges to remove it"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg></button>
 <div id="mFS"><label id="mFF" title="Fill: of the selection, or of new shapes when nothing is selected"><input type="color" id="mFc"></label><label id="mSF" title="Stroke: of the selection, or of new shapes when nothing is selected"><input type="color" id="mSc"></label><button data-a="swap" title="Swap fill and stroke (Shift+X)"><svg viewBox="0 0 12 12"><path d="M1.5 2.5h6a2 2 0 0 1 2 2v6M3.5.8 1.5 2.5l2 1.7M7.8 8.5l1.7 2 1.7-2"/></svg></button><button data-a="dflt" id="mFD" title="Default fill and stroke: none and black (D)"><svg viewBox="0 0 12 12"><path d="M1 1h5.5v5.5H1zM6.5 4.5H11V11H4.5V6.5"/></svg></button></div><i></i>
+<a href="https://bioanno.com/index" target="_blank" rel="noopener" title="BioAnno" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/><rect x=".6" y="5.4" width="14.8" height="5.2" rx="1.2" fill="#fffdf2" opacity=".93"/><text x="8" y="9.35" text-anchor="middle" textLength="13.4" lengthAdjust="spacingAndGlyphs" style="fill:#7a4108;stroke:none;font:700 4.2px Arial,Helvetica,sans-serif">BioAnno</text></svg></a>
 <a href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; minisvg also runs in it as a plugin" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/></svg></a>
 <a href="https://github.com/JieqiangHe/minisvg" target="_blank" rel="noopener" title="minisvg on GitHub"><svg viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 </div>
-<div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)" aria-label="Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button></div>
+<div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><div id="mQ" hidden><div><input id="mQf" placeholder="Find text" spellcheck="false" autocomplete="off"><button id="mQc" title="Match case">Aa</button><button id="mQw" title="Whole word"><u>ab</u></button><span id="mQn"></span><button id="mQp" title="Previous (Shift+Enter)">↑</button><button id="mQx" title="Next (Enter)">↓</button><button id="mQz" title="Close (Esc)">×</button></div><div><input id="mQr" placeholder="Replace with" spellcheck="false" autocomplete="off"><button id="mQo" title="Replace this one and go to the next (Enter)">Replace</button><button id="mQa" title="Replace every match">All</button></div></div><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)" aria-label="Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button></div>
 <div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLl"><div></div></div></div>
 <div id="mSide">
 <h4>Page <small>mm</small></h4>
@@ -171,7 +175,8 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div class="kv"><span>Fill</span><div><input type="color" data-f="fill"><label><input type="checkbox" data-f="nofill">None</label></div>
 <span>Stroke</span><div><input type="color" data-f="stroke"><label><input type="checkbox" data-f="nostroke">None</label></div>
 <span>Width</span><div><input type="number" step="0.1" min="0" data-f="sw">pt<select data-f="dash" title="Line style"><option value="">Solid</option><option value="d">Dashed</option><option value="o">Dotted</option></select></div>
-<span>Head</span><div><input type="number" step="25" min="10" data-f="hd" title="Size of arrowheads and blunt ends, % of the original; new arrows use the last size; they also grow with the line width">%</div>
+<span>Heads</span><div><select data-f="h0" title="Head at the start of the line or path"><option value="">None</option><option value="arrow">Arrow</option><option value="open">Open</option><option value="stealth">Stealth</option><option value="inhibit">Bar</option><option value="dot">Dot</option><option value="x" hidden>Custom</option></select><button data-a="hsw" class="ib" title="Swap the start and end heads">⇄</button><select data-f="h1" title="Head at the end of the line or path"><option value="">None</option><option value="arrow">Arrow</option><option value="open">Open</option><option value="stealth">Stealth</option><option value="inhibit">Bar</option><option value="dot">Dot</option><option value="x" hidden>Custom</option></select></div>
+<span>Scale</span><div><input type="number" step="25" min="10" data-f="k0" class="k" title="Size of the start head, % of the original; heads also grow with the line width">%<button data-a="hlk" class="ib" title="Link the start and end scales"><svg viewBox="0 0 16 16" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5 7.5 13A2.5 2.5 0 0 1 4 9.5L5.5 8"/></svg></button><input type="number" step="25" min="10" data-f="k1" class="k" title="Size of the end head, %; new arrows and blunt ends use the last size">%</div>
 <span>Opacity</span><div><input type="number" min="0" max="100" step="5" data-f="op">%</div></div>
 </div>
 <div id="mChat">
@@ -200,13 +205,13 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
-<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end); Head in Appearance sizes the ends</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
+<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Compare</dt><dd>Checks a redraw against its image and fixes it</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
 <section><h4>File</h4><dl><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
-<section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
+<section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
 <section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
 <section><h4>Pseudocolor</h4><dl><dt>Tint</dt><dd>Colour grayscale images like an ImageJ LUT; Remove tint undoes</dd><dt>Merge channels</dt><dd>Overlay 2 to 7 tinted images (Screen) beside the selection</dd></dl></section>
 </div>
@@ -346,7 +351,7 @@ function load(txt,nm){const d=parse(txt);prolog='';
   fit();stage.insertBefore(root,$('mGW'));
   for(const a of[...ghost.attributes])a.name!=='id'&&ghost.removeAttribute(a.name);
   for(const a of root.attributes)if(!a.prefix&&!/^(id|width|height|x|y|version|preserveAspectRatio|xmlns)$/.test(a.name))ghost.setAttribute(a.name,a.value);
-  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;fh=null;refImg=null;gl=[];gp=gq=null;
+  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;fh=null;refImg=null;gl=[];gp=gq=null;FQ.b=new Map;FQ.m=[];
   mo=new MutationObserver(r=>add(pend,r));
   mo.observe(root,{subtree:true,childList:true,attributes:true,attributeOldValue:true,characterData:true,characterDataOldValue:true});
   sizes();refresh()}
@@ -422,9 +427,10 @@ function refresh(){if(!root)return;syncPage();bar();sb=null;sbs=[];memoize(()=>{
   const lab=e=>e===root?'Document':e.getAttributeNS(NS.inkscape,'label')||e.id||e.localName,c=[];
   for(let e=ctx;e&&e!==root.parentNode;e=e.parentNode)c.unshift(lab(e));
   $('mCtx').textContent='Context: '+c.join(' › ');
-  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef()}
-const RW=20,GC='#0ea5e9';let gl=[],gq=null,gp=null;
+  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef();fqRef()}
+const RW=20,GC='#e8457a',GH='#b3124b';let gl=[],gq=null,gp=null;
 const gv=(h,a)=>{const z=Z*k,st=10**Math.floor(Math.log10(U/z));return(h?vb.x:vb.y)+round((a-(h?tx:ty))/z*U/st)*st/U},gmm=G=>`${G.h?'x':'y'} ${f6((G.v-(G.h?vb.x:vb.y))*U)} mm`,
+  gsn=(u,e)=>{let x=u.x,y=u.y,gx=null,gy=null;if(!cmd(e)&&gl.length){let bx=5/(Z*k),by=bx;for(const G of gl){const f=abs((G.h?u.x:u.y)-G.v);G.h?f<bx&&(bx=f,x=gx=G.v):f<by&&(by=f,y=gy=G.v)}}return[{x,y},(gx!=null||gy!=null)&&[gx,gy]]},
   gAt=(e,h)=>{const p=vp(e),a=h?p[0]:p[1];if(a<RW)return null;let i=-1,d=5;gl.forEach((G,j)=>{const x=abs(toS({x:G.v,y:G.v})[G.h?0:1]-a);G.h===h&&x<d&&(d=x,i=j)});return{h,a,i}};
 function rulers(){if(!root||!opts.rulers)return;const d=devicePixelRatio||1,cs=gcs(document.documentElement),v=n=>cs.getPropertyValue(n),ppm=Z*k/U,R=RW,
   st=[.1,.2,.5,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4].find(s=>s*ppm>=50)||1e4,n=/5/.test(st)?5:10,m=st/n;
@@ -436,8 +442,8 @@ function rulers(){if(!root||!opts.rulers)return;const d=devicePixelRatio||1,cs=g
     g.fillStyle=v('--line');g.fillRect(0,R-1,L,1);g.strokeStyle=v('--h4');g.lineWidth=1;const lab=[],tk=[new Path2D,new Path2D];
     for(let i=Math.floor(-o/ppm/m),x;o+(x=i*m)*ppm<L;i++){const p=round(o+x*ppm)+.5,j=(i%n+n)%n,t=!j?11:n===10&&j===5?6:3.5;tk[+!j].moveTo(p,R-1);tk[+!j].lineTo(p,R-1-t);j||lab.push([p,String(+x.toFixed(2))])}
     g.globalAlpha=.5;g.stroke(tk[0]);g.globalAlpha=1;g.stroke(tk[1]);
-    gl.forEach((G,i)=>G.h===h&&pin(o+(G.v-(h?vb.x:vb.y))*Z*k,gq&&gq.h===h&&gq.i===i?'#e5534b':GC));
-    const q=gp&&gp.h===h?gp:gq&&gq.h===h&&gq.i<0&&!gp?{v:gv(h,gq.a)}:null;q&&pin(o+(q.v-(h?vb.x:vb.y))*Z*k,GC,.55);
+    gl.forEach((G,i)=>G.h===h&&pin(o+(G.v-(h?vb.x:vb.y))*Z*k,gq&&gq.h===h&&gq.i===i?GH:GC));
+    const q=gp&&gp.h===h?gp:gq&&gq.h===h&&gq.i<0&&!gp?{v:gv(h,gq.a)}:null;q&&pin(o+(q.v-(h?vb.x:vb.y))*Z*k,GC,.5);
     mouse&&!gp&&!(gq&&gq.h===h)&&(g.fillStyle='#e8711a',g.fillRect(round(h?mouse[0]:mouse[1]),0,1,R));
     g.setTransform(d,0,0,d,0,0);g.fillStyle=v('--h4');g.font='10px system-ui,sans-serif';
     for(const[p,s]of lab)if(h)g.fillText(s,p+3,10);else{g.save();g.translate(10,p-3);g.rotate(-PI/2);g.fillText(s,0,0);g.restore()}
@@ -462,12 +468,12 @@ function seg(e){if(!e)return null;if(e.localName==='line')return[['x1','y1'],['x
 function setSeg(e,[a,b]){e.localName==='line'?[['x1',a.x],['y1',a.y],['x2',b.x],['y2',b.y]].forEach(([n,v])=>e.setAttribute(n,fc(v))):e.setAttribute('d',`M ${fc(a.x)},${fc(a.y)} L ${fc(b.x)},${fc(b.y)}`)}
 const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,i,a)=>i<4?v:v||e.ry.baseVal.value);
 function hud(M){H.replaceChildren();if(!root)return;rulers();
-  const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(p?';stroke-dasharray:4 3;opacity:.7':''))};
-  gl.forEach((G,i)=>gL(G,gq&&gq.h===G.h&&gq.i===i?'#e5534b':GC));gp?gL(gp,GC,1):gq&&gq.i<0&&gL({h:gq.h,v:gv(gq.h,gq.a)},GC,1);
+  const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(c===GH?'':';stroke-dasharray:6 3')+(p?';opacity:.5':''))};
+  gl.forEach((G,i)=>gL(G,gq&&gq.h===G.h&&gq.i===i?GH:GC));gp?gL(gp,GC,1):gq&&gq.i<0&&gL({h:gq.h,v:gv(gq.h,gq.a)},GC,1);
   const B='fill:#fff;stroke:#1a73e8;',sq=([x,y],s,h,st=B+'cursor:move')=>mk('rect',{x:x-s/2,y:y-s/2,width:s,height:s,'data-h':h,style:st},H),
     poly=(b,st,m)=>{const p=[[b.x,b.y],[b.x+b.w,b.y],[b.x+b.w,b.y+b.h],[b.x,b.y+b.h]].map(([x,y])=>toS(m?m.transformPoint({x,y}):{x,y}));mk('polygon',{points:p.join(' '),style:'fill:none;'+st},H);return p};
   const HS='stroke:#1a73e8;stroke-width:1.5;stroke-opacity:.8';hov&&!M&&!D&&root.contains(hov)&&!sel.some(e=>e.contains(hov))&&(hovL?hovL.forEach(l=>mk('polyline',{points:l.map(q=>toS(q)).join(' '),style:'fill:none;'+HS},H)):hovB&&poly(hovB,HS));
-  D&&D.pv&&D.pv.forEach(b=>poly(b,'stroke:#1a73e8;stroke-opacity:.6'));
+  D&&D.pv&&D.pv.forEach(b=>poly(b,'stroke:#1a73e8;stroke-opacity:.6'));FQ.b.forEach((b,t)=>b&&!sel.includes(t)&&poly(b,'fill:#ffd60040;stroke:#e0a800'));
   cb&&poly(cb,'stroke:#999;stroke-dasharray:1 3');
   for(const b of sbs)poly(b,'stroke:#1a73e8;stroke-dasharray:2 2',M);
   D&&D.g&&D.g.forEach((g,i)=>{if(g==null)return;const q=toS({x:g,y:g})[i];mk('line',i?{x1:0,x2:'100%',y1:q,y2:q}:{x1:q,x2:q,y1:0,y2:'100%'},H).style.stroke='#e8711a'});
@@ -493,8 +499,9 @@ function panel(){const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3);
   if(!l){F.nofill.checked=F.nostroke.checked=false;v(F.sw);F.dash.value=''}
   else{const cs=gcs(l);F.nofill.checked=cs.fill==='none';F.fill.value=hex(cs.fill);F.nostroke.checked=cs.stroke==='none';F.stroke.value=hex(cs.stroke);v(F.sw,parseFloat(cs.strokeWidth)*sc(ctm(l))*U*PT);F.dash.value=cs.strokeDasharray==='none'?'':parseFloat(cs.strokeDasharray)/parseFloat(cs.strokeWidth)<1.5?'o':'d'}
   F.fill.classList.toggle('dim',F.nofill.checked);F.stroke.classList.toggle('dim',F.nostroke.checked);const cs=l&&gcs(l);fsw('mFF',cs?cs.fill:pen.fill);fsw('mSF',cs?cs.stroke:pen.stroke);
-  const hm=x=>MP.some(a=>gcs(x).getPropertyValue(a)!=='none'),ml=e&&(isGrp(e)?leaf(e,hm,500):hm(e)&&e),mi=ml&&MP.map(a=>refId(gcs(ml).getPropertyValue(a))).find(Boolean);
-  F.hd.disabled=!!e&&!mi;v(F.hd,mi?+(/_h(\d+)$/.exec(mi)||[0,100])[1]:e?null:pen.head);v(F.op,e&&gcs(e).opacity*100)}
+  let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?leaf(s,x=>ML.test(x.localName),500):ML.test(s.localName)&&s)break;
+  for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
+  qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100)}
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
 function sizes(){if(!root)return;const g=new Map();
   memoize(()=>{for(const t of texts()){const s=+tsize(t).toFixed(1);g.has(s)||g.set(s,[]);g.get(s).push(t)}});
@@ -532,7 +539,7 @@ function outl(e){if(e.localName==='line'){const M=ctm(e);return[seg(e).map(q=>M.
   m.poly&&e.localName==='polygon'&&c&&c.push(s);return L.map(l=>l.map(q=>M.transformPoint(q)))}
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
 function esc(){if(G){ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
-function setTool(t){tool=t;document.querySelectorAll('#mTools [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair'}
+function setTool(t){tool=t;const v=document.querySelector(`#mTools .menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));document.querySelectorAll('#mTools [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair'}
 
 function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.parentNode,n=e.nextSibling;let g=w.get(p);
   if(!g){const ch=[];for(let a=p;a!==root;a=a.parentNode)ch.unshift(a);g=ghost;
@@ -550,7 +557,7 @@ function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.
   if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t=hit(e),g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0]};return cap()}
   if(h&&h!=='mv'&&sb){D={t:h==='rot'?'rot':'sc',h,p,u,b:sb};return cap()}
   if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t)}else newText(u);return}
-  if(tool!=='sel'){D={t:tool,p,u,im:tool==='crop'&&hit(e)};return cap()}
+  if(tool!=='sel'){const q=tool==='crop'||e.shiftKey?p:toS(gsn(u,e)[0]);D={t:tool,p:q,u:toU(q),im:tool==='crop'&&hit(e)};return cap()}
   const t=hit(e),w=cmd(e);
   const bg=t&&!e.shiftKey&&bd(t);if(!t||e.shiftKey||bg){D={t:'band',p,u,add:e.shiftKey,h:t,w,tch:e.altKey,bg:bg&&t};return cap()}
   const[ob,c]=grab(t,w),was=sel.some(s=>s.contains(t)),pre=sel[0];if(!was){ctx=c;setSel([ob])}D={t:'move',p,u,el:ob,c,was,pre};cap()}
@@ -558,10 +565,10 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
   let dx=p[0]-D.p[0],dy=p[1]-D.p[1];
   if(D.t==='pan'){tx=D.tx+dx;ty=D.ty+dy;return place()}
   if(!D.on){if(hypot(dx,dy)<3)return;D.on=1;D.t==='move'&&snapSet();/^(move|sc|rot)$/.test(D.t)&&ghostOn()}
-  if(D.t==='anc'){const P=ctm(D.e).inverse(),a=P.transformPoint(D.u),c=P.transformPoint(u);let ux=c.x-a.x,uy=c.y-a.y;e.shiftKey&&([ux,uy]=q45(ux,uy));
+  if(D.t==='anc'){const M=ctm(D.e),P=M.inverse(),an=D.m.o[D.A[0]].p,A0=M.transformPoint({x:an.at(-2),y:an.at(-1)}),[sn,g]=e.shiftKey?[0,0]:gsn({x:A0.x+u.x-D.u.x,y:A0.y+u.y-D.u.y},e),a=P.transformPoint(D.u),c=P.transformPoint(sn?{x:D.u.x+sn.x-A0.x,y:D.u.y+sn.y-A0.y}:u);D.g=g;let ux=c.x-a.x,uy=c.y-a.y;e.shiftKey&&([ux,uy]=q45(ux,uy));
     const o=D.m.o.map(s=>({c:s.c,p:s.p.slice()}));moveA(o,D.A,ux,uy);D.m.poly||D.e.localName==='path'||(ped=D.e=toPath(D.e));pwrite(D.e,D.m,o);
     const q=ctm(D.e).transformPoint({x:o[D.A[0]].p.at(-2),y:o[D.A[0]].p.at(-1)});msg(`Point at ${((q.x-vb.x)*U).toFixed(2)}, ${((q.y-vb.y)*U).toFixed(2)} mm`);return hud()}
-  if(D.t==='pt'){const ob=D.e,m=ctm(ob),s=seg(ob),o=m.transformPoint(s[1-D.i]);let ux=u.x-o.x,uy=u.y-o.y;e.shiftKey&&([ux,uy]=q45(ux,uy));
+  if(D.t==='pt'){const ob=D.e,m=ctm(ob),s=seg(ob),o=m.transformPoint(s[1-D.i]),[w,g]=e.shiftKey?[u,0]:gsn(u,e);let ux=w.x-o.x,uy=w.y-o.y;D.g=g;e.shiftKey&&([ux,uy]=q45(ux,uy));
     s[D.i]=m.inverse().transformPoint({x:o.x+ux,y:o.y+uy});setSeg(ob,s);msg(`Length ${(hypot(ux,uy)*U).toFixed(2)} mm · angle ${(round(-atan2(uy,ux)*1800/PI)/10||0)}°`);return hud()}
   if(D.t==='rad'){const e=D.e,q=ctm(e).inverse().transformPoint(u),[,,w,h]=rgeo(e),r=max(0,min(D.r0+(q.x-D.q0.x+q.y-D.q0.y)/2,w/2,h/2)),v=fc(r);
     for(const a of['rx','ry'])+v?e.setAttribute(a,v):e.removeAttribute(a);msg(`Corner radius ${(r*sc(ctm(e))*U).toFixed(2)} mm`);return hud()}
@@ -573,7 +580,7 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
     M=about(S(sx||1e-3,sy||1e-3),ax,ay)}
   else if(D.t==='rot'){const cx=b.x+b.w/2,cy=b.y+b.h/2;let a=(atan2(u.y-cy,u.x-cx)-atan2(D.u.y-cy,D.u.x-cx))*180/PI;if(e.shiftKey)a=round(a/15)*15;M=about(Rot(a),cx,cy)}
   else{e.shiftKey&&/line|arrow|inhibit/.test(D.t)&&([dx,dy]=q45(dx,dy));
-    if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.t==='band'&&bandPrev();return hud()}
+    if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];if(!e.shiftKey&&!/band|crop/.test(D.t)){const[s,g]=gsn(toU(D.q),e);D.q=toS(s);D.g=g}D.t==='band'&&bandPrev();return hud()}
   D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
   c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
@@ -596,10 +603,10 @@ function dbl(e){if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=h
 function create(t,a,b){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse)$/.test(t),s=`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
   if(t==='rect')e=mk('rect',{id:uid('rect'),x:fc(min(Pa.x,Pb.x)),y:fc(min(Pa.y,Pb.y)),width:fc(abs(Pb.x-Pa.x)),height:fc(abs(Pb.y-Pa.y)),style:s},p);
   else if(t==='ellipse')e=mk('ellipse',{id:uid('ellipse'),cx:fc((Pa.x+Pb.x)/2),cy:fc((Pa.y+Pb.y)/2),rx:fc(abs(Pb.x-Pa.x)/2),ry:fc(abs(Pb.y-Pa.y)/2),style:s},p);
-  else e=mk('path',{id:uid('path'),d:`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+';stroke-linecap:butt'+(t in MK?`;marker-end:url(#${hmk(mark(t),pen.head)})`:'')},p);
+  else e=mk('path',{id:uid('path'),d:`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+';stroke-linecap:butt'+(t in MK?`;marker-end:url(#${hmk(mark(t),pen.head)})`:'')},p);t in MK&&mgc([MK[t][0]]);
   ctx=p;setTool('sel');setSel([e],1);commit()}
-const MK={arrow:['ArrowMsb','M 0,0 10,5 0,10 z',10,10,3],inhibit:['TeeMsb','M 0,0 H 1 V 12 H 0 z',1,12,1]};
-function mark(t){const[id,d,w,h,r]=MK[t];byId(id)||mk('path',{d,style:'fill:context-stroke;stroke:none'},
+const MK={arrow:['ArrowMsb','M 0,0 10,5 0,10 z',10,10,3],inhibit:['TeeMsb','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenMsb','M 1,1 9,5 1,9',10,10,8,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthMsb','M 0,0 10,5 0,10 3,5 z',10,10,3],dot:['DotMsb','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
+function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];byId(id)||mk('path',{d,style:st},
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
 const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),x:fc(q.x),y:fc(q.y),style:`${b}font-size:${f6(pt/PT/U/sc(ctm(p)))}px;font-family:Arial;fill:#000000`},p,txt);
 function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk=flush(),t=arial(p,q,11);ctx=p;setSel([t]);edit(t,null,mrk)}
@@ -750,9 +757,13 @@ const MP=['marker-start','marker-mid','marker-end'];
 function hmk(id,p){const b=id.replace(/_h\d+$/,''),B=byId(b),c=+(/_h(\d+)$/.exec(id)||[0,100])[1];if(B&&p===100)return b;const n=b+'_h'+p;if(byId(n))return n;
   const s=B||byId(id),m=s.cloneNode(false),x=+s.getAttribute('refX')||0,y=+s.getAttribute('refY')||0,f=fm(B?p/100:p/c),g=mk('g',{transform:x||y?`translate(${fm(x)},${fm(y)}) scale(${f}) translate(${fm(-x)},${fm(-y)})`:`scale(${f})`},m);
   m.id=n;setSt(m,'overflow','visible');for(const ch of s.childNodes){const q=ch.cloneNode(true);g.appendChild(q.nodeType===1?reid(q):q)}s.after(m);return n}
-function heads(p){const old=new Set(),L=lv(),R=L.map(e=>{const c=gcs(e);return MP.map(a=>refId(c.getPropertyValue(a)))});pen.head=p;
-  L.forEach((e,i)=>MP.forEach((a,j)=>{const id=R[i][j];if(!id||!byId(id))return;const n=hmk(id,p);n!==id&&(setSt(e,a,`url(#${n})`),old.add(id))}));
-  for(const id of old)if(/_h\d+$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id).remove()}catch(_){}}
+const ML=/^(path|line|polyline)$/,mkl=()=>lv().filter(e=>ML.test(e.localName)),hp=i=>+(/_h(\d+)$/.exec(i)||[0,100])[1],
+  mgc=ids=>{for(const id of ids)if(/(Msb|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
+  mset=(e,a,v)=>{setSt(e,a,v);v||gcs(e).getPropertyValue(a)==='none'||setSt(e,a,'none')};
+function heads(p,J=[0,1,2]){const old=new Set(),L=lv(),R=L.map(e=>{const c=gcs(e);return MP.map(a=>refId(c.getPropertyValue(a)))});J.includes(2)&&(pen.head=p);
+  L.forEach((e,i)=>J.forEach(j=>{const a=MP[j],id=R[i][j];if(!id||!byId(id))return;const n=hmk(id,p);n!==id&&(setSt(e,a,`url(#${n})`),old.add(id))}));mgc(old)}
+function headSet(j,t){const old=new Set;for(const e of mkl()){const c=gcs(e),o=refId(c.getPropertyValue(MP[j?2:0])),q=refId(c.getPropertyValue(MP[j?0:2])),p=o?hp(o):q?hp(q):pen.head;
+  mset(e,MP[j?2:0],t&&`url(#${hmk(mark(t),p)})`);o&&old.add(o)}t&&old.add(MK[t][0]);mgc(old)}
 const PN=/[MmLlHhVvCcSsQqTtAaZz]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g,PM='Points: drag one and only it moves (Shift: 45° steps); Esc or a click outside ends';
 function pparse(d){const t=d.match(PN)||[],o=[];let i=0,c='',x=0,y=0,sx=0,sy=0,lc=null;const N=()=>+t[i++],P=r=>[N()+(r?x:0),N()+(r?y:0)],rf=q=>[2*x-q[0],2*y-q[1]];
   while(i<t.length){if(/[a-z]/i.test(t[i]))c=t[i++];else if(!c)return null;const C=c.toUpperCase(),r=c!==C;let s,l=null;
@@ -848,7 +859,7 @@ let hov=null,hovL=null,hovB=null,hovE=null,hovQ=0,hovT=0,hovSlow=0,ctl=0,edgeR=0
 function hoverAt(e){hovE=e;ctl=cmd(e);if(hovSlow){clearTimeout(hovT);hovT=setTimeout(hovCalc,90)}else if(!hovQ){hovQ=1;requestAnimationFrame(()=>{hovQ=0;hovCalc()})}}
 function hovCalc(){const e=hovE,r=e&&e.target.closest?.('#mLl .r');let h=null;
   if(r){const x=Ly.rows[+r.dataset.i]?.[0];h=root&&x&&root.contains(x)?x:null}
-  else if(e&&root&&!D&&!ed&&!space&&/^(sel|drop|text)$/.test(tool)&&view.contains(e.target)&&!e.target.closest('#mHud [data-h],#mSx,#mSy,#mRx,#mRy,#mLb,.ed')){const t0=performance.now(),t=hit(e);hovSlow=performance.now()-t0>12;
+  else if(e&&root&&!D&&!ed&&!space&&/^(sel|drop|text)$/.test(tool)&&view.contains(e.target)&&!e.target.closest('#mHud [data-h],#mSx,#mSy,#mRx,#mRy,#mLb,#mQ,.ed')){const t0=performance.now(),t=hit(e);hovSlow=performance.now()-t0>12;
     if(t)h=tool==='text'?t.closest('text'):tool==='drop'?t.closest('text')||t:grab(t,ctl)[0]}
   if(h===hov)return;hov=h;hovL=hovB=null;if(h){hovL=LF.test(h.localName)&&h.localName!=='text'&&outl(h)||null;hovL||(hovB=memoize(()=>bbox(h)))}hud();lyHv()}
 function edgeTick(){edgeR=0;const d=D,e=edgeE;if(!d||d.t==='pan'||!d.on||!e)return;const r=view.getBoundingClientRect(),I=24,f=v=>-Math.sign(v)*min(24,abs(v)*.35),
@@ -1145,6 +1156,27 @@ for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
 A.chat=()=>{const on=document.body.classList.toggle('chat');ls('msbChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
 A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
+const FQ={m:[],i:-1,b:new Map,raf:0},fqOn=()=>!$('mQ').hidden,
+  fqRe=()=>{const q=$('mQf').value;if(!q)return null;const e=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp($('mQw').classList.contains('on')?`(?<![\\p{L}\\p{N}_])${e}(?![\\p{L}\\p{N}_])`:e,'gu'+($('mQc').classList.contains('on')?'':'i'))},
+  fqRef=()=>{if(!fqOn())return;cancelAnimationFrame(FQ.raf);FQ.raf=requestAnimationFrame(()=>fqRun(FQ.i))};
+function fqRun(k=0,q){const r=fqRe(),o=[];if(r&&root)for(const t of texts())if(!lkd(t))for(const m of t.textContent.matchAll(r))m[0]&&o.push({t,i:m.index,n:m[0].length});
+  FQ.m=o;FQ.i=o.length?min(max(0,k),o.length-1):-1;FQ.b=new Map;memoize(()=>{for(const m of o.slice(0,500))FQ.b.has(m.t)||FQ.b.set(m.t,bbox(m.t))});
+  $('mQn').textContent=!r?'':o.length?`${FQ.i+1} of ${o.length}`:'No results';['mQp','mQx','mQo','mQa'].forEach(i=>$(i).disabled=!o.length);q||hud()}
+function fqGo(d){const n=FQ.m.length;if(!n)return;FQ.i=(FQ.i+d+n)%n;const{t}=FQ.m[FQ.i];finish(true);ctx=t.parentNode;setSel([t]);$('mQn').textContent=`${FQ.i+1} of ${n}`;
+  const b=memoize(()=>bbox(t));if(b){const[x,y]=toS({x:b.x+b.w/2,y:b.y+b.h/2}),W=view.clientWidth,H=view.clientHeight;(x<60||y<60||x>W-60||y>H-40)&&(tx+=W/2-x,ty+=H/2-y,place())}}
+function fqRep(t,ms,r){const ns=[],w=document.createTreeWalker(t,4);for(let n;n=w.nextNode();)ns.push(n);
+  for(const m of[...ms].sort((a,b)=>b.i-a.i)){let o=0,f=1;const s=m.i,e=m.i+m.n;for(const n of ns){const a=o,b=o+n.data.length;o=b;if(b<=s||a>=e)continue;const x=max(s,a)-a,y=min(e,b)-a;n.data=n.data.slice(0,x)+(f?r:'')+n.data.slice(y);f=0}}noTL(t)}
+A.find=()=>{const q=ed&&String(getSelection()).trim();finish(true);$('mQ').hidden=false;q&&!q.includes('\n')&&($('mQf').value=q);$('mQf').focus();$('mQf').select();fqRun(0)};
+const fqX=()=>{$('mQ').hidden=true;FQ.m=[];FQ.b=new Map;document.activeElement?.blur();hud()};
+$('mQ').onpointerdown=$('mQ').ondblclick=$('mQ').onwheel=e=>e.stopPropagation();$('mQ').oncontextmenu=e=>e.stopPropagation();
+$('mQf').oninput=()=>{fqRun(0);FQ.m.length&&fqGo(0)};
+for(const i of['mQc','mQw'])$(i).onclick=()=>{$(i).classList.toggle('on');fqRun(0);$('mQf').focus()};
+$('mQp').onclick=()=>fqGo(-1);$('mQx').onclick=()=>fqGo(1);$('mQz').onclick=fqX;
+$('mQo').onclick=()=>{const m=FQ.m[FQ.i];if(!m)return;const r=$('mQr').value;finish(true);fqRep(m.t,[m],r);commit();fqRun(0,1);const j=FQ.m.findIndex(x=>x.t===m.t?x.i>=m.i+r.length:!!(m.t.compareDocumentPosition(x.t)&4));FQ.m.length?(FQ.i=j<0?0:j,fqGo(0)):(hud(),msg('Replaced the last match'))};
+$('mQa').onclick=()=>{const n=FQ.m.length;if(!n)return;finish(true);const g=new Map;for(const m of FQ.m)g.has(m.t)||g.set(m.t,[]),g.get(m.t).push(m);g.forEach((ms,t)=>fqRep(t,ms,$('mQr').value));commit();fqRun(0);msg(`Replaced ${n} match${n>1?'es':''} in ${g.size} text${g.size>1?'s':''}`)};
+$('mQ').onkeydown=e=>{if(cmd(e)&&e.key.toLowerCase()==='h'){e.preventDefault();$('mQf').select()}else if(e.key==='Escape'){e.preventDefault();fqX()}else if(e.key==='Enter'&&!e.isComposing&&e.keyCode!==229){e.preventDefault();e.target.id==='mQr'?$('mQo').click():fqGo(e.shiftKey?-1:1)}};
+let hlk=0;A.hlk=()=>{hlk=!hlk;qa('hlk').classList.toggle('on',hlk)};
+A.hsw=()=>{finish(true);for(const e of mkl()){const c=gcs(e),u=v=>(v=refId(c.getPropertyValue(v)))&&`url(#${v})`,a=u('marker-start'),b=u('marker-end');(a||b)&&(mset(e,'marker-start',b),mset(e,'marker-end',a))}commit()};
 A.layers=()=>{const on=document.body.classList.toggle('lay');qa('layers').classList.toggle('on',on);$('mLb').classList.toggle('on',on);place();on?(Ly.ps=[],lyBuild(1)):(hov=null,hud())};
 const zPct=()=>Z*k/U*2540/96,zTo=p=>{p=parseFloat(p);p>0&&isFinite(p)&&zv(p/zPct())},
   zUI=()=>{const p=zPct(),i=$('mZoom');document.activeElement===i||(i.value=round(p)+'%');$('mZs').value=1e3*Math.log(p/5)/Math.log(400);for(const b of $('mZm').children)b.dataset.z&&b.classList.toggle('on',+b.dataset.z===round(p))};
@@ -1197,11 +1229,11 @@ $('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.f
   else if(e.key==='Enter'&&!e.isComposing){clearTimeout(Ly.ft);Ly.q=$('mLf').value.trim();if(!Ly.q)return;lyBuild();const a=Ly.rows.map(r=>r[0]).filter(x=>!lkd(x)&&!isLayer(x));finish(true);
     ctx=a.length&&a.every(x=>x.parentNode===a[0].parentNode)?a[0].parentNode:root;Ly.me=1;setSel(a);msg(a.length?`Selected ${nObj(sel.length)} matching “${Ly.q}”`:'Nothing to select');$('mLf').blur()}};
 const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥'):s;let kC=[],kR=[],kI=0,kM='';
-$('mKb').lastChild.textContent=kTx('Ctrl+K');
+$('mKb').lastChild.textContent=kTx('Ctrl+K');MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H');
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled});
   for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
-  for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,tx(b),b.querySelector('kbd')?.textContent||'')}
-  for(const b of document.querySelectorAll('#mTools [data-t],#mFS [data-a]'))ad('Tools',b,/^[^(:]*/.exec(b.title)[0].trim(),kt(b.title),'t');
+  for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
+  for(const b of document.querySelectorAll('#mTools [data-t]:not(.ddb),#mFS [data-a]'))ad('Tools',b,/^[^(:]*/.exec(b.title)[0].trim(),kt(b.title),'t');
   let g='';for(const c of $('mSide').children){if(c.tagName==='H4'){g=c.firstChild.data.trim();continue}if(c.id==='mSizes')continue;
     for(const b of c.matches('[data-a]')?[c]:c.querySelectorAll('[data-a]')){const x=b.textContent.trim();ad(g,b,x.length>2?x:b.title.split(':')[0],kt(b.title),'f')}}
   return o}
@@ -1211,7 +1243,7 @@ function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEa
   kR=kC.map((c,i)=>({c,i,s:q?kSc(c,q):1})).filter(x=>x.s);kR.forEach(x=>gm[x.c.g]=max(gm[x.c.g]||0,x.s));kR.sort((a,b)=>gm[b.c.g]-gm[a.c.g]||gi[a.c.g]-gi[b.c.g]||b.s-a.s||a.i-b.i);kI=0;kDraw()}
 function kDraw(){const L=$('mKl');L.replaceChildren();L.scrollTop=0;let g;if(!kR.length)return L.append(el('p',0,`No command matches “${$('mKq').value.trim()}”`));
   kR.forEach((x,i)=>{const c=x.c,r=el('div',(i===kI?'on':'')+(c.off?' d':'')),k=el('span','ki '+(c.ic||'')),v=c.b.querySelector('svg');c.g!==g&&L.append(el('h4',0,g=c.g));
-    if(v){const w=v.cloneNode(true);c.ic==='t'&&(w.style.strokeWidth=gcs(v).strokeWidth);k.append(w)}else c.b.classList.contains('on')&&(k.textContent='✓');
+    if(v){const w=v.cloneNode(true);c.ic==='t'&&(w.style.strokeWidth=gcs(v).strokeWidth);gcs(v).fill==='none'&&(w.style.fill='none');k.append(w)}else c.b.classList.contains('on')&&(k.textContent='✓');
     r.dataset.i=i;r.setAttribute('role','option');r.title=c.t;r.append(k,el('span',0,c.n));c.k&&r.append(el('kbd',0,kTx(c.k)));L.append(r)})}
 function kMove(d){if(!kR.length)return;kI=(kI+d+kR.length)%kR.length;const rs=$('mKl').querySelectorAll('div');rs.forEach((r,i)=>r.classList.toggle('on',i===kI));rs[kI].scrollIntoView({block:'nearest'})}
 function kOpen(){if(!root)return;menuOff();cmOff();kC=kCol();$('mKq').value='';$('mK').hidden=false;kFil();$('mKq').focus()}
@@ -1227,8 +1259,8 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
 
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
 document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mCM button,#mSt button,#mLay button,#mLb')&&e.preventDefault());
-const menuOff=x=>document.querySelectorAll('.dd.open').forEach(d=>d!==x&&d.classList.remove('open'));
-addEventListener('click',e=>{const d=e.target.closest('.dd');menuOff(d);d&&(e.target.closest('.ddb')?d.classList.toggle('open'):e.target.closest('.menu button')&&d.classList.remove('open'))});
+const menuOff=x=>document.querySelectorAll('.dd.open,.sub.open').forEach(d=>d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));
+addEventListener('click',e=>{const d=e.target.closest('.dd'),u=e.target.closest('.sb');menuOff(d);u?u.parentNode.classList.toggle('open'):d&&(e.target.closest('.ddb')?d.classList.toggle('open'):e.target.closest('.menu button')&&(d.classList.remove('open'),d.querySelectorAll('.sub.open').forEach(x=>x.classList.remove('open'))))});
 $('mBar').addEventListener('mouseover',e=>{const d=e.target.closest('.dd');d&&!d.classList.contains('open')&&document.querySelector('.dd.open')&&(menuOff(),d.classList.add('open'))});
 $('mSide').addEventListener('change',e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||t.type==='number'&&(t.value===''||isNaN(v)))return;
   if(ed){if(/^(fs|ff|tc)$/.test(f)&&part()){f==='fs'?v>0&&restyleSize(v):f==='ff'?t.value.trim()&&restyle(s=>setRun(s,'font-family',fam(t.value.trim()),'fontFamily')):restyle(s=>setRun(s,'fill',t.value,'color'));
@@ -1247,7 +1279,8 @@ $('mSide').addEventListener('change',e=>{const f=e.target.dataset.f,t=e.target,v
   else if(/^(no)?(fill|stroke)$/.test(f)){const p=f.replace('no',''),n=F['no'+p];f===p&&(n.checked=false);styleSet(p,n.checked?'none':F[p].value)}
   else if(f==='sw'){styleSet('stroke-width',e=>f6(v/(sc(ctm(e))*U*PT)));F.dash.value&&styleSet('stroke-dasharray',dash)}
   else if(f==='dash')styleSet('stroke-dasharray',dash);
-  else if(f==='hd')v>0&&heads(round(v));
+  else if(f==='h0'||f==='h1')headSet(+f[1],t.value);
+  else if(f==='k0'||f==='k1')v>0&&heads(round(v),hlk?[0,2]:[f==='k0'?0:2]);
   else if(f==='op')sel.forEach(e=>setSt(e,'opacity',fm(min(100,max(0,v))/100)));
   /checkbox|select|color/.test(t.type)&&t.blur();commit()});
 $('mSide').addEventListener('keydown',e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()});
@@ -1275,7 +1308,7 @@ $('mNew').onchange=e=>e.target.id==='mPre'?nd():e.target.name==='mOr'&&nd(1);$('
 $('mNew').onclose=()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew').returnValue!=='ok'||!(w>0&&h>0))return;
   if(!discard())return;const n=($('mNN').value.trim().replace(/[\\/:*?"<>|]/g,'_')||'untitled').replace(/(\.svg)?$/i,'.svg');load(blank(fm(w),fm(h)),n);msg(`New canvas ${n}: ${fm(w)}×${fm(h)} mm`)};
 view.addEventListener('pointerdown',down);addEventListener('pointermove',move);addEventListener('pointerup',up);addEventListener('pointercancel',up);
-view.addEventListener('mousedown',e=>e.target.closest('.ed')||e.preventDefault());
+view.addEventListener('mousedown',e=>e.target.closest('.ed,#mQ')||e.preventDefault());
 view.addEventListener('dblclick',dbl);view.addEventListener('contextmenu',e=>e.target.closest('.ed')||cmenu(e));view.addEventListener('pointerleave',()=>{mouse=null;hov&&(hov=null,hud());rulers()});
 view.addEventListener('wheel',e=>{e.preventDefault();if(!root)return;const m=e.deltaMode?16:1;let dx=e.deltaX*m,dy=e.deltaY*m;
   cmOff();if(cmd(e)||e.altKey)return zv(Math.exp(-dy*.0015),vp(e));
@@ -1298,7 +1331,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
   else if(!root)return;
   else if(c)f={BracketRight:e.shiftKey?A.top:A.up,BracketLeft:e.shiftKey?A.bot:A.dn,Digit0:fit,Numpad0:fit,Digit1:A.z100,Numpad1:A.z100,Equal:A.zin,NumpadAdd:A.zin,Minus:A.zout,NumpadSubtract:A.zout,Quote:A.grid,
     Period:e.shiftKey&&(()=>fsz(1)),Comma:e.shiftKey&&(()=>fsz(-1)),KeyG:e.shiftKey&&e.altKey&&ungroupAll,Digit2:e.altKey?A.unlock:A.lock}[e.code]||{z:()=>undo(e.shiftKey),y:()=>undo(1),c:copyOut,x:()=>{copyOut();del()},v:e.shiftKey?A.pplace:()=>{pv=1;setTimeout(()=>{pv&&paste();pv=0})},
-    d:tAgain,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,l:e.shiftKey&&A.layers,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
+    d:tAgain,h:A.find,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,l:e.shiftKey&&A.layers,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
   else if(ar)f=sel.length&&(()=>once(()=>nudge(ar[0],ar[1],e.shiftKey),e.repeat));
   else f={Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,d:dflt,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();f()}});
@@ -1314,7 +1347,7 @@ function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(c
 function toggle(o){opts[o]=!opts[o];ls('msb'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
 function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';const b=qa('theme');b.textContent='Theme: '+(d?'Dark':'Light');b.title=d?'Switch to light interface':'Switch to dark interface';rulers()}
 setTheme(document.documentElement.dataset.theme==='dark');
-views();ls('msbChat')==='0'&&(document.body.classList.remove('chat'),qa('chat').classList.remove('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');
+views();ls('msbChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');
 </script>
 </body>
 </html>

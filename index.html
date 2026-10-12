@@ -338,14 +338,14 @@ const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='chi
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
-function commit(){flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizes();refresh()}
+function commit(){flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh()}
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
   else{m.addedNodes.forEach(n=>n.remove());m.removedNodes.forEach(n=>t.insertBefore(n,m.nextSibling))}}}
 function undo(r,q){finish(true);if(D)return;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[]}
   const a=r?redos:undos,x=a.pop();if(!x)return;revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
-  if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizes();refresh()}
+  if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh()}
 
 const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
@@ -515,11 +515,12 @@ function panel(){const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3);
   for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
   qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100)}
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
-function sizes(){if(!root)return;const g=new Map();
+let szT=0,szMs=0;const sizesQ=()=>{if(szMs<30)return sizes();cancelAnimationFrame(szT);szT=requestAnimationFrame(()=>setTimeout(sizes))};
+function sizes(){if(!root)return;const g=new Map(),t0=performance.now();
   memoize(()=>{for(const t of texts()){const s=+tsize(t).toFixed(1);g.has(s)||g.set(s,[]);g.get(s).push(t)}});
   $('mSizes').replaceChildren(...[...g].sort((a,b)=>a[0]-b[0]).map(([s,ts])=>{const d=el('div');
     d.innerHTML=`<span>${s} pt × ${ts.length}</span>→<input type="number" step="0.5" min="0.5"> pt<button>Select</button>`;
-    d.querySelector('input').onchange=e=>{ts.forEach(t=>setSize(t,+e.target.value));commit()};d.querySelector('button').onclick=()=>setSel(ts.filter(t=>!lkd(t)));return d}))}
+    d.querySelector('input').onchange=e=>{ts.forEach(t=>setSize(t,+e.target.value));commit()};d.querySelector('button').onclick=()=>setSel(ts.filter(t=>!lkd(t)));return d}));szMs=performance.now()-t0}
 function pick(t){let c=root;for(;;){let e=t;while(e.parentNode!==c)e=e.parentNode;if(isLayer(e)&&e!==t){c=e;continue}return[e,c]}}
 function grab(t,whole){const e=t.closest('text')||t;return whole?pick(t):[e,e.parentNode]}
 const thru=f=>{const o=[gw,$('mCap'),...H.children];o.forEach(x=>x.style.pointerEvents='none');try{return f()}finally{o.forEach(x=>x.style.pointerEvents='')}};
@@ -1217,8 +1218,8 @@ A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
 const FQ={m:[],i:-1,b:new Map,raf:0},fqOn=()=>!$('mQ').hidden,
   fqL=()=>fqOn()&&!!$('mQf').value,
   fqRe=()=>{const q=$('mQf').value;if(!q)return null;const e=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp($('mQw').classList.contains('on')?`(?<![\\p{L}\\p{N}_])${e}(?![\\p{L}\\p{N}_])`:e,'gu'+($('mQc').classList.contains('on')?'':'i'))},
-  fqRef=()=>{if(!fqOn())return;cancelAnimationFrame(FQ.raf);FQ.raf=requestAnimationFrame(()=>fqRun(FQ.i))};
-function fqRun(k=0,q){const r=fqRe(),o=[];if(r&&root)for(const t of texts())if(!lkd(t))for(const m of t.textContent.matchAll(r))m[0]&&o.push({t,i:m.index,n:m[0].length});
+  fqRef=()=>{if(!fqOn()||FQ.k===dv+' '+fqRe())return;cancelAnimationFrame(FQ.raf);FQ.raf=requestAnimationFrame(()=>fqRun(FQ.i))};
+function fqRun(k=0,q){const r=fqRe(),o=[];FQ.k=dv+' '+r;if(r&&root)for(const t of texts())if(!lkd(t))for(const m of t.textContent.matchAll(r))m[0]&&o.push({t,i:m.index,n:m[0].length});
   FQ.m=o;FQ.i=o.length?min(max(0,k),o.length-1):-1;FQ.b=new Map;memoize(()=>{for(const m of o.slice(0,500))FQ.b.has(m.t)||FQ.b.set(m.t,bbox(m.t))});
   $('mQn').textContent=!r?'':o.length?`${FQ.i+1} of ${o.length}`:'No results';['mQp','mQx','mQo','mQa'].forEach(i=>$(i).disabled=!o.length);q||hud();lyRef()}
 function fqGo(d){const n=FQ.m.length;if(!n)return;FQ.i=(FQ.i+d+n)%n;const{t}=FQ.m[FQ.i];finish(true);ctx=t.parentNode;setSel([t]);$('mQn').textContent=`${FQ.i+1} of ${n}`;

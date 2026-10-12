@@ -866,13 +866,14 @@ function pasteZ(back){finish(true);if(!clip)return;const s=order(sel),r=s[back?0
 function dflt(){finish(true);pen.fill='none';pen.stroke='#000000';if(!sel.length)return panel();
   for(const e of lv()){if(e.localName==='image')continue;const t=e.localName==='text';setSts(e,[['fill',t?'#000000':'none'],['stroke',t?'none':'#000000']]);t&&['fill','stroke'].forEach(p=>kids(e,p))}commit()}
 function fsz(d){const ts=selTexts();if(!ts.length)return;ts.forEach(t=>setSize(t,max(.5,+(tsize(t)+d).toFixed(1))));why='Font size';commit()}
+const cropK=v=>{const K=byId(refId(v));return K&&/^crop/.test(K.id)&&K.childElementCount===1&&K.firstElementChild.localName==='rect'&&K};
 function crop(h,a,b){const s=sel.length===1&&sel[0].localName==='image'?sel[0]:h&&h.closest('image');setTool('sel');if(!s)return msg('Drag across a photo to crop it');
   const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width'),v('height')),c=isect(tb(rb(min(a.x,b.x),min(a.y,b.y),abs(a.x-b.x),abs(a.y-b.y)),ctm(s).inverse()),ib);
   if(!c||!(c.w>0&&c.h>0))return msg('The box misses the photo');
-  const cpv=stGet(s,'clip-path'),K=byId(refId(cpv)),mine=K&&/^crop/.test(K.id)&&K.childElementCount===1&&K.firstElementChild.localName==='rect',
+  const cpv=stGet(s,'clip-path'),K=cropK(cpv),mine=!!K,
     solo=mine&&root.querySelectorAll(`[clip-path="url(#${K.id})"]`).length===1,base=mine?K.getAttribute('clip-path'):cpv,full=c.w>=ib.w*(1-1e-9)&&c.h>=ib.h*(1-1e-9);
   if(full&&!mine)return msg('The box covers the whole photo');
-  setSt(s,'clip-path',null);
+  s.style.clipPath&&setSt(s,'clip-path',null);
   if(full){base?s.setAttribute('clip-path',base):s.removeAttribute('clip-path');solo&&K.remove()}
   else{const cl=solo?K:mk('clipPath',{id:uid('crop')},defs());solo||(base&&cl.setAttribute('clip-path',base),mk('rect',{},cl));
     for(const[n,x]of[['x',c.x],['y',c.y],['width',c.w],['height',c.h]])cl.firstElementChild.setAttribute(n,fc(x));s.setAttribute('clip-path',`url(#${cl.id})`)}
@@ -904,8 +905,8 @@ function bandPrev(){if(D.pvOff||D.pvT)return;D.pvT=setTimeout(()=>{const d=D;if(
 const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste here','Ctrl+V'],['pplace','Paste in place','Ctrl+Shift+V'],['del','Delete','Del'],0,['group','Group','Ctrl+G'],['ungroup','Ungroup','Ctrl+Shift+G'],0,
   ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
 function cmenu(e){e.preventDefault();if(!root||e.ctrlKey)return;finish(true);const t=hit(e);cmE=e;if(t&&!sel.some(s=>s.contains(t))){const[ob,c]=grab(t,0);ctx=c;setSel([ob])}
-  const ns=!sel.length,off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,sf:ns,ss:ns,lock:ns,ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
-  m.replaceChildren(...CM.map(x=>{if(!x)return el('hr');const b=el('button',0,x[1]);b.dataset.a=x[0];x[2]&&b.append(el('kbd',0,x[2]));b.disabled=!!off[x[0]];return b}));
+  const ns=!sel.length,im=sel.length===1&&sel[0].localName==='image'&&sel[0],I=im?[['cropI','Crop image','C'],...cropK(stGet(im,'clip-path'))?[['uncrop','Remove crop']]:[],0]:[],off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,sf:ns,ss:ns,lock:ns,ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
+  m.replaceChildren(...CM.flatMap(x=>x&&x[0]==='group'?[...I,x]:[x]).map(x=>{if(!x)return el('hr');const b=el('button',0,x[1]);b.dataset.a=x[0];x[2]&&b.append(el('kbd',0,x[2]));b.disabled=!!off[x[0]];return b}));
   m.style.display='block';const r=m.getBoundingClientRect();m.style.left=max(4,min(e.clientX,innerWidth-r.width-4))+'px';m.style.top=max(4,min(e.clientY,innerHeight-r.height-4))+'px'}
 const cmOff=()=>{$('mCM').style.display=''};
 addEventListener('pointerdown',e=>e.target.closest('#mCM')||cmOff(),true);addEventListener('click',e=>e.target.closest('#mCM button')&&cmOff());addEventListener('blur',cmOff);addEventListener('resize',cmOff);
@@ -1255,6 +1256,7 @@ const A={
   z100:()=>zv(U*96/25.4/(Z*k)),zin:()=>zv(1.25),zout:()=>zv(.8),all:()=>setSel(cands(top_(ctx)?root:ctx)),swap:swapFS,sf:()=>alike('fill'),ss:()=>alike('stroke'),arial:()=>{texts().forEach(t=>setFont(t,'font-family','Arial'));commit()}};
 for(const c of'lcrtmb')A['a'+c]=()=>align(c);
 A.cut=()=>{copyOut();del()};A.below=()=>cmE&&selBelow(cmE,sel[0]);A.pasteHere=()=>{cmE&&(mouse=vp(cmE));paste()};
+A.cropI=()=>{setTool('crop');msg('Drag across the photo to crop it; drag past its edges to remove the crop')};A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value,r=tb(rb(v('x'),v('y'),v('width'),v('height')),ctm(s));crop(s,r,{x:r.x+r.w,y:r.y+r.h})};
 for(const n in LUT)A['tint'+n]=()=>pseudo(n);A.tint=()=>pseudo('');A.xmg=mergeCh;
 const zv=(f,p)=>{const z=Z*k*f;z>1e-3&&z<1e4&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);

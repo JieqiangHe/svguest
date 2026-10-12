@@ -209,7 +209,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
-<section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Compare</dt><dd>Checks a redraw against its image and fixes it</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
+<section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
 <section><h4>File</h4><dl><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
@@ -358,7 +358,7 @@ function load(txt,nm){const d=parse(txt);prolog='';
   fit();stage.insertBefore(root,$('mGW'));
   for(const a of[...ghost.attributes])a.name!=='id'&&ghost.removeAttribute(a.name);
   for(const a of root.attributes)if(!a.prefix&&!/^(id|width|height|x|y|version|preserveAspectRatio|xmlns)$/.test(a.name))ghost.setAttribute(a.name,a.value);
-  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;svd=null;dv++;fh=null;refImg=null;gl=[];gp=gq=null;FQ.b=new Map;FQ.m=[];
+  sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;svd=null;dv++;fh=null;gl=[];gp=gq=null;FQ.b=new Map;FQ.m=[];
   mo=new MutationObserver(r=>add(pend,r));
   mo.observe(root,{subtree:true,childList:true,attributes:true,attributeOldValue:true,characterData:true,characterDataOldValue:true});
   sizes();refresh()}
@@ -890,14 +890,13 @@ addEventListener('keyup',e=>{/^(Control|Meta)$/.test(e.key)&&(ctl=0,hovE&&!hovSl
 function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
-let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,refImg=null;
+let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Ds:'DeepSeek',Tb:'TBtools'},
   AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
   PLAN={Glm:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions'},KS={},VIS=new Set(['glm-5.3-flash','deepseek-flash']);
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block; if the user only asks a question, answer it briefly with no SVG. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`,
   look:'You describe a figure image for a drawing model that cannot see it. Reply with JSON only: {"items":[...]}. Coordinates: 0-1000 on each axis of the image, x to the right, y down; sizes ("sw", "r", "len", "w") in the units of y, i.e. thousandths of the image height. List items back to front; each has "k" and the fields that apply: rect "b":[x0,y0,x1,y1] and "r" (corner radius); ellipse "b"; line, arrow or inhibit "p":[[x,y],...] (the head is at the last point); path "p", "closed", "smooth"; ladder "p" (its centre line), "w" (distance between its two rails) and "n" (number of rungs), for a double strand or a stem with rungs; text "b" (the tight box around its letters), "t" (the exact text; a label on several lines is one item with its lines separated by \\n; keep Greek letters, write super- and subscripts as ^{} and _{}), "bold", "italic", "anchor" (start, middle or end), "rot" (degrees); icon "b" and "t" (a small symbol these shapes cannot describe, e.g. "scissors", "lightning bolt"); picture "b" (a photo or micrograph); axis "p" (its two ends) and "ticks":[{"at":[x,y],"t":"label"}]. A line or path with evenly spaced short ticks along one side, such as a DNA strand, gets "marks":{"n":count,"len":length,"side":"up", "down", "left" or "right"} instead of an item per tick. Paint: "fill" and "stroke" as #rrggbb or none, "sw" (stroke width), "dash":true, "op" (opacity 0-1). "g" names the panel an item belongs to (A, B, ... or its title). Transcribe every text exactly, invent nothing, and add "?":1 to items you are unsure of.',
-  check:'The left part of the image is an original figure, the right part (after the red bar) our redraw of it. List up to 10 differences that matter (missing or extra items, wrong text, colours, positions or sizes) as JSON only: {"diffs":[{"what":"...","fix":"...","b":[x0,y0,x1,y1]}]}, where "b" is where it is in the LEFT figure on a 0-1000 grid of each of its axes (x to the right, y down). Reply {"diffs":[]} if they match.',
   con:end=>`Your reply was cut off at the length limit. Continue exactly where it stops, right after its last tag: output only the rest through ${end}, with no repetition, explanation or code fence.`,
   units:sp=>`The attached image was described by another model, since you cannot see it. Coordinates and sizes are in tenths of a millimetre from the top left of a ${fm(sp.w/10)} x ${fm(sp.h/10)} mm figure. Keep the colours, stroke widths, font sizes and text styles given here, even where the general style rules differ. Items are listed back to front: draw them in that order, each panel ("g") in its own <g>. "b" is a box [x0,y0,x1,y1]: a rect (corner radius "r") or the ellipse that fills it. "p" lists points: a line or <polyline>; an "arrow" ends in an arrowhead and an "inhibit" in a short bar across its last point; a "path" passes through its points, as a smooth curve (cubic Béziers through the points) if "smooth", closed if "closed". "marks" are n evenly spaced ticks of length "len" on one side of a line: draw them as one extra line shifted len/2 to that side, with stroke-width len and a stroke-dasharray (tick width, gap). A "ladder" is two parallel rails "w" apart along its centre line "p" with "n" rungs between them: two lines plus one dashed centre line of stroke-width w. A "text" starts at "at" (x as set by "anchor", y its first baseline) with font-size "fs"; further lines go "lh" below (<tspan x dy>); ^{} and _{} are super- and subscripts. An "icon" is a small symbol named by "t": draw a simple version that fills "b". A "picture" is a photo: draw a light grey rect in its place. "sw" is the stroke width, "op" the opacity, "dash" a dashed stroke, "rot" a rotation in degrees about the item's centre, and "?":1 marks a doubtful item (draw it anyway).`,
   whole:sp=>` Redraw it faithfully, with width="${fm(sp.w/10)}mm" height="${fm(sp.h/10)}mm" viewBox="0 0 ${sp.w} ${sp.h}".`,
@@ -921,8 +920,6 @@ function put(s,open){if(open)return discard()&&(load(s,'ai.svg'),msg('Opened the
   const o=aiG&&root.contains(aiG)?aiG:null,b=o&&bbox(o);
   once(()=>{if(o){o.contains(ctx)&&(ctx=o.parentNode);o.remove()}doImport(s,'ai');aiG=sel[0];const n=b&&bbox(aiG);n&&(applyM(T(b.x-n.x,b.y-n.y)),commit())});
   msg(o?'Replaced the AI figure (Ctrl+Z to undo)':'Placed the AI figure (Ctrl+Z to undo)');selChip()}
-const vbOf=s=>{const m=/<svg[^>]*?\sviewBox=["']\s*([-+.\deE]+)[\s,]+([-+.\deE]+)[\s,]+([-+.\deE]+)[\s,]+([-+.\deE]+)/i.exec(s);return m&&+m[3]>0&&+m[4]>0?rb(+m[1],+m[2],+m[3],+m[4]):null},
-  refBox=()=>refImg&&refImg.vb&&aiG&&root.contains(aiG)?tb(refImg.vb,ctm(aiG)):null;
 function patch(t){const m=/<patch[\s>][\s\S]*?(<\/patch>|$)/i.exec(t);if(!m)return null;if(!aiG||!root.contains(aiG))return msg('The AI sent changes, but its figure is no longer on the canvas'),0;
   if(!m[1])return msg('The AI\'s changes were cut off, so none were applied; ask again, or for fewer changes at a time'),0;
   const w=`<svg xmlns="${NS.svg}" xmlns:xlink="${NS.xlink}" xmlns:inkscape="${NS.inkscape}" xmlns:sodipodi="${NS.sodipodi}">${m[0].replace(/&nbsp;/g,'&#160;')}</svg>`;let d;
@@ -968,7 +965,7 @@ function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())retu
   e.title='The selected objects are sent with your message';e.append(xb(()=>{skip=sel.slice();selChip()},'Send without the selection'));c.replaceChildren(e)}
 const selPart=()=>selOn()?frag(order(sel)):null,copyOut=()=>{copy();if(!sel.length)return;const n=sel.reduce((n,e)=>n+e.getElementsByTagName('*').length,0),f=n<2e4&&frag(order(sel));
   lastOut=f?f.x:`minisvg: ${nObj(sel.length)} copied`;navigator.clipboard?.writeText(lastOut).catch(()=>{})};
-function frag(els,bx){const b=bx||memoize(()=>els.reduce((a,e)=>un(a,bbox(e)),null));if(!b)return null;
+function frag(els){const b=memoize(()=>els.reduce((a,e)=>un(a,bbox(e)),null));if(!b)return null;
   const s=mk('svg',{width:fm(b.w*U)+'mm',height:fm(b.h*U)+'mm',viewBox:[b.x,b.y,b.w,b.h].map(fm).join(' ')}),d=mk('defs',{},s),P=['fill','stroke','stroke-width','font-family','font-size','font-weight','font-style','text-anchor'];
   for(const e of els){const st=[],g=mk('g',{},s);for(let a=e.parentNode;a;a=a===root?null:a.parentNode){const v=[...P.filter(q=>a.hasAttribute(q)).map(q=>q+':'+a.getAttribute(q)),a.getAttribute('style')].filter(Boolean).join(';');v&&st.unshift(v)}
     setT(g,ctm(e.parentNode));st.length&&g.setAttribute('style',st.join(';'));g.append(e.cloneNode(true))}
@@ -991,8 +988,7 @@ const tbBridge=()=>window.tbtools?.ai,
 const NAME={'glm-5.3-flash':'GLM-5.3 Flash','glm-5.3':'GLM-5.3','deepseek-flash':'DeepSeek Flash','deepseek-v4-pro':'DeepSeek V4 Pro'},
   who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':NAME[t.m]||t.m,canSee=t=>t.p==='Tb'||VIS.has(t.m),
   cfg=p=>({key:($('mKey'+p)?.value||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),ksay=u=>u===PLAN.Glm?'Connected: Coding Plan':u===AI.Glm[0]?'Connected: standard API':'Connected',
-  drawTo=()=>who($('mModel').value),reader=()=>{const v=$('mVis').value;return v&&v!=='self'?who(v):null},
-  looker=c=>reader()||(c&&canSee(drawTo())?drawTo():null);
+  drawTo=()=>who($('mModel').value),reader=()=>{const v=$('mVis').value;return v&&v!=='self'?who(v):null};
 const tem=(t,h)=>{const L=t.t.split('\n'),dn=/[gjpqy,;()[\]{}|_]/.test(L.at(-1));return[h/(.9+(L.length-1)*1.2+(dn?.2:0)),L.length,dn]},isTx=t=>t&&t.k==='text'&&Array.isArray(t.b)&&typeof t.t=='string';
 function mmSpec(items,z){const E=(items||[]).filter(isTx).map(t=>tem(t,(t.b[3]-t.b[1])*z.h/1e3)[0]).sort((a,b)=>a-b),
     s=min(vb.w*U/z.w,vb.h*U/z.h,max(85,min(180,E.length?2.47/E[E.length>>1]*z.w:z.w>=1.2*z.h?180:85))/z.w),FW=round(z.w*s*10),FH=round(z.h*s*10);
@@ -1002,9 +998,6 @@ function mmSpec(items,z){const E=(items||[]).filter(isTx).map(t=>tem(t,(t.b[3]-t
   const ft=new Set;tx.sort((a,b)=>a.fs-b.fs);for(let i=0,j;i<tx.length;i=j){for(j=i;j<tx.length&&tx[j].fs<=tx[i].fs*1.2;j++);const v=tx[(i+j-1)>>1].fs*72/254,m=round((v>=4.8&&v<=10?min(8,max(6,v)):v)*254/72);
     (m<21||m>28)&&ft.add(+(m*72/254).toFixed(1));for(let q=i;q<j;q++){const t=tx[q];t.fs=m;t.n>1&&(t.lh=round(1.2*m));delete t.n}}
   return{w:FW,h:FH,items:its,ft:[...ft]}}
-const side=(a,b)=>Promise.all([a,b].map(u=>new Promise((ok,no)=>{const m=new Image();m.onload=()=>ok(m);m.onerror=()=>no(Error('Cannot read the image'));m.src=u}))).then(([x,y])=>{
-  const h=min(1000,max(x.naturalHeight,y.naturalHeight)),wa=round(x.naturalWidth*h/x.naturalHeight),wb=round(y.naturalWidth*h/y.naturalHeight),c=cv(wa+wb+16,h),g=c.getContext('2d');
-  g.fillStyle='#fff';g.fillRect(0,0,c.width,h);g.drawImage(x,0,0,wa,h);g.fillStyle='#e00';g.fillRect(wa+6,0,4,h);g.drawImage(y,wa+16,0,wb,h);return c.toDataURL('image/png')});
 async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getReader(),js=function*(a){for(const l of a){const d=l.startsWith('data:')&&l.slice(5).trim();if(d&&d!=='[DONE]')yield JSON.parse(d)}};let buf='';
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
 async function probe(p){const{key}=cfg(p),s=$('mKs'+p),er=[],cur=()=>cfg(p).key===key;s.textContent='Checking the key…';
@@ -1070,8 +1063,8 @@ function bubbleUI(){const b=bub('a',''),tl=el('span',0,'Waiting for the reply…
     spec:(sp,by)=>{const d=el('details'),n=sp.items.length;d.append(el('summary',0,`What ${by} saw: ${n} item${n>1?'s':''}`),el('div','th',JSON.stringify(sp.items)));b.insertBefore(d,tl)},
     say:s=>{fin=s;kick()},
     end:()=>{clearInterval(iv);raf&&cancelAnimationFrame(raf);upd();on=0;sum();use?tm.textContent=secs()+` · ${use.o.toLocaleString('en')} output tokens`+(use.r?` (${use.r.toLocaleString('en')} thinking)`:''):tm.remove()}}}
-async function look(to,src,text,o,pr=PROMPT.look){o.ui.stage(pr===PROMPT.look?'Looking at the image':'Comparing with the image');
-  const r=await call(to,[{role:'system',content:pr},{role:'user',content:[{type:'image_url',image_url:{url:src}},{type:'text',text}]}],{...o,eff:$('mThinkR').value,img:src,prompt:pr+'\n\n'+text,on:null}),j=json(r.out);
+async function look(to,src,text,o){o.ui.stage('Looking at the image');
+  const r=await call(to,[{role:'system',content:PROMPT.look},{role:'user',content:[{type:'image_url',image_url:{url:src}},{type:'text',text}]}],{...o,eff:$('mThinkR').value,img:src,prompt:PROMPT.look+'\n\n'+text,on:null}),j=json(r.out);
   if(!j)throw Error('The reading model gave no readable description'+(r.out?': '+r.out.slice(0,200):''));return j}
 function tbPrompt(q,fl,sl,pd,pa,fn,see,pi,n){const y=PROMPT.sys();let x=q,h='';const ok=s=>y.length+x.length+s.length<=TBMAX;
   for(const f of fl)x+=ok(fblk(f))?fblk(f):`\n\nAttached file "${f.n}" was too large to include.`;
@@ -1079,30 +1072,26 @@ function tbPrompt(q,fl,sl,pd,pa,fn,see,pi,n){const y=PROMPT.sys();let x=q,h='';c
   n>1&&(x+=`\n\nOnly the first of ${n} attached images was sent.`);
   for(const m of past(hist).slice(0,-1).reverse()){const l=`${m.role==='assistant'?'Assistant':'User'}: ${flat(m.content)}\n`;if(!ok(h+l))break;h=l+h}
   return y+(h&&'\n\n'+h)+x}
-async function ask(o={}){if(ac)return o.cmp?msg('Wait for the current reply to finish, then compare'):ac.abort();
-  const cmp=!!o.cmp,t=cmp?'':$('mAsk').value.trim(),sent=cmp?[]:imgs,fl=cmp?[]:files,
-    q=cmp?'Compare the figure with the image.':t||(sent.length?'Redraw this figure.':fl.length?'Draw a figure from the attached file.':'');if(!q)return;
-  const to=drawTo(),viaTb=to.p==='Tb'&&!!tbBridge(),sees=viaTb||VIS.has(to.m),live=aiG&&root.contains(aiG),lk=cmp?looker(1):sent.length?looker():null;
+async function ask(){if(ac)return ac.abort();
+  const t=$('mAsk').value.trim(),sent=imgs,fl=files,
+    q=t||(sent.length?'Redraw this figure.':fl.length?'Draw a figure from the attached file.':'');if(!q)return;
+  const to=drawTo(),viaTb=to.p==='Tb'&&!!tbBridge(),sees=viaTb||VIS.has(to.m),live=aiG&&root.contains(aiG),lk=sent.length?reader():null;
   if(!viaTb&&!cfg(to.p).key){$('mCfg').open=true;return msg(`Enter the ${PROV[to.p]} key in AI settings first`)}
-  if(cmp&&!(refImg&&live))return msg('Compare needs the AI figure on the canvas and the image it was redrawn from');
-  if((cmp||sent.length&&!sees)&&!lk){$('mCfg').open=true;return msg(cmp?'Choose a model under Read images with to compare':`${nameOf(to)} can't read images: choose a model under Read images with`)}
+  if(sent.length&&!sees&&!lk){$('mCfg').open=true;return msg(`${nameOf(to)} can't read images: choose a model under Read images with`)}
   if(lk&&lk.p!=='Tb'&&!cfg(lk.p).key){$('mCfg').open=true;return msg(`Enter the ${PROV[lk.p]} key in AI settings, so ${nameOf(lk)} can read the image`)}
-  const sl=cmp?null:selPart();if(sl&&sl.x.length>SELMAX)return msg(`The selection is too large to send (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`);
+  const sl=selPart();if(sl&&sl.x.length>SELMAX)return msg(`The selection is too large to send (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`);
   const pd=sl&&`\n\nSelected part of the figure (${nObj(sl.els.length)}, ${fm(sl.b.w*U)} × ${fm(sl.b.h*U)} mm at x ${fm((sl.b.x-vb.x)*U)}, y ${fm((sl.b.y-vb.y)*U)} mm on the page)`,pa='If the user asks to change it, reply with an SVG of only this part that keeps the same width, height and viewBox, so it can replace the selection in place.',
     fn=sl&&`\`\`\`svg\n${sl.x}\n\`\`\``,sx=sl?`${pd}, as SVG:\n${fn}\n${pa}`:'',pi=sl&&sees?await shrink(new Blob([sl.x],{type:'image/svg+xml'}),1000).catch(()=>null):null,
-    cur=!sl&&!sent.length&&live?frag([aiG]):null,qb=q+sx+fl.map(fblk).join('');if(cmp&&!cur)return msg('The AI figure is empty');
+    cur=!sl&&!sent.length&&live?frag([aiG]):null,qb=q+sx+fl.map(fblk).join('');
   let qf=qb,cx=cur?PROMPT.cur(cur.x):'',kl=0;const fits=c=>tbFit([{role:'system',content:PROMPT.sys()},...past([...hist,{role:'user',content:qf+c}],0,!c)]);
   if(viaTb&&!lk&&!sent.length&&!pi&&!fits(cx))if(cx&&fits(''))cx='',kl=1;else return msg(sl?`The selection is too large for TBtools (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`:'This message is too large for TBtools (32,000 characters). Attach a shorter file.');
-  imgs=[];files=[];thumbs();cmp||($('mAsk').value='');
+  imgs=[];files=[];thumbs();$('mAsk').value='';
   const ub=bub('u',q);ub.append(...sent.map(img),...(sl?[chip('f','Selection: '+nObj(sl.els.length))]:[]),...fl.map(f=>chip('f',f.n)));
   const ui=bubbleUI(),C=new AbortController(),rids=new Set(),go={signal:C.signal,rids,ui};
   ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};$('mSend').textContent='Stop';
   let res=null,ri=null,pushed=0,ims=sent,st='';
   try{
-    if(cmp){const pic=await shrink(new Blob([frag([aiG],refBox()||undefined).x],{type:'image/svg+xml'}),1024),j=await look(lk,await side(refImg.img,pic),'Compare them.',go,PROMPT.check),d=Array.isArray(j.diffs)?j.diffs.filter(x=>x&&x.what):[];
-      if(!d.length)return ui.say('The redraw matches the image.');const v=refImg.vb,gx=n=>+(v.x+n*v.w/1e3).toFixed(2),gy=n=>+(v.y+n*v.h/1e3).toFixed(2);
-      ub.append(el('div','tm','Differences: '+d.map(x=>x.what).join('; ')));qf=`Fix these differences from the original image ("b" boxes are in the coordinates of the current figure's viewBox):\n${JSON.stringify(d.map(x=>Array.isArray(x.b)&&x.b.length===4?{...x,b:[gx(x.b[0]),gy(x.b[1]),gx(x.b[2]),gy(x.b[3])]}:x))}`}
-    if(sent.length){const z=await dims(sent[0]);ri={img:sent[0],w:z.w,h:z.h,sp:mmSpec([],z)};
+    if(sent.length){const z=await dims(sent[0]);ri={sp:mmSpec([],z)};
       if(lk){const j=await look(lk,sent[0],q,go),its=Array.isArray(j.items)?j.items.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)):[];if(!its.length)throw Error('The reading model found nothing to draw');j.items=its;
         const sp=ri.sp=mmSpec(j.items,z);ui.spec(sp,nameOf(lk));st='\n\n'+PROMPT.units(sp)+PROMPT.whole(sp)+(sent[1]?` Only the first of the ${sent.length} attached images was described.`:'')+'\nDescription: '+JSON.stringify({items:sp.items});qf+=st;ims=[]}else qf+=st=PROMPT.whole(ri.sp)}
     const all=pi?[...ims,pi]:ims;hist.push({role:'user',content:all.length&&sees?[...all.map(url=>({type:'image_url',image_url:{url}})),{type:'text',text:qf+cx}]:qf+cx});pushed=1;
@@ -1110,21 +1099,21 @@ async function ask(o={}){if(ac)return o.cmp?msg('Wait for the current reply to f
     if(ps)res=await drawPanels(to,ps,ri.sp,qb,go);
     else if(viaTb){const pk=!ims.length&&tbFit(base),see=ims[0]||!pk&&pi;if(!see&&!pk)throw Error('too_large');res=await draw(to,base,{...go,img:see||null,prompt:see&&tbPrompt(q+st,fl,sl,pd,pa,fn,see,pi,sent.length)})}
     else res=await draw(to,base,{...go,eff:$('mThink').value});
-  }catch(e){if(!LG.contains(ui.b))return;pushed&&hist.pop();cmp||$('mAsk').value||($('mAsk').value=t);imgs=sent.concat(imgs);files=fl.concat(files);
+  }catch(e){if(!LG.contains(ui.b))return;pushed&&hist.pop();$('mAsk').value||($('mAsk').value=t);imgs=sent.concat(imgs);files=fl.concat(files);
     ui.say(e.name==='AbortError'?'Stopped':(tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''));return}
   finally{ui.end();ac=null;$('mSend').textContent='Send';thumbs()}
   if(sl||cur){const u=hist.at(-1),f=c=>{sx&&(c=c.replace(sx,'\n\n[A selected part of the figure was attached here as SVG.]'));cx&&(c=c.replace(cx,'\n\n[The current figure was attached here as SVG.]'));return c};
     u.content=Array.isArray(u.content)?u.content.filter(c=>c.image_url?.url!==pi).map(c=>c.type==='text'?{...c,text:f(c.text)}:c):f(u.content)}
   hist.push({role:'assistant',content:res.out});land(res,sl,ri,ui)}
-function land({out,cut,miss},sl,ri,ui){const b=ui.b,cmpB=()=>refImg&&aiG&&root.contains(aiG)?[btn('Compare with the image',()=>ask({cmp:1}),'Render the figure, check it against the image with the reading model, and fix the differences')]:[];
+function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   cut&&b.append(el('div',0,'The reply was cut off at the token limit. Ask for a simpler figure, or for one panel at a time.'));ri?.sp?.ft?.length&&b.append(el('div',0,`Text came out at ${ri.sp.ft.join(' and ')} pt to keep the original's proportions; change each size under All text in the side panel.`));miss&&miss.length&&b.append(el('div',0,`Panel ${miss.join(', ')} could not be drawn; ask for ${miss.length>1?'them':'it'} again.`));
-  if(patch(out)!=null){const p=el('p');p.append(...cmpB());p.childNodes.length&&b.append(p);return}
+  if(patch(out)!=null)return;
   let s;try{s=svgOf(out,cut)}catch(e){return msg('The reply contains an invalid SVG: '+e.message)}if(!s)return;
   cut&&b.append(el('div','tm','Showing the part that was drawn.'));
   const p=el('p'),ins=btn('Insert copy',()=>{aiG=null;put(s)});b.append(p);
   if(sl)return p.append(btn('Replace selection',()=>aiSwap(s,sl)),ins);
   p.append(ins,btn('Open as new',()=>put(s,1)));put(s);
-  ri?refImg={...ri,vb:vbOf(s)}:refImg&&(refImg.vb=vbOf(s));bar();p.append(...cmpB())}
+  bar()}
 function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=self]'),ok=canSee(d);self.disabled=!ok;self.textContent=ok?'Same as Draw with':'Same as Draw with (it can\'t read images)';
   if(!ok&&(v.value==='self'||!v.value))v.value=AI[d.p]?d.p+':'+AI[d.p].slice(1).find(m=>VIS.has(m)):[...v.options].find(o=>!o.disabled).value;
   const r=reader(),api=t=>t.p!=='Tb',use=new Set([d,r].filter(x=>x&&api(x)).map(x=>x.p));
@@ -1138,7 +1127,7 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
     k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
   M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
-$('mSend').onclick=()=>ask();$('mClr').onclick=()=>{ac&&ac.abort();hist=[];aiG=null;refImg=null;bar();imgs=[];files=[];thumbs();LG.replaceChildren();$('mHello').hidden=false};
+$('mSend').onclick=()=>ask();$('mClr').onclick=()=>{ac&&ac.abort();hist=[];aiG=null;bar();imgs=[];files=[];thumbs();LG.replaceChildren();$('mHello').hidden=false};
 $('mAtt').onclick=()=>$('mAttF').click();
 $('mAttF').onchange=e=>{attach([...e.target.files]);e.target.value=''};
 $('mGrip').onpointerdown=e=>{e.preventDefault();const t=$('mAsk'),y=e.clientY,h=t.offsetHeight,mv=v=>t.style.height=max(40,min($('mChat').clientHeight*.7,h+y-v.clientY))+'px',

@@ -113,7 +113,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 #mChat{display:none;grid-area:2/4;flex-direction:column;gap:4px;overflow:hidden;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}
 #mChat summary{cursor:pointer;color:var(--h4)}#mRoute{margin:2px 0 4px;color:var(--h4);font-size:11.5px;line-height:1.35}#mChat details label small{grid-column:2;color:var(--h4);font-size:11px;line-height:1.3}#mChat details select{min-width:0;width:100%}#mChat .two{display:flex;gap:4px;min-width:0}#mChat .two select{width:auto;flex:1}#mChat .two select+select{flex:0 0 64px}#mChat details label{display:grid;grid-template-columns:104px 1fr;align-items:center;margin:2px 0}#mChat details label[hidden]{display:none}#mChat details input{min-width:0}
 #mLog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px}#mLog>div{white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 6px;border-radius:4px}#mLog .u{align-self:flex-end;max-width:90%;background:var(--btnh)}#mLog .a{border:1px solid var(--line)}#mLog .tm{opacity:.6}#mLog p{display:flex;gap:3px;margin:4px 0 0}
-#mAskW{position:relative}#mAsk{width:100%;resize:none;display:block;font:inherit}#mGrip{position:absolute;top:2px;right:2px;width:11px;height:11px;cursor:ns-resize;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Cpath d='M2 0l9 9M6 0l5 5' stroke='%23888' stroke-width='1.2'/%3E%3C/svg%3E")}#mImgs .rq{flex-basis:100%;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+#mAskW{position:relative}#mChH{position:relative;display:flex;gap:4px;align-items:center}#mChD{position:static;flex:1;min-width:0}#mChT{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600}#mChL{left:0;right:0;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:3px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mCu{font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums;min-height:14px}#mCu.w{color:#c98a00}#mAsk{width:100%;resize:none;display:block;font:inherit}#mGrip{position:absolute;top:2px;right:2px;width:11px;height:11px;cursor:ns-resize;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Cpath d='M2 0l9 9M6 0l5 5' stroke='%23888' stroke-width='1.2'/%3E%3C/svg%3E")}#mImgs .rq{flex-basis:100%;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 #mHello{margin:6px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
 #mImgs{display:flex;flex-wrap:wrap;gap:4px;align-items:center}#mImgs img{height:44px;max-width:110px;object-fit:contain;display:block;border:1px solid var(--line)}#mImgs .t{position:relative}#mChat .x{width:16px;height:16px;padding:0;border:0;border-radius:50%;background:#555;color:#fff;font-size:12px;line-height:16px;cursor:pointer}#mChat .t .x{position:absolute;top:-5px;right:-5px}#mChat .f .x{margin-left:4px;vertical-align:1px}#mChat .w{color:#e5534b}#mSelC:empty{display:none}#mChat .f{border:1px solid var(--line);border-radius:3px;padding:0 4px;font-size:12px}#mLog details{margin-bottom:4px}#mLog summary{font-size:12px}#mLog .th{max-height:180px;overflow:auto;font-size:11px;opacity:.75;border-left:2px solid var(--line);padding-left:6px;margin-top:2px}#mLog .u img{display:block;max-height:60px;max-width:100%;margin-top:3px}
 </style>
@@ -182,6 +182,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div id="mSizes"></div>
 </div>
 <div id="mChat">
+<div id="mChH"><div class="dd" id="mChD"><button class="ddb" id="mChT" title="Switch to another chat, rename or delete one">New chat ▾</button><div class="menu" id="mChL"></div></div><button id="mChN" title="Start a new chat; this one is kept">+ New</button></div>
 <details id="mCfg"><summary>AI settings</summary>
 <label title="Looks at an attached image first and describes it, so a drawing model that can't see images can still redraw it">Read images with<span class="two"><select id="mVis"></select><select id="mThinkR" title="Thinking effort for reading the image"><option value="low">Low</option><option value="high">High</option><option value="max" selected>Max</option></select></span></label>
 <label title="The model that writes the SVG">Draw with<span class="two"><select id="mModel"></select><select id="mThink" title="Thinking effort for drawing; a reply that was cut off is continued with Low"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
@@ -193,8 +194,8 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div id="mLog"></div>
 <div id="mSelC"></div>
 <div id="mImgs"></div>
-<div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div>
-<div class="row"><button id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read">Attach</button><input type="file" id="mAttF" multiple hidden><button id="mSend">Send</button><button id="mClr" title="Start a new conversation">Clear</button></div>
+<div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div><div id="mCu"></div>
+<div class="row"><button id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read">Attach</button><input type="file" id="mAttF" multiple hidden><button id="mSend">Send</button></div>
 </div>
 <div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme">Theme</button></div>
 <input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" hidden>
@@ -209,7 +210,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
-<section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
+<section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>+ New starts a chat; the title switches, renames or deletes; each is kept in this browser and the AI reads only the current one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
 <section><h4>File</h4><dl><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
@@ -1062,7 +1063,7 @@ function bubbleUI(){const b=bub('a',''),tl=el('span',0,'Waiting for the reply…
     think:s=>{if(!dt){dt=el('details');sm=el('summary');pr=el('div','th');dt.open=true;dt.append(sm,pr);b.prepend(dt)}rsn+=s;th+=s.length;kick()},
     stage:s=>{dt&&th&&lab!==s&&(rsn+=`\n\n— ${s} —\n`);lab=s;txt='';kick()},
     note:s=>msg(s+'…'),
-    use:u=>{u&&(use={o:(use?.o||0)+(u.completion_tokens||0),r:(use?.r||0)+(u.completion_tokens_details?.reasoning_tokens||0)})},
+    use:u=>{u&&(use={o:(use?.o||0)+(u.completion_tokens||0),r:(use?.r||0)+(u.completion_tokens_details?.reasoning_tokens||0),p:max(use?.p||0,u.prompt_tokens||0)})},tok:()=>use?.p||0,
     spec:(sp,by)=>{const d=el('details'),n=sp.items.length;d.append(el('summary',0,`What ${by} saw: ${n} item${n>1?'s':''}`),el('div','th',JSON.stringify(sp.items)));b.insertBefore(d,tl)},
     say:s=>{fin=s;kick()},
     end:()=>{clearInterval(iv);raf&&cancelAnimationFrame(raf);upd();on=0;sum();use?tm.textContent=secs()+` · ${use.o.toLocaleString('en')} output tokens`+(use.r?` (${use.r.toLocaleString('en')} thinking)`:''):tm.remove()}}}
@@ -1089,6 +1090,7 @@ async function ask(){if(ac)return ac.abort();
   let qf=qb,cx=cur?PROMPT.cur(cur.x):'',kl=0;const fits=c=>tbFit([{role:'system',content:PROMPT.sys()},...past([...hist,{role:'user',content:qf+c}],0,!c)]);
   if(viaTb&&!lk&&!sent.length&&!pi&&!fits(cx))if(cx&&fits(''))cx='',kl=1;else return msg(sl?`The selection is too large for TBtools (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`:'This message is too large for TBtools (32,000 characters). Attach a shorter file.');
   imgs=[];files=[];thumbs();$('mAsk').value='';
+  CH&&CH.t==='New chat'&&(CH.t=(t||(sent.length?'Redraw ':'Chat ')+new Date().toTimeString().slice(0,5)).replace(/\s+/g,' ').slice(0,48),chHdr());
   const ub=bub('u',q);ub.append(...sent.map(img),...(sl?[chip('f','Selection: '+nObj(sl.els.length))]:[]),...fl.map(f=>chip('f',f.n)));
   const ui=bubbleUI(),C=new AbortController(),rids=new Set(),go={signal:C.signal,rids,ui};
   ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};$('mSend').textContent='Stop';
@@ -1103,19 +1105,19 @@ async function ask(){if(ac)return ac.abort();
     else if(viaTb){const pk=!ims.length&&tbFit(base),see=ims[0]||!pk&&pi;if(!see&&!pk)throw Error('too_large');res=await draw(to,base,{...go,img:see||null,prompt:see&&tbPrompt(q+st,fl,sl,pd,pa,fn,see,pi,sent.length)})}
     else res=await draw(to,base,{...go,eff:$('mThink').value});
   }catch(e){if(!LG.contains(ui.b))return;pushed&&hist.pop();$('mAsk').value||($('mAsk').value=t);imgs=sent.concat(imgs);files=fl.concat(files);
-    ui.say(e.name==='AbortError'?'Stopped':(tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''));return}
+    ui.say(e.name==='AbortError'?'Stopped':(tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''));setTimeout(chSave);return}
   finally{ui.end();ac=null;$('mSend').textContent='Send';thumbs()}
   if(sl||cur){const u=hist.at(-1),f=c=>{sx&&(c=c.replace(sx,'\n\n[A selected part of the figure was attached here as SVG.]'));cx&&(c=c.replace(cx,'\n\n[The current figure was attached here as SVG.]'));return c};
     u.content=Array.isArray(u.content)?u.content.filter(c=>c.image_url?.url!==pi).map(c=>c.type==='text'?{...c,text:f(c.text)}:c):f(u.content)}
-  hist.push({role:'assistant',content:res.out});land(res,sl,ri,ui)}
+  hist.push({role:'assistant',content:res.out});land(res,sl,ri,ui);CH&&(CH.k=ui.tok()||CH.k);chSave()}
 function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   cut&&b.append(el('div',0,'The reply was cut off at the token limit. Ask for a simpler figure, or for one panel at a time.'));ri?.sp?.ft?.length&&b.append(el('div',0,`Text came out at ${ri.sp.ft.join(' and ')} pt to keep the original's proportions; change each size under All text in the side panel.`));miss&&miss.length&&b.append(el('div',0,`Panel ${miss.join(', ')} could not be drawn; ask for ${miss.length>1?'them':'it'} again.`));
   if(patch(out)!=null)return;
   let s;try{s=svgOf(out,cut)}catch(e){return msg('The reply contains an invalid SVG: '+e.message)}if(!s)return;
   cut&&b.append(el('div','tm','Showing the part that was drawn.'));
-  const p=el('p'),ins=btn('Insert copy',()=>{aiG=null;put(s)});b.append(p);
+  const k=CH?CH.svgs.push(s)-1:-1,p=el('p'),ins=btn('Insert copy',()=>{aiG=null;put(s);chSave()});ins.dataset.ai='i';ins.dataset.k=k;b.append(p);
   if(sl)return p.append(btn('Replace selection',()=>aiSwap(s,sl)),ins);
-  p.append(ins,btn('Open as new',()=>put(s,1)));put(s);
+  const op=btn('Open as new',()=>put(s,1));op.dataset.ai='o';op.dataset.k=k;p.append(ins,op);put(s);
   bar()}
 function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=self]'),ok=canSee(d);self.disabled=!ok;self.textContent=ok?'Same as Draw with':'Same as Draw with (it can\'t read images)';
   if(!ok&&(v.value==='self'||!v.value))v.value=AI[d.p]?d.p+':'+AI[d.p].slice(1).find(m=>VIS.has(m)):[...v.options].find(o=>!o.disabled).value;
@@ -1130,7 +1132,36 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
     k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
   M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
-$('mSend').onclick=()=>ask();$('mClr').onclick=()=>{ac&&ac.abort();hist=[];aiG=null;bar();imgs=[];files=[];thumbs();LG.replaceChildren();$('mHello').hidden=false};
+$('mSend').onclick=()=>ask();
+const CDB=new Promise(ok=>{try{const r=indexedDB.open('msbChats',1);r.onupgradeneeded=()=>r.result.createObjectStore('c',{keyPath:'id'});r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),
+  cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
+let CH=null,CL=(()=>{try{return JSON.parse(ls('msbChatList')||'[]')}catch(_){return[]}})();
+const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Date.now(),hist:[],html:'',svgs:[],fig:null,n:0,k:0}),
+  chWhen=u=>{const d=new Date(u),n=new Date();return d.toDateString()===n.toDateString()?d.toTimeString().slice(0,5):d.toLocaleDateString('en',{month:'short',day:'numeric'})},
+  chMeta=c=>({id:c.id,t:c.t,u:c.u,n:c.n,k:c.k}),chKeep=()=>ls('msbChatList',JSON.stringify(CL)),
+  ctxU=()=>{const c=$('mCu');c.className='';if(!CH||!hist.length)return c.textContent='New chat: the AI reads only this chat';const tb=drawTo().p==='Tb',n=past(hist).reduce((a,m)=>a+flat(m.content).length,0);
+    c.textContent=tb?`Context ${n.toLocaleString('en')} / ${TBMAX.toLocaleString('en')} characters`:CH.k?`Context ${(CH.k/1e3).toFixed(1)}k tokens · ${CH.n} message${CH.n>1?'s':''}`:`Context about ${(n/3500).toFixed(1)}k tokens`;tb&&n>TBMAX*.8&&(c.className='w');c.title='What the AI read for the last reply in this chat (its whole history is sent with each message; other chats are not)'},
+  chHdr=()=>{$('mChT').textContent=(CH?CH.t:'New chat')+' ▾';ctxU()},
+  chSave=()=>{if(!CH||!hist.length&&!CL.some(c=>c.id===CH.id))return;CH.html=LG.innerHTML;CH.hist=hist;aiG&&root&&root.contains(aiG)&&(CH.fig=aiG.id);CH.u=Date.now();CH.n=hist.filter(m=>m.role==='user').length;
+    CC.set(CH.id,CH);CL=[chMeta(CH),...CL.filter(c=>c.id!==CH.id)];chKeep();ls('msbChatCur',CH.id);chHdr();return cdb('readwrite',s=>s.put(CH))},
+  chShow=c=>{CH=c;hist=c.hist;aiG=c.fig&&root&&byId(c.fig);aiG&&root.contains(aiG)||(aiG=null);LG.innerHTML=c.html||'';LG.querySelectorAll('button:not([data-ai])').forEach(b=>b.remove());
+    $('mHello').hidden=!!LG.childElementCount;LG.scrollTop=LG.scrollHeight;chHdr();root&&bar()},
+  chBusy=()=>ac&&(msg('Wait for the reply to finish, or press Stop, before switching chats'),1),
+  chNew=()=>{if(chBusy())return;if(CH&&!hist.length)return msg('This chat is still empty'),$('mAsk').focus();chSave();chShow(chNone());ls('msbChatCur','');$('mAsk').focus();msg('New chat: the AI starts without the earlier conversation')},
+  chOpen=async id=>{if(chBusy()||CH&&CH.id===id)return;const c=CC.get(id)||await cdb('readonly',s=>s.get(id));if(!c){CL=CL.filter(x=>x.id!==id);chKeep();return msg('That chat could not be read')}chSave();CC.set(id,c);chShow(c);ls('msbChatCur',id)},
+  chDel=async id=>{if(chBusy())return;const m=CL.find(c=>c.id===id);if(!m||!confirm(`Delete the chat “${m.t}”? This cannot be undone.`))return;CL=CL.filter(c=>c.id!==id);chKeep();CC.delete(id);await cdb('readwrite',s=>s.delete(id));
+    CH&&CH.id===id?(CH=null,CL.length?await chOpen(CL[0].id):chShow(chNone())):chList();msg('Deleted the chat “'+m.t+'”')},
+  chRen=(row,id)=>{const t=row.querySelector('b'),i=el('input');i.value=t.textContent;t.replaceWith(i);i.focus();i.select();let d=0;
+    const done=async ok=>{if(d)return;d=1;const v=i.value.trim().slice(0,80),m=CL.find(c=>c.id===id);if(ok&&v&&m){m.t=v;chKeep();if(CH&&CH.id===id)CH.t=v,chSave();else{const c=CC.get(id)||await cdb('readonly',s=>s.get(id));c&&(c.t=v,CC.set(id,c),cdb('readwrite',s=>s.put(c)))}chHdr()}chList()};
+    i.onkeydown=e=>{e.stopPropagation();e.key==='Enter'?done(1):e.key==='Escape'&&done(0)};i.onblur=()=>done(1)},
+  chList=()=>{const L=$('mChL');L.replaceChildren(...CL.map(c=>{const d=el('div','ci'+(CH&&c.id===CH.id?' on':'')),a=el('button',0,'✎'),x=el('button',0,'×');d.dataset.c=c.id;a.dataset.x='r';x.dataset.x='d';a.title='Rename';x.title='Delete';
+    d.append(el('b',0,c.t),a,x,el('small',0,`${chWhen(c.u)} · ${c.n} message${c.n>1?'s':''}`+(c.k?` · ${(c.k/1e3).toFixed(1)}k tokens`:'')));return d}));CL.length||L.append(el('div','tm','No saved chats yet: they appear here after the first reply'))};
+$('mChT').addEventListener('click',chList);$('mChN').onclick=chNew;
+$('mChL').addEventListener('click',e=>{const d=e.target.closest('.ci'),x=e.target.closest('[data-x]');if(!d||e.target.tagName==='INPUT')return e.stopPropagation();e.stopPropagation();
+  if(x)return x.dataset.x==='d'?chDel(d.dataset.c):chRen(d,d.dataset.c);$('mChD').classList.remove('open');chOpen(d.dataset.c)});
+LG.addEventListener('click',e=>{const b=e.target.closest('button[data-ai]');if(!b||b.onclick)return;const s=CH&&CH.svgs[b.dataset.k];if(!s)return msg('This figure is no longer stored');b.dataset.ai==='i'?(aiG=null,put(s),chSave()):put(s,1)});
+chShow(chNone());{const c0=ls('msbChatCur');c0&&CL.some(c=>c.id===c0)&&chOpen(c0)}
+$('mModel').addEventListener('change',()=>setTimeout(ctxU));
 $('mAtt').onclick=()=>$('mAttF').click();
 $('mAttF').onchange=e=>{attach([...e.target.files]);e.target.value=''};
 $('mGrip').onpointerdown=e=>{e.preventDefault();const t=$('mAsk'),y=e.clientY,h=t.offsetHeight,mv=v=>t.style.height=max(40,min($('mChat').clientHeight*.7,h+y-v.clientY))+'px',

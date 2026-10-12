@@ -532,7 +532,7 @@ function bd(t){if(t.localName!=='rect'||sel.some(s=>s.contains(t))||gcs(t).fill=
     for(let i=0,n;i<200&&(n=w.nextNode());i++){if(!LF.test(n.localName)||n.closest('defs,clipPath,mask,marker,pattern,symbol'))continue;const q=bbox(n);if(q&&q.x>=b.x&&q.y>=b.y&&q.x+q.w<=b.x+b.w&&q.y+q.h<=b.y+b.h)return true}return false})}
 function boxed(c,R,tch){const o=[],V=view.getBoundingClientRect(),s=Z*k,big=c.childElementCount>BIG,B=big?rb((R.x-vb.x)*s+tx+V.left,(R.y-vb.y)*s+ty+V.top,R.w*s,R.h*s):R;
   for(const x of cands(c)){const q=big?(r=>rb(r.x,r.y,r.width,r.height))(x.getBoundingClientRect()):fb(x,V);if(!q||!isect(q,B))continue;
-    q.x>=B.x&&q.y>=B.y&&q.x+q.w<=B.x+B.w&&q.y+q.h<=B.y+B.h?o.push(x):isGrp(x)?add(o,boxed(x,R,tch)):tch&&(big||touches(x,isect(q,R)))&&o.push(x)}return o}
+    q.x>=B.x&&q.y>=B.y&&q.x+q.w<=B.x+B.w&&q.y+q.h<=B.y+B.h?o.push(x):isGrp(x)?add(o,boxed(x,R,tch)):tch&&(big||touches(x,R))&&o.push(x)}return o}
 function cands(c,lk){const o=[];for(const e of c.children){if(!isG(e)||!lk&&e.getAttributeNS(NS.sodipodi,'insensitive'))continue;if(!isLayer(e))o.push(e);else if(gcs(e).display!=='none')add(o,cands(e,lk))}return o}
 const inR=(q,R)=>q.x>=R.x&&q.x<=R.x+R.w&&q.y>=R.y&&q.y<=R.y+R.h,
   sr=(a,b,R)=>{let t0=0,t1=1;const dx=b.x-a.x,dy=b.y-a.y;for(const[p,q]of[[-dx,a.x-R.x],[dx,R.x+R.w-a.x],[-dy,a.y-R.y],[dy,R.y+R.h-a.y]]){if(!p){if(q<0)return false;continue}const r=q/p;p<0?t0=max(t0,r):t1=min(t1,r);if(t0>t1)return false}return true};

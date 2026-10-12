@@ -61,7 +61,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mFF{left:0;top:0;z-index:1}#mSF{right:0;bottom:0;z-index:0}#mSF::after{content:"";position:absolute;inset:4px;background:var(--bar);border:1px solid var(--swb)}#mSF.no::after{background:none}
 #mFS button{position:absolute;right:0;top:0;width:12px;height:12px;padding:0;border:0;background:none;display:grid;place-items:center}#mFS button svg{width:11px;height:11px;stroke-width:1.4}#mFS #mFD{top:auto;right:auto;left:0;bottom:0}#mFD svg{stroke-width:1}
 #mView{position:relative;overflow:hidden;background:var(--view)}
-#mStage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+#mStage{position:absolute;left:0;top:0;transform-origin:0 0}
 #mStage>*{position:absolute!important;left:0;top:0;width:var(--w)!important;height:var(--h)!important;overflow:visible!important}
 #mPage{background:#fff;outline:1px solid var(--pageb);box-shadow:3px 3px 8px #0003}
 #mGrid{pointer-events:none}#mGrid path{fill:none;stroke-width:1;vector-effect:non-scaling-stroke;shape-rendering:crispEdges}#mGrid .mi{stroke:#5a78aa30}#mGrid .ma{stroke:#5a78aa70}
@@ -427,7 +427,7 @@ function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;p
 function setSel(a,q){const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
 function bar(){const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['xmg',sel.length<2||sel.length>7],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
   document.title=(dirty?'• ':'')+name+' — minisvg';doc();qa('undo').firstChild.data='Undo'+(undos.length?' '+undos.at(-1).n:'');qa('redo').firstChild.data='Redo'+(redos.length?' '+redos.at(-1).n:'');$('mGc').hidden=!gl.length;$('mGc').textContent=`Clear ${gl.length} guide${gl.length>1?'s':''}`}
-const nOb=()=>{const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);return max(0,n)},
+let nOc=[];const nOb=()=>{if(nOc[0]===dv&&nOc[2]===root)return nOc[1];const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);nOc=[dv,n=max(0,n),root];return n},
   doc=()=>{const m=performance.memory,n=nOb();$('mDoc').textContent=[(dirty?'• ':'')+name,n?n.toLocaleString('en-US')+' object'+(n>1?'s':''):'empty page',m&&'Memory '+round(m.usedJSHeapSize/1048576)+' MB'].filter(Boolean).join(' · ')};
 setInterval(()=>root&&!document.hidden&&doc(),5e3);
 function refresh(){if(!root)return;syncPage();bar();sb=null;sbs=[];const V=sel.length>300&&view.getBoundingClientRect();memoize(()=>{for(const e of sel){const b=V?fb(e,V):bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
@@ -743,7 +743,7 @@ const KP=['fill','stroke','stroke-linecap','stroke-linejoin','stroke-miterlimit'
   leaf=(g,f,cap=1/0)=>{const w=twalk(g);for(let n,i=0;i<cap&&(n=w.nextNode());i++)if(f(n))return n},
   klea=g=>{const w=twalk(g),o=[];for(let n;n=w.nextNode();)o.push(n);return o},lv=(a=sel)=>a.flatMap(e=>isGrp(e)?klea(e):[e]),
   kps=lf=>lf.map(e=>(c=>KP.map(p=>c[p]))(gcs(e))),kpr=(lf,kv)=>{const c=kps(lf);lf.forEach((e,i)=>KP.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))};
-function ungroup(){const out=[];
+function ungroup(q){const out=[];
   for(const g of order(sel)){if(!isGrp(g)||isLayer(g)){out.push(g);continue}
     const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf);
     for(const c of[...g.children]){g.before(c);if(!isG(c))continue;const L=lm(c);
@@ -753,10 +753,10 @@ function ungroup(){const out=[];
       else if(cp){const o=byId(refId(cp)),n=reid(o.cloneNode(true)),I=L.inverse().multiply(lm(o));n.removeAttribute('transform');for(const r of n.children)isG(r)&&setT(r,I.multiply(lm(r)));defs().appendChild(n);c.setAttribute('clip-path',`url(#${n.id})`)}
       setT(c,M.multiply(L));out.push(c)}
     g.remove();kv&&kpr(lf,kv)}
-  setSel(out,1);commit()}
+  setSel(out,1);q||commit()}
 function ungroupAll(){finish(true);const rest=[],w=e=>isGrp(e)&&!isLayer(e)&&!(clipOf(e)&&e.children.length===1&&clipOf(e.firstElementChild));
-  once(()=>{for(let i=0;i<64;i++){const gs=sel.filter(w);if(!gs.length)break;add(rest,sel.filter(e=>!w(e)));setSel(gs,1);ungroup()}});
-  setSel([...rest,...sel])}
+  for(let i=0;i<64;i++){const gs=sel.filter(w);if(!gs.length)break;add(rest,sel.filter(e=>!w(e)));setSel(gs,1);ungroup(1)}why='Ungroup all';
+  setSel([...rest,...sel],1);commit()}
 const area=()=>$('mRel').value?rb(vb.x,vb.y,vb.w,vb.h):sb;
 function align(c){const R=area();if(!R)return;
   for(const e of sel){const b=bbox(e);if(!b)continue;
@@ -1364,7 +1364,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
   else f={Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,d:dflt,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();stp(AN.get(f)||'');f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
-document.addEventListener('visibilitychange',()=>{stage.style.willChange=gw.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
+document.addEventListener('visibilitychange',()=>{gw.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog')||dlgOpen())return;e.preventDefault();pdn||!root||A.all()});
 let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg);
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}

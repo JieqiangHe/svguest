@@ -421,7 +421,8 @@ function setSize(t,pt){if(!(pt>0))return;setSt(t,'font-size',f6(pt/(sc(ctm(t))*U
 function setFont(t,p,v){setSt(t,p,v);setSt(t,'-inkscape-font-specification',null);kids(t,p);kids(t,'-inkscape-font-specification');noTL(t)}
 const family=cs=>cs.fontFamily.split(',')[0].replace(/["']/g,''),fam=f=>/\s/.test(f)&&!/^['"]/.test(f)?`'${f}'`:f;
 const hex=c=>{const m=/rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c);return m?'#'+m.slice(1,4).map(x=>(+x).toString(16).padStart(2,'0')).join(''):'#000000'};
-function styleSet(p,v){const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Set(sel),L=sel.flatMap(e=>isGrp(e)?[...e.querySelectorAll(LEAF)]:[e]).filter(e=>!no||own.has(e)||gcs(e)[p]!=='none'),vs=L.map(e=>typeof v=='function'?v(e):v);
+const sLv=(p,v)=>{const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Set(sel);return sel.flatMap(e=>isGrp(e)?[...e.querySelectorAll(LEAF)]:[e]).filter(e=>!no||own.has(e)||gcs(e)[p]!=='none')};
+function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v);
   L.forEach((e,i)=>{setSt(e,p,vs[i]);e.localName==='text'&&kids(e,p)})}
 
 const flush=()=>(add(pend,mo.takeRecords()),pend.length);
@@ -488,7 +489,7 @@ function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.chi
   return l&&root.contains(l)&&isLayer(l)?l:[...root.children].reverse().find(isLayer)||root}
 const stamp=()=>{const d=new Date(),j=a=>a.map(x=>String(x).padStart(2,'0')).join('');return j([d.getFullYear()%100,d.getMonth()+1,d.getDate()])+'_'+j([d.getHours(),d.getMinutes(),d.getSeconds()])};
 const outName=(ext,tag='')=>(name.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+(tag?'_'+tag:'')+'_'+stamp()+ext).toLowerCase();
-function svgText(){finish(true);return'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n'}
+function svgText(){finish(true);cpEnd();return'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n'}
 function dl(b,n){const a=Object.assign(el('a'),{href:URL.createObjectURL(b),download:n});a.click();setTimeout(()=>URL.revokeObjectURL(a.href),6e4)}
 function phys(b,dpi){const c=new Uint8Array(21),v=new DataView(c.buffer),p=round(dpi/0.0254);let r=-1;
   v.setUint32(0,9);c.set([112,72,89,115],4);v.setUint32(8,p);v.setUint32(12,p);c[16]=1;
@@ -1466,6 +1467,13 @@ async function localFonts(req){if(sysF.length)return;let a=[];
 localFonts();
 F.ff.onfocus=()=>{fontList();localFonts(1);F.ff.placeholder=F.ff.value;F.ff.value=''};
 F.ff.addEventListener('blur',()=>{F.ff.value||(F.ff.value=F.ff.placeholder);F.ff.placeholder=''});
+const CPS=el('style');CPS.textContent='#mStage [data-mcp],#mStage [data-mcp] tspan{}';document.head.append(CPS);const CPR=CPS.sheet.cssRules[0];let cpS=null;
+const cpEnd=()=>{if(!cpS)return;const s=cpS;cpS=null;CPR.style.cssText='';quiet(()=>s.L.forEach(e=>e.removeAttribute('data-mcp')))},
+  cpIn=t=>{const b=t.closest('#mFS'),f=b?t.id==='mFc'?'fill':'stroke':t.dataset.f,p=f==='tc'?'fill':f;if(!root||!/^(fill|stroke|tc)$/.test(f||''))return;
+    f!=='tc'&&(b||sel.length)&&fsw(p==='fill'?'mFF':'mSF',t.value);if(t.value===t._v0||!sel.length||ed)return cpEnd();cpS&&cpS.t!==t&&cpEnd();
+    if(!cpS){const L=f==='tc'?selTexts():sLv(p,t.value);cpS={t,L};quiet(()=>L.forEach(e=>e.setAttribute('data-mcp','')))}CPR.style.cssText='';CPR.style.setProperty(p,t.value,'important')};
+for(const v of['pointerdown','focusin'])addEventListener(v,e=>{const t=e.target;t.type==='color'&&(t._v0=t.value);v==='pointerdown'&&t!==cpS?.t&&cpEnd()},true);
+addEventListener('input',e=>e.target.type==='color'&&cpIn(e.target),true);addEventListener('change',cpEnd,true);addEventListener('keydown',e=>e.key==='Escape'&&cpEnd(),true);
 $('mFS').onchange=e=>{const t=e.target,p=t.id==='mFc'?'fill':'stroke';t.blur();if(!root)return;finish(true);stp(p==='fill'?'Fill':'Stroke');if(!sel.length){pen[p]=t.value;return panel()}styleSet(p,t.value);commit()};
 $('mFile').onchange=e=>readFile(e.target.files[0],fileMode);
 $('mPre').append(...[...F.pg.options].slice(1).map(o=>new Option(`${o.text} (${o.value.split(',').map(round).join('×')} mm)`,o.value)),new Option('Custom',''));

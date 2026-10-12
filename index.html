@@ -629,6 +629,7 @@ const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),
 function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk=flush(),t=arial(p,q,11);ctx=p;setSel([t]);edit(t,null,mrk)}
 
 const at=(e,a)=>{const l=e[a]&&e[a].baseVal;return l&&l.numberOfItems?l.getItem(0).value:null};
+const edLn=t=>{const L=lnKids(t);if(L)return L;const c=[...t.children];let y=-1/0;return c.length>1&&[...t.childNodes].every(n=>n.nodeType!==1?n.nodeType!==3||!n.data.trim():n.localName==='tspan'&&n.hasAttribute('x')&&n.hasAttribute('y')&&!many(n,'x')&&!many(n,'y')&&(v=>v>y&&(y=v,1))(at(n,'y')))?c:null};
 const lnKids=t=>{const c=[...t.children];return c.length&&c.every(e=>e.localName==='tspan'&&e.getAttributeNS(NS.sodipodi,'role')==='line')?c:null};
 function lhRaw(t){const v=stGet(t,'line-height')||'',n=parseFloat(v),f=/%$/.test(v)?n/100:/[a-z]$/i.test(v)&&!/em$/i.test(v)?mmOf(v)/UNIT.px/parseFloat(gcs(t).fontSize):n;return f>0?f:0}
 const lhOf=t=>lhRaw(t)||1.25;
@@ -652,7 +653,7 @@ function edLines(d){const L=[[]],nl=()=>L.push([]);let after=0;
     else if(c.nodeType===1){const b=/^(DIV|P)$/.test(c.tagName),ki=c.dataset.k,s={SUP:'super',SUB:'sub'}[c.tagName]||'',st=c.dataset.st;b&&((L.at(-1).length||after)&&nl(),after=0);
       walk(c,[...ch,...ki?s===c.dataset.s?[+ki]:['~'+ki,...s?[s]:[]]:s?[s]:[],...st?['s:'+st]:[]]);b&&(after=1)}}};
   walk(d,[]);while(L.length>1&&!L.at(-1).length)L.pop();return L}
-function setLines(t,r,ln,lns){const h=parseFloat(gcs(r).fontSize)*lhOf(t),L=ln&&lnKids(t),sn=new Set(),b=l=>build(l,sn);
+function setLines(t,r,ln,lns){const L=ln&&edLn(t),h=L&&L.length>1&&!lnKids(t)?(at(L.at(-1),'y')-at(L[0],'y'))/(L.length-1):parseFloat(gcs(r).fontSize)*lhOf(t),sn=new Set(),b=l=>build(l,sn);
   if(L){let p;lns.forEach((l,i)=>{let n=L[i];if(!n){n=p.cloneNode(false);n.removeAttribute('id');n.setAttribute('y',fc((at(p,'y')??at(t,'y')??0)+h));p.after(n)}n.replaceChildren(...b(l));p=n});L.slice(lns.length).forEach(n=>n.remove());return}
   if(lns.length<2)return r.replaceChildren(...b(lns[0]));
   const x=at(r,'x')??at(t,'x')??0,y=at(r,'y')??at(t,'y')??0;
@@ -692,7 +693,7 @@ function tryWrap(t,b,M,h){if(!t.textContent.trim()||many(t,'dx')||many(t,'dy')||
   else t.replaceChildren(...build(lns[0]));
   t.setAttribute('x',fc(x));t.setAttribute('y',fc(y));t.removeAttribute('dx');t.removeAttribute('dy');noTL(t);
   commit();msg(lns.length>1?`Wrapped to ${lns.length} lines`:'Unwrapped');return true}
-const edSrc=(t,h)=>{let r=t;const L=lnKids(t);
+const edSrc=(t,h)=>{let r=t;const L=edLn(t);
   if(!L){for(let x=h;x&&x!==t;x=x.parentNode)if(x.localName==='tspan'&&(x.hasAttribute('x')||x.hasAttribute('y')))r=x;
     const c=t.children;if(r===t&&c.length===1&&c[0].localName==='tspan'&&c[0].hasAttribute('y')&&t.textContent.trim()===c[0].textContent.trim())r=c[0]}return[r,L]},
   edFill=(d,r,L)=>{const ks=[];(L||[r]).forEach((l,i)=>{i&&d.append('\n');mirror(l,d,ks)});return ks},
@@ -710,7 +711,7 @@ function edit(t,h,mrk,sd){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a
   Object.assign(d.style,{left:tx+o[0]+'px',top:ty+o[1]+'px',fontSize:fs+'px',lineHeight:lh,fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,
     color:/^rgb/.test(cs.fill)?cs.fill:'#000',textAlign:{middle:'center',end:'right'}[cs.textAnchor]||'left',transformOrigin:`0 ${fs*(lh/2+.35)}px`,transform:`rotate(${-ang(t)}deg) translateX(${{middle:-50,end:-100}[cs.textAnchor]||0}%)`});
   ks=edFill(d,r,L);view.append(d)}
-  ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),vis:t.getAttribute('visibility'),mrk,sd,zk:sd?13*Z*k/fs:Z*k};quiet(()=>t.setAttribute('visibility','hidden'));
+  const hv=sd||L?t:r;ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),hv,vis:hv.getAttribute('visibility'),mrk,sd,zk:sd?13*Z*k/fs:Z*k};quiet(()=>hv.setAttribute('visibility','hidden'));
   if(sd){const ip=[];for(let n=r;n!==t;n=n.parentNode)ip.unshift([...n.parentNode.childNodes].indexOf(n));ed.ip=ip;edPv();d.oninput=edPvQ}
   d.onkeydown=e=>{e.stopPropagation();if(e.isComposing||e.keyCode===229)return;
     if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel');sd&&d.blur()}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}};
@@ -719,8 +720,8 @@ function edit(t,h,mrk,sd){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a
   if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
   msg('Esc finishes (then drag to move), Enter starts a new line, Ctrl+Z undoes the edit; select characters to restyle only them in the Text panel');
   d.focus();const rg=document.createRange();rg.selectNodeContents(d);setRange(rg)}
-function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
-  quiet(()=>{pv&&pv.remove();vis==null?t.removeAttribute('visibility'):t.setAttribute('visibility',vis)});
+function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,hv,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
+  quiet(()=>{pv&&pv.remove();vis==null?hv.removeAttribute('visibility'):hv.setAttribute('visibility',vis)});
   if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,edMap(ks,lns));noTL(t)}
   if(!t.textContent.trim()){t.remove();if(mrk!=null){flush();pend.length=mrk}setSel([],1)}
   why=why||'Edit text';commit()}

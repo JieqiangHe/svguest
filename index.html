@@ -345,12 +345,12 @@ function setA(e,n,v){const i=n.indexOf(':');i>0?e.setAttributeNS(NS[n.slice(0,i)
 function mk(t,a,p,txt){const e=document.createElementNS(NS.svg,t);for(const n in a)setA(e,n,a[n]);if(txt!=null)e.textContent=txt;p&&p.appendChild(e);return e}
 const el=(t,c,x)=>{const e=document.createElement(t);c&&(e.className=c);x!=null&&(e.textContent=x);return e},btn=(t,f,ti)=>{const e=el('button',0,t);e.onclick=f;ti&&(e.title=ti);return e},
   cv=(w,h)=>Object.assign(el('canvas'),{width:w,height:h}),QA={},qa=a=>{const e=QA[a];return e&&e.isConnected?e:QA[a]=document.querySelector(`[data-a=${a}]`)},ls=(n,v)=>{try{return v==null?localStorage[n]:localStorage[n]=v}catch(_){}};
-const isG=e=>e&&e.namespaceURI===NS.svg&&GR.test(e.localName);
-const isGrp=e=>/^(g|a|switch)$/.test(e.localName);
+const GRS=new Set(GR.source.slice(2,-2).split('|')),GPS=new Set(['g','a','switch']),isG=e=>e&&e.namespaceURI===NS.svg&&GRS.has(e.localName);
+const isGrp=e=>GPS.has(e.localName);
 const isLayer=e=>e.localName==='g'&&e.getAttributeNS(NS.inkscape,'groupmode')==='layer';
 const top_=c=>c===root||isLayer(c);
 const uid=p=>{while(byId(p+ ++idn));return p+idn},reid=n=>{const m=new Map();for(const x of[n,...n.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=uid(x.localName));m.size&&relink([n],m);return n};
-const defs=()=>[...root.children].find(e=>e.localName==='defs')||root.insertBefore(mk('defs',{id:uid('defs')}),[...root.children].find(isG)||null);
+const fk=(f,p=root)=>{for(let e=p.firstElementChild;e;e=e.nextElementSibling)if(f(e))return e},defs=()=>fk(e=>e.localName==='defs')||root.insertBefore(mk('defs',{id:uid('defs')}),fk(isG)||null);
 const xns=p=>root.hasAttribute('xmlns:'+p)||root.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:'+p,NS[p]);
 const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y)=>x.compareDocumentPosition(y)&4?-1:1);
   const ix=new Map(u.map(e=>[e,-1])),w=document.createTreeWalker(root,1);let i=0;for(let n=root;n&&i<u.length;n=w.nextNode())ix.has(n)&&ix.set(n,i++);return u.sort((x,y)=>ix.get(x)-ix.get(y))},
@@ -402,7 +402,7 @@ function mbox(e,M){if(!M.b&&!M.c||!M.a&&!M.d||isGrp(e)&&e.getElementsByTagName('
   if(cp){let c=null;const K=M.multiply(lm(cp));for(const r of cp.children)if(isG(r))c=un(c,mbox(r,K.multiply(lm(r))));if(c)b=isect(b,c)}
   return b}
 const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,pm(e).multiply(lm(e)));
-function applyM(M,els=sel){for(const e of els){const P=ctm(e.parentNode);setT(e,P.inverse().multiply(M).multiply(P).multiply(lm(e)))}}
+function applyM(M,els=sel){const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
 function setSt(e,p,v){const o=[];let done=v==null;
@@ -427,25 +427,26 @@ function styleSet(p,v){const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Se
 const flush=()=>(add(pend,mo.takeRecords()),pend.length);
 function quiet(f){flush();f();mo.takeRecords()}
 const hasT=n=>n.nodeType===1&&(/^(text|tspan|style)$/.test(n.localName)||!!n.querySelector('text,style')),
-  tHit=rs=>rs.length>500||rs.some(r=>r.type==='childList'?r.target.closest('text,style')||[...r.addedNodes,...r.removedNodes].some(hasT):r.type==='characterData'?r.target.parentNode?.closest('style'):!(r.attributeName==='transform'&&(a=>(b=>a.a===b.a&&a.b===b.b&&a.c===b.c&&a.d===b.d)(lm(r.target)))(lms(r.oldValue)))&&hasT(r.target));
-let hold=0;
-let why='',svd=null,dv=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
+  tHit=rs=>rs.length>500||rs.some(r=>r.type==='childList'?r.target.closest('text,style')||[...r.addedNodes,...r.removedNodes].some(hasT):r.type==='characterData'?r.target.parentNode?.closest('style'):!(r.attributeName==='transform'&&(a=>(b=>a.a===b.a&&a.b===b.b&&a.c===b.c&&a.d===b.d)(lm(r.target)))(lms(r.oldValue))||TNA.has(r.attributeName))&&hasT(r.target));
+let hold=0;const TNA=new Set(['x','y','dx','dy','rotate','textLength','lengthAdjust','id']);
+let why='',svd=null,dv=0,svn=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
 const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='childList'?(a+=r.addedNodes.length,d+=r.removedNodes.length):r.type==='characterData'?t++:s.add(r.attributeName);
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
-function commit(){flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++}why='';pend=[];tHit(r)&&sizes();refresh()}
+function commit(){flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizes();refresh()}
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
   else{m.addedNodes.forEach(n=>n.remove());m.removedNodes.forEach(n=>t.insertBefore(n,m.nextSibling))}}}
 function undo(r,q){finish(true);if(D)return;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[]}
-  const a=r?redos:undos,x=a.pop();if(!x)return;revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
+  const a=r?redos:undos,x=a.pop();if(!x)return;revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizes();refresh()}
 
+const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
-  if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(/^(iframe|frame|object|embed|script|meta|link|base)$/i.test(e.localName))e.remove();else for(const a of[...e.attributes])
-    (/^on|^srcdoc$/i.test(a.localName)||/^\s*javascript:/i.test(a.value)||/^(values|to|from|by)$/.test(a.localName)&&/javascript:/i.test(a.value))&&e.removeAttributeNode(a);
+  if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
+    (XO.test(n)||XJ.test(v)&&(XS.test(v)||XV.test(n)))&&e.removeAttributeNode(a)}
   return d}
 function load(txt,nm){const d=parse(txt);prolog='';
   for(let n=d.firstChild;n!==d.documentElement;n=n.nextSibling)n.nodeType===8?prolog+=`<!--${n.data}-->\n`:n.nodeType===7&&(prolog+=`<?${n.target} ${n.data}?>\n`);
@@ -525,7 +526,7 @@ function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;p
 function setSel(a,q){const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
 function bar(){const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['xmg',sel.length<2||sel.length>7],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
   document.title=(dirty?'• ':'')+name+' — minisvg';doc();qa('undo').firstChild.data='Undo'+(undos.length?' '+undos.at(-1).n:'');qa('redo').firstChild.data='Redo'+(redos.length?' '+redos.at(-1).n:'');$('mGc').hidden=!gl.length;$('mGc').textContent=`Clear ${gl.length} guide${gl.length>1?'s':''}`}
-let nOc=[];const nOb=()=>{if(nOc[0]===dv&&nOc[2]===root)return nOc[1];const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);nOc=[dv,n=max(0,n),root];return n},
+let nOc=[];const nOb=()=>{if(nOc[0]===svn&&nOc[2]===root)return nOc[1];const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);nOc=[svn,n=max(0,n),root];return n},
   doc=()=>{const m=performance.memory,n=nOb();$('mDoc').textContent=[(dirty?'• ':'')+name,n?n.toLocaleString('en-US')+' object'+(n>1?'s':''):'empty page',m&&'Memory '+round(m.usedJSHeapSize/1048576)+' MB'].filter(Boolean).join(' · ')};
 setInterval(()=>root&&!document.hidden&&doc(),5e3);
 function refresh(){if(!root)return;syncPage();bar();sb=null;sbs=[];const V=sel.length>300&&view.getBoundingClientRect();memoize(()=>{for(const e of sel){const b=V?fb(e,V):bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
@@ -600,7 +601,7 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
 function panel(){const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3);
   v(F.pw,vb.w*U);v(F.ph,vb.h*U);const pw=+(vb.w*U).toFixed(1),ph=+(vb.h*U).toFixed(1);F.pg.value=([...F.pg.options].find(o=>o.value===pw+','+ph||o.value===ph+','+pw)||{}).value||'';
   qa('portrait').classList.toggle('on',ph>=pw);qa('landscape').classList.toggle('on',pw>ph);v(F.r,sel[0]&&(round(ang(sel[0])*100)/100||0));v(F.x,b&&(b.x-vb.x)*U);v(F.y,b&&(b.y-vb.y)*U);v(F.w,b&&b.w*U);v(F.h,b&&b.h*U);
-  const t=selTexts()[0];v(F.fs,t&&tsize(t));F.ff.value=t?family(gcs(t)):'';t&&(F.tc.value=hex(gcs(t).fill));
+  let t;for(const e of sel)if(t=e.localName==='text'?e:e.getElementsByTagName('text')[0])break;v(F.fs,t&&tsize(t));F.ff.value=t?family(gcs(t)):'';t&&(F.tc.value=hex(gcs(t).fill));
   const an=t&&gcs(t).textAnchor;for(const a in ANC)qa(a).classList.toggle('on',ANC[a]===an);
   const e=sel[0],l=e&&(isGrp(e)?e.querySelector(LEAF):e);
   if(!l){F.nofill.checked=F.nostroke.checked=false;v(F.sw);F.dash.value=''}
@@ -843,12 +844,12 @@ const KP=['fill','stroke','stroke-linecap','stroke-linejoin','stroke-miterlimit'
   kps=lf=>lf.map(e=>(c=>KP.map(p=>c[p]))(gcs(e))),kpr=(lf,kv)=>{const c=kps(lf);lf.forEach((e,i)=>KP.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))};
 function ungroup(q){const out=[];
   for(const g of order(sel)){if(!isGrp(g)||isLayer(g)){out.push(g);continue}
-    const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf);
+    const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf),cc=new Map;
     for(const c of[...g.children]){g.before(c);if(!isG(c))continue;const L=lm(c);
       for(const[p,v]of ds)p==='opacity'?setSt(c,p,fm(v*(stGet(c,p)??1))):stGet(c,p)==null&&setSt(c,p,v);
       if(cp&&(c.hasAttribute('clip-path')||c.style.clipPath)){const w=mk('g',{id:uid('g'),'clip-path':cp});c.before(w);w.appendChild(c);setT(w,M);out.push(w);continue}
       if(cp&&L.isIdentity)c.setAttribute('clip-path',cp);
-      else if(cp){const o=byId(refId(cp)),n=reid(o.cloneNode(true)),I=L.inverse().multiply(lm(o));n.removeAttribute('transform');for(const r of n.children)isG(r)&&setT(r,I.multiply(lm(r)));defs().appendChild(n);c.setAttribute('clip-path',`url(#${n.id})`)}
+      else if(cp){const t=c.getAttribute('transform');let n=cc.get(t);if(!n){const o=byId(refId(cp)),I=L.inverse().multiply(lm(o));n=reid(o.cloneNode(true));n.removeAttribute('transform');for(const r of n.children)isG(r)&&setT(r,I.multiply(lm(r)));defs().appendChild(n);cc.set(t,n)}c.setAttribute('clip-path',`url(#${n.id})`)}
       setT(c,M.multiply(L));out.push(c)}
     g.remove();kv&&kpr(lf,kv)}
   setSel(out,1);q||commit()}
@@ -882,15 +883,16 @@ function pparse(d){const t=d.match(PN)||[],o=[];let i=0,c='',x=0,y=0,sx=0,sy=0,l
     if(s.p.some(isNaN))return null;o.push(s);[x,y]=s.p.slice(-2);lc=l}
   return o}
 const pstr=o=>o.map(s=>s.c==='Z'?'Z':s.c+' '+(s.c==='A'?[...s.p.slice(0,3).map(fm),s.p[3],s.p[4],fc(s.p[5])+','+fc(s.p[6])].join(' '):s.p.map((v,j)=>(j?j%2?',':' ':'')+fc(v)).join(''))).join(' ');
-function pmodel(e){const n=e&&e.localName,v=a=>e[a].baseVal.value;let d;
-  if(/^poly(line|gon)$/.test(n)){const a=(e.getAttribute('points')||'').trim().split(/[\s,]+/).map(Number),o=[];for(let i=0;i+1<a.length;i+=2)o.push({c:i?'L':'M',p:[a[i],a[i+1]]});
-    return o.length>1&&o.length<=BIG&&!o.some(s=>s.p.some(isNaN))?{o,poly:1}:null}
-  if(n==='path')d=e.getAttribute('d')||'';
+const PMC=new WeakMap;
+function pmodel(e){const n=e&&e.localName,v=a=>e[a].baseVal.value,pl=/^poly(line|gon)$/.test(n),k=(pl||n==='path')&&e.getAttribute(pl?'points':'d')||'',c=k&&PMC.get(e);let d;if(c&&c[0]===k)return c[1];
+  if(pl){const a=k.trim().split(/[\s,]+/).map(Number),o=[];for(let i=0;i+1<a.length;i+=2)o.push({c:i?'L':'M',p:[a[i],a[i+1]]});
+    const r=o.length>1&&o.length<=BIG&&!o.some(s=>s.p.some(isNaN))?{o,poly:1}:null;k&&PMC.set(e,[k,r]);return r}
+  if(n==='path')d=k;
   else if(n==='rect'){const x=v('x'),y=v('y'),w=v('width'),h=v('height'),ax=e.hasAttribute('rx'),ay=e.hasAttribute('ry');let rx=v('rx'),ry=v('ry');ax&&!ay&&(ry=rx);ay&&!ax&&(rx=ry);rx=min(rx,w/2);ry=min(ry,h/2);
     const arc=(p,q)=>`A${rx},${ry} 0 0 1 ${p},${q}`;d=rx>0&&ry>0?`M${x+rx},${y}H${x+w-rx}${arc(x+w,y+ry)}V${y+h-ry}${arc(x+w-rx,y+h)}H${x+rx}${arc(x,y+h-ry)}V${y+ry}${arc(x+rx,y)}Z`:`M${x},${y}H${x+w}V${y+h}H${x}Z`}
   else if(n==='circle'||n==='ellipse'){const x=v('cx'),y=v('cy'),a=n==='circle'?v('r'):v('rx'),b=n==='circle'?v('r'):v('ry'),q=.5522847;
     d=`M${x+a},${y}C${x+a},${y+q*b} ${x+q*a},${y+b} ${x},${y+b}C${x-q*a},${y+b} ${x-a},${y+q*b} ${x-a},${y}C${x-a},${y-q*b} ${x-q*a},${y-b} ${x},${y-b}C${x+q*a},${y-b} ${x+a},${y-q*b} ${x+a},${y}Z`}
-  else return null;const o=pparse(d);return o&&o.length>1&&o.length<=BIG?{o}:null}
+  else return null;const o=pparse(d),r=o&&o.length>1&&o.length<=BIG?{o}:null;k&&PMC.set(e,[k,r]);return r}
 function anchorsOf(m){const o=m.o,twin=new Map;let s=0;
   o.forEach((g,j)=>{if(g.c==='M')s=j;else if(g.c==='Z'){const l=j-1;l>s&&abs(o[l].p.at(-2)-o[s].p[0])<1e-6&&abs(o[l].p.at(-1)-o[s].p[1])<1e-6&&twin.set(s,l)}});
   const L=new Set(twin.values());return o.map((g,j)=>g.c==='Z'||L.has(j)?null:[j,twin.get(j)]).filter(Boolean)}
@@ -1364,7 +1366,7 @@ function lyBuild(rv){if(!lyOn()||!root)return;const L=$('mLl'),q=Ly.q.toLowerCas
   if(fl?FQ.i>=0:rv&&sel.length){const i=fl?FQ.i:o.findIndex(r=>r[0]===sel[0]);i>=0&&(i*20<L.scrollTop||i*20+20>L.scrollTop+L.clientHeight)&&(L.scrollTop=i*20-L.clientHeight/2)}lyDraw()}
 function lyDraw(){if(!lyOn())return;const L=$('mLl'),B=L.firstChild,n=Ly.rows.length,a=max(0,Math.floor(L.scrollTop/20)-4),b=min(n,a+Math.ceil(L.clientHeight/20)+8),S=new Set(sel);
   B.replaceChildren();if(!n)return B.append(el('p',0,fqL()?'No text in the figure matches':Ly.q?`Nothing matches “${Ly.q}”`:'The page is empty'));for(let i=a;i<b;i++)B.append(lyRow(i,S))}
-function lyRow(i,S){const[e,d,mi]=Ly.rows[i],cs=gcs(e),g=isGrp(e)&&[...e.children].some(isG),own=cs.display==='none',lk=e.hasAttributeNS(NS.sodipodi,'insensitive'),il=!lk&&lkd(e),n=e.localName;let hid=own,inS=0;
+function lyRow(i,S){const[e,d,mi]=Ly.rows[i],cs=gcs(e),g=isGrp(e)&&!!fk(isG,e),own=cs.display==='none',lk=e.hasAttributeNS(NS.sodipodi,'insensitive'),il=!lk&&lkd(e),n=e.localName;let hid=own,inS=0;
   for(let a=e.parentNode;a&&a!==root;a=a.parentNode){hid||=gcs(a).display==='none';inS||=S.has(a)}
   const r=el('div','r'+((mi!=null?mi===FQ.i:S.has(e))?' on':inS?' in':'')+(e===hov?' hv':'')+(g&&Ly.open.has(e)?' o':'')+(hid?' hid':'')),c=el('span','c'),nm=mi!=null&&FQ.m[mi]?.t===e?(m=>{const s=m.t.textContent,a=max(0,m.i-8),w=x=>x.replace(/\s+/g,' '),p=w(s.slice(a,m.i)),x=el('span');x.append(a?'…'+p:p.trimStart(),el('mark',0,w(s.slice(m.i,m.i+m.n))),w(s.slice(m.i+m.n,m.i+m.n+60)));return x})(FQ.m[mi]):el('span',0,lyName(e)),sw=el('i'),v=el('b',own?'x':''),l=el('b',lk?'x':il?'x y':''),
     f=/^(path|rect|circle|ellipse|line|polyline|polygon|text)$/.test(n)&&(n==='line'?[cs.stroke]:[cs.fill,cs.stroke]).find(x=>/^rgb/.test(x)&&!/^rgba.*, 0\)$/.test(x));

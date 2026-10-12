@@ -368,7 +368,7 @@ function load(txt,nm){asNow();const d=parse(txt);prolog='';
   sel=[];ctx=root;undos=[];redos=[];pend=[];dirty=false;svd=null;dv++;fh=null;gl=[];gp=gq=null;FQ.b=new Map;FQ.m=[];DI=null;asV=dv;
   mo=new MutationObserver(r=>add(pend,r));
   mo.observe(root,{subtree:true,childList:true,attributes:true,attributeOldValue:true,characterData:true,characterDataOldValue:true});
-  sizes();refresh()}
+  sizes();refresh();cmykChk(root)}
 const blank=(w,h)=>`<svg width="${w}mm" height="${h}mm" viewBox="0 0 ${w} ${h}" version="1.1" id="svg1" xmlns="${NS.svg}" xmlns:svg="${NS.svg}" xmlns:inkscape="${NS.inkscape}" xmlns:sodipodi="${NS.sodipodi}">
   <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:document-units="mm" inkscape:current-layer="layer1"/>
   <defs id="defs1"/>
@@ -385,7 +385,7 @@ function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement)
   for(const c of[...r.children])if(c.localName==='defs'){const d=defs();while(c.firstChild)d.appendChild(c.firstChild)}else if(isG(c)||c.localName==='style')g.appendChild(c);
   for(const l of[...g.getElementsByTagName('g')])isLayer(l)&&l.removeAttributeNS(NS.inkscape,'groupmode');
   setT(g,ctm(p).inverse().multiply(T(vb.x,vb.y)).multiply(S(uI/U)).multiply(T(hv?-b.x:0,hv?-b.y:0)));
-  p.appendChild(g);ctx=p;setSel([g],1);commit()}
+  p.appendChild(g);ctx=p;setSel([g],1);commit();cmykChk(g)}
 const discard=()=>!dirty||confirm('Discard changes that have not been exported?');
 async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(!f||!imp&&!discard())return;
   const t0=performance.now(),txt=await f.text();
@@ -1000,12 +1000,20 @@ async function attach(fs){document.body.classList.contains('chat')||A.chat();
     const t=await f.text();if(/\0/.test(t.slice(0,4096))){note(`${f.name} is not a text file`);continue}
     files.push({n:f.name,t:t.slice(0,3e5)});t.length>3e5&&note(`${f.name} was cut to the first 300,000 characters`)}catch(e){note(e.message)}
   thumbs()}
+const jpgInfo=u=>{const m=/^data:image\/jpe?g;base64,/i.exec(u||'');if(!m)return null;let p=u.slice(m[0].length);/\s/.test(p.slice(0,4096))&&(p=p.replace(/\s+/g,''));
+  const B=(o,n)=>{const a=Math.floor(o/3);return atob(p.slice(a*4,Math.ceil((o+n)/3)*4)).substr(o-a*3,n)};
+  try{if(B(0,2)!=='\xff\xd8')return null;let o=2,icc=0;for(let i=0;i<500;i++){const h=B(o,4),k=h.charCodeAt(1);if(h.length<4||h.charCodeAt(0)!==255)return null;if(k===255){o++;continue}
+    if(k===0xe2&&B(o+4,11)==='ICC_PROFILE')icc=1;if(k>=0xc0&&k<=0xcf&&k!==0xc4&&k!==0xc8&&k!==0xcc)return{n:B(o+9,1).charCodeAt(0),icc};if(k===0xda)return null;o+=2+h.charCodeAt(2)*256+h.charCodeAt(3)}}catch(_){}return null},
+  cmyk=e=>{const i=jpgInfo(e.href&&e.href.baseVal);return i&&i.n===4?i.icc?2:1:0},
+  cmykChk=r=>{const L=r?[...(r.localName==='image'?[r]:r.getElementsByTagName('image'))].map(cmyk).filter(Boolean):[];if(!L.length)return;const n=L.length,np=L.filter(v=>v===1).length,s=n>1?`${n} photos are`:'A photo is',it=n>1?'them':'it',th=n>1?'they':'it';
+    requestAnimationFrame(()=>setTimeout(()=>msg(np?`${s} CMYK ${n>1&&np<n?`(${np} without a colour profile)`:'without a colour profile'}: colours may look wrong here and in exports; convert ${it} to RGB (sRGB) in the app ${th} came from`
+      :`${s} CMYK (with a colour profile): colours may differ slightly from the app ${th} came from; convert ${it} to sRGB there for exact colours`),50))};
 async function placeImg(f,u){let d=await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)}).catch(()=>'');
   const m=new Image();m.src=d;await m.decode().catch(()=>0);if(!m.naturalWidth)return msg('Cannot read '+f.name);
   if(!/^data:image\/(png|jpeg)/.test(d)){const c=cv(m.naturalWidth,m.naturalHeight);c.getContext('2d').drawImage(m,0,0);d=c.toDataURL('image/png')}
   let w=m.naturalWidth/300*25.4/U,h=m.naturalHeight/300*25.4/U;const r=min(1,vb.w*.9/w,vb.h*.9/h);w*=r;h*=r;u=u||{x:vb.x+vb.w/2,y:vb.y+vb.h/2};
   xns('xlink');const p=curParent(),e=mk('image',{id:uid('image'),x:fc(u.x-w/2),y:fc(u.y-h/2),width:fc(w),height:fc(h),preserveAspectRatio:'none','xlink:href':d},p);
-  setT(e,ctm(p).inverse());ctx=p;setTool('sel');setSel([e]);commit();msg(`Placed ${f.name}: ${m.naturalWidth}×${m.naturalHeight} px at ${round(300/r)} dpi`)}
+  setT(e,ctm(p).inverse());ctx=p;setTool('sel');setSel([e]);commit();msg(`Placed ${f.name}: ${m.naturalWidth}×${m.naturalHeight} px at ${round(300/r)} dpi`);cmykChk(e)}
 let skip=[];
 const same=(a,b)=>a.length===b.length&&a.every((e,i)=>e===b[i]),selOn=()=>sel.length&&!skip.length&&!(sel.length===1&&sel[0]===aiG),nObj=n=>n+' object'+(n>1?'s':'');
 function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())return c.replaceChildren();const e=chip('f','Selection: '+nObj(sel.length));
@@ -1424,7 +1432,7 @@ function popOpen(x,rr){if(Pop.x===x||!(sel.length===1&&sel[0]===x))return;popX()
   Pop.m=['mTf','mTs','mAp'].map(id=>{const d=$(id),ph=el('p','pph','Shown in the Layers window'),s=P.querySelector(`[data-s=${id}]`);d.replaceWith(ph);s.replaceWith(d);return[d,ph,s]});
   $('mPopI').replaceChildren(ico(LI[isGrp(x)?'g':n==='ellipse'?'circle':/^(text|rect|circle|line|polyline|polygon|path|image|use)$/.test(n)?n:'rect']));E.replaceChildren();
   if(n==='rect'){const d=el('div','kv'),w=el('div'),i=el('input');i.type='number';i.step='0.1';i.min='0';i.id='mPopR';i.className='k';w.append(i,'mm');d.append(el('span',0,'Corners'),w);E.append(d)}
-  if(n==='image'){const d=el('div','row');for(const[a,t]of[['cropI','Crop image'],['uncrop','Remove crop']]){const b=el('button',0,t);b.dataset.a=a;d.append(b)}E.append(d)}
+  if(n==='image'){const d=el('div','row'),c=cmyk(x);for(const[a,t]of[['cropI','Crop image'],['uncrop','Remove crop']]){const b=el('button',0,t);b.dataset.a=a;d.append(b)}E.append(d);c&&E.append(el('p','pph',c===1?'CMYK photo without a colour profile: its colours may look wrong; convert it to sRGB in the app it came from':'CMYK photo with a colour profile: colours may differ slightly; convert it to sRGB for exact colours'))}
   P.hidden=false;popSync();const L=$('mLay').getBoundingClientRect();P.style.left=max(8,L.left-P.offsetWidth-6)+'px';P.style.top=max(8,min(rr.top-6,innerHeight-P.offsetHeight-8))+'px';msg('Edit it here; Esc or × closes')}
 function popX(){if(!Pop.x)return;Pop.x=null;ed&&ed.sd&&finish(true);Pop.m.forEach(([d,ph,s])=>{d.replaceWith(s);ph.replaceWith(d)});Pop.m=[];$('mPop').hidden=true}
 function popSync(){const x=Pop.x;if(!x)return;if(!(sel.length===1&&sel[0]===x)||!root.contains(x)||!lyOn())return popX();const n=x.localName,N=$('mPopN'),R=$('mPopR'),u=$('mPopE').querySelector('[data-a=uncrop]'),a=document.activeElement;

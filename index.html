@@ -98,7 +98,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mZoom{width:42px;height:18px;padding:0 2px;border:1px solid transparent;border-radius:3px;background:transparent;color:inherit;text-align:right;font:inherit;font-variant-numeric:tabular-nums}#mZoom:hover{border-color:var(--btnb)}#mZoom:focus{outline:none;border-color:var(--onb);background:var(--btn)}
 #mZs,[data-theme=dark] #mZs{-webkit-appearance:none;appearance:none;width:96px;height:16px;margin:0 1px;padding:0;border:0;border-radius:0;background:linear-gradient(#8a8a8a99,#8a8a8a99) center/1px 9px no-repeat;cursor:pointer}#mZs:focus{outline:none}
 #mZs::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-moz-range-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-4.5px;border:1px solid var(--swb);border-radius:50%;background:var(--btn);box-shadow:0 1px 2px #0003}#mZs::-moz-range-thumb{width:9px;height:9px;border:1px solid var(--swb);border-radius:50%;background:var(--btn)}#mZs:hover::-webkit-slider-thumb{border-color:var(--fg)}#mZs:hover::-moz-range-thumb{border-color:var(--fg)}#mSt>i{width:1px;height:14px;flex:none;margin-left:auto;background:var(--line)}
-.ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}::selection{background:#1a73e8;color:#fff}
+.ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}#mTx{position:static;display:block;width:100%;min-height:42px;max-height:160px;overflow:auto;margin:2px 0 4px;padding:3px 5px;white-space:pre-wrap;overflow-wrap:anywhere;outline:none;border:1px solid var(--btnb);border-radius:3px;background:#fff;color:#000;font-size:13px;line-height:1.35;cursor:text}#mTx:focus{border-color:var(--onb);box-shadow:0 0 0 1px var(--onb)}#mTx[contenteditable=false]{cursor:default}#mTx:empty::before{content:attr(data-ph);color:#888;font:12px system-ui,sans-serif;font-style:normal;font-weight:normal}::selection{background:#1a73e8;color:#fff}
 body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-columns:40px 1fr 220px 236px}body.lay.chat{grid-template-columns:40px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}.lay #mChat{grid-area:2/5}
 #mLay{display:none;grid-area:2/3;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
 #mLm{display:flex;align-items:center;gap:6px;padding:2px 4px 2px 8px;background:#ffd60026;border-bottom:1px solid var(--h4b);color:var(--h4);font-size:11.5px}#mLm[hidden]{display:none}#mLm span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mLm button{border-color:transparent;background:transparent;padding:0 5px;font-size:14px;line-height:18px}#mLm button:hover{background:var(--btnh)}#mLl mark{background:#ffd60073;color:inherit;border-radius:2px}
@@ -163,6 +163,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div class="row"><button data-a="top" title="Bring to front (Ctrl+Shift+])">Bring to front</button><button data-a="up" title="Bring forward (Ctrl+])">Forward</button></div>
 <div class="row"><button data-a="bot" title="Send to back (Ctrl+Shift+[)">Send to back</button><button data-a="dn" title="Send backward (Ctrl+[)">Backward</button></div>
 <h4>Text</h4>
+<div id="mTx" class="ed" spellcheck="false" data-ph="Select one text to edit it here" title="The selected text: type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes. Select characters to restyle only them"></div>
 <div class="kv"><span>Font</span><input list="mFonts" data-f="ff">
 <span>Size</span><div><input type="number" step="0.5" min="0.5" data-f="fs">pt<span class="tc">Color</span><input type="color" data-f="tc"></div></div>
 <div class="row"><button data-a="bold" title="Bold"><b>B</b></button><button data-a="ital" title="Italic"><i>I</i></button><button data-a="sup" title="Superscript: applies to selected characters while editing">X²</button><button data-a="sub" title="Subscript: applies to selected characters while editing">X₂</button></div>
@@ -209,7 +210,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 </div>
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: drag across it; again to change, past its edges to remove</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
-<section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
+<section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>+ New starts a chat; the title switches, renames or deletes; each is kept in this browser and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
@@ -421,7 +422,7 @@ function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opt
   for(let n=0;n*a<=vb.w*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x+n*a/U} ${vb.y}V${vb.y+vb.h}`;
   for(let n=0;n*a<=vb.h*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x} ${vb.y+n*a/U}H${vb.x+vb.w}`;
   gr.children[0].setAttribute('d',d[0]);gr.children[1].setAttribute('d',d[1])}
-function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;ed&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();sbWake();zUI()}
+function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;ed&&!ed.sd&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();sbWake();zUI()}
 function syncPage(){const b=root.viewBox.baseVal,u=unitOf(root,b.width);if(b.x===vb.x&&b.y===vb.y&&b.width===vb.w&&b.height===vb.h&&u===U)return;
   vb=rb(b.x,b.y,b.width,b.height);U=u;ghost.setAttribute('viewBox',root.getAttribute('viewBox'));fit()}
 function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('viewBox',[x,y,w,h].map(fm).join(' '));root.setAttribute('width',fm(w*U)+'mm');root.setAttribute('height',fm(h*U)+'mm');commit()}
@@ -503,7 +504,9 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
   if(D&&D.q){const[a,b]=[D.p,D.q],st=D.tch?'fill:#e8711a11;stroke:#e8711a;stroke-dasharray:3 2':'fill:#1a73e811;stroke:#1a73e8;stroke-dasharray:3 2';/^(line|arrow|inhibit)$/.test(D.t)?mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],style:'stroke:#1a73e8'},H)
     :D.t==='ellipse'?mk('ellipse',{cx:(a[0]+b[0])/2,cy:(a[1]+b[1])/2,rx:abs(a[0]-b[0])/2,ry:abs(a[1]-b[1])/2,style:st},H)
     :mk('rect',{x:min(a[0],b[0]),y:min(a[1],b[1]),width:abs(a[0]-b[0]),height:abs(a[1]-b[1]),style:st},H)}}
-function panel(){const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3);
+function panel(){const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3),tb=$('mTx');
+  if(ed)ed.sd&&edPvQ();else{const e=sel.length===1&&sel[0],t1=e&&(e.localName==='text'?e:isGrp(e)&&(x=>x.length===1&&x[0])(e.getElementsByTagName('text')))||null;
+    if(tb._t!==t1||tb._v!==dv){tb._t=t1;tb._v=dv;tb.replaceChildren();tb.contentEditable=!!t1;if(t1){const[r,L]=edSrc(t1),c=gcs(L?L[0]:r);tb._ks=edFill(tb,r,L);Object.assign(tb.style,{fontFamily:c.fontFamily,fontWeight:c.fontWeight,fontStyle:c.fontStyle,color:/^rgb/.test(c.fill)?c.fill:'#000'})}}}
   v(F.pw,vb.w*U);v(F.ph,vb.h*U);const pw=+(vb.w*U).toFixed(1),ph=+(vb.h*U).toFixed(1);F.pg.value=([...F.pg.options].find(o=>o.value===pw+','+ph||o.value===ph+','+pw)||{}).value||'';
   qa('portrait').classList.toggle('on',ph>=pw);qa('landscape').classList.toggle('on',pw>ph);v(F.r,sel[0]&&(round(ang(sel[0])*100)/100||0));v(F.x,b&&(b.x-vb.x)*U);v(F.y,b&&(b.y-vb.y)*U);v(F.w,b&&b.w*U);v(F.h,b&&b.h*U);
   let t;for(const e of sel)if(t=e.localName==='text'?e:e.getElementsByTagName('text')[0])break;v(F.fs,t&&tsize(t));F.ff.value=t?family(gcs(t)):'';t&&(F.tc.value=hex(gcs(t).fill));
@@ -689,27 +692,36 @@ function tryWrap(t,b,M,h){if(!t.textContent.trim()||many(t,'dx')||many(t,'dy')||
   else t.replaceChildren(...build(lns[0]));
   t.setAttribute('x',fc(x));t.setAttribute('y',fc(y));t.removeAttribute('dx');t.removeAttribute('dy');noTL(t);
   commit();msg(lns.length>1?`Wrapped to ${lns.length} lines`:'Unwrapped');return true}
-function edit(t,h,mrk){finish(true);let r=t;const L=lnKids(t);
+const edSrc=(t,h)=>{let r=t;const L=lnKids(t);
   if(!L){for(let x=h;x&&x!==t;x=x.parentNode)if(x.localName==='tspan'&&(x.hasAttribute('x')||x.hasAttribute('y')))r=x;
-    const c=t.children;if(r===t&&c.length===1&&c[0].localName==='tspan'&&c[0].hasAttribute('y')&&t.textContent.trim()===c[0].textContent.trim())r=c[0]}
-  const a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t),
-    q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0}),d=el('div','ed'),o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
+    const c=t.children;if(r===t&&c.length===1&&c[0].localName==='tspan'&&c[0].hasAttribute('y')&&t.textContent.trim()===c[0].textContent.trim())r=c[0]}return[r,L]},
+  edFill=(d,r,L)=>{const ks=[];(L||[r]).forEach((l,i)=>{i&&d.append('\n');mirror(l,d,ks)});return ks},
+  edMap=(ks,lns)=>{const pl={},plain=i=>pl[i]??=(c=>{c.removeAttribute('id');setSt(c,'baseline-shift',null);setSt(c,'font-size',null);return c.attributes.length?c:null})(ks[i].cloneNode(false)),
+    key=q=>typeof q=='number'?ks[q]:q[0]==='~'?plain(+q.slice(1)):q;return lns.map(l=>l.map(({c,ch})=>({c,ch:ch.map(key).filter(Boolean)})))};
+let pvR=0;const edPvQ=()=>{cancelAnimationFrame(pvR);pvR=requestAnimationFrame(edPv)};
+function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d),hx=root.hasAttribute('xmlns:sodipodi');
+  quiet(()=>{const c=t.cloneNode(true);vis==null?c.removeAttribute('visibility'):c.setAttribute('visibility',vis);for(const x of[c,...c.querySelectorAll('[id]')])x.removeAttribute('id');c.setAttribute('pointer-events','none');
+    ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
+  const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle})}
+function edit(t,h,mrk,sd){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
+  if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:(d.replaceChildren(),edFill(d,r,L))}
+  else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
   d.contentEditable='true';
   Object.assign(d.style,{left:tx+o[0]+'px',top:ty+o[1]+'px',fontSize:fs+'px',lineHeight:lh,fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,
     color:/^rgb/.test(cs.fill)?cs.fill:'#000',textAlign:{middle:'center',end:'right'}[cs.textAnchor]||'left',transformOrigin:`0 ${fs*(lh/2+.35)}px`,transform:`rotate(${-ang(t)}deg) translateX(${{middle:-50,end:-100}[cs.textAnchor]||0}%)`});
-  const ks=[];(L||[r]).forEach((l,i)=>{i&&d.append('\n');mirror(l,d,ks)});
-  view.append(d);ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),vis:t.getAttribute('visibility'),mrk};quiet(()=>t.setAttribute('visibility','hidden'));
+  ks=edFill(d,r,L);view.append(d)}
+  ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),vis:t.getAttribute('visibility'),mrk,sd,zk:sd?13*Z*k/fs:Z*k};quiet(()=>t.setAttribute('visibility','hidden'));
+  if(sd){const ip=[];for(let n=r;n!==t;n=n.parentNode)ip.unshift([...n.parentNode.childNodes].indexOf(n));ed.ip=ip;edPv();d.oninput=edPvQ}
   d.onkeydown=e=>{e.stopPropagation();if(e.isComposing||e.keyCode===229)return;
-    if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel')}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}};
+    if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel');sd&&d.blur()}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}};
   d.onblur=e=>{const to=e.relatedTarget;to&&to.matches('[data-f=fs],[data-f=ff],[data-f=tc]')&&part()||finish(true)};
   d.onpaste=e=>{e.preventDefault();e.clipboardData.getData('text/plain').split(/\r\n?|\n/).forEach((x,i)=>{i&&document.execCommand('insertLineBreak');x&&document.execCommand('insertText',false,x)})};
+  if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
   msg('Esc finishes (then drag to move), Enter starts a new line, Ctrl+Z undoes the edit; select characters to restyle only them in the Text panel');
   d.focus();const rg=document.createRange();rg.selectNodeContents(d);setRange(rg)}
-function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,vis,mrk}=ed,lns=edLines(d);ed=null;d.remove();
-  quiet(()=>vis==null?t.removeAttribute('visibility'):t.setAttribute('visibility',vis));
-  const pl={},plain=i=>pl[i]??=(c=>{c.removeAttribute('id');setSt(c,'baseline-shift',null);setSt(c,'font-size',null);return c.attributes.length?c:null})(ks[i].cloneNode(false)),
-    key=q=>typeof q=='number'?ks[q]:q[0]==='~'?plain(+q.slice(1)):q;
-  if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,lns.map(l=>l.map(({c,ch})=>({c,ch:ch.map(key).filter(Boolean)}))));noTL(t)}
+function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
+  quiet(()=>{pv&&pv.remove();vis==null?t.removeAttribute('visibility'):t.setAttribute('visibility',vis)});
+  if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,edMap(ks,lns));noTL(t)}
   if(!t.textContent.trim()){t.remove();if(mrk!=null){flush();pend.length=mrk}setSel([],1)}
   why=why||'Edit text';commit()}
 const part=()=>{const r=ed&&ed.rg,sq=s=>s.replace(/\s/g,'');return!!r&&!r.collapsed&&sq(r.toString())!==sq(ed.d.textContent)},
@@ -719,12 +731,12 @@ const part=()=>{const r=ed&&ed.rg,sq=s=>s.replace(/\s/g,'');return!!r&&!r.collap
 function restyle(set){const rg=ed.rg,fr=rg.extractContents(),ns=[],ss=[],tw=document.createTreeWalker(fr,NodeFilter.SHOW_TEXT);for(let n;n=tw.nextNode();)n.data&&ns.push(n);
   for(const n of ns){let s=n.parentNode;if(!(s.dataset&&s.dataset.st!=null&&s.childNodes.length===1)){s=el('span');s.dataset.st='';n.replaceWith(s);s.append(n)}ss.push(s)}
   const a=fr.firstChild,b=fr.lastChild;rg.insertNode(fr);a&&(rg.setStartBefore(a),rg.setEndAfter(b));ss.forEach(set);
-  document.activeElement===ed.d&&setRange(rg)}
-const restyleSize=pt=>restyle(s=>{const r=pt*Z*k/(U*PT)/parseFloat(gcs(s.parentNode).fontSize)*100;setRun(s,'font-size',f6(r)+'%','fontSize',r+'%')});
+  document.activeElement===ed.d&&setRange(rg);ed.sd&&edPvQ()}
+const restyleSize=pt=>restyle(s=>{const r=pt*ed.zk/(U*PT)/parseFloat(gcs(s.parentNode).fontSize)*100;setRun(s,'font-size',f6(r)+'%','fontSize',r+'%')});
 function edFocus(){if(!ed)return;const r=ed.rg;ed.d.focus();r&&setRange(r)}
 function setRange(r){const g=getSelection();g.removeAllRanges();g.addRange(r)}
 document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||!g.rangeCount||!ed.d.contains(g.anchorNode))return;ed.rg=g.getRangeAt(0).cloneRange();
-  const cs=edAt();F.fs.value=+(parseFloat(cs.fontSize)*U*PT/(Z*k)).toFixed(2);F.ff.value=family(cs);F.tc.value=hex(cs.color)});
+  const cs=edAt();F.fs.value=+(parseFloat(cs.fontSize)*U*PT/ed.zk).toFixed(2);F.ff.value=family(cs);F.tc.value=hex(cs.color)});
 
 function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s)):null}}bar()}
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
@@ -1380,6 +1392,7 @@ $('mSide').addEventListener('change',e=>{const f=e.target.dataset.f,t=e.target,v
   else if(f==='k0'||f==='k1')v>0&&heads(round(v),hlk?[0,2]:[f==='k0'?0:2]);
   else if(f==='op')sel.forEach(e=>setSt(e,'opacity',fm(min(100,max(0,v))/100)));
   /checkbox|select|color/.test(t.type)&&t.blur();commit()});
+$('mTx').addEventListener('focusin',()=>{const t=$('mTx')._t;!ed&&t&&root.contains(t)&&!lkd(t)&&edit(t,null,undefined,1)});
 $('mSide').addEventListener('keydown',e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()});
 const FONTS=[...$('mFonts').options].map(o=>o.value),sysF=[],fontList=()=>{const u=new Set(FONTS);root&&texts().forEach(t=>u.add(family(gcs(t))));sysF.forEach(f=>u.add(f));$('mFonts').replaceChildren(...[...u].map(f=>new Option(f)))};
 const CAND=('Helvetica Neue,Arial Narrow,Arial Black,Arial Rounded MT Bold,Avenir,Avenir Next,Avenir Next Condensed,Futura,Gill Sans,Optima,Palatino,Baskerville,Big Caslon,Didot,Bodoni 72,Georgia,Times,'

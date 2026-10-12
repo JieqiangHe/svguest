@@ -212,7 +212,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
-<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off); Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
+<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>+ New starts a chat; the title switches, renames or deletes; each is kept in this browser and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
@@ -240,7 +240,7 @@ document.querySelectorAll('[data-f]').forEach(e=>F[e.dataset.f]=e);
 const PT=72/25.4,BIG=2e3,UNIT={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/96,'':25.4/96},LEAF='path,rect,circle,ellipse,line,polyline,polygon,text,use,image',
   GR=/^(g|a|switch|path|rect|circle|ellipse|line|polyline|polygon|text|image|use|svg|foreignObject)$/,
   PRES=/^(fill|fill-opacity|fill-rule|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-dasharray|stroke-dashoffset|font-family|font-size|font-weight|font-style|text-anchor|letter-spacing|color|visibility|display|opacity)$/;
-let root,name,prolog,vb,U,Z=1,k=1,tx=0,ty=0,zt,sel=[],sb=null,sbs=[],cb=null,ctx,mo,pend=[],undos=[],redos=[],dirty=false,tool='sel',D=null,G=null,CR=null,Pop={x:null,m:[]},ed=null,space=false,clip=null,mouse=null,idn=0,fileMode=0,ped=null;
+let root,name,prolog,vb,U,Z=1,k=1,tx=0,ty=0,zt,sel=[],sb=null,sbs=[],cb=null,ctx,mo,pend=[],undos=[],redos=[],dirty=false,tool='sel',D=null,G=null,CR=null,LKC=null,lkV=0,Pop={x:null,m:[]},ed=null,space=false,clip=null,mouse=null,idn=0,fileMode=0,ped=null;
 
 const fm=v=>abs(v)<1e-9?'0':String(+v.toPrecision(8)),fc=v=>String(+v.toFixed(5)||0),f6=v=>String(+v.toPrecision(6));
 const mmOf=s=>{const m=/^\s*([\d.eE+-]+)\s*([a-z]*)\s*$/.exec(s||'');return m&&UNIT[m[2]]!=null?m[1]*UNIT[m[2]]:null};
@@ -256,7 +256,7 @@ const GRS=new Set(GR.source.slice(2,-2).split('|')),GPS=new Set(['g','a','switch
 const isGrp=e=>GPS.has(e.localName);
 const isLayer=e=>e.localName==='g'&&e.getAttributeNS(NS.inkscape,'groupmode')==='layer';
 const top_=c=>c===root||isLayer(c);
-const uid=p=>{while(byId(p+ ++idn));return p+idn},reid=n=>{const m=new Map();for(const x of[n,...n.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=uid(x.localName));m.size&&relink([n],m);return n};
+const uid=p=>{while(byId(p+ ++idn));return p+idn},reid=(n,M)=>{const m=M||new Map();for(const x of[n,...n.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=uid(x.localName));M||m.size&&relink([n],m);return n};
 const fk=(f,p=root)=>{for(let e=p.firstElementChild;e;e=e.nextElementSibling)if(f(e))return e},defs=()=>fk(e=>e.localName==='defs')||root.insertBefore(mk('defs',{id:uid('defs')}),fk(isG)||null);
 const xns=p=>root.hasAttribute('xmlns:'+p)||root.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:'+p,NS[p]);
 const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y)=>x.compareDocumentPosition(y)&4?-1:1);
@@ -309,7 +309,7 @@ function mbox(e,M){if(!M.b&&!M.c||!M.a&&!M.d||isGrp(e)&&e.getElementsByTagName('
   if(cp){let c=null;const K=M.multiply(lm(cp));for(const r of cp.children)if(isG(r))c=un(c,mbox(r,K.multiply(lm(r))));if(c)b=isect(b,c)}
   return b}
 const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,pm(e).multiply(lm(e)));
-function applyM(M,els=sel){const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
+function applyM(M,els=sel){lkDet(els);const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
 function setSt(e,p,v){const o=[];let done=v==null;
@@ -342,12 +342,12 @@ const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='chi
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
-function commit(){flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+function commit(){lnk();flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
   else{m.addedNodes.forEach(n=>n.remove());m.removedNodes.forEach(n=>t.insertBefore(n,m.nextSibling))}}}
-function undo(r,q){if(CR)return cropX();finish(true);if(D)return;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[]}
+function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[]}
   const a=r?redos:undos,x=a.pop();if(!x)return;revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
 
@@ -378,7 +378,7 @@ function relink(ns,map){if(!map.size)return;const fix=v=>v.replace(/url\(\s*(['"
   for(const n of ns)for(const e of[n,...n.getElementsByTagName('*')]){for(const n of e.getAttributeNames()){const o=e.getAttribute(n);if(o[0]==='#'||o.includes('url(')){const v=fix(o);v!==o&&e.setAttribute(n,v)}}
     if(e.localName==='style'){const v=fix(e.textContent);v!==e.textContent&&(e.textContent=v)}}}
 const pfx=(ns,c)=>{let n=1;while(root.querySelector(`[id^="${c}${n}_"]`))n++;const m=new Map;for(const d of ns)for(const x of[d,...d.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=c+n+'_'+x.id);relink(ns,m);return[c+n+'_',m]};
-function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement),[pre]=pfx([...r.children],'i');
+function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement),[pre,pm]=pfx([...r.children],'i');lkCut([...r.children],pm);
   const b=r.viewBox.baseVal,hv=r.hasAttribute('viewBox'),uI=hv?unitOf(r,b.width):25.4/96,
     g=mk('g',{id:pre+'g','inkscape:label':nm.replace(/\.svg$/i,'')}),p=curParent();
   for(const a of r.attributes)if(!a.prefix&&!/^(id|width|height|viewBox|x|y|version|preserveAspectRatio|xmlns)$/.test(a.name))g.setAttribute(a.name,a.value);
@@ -499,11 +499,11 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
   cb&&poly(cb,'stroke:#999;stroke-dasharray:1 3');
   for(const b of sbs)poly(b,'stroke:#1a73e8;stroke-dasharray:2 2',M);
   D&&D.g&&D.g.forEach((g,i)=>{if(g==null)return;const q=toS({x:g,y:g})[i];mk('line',i?{x1:0,x2:'100%',y1:q,y2:q}:{x1:q,x2:q,y1:0,y2:'100%'},H).style.stroke='#e8711a'});
-  D&&D.sp&&(([x,y])=>D.sp.k===3?mk('rect',{x:x-3,y:y-3,width:6,height:6,transform:`rotate(45 ${x} ${y})`,style:'fill:#e8711a'},H):mk('circle',{cx:x,cy:y,r:4.5,style:'fill:#e8711a33;stroke:#e8711a;stroke-width:1.5'},H))(toS(D.sp));
+  D&&[D.sp0,D.sp].forEach(sp=>sp&&(([x,y])=>sp.k===3?mk('rect',{x:x-3,y:y-3,width:6,height:6,transform:`rotate(45 ${x} ${y})`,style:'fill:#e8711a'},H):mk('circle',{cx:x,cy:y,r:4.5,style:'fill:#e8711a33;stroke:#e8711a;stroke-width:1.5'},H))(toS(sp)));
   const sp=sel.length===1&&seg(sel[0]);
   if(sb&&!M&&!ed){const[cx,cy]=toS({x:sb.x+sb.w/2,y:sb.y+sb.h/2});mk('circle',{cx,cy,r:4,'data-h':'mv',style:B+'cursor:move'},H)}
   if(ped&&!M&&root.contains(ped)){const m=ctm(ped),o=pmodel(ped);o&&anchorsOf(o).forEach(([j],i)=>sq(toS(m.transformPoint({x:o.o[j].p.at(-2),y:o.o[j].p.at(-1)})),7,'a'+i))}
-  if(sp&&!M)sp.forEach((q,i)=>sq(toS(ctm(sel[0]).transformPoint(q)),8,'p'+i));
+  if(sp&&!M)sp.forEach((q,i)=>sq(toS(ctm(sel[0]).transformPoint(q)),8,'p'+i,lkT(sel[0],LKA[i])?'fill:#1a73e8;stroke:#fff;cursor:move':undefined));
   if(sb&&!sp){const p=poly(sb,'stroke:#1a73e8;stroke-dasharray:5 3',M);
     if(!M&&!ped){const a=p[2][0]-p[0][0]<24,b=p[2][1]-p[0][1]<24;['nw','ne','se','sw'].forEach((h,i)=>{const q=p[(i+1)%4];sq([p[i][0]+(i%3?4:-4)*a,p[i][1]+(i<2?-4:4)*b],8,h,B+`cursor:${i%2?'nesw':'nwse'}-resize`);
         sq([(p[i][0]+q[0])/2+[0,3,0,-3][i]*a,(p[i][1]+q[1])/2+[-3,0,3,0][i]*b],6,'nesw'[i],`fill:#1a73e8;stroke:#fff;cursor:${i%2?'ew':'ns'}-resize`)});
@@ -567,19 +567,33 @@ function outl(e){if(e.localName==='line'){const M=ctm(e);return[seg(e).map(q=>M.
     else if(cm==='C'||cm==='Q')for(let i=1;i<=8;i++){const t=i/8,u=1-t;c.push(cm==='C'?{x:u*u*u*x+3*u*u*t*p[0]+3*u*t*t*p[2]+t*t*t*ex,y:u*u*u*y+3*u*u*t*p[1]+3*u*t*t*p[3]+t*t*t*ey}:{x:u*u*x+2*u*t*p[0]+t*t*ex,y:u*u*y+2*u*t*p[1]+t*t*ey})}
     else if(cm==='A')add(c,arcPts(x,y,p));else c.push({x:ex,y:ey});x=ex;y=ey}
   m.poly&&e.localName==='polygon'&&c&&c.push(s);return L.map(l=>l.map(q=>M.transformPoint(q)))}
-let SO=null;function snapT(X){const vk=[tx,ty,Z*k].join();if(SO&&SO[0]===vk&&SO[1]===root)return null;const off=()=>(SO=[vk,root],null),V=view.getBoundingClientRect(),z=Z*k,x0=-tx/z+vb.x,y0=-ty/z+vb.y,x1=x0+view.clientWidth/z,y1=y0+view.clientHeight/z,P=[],S=[],t0=performance.now(),ad=(x,y,t)=>P.push(x,y,t),mid=(a,c)=>ad((a.x+c.x)/2,(a.y+c.y)/2,1);let n=0,i=0;
-  for(const e of klea(root)){if(!(++i&255)&&performance.now()-t0>80)return off();if(e===X)continue;const f=fb(e,V);if(!f||f.x>x1||f.y>y1||f.x+f.w<x0||f.y+f.h<y0)continue;if(++n>4000||performance.now()-t0>80)return off();const ln=e.localName==='line',m=!ln&&pmodel(e),L=(ln||m)&&outl(e),b=f;
-    if(L){for(const l of L)for(let i=1;i<l.length;i++)S.push(l[i-1].x,l[i-1].y,l[i].x,l[i].y);
+let SO=null;function snapT(X){const vk=[tx,ty,Z*k].join();if(SO&&SO[0]===vk&&SO[1]===root)return null;const off=()=>(SO=[vk,root],null),V=view.getBoundingClientRect(),z=Z*k,x0=-tx/z+vb.x,y0=-ty/z+vb.y,x1=x0+view.clientWidth/z,y1=y0+view.clientHeight/z,P=[],S=[],E=[],t0=performance.now(),ad=(x,y,t)=>P.push(x,y,t,E.length-1),mid=(a,c)=>ad((a.x+c.x)/2,(a.y+c.y)/2,1);let n=0,i=0;
+  for(const e of klea(root)){if(!(++i&255)&&performance.now()-t0>80)return off();if(e===X)continue;const f=fb(e,V);if(!f||f.x>x1||f.y>y1||f.x+f.w<x0||f.y+f.h<y0)continue;if(++n>4000||performance.now()-t0>80)return off();E.push(e);const ln=e.localName==='line',m=!ln&&pmodel(e),L=(ln||m)&&outl(e),b=f,j=E.length-1;
+    if(L){for(const l of L)for(let i=1;i<l.length;i++)S.push(l[i-1].x,l[i-1].y,l[i].x,l[i].y,j);
       if(ln){const[a,c]=L[0];ad(a.x,a.y,0);ad(c.x,c.y,0);mid(a,c)}
       else{const M=ctm(e);let q=null,s0=null,cl=/^(rect|circle|ellipse|polygon)$/.test(e.localName),X0=1/0,X1=-1/0,Y0=1/0,Y1=-1/0;for(const{c,p}of m.o){if(c==='Z'){cl=1;q&&s0&&(q.x!==s0.x||q.y!==s0.y)&&mid(q,s0);q=s0;continue}const a=M.transformPoint({x:p.at(-2),y:p.at(-1)});ad(a.x,a.y,0);X0=min(X0,a.x);X1=max(X1,a.x);Y0=min(Y0,a.y);Y1=max(Y1,a.y);c==='M'?s0=a:c==='L'&&q&&mid(q,a);q=a}cl&&ad((X0+X1)/2,(Y0+Y1)/2,2)}}
-    else{const Q=[[b.x,b.y],[b.x+b.w,b.y],[b.x+b.w,b.y+b.h],[b.x,b.y+b.h]];Q.forEach(([x,y],i)=>{const[u,v]=Q[(i+1)%4];ad(x,y,0);ad((x+u)/2,(y+v)/2,1);S.push(x,y,u,v)});ad(b.x+b.w/2,b.y+b.h/2,2)}}
-  return{p:P,s:S}}
+    else{const Q=[[b.x,b.y],[b.x+b.w,b.y],[b.x+b.w,b.y+b.h],[b.x,b.y+b.h]];Q.forEach(([x,y],i)=>{const[u,v]=Q[(i+1)%4];ad(x,y,0);ad((x+u)/2,(y+v)/2,1);S.push(x,y,u,v,j)});ad(b.x+b.w/2,b.y+b.h/2,2)}}
+  return{p:P,s:S,e:E}}
 const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=null;
-    if(!ed){for(let i=0;i<A.length;i+=3){const d=(A[i]-u.x)**2+(A[i+1]-u.y)**2;d<b&&(b=d,o={x:A[i],y:A[i+1],k:A[i+2]})}return o}
-    for(let i=0;i<A.length;i+=4){const ax=A[i],ay=A[i+1],vx=A[i+2]-ax,vy=A[i+3]-ay,l=vx*vx+vy*vy,t=l?max(0,min(1,((u.x-ax)*vx+(u.y-ay)*vy)/l)):0,x=ax+t*vx,y=ay+t*vy,d=(x-u.x)**2+(y-u.y)**2;d<b&&(b=d,o={x,y,k:3})}return o},
+    if(!ed){for(let i=0;i<A.length;i+=4){const d=(A[i]-u.x)**2+(A[i+1]-u.y)**2;d<b&&(b=d,o={x:A[i],y:A[i+1],k:A[i+2],e:T.e[A[i+3]]})}return o}
+    for(let i=0;i<A.length;i+=5){const ax=A[i],ay=A[i+1],vx=A[i+2]-ax,vy=A[i+3]-ay,l=vx*vx+vy*vy,t=l?max(0,min(1,((u.x-ax)*vx+(u.y-ay)*vy)/l)):0,x=ax+t*vx,y=ay+t*vy,d=(x-u.x)**2+(y-u.y)**2;d<b&&(b=d,o={x,y,k:3,e:T.e[A[i+4]]})}return o},
   lsn=(u,e,T)=>{if(cmd(e))return[u,0,null];let o=osn(u,T);if(o)return[o,0,o];const[s,g]=gsn(u,e);return g?[s,g,null]:(o=osn(u,T,1))?[o,0,o]:[u,0,null]},SNK=['an anchor','a midpoint','a centre','an edge'];
+const LKA=['data-msb-from','data-msb-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
+  lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-msb-from],[data-msb-to]')]}).L},
+  lkP=(t,u,v)=>{const b=t.getBBox();return b.width||b.height?ctm(t).transformPoint({x:b.x+u*b.width,y:b.y+v*b.height}):null},
+  lkSet=(c,i,sp)=>{const a=LKA[i],t=sp&&sp.e;lkV++;if(!t||!root.contains(t))return c.hasAttribute(a)&&c.removeAttribute(a);t.id||(t.id=uid(t.localName));const b=t.getBBox(),q=ctm(t).inverse().transformPoint(sp);
+    c.setAttribute(a,`url(#${t.id}) ${fm(b.width?(q.x-b.x)/b.width:0)} ${fm(b.height?(q.y-b.y)/b.height:0)}`)},
+  lkCut=(ns,m)=>{const v=new Set(m.values());for(const n of ns)for(const e of[n,...n.querySelectorAll('[data-msb-from],[data-msb-to]')])for(const a of LKA){const r=LKR.exec(e.getAttribute(a)||'');r&&!v.has(r[1])&&e.removeAttribute(a)}},
+  lkDet=els=>{const L=lkAll();if(!L.length)return;const A=[...els,...sel],inM=t=>A.some(x=>x===t||x.contains(t));for(const c of L)if(inM(c))for(const a of LKA){const t=lkT(c,a);t&&!inM(t)&&(c.removeAttribute(a),lkV++)}},
+  lkPre=()=>{const L=lkAll(),o=[];D.lk=null;if(!L.length)return;const inS=t=>sel.some(x=>x===t||x.contains(t));
+    for(const c of L){if(!root.contains(c)||inS(c))continue;const s=seg(c),E=[];if(!s)continue;LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&inS(r[0])&&lkP(...r);P&&E.push([i,P])});
+      E.length&&o.push({c,E,s,a:c.localName==='line'?['x1','y1','x2','y2'].map(n=>c.getAttribute(n)):c.getAttribute('d')})}D.lk=o.length?o:null},
+  lkPv=M=>D.lk&&quiet(()=>{for(const{c,E,s}of D.lk){const Mi=ctm(c).inverse(),q=s.map(p=>({x:p.x,y:p.y}));for(const[i,P]of E)q[i]=Mi.transformPoint(M.transformPoint(P));setSeg(c,q)}}),
+  lkRs=d=>{d&&d.lk&&quiet(()=>{for(const{c,a}of d.lk)c.localName==='line'?['x1','y1','x2','y2'].forEach((n,i)=>c.setAttribute(n,a[i])):c.setAttribute('d',a)});d&&(d.lk=null)};
+function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))continue;const s=seg(c);if(!s)continue;let ch=0,Mi=null;
+  LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&lkP(...r);if(!P)return;const q=(Mi||(Mi=ctm(c).inverse())).transformPoint(P);if(abs(q.x-s[i].x)>5e-6||abs(q.y-s[i].y)>5e-6){s[i]=q;ch=1}});ch&&setSeg(c,s)}}
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
-function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
+function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){lkRs(D);ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
 function setTool(t){CR&&t!=='crop'&&cropOK();tool=t;const v=$('mTools').querySelector(`.menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));$('mTools').querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair';t==='crop'&&!CR&&sel.length===1&&sel[0].localName==='image'&&cropGo(sel[0])}
 
 function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.parentNode,n=e.nextSibling;let g=w.get(p);
@@ -600,14 +614,14 @@ function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.
   if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t=hit(e),g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0]};return cap()}
   if(h&&h!=='mv'&&sb){D={t:h==='rot'?'rot':'sc',h,p,u,b:sb};return cap()}
   if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t)}else newText(u);return}
-  if(tool!=='sel'){const ln=/^(line|arrow|inhibit)$/.test(tool),T=ln&&!e.shiftKey?snapT():undefined,[s,,o]=ln?e.shiftKey?[u,0,null]:lsn(u,e,T):gsn(u,e),q=e.shiftKey?p:toS(s);D={t:tool,p:q,u:toU(q),os:T,sp:o||null};return cap()}
+  if(tool!=='sel'){const ln=/^(line|arrow|inhibit)$/.test(tool),T=ln&&!e.shiftKey?snapT():undefined,[s,,o]=ln?e.shiftKey?[u,0,null]:lsn(u,e,T):gsn(u,e),q=e.shiftKey?p:toS(s);D={t:tool,p:q,u:toU(q),os:T,sp:o||null,sp0:ln&&o||null};return cap()}
   const t=hit(e),w=cmd(e);
   const bg=t&&!e.shiftKey&&bd(t);if(!t||e.shiftKey||bg){D={t:'band',p,u,add:e.shiftKey,h:t,w,tch:e.altKey!==opts.touch,bg:bg&&t};return cap()}
   const[ob,c]=grab(t,w),was=sel.some(s=>s.contains(t)),pre=sel[0];if(!was){ctx=c;setSel([ob])}D={t:'move',p,u,el:ob,c,was,pre};cap()}
 function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0&&p[0]<=view.clientWidth&&p[1]<=view.clientHeight&&(p[0]>view.clientWidth-28||p[1]>view.clientHeight-28)&&sbWake();$('mPos').textContent=`${((u.x-vb.x)*U).toFixed(1)}, ${((u.y-vb.y)*U).toFixed(1)} mm`;if(!D){hoverAt(e);return rulers()}D.t!=='pan'&&(edgeE=e,edgeR||(edgeR=requestAnimationFrame(edgeTick)));
   let dx=p[0]-D.p[0],dy=p[1]-D.p[1];
   if(D.t==='pan'){tx=D.tx+dx;ty=D.ty+dy;return place()}
-  if(!D.on){if(hypot(dx,dy)<3)return;D.on=1;D.t==='move'&&snapSet();/^(move|sc|rot)$/.test(D.t)&&ghostOn()}
+  if(!D.on){if(hypot(dx,dy)<3)return;D.on=1;D.t==='move'&&snapSet();/^(move|sc|rot)$/.test(D.t)&&(lkPre(),ghostOn())}
   if(D.t==='anc'){const M=ctm(D.e),P=M.inverse(),an=D.m.o[D.A[0]].p,A0=M.transformPoint({x:an.at(-2),y:an.at(-1)}),[sn,g]=e.shiftKey?[0,0]:gsn({x:A0.x+u.x-D.u.x,y:A0.y+u.y-D.u.y},e),a=P.transformPoint(D.u),c=P.transformPoint(sn?{x:D.u.x+sn.x-A0.x,y:D.u.y+sn.y-A0.y}:u);D.g=g;let ux=c.x-a.x,uy=c.y-a.y;e.shiftKey&&([ux,uy]=q45(ux,uy));
     const o=D.m.o.map(s=>({c:s.c,p:s.p.slice()}));moveA(o,D.A,ux,uy);D.m.poly||D.e.localName==='path'||(ped=D.e=toPath(D.e));pwrite(D.e,D.m,o);
     const q=ctm(D.e).transformPoint({x:o[D.A[0]].p.at(-2),y:o[D.A[0]].p.at(-1)});msg(`Point at ${((q.x-vb.x)*U).toFixed(2)}, ${((q.y-vb.y)*U).toFixed(2)} mm`);return hud()}
@@ -630,30 +644,30 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
   else if(D.t==='rot'){const cx=b.x+b.w/2,cy=b.y+b.h/2;let a=(atan2(u.y-cy,u.x-cx)-atan2(D.u.y-cy,D.u.x-cx))*180/PI;if(e.shiftKey)a=round(a/15)*15;M=about(Rot(a),cx,cy)}
   else{e.shiftKey&&/line|arrow|inhibit/.test(D.t)&&([dx,dy]=q45(dx,dy));
     if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.sp=null;if(!e.shiftKey&&D.t!=='band'){const ln=/^(line|arrow|inhibit)$/.test(D.t),[s,g,o]=ln?lsn(toU(D.q),e,D.os===undefined?D.os=snapT():D.os):gsn(toU(D.q),e);D.q=toS(s);D.g=g;D.sp=o||null;ln&&(D.pm=1,msg(o?'On '+SNK[o.k]:''))}D.t==='band'&&bandPrev();return hud()}
-  D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
+  lkPv(M);D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
   c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
 const tog=(t,w)=>{let[ob,c]=grab(t,w);const o=sel.find(s=>s!==ob&&s.contains(ob));o?ob=o:ctx=c;setSel(sel.includes(ob)?sel.filter(x=>x!==ob):[...sel,ob])};
 function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);d.pm&&msg('');why=(d.on||!/^(move|sc|rot)$/.test(d.t))&&{move:ev&&ev.altKey?'Duplicate':'Move',sc:'Scale',rot:'Rotate',pt:'Move line end',anc:'Edit point',rad:'Round corners',rect:'Draw rectangle',ellipse:'Draw ellipse',line:'Draw line',arrow:'Draw arrow',inhibit:'Draw inhibition'}[d.t]||'';
   if(d.t==='pan')return;if(d.t==='ck')return d.on&&hud();
-  if(/^(rad|pt|anc)$/.test(d.t))return commit();
+  if(/^(rad|pt|anc)$/.test(d.t)){d.t==='pt'&&d.on&&lkSet(d.e,d.i,d.sp);return commit()}
   if(/^(sc|rot)$/.test(d.t)&&!d.on&&ev&&ev.shiftKey){const t=hit(ev);t&&tog(t,cmd(ev));return hud()}
   if(d.t==='sc'&&!d.on&&d.h.length===2){const e=sel.length===1&&sel[0];e&&pmodel(e)?(ped=e,msg(PM)):msg(e&&e.localName==='text'?'Text has no points to move; drag a side handle to re-wrap it':'Select one shape to move its points');return hud()}
   if(d.t==='move'&&!d.on&&ev&&ev.altKey&&!ev.shiftKey)return selBelow(ev,d.pre),hud();
-  if(/^(move|sc|rot)$/.test(d.t)){if(d.t==='sc'&&d.on&&d.M&&/^[ew]$/.test(d.h)&&sel.length===1&&sel[0].localName==='text'&&tryWrap(sel[0],d.b,d.M,d.h))return;
+  if(/^(move|sc|rot)$/.test(d.t)){lkRs(d);if(d.t==='sc'&&d.on&&d.M&&/^[ew]$/.test(d.h)&&sel.length===1&&sel[0].localName==='text'&&tryWrap(sel[0],d.b,d.M,d.h))return;
     if(G){const c=d.t==='move'&&d.M&&ev&&ev.altKey;if(c){ghostOff();once(()=>{dup();applyM(d.M);commit()})}else ghostOff(d.M);d.M&&keep(d.M,d.t==='move'?d.s0:d.b,c)}
     else if(d.t==='move'&&d.was){ctx=d.c;setSel([d.el])}return}
   if(d.t==='band'){if(d.q){const a=toU(d.p),b=toU(d.q),R=rb(min(a.x,b.x),min(a.y,b.y),abs(a.x-b.x),abs(a.y-b.y));
       let got=memoize(()=>boxed(root,R,d.tch));d.w&&(got=order(got.map(x=>pick(x)[0])));setSel(d.add?[...sel,...got]:got,1);const ps=new Set(sel.map(x=>x.parentNode));ctx=ps.size===1?[...ps][0]:root;refresh()}
     else if(d.bg){const[ob,c]=grab(d.bg,d.w);ctx=c;setSel([ob])}else if(d.add&&d.h)tog(d.h,d.w);else if(!d.add){ctx=root;setSel([])}return hud()}
-  if(d.q)create(d.t,toU(d.p),toU(d.q));else hud()}
+  if(d.q)create(d.t,toU(d.p),toU(d.q),[d.sp0,d.sp]);else hud()}
 function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
 
-function create(t,a,b){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse)$/.test(t),s=`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
+function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse)$/.test(t),s=`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
   if(t==='rect')e=mk('rect',{id:uid('rect'),x:fc(min(Pa.x,Pb.x)),y:fc(min(Pa.y,Pb.y)),width:fc(abs(Pb.x-Pa.x)),height:fc(abs(Pb.y-Pa.y)),style:s},p);
   else if(t==='ellipse')e=mk('ellipse',{id:uid('ellipse'),cx:fc((Pa.x+Pb.x)/2),cy:fc((Pa.y+Pb.y)/2),rx:fc(abs(Pb.x-Pa.x)/2),ry:fc(abs(Pb.y-Pa.y)/2),style:s},p);
   else e=mk('path',{id:uid('path'),d:`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+';stroke-linecap:butt'+(t in MK?`;marker-end:url(#${hmk(mark(t),pen.head)})`:'')},p);t in MK&&mgc([MK[t][0]]);
-  ctx=p;setTool('sel');setSel([e],1);commit()}
+  ln&&L&&L.forEach((o,i)=>o&&o.e&&lkSet(e,i,o));ctx=p;setTool('sel');setSel([e],1);commit();ln&&L&&L.some(o=>o&&o.e)&&msg('Attached: the end follows the object it snapped to')}
 const MK={arrow:['ArrowMsb','M 0,0 10,5 0,10 z',10,10,3],inhibit:['TeeMsb','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenMsb','M 1,1 9,5 1,9',10,10,8,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthMsb','M 0,0 10,5 0,10 3,5 z',10,10,3],dot:['DotMsb','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
 function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];byId(id)||mk('path',{d,style:st},
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
@@ -776,7 +790,7 @@ function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.ma
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
   if(clip.r===root)ds=ds.filter(d=>!byId(d.id));else map=pfx(ds,'p')[1];for(const d of ds)defs().appendChild(d);
-  const out=clip.it.map(([c,M])=>{const e=c.cloneNode(true);relink([e],map);reid(e);setT(e,Pi.multiply(O).multiply(M).multiply(lm(c)));p.appendChild(e);return e});
+  const mm=new Map,out=clip.it.map(([c,M])=>{const e=c.cloneNode(true);relink([e],map);reid(e,mm);setT(e,Pi.multiply(O).multiply(M).multiply(lm(c)));p.appendChild(e);return e});relink(out,mm);lkCut(out,mm);
   if(clip.kp&&clip.r!==root){const lf=lv(out);lf.length===clip.kp.length&&kpr(lf,clip.kp)}
   ctx=p;setSel(out,1);commit()}
 function del(){finish(true);if(!sel.length)return;sel.forEach(e=>{e.contains(ctx)&&(ctx=e.parentNode);e.remove()});setSel([],1);commit()}

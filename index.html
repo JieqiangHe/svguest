@@ -208,7 +208,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <dialog id="mHelp"><form method="dialog"><header><h3>Shortcuts and tips</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header><div class="cols">
 <div>
 <section><h4>Select</h4><dl><dt>Click</dt><dd>Select what is under the pointer (outlined as you hover)</dd><dt>Right-click</dt><dd>Menu of common actions</dd><dt><kbd>Shift</kbd>+click</dt><dd>Add to or remove from the selection</dd><dt><kbd>Ctrl</kbd>+click</dt><dd>Select its whole group</dd><dt>Drag on empty</dt><dd>Box select everything the box touches (also on a page background); with <kbd>Ctrl</kbd>, whole objects; <kbd>Shift</kbd>+drag adds, and also starts over objects</dd><dt><kbd>Alt</kbd>+drag on empty</dt><dd>Box select only what is fully inside; View › Box select touches swaps the two</dd><dt><kbd>Alt</kbd>+click</dt><dd>Select the object below; again to go deeper</dd><dt><kbd>Esc</kbd></dt><dd>Select the enclosing group, then nothing</dd><dt><kbd>Ctrl+A</kbd></dt><dd>Select all in the group; <kbd>Ctrl+Shift+A</kbd> deselects</dd></dl></section>
-<section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (they snap to objects; <kbd>Shift</kbd>: 45°)</dd></dl></section>
+<section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (they snap to objects; <kbd>Shift</kbd>: 45°), bend it by the diamond in its middle (<kbd>Shift</kbd>: symmetric; back onto the line straightens it)</dd></dl></section>
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
@@ -479,10 +479,15 @@ let sbR=[];const sbg=h=>{const W=h?view.clientWidth:view.clientHeight,o=h?-tx:-t
 let sbT=0;const sbWake=()=>{view.classList.add('sbOn');clearTimeout(sbT);sbT=setTimeout(()=>view.classList.remove('sbOn'),1200)};
 function bars(){for(const h of[1,0]){const b=$(h?'mSx':'mSy'),g=root&&sbg(h);if(b.hidden=!g||g.s>.999)continue;const L=h?b.clientWidth:b.clientHeight,t=max(32,g.s*L);if(b.hidden=t>=L)continue;
   const x=(g.o-g.R[0])/(g.R[1]-g.R[0]-g.W)*(L-t);Object.assign(b.firstChild.style,h?{left:x+'px',width:t+'px'}:{top:x+'px',height:t+'px'})}}
-const NUM='[-+]?(?:\\d*\\.\\d+|\\d+\\.?)(?:[eE][-+]?\\d+)?',SEG=new RegExp(`^\\s*([Mm])\\s*(${NUM})[\\s,]*(${NUM})\\s*([Ll]?)[\\s,]*(${NUM})[\\s,]*(${NUM})\\s*$`);
+const NUM='[-+]?(?:\\d*\\.\\d+|\\d+\\.?)(?:[eE][-+]?\\d+)?',SEG=new RegExp(`^\\s*([Mm])\\s*(${NUM})[\\s,]*(${NUM})\\s*([Ll]?)[\\s,]*(${NUM})[\\s,]*(${NUM})\\s*$`),QSEG=new RegExp(`^\\s*M\\s*(${NUM})[\\s,]*(${NUM})\\s*Q\\s*(${NUM})[\\s,]*(${NUM})[\\s,]*(${NUM})[\\s,]*(${NUM})\\s*$`);
 function seg(e){if(!e)return null;if(e.localName==='line')return[['x1','y1'],['x2','y2']].map(([a,b])=>({x:e[a].baseVal.value,y:e[b].baseVal.value}));
-  const m=e.localName==='path'&&SEG.exec(e.getAttribute('d')||'');if(!m)return null;const[,c,a,b,l,x,y]=m,q={x:+a,y:+b};return[q,l==='l'||c==='m'&&!l?{x:q.x+ +x,y:q.y+ +y}:{x:+x,y:+y}]}
-function setSeg(e,[a,b]){e.localName==='line'?[['x1',a.x],['y1',a.y],['x2',b.x],['y2',b.y]].forEach(([n,v])=>e.setAttribute(n,fc(v))):e.setAttribute('d',`M ${fc(a.x)},${fc(a.y)} L ${fc(b.x)},${fc(b.y)}`)}
+  const d=e.localName==='path'&&e.getAttribute('d')||'',m=SEG.exec(d);if(!m){const q=d&&QSEG.exec(d);if(!q)return null;const n=q.slice(1).map(Number),r=[{x:n[0],y:n[1]},{x:n[4],y:n[5]}];r.c={x:n[2],y:n[3]};return r}
+  const[,c,a,b,l,x,y]=m,q={x:+a,y:+b};return[q,l==='l'||c==='m'&&!l?{x:q.x+ +x,y:q.y+ +y}:{x:+x,y:+y}]}
+function setSeg(e,[a,b],c){const P=q=>fc(q.x)+','+fc(q.y);if(e.localName==='line')return[['x1',a.x],['y1',a.y],['x2',b.x],['y2',b.y]].forEach(([n,v])=>e.setAttribute(n,fc(v)));
+  if(c===undefined){const o=seg(e),C=o&&o.c;if(C){const[A,B]=o,dx=B.x-A.x,dy=B.y-A.y,L=dx*dx+dy*dy,hx=(A.x+2*C.x+B.x)/4-A.x,hy=(A.y+2*C.y+B.y)/4-A.y,u=L?(hx*dx+hy*dy)/L:.5,v=L?(hy*dx-hx*dy)/L:0,ex=b.x-a.x,ey=b.y-a.y,Hx=a.x+u*ex-v*ey,Hy=a.y+u*ey+v*ex;
+    c={x:2*Hx-(a.x+b.x)/2,y:2*Hy-(a.y+b.y)/2}}}
+  e.setAttribute('d',c?`M ${P(a)} Q ${P(c)} ${P(b)}`:`M ${P(a)} L ${P(b)}`)}
+const l2p=e=>{const s=seg(e),p=document.createElementNS(NS.svg,'path');for(const x of e.attributes)/^(x1|y1|x2|y2)$/.test(x.name)||p.setAttributeNS(x.namespaceURI,x.name,x.value);e.replaceWith(p);sel=sel.map(x=>x===e?p:x);setSeg(p,s,null);gcs(p).fill!=='none'&&setSt(p,'fill','none');return p};
 const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,i,a)=>i<4?v:v||e.ry.baseVal.value);
 function hud(M){H.replaceChildren();if(!root)return;rulers();
   const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(c===GH?'':';stroke-dasharray:6 3')+(p?';opacity:.5':''))};
@@ -501,9 +506,11 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
   D&&D.g&&D.g.forEach((g,i)=>{if(g==null)return;const q=toS({x:g,y:g})[i];mk('line',i?{x1:0,x2:'100%',y1:q,y2:q}:{x1:q,x2:q,y1:0,y2:'100%'},H).style.stroke='#e8711a'});
   D&&[D.sp0,D.sp].forEach(sp=>sp&&(([x,y])=>sp.k===3?mk('rect',{x:x-3,y:y-3,width:6,height:6,transform:`rotate(45 ${x} ${y})`,style:'fill:#e8711a'},H):mk('circle',{cx:x,cy:y,r:4.5,style:'fill:#e8711a33;stroke:#e8711a;stroke-width:1.5'},H))(toS(sp)));
   const sp=sel.length===1&&seg(sel[0]);
-  if(sb&&!M&&!ed){const[cx,cy]=toS({x:sb.x+sb.w/2,y:sb.y+sb.h/2});mk('circle',{cx,cy,r:4,'data-h':'mv',style:B+'cursor:move'},H)}
+  if(sb&&!M&&!ed&&!sp){const[cx,cy]=toS({x:sb.x+sb.w/2,y:sb.y+sb.h/2});mk('circle',{cx,cy,r:4,'data-h':'mv',style:B+'cursor:move'},H)}
   if(ped&&!M&&root.contains(ped)){const m=ctm(ped),o=pmodel(ped);o&&anchorsOf(o).forEach(([j],i)=>sq(toS(m.transformPoint({x:o.o[j].p.at(-2),y:o.o[j].p.at(-1)})),7,'a'+i))}
-  if(sp&&!M)sp.forEach((q,i)=>sq(toS(ctm(sel[0]).transformPoint(q)),8,'p'+i,lkT(sel[0],LKA[i])?'fill:#1a73e8;stroke:#fff;cursor:move':undefined));
+  if(sp&&!M){const m=ctm(sel[0]),[P0,P1]=sp,c=sp.c||{x:(P0.x+P1.x)/2,y:(P0.y+P1.y)/2},[x,y]=toS(m.transformPoint({x:(P0.x+2*c.x+P1.x)/4,y:(P0.y+2*c.y+P1.y)/4}));
+    mk('title',{},mk('path',{d:`M${x},${y-5.5}l5.5,5.5-5.5,5.5-5.5-5.5z`,'data-h':'pb',style:B+'stroke-width:1.2;cursor:grab'},H),'Drag to bend the line (Shift: symmetric); drag it back onto the line to straighten it');
+    sp.forEach((q,i)=>sq(toS(m.transformPoint(q)),8,'p'+i,lkT(sel[0],LKA[i])?'fill:#1a73e8;stroke:#fff;cursor:move':undefined))}
   if(sb&&!sp){const p=poly(sb,'stroke:#1a73e8;stroke-dasharray:5 3',M);
     if(!M&&!ped){const a=p[2][0]-p[0][0]<24,b=p[2][1]-p[0][1]<24;['nw','ne','se','sw'].forEach((h,i)=>{const q=p[(i+1)%4];sq([p[i][0]+(i%3?4:-4)*a,p[i][1]+(i<2?-4:4)*b],8,h,B+`cursor:${i%2?'nesw':'nwse'}-resize`);
         sq([(p[i][0]+q[0])/2+[0,3,0,-3][i]*a,(p[i][1]+q[1])/2+[-3,0,3,0][i]*b],6,'nesw'[i],`fill:#1a73e8;stroke:#fff;cursor:${i%2?'ew':'ns'}-resize`)});
@@ -609,6 +616,7 @@ function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.
   if(tool==='drop'){const t=hit(e),l=t&&(t.closest('text')||t);if(!l)return;if(e.altKey)return sty?(styPaste([l]),msg('Applied the picked style')):msg('Click an object first to pick its style');
     styCopy(l);return sel.length&&!sel.some(x=>x.contains(l))?(styPaste(),msg('Applied the picked style to the selection')):msg('Picked the style; Alt+click an object to apply it')}
   if(/^p[01]$/.test(h)){D={t:'pt',i:+h[1],e:sel[0],p};return cap()}
+  if(h==='pb'){D={t:'bend',e:sel[0],p};return cap()}
   if(h==='rad'){const e=sel[0];D={t:'rad',p,e,r0:rgeo(e)[4],q0:ctm(e).inverse().transformPoint(u)};return cap()}
   if(/^a\d+$/.test(h)){const m=pmodel(ped),an=m&&anchorsOf(m)[+h.slice(1)];if(!an)return;D={t:'anc',p,u,e:ped,m,A:an};return cap()}
   if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t=hit(e),g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0]};return cap()}
@@ -625,6 +633,8 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
   if(D.t==='anc'){const M=ctm(D.e),P=M.inverse(),an=D.m.o[D.A[0]].p,A0=M.transformPoint({x:an.at(-2),y:an.at(-1)}),[sn,g]=e.shiftKey?[0,0]:gsn({x:A0.x+u.x-D.u.x,y:A0.y+u.y-D.u.y},e),a=P.transformPoint(D.u),c=P.transformPoint(sn?{x:D.u.x+sn.x-A0.x,y:D.u.y+sn.y-A0.y}:u);D.g=g;let ux=c.x-a.x,uy=c.y-a.y;e.shiftKey&&([ux,uy]=q45(ux,uy));
     const o=D.m.o.map(s=>({c:s.c,p:s.p.slice()}));moveA(o,D.A,ux,uy);D.m.poly||D.e.localName==='path'||(ped=D.e=toPath(D.e));pwrite(D.e,D.m,o);
     const q=ctm(D.e).transformPoint({x:o[D.A[0]].p.at(-2),y:o[D.A[0]].p.at(-1)});msg(`Point at ${((q.x-vb.x)*U).toFixed(2)}, ${((q.y-vb.y)*U).toFixed(2)} mm`);return hud()}
+  if(D.t==='bend'){const ob=D.e.localName==='line'?D.e=l2p(D.e):D.e,M=ctm(ob),[A,B]=seg(ob),mx=(A.x+B.x)/2,my=(A.y+B.y)/2,dx=B.x-A.x,dy=B.y-A.y,L=hypot(dx,dy)||1,nx=-dy/L,ny=dx/L;let h=M.inverse().transformPoint(u);
+    const o=(h.x-mx)*nx+(h.y-my)*ny,st=abs(o)*sc(M)*Z*k<3;e.shiftKey&&(h={x:mx+o*nx,y:my+o*ny});setSeg(ob,[A,B],st?null:{x:2*h.x-mx,y:2*h.y-my});msg(st?'Straight':`Bend ${(abs(o)*sc(M)*U).toFixed(2)} mm`);return hud()}
   if(D.t==='pt'){const ob=D.e,m=ctm(ob),s=seg(ob),o=m.transformPoint(s[1-D.i]),[w,g,sp]=e.shiftKey?[u,0,null]:lsn(u,e,D.os===undefined?D.os=snapT(ob):D.os);let ux=w.x-o.x,uy=w.y-o.y;D.g=g;D.sp=sp;e.shiftKey&&([ux,uy]=q45(ux,uy));
     s[D.i]=m.inverse().transformPoint({x:o.x+ux,y:o.y+uy});setSeg(ob,s);msg(`Length ${(hypot(ux,uy)*U).toFixed(2)} mm · angle ${(round(-atan2(uy,ux)*1800/PI)/10||0)}°`+(sp?' · on '+SNK[sp.k]:''));return hud()}
   if(D.t==='rad'){const e=D.e,q=ctm(e).inverse().transformPoint(u),[,,w,h]=rgeo(e),r=max(0,min(D.r0+(q.x-D.q0.x+q.y-D.q0.y)/2,w/2,h/2)),v=fc(r);
@@ -648,9 +658,9 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
   c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
 const tog=(t,w)=>{let[ob,c]=grab(t,w);const o=sel.find(s=>s!==ob&&s.contains(ob));o?ob=o:ctx=c;setSel(sel.includes(ob)?sel.filter(x=>x!==ob):[...sel,ob])};
-function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);d.pm&&msg('');why=(d.on||!/^(move|sc|rot)$/.test(d.t))&&{move:ev&&ev.altKey?'Duplicate':'Move',sc:'Scale',rot:'Rotate',pt:'Move line end',anc:'Edit point',rad:'Round corners',rect:'Draw rectangle',ellipse:'Draw ellipse',line:'Draw line',arrow:'Draw arrow',inhibit:'Draw inhibition'}[d.t]||'';
+function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);d.pm&&msg('');why=(d.on||!/^(move|sc|rot)$/.test(d.t))&&{move:ev&&ev.altKey?'Duplicate':'Move',sc:'Scale',rot:'Rotate',pt:'Move line end',anc:'Edit point',rad:'Round corners',rect:'Draw rectangle',ellipse:'Draw ellipse',line:'Draw line',arrow:'Draw arrow',inhibit:'Draw inhibition',bend:'Bend line'}[d.t]||'';
   if(d.t==='pan')return;if(d.t==='ck')return d.on&&hud();
-  if(/^(rad|pt|anc)$/.test(d.t)){d.t==='pt'&&d.on&&lkSet(d.e,d.i,d.sp);return commit()}
+  if(/^(rad|pt|anc|bend)$/.test(d.t)){d.t==='pt'&&d.on&&lkSet(d.e,d.i,d.sp);return commit()}
   if(/^(sc|rot)$/.test(d.t)&&!d.on&&ev&&ev.shiftKey){const t=hit(ev);t&&tog(t,cmd(ev));return hud()}
   if(d.t==='sc'&&!d.on&&d.h.length===2){const e=sel.length===1&&sel[0];e&&pmodel(e)?(ped=e,msg(PM)):msg(e&&e.localName==='text'?'Text has no points to move; drag a side handle to re-wrap it':'Select one shape to move its points');return hud()}
   if(d.t==='move'&&!d.on&&ev&&ev.altKey&&!ev.shiftKey)return selBelow(ev,d.pre),hud();

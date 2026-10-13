@@ -162,7 +162,7 @@ The `.plugin` is installed through Install Plugin in the TBtools menu. On delive
     e.preventDefault();down||appSelectAll()});
   ```
   `document.execCommand('selectAll')` reproduces the problem in any Chromium for testing. Applied in minisvg; not yet confirmed inside TBtools.
-- **ChatGPT plan**: the user's first sign-in in TBtools worked (Oct 2026), so JxBrowser lets the file:// page reach the bridge and the loopback callback works; drawing, whether the plan route accepts images, `reasoning.summary` and `xhigh`, and real proxies are otherwise tested only against a mock. Needs an eligible ChatGPT account (Plus or Pro, per OpenAI) and a network that reaches OpenAI. Tokens sit unencrypted in the user's home folder.
+- **ChatGPT plan**: confirmed working in TBtools-II by the user (Oct 2026), so JxBrowser lets the file:// page reach the bridge and the loopback callback works. Which parts were exercised wasn't said: whether the plan route accepts images, `reasoning.summary` and `xhigh`, and the proxy fallback are confirmed only against a mock. Needs an eligible ChatGPT account (Plus or Pro, per OpenAI) and a network that reaches OpenAI. Tokens sit unencrypted in the user's home folder.
 - **TBtools model**: works only in TBtools builds that provide `window.tbtools.ai`, and only with `tbtools-ai.json` in the plugin. Confirmed with minisvg in TBtools-II (Oct 2026).
 - **localStorage**: data lives in TBtools' shared `.jxbrowser` directory. All file:// pages share one origin and can read each other's data — if the app stores an API key there, tell the user.
 - **Do not load the page from a data: URL**: its origin is opaque and localStorage access throws SecurityError.

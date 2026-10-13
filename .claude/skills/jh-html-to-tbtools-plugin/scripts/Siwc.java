@@ -7,9 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NoRouteToHostException;
 import java.net.Proxy;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,8 +27,11 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +40,8 @@ import java.util.regex.Pattern;
 
 final class Siwc {
 
+    private interface Net<T> { T run(Proxy p) throws IOException; }
+
     private static final class Bad extends IOException {
         final int code;
         Bad(int code, String m) { super(m); this.code = code; }
@@ -42,7 +49,7 @@ final class Siwc {
 
     private static final String ISS = System.getProperty("siwc.issuer", "https://auth.openai.com"), API = System.getProperty("siwc.api", "https://api.openai.com/v1"),
         RES = "https://api.openai.com/v1", SHARE = "chatgpt.tokens.use.direct", SCOPES = "openid profile email offline_access resource.invoke " + SHARE,
-        J = "application/json", SIGN_IN = "Sign in with ChatGPT in AI settings first.";
+        J = "application/json", SIGN_IN = "Sign in with ChatGPT in AI settings first.", NOT = "minisvg-bridge-not-a-proxy";
     private static final SecureRandom RND = new SecureRandom();
     private static Siwc on;
     private final ServerSocket ss;
@@ -51,6 +58,7 @@ final class Siwc {
     private final Map<String, String> t = new LinkedHashMap<>();
     private Map<String, String> disc;
     private String state, nonce, verifier, redirect, err, auto = "";
+    private volatile String note, ptest;
     private long autoAt, mt = -1;
 
     static synchronized void start(File dir) throws IOException {
@@ -107,6 +115,10 @@ final class Siwc {
             byte[] body = in.readNBytes(n);
             c.setSoTimeout(0);
             OutputStream out = c.getOutputStream();
+            if (rl[0].equals("CONNECT") || !rl[1].startsWith("/")) {
+                out.write(("HTTP/1.1 403 " + NOT + "\r\nConnection: close\r\nContent-Length: 0\r\n\r\n").getBytes(StandardCharsets.ISO_8859_1));
+                return;
+            }
             URI u = new URI(rl[1]);
             String p = u.getPath();
             if (!("127.0.0.1:" + ss.getLocalPort()).equals(h.get("host"))) send(out, 403, J, fail("Forbidden"));
@@ -118,7 +130,7 @@ final class Siwc {
                     case "/siwc/status": send(out, 200, J, status()); break;
                     case "/siwc/login": send(out, 200, J, login()); break;
                     case "/siwc/logout": logout(); send(out, 200, J, status()); break;
-                    case "/siwc/proxy": proxy(new String(body, StandardCharsets.UTF_8).trim()); send(out, 200, J, status()); break;
+                    case "/siwc/proxy": proxy(new String(body, StandardCharsets.UTF_8).trim()); ptest = probe(); send(out, 200, J, status()); break;
                     case "/siwc/models": relay(out, "/models", null); break;
                     case "/siwc/responses": relay(out, "/responses", body); break;
                     default: send(out, 404, J, fail("Not found"));
@@ -156,7 +168,8 @@ final class Siwc {
         sync();
         boolean in = t.containsKey("access");
         return "{\"signedIn\":" + in + ",\"share\":" + (in && share()) + ",\"email\":" + q(t.get("email")) + ",\"name\":" + q(t.get("name"))
-            + ",\"waiting\":" + (state != null) + ",\"error\":" + q(err) + ",\"proxy\":" + q(t.getOrDefault("proxy", "")) + ",\"auto\":" + q(detect()) + "}";
+            + ",\"waiting\":" + (state != null) + ",\"error\":" + q(err) + ",\"proxy\":" + q(t.getOrDefault("proxy", "")) + ",\"auto\":" + q(detect())
+            + ",\"note\":" + q(note) + ",\"ptest\":" + q(ptest) + "}";
     }
 
     private synchronized String login() throws Exception {
@@ -215,9 +228,14 @@ final class Siwc {
         save();
     }
 
-    private synchronized void proxy(String s) {
+    private synchronized void proxy(String s) throws Bad {
         sync();
+        Proxy p = parse(s);
+        if (!s.isEmpty() && p == null) throw new Bad(400, "Write the proxy as host:port, e.g. 127.0.0.1:7890, or socks://127.0.0.1:7891.");
+        if (p != null && ((InetSocketAddress) p.address()).getPort() == ss.getLocalPort() && ((InetSocketAddress) p.address()).getAddress() != null && ((InetSocketAddress) p.address()).getAddress().isLoopbackAddress())
+            throw new Bad(400, "That is minisvg's own ChatGPT bridge, not a proxy.");
         t.put("proxy", s);
+        note = null;
         autoAt = 0;
         save();
     }
@@ -269,17 +287,21 @@ final class Siwc {
         HttpURLConnection c = null;
         for (int i = 0; i < 2; i++) {
             String a = access(i > 0);
-            c = open(API + path);
-            c.setReadTimeout(600000);
-            c.setRequestMethod(body == null ? "GET" : "POST");
-            c.setRequestProperty("Authorization", "Bearer " + a);
-            c.setRequestProperty("Accept", body == null ? J : "text/event-stream");
-            if (body != null) {
-                c.setDoOutput(true);
-                c.setRequestProperty("Content-Type", J);
-                c.setFixedLengthStreamingMode(body.length);
-                try (OutputStream o = c.getOutputStream()) { o.write(body); }
-            }
+            c = net(p -> {
+                HttpURLConnection x = open(API + path, p);
+                x.setReadTimeout(600000);
+                x.setRequestMethod(body == null ? "GET" : "POST");
+                x.setRequestProperty("Authorization", "Bearer " + a);
+                x.setRequestProperty("Accept", body == null ? J : "text/event-stream");
+                if (body != null) {
+                    x.setDoOutput(true);
+                    x.setRequestProperty("Content-Type", J);
+                    x.setFixedLengthStreamingMode(body.length);
+                    try (OutputStream o = x.getOutputStream()) { o.write(body); }
+                }
+                x.getResponseCode();
+                return x;
+            });
             if (c.getResponseCode() != 401 || i > 0) break;
             c.disconnect();
         }
@@ -299,9 +321,12 @@ final class Siwc {
 
     private synchronized Map<String, String> disc() throws IOException {
         if (disc != null) return disc;
-        HttpURLConnection c = open(ISS + "/.well-known/openid-configuration");
-        String j = read(c);
-        if (c.getResponseCode() != 200 || !ISS.equals(str(j, "issuer"))) throw new IOException("ChatGPT sign-in is not reachable (" + c.getResponseCode() + ").");
+        String j = net(p -> {
+            HttpURLConnection c = open(ISS + "/.well-known/openid-configuration", p);
+            String r = read(c);
+            if (c.getResponseCode() != 200 || !ISS.equals(str(r, "issuer"))) throw new IOException("ChatGPT sign-in is not reachable (" + c.getResponseCode() + ").");
+            return r;
+        });
         Map<String, String> d = new LinkedHashMap<>();
         for (String k : new String[]{"authorization_endpoint", "token_endpoint", "revocation_endpoint"}) {
             String v = str(j, k);
@@ -313,7 +338,11 @@ final class Siwc {
     }
 
     private String post(String url, String form) throws IOException {
-        HttpURLConnection c = open(url);
+        return net(p -> post(url, form, p));
+    }
+
+    private String post(String url, String form, Proxy p) throws IOException {
+        HttpURLConnection c = open(url, p);
         c.setRequestMethod("POST");
         c.setDoOutput(true);
         c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -336,17 +365,70 @@ final class Siwc {
         try (InputStream i = in) { return new String(i.readAllBytes(), StandardCharsets.UTF_8); }
     }
 
-    private HttpURLConnection open(String url) throws IOException {
-        Proxy p = px();
+    private <T> T net(Net<T> f) throws IOException {
+        List<Proxy> ps = proxies();
+        IOException first = null;
+        for (int i = 0; i < ps.size(); i++) try {
+            T r = f.run(ps.get(i));
+            note = i == 0 ? null : "The proxy in the field didn't work, so the system proxy " + at(ps.get(i)) + " was used.";
+            return r;
+        } catch (Bad e) {
+            throw e;
+        } catch (IOException e) {
+            IOException w = why(e, ps.get(i));
+            if (first == null) first = w;
+            if (!down(e)) throw w;
+        }
+        throw first;
+    }
+
+    private synchronized List<Proxy> proxies() {
+        Proxy m = parse(t.getOrDefault("proxy", "")), a = parse(detect());
+        return m == null ? Collections.singletonList(a) : a == null || a.equals(m) ? Collections.singletonList(m) : Arrays.asList(m, a);
+    }
+
+    private static boolean down(IOException e) {
+        String m = String.valueOf(e.getMessage());
+        return e instanceof ConnectException || e instanceof NoRouteToHostException || m.startsWith("Unable to tunnel") || m.contains("SOCKS");
+    }
+
+    private static IOException why(IOException e, Proxy p) {
+        String m = String.valueOf(e.getMessage()).replaceFirst("^Unable to tunnel through proxy\\. ", "");
+        if (!down(e) && !(e instanceof java.net.SocketTimeoutException) && !(e instanceof java.net.UnknownHostException)) return e;
+        if (p == null) return new IOException("Could not reach OpenAI directly (" + m + "). If you use a proxy app, enter its port in the Proxy field.");
+        if (m.contains(NOT)) return new IOException(at(p) + " is minisvg's own ChatGPT bridge, not a proxy. Clear the Proxy field to use the system proxy.");
+        return new IOException("Could not reach OpenAI through the proxy " + at(p) + " (" + m + "). Check that your proxy app uses this port, or clear the Proxy field to use the system proxy.");
+    }
+
+    private static String at(Proxy p) {
+        InetSocketAddress a = (InetSocketAddress) p.address();
+        return (p.type() == Proxy.Type.SOCKS ? "socks://" : "") + a.getHostString() + ":" + a.getPort();
+    }
+
+    private String probe() {
+        Proxy p;
+        boolean m;
+        synchronized (this) {
+            m = !t.getOrDefault("proxy", "").isEmpty();
+            p = parse(m ? t.get("proxy") : detect());
+        }
+        String via = p == null ? "directly" : "through " + (m ? "" : "the system proxy ") + at(p);
+        try {
+            HttpURLConnection c = open(ISS + "/.well-known/openid-configuration", p);
+            int code = c.getResponseCode();
+            c.disconnect();
+            return code == 200 ? "OpenAI reached " + via + "." : "OpenAI answered " + code + " " + via + ".";
+        } catch (IOException e) {
+            return why(e, p).getMessage();
+        }
+    }
+
+    private HttpURLConnection open(String url, Proxy p) throws IOException {
         HttpURLConnection c = (HttpURLConnection) (p == null ? new URL(url).openConnection() : new URL(url).openConnection(p));
         c.setInstanceFollowRedirects(false);
         c.setConnectTimeout(20000);
         c.setReadTimeout(60000);
         return c;
-    }
-
-    private synchronized Proxy px() {
-        return parse(t.getOrDefault("proxy", "").isEmpty() ? detect() : t.get("proxy"));
     }
 
     private static Proxy parse(String s) {

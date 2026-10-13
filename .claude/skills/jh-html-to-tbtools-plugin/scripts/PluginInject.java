@@ -43,6 +43,11 @@ public class PluginInject {
     }
 
     public JPanel generatePanel() {
+        if (new File(dir, "siwc.json").isFile()) try {
+            Siwc.start(dir);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
         JPanel p = new WebGuiJPanel(new File(dir, "index.html").toPath().toUri().toString(), false);
         p.setPreferredSize(new Dimension(1280, 800));
         if (!hook(p)) p.addHierarchyListener(new HierarchyListener() {
@@ -70,6 +75,7 @@ public class PluginInject {
             Object b = found;
             p.putClientProperty(PluginInject.class, b);
             if (System.getProperty("os.name", "").startsWith("Mac")) ime();
+            set(b, "OpenFileCallback", (pa, tell) -> load(p, tell));
             set(b, "StartDownloadCallback", (pa, tell) -> save(p, (String) call(call(call(pa, "download"), "target"), "suggestedFileName"), tell, f -> call(tell, "download", f)));
             if (set(b, "PrintHtmlCallback", (pa, tell) -> save(p, pdfName(b), tell, f -> pdf(pa, tell, f)))) set(b, "PrintCallback", (pa, tell) -> call(tell, "print"));
             else System.err.println("PluginInject: no PrintHtmlCallback in this JxBrowser, printing left to TBtools");
@@ -170,6 +176,23 @@ public class PluginInject {
                 if (d.getFile() == null) { cancel(tell); return; }
                 lastDir = new File(d.getDirectory());
                 s.to(new File(lastDir, d.getFile()).toPath());
+            } catch (Throwable e) {
+                e.printStackTrace();
+                cancel(tell);
+            }
+        });
+    }
+
+    private static void load(Component owner, Object tell) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                Window w = SwingUtilities.getWindowAncestor(owner);
+                FileDialog d = w instanceof Dialog ? new FileDialog((Dialog) w, "Open", FileDialog.LOAD) : new FileDialog(w instanceof Frame ? (Frame) w : null, "Open", FileDialog.LOAD);
+                if (lastDir != null) d.setDirectory(lastDir.getPath());
+                d.setVisible(true);
+                if (d.getFile() == null) { cancel(tell); return; }
+                lastDir = new File(d.getDirectory());
+                call(tell, "open", new File(lastDir, d.getFile()).toPath());
             } catch (Throwable e) {
                 e.printStackTrace();
                 cancel(tell);

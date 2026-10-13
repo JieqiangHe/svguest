@@ -8,7 +8,7 @@ mkdir -p "$w/c" "$p"
 cp -R "$app"/. "$p"/
 find "$p" -mindepth 1 -name '.*' -prune -exec rm -rf {} +
 ! ls "$p"/*.jar >/dev/null 2>&1 || { echo "remove top-level .jar files from $app" >&2; exit 1; }
-javac --release 11 -cp "$tb" -d "$w/c" "$here/PluginInject.java"
+javac --release 11 -cp "$tb" -d "$w/c" "$here/PluginInject.java" "$here/Siwc.java"
 jar --create --no-manifest --file "$p/$n.jar" -C "$w/c" .
 [ -z "$4" ] || printf '%s' "$4" > "$p/MenuConfig.ini"
 rm -f "$out"; (cd "$w/p" && zip -qrX "$out" "$n")

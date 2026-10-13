@@ -5,12 +5,14 @@ description: Package an HTML / static web tool as an installable TBtools plugin 
 
 # HTML → TBtools plugin
 
-The Java side is a thin shell: it opens the plugin folder's `index.html` via file:// using TBtools' own JxBrowser panel, and replaces two of that browser's callbacks so downloads open a Save dialog and `window.print()` saves a PDF. Bundled scripts:
+The Java side is a thin shell: it opens the plugin folder's `index.html` via file:// using TBtools' own JxBrowser panel, and replaces three of that browser's callbacks so `<input type=file>` opens a native Open dialog, downloads open a Save dialog and `window.print()` saves a PDF. Bundled scripts:
 
 - `scripts/PluginInject.java`: generic entry class; the plugin name is taken from the plugin folder name — no per-app modification needed. It reaches JxBrowser only by reflection (see Save dialogs and PDF below).
 - `scripts/build.sh`: compiles and packages everything into a `.plugin`.
 - `scripts/Verify.java`: simulates installation using TBtools' own unzip-and-load code.
 - `assets/tbtools-ai.json`: the opt-in for apps that use the TBtools model (see TBtools model bridge below).
+- `scripts/Siwc.java`, `assets/siwc.json`: the ChatGPT plan bridge and its opt-in (see ChatGPT plan bridge below).
+- `scripts/minisvg-stage.sh`, `assets/minisvg-chatgpt.js`: minisvg only — stages its plugin copy with the ChatGPT option added.
 
 ## Environment
 
@@ -24,7 +26,7 @@ Lookup order:
 2. If absent, search the installation directory using the check above.
 3. If still not found, ask the user — do not guess.
 
-Without the jar (a cloud sandbox, for instance), compile against a stub `biocjava.GUIexcutors.WebGuiApp.WebGuiJPanel extends JPanel` with a public `(String, boolean)` constructor, and package only the `Plugin/` classes. The bytecode matched a build against the real jar except for javac-version ordering (Oct 2026). `Verify.java` still needs the real jar.
+Without the jar (a cloud sandbox, for instance), compile against a stub `biocjava.GUIexcutors.WebGuiApp.WebGuiJPanel extends JPanel` with a public `(String, boolean)` constructor, and package only the `Plugin/` classes (build.sh accepts the stub's class folder as `<tbtools_jar>`). The bytecode matched a build against the real jar except for javac-version ordering (Oct 2026). `Verify.java` still needs the real jar.
 
 ## Workflow
 
@@ -35,7 +37,8 @@ Copy the app into a staging directory and make all modifications in the copy; ne
 - The entry file must be named `index.html`.
 - No other `.jar` at the top level: TBtools loads only the first jar it finds, and build.sh errors out on any extra one.
 - Dot-prefixed files (`.git`, `.DS_Store`, etc.) are dropped automatically during packaging.
-- Everything else in the staging directory is packaged as is. If the app uses the TBtools model (see TBtools model bridge below), copy `assets/tbtools-ai.json` next to `index.html`; minisvg stages exactly these two files.
+- Everything else in the staging directory is packaged as is. If the app uses the TBtools model (see TBtools model bridge below), copy `assets/tbtools-ai.json` next to `index.html`.
+- minisvg: `bash scripts/minisvg-stage.sh <minisvg_repo> <staging_dir>` writes the whole staging directory: `index.html` with `<script src="siwc-session.js">` and `assets/minisvg-chatgpt.js` inlined before `</body>`, `tbtools-ai.json`, `siwc.json` and a placeholder `siwc-session.js`. The repo's `index.html` (GitHub Pages) stays as it is.
 
 ### 2. Localizing external dependencies
 
@@ -97,6 +100,8 @@ The `.plugin` is installed through Install Plugin in the TBtools menu. On delive
 
 ## Save dialogs and PDF (how PluginInject hooks the browser)
 
+- `OpenFileCallback` (a file input was clicked): an AWT `FileDialog` in LOAD mode, opened in the last folder used; Open → `tell.open(path)`, Cancel → `tell.cancel()`. Restored Oct 2026 from the bytecode of the jar shipped in minisvg.plugin, whose source had not been committed (method bodies identical to that jar; only javac's lambda numbering differs).
+
 - TBtools' own download callback saves to the system temp directory, shows "Download Finished. Browse It?", and offers to install any `.zip`/`plugin` file as a plugin. JxBrowser 7 cancels every print request unless a `PrintCallback` is set.
 - After building `WebGuiJPanel`, PluginInject looks for its `com.teamdev.jxbrowser.browser.Browser`:
   - first via `getBrowser()` on any component in the panel's tree (the Swing `BrowserView`);
@@ -132,6 +137,17 @@ The `.plugin` is installed through Install Plugin in the TBtools menu. On delive
 - Other rejections carry a code: `denied`, `busy`, `closed`, `invalid`, `too_many` or `too_large`. minisvg keeps each request within 32,000 characters and 20 messages; treat those as the PR's assumptions, not documented limits.
 - No API key is involved. Confirmed working with minisvg in TBtools-II (Oct 2026).
 
+## ChatGPT plan bridge (Sign in with ChatGPT)
+
+- What: lets the page draw with the user's own ChatGPT plan (OpenAI's Sign in with ChatGPT, SIWC; no API key). Asked for by the user, Oct 2026, for TBtools only. SIWC plan usage is open to open-source apps that run on the user's machine and requires a loopback redirect `http://127.0.0.1:<port>/auth/callback`, which a GitHub Pages site can't receive; TBtools runs locally, so the Java side takes the callback.
+- Opt-in: `siwc.json` next to `index.html`. `PluginInject.generatePanel()` then calls `Siwc.start(dir)`: one server per class loader on `127.0.0.1` (random port), and `siwc-session.js` in the plugin folder rewritten with `window.TBSIWC={url,key}`. The page loads it with a plain `<script src>`; without the file or the bridge nothing changes.
+- Every page request carries `x-siwc-key` (random per server, compared in constant time) and must have `Host: 127.0.0.1:<port>`; CORS allows `*` plus `Access-Control-Allow-Private-Network`. Routes: `GET /siwc/status`, `POST /siwc/login` (returns `{url,opened}`; opens the system browser with `Desktop.browse`, else `open`/`rundll32`/`xdg-open`), `POST /siwc/logout`, `POST /siwc/proxy` (body `host:port`, `socks://host:port` or empty), `GET /siwc/models`, `POST /siwc/responses` (streamed through). `GET /auth/callback` needs no key but the pending `state`.
+- OAuth as in OpenAI's DevKit (`packages/local/src/oauth.ts` in github.com/openai/sign-in-with-chatgpt-devkit, read Oct 2026): discovery at `https://auth.openai.com/.well-known/openid-configuration` (endpoints must share the issuer), `client_id=dynamic_agent_client` plus `agent_name_hint=<folder name>` the first time, then the issued `client_id` from the callback; scopes `openid profile email offline_access resource.invoke chatgpt.tokens.use.direct`; `resource=https://api.openai.com/v1`; PKCE S256; nonce. The ID token comes straight from the token endpoint over TLS, so only its nonce and `sub` are checked (no JWKS signature check). Without the `chatgpt.tokens.use.direct` scope the account is signed in but can't draw.
+- Tokens: `~/.tbtools-siwc/<folder name>.json` (owner-only where POSIX permissions exist; not encrypted — the DevKit uses the OS keychain). Access tokens last about an hour; the refresh token rotates on every refresh, so it is saved before use. Each bridge re-reads the file when its mtime changes, and before treating a failed refresh as a sign-out, so two tabs (two class loaders) don't spend the same refresh token. Refresh happens 60 s before expiry (not before `earliest_refresh_at`) and once on a 401.
+- Network: Java's `HttpURLConnection` (no `java.net.http`, no `jdk.httpserver`, in case TBtools' runtime lacks them). Java doesn't follow the OS proxy by itself, so the proxy is the page's Proxy field, else `https.proxyHost`/`socksProxyHost` if set, else `HTTPS_PROXY`/`ALL_PROXY`, else `scutil --proxy` (macOS) or the `Internet Settings` registry key (Windows), re-detected every 30 s.
+- Page side (`minisvg-chatgpt.js`): overrides minisvg's global `call` and `ask` and adds options to its dropdowns, so `index.html` needs no change. Requests use the Responses API: system messages become `instructions`, image parts `input_image` data URLs, `store:false`, `stream:true`, `reasoning:{effort,summary:'auto'}` (Low/High/Max → low/high/xhigh), no `max_output_tokens`, `temperature` or `previous_response_id`. A 400 that names reasoning/summary/effort is retried without the summary, then without reasoning. Events read: `response.output_text.delta`, `response.reasoning_summary_text.delta`, `response.completed`/`incomplete` (usage mapped to minisvg's Chat Completions shape), `response.failed`, `error`. Models come from `GET /v1/models` (`{models:[{slug,display_name,visibility,context_window?}]}`, only `visibility:list`), cached in `msbGptModels`; all are treated as able to see images.
+- Testing without OpenAI: `-Dsiwc.issuer=http://127.0.0.1:<p>` and `-Dsiwc.api=http://127.0.0.1:<p>/v1` point the bridge at a mock. Oct 2026, cloud: a Node mock of discovery/authorize/token/revoke/models/responses, the bridge started from a test `main`, and the staged page in headless Chromium over file:// — 38 checks (sign-in through the shown link, model list, streamed SVG landing on the canvas, thinking text, usage, the 400 retry, 401 → refresh → retry, image input, xhigh, proxy errors, reload, sign-out with revocation, no option without the bridge), plus two bridges sharing one token file and the key/Host/state guards. A built plugin was loaded through its own URLClassLoader like TBtools does.
+
 ## Known limitations
 
 - **Downloads**: `<a download>`, Blob and `Plotly.downloadImage` downloads open a Save dialog (see above). Confirmed in TBtools-II on macOS (Oct 2026).
@@ -146,6 +162,7 @@ The `.plugin` is installed through Install Plugin in the TBtools menu. On delive
     e.preventDefault();down||appSelectAll()});
   ```
   `document.execCommand('selectAll')` reproduces the problem in any Chromium for testing. Applied in minisvg; not yet confirmed inside TBtools.
+- **ChatGPT plan**: tested only against a mock of OpenAI's endpoints; real SIWC sign-in, whether the plan route accepts images, `reasoning.summary` and `xhigh`, real proxies, and TBtools' JxBrowser (a file:// page fetching `http://127.0.0.1`) are all untested. Needs an eligible ChatGPT account (Plus or Pro, per OpenAI) and a network that reaches OpenAI. Tokens sit unencrypted in the user's home folder.
 - **TBtools model**: works only in TBtools builds that provide `window.tbtools.ai`, and only with `tbtools-ai.json` in the plugin. Confirmed with minisvg in TBtools-II (Oct 2026).
 - **localStorage**: data lives in TBtools' shared `.jxbrowser` directory. All file:// pages share one origin and can read each other's data — if the app stores an API key there, tell the user.
 - **Do not load the page from a data: URL**: its origin is opaque and localStorage access throws SecurityError.

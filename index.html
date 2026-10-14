@@ -20,14 +20,14 @@ body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Helv
 a{color:inherit;text-underline-offset:4px}
 #cover{position:fixed;inset:0;overflow:auto;background:var(--paper);user-select:none;-webkit-user-select:none}
 .page{max-width:1200px;padding:0 48px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
-.header{display:flex;align-items:center;justify-content:space-between;padding:30px 0}
+.header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
 .brand{display:flex;align-items:center}
 .brand svg{width:102px;height:23px}.brand svg,#logo{color:var(--ink)}.pf{fill:var(--paper)}
 .repo{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;padding:8px 0}.repo svg{width:16px;height:16px;flex:none}
 .repo:hover{color:var(--ink)}
-.hr{display:flex;align-items:center;gap:20px}#thm{margin:0 -8px 0 -4px}
-#thm{display:grid;place-items:center;padding:8px;border:0;background:none;color:var(--muted);cursor:pointer}#thm:hover{color:var(--ink)}#thm svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.3}#thm .f{fill:currentColor;stroke:none}
-.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;padding:60px 0 80px;min-height:490px}
+.hr{display:flex;align-items:center;gap:20px}
+#thm{display:inline-flex;align-items:center;gap:7px;padding:8px 0;border:0;background:none;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}#thm:hover{color:var(--ink)}#thm svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3}#thm .f{fill:currentColor;stroke:none}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;padding:28px 0 52px}
 .eyebrow{font-size:11px;letter-spacing:.1em;line-height:1.5;text-transform:uppercase;color:var(--muted);font-weight:500}
 h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:1.08;letter-spacing:-.035em;white-space:pre-line}
 .sub{margin-top:24px;max-width:440px;font-size:16px;line-height:1.75;color:var(--body)}
@@ -42,14 +42,14 @@ h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:
 #logo{width:min(100%,var(--lw));height:auto;overflow:visible;touch-action:none;margin-right:calc(var(--lw)*-16/240)}
 #logo [data-p],[data-e]{cursor:move;touch-action:none}
 #logo [data-roof-anchor]{cursor:crosshair;touch-action:none}
-.story{padding:34px 0 32px;display:grid;grid-template-columns:minmax(0,1fr) calc(var(--lw)*181.75/240);gap:72px;align-items:center}
+.story{padding:20px 0 40px;display:grid;grid-template-columns:minmax(0,1fr) calc(var(--lw)*181.75/240);gap:72px;align-items:center}
 .story .q{margin-top:12px;font-size:30px;line-height:1.25;letter-spacing:-.02em;font-weight:400}
 .story .by{margin-top:7px;font-size:12px;color:var(--muted)}
 .story .body{margin-top:17px;max-width:680px;font-size:14px;line-height:1.75;color:var(--body)}
 .story .fin{margin-top:12px;font-size:12px;line-height:1.6;color:var(--muted)}
 .story figure{margin:0 calc(var(--lw)*26.25/240) 0 0}
 .story img{display:block;width:100%;height:auto;filter:var(--img);outline:1px solid var(--frame);outline-offset:-1px}
-.story figcaption{margin-top:9px;font-size:10.5px;line-height:1.6;color:var(--muted)}
+.story figcaption{margin:9px calc(var(--lw)*-26.25/240) 0 0;font-size:10.5px;line-height:1.6;color:var(--muted)}
 .story figcaption a{display:inline;text-decoration:underline}
 .legal{border-top:1px solid var(--line);margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 0 26px;color:var(--muted);font-size:11px;line-height:1.7}
 .tbl{display:inline-flex;align-items:center;gap:7px}.tbl svg{width:13px;height:13px;flex-shrink:0}
@@ -61,20 +61,20 @@ h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:
 #hud .a{position:absolute;width:9px;height:9px;margin:-4.5px;background:var(--ink);cursor:crosshair}
 #hud .c{position:absolute;width:1.5px;background:var(--ink);animation:k 1s steps(1) infinite}
 @media (max-width:780px){
- .page{padding:0 28px}.header{padding:24px 0}
- .hero{gap:32px;min-height:440px;padding:42px 0 56px}
+ .page{padding:0 28px}.header{padding:20px 0}
+ .hero{gap:32px;padding:24px 0 44px}
  h1{font-size:48px}.sub{font-size:15px}.art{padding:0}
- .story{grid-template-columns:minmax(0,1fr) 160px;gap:30px}.story figure{margin:0}.story .q{font-size:26px}
+ .story{grid-template-columns:minmax(0,1fr) 160px;gap:30px}.story figure{margin:0}.story figcaption{margin-right:0}.story .q{font-size:26px}
  .legal{align-items:flex-start;flex-direction:column;gap:6px}
 }
 @media (max-width:600px){
- .page{padding:0 24px}.header{padding:22px 0}.brand svg{width:91px;height:20.5px}
- .hero{grid-template-columns:1fr;gap:38px;padding:28px 0 40px;min-height:0}
+ .page{padding:0 24px}.header{padding:18px 0}.brand svg{width:91px;height:20.5px}
+ .hero{grid-template-columns:1fr;gap:38px;padding:20px 0 36px}
  h1{font-size:clamp(40px,11vw,54px);margin-top:14px}.sub{margin-top:20px;font-size:15px;line-height:1.7}
  .actions{margin-top:24px;gap:16px}.compat{margin-top:18px}
  #logo{width:210px;margin:0}.art{padding:0 0 4px;justify-items:center}
- .hr{gap:12px}.hr .repo span{display:none}
- .story{grid-template-columns:1fr;gap:24px;padding:28px 0}
+ .hr{gap:12px}.hr span{display:none}
+ .story{grid-template-columns:1fr;gap:24px;padding:20px 0 28px}
  .story .q{font-size:27px}.story .body{font-size:13.5px}
  .story figure{display:grid;grid-template-columns:126px minmax(0,1fr);gap:16px;align-items:end}
  .story figcaption{margin:0;font-size:10.5px}.legal{padding:18px 0 24px;font-size:10.5px}
@@ -88,7 +88,7 @@ h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:
  <div class="page">
   <header class="header">
    <div class="brand" data-e><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="10"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="7.5"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="9"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="9"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></div>
-   <div class="hr"><a class="repo" href="https://bioanno.com/index" target="_blank" rel="noopener" title="BioAnno"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/><rect x=".6" y="5.4" width="14.8" height="5.2" rx="1.2" fill="#fffdf2" opacity=".93"/><text x="8" y="9.35" text-anchor="middle" textLength="13.4" lengthAdjust="spacingAndGlyphs" fill="#7a4108" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="4.2">BioAnno</text></svg><span>BioAnno</span></a><a class="repo" href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; svguest also runs in it as a plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg><span>TBtools-II</span></a><a class="repo" href="https://github.com/JieqiangHe/svguest" target="_blank" rel="noopener" title="svguest on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><button id="thm"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="f" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
+   <div class="hr"><a class="repo" href="https://bioanno.com/index" target="_blank" rel="noopener" title="BioAnno"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/><rect x=".6" y="5.4" width="14.8" height="5.2" rx="1.2" fill="#fffdf2" opacity=".93"/><text x="8" y="9.35" text-anchor="middle" textLength="13.4" lengthAdjust="spacingAndGlyphs" fill="#7a4108" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="4.2">BioAnno</text></svg><span>BioAnno</span></a><a class="repo" href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; svguest also runs in it as a plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg><span>TBtools-II</span></a><a class="repo" href="https://github.com/JieqiangHe/svguest" target="_blank" rel="noopener" title="svguest on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><button id="thm"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="f" d="M8 2a6 6 0 0 0 0 12z"/></svg><span>Theme</span></button></div>
   </header>
   <main>
    <section class="hero" aria-label="Welcome to svguest">

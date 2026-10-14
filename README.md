@@ -1,4 +1,4 @@
-# <picture><source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg"><img src="logo.svg" alt="" height="30"></picture> svguest
+# <picture><source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg"><img src="logo.svg" alt="svguest" height="40"></picture>
 
 > I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.
 

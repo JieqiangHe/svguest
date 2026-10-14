@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>svguest</title>
-<script>try{localStorage.msbTheme==='dark'&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
+<script>try{const L=localStorage;for(const k of Object.keys(L))if(k.startsWith('msb')){const v=L.getItem(k),n='sg'+k.slice(3);L.removeItem(k);L.getItem(n)==null&&L.setItem(n,v)}L.sgTheme==='dark'&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
 :root{--swb:#8a8a8a;--fg:#222;--bar:#f3f3f3;--line:#ccc;--btn:#fff;--btnb:#bbb;--btnh:#eef3ff;--bfg:buttontext;--on:#d6e4ff;--onb:#6d94e0;--onfg:buttontext;--view:#cfcfcf;--side:#f7f7f7;--h4:#555;--h4b:#ddd;--pageb:#777;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883}
 [data-theme=dark]{color-scheme:dark;--swb:#a3a3a3;--fg:#e5e5e5;--bar:#000;--line:#262626;--btn:#262626;--btnb:#000;--btnh:#404040;--bfg:#e5e5e5;--on:#e5e5e5;--onb:#e5e5e5;--onfg:#171717;--view:#141414;--side:#000;--h4:#a3a3a3;--h4b:#262626;--pageb:#404040;--sbt:#8a8a8a;--sbh:#b0b0b0;--sbk:#8883}
@@ -236,7 +236,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <dialog id="mKept"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
 <div class="kr"><b>Open recent</b><span id="mKd"></span><button type="button" data-k="ds">Save as files</button><button type="button" data-k="dc">Clear</button></div>
 <div class="kr"><b>SVG Chat</b><span id="mKc"></span><button type="button" data-k="cs">Save as files</button><button type="button" data-k="cc">Delete all</button></div>
-<p>A web page can't write files to your disk by itself, so svguest keeps these inside this browser, in its own storage for this site (IndexedDB databases msbDocs and msbChats), not in a folder: the browser keeps them in its profile in a form other apps can't open. Save as files downloads them as a .zip: the SVG copies, or each chat as a web page with its figures.</p>
+<p>A web page can't write files to your disk by itself, so svguest keeps these inside this browser, in its own storage for this site (IndexedDB databases sgDocs and sgChats), not in a folder: the browser keeps them in its profile in a form other apps can't open. Save as files downloads them as a .zip: the SVG copies, or each chat as a web page with its figures.</p>
 <p class="ft">Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data in the browser deletes them. File › Auto-save turns the copies of open files on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick, with your permission.</p>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
@@ -360,6 +360,7 @@ function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush(
 
 const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
+  if(txt.includes('data-msb-'))for(const e of d.querySelectorAll('[data-msb-from],[data-msb-to]'))for(const k of['from','to']){const a='data-msb-'+k,v=e.getAttribute(a);v!=null&&(e.removeAttribute(a),e.setAttribute('data-sg-'+k,v))}
   if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
     (XO.test(n)||XJ.test(v)&&(XS.test(v)||XV.test(n)))&&e.removeAttributeNode(a)}
   return d}
@@ -575,7 +576,7 @@ function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.t
   else{const cs=gcs(l);F.nofill.checked=cs.fill==='none';F.fill.value=hex(cs.fill);F.nostroke.checked=cs.stroke==='none';F.stroke.value=hex(cs.stroke);v(F.sw,parseFloat(cs.strokeWidth)*sc(ctm(l))*U*PT);F.dash.value=cs.strokeDasharray==='none'?'':parseFloat(cs.strokeDasharray)/parseFloat(cs.strokeWidth)<1.5?'o':'d'}
   F.fill.classList.toggle('dim',F.nofill.checked);F.stroke.classList.toggle('dim',F.nostroke.checked);const cs=l&&gcs(l);fsw('mFF',cs?cs.fill:pen.fill);fsw('mSF',cs?cs.stroke:pen.stroke);
   let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?leaf(s,x=>ML.test(x.localName),500):ML.test(s.localName)&&s)break;
-  for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b||t[0].toUpperCase()+t.slice(1)+'Msb'===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
+  for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&/^(.+)(Msb|Sg)$/.exec(i.replace(/_h\d+$/,''))?.[1],h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0].slice(0,-2)===b||t[0].toUpperCase()+t.slice(1)===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
   qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100)}
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
 let szT=0,szMs=0;const sizesQ=()=>{if(szMs<30)return sizes();cancelAnimationFrame(szT);szT=requestAnimationFrame(()=>setTimeout(sizes))};
@@ -624,12 +625,12 @@ const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=
     if(!ed){for(let i=0;i<A.length;i+=4){const d=(A[i]-u.x)**2+(A[i+1]-u.y)**2+(T.l[A[i+3]]?r*r*.01:0);d<b&&(b=d,o={x:A[i],y:A[i+1],k:A[i+2],e:T.e[A[i+3]]})}return o}
     for(let i=0;i<A.length;i+=5){const ax=A[i],ay=A[i+1],vx=A[i+2]-ax,vy=A[i+3]-ay,l=vx*vx+vy*vy,t=l?max(0,min(1,((u.x-ax)*vx+(u.y-ay)*vy)/l)):0,x=ax+t*vx,y=ay+t*vy,d=(x-u.x)**2+(y-u.y)**2+(T.l[A[i+4]]?r*r*.01:0);d<b&&(b=d,o={x,y,k:3,e:T.e[A[i+4]]})}return o},
   lsn=(u,e,T)=>{if(cmd(e))return[u,0,null];let o=osn(u,T);if(o)return[o,0,o];const[s,g]=gsn(u,e);return g?[s,g,null]:(o=osn(u,T,1))?[o,0,o]:[u,0,null]},SNK=['an anchor','a midpoint','a centre','an edge'];
-const LKA=['data-msb-from','data-msb-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
-  lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-msb-from],[data-msb-to]')]}).L},
+const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
+  lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-sg-from],[data-sg-to]')]}).L},
   lkP=(t,u,v)=>{const b=t.getBBox();return b.width||b.height?ctm(t).transformPoint({x:b.x+u*b.width,y:b.y+v*b.height}):null},
   lkSet=(c,i,sp)=>{const a=LKA[i],t=sp&&sp.e;lkV++;if(!t||!root.contains(t))return c.hasAttribute(a)&&c.removeAttribute(a);t.id||(t.id=uid(t.localName));const b=t.getBBox(),q=ctm(t).inverse().transformPoint(sp);
     c.setAttribute(a,`url(#${t.id}) ${fm(b.width?(q.x-b.x)/b.width:0)} ${fm(b.height?(q.y-b.y)/b.height:0)}`)},
-  lkCut=(ns,m)=>{const v=new Set(m.values());for(const n of ns)for(const e of[n,...n.querySelectorAll('[data-msb-from],[data-msb-to]')])for(const a of LKA){const r=LKR.exec(e.getAttribute(a)||'');r&&!v.has(r[1])&&e.removeAttribute(a)}},
+  lkCut=(ns,m)=>{const v=new Set(m.values());for(const n of ns)for(const e of[n,...n.querySelectorAll('[data-sg-from],[data-sg-to]')])for(const a of LKA){const r=LKR.exec(e.getAttribute(a)||'');r&&!v.has(r[1])&&e.removeAttribute(a)}},
   lkDet=els=>{const L=lkAll();if(!L.length)return;const A=[...els,...sel],inM=t=>A.some(x=>x===t||x.contains(t));for(const c of L)if(inM(c))for(const a of LKA){const t=lkT(c,a);t&&!inM(t)&&(c.removeAttribute(a),lkV++)}},
   lkPre=()=>{const L=lkAll(),o=[];D.lk=null;if(!L.length)return;const inS=t=>sel.some(x=>x===t||x.contains(t));
     for(const c of L){if(!root.contains(c)||inS(c))continue;const s=seg(c),E=[];if(!s)continue;LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&inS(r[0])&&lkP(...r);P&&E.push([i,P,r])});
@@ -720,7 +721,7 @@ function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transform
   else if(t==='wedge')e=mk('polygon',{id:uid('polygon'),points:WDG(Pa,Pb).map(q=>fc(q[0])+','+fc(q[1])).join(' '),style:s},p);
   else e=mk('path',{id:uid('path'),d:t==='elbow'?(c=>shD(elD(Pa,c.h,c.v)))(elR(Pa,Pb,[0,1].map(i=>L&&spO(L[i])),q=>Pi.transformPoint(q),3/U/sc(ctm(p)))):t in SHP?shD(SHP[t](Pa,Pb,1/U/sc(ctm(p)))):`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+(t==='brace'?';stroke-linecap:round;stroke-linejoin:round':';stroke-linecap:butt')+(hd in MK?`;marker-end:url(#${hmk(mark(hd),pen.head)})`:'')},p);hd in MK&&mgc([MK[hd][0]]);
   cn&&L&&L.forEach((o,i)=>o&&o.e&&lkSet(e,i,o));ctx=p;setTool('sel');setSel([e],1);commit();cn&&L&&L.some(o=>o&&o.e)&&msg('Attached: the end follows the object it snapped to')}
-const MK={arrow:['ArrowTipMsb','M 0,0 10,5 0,10 z',10,10,9],inhibit:['TeeMsb','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenTipMsb','M 1,1 9,5 1,9',10,10,9,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthTipMsb','M 0,0 10,5 0,10 3,5 z',10,10,9],dot:['DotMsb','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
+const MK={arrow:['ArrowTipSg','M 0,0 10,5 0,10 z',10,10,9],inhibit:['TeeSg','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenTipSg','M 1,1 9,5 1,9',10,10,9,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthTipSg','M 0,0 10,5 0,10 3,5 z',10,10,9],dot:['DotSg','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
 function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];byId(id)||mk('path',{d,style:st},
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
 const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),x:fc(q.x),y:fc(q.y),style:`${b}font-size:${f6(pt/PT/U/sc(ctm(p)))}px;font-family:Arial;fill:#000000`},p,txt);
@@ -884,7 +885,7 @@ function hmk(id,p){const b=id.replace(/_h\d+$/,''),B=byId(b),c=+(/_h(\d+)$/.exec
   const s=B||byId(id),m=s.cloneNode(false),x=+s.getAttribute('refX')||0,y=+s.getAttribute('refY')||0,f=fm(B?p/100:p/c),g=mk('g',{transform:x||y?`translate(${fm(x)},${fm(y)}) scale(${f}) translate(${fm(-x)},${fm(-y)})`:`scale(${f})`},m);
   m.id=n;setSt(m,'overflow','visible');for(const ch of s.childNodes){const q=ch.cloneNode(true);g.appendChild(q.nodeType===1?reid(q):q)}s.after(m);return n}
 const ML=/^(path|line|polyline)$/,mkl=()=>lv().filter(e=>ML.test(e.localName)),hp=i=>+(/_h(\d+)$/.exec(i)||[0,100])[1],
-  mgc=ids=>{for(const id of ids)if(/(Msb|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
+  mgc=ids=>{for(const id of ids)if(/(Msb|Sg|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
   mset=(e,a,v)=>{setSt(e,a,v);v||gcs(e).getPropertyValue(a)==='none'||setSt(e,a,'none')};
 function heads(p,J=[0,1,2]){const old=new Set(),L=lv(),R=L.map(e=>{const c=gcs(e);return MP.map(a=>refId(c.getPropertyValue(a)))});J.includes(2)&&(pen.head=p);
   L.forEach((e,i)=>J.forEach(j=>{const a=MP[j],id=R[i][j];if(!id||!byId(id))return;const n=hmk(id,p);n!==id&&(setSt(e,a,`url(#${n})`),old.add(id))}));mgc(old)}
@@ -977,7 +978,7 @@ function cropR(s,c){const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width')
     for(const[n,x]of[['x',c.x],['y',c.y],['width',c.w],['height',c.h]])cl.firstElementChild.setAttribute(n,fc(x));s.setAttribute('clip-path',`url(#${cl.id})`)}
   ctx=s.parentNode;setSel([s],1);why=full?'Remove crop':'Crop';commit();msg(full?'Removed the crop':'Cropped the photo; press C to change the crop')}
 const LUT={Red:[1,0,0],Green:[0,1,0],Blue:[0,0,1],Cyan:[0,1,1],Magenta:[1,0,1],Yellow:[1,1,0],Gray:[1,1,1]},
-  lut=n=>{const id='msbLut'+n;byId(id)||mk('feColorMatrix',{type:'matrix',values:[...LUT[n].map(v=>[.299*v,.587*v,.114*v,0,0].map(f6).join(' ')),'0 0 0 1 0'].join(' ')},mk('filter',{id,'color-interpolation-filters':'sRGB',x:0,y:0,width:1,height:1},defs()));return id};
+  lut=n=>{const id='sgLut'+n;byId(id)||mk('feColorMatrix',{type:'matrix',values:[...LUT[n].map(v=>[.299*v,.587*v,.114*v,0,0].map(f6).join(' ')),'0 0 0 1 0'].join(' ')},mk('filter',{id,'color-interpolation-filters':'sRGB',x:0,y:0,width:1,height:1},defs()));return id};
 function pseudo(n){finish(true);if(!sel.length)return msg('Select images first');sel.forEach(e=>setSt(e,'filter',n?`url(#${lut(n)})`:null));commit()}
 function mergeCh(){finish(true);const s=order(sel);if(s.length<2||s.length>7)return msg('Select 2 to 7 images to merge');const B=memoize(()=>s.map(e=>bbox(e)));if(B.some(b=>!b||!b.w||!b.h))return;
   const b0=B[0],u=B.reduce(un),x0=u.x+u.w+5/U,p=upc(s[0].parentNode),g=mk('g',{id:uid('g'),'inkscape:label':'Merged channels',style:'isolation:isolate'},p);setT(g,ctm(p).inverse());
@@ -1138,8 +1139,8 @@ async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getRe
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
 async function probe(p){const{key}=cfg(p),s=$('mKs'+p),er=[],cur=()=>cfg(p).key===key;s.textContent='Checking the key…';
   for(const u of[AI[p][0],PLAN[p]].filter(Boolean))try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({model:AI[p].at(-1),messages:[{role:'user',content:'Hi'}],max_tokens:16})});
-    if(r.ok){cur()&&(ls('msb'+p+'Ep',u),s.textContent=ksay(u));return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
-  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('msb'+p+'Ep','');KS[p]=null;s.textContent='Not connected: '+m}throw Error(m)}
+    if(r.ok){cur()&&(ls('sg'+p+'Ep',u),s.textContent=ksay(u));return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
+  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;s.textContent='Not connected: '+m}throw Error(m)}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
@@ -1263,20 +1264,21 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
 {const br=tbBridge(),all=Object.entries(AI).flatMap(([p,[,...ms]])=>ms.map(m=>p+':'+m)),has=(s,x)=>!!x&&[...s.options].some(o=>o.value===x),M=$('mModel'),V=$('mVis'),th=$('mThink');
   M.replaceChildren(...br?[new Option('TBtools','Tb')]:[],...all.map(x=>new Option(nameOf(who(x)),x)));
   V.replaceChildren(new Option('Same as Draw with','self'),...all.filter(x=>VIS.has(who(x).m)).map(x=>new Option(nameOf(who(x)),x)),...br?[new Option('TBtools','Tb')]:[]);
-  const TR=$('mThinkR'),old=ls('msbAi'),dm=ls('msbDraw')||(AI[old]?old+':'+(ls('msb'+old+'Model')||AI[old].at(-1)):br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('msbVis'))?ls('msbVis'):'self';
-  const tv=ls('msbThink'),tr=ls('msbThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){const k=$('mKey'+p),u=ls('msb'+p+'Ep');k.value=ls('msb'+p+'Key')||'';k.onchange=()=>{ls('msb'+p+'Key',k.value.trim());KS[p]=null;k.value.trim()?ep(p).catch(()=>{}):$('mKs'+p).textContent=''};
+  const TR=$('mThinkR'),old=ls('sgAi'),dm=ls('sgDraw')||(AI[old]?old+':'+(ls('sg'+old+'Model')||AI[old].at(-1)):br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('sgVis'))?ls('sgVis'):'self';
+  const tv=ls('sgThink'),tr=ls('sgThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){const k=$('mKey'+p),u=ls('sg'+p+'Ep');k.value=ls('sg'+p+'Key')||'';k.onchange=()=>{ls('sg'+p+'Key',k.value.trim());KS[p]=null;k.value.trim()?ep(p).catch(()=>{}):$('mKs'+p).textContent=''};
     k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
-  M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);
+  M.onchange=()=>{ls('sgDraw',M.value);cfgSync()};V.onchange=()=>{ls('sgVis',V.value);cfgSync()};th.onchange=()=>ls('sgThink',th.value);TR.onchange=()=>ls('sgThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
 $('mSend').onclick=()=>ask();
-const idbO=(n,s,o)=>new Promise(ok=>{try{const r=indexedDB.open(n,1);r.onupgradeneeded=()=>r.result.createObjectStore(s,o);r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('msbChats','c',{keyPath:'id'}),
+const idbM=(n,s,d)=>new Promise(ok=>{try{const r=indexedDB.open(n);r.onupgradeneeded=()=>r.transaction.abort();r.onerror=()=>ok();r.onsuccess=()=>{const b=r.result,x=()=>{b.close();ok()};if(!b.objectStoreNames.contains(s))return x(),indexedDB.deleteDatabase(n);const q=b.transaction(s).objectStore(s),v=q.getAll(),k=q.getAllKeys();k.onsuccess=()=>{const t=d.transaction(s,'readwrite'),w=t.objectStore(s);v.result.forEach((e,i)=>w.keyPath?w.put(e):w.put(e,k.result[i]));t.oncomplete=()=>{x();indexedDB.deleteDatabase(n)};t.onerror=t.onabort=x};k.onerror=x}}catch(_){ok()}}),
+  idbO=(n,s,o)=>new Promise(ok=>{try{let f=0;const r=indexedDB.open(n,1);r.onupgradeneeded=()=>{r.result.createObjectStore(s,o);f=1};r.onsuccess=()=>f?idbM(n.replace(/^sg/,'msb'),s,r.result).then(()=>ok(r.result)):ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('sgChats','c',{keyPath:'id'}),
   cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
-let CH=null,CL=(()=>{try{return JSON.parse(ls('msbChatList')||'[]')}catch(_){return[]}})();
+let CH=null,CL=(()=>{try{return JSON.parse(ls('sgChatList')||'[]')}catch(_){return[]}})();
 const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Date.now(),hist:[],html:'',svgs:[],fig:null,n:0,k:0}),
   mc=ms=>ms.reduce((a,m)=>a+(typeof m.content==='string'?m.content.length:m.content.reduce((b,c)=>b+(c.text||'').length,0)),0),ni=ms=>ms.reduce((a,m)=>a+(Array.isArray(m.content)?m.content.filter(c=>c.image_url).length:0),0),
   chSum=()=>CH&&CH.sum?`\n\nThis chat continues an earlier one that grew too long. Its summary:\n${CH.sum}`:'',fmtK=n=>n>=1e6?+(n/1e6).toFixed(1)+'M':n>=1e3?+(n/1e3).toFixed(1)+'k':String(n),
   chWhen=u=>{const d=new Date(u),n=new Date();return d.toDateString()===n.toDateString()?d.toTimeString().slice(0,5):d.toLocaleDateString('en',{month:'short',day:'numeric'})},
-  chMeta=c=>({id:c.id,t:c.t,u:c.u,n:c.n,k:c.k,from:c.from}),chKeep=()=>ls('msbChatList',JSON.stringify(CL)),
+  chMeta=c=>({id:c.id,t:c.t,u:c.u,n:c.n,k:c.k,from:c.from}),chKeep=()=>ls('sgChatList',JSON.stringify(CL)),
   ctxU=()=>{const c=$('mCu');c.className='';if(!CH||!hist.length)return c.textContent=CH&&CH.sum?`Continues “${CH.ft}” with its summary`:'New chat: the AI reads only this chat';const to=drawTo(),tb=to.p==='Tb',lim=ctxLim(to),n=tb?mc([{role:'system',content:PROMPT.sys()},...past(hist)]):CH.k||round(mc(past(hist))/3);
     c.textContent=tb?`Context ${n.toLocaleString('en')} / ${TBMAX.toLocaleString('en')} characters`:`Context ${CH.k?'':'about '}${fmtK(n)} / ${fmtK(lim)} tokens · ${CH.n} message${CH.n>1?'s':''}`;c.className=n>lim*.85?'w':n>lim*.7?'wa':'';c.title='What the AI read for the last reply in this chat (its whole history is sent with each message; other chats are not)'},
   chHdr=()=>{$('mChT').textContent=(CH?CH.t:'New chat')+' ▾';ctxU()},
@@ -1319,14 +1321,14 @@ $('mChat').ondrop=e=>{e.preventDefault();e.stopPropagation();attach([...e.dataTr
 $('mAsk').onpaste=e=>{const fs=[...e.clipboardData.files];if(fs.length){e.preventDefault();attach(fs)}};
 $('mAsk').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();ac||ask()}};
 
-const RDB=idbO('msbDocs','d',{keyPath:'id'}),
+const RDB=idbO('sgDocs','d',{keyPath:'id'}),
   rdb=(m,f)=>RDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('d',m),q=f(t.objectStore('d'));t.oncomplete=()=>ok(m==='readonly'?q.result:1);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),
   gz=async s=>{try{return await new Response(new Blob([s]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()}catch(_){return s}},
   ungz=z=>typeof z==='string'?z:new Response(new Blob([z]).stream().pipeThrough(new DecompressionStream('gzip'))).text(),
   vwGet=()=>{const r=view.getBoundingClientRect(),c=toU([r.width/2,r.height/2]);return{z:Z*k,x:c.x,y:c.y}},
   vwSet=v=>{if(!v||!(v.z>0))return;const r=view.getBoundingClientRect();Z=v.z;k=1;tx=r.width/2-(v.x-vb.x)*Z;ty=r.height/2-(v.y-vb.y)*Z;size();place()},
   rdW=t=>{const d=new Date(t),n=new Date(),p=x=>String(x).padStart(2,'0');return d.toDateString()===n.toDateString()?p(d.getHours())+':'+p(d.getMinutes()):d.getFullYear()===n.getFullYear()?'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getMonth()]+' '+d.getDate():d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())},
-  rlS=()=>ls('msbDocs',JSON.stringify(RL)),rlR=()=>{try{return JSON.parse(ls('msbDocs')||'[]')}catch(_){return[]}};
+  rlS=()=>ls('sgDocs',JSON.stringify(RL)),rlR=()=>{try{return JSON.parse(ls('sgDocs')||'[]')}catch(_){return[]}};
 let RL=rlR(),DI=null,FD=null,FDh=null,asT=0,asV=-1,asMs=0,asOk=0,asN=0,asP=0,rdQ=Promise.resolve();RDB.then(d=>{asOk=!!d;rdL()});
 const asQ=()=>{clearTimeout(asT);asT=setTimeout(()=>(window.requestIdleCallback||setTimeout)(()=>asNow()),asMs>50?1e4:2e3)};
 function rlPut(m){const kp=[],dr=[];let b=0;for(const x of[m,...rlR().filter(x=>x.id!==m.id)])x.id===DI||kp.length<10&&b+(x.b||0)<=2e8?(kp.push(x),b+=x.b||0):dr.push(x);RL=kp;rlS();dr.length&&rdb('readwrite',s=>dr.forEach(x=>s.delete(x.id)))}
@@ -1362,7 +1364,7 @@ async function kpSave(c){const u=new Set,fs=[];msg('Collecting the copies…');
   else{asNow();await rdQ;for(const m of rlR()){const r=await rdb('readonly',s=>s.get(m.id));if(r)try{fs.push({n:kpNm(u,m.n.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+'_'+stamp(m.t),'.svg'),d:await ungz(r.z)})}catch(_){}}}
   if(!fs.length)return msg('Nothing to save');const n=`svguest_${c?'chats':'recent'}_${stamp()}.zip`;dl(zipB(fs),n);msg(`Saved ${c?kpN(CL.length,'chat'):kpN(fs.length,'file')} to ${n}, in your downloads`)}
 $('mKept').addEventListener('click',e=>{if(e.target===$('mKept'))return $('mKept').close();const k=e.target.closest('[data-k]')?.dataset.k;k&&({ds:()=>kpSave(0),cs:()=>kpSave(1),dc:()=>rdClr().then(kpShow),cc:()=>chAll().then(kpShow)})[k]()});
-const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?idbO('msbDir','h'):Promise.resolve(null),
+const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?idbO('sgDir','h'):Promise.resolve(null),
   fdb=(m,f)=>FDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('h',m),q=f(t.objectStore('h'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),fdL={};
 let fdN=0,fdM=0,fdQ=Promise.resolve();
 function fdUI(){const b=qa('autoDir');b.disabled=!FDOK;b.classList.toggle('on',!!FD);b.firstChild.data=FDh?`Auto-save to “${FDh.name}”`+(FD?'':' (paused)'):'Auto-save to a folder…'}
@@ -1371,13 +1373,13 @@ function fdW(m,txt){if(!FD)return FDh&&!fdM&&(fdM=1,msg(`Not written to “${FDh
   fdQ=fdQ.then(async()=>{if(fdL[f]!==n||d!==FD)return;try{const w=await(await d.getFileHandle(f,{create:true})).createWritable();await w.write(txt);await w.close()}catch(e){d===FD&&(FD=null,fdUI(),msg(`Could not write ${f} to “${d.name}” (${e.message}); auto-save to the folder is paused`))}})}
 async function fdSet(){if(!FDOK)return;const go=h=>{FD=FDh=h;fdM=0;fdUI();(DI||undos.length)&&asNow(1)},off=n=>{FD=FDh=null;fdb('readwrite',s=>s.delete('d'));fdUI();msg(`Auto-save to “${n}” off; the files written there stay`)};
   if(FDh&&!FD){const h=FDh;let p;try{p=await h.requestPermission({mode:'readwrite'})}catch(_){}return p==='granted'?(go(h),msg(`Auto-save to “${h.name}” resumed`)):off(h.name)}
-  if(FD)return off(FD.name);let h;try{h=await showDirectoryPicker({id:'msbAuto',mode:'readwrite'})}catch(e){return e.name==='AbortError'||msg('Cannot use that folder: '+e.message)}
+  if(FD)return off(FD.name);let h;try{h=await showDirectoryPicker({id:'sgAuto',mode:'readwrite'})}catch(e){return e.name==='AbortError'||msg('Cannot use that folder: '+e.message)}
   fdb('readwrite',s=>s.put(h,'d'));go(h);msg(`Auto-save to “${h.name}”: the open file is written there as you work`)}
 fdUI();FDOK&&fdb('readonly',s=>s.get('d')).then(async h=>{if(!h)return;FDh=h;try{(await h.queryPermission({mode:'readwrite'}))==='granted'&&(FD=h)}catch(_){}fdUI()});
 $('mRc').onpointerenter=rdL;$('mRc').firstChild.addEventListener('click',rdL);$('mRm').addEventListener('click',e=>{const b=e.target.closest('button[data-r]');b&&rdOpen(b.dataset.r)});
 document.addEventListener('visibilitychange',()=>document.hidden&&asNow());addEventListener('pagehide',()=>{if(asV===dv&&!asP||!root||!asOk||!opts.auto||ed||D||G||cpS||CR)return;const id=DI||(DI='d'+Date.now().toString(36)),txt=svgRaw();
-  txt.length<2e6&&ls('msbDocCrash',JSON.stringify({m:{id,n:name,t:Date.now(),s:txt.length,e:nOb(),u:dirty,b:txt.length*2},g:gl,v:vwGet(),txt}));asNow(1,1)});
-(c=>{if(!c)return;const no=()=>{try{localStorage.removeItem('msbDocCrash')}catch(_){}};try{c=JSON.parse(c)}catch(_){return no()}rlPut(c.m);rdb('readwrite',s=>s.put({id:c.m.id,z:c.txt,g:c.g||[],v:c.v,h:null})).then(k=>k&&no())})(ls('msbDocCrash'));
+  txt.length<2e6&&ls('sgDocCrash',JSON.stringify({m:{id,n:name,t:Date.now(),s:txt.length,e:nOb(),u:dirty,b:txt.length*2},g:gl,v:vwGet(),txt}));asNow(1,1)});
+(c=>{if(!c)return;const no=()=>{try{localStorage.removeItem('sgDocCrash')}catch(_){}};try{c=JSON.parse(c)}catch(_){return no()}rlPut(c.m);rdb('readwrite',s=>s.put({id:c.m.id,z:c.txt,g:c.g||[],v:c.v,h:null})).then(k=>k&&no())})(ls('sgDocCrash'));
 let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+xml'}),n=outName('.svg');
   try{if(!fh)fh=await showSaveFilePicker({suggestedName:n});const w=await fh.createWritable();await w.write(b);await w.close()}
   catch(e){if(e.name==='AbortError')return;fh=null;dl(b,n);dirty=false;svd=undos.at(-1)??null;bar();asNow(1);return msg('Exported '+n)}
@@ -1388,7 +1390,7 @@ const A={
   undo:()=>undo(0),redo:()=>undo(1),group,ungroup,copy:copyOut,paste:()=>paste(),del,fit,
   bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),
   sup:()=>ed&&document.execCommand('superscript'),sub:()=>ed&&document.execCommand('subscript'),
-  theme:()=>{const d=document.documentElement.dataset.theme!=='dark';setTheme(d);ls('msbTheme',d?'dark':'light')},
+  theme:()=>{const d=document.documentElement.dataset.theme!=='dark';setTheme(d);ls('sgTheme',d?'dark':'light')},
   help:()=>{$('mHelp').showModal();$('mHelp').scrollTop=0},rulers:()=>toggle('rulers'),grid:()=>toggle('grid'),touch:()=>toggle('touch'),auto:()=>{toggle('auto');opts.auto?(asNow(1),msg('Auto-save on: the open file is copied into this browser as you work (File › Open recent)')):(clearTimeout(asT),msg('Auto-save off: no more copies are kept; Open recent keeps the ones it has'))},kept:()=>kpShow(),autoDir:()=>fdSet(),
   portrait:()=>vb.w>vb.h&&setPage(vb.x,vb.y,vb.h,vb.w),landscape:()=>vb.h>vb.w&&setPage(vb.x,vb.y,vb.h,vb.w),
   fitPage:()=>{finish(true);const b=memoize(()=>cands(root,1).reduce((a,e)=>un(a,bbox(e)),null)),m=1/U;b?setPage(b.x-m,b.y-m,b.w+2*m,b.h+2*m):msg('Nothing to fit')},
@@ -1401,7 +1403,7 @@ for(const n in LUT)A['tint'+n]=()=>pseudo(n);A.tint=()=>pseudo('');A.xmg=mergeCh
 const zv=(f,p)=>{const z=Z*k*f;z>1e-3&&z<1e4&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
-A.chat=()=>{const on=document.body.classList.toggle('chat');ls('msbChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
+A.chat=()=>{const on=document.body.classList.toggle('chat');ls('sgChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
 A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
 const FQ={m:[],i:-1,b:new Map,raf:0},fqOn=()=>!$('mQ').hidden,
   fqL=()=>fqOn()&&!!$('mQf').value,
@@ -1497,7 +1499,7 @@ function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map
   return o}
 function kSc(c,q){const n=c.n.toLowerCase();if(n.startsWith(q))return 5;if([...n.matchAll(/[^a-z0-9]+/g)].some(m=>n.startsWith(q,m.index+m[0].length)))return 4;if(n.includes(q))return 3;
   if((c.g+' '+c.t+' '+c.k).toLowerCase().includes(q))return 2;let j=0;for(const ch of n)ch===q[j]&&j++;return j===q.length?1:0}
-const kRc=()=>{try{return JSON.parse(ls('msbRecent')||'[]')}catch(_){return[]}};
+const kRc=()=>{try{return JSON.parse(ls('sgRecent')||'[]')}catch(_){return[]}};
 function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEach((c,i)=>c.g in gi||(gi[c.g]=i));
   if(!q){kR=[...kRc().map(id=>kC.find(c=>c.id===id)).filter(Boolean).map(c=>({c:{...c,g:'Recent'},i:-1,s:1})),...kC.map((c,i)=>({c,i,s:1}))];kI=0;return kDraw()}
   kR=kC.map((c,i)=>({c,i,s:q?kSc(c,q):1})).filter(x=>x.s);kR.forEach(x=>gm[x.c.g]=max(gm[x.c.g]||0,x.s));kR.sort((a,b)=>gm[b.c.g]-gm[a.c.g]||gi[a.c.g]-gi[b.c.g]||b.s-a.s||a.i-b.i);kI=0;kDraw()}
@@ -1523,7 +1525,7 @@ function kDraw(){const L=$('mKl');L.replaceChildren();L.scrollTop=0;let g;if(!kR
 function kMove(d){if(!kR.length)return;kI=(kI+d+kR.length)%kR.length;const rs=$('mKl').querySelectorAll('div');rs.forEach((r,i)=>r.classList.toggle('on',i===kI));rs[kI].scrollIntoView({block:'nearest'})}
 function kOpen(){if(!root)return;menuOff();cmOff();kC=kCol();$('mKq').value='';$('mK').hidden=false;kFil();$('mKq').focus()}
 function kClose(){$('mK').hidden=true;$('mKq').blur()}
-function kRun(i){const x=kR[i];if(!x||x.c.off)return;ls('msbRecent',JSON.stringify([x.c.id,...kRc().filter(d=>d!==x.c.id)].slice(0,5)));kClose();setTimeout(()=>x.c.b.click(),60)}
+function kRun(i){const x=kR[i];if(!x||x.c.off)return;ls('sgRecent',JSON.stringify([x.c.id,...kRc().filter(d=>d!==x.c.id)].slice(0,5)));kClose();setTimeout(()=>x.c.b.click(),60)}
 $('mKb').onclick=kOpen;$('mKq').oninput=kFil;$('mK').onclick=e=>e.target===$('mK')&&kClose();$('mKl').onmousedown=e=>e.preventDefault();$('mKl').onclick=e=>{const r=e.target.closest('#mKl div');r&&kRun(+r.dataset.i)};
 $('mKl').onmousemove=e=>{const r=e.target.closest('#mKl div'),m=e.screenX+','+e.screenY;if(m===kM||!r)return;kM=m;kI=+r.dataset.i;$('mKl').querySelectorAll('div').forEach((x,i)=>x.classList.toggle('on',i===kI))};
 addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowerCase()==='k'&&(MAC?e.metaKey&&!e.ctrlKey:e.ctrlKey&&!e.metaKey)&&!e.shiftKey&&!e.altKey;
@@ -1649,13 +1651,13 @@ let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.c
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=e.clipboardData.getData('text/plain');
   if(root&&!f&&t&&t!==lastOut&&/^\s*(<svg|<\?xml)/i.test(t)){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});
-const opts={rulers:ls('msbRulers')!=='0',grid:ls('msbGrid')==='1',touch:ls('msbTouch')!=='0',auto:ls('msbAuto')!=='0'};
+const opts={rulers:ls('sgRulers')!=='0',grid:ls('sgGrid')==='1',touch:ls('sgTouch')!=='0',auto:ls('sgAuto')!=='0'};
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
-function toggle(o){opts[o]=!opts[o];ls('msb'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
+function toggle(o){opts[o]=!opts[o];ls('sg'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
 function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';RC=null;qa('theme').title=`Theme: ${d?'dark':'light'}. Click for the ${d?'light':'dark'} interface`;rulers()}
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
-views();ls('msbChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
+views();ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
 </script>
 </body>
 </html>

@@ -21,16 +21,16 @@ const ui=()=>{const s=G.st||{},on=s.signedIn&&s.share,n=G.ms.length,m=G.pm||s.no
     document.activeElement!==px&&(px.value=s.proxy||'')},
   st=async()=>{try{G.st=await rj(await rqs('/siwc/status'))}catch(_){G.st={error:'TBtools is not answering'}}ui();return G.st},
   poll=async()=>{clearTimeout(G.pt);const s=await st();s.waiting?G.pt=setTimeout(poll,1500):(G.km&&(G.km='',ui()),s.signedIn&&s.share&&models())},
-  self=()=>{drawTo().p==='Gpt'&&!ls('msbVis')&&V.value!=='self'&&(V.value='self',cfgSync())},
+  self=()=>{drawTo().p==='Gpt'&&!ls('sgVis')&&V.value!=='self'&&(V.value='self',cfgSync())},
   put=L=>{G.ms=L.map(m=>m.id);for(const m of L){NAME[m.id]=m.n;VIS.add(m.id);m.c>0&&(CTX[m.id]=m.c)}
     for(const s of[M,V])s.querySelectorAll('option[value^="Gpt:"]').forEach(o=>o.remove());
     const vs=(G.ms.length?G.ms:['auto']).map(m=>'Gpt:'+m),op=v=>new Option(nameOf(who(v)),v);M.append(...vs.map(op));V.append(...vs.map(op));
-    for(const[s,k]of[[M,'msbDraw'],[V,'msbVis']]){const v=ls(k);v&&v.startsWith('Gpt:')&&(s.value=vs.includes(v)?v:vs[0],ls(k,s.value))}cfgSync();self();ctxU()},
+    for(const[s,k]of[[M,'sgDraw'],[V,'sgVis']]){const v=ls(k);v&&v.startsWith('Gpt:')&&(s.value=vs.includes(v)?v:vs[0],ls(k,s.value))}cfgSync();self();ctxU()},
   models=async()=>{let j,r;try{r=await rqs('/siwc/models');j=await rj(r)}catch(_){return}if(!r.ok)return G.km='Signed in, but the model list failed: '+why(j),ui();
     const L=(j.models||j.data||[]).filter(m=>m&&(m.slug||m.id)&&(!m.visibility||m.visibility==='list')).map(m=>({id:m.slug||m.id,n:m.display_name||m.slug||m.id,c:m.context_window}));
-    ls('msbGptModels',JSON.stringify(L));put(L);ui()};
+    ls('sgGptModels',JSON.stringify(L));put(L);ui()};
 sb.onclick=so.onclick=async e=>{e.preventDefault();const s=G.st||{};
-  if(s.signedIn&&!s.waiting){if(!confirm('Sign out of ChatGPT? svguest will no longer use your ChatGPT plan.'))return;try{G.st=await rj(await rqs('/siwc/logout',''))}catch(_){}G.km='';ls('msbGptModels','[]');put([]);return ui()}
+  if(s.signedIn&&!s.waiting){if(!confirm('Sign out of ChatGPT? svguest will no longer use your ChatGPT plan.'))return;try{G.st=await rj(await rqs('/siwc/logout',''))}catch(_){}G.km='';ls('sgGptModels','[]');put([]);return ui()}
   G.km='Opening the ChatGPT sign-in page…';ui();let r,j;try{r=await rqs('/siwc/login','');j=await rj(r)}catch(_){j={error:{message:'TBtools is not answering'}}}
   if(!r||!r.ok)return G.km='Could not start sign-in: '+why(j),ui();
   G.km=j.opened?'':'Your web browser didn\'t open: copy this link into it.';G.st={...G.st,waiting:true,error:null};ui();j.opened||(lk.value=j.url,lk.hidden=false);poll()};
@@ -52,7 +52,7 @@ const call0=call;call=async function(to,msgs,o){if(to.p!=='Gpt')return call0(to,
     else if(t==='response.incomplete'){u=j.response?.usage;const w=j.response?.incomplete_details?.reason;if(w!=='max_output_tokens')throw Error('The reply stopped early'+(w?': '+w:''));cut=1}
     else if(t==='response.failed'||t==='error')throw Error(why(j.response||j))}
   o.ui.use(u&&{prompt_tokens:u.input_tokens,completion_tokens:u.output_tokens,completion_tokens_details:{reasoning_tokens:u.output_tokens_details?.reasoning_tokens||0}});return{out,cut}};
-try{put(JSON.parse(ls('msbGptModels')||'[]'))}catch(_){put([])}
+try{put(JSON.parse(ls('sgGptModels')||'[]'))}catch(_){put([])}
 poll().then(()=>{G.st?.signedIn||[drawTo(),reader()].some(x=>x&&x.p==='Gpt')&&($('mCfg').open=true)});
 })();
 (()=>{const S=window.TBSIWC;if(!S||!S.url||!MAC||typeof placeImg!=='function')return;

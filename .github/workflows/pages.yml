@@ -1,0 +1,69 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy_retry.outputs.page_url || steps.deploy_primary.outputs.page_url }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Check inline scripts
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const files = ['index.html', 'app.html'];
+          const re = /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi;
+          for (const file of files) {
+            const src = fs.readFileSync(file, 'utf8');
+            let n = 0, m;
+            while ((m = re.exec(src))) {
+              n++;
+              new Function(m[1]);
+            }
+            console.log(`${file}: ${n} inline script block(s) parsed`);
+          }
+          NODE
+
+      - name: Stage Pages artifact
+        run: |
+          mkdir -p _site
+          cp index.html app.html svguest.plugin LICENSE _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy_primary
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Retry deploy to GitHub Pages once
+        id: deploy_retry
+        if: steps.deploy_primary.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+
+      - name: Fail if deploy still failed
+        if: steps.deploy_primary.outcome == 'failure' && steps.deploy_retry.outcome == 'failure'
+        run: exit 1

@@ -322,10 +322,7 @@ const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,pm(e).
 function applyM(M,els=sel){lkDet(els);const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
-function setSt(e,p,v){const o=[];let done=v==null;
-  for(const d of(e.getAttribute('style')||'').split(';')){const i=d.indexOf(':');if(i<0)continue;if(d.slice(0,i).trim()!==p)o.push(d.trim());else if(!done){o.push(p+':'+v);done=true}}
-  if(!done)o.push(p+':'+v);
-  o.length?e.setAttribute('style',o.join(';')):e.removeAttribute('style');e.removeAttribute(p)}
+const setSt=(e,p,v)=>setSts(e,[[p,v]]);
 function setSts(e,kv){const m=new Map(kv),o=[],done=new Set;
   for(const d of(e.getAttribute('style')||'').split(';')){const i=d.indexOf(':');if(i<0)continue;const nm=d.slice(0,i).trim();if(!m.has(nm))o.push(d.trim());else if(!done.has(nm)){const v=m.get(nm);v!=null&&o.push(nm+':'+v);done.add(nm)}}
   for(const[nm,v]of m)done.has(nm)||v==null||o.push(nm+':'+v);o.length?e.setAttribute('style',o.join(';')):e.removeAttribute('style');for(const nm of m.keys())e.removeAttribute(nm)}
@@ -1272,7 +1269,7 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
   M.onchange=()=>{ls('msbDraw',M.value);cfgSync()};V.onchange=()=>{ls('msbVis',V.value);cfgSync()};th.onchange=()=>ls('msbThink',th.value);TR.onchange=()=>ls('msbThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
 $('mSend').onclick=()=>ask();
-const CDB=new Promise(ok=>{try{const r=indexedDB.open('msbChats',1);r.onupgradeneeded=()=>r.result.createObjectStore('c',{keyPath:'id'});r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),
+const idbO=(n,s,o)=>new Promise(ok=>{try{const r=indexedDB.open(n,1);r.onupgradeneeded=()=>r.result.createObjectStore(s,o);r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('msbChats','c',{keyPath:'id'}),
   cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
 let CH=null,CL=(()=>{try{return JSON.parse(ls('msbChatList')||'[]')}catch(_){return[]}})();
 const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Date.now(),hist:[],html:'',svgs:[],fig:null,n:0,k:0}),
@@ -1322,7 +1319,7 @@ $('mChat').ondrop=e=>{e.preventDefault();e.stopPropagation();attach([...e.dataTr
 $('mAsk').onpaste=e=>{const fs=[...e.clipboardData.files];if(fs.length){e.preventDefault();attach(fs)}};
 $('mAsk').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();ac||ask()}};
 
-const RDB=new Promise(ok=>{try{const r=indexedDB.open('msbDocs',1);r.onupgradeneeded=()=>r.result.createObjectStore('d',{keyPath:'id'});r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),
+const RDB=idbO('msbDocs','d',{keyPath:'id'}),
   rdb=(m,f)=>RDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('d',m),q=f(t.objectStore('d'));t.oncomplete=()=>ok(m==='readonly'?q.result:1);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),
   gz=async s=>{try{return await new Response(new Blob([s]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()}catch(_){return s}},
   ungz=z=>typeof z==='string'?z:new Response(new Blob([z]).stream().pipeThrough(new DecompressionStream('gzip'))).text(),
@@ -1365,7 +1362,7 @@ async function kpSave(c){const u=new Set,fs=[];msg('Collecting the copies…');
   else{asNow();await rdQ;for(const m of rlR()){const r=await rdb('readonly',s=>s.get(m.id));if(r)try{fs.push({n:kpNm(u,m.n.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+'_'+stamp(m.t),'.svg'),d:await ungz(r.z)})}catch(_){}}}
   if(!fs.length)return msg('Nothing to save');const n=`minisvg_${c?'chats':'recent'}_${stamp()}.zip`;dl(zipB(fs),n);msg(`Saved ${c?kpN(CL.length,'chat'):kpN(fs.length,'file')} to ${n}, in your downloads`)}
 $('mKept').addEventListener('click',e=>{if(e.target===$('mKept'))return $('mKept').close();const k=e.target.closest('[data-k]')?.dataset.k;k&&({ds:()=>kpSave(0),cs:()=>kpSave(1),dc:()=>rdClr().then(kpShow),cc:()=>chAll().then(kpShow)})[k]()});
-const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?new Promise(ok=>{try{const r=indexedDB.open('msbDir',1);r.onupgradeneeded=()=>r.result.createObjectStore('h');r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}):Promise.resolve(null),
+const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?idbO('msbDir','h'):Promise.resolve(null),
   fdb=(m,f)=>FDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('h',m),q=f(t.objectStore('h'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),fdL={};
 let fdN=0,fdM=0,fdQ=Promise.resolve();
 function fdUI(){const b=qa('autoDir');b.disabled=!FDOK;b.classList.toggle('on',!!FD);b.firstChild.data=FDh?`Auto-save to “${FDh.name}”`+(FD?'':' (paused)'):'Auto-save to a folder…'}
@@ -1399,7 +1396,7 @@ const A={
   z100:()=>zv(U*96/25.4/(Z*k)),zin:()=>zv(1.25),zout:()=>zv(.8),all:()=>setSel(cands(top_(ctx)?root:ctx)),swap:swapFS,sf:()=>alike('fill'),ss:()=>alike('stroke'),arial:()=>{texts().forEach(t=>setFont(t,'font-family','Arial'));commit()}};
 for(const c of'lcrtmb')A['a'+c]=()=>align(c);
 A.cut=()=>{copyOut();del()};A.below=()=>cmE&&selBelow(cmE,sel[0]);A.pasteHere=()=>{cmE&&(mouse=vp(cmE));paste()};
-A.cropI=()=>setTool('crop');A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value;cropR(s,rb(v('x'),v('y'),v('width'),v('height')))};
+A.cropI=()=>setTool('crop');A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value;s?.localName==='image'&&cropR(s,rb(v('x'),v('y'),v('width'),v('height')))};
 for(const n in LUT)A['tint'+n]=()=>pseudo(n);A.tint=()=>pseudo('');A.xmg=mergeCh;
 const zv=(f,p)=>{const z=Z*k*f;z>1e-3&&z<1e4&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);

@@ -1,6 +1,6 @@
 # svguest
 
-A lightweight in-browser SVG editor for touching up ggplot2/svglite figures (often re-saved by Inkscape). Live at https://jieqianghe.github.io/svguest/ (GitHub Pages serves `main`). The repo was renamed from `minisvgbench` to `minisvg`, then to `svguest` (Oct 2026); until 22 Nov 2026 a separate `minisvg` repo serves a redirect page at the old address (jieqianghe.github.io/minisvg/ → /svguest/, keeping query and hash). Storage keys stay `msb…` (same origin, so chats, recent files and settings carry over).
+A lightweight in-browser SVG editor for touching up ggplot2/svglite figures (often re-saved by Inkscape). Live at https://jieqianghe.github.io/svguest/ (GitHub Pages serves `main`). The repo was renamed from `minisvgbench` to `minisvg`, then to `svguest` (Oct 2026); until 22 Nov 2026 a separate `minisvg` repo serves a redirect page at the old address (jieqianghe.github.io/minisvg/ → /svguest/, keeping query and hash). Storage keys stay `msb…` (same origin, so chats, recent files and settings carry over). The redirect repo holds only `index.html`, `404.html` (both `location.replace` to `/svguest/` with query and hash, meta refresh without JS) and a README. A Pages deploy that collides with one in progress fails; its re-run can hang in queued (neither cancellable nor re-runnable), and the next push deploys.
 
 ## Repo rules
 

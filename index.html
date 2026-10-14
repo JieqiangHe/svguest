@@ -20,29 +20,29 @@ body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Helv
 a{color:inherit;text-underline-offset:4px}
 #cover{position:fixed;inset:0;overflow:auto;background:var(--paper);user-select:none;-webkit-user-select:none}
 .page{max-width:1200px;padding:0 48px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
-.header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
 .brand{display:flex;align-items:center}
 .brand svg{width:102px;height:23px}.brand svg,#logo{color:var(--ink)}.pf{fill:var(--paper)}
 .repo{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;padding:8px 0}.repo svg{width:16px;height:16px;flex:none}
 .repo:hover{color:var(--ink)}
 .hr{display:flex;align-items:center;gap:20px}
 #thm{display:inline-flex;align-items:center;gap:7px;padding:8px 0;border:0;background:none;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}#thm:hover{color:var(--ink)}#thm svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3}#thm .f{fill:currentColor;stroke:none}
-.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;padding:28px 0 52px}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;padding:16px 0 32px}
 .eyebrow{font-size:11px;letter-spacing:.1em;line-height:1.5;text-transform:uppercase;color:var(--muted);font-weight:500}
-h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:1.08;letter-spacing:-.035em;white-space:pre-line}
-.sub{margin-top:24px;max-width:440px;font-size:16px;line-height:1.75;color:var(--body)}
-.actions{display:flex;align-items:center;gap:20px;margin-top:30px}
+h1{margin-top:14px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:1.08;letter-spacing:-.035em;white-space:pre-line}
+.sub{margin-top:18px;max-width:440px;font-size:16px;line-height:1.75;color:var(--body)}
+.actions{display:flex;align-items:center;gap:20px;margin-top:24px}
 #go{height:48px;padding:0 25px;border:0;border-radius:6px;background:var(--ink);color:var(--paper);font:500 15px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;transition:background .15s,transform .08s;white-space:nowrap}
 #go:hover{opacity:.86}
 #go:active,#go.press{transform:scale(.98)}
 #go:focus-visible,#thm:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .hint{font-size:12px;color:var(--muted)}
-.compat{margin-top:24px;font-size:12px;line-height:1.8;color:var(--muted);max-width:430px}
+.compat{margin-top:18px;font-size:12px;line-height:1.8;color:var(--muted);max-width:430px}
 .art{display:grid;place-items:center end;padding:10px 0}
 #logo{width:min(100%,var(--lw));height:auto;overflow:visible;touch-action:none;margin-right:calc(var(--lw)*-16/240)}
 #logo [data-p],[data-e]{cursor:move;touch-action:none}
 #logo [data-roof-anchor]{cursor:crosshair;touch-action:none}
-.story{padding:20px 0 40px;display:grid;grid-template-columns:minmax(0,1fr) calc(var(--lw)*181.75/240);gap:72px;align-items:center}
+.story{padding:16px 0 28px;display:grid;grid-template-columns:minmax(0,1fr) calc(var(--lw)*181.75/240);gap:72px;align-items:center}
 .story .q{margin-top:12px;font-size:30px;line-height:1.25;letter-spacing:-.02em;font-weight:400}
 .story .by{margin-top:7px;font-size:12px;color:var(--muted)}
 .story .body{margin-top:17px;max-width:680px;font-size:14px;line-height:1.75;color:var(--body)}
@@ -51,7 +51,7 @@ h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:
 .story img{display:block;width:100%;height:auto;filter:var(--img);outline:1px solid var(--frame);outline-offset:-1px}
 .story figcaption{margin:9px calc(var(--lw)*-26.25/240) 0 0;font-size:10.5px;line-height:1.6;color:var(--muted)}
 .story figcaption a{display:inline;text-decoration:underline}
-.legal{border-top:1px solid var(--line);margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 0 26px;color:var(--muted);font-size:11px;line-height:1.7}
+.legal{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:24px;padding:18px 0 22px;color:var(--muted);font-size:11px;line-height:1.7}
 .tbl{display:inline-flex;align-items:center;gap:7px}.tbl svg{width:13px;height:13px;flex-shrink:0}
 [contenteditable]:not([contenteditable=false]){cursor:text;outline:none;user-select:text;-webkit-user-select:text}
 @keyframes k{50%{opacity:0}}
@@ -61,20 +61,20 @@ h1{margin-top:18px;font-weight:400;font-size:clamp(48px,5.1vw,66px);line-height:
 #hud .a{position:absolute;width:9px;height:9px;margin:-4.5px;background:var(--ink);cursor:crosshair}
 #hud .c{position:absolute;width:1.5px;background:var(--ink);animation:k 1s steps(1) infinite}
 @media (max-width:780px){
- .page{padding:0 28px}.header{padding:20px 0}
- .hero{gap:32px;padding:24px 0 44px}
+ .page{padding:0 28px}.header{padding:16px 0}
+ .hero{gap:32px;padding:12px 0 28px}
  h1{font-size:48px}.sub{font-size:15px}.art{padding:0}
  .story{grid-template-columns:minmax(0,1fr) 160px;gap:30px}.story figure{margin:0}.story figcaption{margin-right:0}.story .q{font-size:26px}
  .legal{align-items:flex-start;flex-direction:column;gap:6px}
 }
 @media (max-width:600px){
- .page{padding:0 24px}.header{padding:18px 0}.brand svg{width:91px;height:20.5px}
- .hero{grid-template-columns:1fr;gap:38px;padding:20px 0 36px}
+ .page{padding:0 24px}.header{padding:14px 0}.brand svg{width:91px;height:20.5px}
+ .hero{grid-template-columns:1fr;gap:30px;padding:10px 0 24px}
  h1{font-size:clamp(40px,11vw,54px);margin-top:14px}.sub{margin-top:20px;font-size:15px;line-height:1.7}
  .actions{margin-top:24px;gap:16px}.compat{margin-top:18px}
  #logo{width:210px;margin:0}.art{padding:0 0 4px;justify-items:center}
  .hr{gap:12px}.hr span{display:none}
- .story{grid-template-columns:1fr;gap:24px;padding:20px 0 28px}
+ .story{grid-template-columns:1fr;gap:20px;padding:14px 0 22px}
  .story .q{font-size:27px}.story .body{font-size:13.5px}
  .story figure{display:grid;grid-template-columns:126px minmax(0,1fr);gap:16px;align-items:end}
  .story figcaption{margin:0;font-size:10.5px}.legal{padding:18px 0 24px;font-size:10.5px}

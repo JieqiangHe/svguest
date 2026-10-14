@@ -22,7 +22,10 @@ import java.lang.reflect.Proxy;
 import java.nio.file.Path;
 import java.text.AttributedCharacterIterator;
 import java.text.CharacterIterator;
+import java.util.Enumeration;
 import java.util.Optional;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -39,7 +42,16 @@ public class PluginInject {
     private final File dir;
 
     public PluginInject() throws Exception {
-        dir = new File(PluginInject.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+        File jar = new File(PluginInject.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        dir = jar.getParentFile();
+        try (JarFile j = new JarFile(jar)) {
+            for (Enumeration<JarEntry> e = j.entries(); e.hasMoreElements(); ) {
+                String n = e.nextElement().getName();
+                if (n.endsWith(".class")) Class.forName(n.substring(0, n.length() - 6).replace('/', '.'), false, PluginInject.class.getClassLoader());
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     public JPanel generatePanel() {

@@ -93,6 +93,7 @@ The `.plugin` is installed through Install Plugin in the TBtools menu. On delive
 
   No interface needs implementing, and the jar needs no manifest. Compile with `--release 11`, matching TBtools' class-file version.
 - After startup, the menu item shows the folder name; `getPluginName()` is used only once, right after installation.
+- The plugin's class loader may be closed after the panel is built: in TBtools-II 2.561 (macOS, Oct 2026), a plugin opened straight after Install Plugin later failed with `NoClassDefFoundError` / `ClassNotFoundException` from `URLClassLoader.findClass` for a nested class first used after that (`Siwc$Net`, at the first request). Closing a `URLClassLoader` after `generatePanel()` reproduces it exactly. So `PluginInject`'s constructor loads (without initialising) every class in its own jar while the loader is surely open; keep that, and don't rely on loading anything from the jar later (resources included).
 - `MenuConfig.ini` is read without trimming, so a trailing newline would become part of the menu name — hence build.sh writes it with `printf`.
 - Once the plugin panel is added, TBtools calls `pack()`. PluginInject sets a preferredSize; without one the window may shrink to something tiny.
 - `biocjava.GUIexcutors.WebGuiApp.WebGuiJPanel(String url, boolean controlMenu)` uses a shared static Engine (`getEngine()`, OFF_SCREEN mode, user data under `.jxbrowser` in the TBtools home) and injects its license itself. With `controlMenu=false` the navigation bar is hidden.

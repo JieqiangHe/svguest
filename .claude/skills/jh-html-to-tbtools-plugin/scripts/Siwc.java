@@ -137,10 +137,11 @@ final class Siwc {
                 }
             } catch (Bad e) {
                 send(out, e.code, J, fail(e.getMessage()));
-            } catch (Exception e) {
+            } catch (Throwable e) {
+                if (!(e instanceof IOException)) e.printStackTrace();
                 send(out, 502, J, fail(e.getMessage() == null ? e.toString() : e.getMessage()));
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
         }
     }
 

@@ -55,3 +55,12 @@ const call0=call;call=async function(to,msgs,o){if(to.p!=='Gpt')return call0(to,
 try{put(JSON.parse(ls('msbGptModels')||'[]'))}catch(_){put([])}
 poll().then(()=>{G.st?.signedIn||[drawTo(),reader()].some(x=>x&&x.p==='Gpt')&&($('mCfg').open=true)});
 })();
+(()=>{const S=window.TBSIWC;if(!S||!S.url||!MAC||typeof placeImg!=='function')return;
+const C=navigator.clipboard,w0=C&&C.writeText.bind(C);let pt=0;
+w0&&(C.writeText=t=>w0(t).catch(()=>fetch(S.url+'/siwc/clip-text',{method:'POST',body:t,headers:{'x-siwc-key':S.key}}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status)})));
+addEventListener('keydown',e=>{const t=e.target;if(!cmd(e)||e.shiftKey||e.altKey||e.key.toLowerCase()!=='v'||!root||dlgOpen()||t.id!=='mAsk'&&t.closest?.('#mChat,input,textarea,select,.ed,[contenteditable]'))return;
+  const x=new XMLHttpRequest;try{x.open('GET',S.url+'/siwc/clip-image',false);x.setRequestHeader('x-siwc-key',S.key);x.send()}catch(_){return}if(x.status!==200)return;
+  const b=atob(x.responseText),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);const f=new File([u],'image.png',{type:'image/png'});
+  e.preventDefault();e.stopImmediatePropagation();pt=Date.now();t.id==='mAsk'?attach([f]):placeImg(f)},true);
+addEventListener('paste',e=>{Date.now()-pt<1e3&&[...e.clipboardData.files].some(isImg)&&(e.preventDefault(),e.stopImmediatePropagation())},true);
+})();

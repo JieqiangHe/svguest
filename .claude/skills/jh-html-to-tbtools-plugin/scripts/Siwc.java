@@ -1,6 +1,14 @@
 package Plugin;
 
 import java.awt.Desktop;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.image.BufferedImage;
+import java.awt.image.MultiResolutionImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,9 +42,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 final class Siwc {
 
@@ -133,6 +144,8 @@ final class Siwc {
                     case "/siwc/proxy": proxy(new String(body, StandardCharsets.UTF_8).trim()); ptest = probe(); send(out, 200, J, status()); break;
                     case "/siwc/models": relay(out, "/models", null); break;
                     case "/siwc/responses": relay(out, "/responses", body); break;
+                    case "/siwc/clip-image": String b = clipImage(); send(out, b == null ? 204 : 200, "text/plain", b); break;
+                    case "/siwc/clip-text": Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(new String(body, StandardCharsets.UTF_8)), null); send(out, 204, null, null); break;
                     default: send(out, 404, J, fail("Not found"));
                 }
             } catch (Bad e) {
@@ -143,6 +156,27 @@ final class Siwc {
             }
         } catch (Throwable e) {
         }
+    }
+
+    private static String clipImage() throws Exception {
+        FutureTask<String> f = new FutureTask<>(() -> {
+            Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
+            if (!c.isDataFlavorAvailable(DataFlavor.imageFlavor)) return null;
+            Image im = (Image) c.getData(DataFlavor.imageFlavor);
+            if (im instanceof MultiResolutionImage) for (Image v : ((MultiResolutionImage) im).getResolutionVariants()) if (v.getWidth(null) > im.getWidth(null)) im = v;
+            if (!(im instanceof BufferedImage)) im = new ImageIcon(im).getImage();
+            int w = im.getWidth(null), h = im.getHeight(null);
+            if (w <= 0 || h <= 0) return null;
+            BufferedImage b = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = b.createGraphics();
+            g.drawImage(im, 0, 0, null);
+            g.dispose();
+            ByteArrayOutputStream o = new ByteArrayOutputStream();
+            ImageIO.write(b, "png", o);
+            return Base64.getEncoder().encodeToString(o.toByteArray());
+        });
+        daemon(f);
+        return f.get(5, TimeUnit.SECONDS);
     }
 
     private static String line(InputStream in) throws IOException {

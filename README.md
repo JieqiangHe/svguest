@@ -1,4 +1,4 @@
-# <img src="logo.svg" alt="" height="30"> svguest
+# <picture><source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg"><img src="logo.svg" alt="" height="30"></picture> svguest
 
 > I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.
 
@@ -6,7 +6,7 @@ A tiny SVG editor for scientific figures, in a single HTML file. Touch up plots 
 
 **Live: https://jieqianghe.github.io/svguest/**
 
-[TBtools-II](https://github.com/CJ-Chen/TBtools-II) users can use `svguest.plugin` directly. Inside TBtools, SVG Chat can use TBtools' model for free, without an API key.
+[TBtools-II](https://github.com/CJ-Chen/TBtools-II) users can use `svguest.plugin` directly. Inside TBtools, SVG Chat can use TBtools' model for free, without an API key, or your own paid ChatGPT plan (Sign in with ChatGPT).
 
 ## The name
 

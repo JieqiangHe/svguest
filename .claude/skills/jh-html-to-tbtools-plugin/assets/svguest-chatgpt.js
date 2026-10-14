@@ -30,7 +30,7 @@ const ui=()=>{const s=G.st||{},on=s.signedIn&&s.share,n=G.ms.length,m=G.pm||s.no
     const L=(j.models||j.data||[]).filter(m=>m&&(m.slug||m.id)&&(!m.visibility||m.visibility==='list')).map(m=>({id:m.slug||m.id,n:m.display_name||m.slug||m.id,c:m.context_window}));
     ls('msbGptModels',JSON.stringify(L));put(L);ui()};
 sb.onclick=so.onclick=async e=>{e.preventDefault();const s=G.st||{};
-  if(s.signedIn&&!s.waiting){if(!confirm('Sign out of ChatGPT? minisvg will no longer use your ChatGPT plan.'))return;try{G.st=await rj(await rqs('/siwc/logout',''))}catch(_){}G.km='';ls('msbGptModels','[]');put([]);return ui()}
+  if(s.signedIn&&!s.waiting){if(!confirm('Sign out of ChatGPT? svguest will no longer use your ChatGPT plan.'))return;try{G.st=await rj(await rqs('/siwc/logout',''))}catch(_){}G.km='';ls('msbGptModels','[]');put([]);return ui()}
   G.km='Opening the ChatGPT sign-in page…';ui();let r,j;try{r=await rqs('/siwc/login','');j=await rj(r)}catch(_){j={error:{message:'TBtools is not answering'}}}
   if(!r||!r.ok)return G.km='Could not start sign-in: '+why(j),ui();
   G.km=j.opened?'':'Your web browser didn\'t open: copy this link into it.';G.st={...G.st,waiting:true,error:null};ui();j.opened||(lk.value=j.url,lk.hidden=false);poll()};

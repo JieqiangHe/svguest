@@ -60,7 +60,7 @@ final class Siwc {
 
     private static final String ISS = System.getProperty("siwc.issuer", "https://auth.openai.com"), API = System.getProperty("siwc.api", "https://api.openai.com/v1"),
         RES = "https://api.openai.com/v1", SHARE = "chatgpt.tokens.use.direct", SCOPES = "openid profile email offline_access resource.invoke " + SHARE,
-        J = "application/json", SIGN_IN = "Sign in with ChatGPT in AI settings first.", NOT = "minisvg-bridge-not-a-proxy";
+        J = "application/json", SIGN_IN = "Sign in with ChatGPT in AI settings first.", NOT = "svguest-bridge-not-a-proxy";
     private static final SecureRandom RND = new SecureRandom();
     private static Siwc on;
     private final ServerSocket ss;
@@ -268,7 +268,7 @@ final class Siwc {
         Proxy p = parse(s);
         if (!s.isEmpty() && p == null) throw new Bad(400, "Write the proxy as host:port, e.g. 127.0.0.1:7890, or socks://127.0.0.1:7891.");
         if (p != null && ((InetSocketAddress) p.address()).getPort() == ss.getLocalPort() && ((InetSocketAddress) p.address()).getAddress() != null && ((InetSocketAddress) p.address()).getAddress().isLoopbackAddress())
-            throw new Bad(400, "That is minisvg's own ChatGPT bridge, not a proxy.");
+            throw new Bad(400, "That is svguest's own ChatGPT bridge, not a proxy.");
         t.put("proxy", s);
         note = null;
         autoAt = 0;
@@ -431,7 +431,7 @@ final class Siwc {
         String m = String.valueOf(e.getMessage()).replaceFirst("^Unable to tunnel through proxy\\. ", "");
         if (!down(e) && !(e instanceof java.net.SocketTimeoutException) && !(e instanceof java.net.UnknownHostException)) return e;
         if (p == null) return new IOException("Can't reach OpenAI directly (" + m + "). If you use a proxy app, enter its port under Proxy.");
-        if (m.contains(NOT)) return new IOException(at(p) + " is minisvg's own ChatGPT bridge, not a proxy: clear the Proxy field.");
+        if (m.contains(NOT)) return new IOException(at(p) + " is svguest's own ChatGPT bridge, not a proxy: clear the Proxy field.");
         return new IOException("Proxy " + at(p) + " failed (" + m + "): check its port, or clear the field to use the system proxy.");
     }
 

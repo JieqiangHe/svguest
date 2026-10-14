@@ -370,7 +370,7 @@ final class Siwc {
         IOException first = null;
         for (int i = 0; i < ps.size(); i++) try {
             T r = f.run(ps.get(i));
-            note = i == 0 ? null : "The proxy in the field didn't work, so the system proxy " + at(ps.get(i)) + " was used.";
+            note = i == 0 ? null : "The Proxy field's proxy failed; used the system proxy " + at(ps.get(i)) + ".";
             return r;
         } catch (Bad e) {
             throw e;
@@ -395,9 +395,9 @@ final class Siwc {
     private static IOException why(IOException e, Proxy p) {
         String m = String.valueOf(e.getMessage()).replaceFirst("^Unable to tunnel through proxy\\. ", "");
         if (!down(e) && !(e instanceof java.net.SocketTimeoutException) && !(e instanceof java.net.UnknownHostException)) return e;
-        if (p == null) return new IOException("Could not reach OpenAI directly (" + m + "). If you use a proxy app, enter its port in the Proxy field.");
-        if (m.contains(NOT)) return new IOException(at(p) + " is minisvg's own ChatGPT bridge, not a proxy. Clear the Proxy field to use the system proxy.");
-        return new IOException("Could not reach OpenAI through the proxy " + at(p) + " (" + m + "). Check that your proxy app uses this port, or clear the Proxy field to use the system proxy.");
+        if (p == null) return new IOException("Can't reach OpenAI directly (" + m + "). If you use a proxy app, enter its port under Proxy.");
+        if (m.contains(NOT)) return new IOException(at(p) + " is minisvg's own ChatGPT bridge, not a proxy: clear the Proxy field.");
+        return new IOException("Proxy " + at(p) + " failed (" + m + "): check its port, or clear the field to use the system proxy.");
     }
 
     private static String at(Proxy p) {

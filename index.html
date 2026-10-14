@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>svguest</title>
-<script>try{const L=localStorage;for(const k of Object.keys(L))if(k.startsWith('msb')){const v=L.getItem(k),n='sg'+k.slice(3);L.removeItem(k);L.getItem(n)==null&&L.setItem(n,v)}L.sgTheme==='dark'&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
+<script>try{localStorage.sgTheme==='dark'&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
 :root{--swb:#8a8a8a;--fg:#222;--bar:#f3f3f3;--line:#ccc;--btn:#fff;--btnb:#bbb;--btnh:#eef3ff;--bfg:buttontext;--on:#d6e4ff;--onb:#6d94e0;--onfg:buttontext;--view:#cfcfcf;--side:#f7f7f7;--h4:#555;--h4b:#ddd;--pageb:#777;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883}
 [data-theme=dark]{color-scheme:dark;--swb:#a3a3a3;--fg:#e5e5e5;--bar:#000;--line:#262626;--btn:#262626;--btnb:#000;--btnh:#404040;--bfg:#e5e5e5;--on:#e5e5e5;--onb:#e5e5e5;--onfg:#171717;--view:#141414;--side:#000;--h4:#a3a3a3;--h4b:#262626;--pageb:#404040;--sbt:#8a8a8a;--sbh:#b0b0b0;--sbk:#8883}
@@ -243,7 +243,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <script>
 'use strict';
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
-const NS={svg:'http://www.w3.org/2000/svg',inkscape:'http://www.inkscape.org/namespaces/inkscape',sodipodi:'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',xlink:'http://www.w3.org/1999/xlink',xml:'http://www.w3.org/XML/1998/namespace'},PX={};
+const NS={svg:'http://www.w3.org/2000/svg',inkscape:'http://www.inkscape.org/namespaces/inkscape',sodipodi:'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',xlink:'http://www.w3.org/1999/xlink',xml:'http://www.w3.org/XML/1998/namespace'},PX={'http://www.w3.org/2000/xmlns/':'xmlns'};
 for(const n in NS)PX[NS[n]]=n;
 const $=i=>document.getElementById(i),view=$('mView'),stage=$('mStage'),gw=$('mGW'),ghost=$('mGhost'),H=$('mHud'),F={};
 document.querySelectorAll('[data-f]').forEach(e=>F[e.dataset.f]=e);
@@ -360,7 +360,6 @@ function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush(
 
 const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
-  if(txt.includes('data-msb-'))for(const e of d.querySelectorAll('[data-msb-from],[data-msb-to]'))for(const k of['from','to']){const a='data-msb-'+k,v=e.getAttribute(a);v!=null&&(e.removeAttribute(a),e.setAttribute('data-sg-'+k,v))}
   if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
     (XO.test(n)||XJ.test(v)&&(XS.test(v)||XV.test(n)))&&e.removeAttributeNode(a)}
   return d}
@@ -576,7 +575,7 @@ function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.t
   else{const cs=gcs(l);F.nofill.checked=cs.fill==='none';F.fill.value=hex(cs.fill);F.nostroke.checked=cs.stroke==='none';F.stroke.value=hex(cs.stroke);v(F.sw,parseFloat(cs.strokeWidth)*sc(ctm(l))*U*PT);F.dash.value=cs.strokeDasharray==='none'?'':parseFloat(cs.strokeDasharray)/parseFloat(cs.strokeWidth)<1.5?'o':'d'}
   F.fill.classList.toggle('dim',F.nofill.checked);F.stroke.classList.toggle('dim',F.nostroke.checked);const cs=l&&gcs(l);fsw('mFF',cs?cs.fill:pen.fill);fsw('mSF',cs?cs.stroke:pen.stroke);
   let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?leaf(s,x=>ML.test(x.localName),500):ML.test(s.localName)&&s)break;
-  for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&/^(.+)(Msb|Sg)$/.exec(i.replace(/_h\d+$/,''))?.[1],h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0].slice(0,-2)===b||t[0].toUpperCase()+t.slice(1)===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
+  for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
   qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100)}
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
 let szT=0,szMs=0;const sizesQ=()=>{if(szMs<30)return sizes();cancelAnimationFrame(szT);szT=requestAnimationFrame(()=>setTimeout(sizes))};
@@ -707,7 +706,7 @@ function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=
   if(d.t==='move'&&!d.on&&ev&&ev.altKey&&!ev.shiftKey)return selBelow(ev,d.pre),hud();
   if(/^(move|sc|rot)$/.test(d.t)){lkRs(d);if(d.t==='sc'&&d.on&&d.M&&/^[ew]$/.test(d.h)&&sel.length===1&&sel[0].localName==='text'&&tryWrap(sel[0],d.b,d.M,d.h))return;
     if(G){const c=d.t==='move'&&d.M&&ev&&ev.altKey;if(c){ghostOff();once(()=>{dup();applyM(d.M);commit()})}else ghostOff(d.M);d.M&&keep(d.M,d.t==='move'?d.s0:d.b,c)}
-    else if(d.t==='move'&&d.was){ctx=d.c;setSel([d.el])}return}
+    else if(d.t==='move'&&d.was){ctx=d.c;sel.length===1&&sel[0]===d.el||setSel([d.el])}return}
   if(d.t==='band'){if(d.q){const a=toU(d.p),b=toU(d.q),R=rb(min(a.x,b.x),min(a.y,b.y),abs(a.x-b.x),abs(a.y-b.y));
       let got=memoize(()=>boxed(root,R,d.tch));d.w&&(got=order(got.map(x=>pick(x)[0])));setSel(d.add?[...sel,...got]:got,1);const ps=new Set(sel.map(x=>x.parentNode));ctx=ps.size===1?[...ps][0]:root;refresh()}
     else if(d.bg){const[ob,c]=grab(d.bg,d.w);ctx=c;setSel([ob])}else if(d.add&&d.h)tog(d.h,d.w);else if(!d.add){ctx=root;setSel([])}return hud()}
@@ -885,7 +884,7 @@ function hmk(id,p){const b=id.replace(/_h\d+$/,''),B=byId(b),c=+(/_h(\d+)$/.exec
   const s=B||byId(id),m=s.cloneNode(false),x=+s.getAttribute('refX')||0,y=+s.getAttribute('refY')||0,f=fm(B?p/100:p/c),g=mk('g',{transform:x||y?`translate(${fm(x)},${fm(y)}) scale(${f}) translate(${fm(-x)},${fm(-y)})`:`scale(${f})`},m);
   m.id=n;setSt(m,'overflow','visible');for(const ch of s.childNodes){const q=ch.cloneNode(true);g.appendChild(q.nodeType===1?reid(q):q)}s.after(m);return n}
 const ML=/^(path|line|polyline)$/,mkl=()=>lv().filter(e=>ML.test(e.localName)),hp=i=>+(/_h(\d+)$/.exec(i)||[0,100])[1],
-  mgc=ids=>{for(const id of ids)if(/(Msb|Sg|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
+  mgc=ids=>{for(const id of ids)if(/(Sg|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
   mset=(e,a,v)=>{setSt(e,a,v);v||gcs(e).getPropertyValue(a)==='none'||setSt(e,a,'none')};
 function heads(p,J=[0,1,2]){const old=new Set(),L=lv(),R=L.map(e=>{const c=gcs(e);return MP.map(a=>refId(c.getPropertyValue(a)))});J.includes(2)&&(pen.head=p);
   L.forEach((e,i)=>J.forEach(j=>{const a=MP[j],id=R[i][j];if(!id||!byId(id))return;const n=hmk(id,p);n!==id&&(setSt(e,a,`url(#${n})`),old.add(id))}));mgc(old)}
@@ -1264,14 +1263,13 @@ function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=sel
 {const br=tbBridge(),all=Object.entries(AI).flatMap(([p,[,...ms]])=>ms.map(m=>p+':'+m)),has=(s,x)=>!!x&&[...s.options].some(o=>o.value===x),M=$('mModel'),V=$('mVis'),th=$('mThink');
   M.replaceChildren(...br?[new Option('TBtools','Tb')]:[],...all.map(x=>new Option(nameOf(who(x)),x)));
   V.replaceChildren(new Option('Same as Draw with','self'),...all.filter(x=>VIS.has(who(x).m)).map(x=>new Option(nameOf(who(x)),x)),...br?[new Option('TBtools','Tb')]:[]);
-  const TR=$('mThinkR'),old=ls('sgAi'),dm=ls('sgDraw')||(AI[old]?old+':'+(ls('sg'+old+'Model')||AI[old].at(-1)):br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('sgVis'))?ls('sgVis'):'self';
+  const TR=$('mThinkR'),dm=ls('sgDraw')||(br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('sgVis'))?ls('sgVis'):'self';
   const tv=ls('sgThink'),tr=ls('sgThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){const k=$('mKey'+p),u=ls('sg'+p+'Ep');k.value=ls('sg'+p+'Key')||'';k.onchange=()=>{ls('sg'+p+'Key',k.value.trim());KS[p]=null;k.value.trim()?ep(p).catch(()=>{}):$('mKs'+p).textContent=''};
     k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
   M.onchange=()=>{ls('sgDraw',M.value);cfgSync()};V.onchange=()=>{ls('sgVis',V.value);cfgSync()};th.onchange=()=>ls('sgThink',th.value);TR.onchange=()=>ls('sgThinkR',TR.value);
   cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
 $('mSend').onclick=()=>ask();
-const idbM=(n,s,d)=>new Promise(ok=>{try{const r=indexedDB.open(n);r.onupgradeneeded=()=>r.transaction.abort();r.onerror=()=>ok();r.onsuccess=()=>{const b=r.result,x=()=>{b.close();ok()};if(!b.objectStoreNames.contains(s))return x(),indexedDB.deleteDatabase(n);const q=b.transaction(s).objectStore(s),v=q.getAll(),k=q.getAllKeys();k.onsuccess=()=>{const t=d.transaction(s,'readwrite'),w=t.objectStore(s);v.result.forEach((e,i)=>w.keyPath?w.put(e):w.put(e,k.result[i]));t.oncomplete=()=>{x();indexedDB.deleteDatabase(n)};t.onerror=t.onabort=x};k.onerror=x}}catch(_){ok()}}),
-  idbO=(n,s,o)=>new Promise(ok=>{try{let f=0;const r=indexedDB.open(n,1);r.onupgradeneeded=()=>{r.result.createObjectStore(s,o);f=1};r.onsuccess=()=>f?idbM(n.replace(/^sg/,'msb'),s,r.result).then(()=>ok(r.result)):ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('sgChats','c',{keyPath:'id'}),
+const idbO=(n,s,o)=>new Promise(ok=>{try{const r=indexedDB.open(n,1);r.onupgradeneeded=()=>r.result.createObjectStore(s,o);r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('sgChats','c',{keyPath:'id'}),
   cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
 let CH=null,CL=(()=>{try{return JSON.parse(ls('sgChatList')||'[]')}catch(_){return[]}})();
 const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Date.now(),hist:[],html:'',svgs:[],fig:null,n:0,k:0}),

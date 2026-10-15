@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-15 -16.5 270 270'%3E%3Crect x='-15' y='-16.5' width='270' height='270' rx='59' fill='%231b1b18'/%3E%3Cg fill='none' stroke='%23faf9f5'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%231b1b18'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
 <title>svguest</title>
 <script>try{const t=localStorage.sgTheme;(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
@@ -1673,7 +1673,7 @@ let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.c
 const opts={rulers:ls('sgRulers')!=='0',grid:ls('sgGrid')==='1',touch:ls('sgTouch')!=='0',auto:ls('sgAuto')!=='0'};
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
 function toggle(o){opts[o]=!opts[o];ls('sg'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
-function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';RC=null;qa('theme').title=`Theme: ${d?'dark':'light'}${ls('sgTheme')?'':', as the system'}. Click for the ${d?'light':'dark'} interface`;rulers()}
+function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23ecebe6':'%231b1b18');RC=null;qa('theme').title=`Theme: ${d?'dark':'light'}${ls('sgTheme')?'':', as the system'}. Click for the ${d?'light':'dark'} interface`;rulers()}
 const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',e=>ls('sgTheme')||setTheme(e.matches));
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');

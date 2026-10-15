@@ -7,7 +7,7 @@
 <title>svguest — A portable SVG editor</title>
 <meta name="description" content="A tiny SVG editor for scientific figures, in a single HTML file. Touch up plots from ggplot2 or Inkscape in your browser or TBtools.">
 <link rel="prefetch" href="app.html">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-15 -16.5 270 270'%3E%3Crect x='-15' y='-16.5' width='270' height='270' rx='59' fill='%231b1b18'/%3E%3Cg fill='none' stroke='%23faf9f5'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%231b1b18'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
 <script>{let t;try{t=localStorage.sgTheme}catch(_){}(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}</script>
 <style>
 :root{--lw:310px;--ink:#1b1b18;--body:#494941;--muted:#7b7a71;--paper:#faf9f5;--line:#e2e0d7;--frame:#1b1b1824;--card:#f2f0e9;--img:none;color-scheme:light}
@@ -197,7 +197,7 @@ addEventListener('resize',hud_);
 cover.addEventListener('scroll',hud_);
 
 const SD=matchMedia('(prefers-color-scheme:dark)'),de=document.documentElement,sv=()=>{try{return localStorage.sgTheme}catch(_){}};
-function th(d){de.dataset.theme=d?'dark':'light';thm.title=`Theme: ${d?'dark':'light'}${sv()?'':', as the system'}. Click for the ${d?'light':'dark'} theme`;thm.setAttribute('aria-label',thm.title)}
+function th(d){de.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23ecebe6':'%231b1b18');thm.title=`Theme: ${d?'dark':'light'}${sv()?'':', as the system'}. Click for the ${d?'light':'dark'} theme`;thm.setAttribute('aria-label',thm.title)}
 SD.addEventListener('change',e=>sv()||th(e.matches));
 thm.onclick=()=>{const d=de.dataset.theme!=='dark';try{d===SD.matches?localStorage.removeItem('sgTheme'):localStorage.sgTheme=d?'dark':'light'}catch(_){}th(d)};
 th(de.dataset.theme==='dark');

@@ -665,7 +665,7 @@ function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.p
     for(const a of ch){const c=a.cloneNode(false);['id','clip-path','mask','filter'].forEach(x=>c.removeAttribute(x));g=g.appendChild(c)}w.set(p,g)}
   g.appendChild(e);return{e,p,n}})})}
 function ghostOff(M){quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefore(G[i].e,G[i].n);ghost.replaceChildren();gw.style.transform=''});G=null;M?(applyM(M),commit()):refresh()}
-function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge)$/.test(tool)||LNT.test(tool)?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
+function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge|text)$/.test(tool)||LNT.test(tool)?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
   if(e.button===1||e.button===0&&space){D={t:'pan',p,tx,ty};return cap()}
   if(e.button)return;
   if(tool==='crop'&&!CR){const t=hit(e),im=t&&t.closest('image')||sel.length===1&&sel[0].localName==='image'&&sel[0];if(!im)return msg('Click a photo to crop it');ctx=im.parentNode;setSel([im]);cropGo(im)}
@@ -678,7 +678,7 @@ function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.
   if(/^a\d+$/.test(h)){const m=pmodel(ped),an=m&&anchorsOf(m)[+h.slice(1)];if(!an)return;D={t:'anc',p,u,e:ped,m,A:an};return cap()}
   if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t=hit(e),g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0]};return cap()}
   if(h&&h!=='mv'&&sb){D={t:h==='rot'?'rot':'sc',h,p,u,b:sb};return cap()}
-  if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t)}else newText(u);return}
+  if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t,undefined,0,e)}else newText(u);return}
   if(tool!=='sel'){const ln=LNT.test(tool),T=ln&&!e.shiftKey?snapT():undefined,[s,,o]=ln?e.shiftKey?[u,0,null]:lsn(u,e,T):gsn(u,e),q=e.shiftKey?p:toS(s);D={t:tool,p:q,u:toU(q),os:T,sp:o||null,sp0:ln&&o||null};return cap()}
   const t=hit(e),w=cmd(e);
   const bg=t&&!e.shiftKey&&bd(t);if(!t||e.shiftKey||bg){D={t:'band',p,u,add:e.shiftKey,h:t,w,tch:e.altKey!==opts.touch,bg:bg&&t};return cap()}
@@ -729,7 +729,7 @@ function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=
       let got=memoize(()=>boxed(root,R,d.tch));d.w&&(got=order(got.map(x=>pick(x)[0])));setSel(d.add?[...sel,...got]:got,1);const ps=new Set(sel.map(x=>x.parentNode));ctx=ps.size===1?[...ps][0]:root;refresh()}
     else if(d.bg){const[ob,c]=grab(d.bg,d.w);ctx=c;setSel([ob])}else if(d.add&&d.h)tog(d.h,d.w);else if(!d.add){ctx=root;setSel([])}return hud()}
   if(d.q)create(d.t,toU(d.p),toU(d.q),[d.sp0,d.sp]);else hud()}
-function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
+function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t,undefined,0,e);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
 
 function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse|wedge)$/.test(t),cn=ln&&t!=='brace',hd=t==='elbow'?'arrow':t,
     s=t==='wedge'&&pen.fill==='none'?`fill:${pen.stroke==='none'?'#000000':pen.stroke};stroke:none`:`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
@@ -820,7 +820,7 @@ function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d
   quiet(()=>{const c=t.cloneNode(true);vis==null?c.removeAttribute('visibility'):c.setAttribute('visibility',vis);for(const x of[c,...c.querySelectorAll('[id]')])x.removeAttribute('id');c.setAttribute('pointer-events','none');
     ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
   const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle})}
-function edit(t,h,mrk,sd){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
+function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
   if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:tbFill(d,t)}
   else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
   d.contentEditable='true';
@@ -836,7 +836,7 @@ function edit(t,h,mrk,sd){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a
   d.onpaste=e=>{e.preventDefault();e.clipboardData.getData('text/plain').split(/\r\n?|\n/).forEach((x,i)=>{i&&document.execCommand('insertLineBreak');x&&document.execCommand('insertText',false,x)})};
   if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
   msg('Esc finishes (then drag to move), Enter starts a new line, Ctrl+Z undoes the edit; select characters to restyle only them in the Text panel');
-  d.focus();const rg=document.createRange();rg.selectNodeContents(d);setRange(rg)}
+  d.focus();let rg=P&&document.caretRangeFromPoint?.(P.clientX,P.clientY);rg&&d.contains(rg.startContainer)||(rg=document.createRange(),rg.selectNodeContents(d),rg.collapse(false));setRange(rg)}
 function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,hv,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
   quiet(()=>{pv&&pv.remove();vis==null?hv.removeAttribute('visibility'):hv.setAttribute('visibility',vis)});
   if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,edMap(ks,lns));noTL(t)}

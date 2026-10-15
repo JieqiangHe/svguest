@@ -905,8 +905,9 @@ const edSrc=(t,h)=>{let r=t;const L=edLn(t);
   edMap=(ks,lns)=>{const pl={},plain=i=>pl[i]??=(c=>{c.removeAttribute('id');setSt(c,'baseline-shift',null);setSt(c,'font-size',null);return c.attributes.length?c:null})(ks[i].cloneNode(false)),
     key=q=>typeof q=='number'?ks[q]:q[0]==='~'?plain(+q.slice(1)):q;return lns.map(l=>l.map(({c,ch})=>({c,ch:ch.map(key).filter(Boolean)})))};
 let pvR=0;const edPvQ=()=>{cancelAnimationFrame(pvR);pvR=requestAnimationFrame(edPv)};
+const edCl=(t,vis)=>{const c=t.cloneNode(true);vis==null?c.removeAttribute('visibility'):c.setAttribute('visibility',vis);for(const x of[c,...c.querySelectorAll('[id]')])x.removeAttribute('id');c.setAttribute('pointer-events','none');return c};
 function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d),hx=root.hasAttribute('xmlns:sodipodi');
-  quiet(()=>{const c=t.cloneNode(true);vis==null?c.removeAttribute('visibility'):c.setAttribute('visibility',vis);for(const x of[c,...c.querySelectorAll('[id]')])x.removeAttribute('id');c.setAttribute('pointer-events','none');
+  quiet(()=>{const c=edCl(t,vis);
     ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
   const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle})}
 function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
@@ -917,8 +918,10 @@ function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs
     color:/^rgb/.test(cs.fill)?cs.fill:'#000',textAlign:{middle:'center',end:'right'}[cs.textAnchor]||'left',transformOrigin:`0 ${fs*(lh/2+.35)}px`,transform:`rotate(${-ang(t)}deg) translateX(${{middle:-50,end:-100}[cs.textAnchor]||0}%)`});
   const s=sc(m)*Z*k,ps=L&&L.map((l,i)=>[(at(l,'x')-at(L[0],'x'))*s,(at(l,'y')-at(L[0],'y'))*s-i*lh*fs]),pl=ps&&ps.some(p=>abs(p[0])>.5||abs(p[1])>.5)&&ps;
   ks=edFill(d,r,L,pl);pl&&d.classList.add('pl',{middle:'pc',end:'pe'}[cs.textAnchor]||'ps');view.append(d)}
-  const hv=sd||L?t:r;ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),hv,vis:hv.getAttribute('visibility'),mrk,sd,zk:sd?(parseFloat(d.style.fontSize)||13)*Z*k/fs:Z*k};quiet(()=>hv.setAttribute('visibility','hidden'));
-  if(sd){const ip=[];for(let n=r;n!==t;n=n.parentNode)ip.unshift([...n.parentNode.childNodes].indexOf(n));ed.ip=ip;edPv();d.oninput=edPvQ}
+  const ip=[];for(let n=r;n!==t;n=n.parentNode)ip.unshift([...n.parentNode.childNodes].indexOf(n));
+  ed={t,r,L:!!L,d,o,ks,r0:JSON.stringify(edLines(d)),ip,vis:t.getAttribute('visibility'),mrk,sd,zk:sd?(parseFloat(d.style.fontSize)||13)*Z*k/fs:Z*k};
+  quiet(()=>{t.setAttribute('visibility','hidden');if(!sd&&r!==t&&r.textContent.trim()!==t.textContent.trim()){const c=edCl(t,ed.vis);ip.reduce((n,i)=>n.childNodes[i],c).setAttribute('visibility','hidden');t.after(c);ed.pv=c}});
+  if(sd){edPv();d.oninput=edPvQ}
   d.onkeydown=e=>{e.stopPropagation();if(e.isComposing||e.keyCode===229)return;
     if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel');sd&&d.blur()}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}};
   d.onblur=e=>{const to=e.relatedTarget;to&&to.matches('[data-f=fs],[data-f=ff],[data-f=tc]')&&part()||finish(true)};
@@ -926,8 +929,8 @@ function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs
   if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
   msg('Esc finishes (then drag to move), Enter starts a new line, Ctrl+Z undoes the edit; select characters to restyle only them in the Text panel');
   d.focus();let rg=P&&document.caretRangeFromPoint?.(P.clientX,P.clientY);rg&&d.contains(rg.startContainer)||(rg=document.createRange(),rg.selectNodeContents(d),rg.collapse(false));setRange(rg)}
-function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,hv,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
-  quiet(()=>{pv&&pv.remove();vis==null?hv.removeAttribute('visibility'):hv.setAttribute('visibility',vis)});
+function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
+  quiet(()=>{pv&&pv.remove();vis==null?t.removeAttribute('visibility'):t.setAttribute('visibility',vis)});
   if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,edMap(ks,lns));noTL(t)}
   if(!t.textContent.trim()){t.remove();if(mrk!=null){flush();pend.length=mrk}setSel([],1)}
   why=why||'Edit text';commit()}
@@ -1842,7 +1845,7 @@ const LN={g:'Group',a:'Link',switch:'Switch',path:'Path',rect:'Rectangle',circle
   lyName=e=>e.getAttributeNS(NS.inkscape,'label')||(e.localName==='text'?e.textContent.replace(/\s+/g,' ').trim().slice(0,120)||'Text':isLayer(e)?'Layer':LN[e.localName]||e.localName),
   lyX=e=>{const r=e.target.closest('#mLl .r'),x=r&&Ly.rows[+r.dataset.i]?.[0];return root&&x&&root.contains(x)?x:null},
   lyHv=()=>{if(lyOn())for(const r of $('mLl').firstChild.children)r.dataset.i&&r.classList.toggle('hv',Ly.rows[+r.dataset.i]?.[0]===hov)};
-function lyWalk(p,d,o){for(let c=p.lastElementChild;c;c=c.previousElementSibling)if(isG(c)){o.push([c,d]);isGrp(c)&&Ly.open.has(c)&&lyWalk(c,d+1,o)}return o}
+function lyWalk(p,d,o){for(let c=p.lastElementChild;c;c=c.previousElementSibling)if(isG(c)&&c!==ed?.pv){o.push([c,d]);isGrp(c)&&Ly.open.has(c)&&lyWalk(c,d+1,o)}return o}
 function lyBuild(rv){if(!lyOn()||!root)return;const L=$('mLl'),q=Ly.q.toLowerCase(),o=[],fl=fqL();$('mLm').hidden=!fl;fl&&($('mLm').firstChild.textContent=(n=>n?`${n} match${n>1?'es':''} for “${$('mQf').value}”`:`No text matches “${$('mQf').value}”`)(FQ.m.length));
   if(Ly.doc!==root){Ly.doc=root;Ly.open=new WeakSet;Ly.an=null;for(let p=root,c;;p=c){const g=[...p.children].filter(isG);if(g.length!==1||!isGrp(c=g[0]))break;Ly.open.add(c)}}
   if(fl)FQ.m.forEach((m,i)=>o.push([m.t,0,i]));

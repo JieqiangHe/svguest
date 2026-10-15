@@ -12,4 +12,6 @@ A tiny SVG editor for scientific figures, in a single HTML file. Touch up plots 
 
 “Another roof, another proof.” Paul Erdős (1913–1996) travelled with a suitcase, staying with fellow mathematicians and working on proofs together. svguest borrows that spirit, and its logo: a small guest with a briefcase that moves in for a while, as a tab in your browser or a plugin in TBtools, and works on your figures with you.
 
+<a href="https://jieqianghe.github.io/svguest/story.mp4"><img src="story.jpg" alt="Watch the story (30 s video)" width="600"></a>
+
 Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.

@@ -44,6 +44,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
@@ -74,7 +75,7 @@ final class Siwc {
 
     static synchronized void start(File dir) throws IOException {
         if (on == null) on = new Siwc(dir.getName());
-        Files.write(new File(dir, "siwc-session.js").toPath(), ("window.TBSIWC={url:'http://127.0.0.1:" + on.ss.getLocalPort() + "',key:'" + on.key + "'};\n").getBytes(StandardCharsets.UTF_8));
+        Files.write(new File(dir, "siwc-session.js").toPath(), ("window.TBSIWC={url:'http://127.0.0.1:" + on.ss.getLocalPort() + "',key:'" + on.key + "',glm:true};\n").getBytes(StandardCharsets.UTF_8));
     }
 
     private Siwc(String app) throws IOException {
@@ -138,6 +139,8 @@ final class Siwc {
             else if (!MessageDigest.isEqual(key.getBytes(StandardCharsets.UTF_8), h.getOrDefault("x-siwc-key", "").getBytes(StandardCharsets.UTF_8))) send(out, 401, J, fail("Forbidden"));
             else try {
                 switch (p) {
+                    case "/glm/standard":
+                    case "/glm/coding": glm(in, out, rl[0], p, h.get("authorization"), body); break;
                     case "/siwc/status": send(out, 200, J, status()); break;
                     case "/siwc/login": send(out, 200, J, login()); break;
                     case "/siwc/logout": logout(); send(out, 200, J, status()); break;
@@ -194,7 +197,7 @@ final class Siwc {
 
     private static byte[] head(int code, String type, int n) {
         return ("HTTP/1.1 " + code + (code < 400 ? " OK" : " Error") + "\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
-            + "Access-Control-Allow-Headers: content-type, x-siwc-key\r\nAccess-Control-Allow-Private-Network: true\r\nAccess-Control-Max-Age: 600\r\n"
+            + "Access-Control-Allow-Headers: content-type, authorization, x-siwc-key\r\nAccess-Control-Allow-Private-Network: true\r\nAccess-Control-Max-Age: 600\r\n"
             + "Cache-Control: no-store\r\nReferrer-Policy: no-referrer\r\nConnection: close\r\n" + (type == null ? "" : "Content-Type: " + type + "\r\n")
             + (n < 0 ? "" : "Content-Length: " + n + "\r\n") + "\r\n").getBytes(StandardCharsets.ISO_8859_1);
     }
@@ -316,6 +319,55 @@ final class Siwc {
         } catch (Exception x) {
         }
         t.put("earliest", String.valueOf(ms));
+    }
+
+    private void glm(InputStream client, OutputStream out, String method, String path, String auth, byte[] body) throws IOException {
+        if (!"POST".equals(method)) { send(out, 405, J, fail("Use POST")); return; }
+        if (auth == null || !auth.matches("Bearer [!-~]{1,4096}")) { send(out, 401, J, fail("Add a GLM API key")); return; }
+        HttpURLConnection c = open("https://open.bigmodel.cn/api/" + (path.equals("/glm/coding") ? "coding/" : "") + "paas/v4/chat/completions", parse(detect()));
+        c.setRequestMethod("POST");
+        c.setDoOutput(true);
+        c.setReadTimeout(600000);
+        c.setFixedLengthStreamingMode(body.length);
+        c.setRequestProperty("Content-Type", J);
+        c.setRequestProperty("Accept", "application/json, text/event-stream");
+        c.setRequestProperty("Authorization", auth);
+        AtomicBoolean stopped = new AtomicBoolean();
+        daemon(() -> {
+            try { client.read(); } catch (IOException e) { }
+            stopped.set(true);
+            c.disconnect();
+        });
+        boolean sent = false;
+        try {
+            if (stopped.get()) return;
+            try (OutputStream o = c.getOutputStream()) { o.write(body); }
+            int code = c.getResponseCode();
+            if (stopped.get()) return;
+            if (code >= 300 && code < 400) { send(out, 502, J, fail("GLM returned a redirect; the API key was not forwarded.")); return; }
+            InputStream response = code < 400 ? c.getInputStream() : c.getErrorStream();
+            if (response == null && code >= 400) { send(out, code, J, fail("GLM returned HTTP " + code)); return; }
+            byte[] headers = head(code, c.getContentType() == null ? J : c.getContentType(), -1);
+            out.write(headers, 0, headers.length - 2);
+            out.write("Transfer-Encoding: chunked\r\n\r\n".getBytes(StandardCharsets.US_ASCII));
+            sent = true;
+            out.flush();
+            if (response != null) try (InputStream i = response) {
+                byte[] b = new byte[8192];
+                for (int n; (n = i.read(b)) > 0; ) {
+                    out.write((Integer.toHexString(n) + "\r\n").getBytes(StandardCharsets.US_ASCII));
+                    out.write(b, 0, n);
+                    out.write("\r\n".getBytes(StandardCharsets.US_ASCII));
+                    out.flush();
+                }
+            }
+            out.write("0\r\n\r\n".getBytes(StandardCharsets.US_ASCII));
+            out.flush();
+        } catch (IOException e) {
+            if (!sent && !stopped.get()) send(out, 502, J, fail("GLM connection failed: " + e.getMessage()));
+        } finally {
+            c.disconnect();
+        }
     }
 
     private void relay(OutputStream out, String path, byte[] body) throws Exception {

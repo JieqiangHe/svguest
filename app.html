@@ -344,7 +344,7 @@ function setSts(e,kv){const m=new Map(kv),o=[],done=new Set;
   for(const[nm,v]of m)done.has(nm)||v==null||o.push(nm+':'+v);o.length?e.setAttribute('style',o.join(';')):e.removeAttribute('style');for(const nm of m.keys())e.removeAttribute(nm)}
 function kids(t,p,rel){for(const c of t.getElementsByTagName('tspan')){const v=stGet(c,p);if(v!=null&&!(rel&&/%|em$/.test(v)))setSt(c,p,null)}}
 function noTL(t){for(const x of[t,...t.getElementsByTagName('tspan')]){x.removeAttribute('textLength');x.removeAttribute('lengthAdjust')}}
-const texts=()=>[...root.getElementsByTagName('text')].filter(t=>!t.closest('defs,clipPath,mask,marker,pattern,symbol'));
+const texts=()=>{const a=[...root.getElementsByTagName('text')],x=new Set;for(const n of['defs','clipPath','mask','marker','pattern','symbol'])for(const c of root.getElementsByTagName(n))for(const t of c.getElementsByTagName('text'))x.add(t);return x.size?a.filter(t=>!x.has(t)):a};
 const selTexts=()=>sel.flatMap(e=>e.localName==='text'?[e]:[...e.getElementsByTagName('text')]);
 const tsize=t=>parseFloat(gcs(t).fontSize)*sc(t.hasAttribute('transform')?pm(t).multiply(lm(t)):pm(t))*U*PT;
 function setSize(t,pt){if(!(pt>0))return;setSt(t,'font-size',f6(pt/(sc(ctm(t))*U*PT))+'px');kids(t,'font-size',1);noTL(t);relines(t)}
@@ -405,7 +405,7 @@ function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement)
   const b=r.viewBox.baseVal,hv=r.hasAttribute('viewBox'),uI=hv?unitOf(r,b.width):25.4/96,
     g=mk('g',{id:pre+'g','inkscape:label':nm.replace(/\.svg$/i,'')}),p=curParent();
   for(const a of r.attributes)if(!a.prefix&&!/^(id|width|height|viewBox|x|y|version|preserveAspectRatio|xmlns)$/.test(a.name))g.setAttribute(a.name,a.value);
-  for(const c of[...r.children])if(c.localName==='defs'){const d=defs();while(c.firstChild)d.appendChild(c.firstChild)}else if(isG(c)||c.localName==='style')g.appendChild(c);
+  for(const c of[...r.children])if(c.localName==='defs'){const d=defs();while(c.firstChild)d.appendChild(c.firstChild)}else if(isG(c)||c.localName==='style')g.appendChild(c);else if(/^(clipPath|mask|marker|pattern|symbol|linearGradient|radialGradient|filter)$/.test(c.localName))defs().appendChild(c);
   for(const l of[...g.getElementsByTagName('g')])isLayer(l)&&l.removeAttributeNS(NS.inkscape,'groupmode');
   setT(g,ctm(p).inverse().multiply(T(vb.x,vb.y)).multiply(S(uI/U)).multiply(T(hv?-b.x:0,hv?-b.y:0)));
   p.appendChild(g);ctx=p;setSel([g],1);commit();cmykChk(g)}

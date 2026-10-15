@@ -64,7 +64,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mFF{left:0;top:0;z-index:1}#mSF{right:0;bottom:0;z-index:0}#mSF::after{content:"";position:absolute;inset:4px;border-radius:2px;background:var(--bar);border:1px solid var(--swb)}#mSF.no::after{background:none}
 #mFS button{position:absolute;right:0;top:0;width:12px;height:12px;padding:0;border:0;background:none;display:grid;place-items:center}#mFS button svg{width:11px;height:11px;stroke-width:1.4}#mFS #mFD{top:auto;right:auto;left:0;bottom:0}#mFD svg{stroke-width:1}
 #mView{position:relative;overflow:hidden;background:var(--view)}
-#mStage{position:absolute;left:0;top:0;transform-origin:0 0}
+#mStage{position:absolute;left:0;top:0;transform-origin:0 0;font:initial;color:#000;-webkit-font-smoothing:auto}
 #mStage>*{position:absolute!important;left:0;top:0;width:var(--w)!important;height:var(--h)!important;overflow:visible!important}
 #mPage{background:#fff;outline:1px solid var(--pageb);box-shadow:0 1px 3px #0000001a,0 12px 32px -10px #0000004d}
 #mGrid{pointer-events:none}#mGrid path{fill:none;stroke-width:1;vector-effect:non-scaling-stroke;shape-rendering:crispEdges}#mGrid .mi{stroke:#5a78aa30}#mGrid .ma{stroke:#5a78aa70}
@@ -856,12 +856,12 @@ function setRange(r){const g=getSelection();g.removeAllRanges();g.addRange(r)}
 document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||!g.rangeCount||!ed.d.contains(g.anchorNode))return;ed.rg=g.getRangeAt(0).cloneRange();
   const cs=edAt();F.fs.value=+(parseFloat(cs.fontSize)*U*PT/ed.zk).toFixed(2);F.ff.value=family(cs);F.tc.value=hex(cs.color)});
 
-function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s)):null}}bar()}
+function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
   if(clip.r===root)ds=ds.filter(d=>!byId(d.id));else map=pfx(ds,'p')[1];for(const d of ds)defs().appendChild(d);
   const mm=new Map,out=clip.it.map(([c,M])=>{const e=c.cloneNode(true);relink([e],map);reid(e,mm);setT(e,Pi.multiply(O).multiply(M).multiply(lm(c)));p.appendChild(e);return e});relink(out,mm);lkCut(out,mm);
-  if(clip.kp&&clip.r!==root){const lf=lv(out);lf.length===clip.kp.length&&kpr(lf,clip.kp)}
+  if(clip.kp&&clip.r!==root){const lf=lv(out);lf.length===clip.kp.length&&kpr(lf,clip.kp,KQ)}
   ctx=p;setSel(out,1);commit()}
 function del(){finish(true);if(!sel.length)return;sel.forEach(e=>{e.contains(ctx)&&(ctx=e.parentNode);e.remove()});setSel([],1);commit()}
 function zorder(w){const s=order(sel),q=new Set(sel),sib=(e,n)=>{do e=n?e.nextElementSibling:e.previousElementSibling;while(e&&!isG(e));return e};
@@ -877,7 +877,8 @@ const KP=['fill','stroke','stroke-linecap','stroke-linejoin','stroke-miterlimit'
   twalk=g=>document.createTreeWalker(g,1,{acceptNode:n=>SKIP.test(n.localName)?2:LF.test(n.localName)?1:3}),
   leaf=(g,f,cap=1/0)=>{const w=twalk(g);for(let n,i=0;i<cap&&(n=w.nextNode());i++)if(f(n))return n},
   klea=g=>{const w=twalk(g),o=[];for(let n;n=w.nextNode();)o.push(n);return o},lv=(a=sel)=>a.flatMap(e=>isGrp(e)?klea(e):[e]),
-  kps=lf=>lf.map(e=>(c=>KP.map(p=>c[p]))(gcs(e))),kpr=(lf,kv)=>{const c=kps(lf);lf.forEach((e,i)=>KP.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))};
+  kps=(lf,P=KP)=>lf.map(e=>(c=>P.map(p=>c[p]))(gcs(e))),kpr=(lf,kv,P=KP)=>{const c=kps(lf,P);lf.forEach((e,i)=>P.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))},
+  KQ=[...KP,'stroke-width','stroke-dasharray','stroke-dashoffset','fill-opacity','stroke-opacity','fill-rule','opacity','font-family','font-size','font-weight','font-style','text-anchor','letter-spacing'];
 function ungroup(q){const out=[];
   for(const g of order(sel)){if(!isGrp(g)||isLayer(g)){out.push(g);continue}
     const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf),cc=new Map;

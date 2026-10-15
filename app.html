@@ -292,11 +292,11 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
 const mx=(a,b,c,d,e,f)=>new DOMMatrix([a,b,c,d,e,f]),T=(x,y)=>mx(1,0,0,1,x,y),S=(x,y=x)=>mx(x,0,0,y,0,0),about=(M,x,y)=>T(x,y).multiply(M).multiply(T(-x,-y)),
   Rot=g=>{const r=g*PI/180,c=cos(r),s=sin(r);return mx(c,s,-s,c,0,0)},tan=g=>Math.tan(g*PI/180);
 const lm=e=>lms(e.getAttribute&&e.getAttribute('transform'));
-function lms(s){const m=new DOMMatrix();
-  if(s)for(const[,f,a]of s.matchAll(/(\w+)\s*\(([^)]*)\)/g)){const v=(a.match(/[-+]?(\d*\.\d+|\d+\.?)(e[-+]?\d+)?/gi)||[]).map(Number),[x,y=0,z=0]=v;
+const I0=new DOMMatrix();function lms(s){if(!s)return I0;const m=new DOMMatrix();
+  for(const[,f,a]of s.matchAll(/(\w+)\s*\(([^)]*)\)/g)){const v=(a.match(/[-+]?(\d*\.\d+|\d+\.?)(e[-+]?\d+)?/gi)||[]).map(Number),[x,y=0,z=0]=v;
     m.multiplySelf(f==='matrix'&&v.length===6?mx(...v):f==='translate'?T(x,y):f==='scale'?S(x,v.length>1?y:x):f==='rotate'?about(Rot(x),y,z):f==='skewX'?mx(1,0,tan(x),1,0,0):f==='skewY'?mx(1,tan(x),0,1,0,0):T(0,0))}
   return m}
-function ctm(e){const m=new DOMMatrix();for(;e&&e!==root;e=e.parentNode)m.preMultiplySelf(lm(e));return m}
+function ctm(e){const m=new DOMMatrix();for(;e&&e!==root;e=e.parentNode){const t=e.getAttribute&&e.getAttribute('transform');t&&m.preMultiplySelf(lms(t))}return m}
 const sc=m=>Math.sqrt(abs(m.a*m.d-m.b*m.c)),ang=e=>{const m=ctm(e);return-atan2(m.b,m.a)*180/PI},q45=(x,y)=>{const a=round(atan2(y,x)/(PI/4)),r=hypot(x,y);return[r*cos(a*PI/4),r*sin(a*PI/4),a]};
 function setT(e,m){const v=[fm(m.a),fm(m.b),fm(m.c),fm(m.d),fc(m.e),fc(m.f)];
   if(v.join()==='1,0,0,1,0,0')e.removeAttribute('transform');
@@ -334,7 +334,7 @@ function mbox(e,M){if(!M.b&&!M.c||!M.a&&!M.d||isGrp(e)&&e.getElementsByTagName('
   const cp=b&&clipOf(e);
   if(cp){let c=null;const K=M.multiply(lm(cp));for(const r of cp.children)if(isG(r))c=un(c,mbox(r,K.multiply(lm(r))));if(c)b=isect(b,c)}
   return b}
-const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,pm(e).multiply(lm(e)));
+const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,e.hasAttribute('transform')?pm(e).multiply(lm(e)):pm(e));
 function applyM(M,els=sel){lkDet(els);const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
@@ -346,7 +346,7 @@ function kids(t,p,rel){for(const c of t.getElementsByTagName('tspan')){const v=s
 function noTL(t){for(const x of[t,...t.getElementsByTagName('tspan')]){x.removeAttribute('textLength');x.removeAttribute('lengthAdjust')}}
 const texts=()=>[...root.getElementsByTagName('text')].filter(t=>!t.closest('defs,clipPath,mask,marker,pattern,symbol'));
 const selTexts=()=>sel.flatMap(e=>e.localName==='text'?[e]:[...e.getElementsByTagName('text')]);
-const tsize=t=>parseFloat(gcs(t).fontSize)*sc(pm(t).multiply(lm(t)))*U*PT;
+const tsize=t=>parseFloat(gcs(t).fontSize)*sc(t.hasAttribute('transform')?pm(t).multiply(lm(t)):pm(t))*U*PT;
 function setSize(t,pt){if(!(pt>0))return;setSt(t,'font-size',f6(pt/(sc(ctm(t))*U*PT))+'px');kids(t,'font-size',1);noTL(t);relines(t)}
 function setFont(t,p,v){setSt(t,p,v);setSt(t,'-inkscape-font-specification',null);kids(t,p);kids(t,'-inkscape-font-specification');noTL(t)}
 const family=cs=>cs.fontFamily.split(',')[0].replace(/["']/g,''),fam=f=>/\s/.test(f)&&!/^['"]/.test(f)?`'${f}'`:f;
@@ -365,7 +365,7 @@ const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='chi
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
-function commit(){lnk();flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+function commit(){ed&&(ed.mrk=null);lnk();flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
@@ -464,7 +464,7 @@ function bar(){const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['
 let nOc=[];const nOb=()=>{if(nOc[0]===svn&&nOc[2]===root)return nOc[1];const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);nOc=[svn,n=max(0,n),root];return n},
   doc=()=>{const m=performance.memory,n=nOb();$('mDoc').textContent=[(dirty?'• ':'')+name,n?n.toLocaleString('en-US')+' object'+(n>1?'s':''):'empty page',m&&'Memory '+round(m.usedJSHeapSize/1048576)+' MB'].filter(Boolean).join(' · ')};
 setInterval(()=>root&&!document.hidden&&doc(),5e3);
-function refresh(){if(!root)return;syncPage();bar();sb=null;sbs=[];const V=sel.length>300&&view.getBoundingClientRect();memoize(()=>{for(const e of sel){const b=V?fb(e,V):bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
+function refresh(){if(!root)return;root.contains(ctx)||(ctx=root);syncPage();bar();sb=null;sbs=[];const V=sel.length>300&&view.getBoundingClientRect();memoize(()=>{for(const e of sel){const b=V?fb(e,V):bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
   cb=top_(ctx)?null:bbox(ctx);hud();panel();
   const lab=e=>e===root?'Document':e.getAttributeNS(NS.inkscape,'label')||e.id||e.localName,c=[];
   for(let e=ctx;e&&e!==root.parentNode;e=e.parentNode)c.unshift(lab(e));
@@ -887,7 +887,7 @@ function ungroup(q){const out=[];
       if(cp&&L.isIdentity)c.setAttribute('clip-path',cp);
       else if(cp){const t=c.getAttribute('transform');let n=cc.get(t);if(!n){const o=byId(refId(cp)),I=L.inverse().multiply(lm(o));n=reid(o.cloneNode(true));n.removeAttribute('transform');for(const r of n.children)isG(r)&&setT(r,I.multiply(lm(r)));defs().appendChild(n);cc.set(t,n)}c.setAttribute('clip-path',`url(#${n.id})`)}
       setT(c,M.multiply(L));out.push(c)}
-    g.remove();kv&&kpr(lf,kv)}
+    g.contains(ctx)&&(ctx=g.parentNode);g.remove();kv&&kpr(lf,kv)}
   setSel(out,1);q||commit()}
 function ungroupAll(){finish(true);const rest=[],w=e=>isGrp(e)&&!isLayer(e)&&!(clipOf(e)&&e.children.length===1&&clipOf(e.firstElementChild));
   for(let i=0;i<64;i++){const gs=sel.filter(w);if(!gs.length)break;add(rest,sel.filter(e=>!w(e)));setSel(gs,1);ungroup(1)}why='Ungroup all';
@@ -1004,7 +1004,7 @@ function mergeCh(){finish(true);const s=order(sel);if(s.length<2||s.length>7)ret
 function lock(){finish(true);if(!sel.length)return;const n=sel.length;xns('sodipodi');sel.forEach(e=>setA(e,'sodipodi:insensitive','true'));setSel([],1);commit();msg(`Locked ${nObj(n)}: clicks and box selection pass through; Ctrl+Alt+2 unlocks all`)}
 function unlock(){finish(true);const a=[...root.querySelectorAll('[*|insensitive]')].filter(e=>e.hasAttributeNS(NS.sodipodi,'insensitive')),l=a.filter(e=>!isLayer(e)),y=a.length-l.length;if(!a.length)return msg('Nothing is locked');
   a.forEach(e=>e.removeAttributeNS(NS.sodipodi,'insensitive'));ctx=root;setSel(l,1);commit();msg('Unlocked '+[l.length&&nObj(l.length),y&&`${y} layer${y>1?'s':''}`].filter(Boolean).join(' and '))}
-const lkd=e=>{for(;e&&e!==root;e=e.parentNode)if(e.getAttributeNS(NS.sodipodi,'insensitive')&&!isLayer(e))return true;return false};
+const lkd=e=>{for(;e&&e!==root&&e.nodeType===1;e=e.parentNode)if(e.getAttributeNS(NS.sodipodi,'insensitive')&&!isLayer(e))return true;return false};
 let hov=null,hovL=null,hovB=null,hovE=null,hovQ=0,hovT=0,hovSlow=0,ctl=0,edgeR=0,edgeE=null,cmE=null;
 function hoverAt(e){hovE=e;ctl=cmd(e);if(hovSlow){clearTimeout(hovT);hovT=setTimeout(hovCalc,90)}else if(!hovQ){hovQ=1;requestAnimationFrame(()=>{hovQ=0;hovCalc()})}}
 function hovCalc(){const e=hovE,r=e&&e.target.closest?.('#mLl .r');let h=null;
@@ -1476,7 +1476,7 @@ function lyBuild(rv){if(!lyOn()||!root)return;const L=$('mLl'),q=Ly.q.toLowerCas
   Ly.rows=o;L.firstChild.style.height=o.length*20+'px';
   if(fl?FQ.i>=0:rv&&sel.length){const i=fl?FQ.i:o.findIndex(r=>r[0]===sel[0]);i>=0&&(i*20<L.scrollTop||i*20+20>L.scrollTop+L.clientHeight)&&(L.scrollTop=i*20-L.clientHeight/2)}lyDraw()}
 function lyDraw(){if(!lyOn())return;const L=$('mLl'),B=L.firstChild,n=Ly.rows.length,a=max(0,Math.floor(L.scrollTop/20)-4),b=min(n,a+Math.ceil(L.clientHeight/20)+8),S=new Set(sel);
-  B.replaceChildren();if(!n)return B.append(el('p',0,fqL()?'No text in the figure matches':Ly.q?`Nothing matches “${Ly.q}”`:'The page is empty'));for(let i=a;i<b;i++)B.append(lyRow(i,S))}
+  B.replaceChildren();if(!n)return B.append(el('p',0,fqL()?'No text in the figure matches':Ly.q?`Nothing matches “${Ly.q}”`:'The page is empty'));for(let i=a;i<b;i++)root.contains(Ly.rows[i][0])&&B.append(lyRow(i,S))}
 function lyRow(i,S){const[e,d,mi]=Ly.rows[i],cs=gcs(e),g=isGrp(e)&&!!fk(isG,e),own=cs.display==='none',lk=e.hasAttributeNS(NS.sodipodi,'insensitive'),il=!lk&&lkd(e),n=e.localName;let hid=own,inS=0;
   for(let a=e.parentNode;a&&a!==root;a=a.parentNode){hid||=gcs(a).display==='none';inS||=S.has(a)}
   const r=el('div','r'+((mi!=null?mi===FQ.i:S.has(e))?' on':inS?' in':'')+(e===hov?' hv':'')+(g&&Ly.open.has(e)?' o':'')+(hid?' hid':'')),c=el('span','c'),nm=mi!=null&&FQ.m[mi]?.t===e?(m=>{const s=m.t.textContent,a=max(0,m.i-8),w=x=>x.replace(/\s+/g,' '),p=w(s.slice(a,m.i)),x=el('span');x.append(a?'…'+p:p.trimStart(),el('mark',0,w(s.slice(m.i,m.i+m.n))),w(s.slice(m.i+m.n,m.i+m.n+60)));return x})(FQ.m[mi]):el('span',0,lyName(e)),sw=el('i'),v=el('b',own?'x':''),l=el('b',lk?'x':il?'x y':''),

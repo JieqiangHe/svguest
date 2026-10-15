@@ -7,8 +7,8 @@
 <title>svguest</title>
 <script>try{const t=localStorage.sgTheme;(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
-:root{--swb:#00000047;--fg:#262626;--bar:#e6e6e6;--line:#0000001a;--btn:#f4f4f4;--btnb:#00000021;--btnh:#00000012;--bfg:#262626;--on:#1a73e81f;--onb:#1a73e8;--onfg:#1f1f1f;--view:#cfcfcf;--side:#ececec;--h4:#5e5e5e;--h4b:#00000014;--pageb:#00000038;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883;--t3:#8a8a8a;--sh:0 1px 2px #0000001f;--shm:0 0 0 1px #0000001a,0 8px 24px -6px #0000004d}
-[data-theme=dark]{color-scheme:dark;--swb:#ffffff4d;--fg:#e8e8e8;--bar:#0a0a0a;--line:#ffffff1a;--btn:#262626;--btnb:#ffffff1f;--btnh:#ffffff14;--bfg:#e8e8e8;--on:#4c8df633;--onb:#4c8df6;--onfg:#f5f5f5;--view:#141414;--side:#171717;--h4:#a3a3a3;--h4b:#ffffff14;--pageb:#404040;--sbt:#8a8a8a;--sbh:#b0b0b0;--sbk:#8883;--t3:#737373;--sh:0 1px 2px #0009;--shm:0 0 0 1px #ffffff1f,0 8px 24px -6px #000c}
+:root{--swb:#00000047;--fg:#262626;--bar:#e6e6e6;--line:#0000001a;--btn:#f4f4f4;--btnb:#00000021;--btnh:#00000012;--bfg:#262626;--on:#1a73e81f;--onb:#1a73e8;--onfg:#1f1f1f;--view:#cfcfcf;--side:#ececec;--h4:#5e5e5e;--h4b:#00000014;--pageb:#00000038;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883;--t3:#8a8a8a;--ok:#2f8f55;--wa:#b4761a;--wab:#b4761a17;--er:#cc4136;--erb:#cc41360f;--sh:0 1px 2px #0000001f;--shm:0 0 0 1px #0000001a,0 8px 24px -6px #0000004d}
+[data-theme=dark]{color-scheme:dark;--swb:#ffffff4d;--fg:#e8e8e8;--bar:#0a0a0a;--line:#ffffff1a;--btn:#262626;--btnb:#ffffff1f;--btnh:#ffffff14;--bfg:#e8e8e8;--on:#4c8df633;--onb:#4c8df6;--onfg:#f5f5f5;--view:#141414;--side:#171717;--h4:#a3a3a3;--h4b:#ffffff14;--pageb:#404040;--sbt:#8a8a8a;--sbh:#b0b0b0;--sbk:#8883;--t3:#737373;--ok:#4fc27e;--wa:#e2a33c;--wab:#e2a33c1c;--er:#f07a70;--erb:#f07a7014;--sh:0 1px 2px #0009;--shm:0 0 0 1px #ffffff1f,0 8px 24px -6px #000c}
 :where(input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=range]):not([type=file]),select,textarea){padding:1px 5px;background:var(--btn);color:var(--fg);border:1px solid var(--btnb);border-radius:6px}
 :where(input,select,textarea):focus{outline:none;border-color:var(--onb)}input[type=checkbox],input[type=radio]{accent-color:var(--onb)}
 input[type=color]{-webkit-appearance:none;appearance:none;height:24px;padding:2px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}
@@ -121,15 +121,36 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 #mKl div{display:flex;align-items:center;gap:8px;padding:3px 8px;border-radius:6px;white-space:nowrap;cursor:pointer}#mKl div.on{background:var(--btnh)}#mKl div.d{opacity:.4;cursor:default}#mKl kbd{margin-left:auto;padding-left:16px}#mKl .ki{width:16px;height:16px;flex:none;display:grid;place-items:center}#mKl .ki svg{width:16px;height:16px}#mKl .ki svg.kg{fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}#mKl .ki .kf{fill:currentColor;stroke:none}#mKl .ki.kt{font-size:12.5px;line-height:1}#mKl .kc{color:var(--h4);font-size:11px}
 .ki.t svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}.ki.f svg{fill:currentColor;stroke:currentColor}.ki.f rect{stroke:none}#mK>div>p{margin:0;padding:5px 8px 2px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mK>div>p kbd{margin:0 3px 0 10px}#mK>div>p kbd:first-child{margin-left:0}
 @media(prefers-reduced-motion:no-preference){#mK{animation:mKf .15s}}@keyframes mKf{from{opacity:0}}
-#mChat{display:none;grid-area:2/4;flex-direction:column;gap:4px;overflow:hidden;padding:4px 8px;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}
-#mChat summary{cursor:pointer;color:var(--h4)}#mRoute{margin:2px 0 4px;color:var(--h4);font-size:11.5px;line-height:1.35}#mChat details label small{grid-column:2;color:var(--h4);font-size:11px;line-height:1.3}#mChat details select{min-width:0;width:100%}#mChat .two{display:flex;gap:4px;min-width:0}#mChat .two select{width:auto;flex:1}#mChat .two select+select{flex:0 0 64px}#mChat details label{display:grid;grid-template-columns:104px 1fr;align-items:center;margin:2px 0}#mChat details label[hidden]{display:none}#mChat details input{min-width:0}
-#mLog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px}#mLog>div{white-space:pre-wrap;overflow-wrap:anywhere;padding:5px 8px;border-radius:8px}#mLog .u{align-self:flex-end;max-width:90%;background:var(--btn);box-shadow:inset 0 0 0 1px var(--h4b)}#mLog .a{border:1px solid var(--line)}#mLog .tm{opacity:.6}#mLog p{display:flex;gap:3px;margin:4px 0 0}
-#mAskW{position:relative}#mChH{position:relative;display:flex;gap:4px;align-items:center}#mChD{position:static;flex:1;min-width:0}#mChT{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600}#mChL{left:0;right:0;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:6px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}[data-theme=dark] #mChL .ci.on{background:#26344d;color:var(--fg)}[data-theme=dark] #mChL .ci.on small{color:var(--h4);opacity:1}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mChL hr{border:0;border-top:1px solid var(--line);margin:4px 2px}#mChL>button{display:block;width:100%;padding:4px 6px;border:0;background:transparent;text-align:left;color:var(--h4)}#mChL>button:hover{background:var(--btnh);color:var(--fg)}#mCu{font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums;min-height:14px}#mCu.wa{color:#c98a00}#mAsk{width:100%;resize:none;display:block;font:inherit}#mGrip{position:absolute;top:2px;right:2px;width:11px;height:11px;cursor:ns-resize;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Cpath d='M2 0l9 9M6 0l5 5' stroke='%23888' stroke-width='1.2'/%3E%3C/svg%3E")}#mImgs .rq{flex-basis:100%;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-#mHello{margin:6px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
-#mImgs{display:flex;flex-wrap:wrap;gap:4px;align-items:center}#mImgs img{height:44px;max-width:110px;object-fit:contain;display:block;border:1px solid var(--line)}#mImgs .t{position:relative}#mChat .x{width:16px;height:16px;padding:0;border:0;border-radius:50%;background:#555;color:#fff;font-size:12px;line-height:16px;cursor:pointer}#mChat .t .x{position:absolute;top:-5px;right:-5px}#mChat .f .x{margin-left:4px;vertical-align:1px}#mChat .w{color:#e5534b}#mSelC:empty{display:none}#mChat .f{border:1px solid var(--line);border-radius:6px;padding:0 4px;font-size:12px}#mLog details{margin-bottom:4px}#mLog summary{font-size:12px}#mLog .th{max-height:180px;overflow:auto;font-size:11px;opacity:.75;border-left:2px solid var(--line);padding-left:6px;margin-top:2px}#mLog .u img{display:block;max-height:60px;max-width:100%;margin-top:3px}
+#mChat{display:none;grid-area:2/4;flex-direction:column;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
+#mChat .chg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}#mChat .ib{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mChat .ib:hover{background:var(--btnh);color:var(--fg)}
+#mChH{position:relative;flex:none;display:flex;align-items:center;gap:1px;height:34px;padding:0 4px;border-bottom:1px solid var(--line)}#mChD{position:static;flex:1;min-width:0}#mChT{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600;padding:3px 6px;border-color:transparent;background:transparent}#mChT::after{content:' ▾';font-weight:400;color:var(--t3)}#mChT:hover,#mChD.open>#mChT{background:var(--btnh)}#mChL{left:4px;right:4px;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:6px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}[data-theme=dark] #mChL .ci.on{background:#26344d;color:var(--fg)}[data-theme=dark] #mChL .ci.on small{color:var(--h4);opacity:1}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mChL hr{border:0;border-top:1px solid var(--line);margin:4px 2px}#mChL>button{display:block;width:100%;padding:4px 6px;border:0;background:transparent;text-align:left;color:var(--h4)}#mChL>button:hover{background:var(--btnh);color:var(--fg)}
+#mCb{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}#mHello{margin:10px 10px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
+#mSetup{margin:10px 10px 0;padding:10px;border-radius:8px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb)}#mSetup p{margin:0 0 8px;color:var(--h4);line-height:1.45}#mSetup div{display:flex;flex-wrap:wrap;gap:4px}#mSetup button:first-child{border-color:transparent;background:var(--fg);color:var(--side)}
+#mLog{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:10px}#mLog>div{overflow-wrap:anywhere;white-space:pre-wrap}#mLog>.u{align-self:flex-end;max-width:88%;padding:6px 10px;border-radius:8px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--h4b)}#mLog>.a{line-height:1.55}#mLog>.a.er{padding:6px 9px;border-radius:8px;background:var(--erb);box-shadow:inset 0 0 0 1px var(--btnb)}#mLog>.a.er>.tx{color:var(--er)}#mLog .tm{opacity:.6}
+#mLog .wt{display:flex;align-items:center;gap:6px;color:var(--h4)}#mLog .wt svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;animation:mBob 1.2s ease-in-out infinite}#mLog .wt .wm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t3)}#mLog .wt .tm{margin-left:auto;opacity:1;color:var(--t3);font-variant-numeric:tabular-nums}@keyframes mBob{50%{transform:translateY(-2px);opacity:.55}}
+#mLog .sh{white-space:nowrap;background:linear-gradient(90deg,var(--t3) 0 38%,var(--fg) 50%,var(--t3) 62% 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:mShim 1.7s linear infinite}@keyframes mShim{from{background-position:100% 0}to{background-position:0 0}}@media(prefers-reduced-motion:reduce){#mLog .wt svg,#mLog .sh{animation:none}}
+#mLog details{margin-bottom:6px}#mLog summary{cursor:pointer;color:var(--h4);font-size:12px}#mLog .tk.ok>summary::before{content:'✓ ';color:var(--ok)}#mLog .th{max-height:180px;overflow:auto;margin-top:3px;padding-left:8px;border-left:2px solid var(--line);font-size:11px;color:var(--h4);white-space:pre-wrap}#mLog .u img{display:block;max-height:60px;max-width:100%;margin-top:4px;border-radius:4px}
+#mLog p{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 0;white-space:normal}#mLog .a>div:not(.wt):not(.mt){margin-top:4px;color:var(--h4);font-size:11.5px}#mLog .mt{display:flex;align-items:flex-start;gap:6px;margin-top:6px;color:var(--t3);font-size:11px;line-height:1.45;white-space:normal}#mLog .mt span{flex:1;min-width:0;padding-top:1px}#mLog .rtb{flex:none;padding:0 6px;border-color:transparent;background:transparent;color:var(--h4);font-size:11px}#mLog .rtb:hover{background:var(--btnh);color:var(--fg)}
+#mComp{position:relative;flex:none;margin:0 8px;padding:6px 6px 6px 8px;border-radius:8px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb)}#mComp:focus-within{box-shadow:inset 0 0 0 1px var(--onb)}
+#mChips{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:6px}#mSelC,#mImgs{display:contents}#mChips .f,#mChips .w{display:inline-flex;align-items:center;gap:2px;max-width:100%;min-height:22px;padding:0 2px 0 7px;border-radius:6px;background:var(--side);box-shadow:inset 0 0 0 1px var(--btnb);font-size:11.5px}#mChips .w{padding:2px 7px;color:var(--er)}#mChips .t{position:relative}#mChips img{display:block;height:36px;max-width:90px;object-fit:contain;border-radius:4px;box-shadow:0 0 0 1px var(--btnb)}#mChips .rq{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:4px;color:var(--h4)}
+#mChat .x{flex:none;width:18px;height:18px;padding:0;border:0;border-radius:5px;background:transparent;color:var(--t3);font-size:13px;line-height:18px}#mChat .x:hover{background:var(--btnh);color:var(--fg)}#mChips .t .x{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--h4);color:var(--side);font-size:11px;line-height:16px}
+#mRoute{display:flex;align-items:flex-start;gap:6px;margin:0 0 6px;padding:4px 6px;border-radius:6px;background:var(--side);font-size:11.5px;line-height:1.4;color:var(--h4)}#mRoute .chg{width:13px;height:13px;margin-top:1px}#mRoute b{font-weight:500;color:var(--fg);white-space:nowrap}#mRoute button{flex:none;margin-left:auto;padding:0;border:0;background:none;color:var(--onb);font-size:11.5px}#mRoute button:hover{background:none;text-decoration:underline}#mRoute.wa{background:var(--wab)}#mRoute.wa .chg{color:var(--wa)}
+#mAskW{position:relative}#mAsk{display:block;width:100%;min-height:40px;padding:1px 14px 1px 0;border:0;background:transparent;resize:none;font:inherit;line-height:1.5}#mAsk:focus{border:0}#mGrip{position:absolute;top:2px;right:0;width:11px;height:11px;cursor:ns-resize;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'%3E%3Cpath d='M2 0l9 9M6 0l5 5' stroke='%23888' stroke-width='1.2'/%3E%3C/svg%3E")}
+#mComp .cb{display:flex;align-items:center;gap:3px;margin-top:4px}#mAtt.ib{border-color:var(--btnb)}#mCuD{position:static}#mCuB{width:24px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent}#mCuB:hover,#mCuD.open>#mCuB{background:var(--btnh)}#mCuB svg{width:15px;height:15px}#mCuB circle{fill:none;stroke-width:2.2}#mCuB .r0{stroke:var(--btnb)}#mCuB .rv{stroke:var(--h4);stroke-linecap:round;stroke-dasharray:0 44}#mCuB.wa .rv{stroke:var(--wa)}#mCuB.w .rv{stroke:var(--er)}
+#mCuM{left:0;top:auto;bottom:100%;margin:0 0 6px;width:min(250px,100%);padding:8px 10px;white-space:normal}#mCuM b{font-weight:600}#mCuM p{margin:4px 0 0;color:var(--h4);font-size:11.5px;line-height:1.45}#mCuM p:last-child{color:var(--t3)}#mCuM .bar{height:4px;margin-top:6px;border-radius:2px;background:var(--btnh);overflow:hidden}#mCuI{display:block;width:0;height:100%;background:var(--h4)}#mCuB.wa~#mCuM #mCuI{background:var(--wa)}#mCuB.w~#mCuM #mCuI{background:var(--er)}
+#mMdD{position:static;min-width:0;margin-left:auto}#mMd{display:flex;align-items:center;gap:4px;max-width:100%;height:26px;padding:0 6px 0 8px;border-color:transparent;background:transparent;color:var(--fg)}#mMd span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mMd em{flex:none;font-style:normal;color:var(--t3)}#mMd em:empty{display:none}#mMd::after{content:'▾';color:var(--t3);font-size:10px}#mMd:hover,#mMdD.open>#mMd{background:var(--btnh)}#mMd.need{color:var(--onb);box-shadow:inset 0 0 0 1px var(--onb)}
+#mSend{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:var(--fg);color:var(--side)}#mSend:hover{background:var(--fg);opacity:.85}#mSend .chg{stroke-width:1.8}#mNote{flex:none;margin:6px 10px 8px;text-align:center;color:var(--t3);font-size:11px;line-height:1.4}
+#mMm{left:auto;right:0;top:auto;bottom:100%;margin:0 0 6px;width:min(272px,100%);max-height:min(70vh,560px);overflow:auto}#mChat .cm button{display:flex;align-items:center;gap:6px;width:100%;padding:3px 8px 3px 22px;position:relative;text-align:left;white-space:nowrap;border-color:transparent;background:transparent;color:var(--bfg)}#mChat .cm button:hover{background:var(--btnh)}#mChat .cm button small{margin-left:auto;padding-left:10px;overflow:hidden;text-overflow:ellipsis}#mChat .cm button.off{color:var(--t3)}#mChat .cm h5{margin:4px 8px 2px;font-size:11px;font-weight:500;color:var(--t3)}#mChat .cm .chg{width:13px;height:13px;color:var(--t3)}
+#mMm .pg{display:flex;align-items:center;gap:6px;padding:6px 8px 1px;font-size:11px;color:var(--t3)}#mMm .pg b{font-weight:600;color:var(--h4)}#mMm .pg small{margin-left:auto;opacity:1}#mMm .pg small.w{color:var(--er)}#mMm .pg .lk{width:auto;margin-left:auto;padding:0;color:var(--onb);font-size:11px}#mMm .pg .lk:hover{background:none;text-decoration:underline}#mMm .mf{margin:4px 8px 2px;color:var(--t3);font-size:11px;line-height:1.4;white-space:normal}
+#mMm .mr{display:flex;align-items:center;gap:8px;padding:2px 2px 2px 22px}#mMm .seg{display:flex;gap:1px;margin-left:auto;padding:2px;border-radius:6px;background:var(--btnh)}#mMm .seg button{width:auto;padding:1px 8px;border-radius:4px}#mMm .seg button.on{background:var(--side);box-shadow:var(--sh)}#mMm .seg button.on::before{content:none}#mMm .go::after{content:'›';margin-left:6px;color:var(--t3)}#mMm .bk{padding-left:8px;color:var(--h4);font-weight:500}#mRtM{position:fixed;min-width:200px}
+#mConn{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;background:var(--side)}#mConn>header{flex:none;display:flex;align-items:center;gap:4px;height:34px;padding:0 4px;border-bottom:1px solid var(--line)}#mConn>header b{font-weight:600}#mConnB{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px 8px 16px}
+#mNow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;padding:8px 10px;border-radius:8px;background:var(--btnh)}#mNow span{color:var(--t3)}#mNow b{font-weight:500}#mLead{margin:0 2px;color:var(--h4);line-height:1.45}#mLead.pend{padding:6px 8px;border-radius:6px;background:var(--on);color:var(--onfg)}
+#mConn .card{display:flex;flex-direction:column;gap:7px;padding:10px;border-radius:8px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb);transition:box-shadow .3s}#mConn .card.hl{box-shadow:inset 0 0 0 1.5px var(--onb)}#mConn .card.dim{background:transparent}#mConn .card header{display:flex;align-items:center;gap:6px;min-height:20px}#mConn .card header b{font-weight:600}#mConn .card header small{color:var(--t3)}#mConn .card p{margin:0;color:var(--h4);font-size:11.5px;line-height:1.45}#mConn .card p.ew{color:var(--er)}#mConn .card a{color:var(--onb)}
+#mConn .st{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--h4);white-space:nowrap}#mConn .st::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--t3);opacity:.6}#mConn .st.ok::before{background:var(--ok);opacity:1}#mConn .st.wa::before{background:var(--wa);opacity:1}#mConn .st.er{color:var(--er)}#mConn .st.er::before{background:var(--er);opacity:1}
+#mConn .kf{display:flex;gap:4px}#mConn .kf input{flex:1;min-width:0;font-family:ui-monospace,monospace;font-size:11.5px}#mConn .kf .ib{border-color:var(--btnb)}#mConn .ml{list-style:none;margin:0;padding:6px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:1px}#mConn .ml li{display:flex;align-items:center;gap:6px;min-height:20px;font-size:11.5px}#mConn .ml em{padding:0 5px;border-radius:4px;box-shadow:inset 0 0 0 1px var(--btnb);font-style:normal;font-size:10.5px;color:var(--h4)}#mConn .ml small{margin-left:auto;color:var(--t3)}
+#mConn .lk{align-self:flex-start;padding:0;border:0;background:none;color:var(--h4);font-size:11.5px}#mConn .lk:hover{background:none;color:var(--er)}#mConn .ft{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 2px 0;color:var(--t3);font-size:11px;line-height:1.4}#mConn .ft button{flex:none;padding:0;border:0;background:none;color:var(--h4);font-size:11px}#mConn .ft button:hover{background:none;text-decoration:underline}
 #mTools>button,#mTools>.dd>button{border-color:transparent;background:transparent;border-radius:7px;color:var(--h4)}#mTools>button:hover,#mTools>.dd>button:hover{background:var(--btnh);color:var(--fg)}#mTools>button.on,#mTools>.dd>button.on{background:var(--btn);border-color:var(--btnb);color:var(--fg);box-shadow:var(--sh)}
 #mGc,#mCr,#mBz{border-color:var(--btnb);box-shadow:var(--sh)}#mLl .r{left:4px;right:4px;border-radius:5px}#mLb{border-color:var(--btnb)}
-#mAsk{padding:6px 8px;border-radius:8px}#mSend{background:var(--fg);border-color:transparent;color:var(--side)}#mSend:hover{background:var(--fg);opacity:.85}
 #mSide,#mLl,#mLog,#mChL,#mHm,#mRm,#mPop,#mKl,#mHelp form{scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
 #mFg{position:fixed;z-index:19;width:290px;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg[hidden]{display:none}
 #mFg header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
@@ -294,20 +315,21 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <p class="pph">For showing, not for measuring: the colour and range are an SVG filter (grey by Rec. 709 weights, then the range, then the colour), and the pictures' pixels are never changed. Levels are those of the embedded 8-bit picture. Merging needs pictures of the same pixel size; they are overlaid pixel to pixel as they are, not registered, in a new group beside them.</p></section>
 <p id="mFgS"></p></div>
 <div id="mChat">
-<div id="mChH"><div class="dd" id="mChD"><button class="ddb" id="mChT" title="Switch to another chat, rename or delete one">New chat ▾</button><div class="menu" id="mChL"></div></div><button id="mChN" title="Start a new chat; this one is kept">+ New</button></div>
-<details id="mCfg"><summary>AI settings</summary>
-<label title="Looks at an attached image first and describes it, so a drawing model that can't see images can still redraw it">Read images with<span class="two"><select id="mVis"></select><select id="mThinkR" title="Thinking effort for reading the image"><option value="low">Low</option><option value="high">High</option><option value="max" selected>Max</option></select></span></label>
-<label title="The model that writes the SVG">Draw with<span class="two"><select id="mModel"></select><select id="mThink" title="Thinking effort for drawing; a reply that was cut off is continued with Low"><option value="low">Low</option><option value="high" selected>High</option><option value="max">Max</option></select></span></label>
-<p id="mRoute"></p>
-<label data-p="Glm" title="A standard API key or a Coding Plan key; it is tested when entered">GLM key<input id="mKeyGlm" type="password" autocomplete="off" placeholder="API key"><small id="mKsGlm"></small></label>
-<label data-p="Ds">DeepSeek key<input id="mKeyDs" type="password" autocomplete="off" placeholder="API key"><small id="mKsDs"></small></label>
-</details>
+<div id="mChH"><div class="dd" id="mChD"><button class="ddb" id="mChT" title="Switch to another chat, rename or delete one">New chat</button><div class="menu" id="mChL"></div></div><button class="ib" id="mCk" title="Models and keys"><svg class="chg" viewBox="0 0 16 16"><path d="M2.5 5h6M12 5h1.5M2.5 11h2M8 11h5.5"/><circle cx="10.2" cy="5" r="1.7"/><circle cx="6.2" cy="11" r="1.7"/></svg></button><button class="ib" id="mChN" title="Start a new chat; this one is kept"><svg class="chg" viewBox="0 0 16 16"><path d="M7.5 3h-3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-3M11.2 2.8a1.3 1.3 0 0 1 1.9 1.9L8.3 9.5 6 10l.5-2.3z"/></svg></button><button class="ib" id="mChX" title="Close SVG Chat"><svg class="chg" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/></svg></button></div>
+<div id="mCb">
 <p id="mHello"><b>svguest</b>: I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.</p>
+<div id="mSetup" hidden><p>To start, add an API key for GLM or DeepSeek. It is kept in this browser and sent only to that service.</p><div><button data-conn="Glm">Add a GLM key</button><button data-conn="Ds">Add a DeepSeek key</button></div></div>
 <div id="mLog"></div>
-<div id="mSelC"></div>
-<div id="mImgs"></div>
-<div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div><div id="mCu"></div>
-<div class="row"><button id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read">Attach</button><input type="file" id="mAttF" multiple hidden><button id="mSend">Send</button></div>
+<div id="mComp"><div id="mChips" hidden><span id="mSelC"></span><span id="mImgs"></span></div><div id="mRoute" hidden></div>
+<div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div>
+<div class="cb"><button class="ib" id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read"><svg class="chg" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></button><input type="file" id="mAttF" multiple hidden>
+<div class="dd" id="mCuD" hidden><button class="ddb" id="mCuB" aria-label="Context used"><svg viewBox="0 0 18 18"><circle class="r0" cx="9" cy="9" r="7"/><circle class="rv" cx="9" cy="9" r="7" transform="rotate(-90 9 9)"/></svg></button><div class="menu" id="mCuM"><b>Context</b><p id="mCu"></p><div class="bar"><i id="mCuI"></i></div><p>What the AI read for the last reply: the whole chat goes with each message, other chats don't. Near the model's limit, the chat is summarised and continues in a new one that still edits the same figure.</p></div></div>
+<div class="dd" id="mMdD"><button class="ddb" id="mMd"><span id="mMdN"></span><em id="mMdE"></em></button><div class="menu cm" id="mMm"></div></div>
+<button id="mSend"></button></div></div>
+<p id="mNote"></p>
+<div class="dd" id="mRtD"><div class="menu cm" id="mRtM"></div></div>
+<section id="mConn" hidden aria-label="Models and keys"></section>
+</div>
 </div>
 <div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
 <input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" hidden>
@@ -322,7 +344,7 @@ body.chat{grid-template-columns:40px 1fr 236px 300px}body.lay{grid-template-colu
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, X² or X₂</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
-<section><h4>SVG Chat</h4><dl><dt>AI settings</dt><dd>Your GLM or DeepSeek API key; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Read images with</dt><dd>A model that reads an image first, for a drawing model that can't</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
+<section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
 <section><h4>File</h4><dl><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
@@ -1389,9 +1411,9 @@ function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0;
-const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,PROV={Glm:'GLM',Ds:'DeepSeek',Tb:'TBtools'},
-  AI={Glm:['https://open.bigmodel.cn/api/paas/v4/chat/completions','glm-5.3-flash','glm-5.3'],Ds:['https://api.deepseek.com/chat/completions','deepseek-flash','deepseek-v4-pro']},
-  PLAN={Glm:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions'},KS={},VIS=new Set(['glm-5.3-flash','deepseek-flash']);
+const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
+  REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'A standard API key or a Coding Plan key: it is tested when entered, and the address that works is used.',ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
+    {p:'Ds',n:'DeepSeek',to:'DeepSeek',url:'https://api.deepseek.com/chat/completions',get:'https://platform.deepseek.com/api_keys',ms:[{id:'deepseek-v4-pro',n:'DeepSeek V4 Pro',ctx:1048576},{id:'deepseek-flash',n:'DeepSeek Flash',see:1,ctx:1048576}]}];
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
   sum:'Summarise the conversation below so that it can continue in a new chat that sees only your summary and the current figure. Keep what the figure shows and is for, every requirement, change and preference the user stated that still applies (sizes, colours, fonts, labels, layout), what was rejected, and what is still to do. Plain text, under 250 words, no SVG or code.',
@@ -1401,7 +1423,7 @@ const PROMPT={
   whole:sp=>` Redraw it faithfully, with width="${fm(sp.w/10)}mm" height="${fm(sp.h/10)}mm" viewBox="0 0 ${sp.w} ${sp.h}".`,
   panel:(g,[x0,y0,x1,y1])=>` Draw only panel "${g}", whose items are listed below, with width="${fm((x1-x0)/10)}mm" height="${fm((y1-y0)/10)}mm" viewBox="${x0} ${y0} ${x1-x0} ${y1-y0}", so that the coordinates stay those of the description.`,
   cur:x=>`\n\nThe current figure, including any edits the user made by hand, as SVG:\n\`\`\`svg\n${x}\n\`\`\`\nTo change it, reply with a short sentence and a <patch>...</patch> block instead of a full SVG, unless most of it changes. Inside the patch, an element with the id of an existing one replaces it (children included), <delete ids="id1 id2"/> removes elements, and <add after="id">...</add> inserts new elements after that one (without after, at the end). Keep the ids as they are.`};
-const bub=(c,t)=>{const d=el('div',c,t);LG.append(d);$('mHello').hidden=true;LG.scrollTop=LG.scrollHeight;return d},
+const bub=(c,t)=>{const d=el('div',c,t);LG.append(d);$('mHello').hidden=$('mSetup').hidden=true;LG.scrollTop=LG.scrollHeight;return d},
   brief=t=>t.replace(/```\w*\s*/g,'').replace(/<svg[\s\S]*?(<\/svg>|$)/gi,m=>`[SVG, ${m.length} chars]`).replace(/<patch[\s\S]*?(<\/patch>|$)/gi,m=>`[changes, ${m.length} chars]`).trim(),
   flat=c=>typeof c==='string'?c:c.map(x=>x.type==='text'?x.text:'[image]').join('\n'),
   sv=s=>s.search(/<svg[\s>]/i),pt0=s=>s.search(/<patch[\s>]/i),openP=s=>pt0(s)>=0&&!/<\/patch>/i.test(s),
@@ -1440,7 +1462,7 @@ function patch(t){const m=/<patch[\s>][\s\S]*?(<\/patch>|$)/i.exec(t);if(!m)retu
 const img=u=>Object.assign(new Image(),{src:u}),chip=(c,t)=>el('span',c,t),xb=(f,ti)=>Object.assign(btn('×',f,ti),{className:'x'});
 function thumbs(){const rm=(e,a,i)=>(e.append(xb(()=>{a.splice(i,1);thumbs()},'Remove')),e),q=el('div','rq','Redraw this image as an editable figure?');
   q.append(btn('Redraw',()=>ask()),btn('Not now',()=>{rq=0;thumbs();$('mAsk').focus()}));
-  $('mImgs').replaceChildren(...notes.map(t=>chip('w',t)),...(rq&&imgs.length&&!ac?[q]:[]),...imgs.map((u,i)=>{const e=chip('t');e.append(img(u));return rm(e,imgs,i)}),...files.map((f,i)=>rm(chip('f',f.n),files,i)))}
+  $('mImgs').replaceChildren(...notes.map(t=>chip('w',t)),...(rq&&imgs.length&&!ac?[q]:[]),...imgs.map((u,i)=>{const e=chip('t');e.append(img(u));return rm(e,imgs,i)}),...files.map((f,i)=>rm(chip('f',f.n),files,i)));chipsUI()}
 const shrink=(f,sz)=>new Promise((ok,no)=>{const m=new Image(),u=URL.createObjectURL(f);m.onerror=()=>{URL.revokeObjectURL(u);no(Error('Cannot read '+f.name))};
   m.onload=()=>{const r=sz?sz/max(m.width,m.height):min(1,1600/max(m.width,m.height)),c=cv(round(m.width*r),round(m.height*r)),g=c.getContext('2d');
     g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(m,0,0,c.width,c.height);URL.revokeObjectURL(u);let d=c.toDataURL('image/png');d.length>4e6&&(d=c.toDataURL('image/jpeg',.9));ok(d)};m.src=u});
@@ -1468,8 +1490,8 @@ async function placeImg(f,u){let d=await new Promise((ok,no)=>{const r=new FileR
   setT(e,ctm(p).inverse());ctx=p;setTool('sel');setSel([e]);commit();msg(`Placed ${f.name}: ${m.naturalWidth}×${m.naturalHeight} px at ${round(300/r)} dpi`);cmykChk(e)}
 let skip=[];
 const same=(a,b)=>a.length===b.length&&a.every((e,i)=>e===b[i]),selOn=()=>sel.length&&!skip.length&&!(sel.length===1&&sel[0]===aiG),nObj=n=>n+' object'+(n>1?'s':'');
-function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())return c.replaceChildren();const e=chip('f','Selection: '+nObj(sel.length));
-  e.title='The selected objects are sent with your message';e.append(xb(()=>{skip=sel.slice();selChip()},'Send without the selection'));c.replaceChildren(e)}
+function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())return c.replaceChildren(),chipsUI();const e=chip('f','Selection: '+nObj(sel.length));
+  e.title='The selected objects are sent with your message';e.append(xb(()=>{skip=sel.slice();selChip()},'Send without the selection'));c.replaceChildren(e);chipsUI()}
 const selPart=()=>selOn()?frag(order(sel)):null,copyOut=()=>{copy();if(!sel.length)return;const n=sel.reduce((n,e)=>n+e.getElementsByTagName('*').length,0),f=n<2e4&&frag(order(sel));
   lastOut=f?f.x:`svguest: ${nObj(sel.length)} copied`;navigator.clipboard?.writeText(lastOut).catch(()=>{})};
 function frag(els){const b=memoize(()=>els.reduce((a,e)=>un(a,bbox(e)),null));if(!b)return null;
@@ -1492,10 +1514,16 @@ const tbBridge=()=>window.tbtools?.ai,
   tbFit=ms=>{const s=ms[0]?.role==='system'?ms[0].content:PROMPT.sys(),b=ms.filter(m=>m.role!=='system').slice(-19).map(m=>({role:m.role,content:flat(m.content)})),n=()=>s.length+b.reduce((a,m)=>a+m.content.length,0);
     while(b[1]&&n()>TBMAX)b.shift();while(b.length>2&&b[0].role!=='user')b.shift();return n()>TBMAX?null:[{role:'system',content:s},...b]},
   tbWhy={aborted:'Stopped',denied:'TBtools declined this request.',busy:'TBtools is busy. Try again in a moment.',closed:'The TBtools model bridge is closed.',invalid:'TBtools could not read this request.',too_many:'This conversation is too long for TBtools.',too_large:'This message is too large for TBtools.',empty:'Empty reply'};
-const NAME={'glm-5.3-flash':'GLM-5.3 Flash','glm-5.3':'GLM-5.3','deepseek-flash':'DeepSeek Flash','deepseek-v4-pro':'DeepSeek V4 Pro'},CTX={'glm-5.3-flash':1e6,'glm-5.3':1e6,'deepseek-flash':1048576,'deepseek-v4-pro':1048576},ctxLim=t=>t.p==='Tb'?TBMAX:CTX[t.m]||128e3,
-  who=v=>v==='Tb'?{p:'Tb',m:''}:(([p,m=''])=>({p,m}))(v.split(':')),nameOf=t=>t.p==='Tb'?'TBtools':NAME[t.m]||t.m,canSee=t=>t.p==='Tb'||VIS.has(t.m),
-  cfg=p=>({key:($('mKey'+p)?.value||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),ksay=u=>u===PLAN.Glm?'Connected: Coding Plan':u===AI.Glm[0]?'Connected: standard API':'Connected',
-  drawTo=()=>who($('mModel').value),reader=()=>{const v=$('mVis').value;return v&&v!=='self'?who(v):null};
+tbBridge()&&REG.unshift({p:'Tb',n:'TBtools',by:'Built into TBtools-II',to:'the TBtools model',ok:()=>!!tbBridge(),about:'No key, no account. It reads up to 32,000 characters of a chat; a longer chat is summarised and continues in a new one.',ms:[{id:'',n:'TBtools',see:1,ch:1,th:0}]});
+const PV=p=>REG.find(r=>r.p===p),mOf=t=>PV(t.p)?.ms.find(m=>m.id===t.m),vOf=t=>t.m?t.p+':'+t.m:t.p,ctxLim=t=>t.p==='Tb'?TBMAX:mOf(t)?.ctx||128e3,
+  who=v=>(([p,m=''])=>({p,m}))(String(v||'').split(':')),nameOf=t=>mOf(t)?.n||t.m||PV(t.p)?.n||t.p,canSee=t=>!!mOf(t)?.see,thk=t=>!!mOf(t)&&mOf(t).th!==0,ucf=s=>s[0].toUpperCase()+s.slice(1),
+  cfg=p=>({key:(ls('sg'+p+'Key')||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),ksay=(r,u)=>u===r.plan?'Connected: Coding Plan':r.plan&&u===r.url?'Connected: standard API':'Connected',
+  hasP=p=>{const r=PV(p);return!!r&&(r.ok?r.ok():!!cfg(p).key)},rdy=t=>!!mOf(t)&&hasP(t.p),
+  conn=p=>{const r=PV(p);return!r?'':r.st?r.st()[0]:r.ok?r.ok()?'ok':'':cfg(p).key?KT[p]?.s||'wa':''},
+  drawTo=()=>{const t=who(DRAW);return mOf(t)?t:who(tbBridge()?'Tb':'Glm:glm-5.3')},
+  reader=(d=drawTo())=>{const v=RD!=='auto'&&RD!=='self'&&who(RD);if(v&&rdy(v)&&canSee(v))return vOf(v)===vOf(d)?null:v;if(canSee(d))return null;
+    const f=r=>{const m=hasP(r.p)&&r.ms.find(m=>m.see);return m?{p:r.p,m:m.id}:null};return PV(d.p)&&f(PV(d.p))||REG.map(f).find(Boolean)||null};
+let DRAW=ls('sgDraw')||'',RD=ls('sgVis')||'auto',EFF=ls('sgThink')||'high',EFFR=ls('sgThinkR')||'max',PEND=null;
 const tem=(t,h)=>{const L=t.t.split('\n'),dn=/[gjpqy,;()[\]{}|_]/.test(L.at(-1));return[h/(.9+(L.length-1)*1.2+(dn?.2:0)),L.length,dn]},isTx=t=>t&&t.k==='text'&&Array.isArray(t.b)&&typeof t.t=='string';
 function mmSpec(items,z){let mx=0,my=0;const at=q=>{Array.isArray(q)&&isFinite(q[0])&&isFinite(q[1])&&(mx=max(mx,q[0]),my=max(my,q[1]))};
   for(const t of items||[])if(t&&typeof t==='object'){Array.isArray(t.b)&&(at(t.b),at(t.b.slice(2)));Array.isArray(t.p)&&t.p.forEach(at);at(t.at);Array.isArray(t.ticks)&&t.ticks.forEach(k=>at(k&&k.at))}
@@ -1510,10 +1538,10 @@ function mmSpec(items,z){let mx=0,my=0;const at=q=>{Array.isArray(q)&&isFinite(q
   return{w:FW,h:FH,items:its,ft:[...ft]}}
 async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getReader(),js=function*(a){for(const l of a){const d=l.startsWith('data:')&&l.slice(5).trim();if(d&&d!=='[DONE]')yield JSON.parse(d)}};let buf='';
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
-async function probe(p){const{key}=cfg(p),s=$('mKs'+p),er=[],cur=()=>cfg(p).key===key;s.textContent='Checking the key…';
-  for(const u of[AI[p][0],PLAN[p]].filter(Boolean))try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({model:AI[p].at(-1),messages:[{role:'user',content:'Hi'}],max_tokens:16})});
-    if(r.ok){cur()&&(ls('sg'+p+'Ep',u),s.textContent=ksay(u));return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
-  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;s.textContent='Not connected: '+m}throw Error(m)}
+async function probe(p){const R=PV(p),{key}=cfg(p),er=[],cur=()=>cfg(p).key===key;KT[p]={s:'wa'};cfgSync();
+  for(const u of[R.url,R.plan].filter(Boolean))try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16})});
+    if(r.ok){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:ksay(R,u)},cfgSync());return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
+  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Error(m)}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
@@ -1521,7 +1549,7 @@ async function call(to,msgs,o){
     const id=p.requestId;id&&o.rids.add(id);try{const out=await p||'';o.on&&o.on(out);return{out,cut:0}}finally{o.rids.delete(id)}}
   const{key}=cfg(to.p),r=await fetch(await ep(to.p),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,
     body:JSON.stringify({model:to.m,messages:msgs,stream:true,thinking:{type:'enabled'},reasoning_effort:o.eff})});
-  if(!r.ok)throw Error(`${r.status} ${(await r.text()).slice(0,300)}`);
+  if(!r.ok){const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}throw Error(`${r.status} ${m}`.slice(0,300))}
   let out='',cut=0,u=null;
   for await(const j of sse(r)){if(j.error)throw Error(j.error.message||JSON.stringify(j.error));j.usage&&(u=j.usage);const ch=j.choices?.[0]||{},c=ch.delta||{};ch.finish_reason==='length'&&(cut=1);
     c.reasoning_content&&!o.quiet&&o.ui.think(c.reasoning_content);if(c.content){out+=c.content;o.on&&o.on(out)}}
@@ -1553,28 +1581,33 @@ function asm(rs,sp){const X=new XMLSerializer(),miss=[],gs=rs.map(({out,P},i)=>{
     g.append(...[...d.childNodes].map(c=>document.importNode(c,true)));return X.serializeToString(g)});
   return{miss,out:`<svg xmlns="${NS.svg}" xmlns:inkscape="${NS.inkscape}" width="${fm(sp.w/10)}mm" height="${fm(sp.h/10)}mm" viewBox="0 0 ${sp.w} ${sp.h}">${gs.join('')}</svg>`}}
 async function drawPanels(to,ps,sp,q,o){let done=0;const st=()=>o.ui.stage(`Drawing ${ps.length} panels at once, ${done} done`),hs=past(hist.slice(0,-1)),sys={role:'system',content:PROMPT.sys()};st();
-  const rs=await Promise.allSettled(ps.map(async P=>{const r=await draw(to,[sys,...hs,{role:'user',content:q+'\n\n'+PROMPT.units(sp)+PROMPT.panel(P.name,P.b)+'\nDescription: '+JSON.stringify({items:P.items})}],{...o,eff:$('mThink').value,quiet:1});done++;st();return{...r,P}}));
+  const rs=await Promise.allSettled(ps.map(async P=>{const r=await draw(to,[sys,...hs,{role:'user',content:q+'\n\n'+PROMPT.units(sp)+PROMPT.panel(P.name,P.b)+'\nDescription: '+JSON.stringify({items:P.items})}],{...o,eff:EFF,quiet:1});done++;st();return{...r,P}}));
   if(o.signal.aborted)throw new DOMException('Stopped','AbortError');const ok=rs.filter(r=>r.status==='fulfilled').map(r=>r.value);if(!ok.length)throw rs[0].reason;
   const a=asm(ok,sp),miss=[...ps.filter((P,i)=>rs[i].status!=='fulfilled').map(P=>P.name),...a.miss];if(miss.length===ps.length)throw Error('No panel could be drawn');
   o.ui.say(`Drew ${ps.length-miss.length} of ${ps.length} panels at once.`);return{out:a.out,cut:ok.some(r=>r.cut)?1:0,miss}}
-function bubbleUI(){const b=bub('a',''),tl=el('span',0,'Waiting for the reply…'),tm=el('span','tm'),t0=Date.now(),secs=()=>` ${round((Date.now()-t0)/1e3)} s`,
-    near=e=>e.scrollHeight-e.scrollTop-e.clientHeight<30,iv=setInterval(()=>tm.textContent=secs(),1e3);b.append(tl,tm);
-  let dt,sm,pr,rsn='',th=0,raf=0,txt='',lab='',fin='',shut=0,on=1,use=null;
-  const sum=()=>dt&&(sm.textContent=(on&&!shut?'Thinking… ':'Thought for ')+th.toLocaleString('en')+' chars'),
+function bubbleUI(d,r,ef){const b=bub('a',''),w=el('div','wt'),wl=el('span','sh'),wm=el('span','wm'),tm=el('span','tm'),tl=el('span','tx'),t0=Date.now(),secs=()=>round((Date.now()-t0)/1e3),
+    near=e=>e.scrollHeight-e.scrollTop-e.clientHeight<30,iv=setInterval(()=>tm.textContent=secs()+' s',1e3);w.innerHTML=IC.mark;w.append(wl,wm,tm);b.append(w,tl);
+  let dt,sm,pr,rsn='',th=0,t1=0,t2=0,raf=0,txt='',lab='',fin='',shut=0,on=1,use=null,wh=r||d,mt=null,stk=0;
+  const sum=()=>dt&&(sm.textContent=on&&!shut?'Thinking…':`Thought for ${max(1,round(((t2||Date.now())-t1)/1e3))} s`),
     upd=()=>{raf=0;const end=near(LG);if(rsn){const pe=near(pr),n=pr.firstChild||pr.appendChild(document.createTextNode(''));n.appendData(rsn);rsn='';n.length>25e3&&n.deleteData(0,n.length-2e4);pe&&(pr.scrollTop=pr.scrollHeight)}
-      tl.textContent=fin||(txt?brief(txt):lab?lab+'…':dt?'':'Waiting for the reply…');sum();end&&(LG.scrollTop=LG.scrollHeight)},
-    kick=()=>raf||(raf=requestAnimationFrame(upd));
+      wl.textContent=lab?lab+'…':'Waiting for the reply…';wm.textContent=nameOf(wh);w.hidden=!on||!!txt||!!fin;tl.textContent=fin||(txt?brief(txt):'');sum();end&&(LG.scrollTop=LG.scrollHeight)},
+    kick=()=>raf||(raf=requestAnimationFrame(upd));upd();
   return{b,
-    text:s=>{txt=s;s&&dt&&!shut&&(shut=1,dt.open=false);kick()},
-    think:s=>{if(!dt){dt=el('details');sm=el('summary');pr=el('div','th');dt.open=true;dt.append(sm,pr);b.prepend(dt)}rsn+=s;th+=s.length;kick()},
+    text:s=>{txt=s;s&&!t2&&(t2=Date.now());s&&dt&&!shut&&(shut=1,dt.open=false);kick()},
+    think:s=>{if(!dt){t1=Date.now();dt=el('details','tk');sm=el('summary');pr=el('div','th');dt.open=true;dt.append(sm,pr);b.prepend(dt)}rsn+=s;th+=s.length;kick()},
     stage:s=>{dt&&th&&lab!==s&&(rsn+=`\n\n— ${s} —\n`);lab=s;txt='';kick()},
+    who:t=>{wh=t;kick()},
     note:s=>msg(s+'…'),
     use:u=>{u&&(use={o:(use?.o||0)+(u.completion_tokens||0),r:(use?.r||0)+(u.completion_tokens_details?.reasoning_tokens||0),p:max(use?.p||0,u.prompt_tokens||0)})},tok:()=>use?.p||0,
-    spec:(sp,by)=>{const d=el('details'),n=sp.items.length;d.append(el('summary',0,`What ${by} saw: ${n} item${n>1?'s':''}`),el('div','th',JSON.stringify(sp.items)));b.insertBefore(d,tl)},
+    spec:(sp,by)=>{const x=el('details','tk ok'),n=sp.items.length;x.append(el('summary',0,`${by} read the image: ${n} item${n>1?'s':''}`),el('div','th',JSON.stringify(sp.items)));b.insertBefore(x,w)},
     say:s=>{fin=s;kick()},
-    end:()=>{clearInterval(iv);raf&&cancelAnimationFrame(raf);upd();on=0;sum();use?tm.textContent=secs()+` · ${use.o.toLocaleString('en')} output tokens`+(use.r?` (${use.r.toLocaleString('en')} thinking)`:''):tm.remove()}}}
-async function look(to,src,text,o){o.ui.stage('Looking at the image');
-  const r=await call(to,[{role:'system',content:PROMPT.look},{role:'user',content:[{type:'image_url',image_url:{url:src}},{type:'text',text}]}],{...o,eff:$('mThinkR').value,img:src,prompt:PROMPT.look+'\n\n'+text,on:null}),j=json(r.out);
+    fail:(s,p)=>{const e=near(LG);fin=s;b.classList.add('er');if(p){const q=el('p');q.append(btn('Models and keys',()=>openConn(p)));b.append(q)}upd();e&&(LG.scrollTop=LG.scrollHeight)},
+    end:()=>{clearInterval(iv);raf&&cancelAnimationFrame(raf);on=0;stk=near(LG);upd();mt=el('div','mt');
+      mt.append(el('span',0,(r&&vOf(r)!==vOf(d)?nameOf(r)+' → ':'')+nameOf(d)+(ef&&thk(d)?' · '+ucf(ef):'')+` · ${secs()} s`+(use?` · ${fmtK(use.o)} tokens`+(use.r?` (${fmtK(use.r)} thinking)`:''):'')));b.append(mt);stk&&(LG.scrollTop=LG.scrollHeight)},
+    fin:()=>{mt&&b.append(mt);stk&&(LG.scrollTop=LG.scrollHeight)},
+    rt:Q=>{LG.querySelectorAll('.rtb').forEach(x=>x.remove());if(!mt)return;const x=el('button','rtb','Retry ▾');x.title='Ask again, with this model or another';b._q=Q;mt.append(x)}}}
+async function look(to,src,text,o){o.ui.stage('Reading the image');o.ui.who(to);
+  const r=await call(to,[{role:'system',content:PROMPT.look},{role:'user',content:[{type:'image_url',image_url:{url:src}},{type:'text',text}]}],{...o,eff:EFFR,img:src,prompt:PROMPT.look+'\n\n'+text,on:null}),j=json(r.out);
   if(!j)throw Error('The reading model gave no readable description'+(r.out?': '+r.out.slice(0,200):''));return j}
 function tbPrompt(q,fl,sl,pd,pa,fn,see,pi,n){const y=PROMPT.sys();let x=q,h='';const ok=s=>y.length+x.length+s.length<=TBMAX;
   for(const f of fl)x+=ok(fblk(f))?fblk(f):`\n\nAttached file "${f.n}" was too large to include.`;
@@ -1582,14 +1615,13 @@ function tbPrompt(q,fl,sl,pd,pa,fn,see,pi,n){const y=PROMPT.sys();let x=q,h='';c
   n>1&&(x+=`\n\nOnly the first of ${n} attached images was sent.`);
   for(const m of past(hist).slice(0,-1).reverse()){const l=`${m.role==='assistant'?'Assistant':'User'}: ${flat(m.content)}\n`;if(!ok(h+l))break;h=l+h}
   return y+(h&&'\n\n'+h)+x}
-async function ask(again){if(ac)return ac.abort();
+async function ask(again,mo,rt){if(ac)return ac.abort();
   const t=$('mAsk').value.trim(),sent=imgs,fl=files,
     q=t||(sent.length?'Redraw this figure.':fl.length?'Draw a figure from the attached file.':'');if(!q)return;
-  const to=drawTo(),viaTb=to.p==='Tb'&&!!tbBridge(),sees=viaTb||VIS.has(to.m),live=aiG&&root.contains(aiG),lk=sent.length?reader():null;
-  if(!viaTb&&!cfg(to.p).key){$('mCfg').open=true;return msg(`Enter the ${PROV[to.p]} key in AI settings first`)}
-  if(sent.length&&!sees&&!lk){$('mCfg').open=true;return msg(`${nameOf(to)} can't read images: choose a model under Read images with`)}
-  if(lk&&lk.p!=='Tb'&&!cfg(lk.p).key){$('mCfg').open=true;return msg(`Enter the ${PROV[lk.p]} key in AI settings, so ${nameOf(lk)} can read the image`)}
-  const sl=selPart();if(sl&&sl.x.length>SELMAX)return msg(`The selection is too large to send (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`);
+  const to=mo?who(mo):drawTo(),viaTb=to.p==='Tb'&&!!tbBridge(),sees=canSee(to),live=aiG&&root.contains(aiG)&&!rt,lk=sent.length?reader(to):null;
+  if(!rdy(to)){openConn(to.p,{v:vOf(to)});return msg(PV(to.p)?.need||`Add your ${PV(to.p)?.n||to.p} key under Models and keys first`)}
+  if(sent.length&&!sees&&!lk){openConn();return msg(`${nameOf(to)} can't read images, and no connected model can: add a key for one that can`)}
+  const sl=rt?null:selPart();if(sl&&sl.x.length>SELMAX)return msg(`The selection is too large to send (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`);
   const pd=sl&&`\n\nSelected part of the figure (${nObj(sl.els.length)}, ${fm(sl.b.w*U)} × ${fm(sl.b.h*U)} mm at x ${fm((sl.b.x-vb.x)*U)}, y ${fm((sl.b.y-vb.y)*U)} mm on the page)`,pa='If the user asks to change it, reply with an SVG of only this part that keeps the same width, height and viewBox, so it can replace the selection in place.',
     fn=sl&&`\`\`\`svg\n${sl.x}\n\`\`\``,sx=sl?`${pd}, as SVG:\n${fn}\n${pa}`:'',pi=sl&&sees?await shrink(new Blob([sl.x],{type:'image/svg+xml'}),1000).catch(()=>null):null,
     cur=!sl&&!sent.length&&live?frag([aiG]):null,qb=q+sx+fl.map(fblk).join('');
@@ -1600,26 +1632,26 @@ async function ask(again){if(ac)return ac.abort();
   if(viaTb&&!lk&&!sent.length&&!pi&&!fits(cx))if(cx&&fits(''))cx='',kl=1;else return msg(sl?`The selection is too large for TBtools (${round(sl.x.length/1e3)}k characters). Select fewer objects, or click × on the selection to send without it.`:'This message is too large for TBtools (32,000 characters). Attach a shorter file.');
   imgs=[];files=[];thumbs();$('mAsk').value='';
   CH&&CH.t==='New chat'&&(CH.t=(t||(sent.length?'Redraw ':'Chat ')+new Date().toTimeString().slice(0,5)).replace(/\s+/g,' ').slice(0,48),chHdr());
-  const ub=bub('u',q);ub.append(...sent.map(img),...(sl?[chip('f','Selection: '+nObj(sl.els.length))]:[]),...fl.map(f=>chip('f',f.n)));
-  const ui=bubbleUI(),C=new AbortController(),rids=new Set(),go={signal:C.signal,rids,ui};
-  ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};$('mSend').textContent='Stop';
+  LG.querySelectorAll('.rtb').forEach(x=>x.remove());const ub=bub('u',q);ub.append(...sent.map(img),...(sl?[chip('f','Selection: '+nObj(sl.els.length))]:[]),...fl.map(f=>chip('f',f.n)));
+  const ui=bubbleUI(to,lk,viaTb?'':EFF),C=new AbortController(),rids=new Set(),go={signal:C.signal,rids,ui};
+  ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};sendUI(1);
   let res=null,ri=null,pushed=0,ims=sent,st='';
   try{
     if(sent.length){const z=await dims(sent[0]);ri={sp:mmSpec([],z)};
       if(lk){const j=await look(lk,sent[0],q+`\n\nThe image is ${z.w} × ${z.h} px; x=1000 is its right edge and y=1000 its bottom edge.`,go),its=Array.isArray(j.items)?j.items.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)):[];if(!its.length)throw Error('The reading model found nothing to draw');j.items=its;
-        const sp=ri.sp=mmSpec(j.items,z);ui.spec(sp,nameOf(lk));st='\n\n'+PROMPT.units(sp)+PROMPT.whole(sp)+(sent[1]?` Only the first of the ${sent.length} attached images was described.`:'')+'\nDescription: '+JSON.stringify({items:sp.items});qf+=st;ims=[]}else qf+=st=PROMPT.whole(ri.sp)}
+        const sp=ri.sp=mmSpec(j.items,z);ui.spec(sp,nameOf(lk));st='\n\n'+PROMPT.units(sp)+PROMPT.whole(sp)+(sent[1]?` Only the first of the ${sent.length} attached images was described.`:'')+'\nDescription: '+JSON.stringify({items:sp.items});qf+=st;ims=[];ui.stage('Drawing');ui.who(to)}else qf+=st=PROMPT.whole(ri.sp)}
     const all=pi?[...ims,pi]:ims;hist.push({role:'user',content:all.length&&sees?[...all.map(url=>({type:'image_url',image_url:{url}})),{type:'text',text:qf+cx}]:qf+cx});pushed=1;
     const base=[{role:'system',content:PROMPT.sys()},...past(hist,sees,kl)],ps=st&&!viaTb&&panels(ri.sp);CH&&(CH.kc=mc(base));
     if(ps)res=await drawPanels(to,ps,ri.sp,qb,go);
     else if(viaTb){const pk=!ims.length&&tbFit(base),see=ims[0]||!pk&&pi;if(!see&&!pk)throw Error('too_large');res=await draw(to,base,{...go,img:see||null,prompt:see&&tbPrompt(q+st,fl,sl,pd,pa,fn,see,pi,sent.length)})}
-    else res=await draw(to,base,{...go,eff:$('mThink').value});
+    else res=await draw(to,base,{...go,eff:EFF});
   }catch(e){if(!LG.contains(ui.b))return;pushed&&hist.pop();$('mAsk').value||($('mAsk').value=t);imgs=sent.concat(imgs);files=fl.concat(files);
-    ui.say(e.name==='AbortError'?'Stopped':(tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''));setTimeout(chSave);
+    e.name==='AbortError'?ui.say('Stopped'):ui.fail((tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''),to.p!=='Tb'&&/\b40[13]\b|api.?key|unauthori|authenticat|not connected|sign in/i.test(e.message)&&to.p);setTimeout(chSave);
     !again&&hist.length&&e.name!=='AbortError'&&/context.{0,20}(length|window|limit)|too long|exceed|too_large|1261/i.test(e.message)&&setTimeout(async()=>{await chRoll(to,100)&&ask(1)});return}
-  finally{ui.end();ac=null;$('mSend').textContent='Send';thumbs()}
+  finally{ui.end();ac=null;sendUI(0);thumbs()}
   if(sl||cur){const u=hist.at(-1),f=c=>{sx&&(c=c.replace(sx,'\n\n[A selected part of the figure was attached here as SVG.]'));cx&&(c=c.replace(cx,'\n\n[The current figure was attached here as SVG.]'));return c};
     u.content=Array.isArray(u.content)?u.content.filter(c=>c.image_url?.url!==pi).map(c=>c.type==='text'?{...c,text:f(c.text)}:c):f(u.content)}
-  hist.push({role:'assistant',content:res.out});land(res,sl,ri,ui);CH&&(CH.k=ui.tok()||CH.k);chSave()}
+  hist.push({role:'assistant',content:res.out});const pl=land(res,sl,ri,ui);ui.fin();pl&&!sl&&!cur&&ui.rt({t,sent,fl});CH&&(CH.k=ui.tok()||CH.k);chSave()}
 function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   cut&&b.append(el('div',0,'The reply was cut off at the token limit. Ask for a simpler figure, or for one panel at a time.'));ri?.sp?.ft?.length&&b.append(el('div',0,`Text came out at ${ri.sp.ft.join(' and ')} pt to keep the original's proportions; change each size under All text in the side panel.`));miss&&miss.length&&b.append(el('div',0,`Panel ${miss.join(', ')} could not be drawn; ask for ${miss.length>1?'them':'it'} again.`));
   if(patch(out)!=null)return;
@@ -1628,20 +1660,84 @@ function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   const k=CH?CH.svgs.push(s)-1:-1,p=el('p'),ins=btn('Insert copy',()=>{aiG=null;put(s);chSave()});ins.dataset.ai='i';ins.dataset.k=k;b.append(p);
   if(sl)return p.append(btn('Replace selection',()=>aiSwap(s,sl)),ins);
   const op=btn('Open as new',()=>put(s,1));op.dataset.ai='o';op.dataset.k=k;p.append(ins,op);put(s);
-  bar()}
-function cfgSync(){const d=drawTo(),v=$('mVis'),self=v.querySelector('[value=self]'),ok=canSee(d);self.disabled=!ok;self.textContent=ok?'Same as Draw with':'Same as Draw with (it can\'t read images)';
-  if(!ok&&(v.value==='self'||!v.value))v.value=AI[d.p]?d.p+':'+AI[d.p].slice(1).find(m=>VIS.has(m)):[...v.options].find(o=>!o.disabled).value;
-  const r=reader(),api=t=>t.p!=='Tb',use=new Set([d,r].filter(x=>x&&api(x)).map(x=>x.p));
-  for(const l of $('mCfg').querySelectorAll('label[data-p]'))l.hidden=!use.has(l.dataset.p);$('mThink').hidden=!api(d);$('mThinkR').hidden=!(r&&api(r));
-  const nb=x=>Object.assign(el('span',0,nameOf(x)),{style:'white-space:nowrap'});$('mRoute').replaceChildren(...r?['With an image: ',nb(r),' reads it, then ',nb(d),' draws. Without one: ',nb(d),' draws.']:[nb(d),' reads images and draws.']);thumbs()}
-{const br=tbBridge(),all=Object.entries(AI).flatMap(([p,[,...ms]])=>ms.map(m=>p+':'+m)),has=(s,x)=>!!x&&[...s.options].some(o=>o.value===x),M=$('mModel'),V=$('mVis'),th=$('mThink');
-  M.replaceChildren(...br?[new Option('TBtools','Tb')]:[],...all.map(x=>new Option(nameOf(who(x)),x)));
-  V.replaceChildren(new Option('Same as Draw with','self'),...all.filter(x=>VIS.has(who(x).m)).map(x=>new Option(nameOf(who(x)),x)),...br?[new Option('TBtools','Tb')]:[]);
-  const TR=$('mThinkR'),dm=ls('sgDraw')||(br?'Tb':'Glm:'+AI.Glm.at(-1));M.value=has(M,dm)?dm:M.options[0].value;V.value=has(V,ls('sgVis'))?ls('sgVis'):'self';
-  const tv=ls('sgThink'),tr=ls('sgThinkR');has(th,tv)&&(th.value=tv);has(TR,tr)&&(TR.value=tr);for(const p in AI){const k=$('mKey'+p),u=ls('sg'+p+'Ep');k.value=ls('sg'+p+'Key')||'';k.onchange=()=>{ls('sg'+p+'Key',k.value.trim());KS[p]=null;k.value.trim()?ep(p).catch(()=>{}):$('mKs'+p).textContent=''};
-    k.value&&(u&&[AI[p][0],PLAN[p]].includes(u)?(KS[p]=Promise.resolve(u),$('mKs'+p).textContent=ksay(u)):ep(p).catch(()=>{}))}
-  M.onchange=()=>{ls('sgDraw',M.value);cfgSync()};V.onchange=()=>{ls('sgVis',V.value);cfgSync()};th.onchange=()=>ls('sgThink',th.value);TR.onchange=()=>ls('sgThinkR',TR.value);
-  cfgSync();$('mCfg').open=[drawTo(),reader()].some(x=>x&&x.p!=='Tb'&&!cfg(x.p).key)}
+  bar();return 1}
+const IC={up:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></svg>',stop:'<svg class="chg" viewBox="0 0 16 16"><rect x="4.5" y="4.5" width="7" height="7" rx="1.5" fill="currentColor" stroke="none"/></svg>',
+    img:'<svg class="chg" viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="9" rx="1.5"/><circle cx="6" cy="6.8" r="1"/><path d="m3 11.5 3.2-3 2.3 2 2-1.6 2.5 2.3"/></svg>',warn:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 2.5 1.8 13.2h12.4z"/><path d="M8 6.8v3M8 11.6v.1"/></svg>',
+    back:'<svg class="chg" viewBox="0 0 16 16"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg>',eye:'<svg class="chg" viewBox="0 0 16 16"><path d="M1.8 8S4 3.8 8 3.8 14.2 8 14.2 8 12 12.2 8 12.2 1.8 8 1.8 8z"/><circle cx="8" cy="8" r="1.9"/></svg>',
+    mark:'<svg viewBox="6 4.75 228 228"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="20"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="14"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="16"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="16"/></svg>'},
+  sendUI=on=>{const b=$('mSend');b.innerHTML=on?IC.stop:IC.up;b.title=on?'Stop':'Send (Enter)'},rdAuto=()=>RD==='auto'||RD==='self'||!rdy(who(RD));
+function chipsUI(){$('mChips').hidden=!$('mSelC').childElementCount&&!$('mImgs').childElementCount;route();chNote()}
+function setupUI(){$('mSetup').hidden=REG.some(r=>hasP(r.p))||!!LG.childElementCount}
+function route(){const R=$('mRoute'),d=drawTo();R.hidden=!imgs.length||!rdy(d);if(R.hidden)return;const r=reader(d),ok=!!r||canSee(d),s=el('span'),c=btn(ok?'Change':'Add a key',e=>{e.stopPropagation();ok?mmOpen('r'):openConn()});
+  ok?s.append(el('b',0,nameOf(r||d)),r?' reads the image, then ':' reads the image and draws.',...r?[el('b',0,nameOf(d)),' draws.']:[]):s.append('No connected model can read images.');R.className=ok?'':'wa';R.innerHTML=ok?IC.img:IC.warn;R.append(s,c)}
+function chNote(){const d=drawTo(),r=imgs.length&&rdy(d)?reader(d):null,to=[...new Set([r,d].filter(x=>x&&rdy(x)).map(x=>PV(x.p).to||PV(x.p).n))];
+  $('mNote').textContent=to.length?`Only what you send leaves your computer, to ${to.join(' and ')}.`:'Only what you send to the AI leaves your computer.'}
+function cfgSync(){if(PEND){const t=who(PEND.v),q=PV(t.p),v=t.m==='*'?q&&q.ms[0]&&vOf({p:t.p,m:q.ms[0].id}):PEND.v;
+    if(v&&conn(t.p)==='ok'&&rdy(who(v))){const r=PEND.r;PEND=null;r?(RD=v,ls('sgVis',v)):(DRAW=v,ls('sgDraw',v));$('mConn').hidden=true;msg(`Connected: ${r?'images are read by':'SVG Chat draws with'} ${nameOf(who(v))}`)}}
+  const d=drawTo(),ok=rdy(d),M=$('mMd');$('mMdN').textContent=ok?nameOf(d):'Choose a model';$('mMdE').textContent=ok&&thk(d)?ucf(EFF):'';M.classList.toggle('need',!ok);
+  M.title=ok?`${nameOf(d)} draws. Change the model, how images are read, or the keys`:'No model is ready: add a key under Models and keys';
+  setupUI();thumbs();ctxU();$('mMdD').classList.contains('open')&&mmBuild($('mMm').dataset.v);$('mConn').hidden||connSync()}
+function mmBuild(pg){const M=$('mMm'),d=drawTo(),ok=rdy(d),au=rdAuto(),o=[],row=(t,c,a,s)=>{const b=el('button',c||0,t);Object.assign(b.dataset,a);s&&b.append(el('small',0,s));o.push(b);return b},
+    sg=(k,v)=>{const r=el('div','mr'),g=el('div','seg');r.append(el('span',0,'Thinking'),g);for(const x of['low','high','max']){const b=el('button',x===v?'on':0,ucf(x));b.dataset.e=k;b.dataset.x=x;b.title={low:'Quickest',high:'Careful: the default for drawing',max:'Most careful and slowest'}[x];g.append(b)}o.push(r)};
+  M.dataset.v=pg||'';
+  if(pg==='r'){const r=ok&&reader(d);row('Read images with','bk',{go:''}).insertAdjacentHTML('afterbegin',IC.back);
+    row('Auto',au?'on':0,{r:'auto'},!ok?'':r&&au?nameOf(r):canSee(d)?'the drawing model':'none connected').title='The drawing model reads an image itself when it can; otherwise a connected model that can, from the same service first, describes it for the drawing model';
+    for(const q of REG)for(const m of q.ms.filter(m=>m.see)){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);row(m.n,(h?'':'off')+(!au&&RD===v?' on':''),{r:v},h?q.n:(q.add||'Add a key').toLowerCase())}
+    r&&thk(r)&&(o.push(el('hr')),sg('r',EFFR))}
+  else{o.push(el('h5',0,'Draw with'));
+    for(const q of REG){const h=hasP(q.p),s=conn(q.p),g=el('div','pg');g.append(el('b',0,q.n));
+      if(h)g.append(el('small',s==='er'?'w':0,q.st?q.st()[1]:q.ok?'Built in, no key':s==='ok'?(KT[q.p]?.m||'').replace(/^Connected(: )?/,'')||'Connected':s==='er'?'Not connected':'Checking the key…'));
+      else{const l=el('button','lk',q.add||'Add key');l.dataset.conn=q.p;l.dataset.pv=q.p+':*';g.append(l)}o.push(g);
+      for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),b=row(m.n,(h?'':'off')+(ok&&v===vOf(d)?' on':''),{m:v},m.ch?'32k chars':m.ctx?fmtK(m.ctx):'');m.see&&b.firstChild.after(document.createRange().createContextualFragment(IC.img));
+        b.title=`${m.n} ${m.see?'reads images and draws':'draws; another model reads images for it'}`+(m.ch||m.ctx?`; it reads up to ${m.ch?'32,000 characters':fmtK(m.ctx)+' tokens'} of a chat`:'')+(h?'':`. ${q.add||'Add a key'} under Models and keys first`)}
+      q.note&&!h&&o.push(el('p','mf',q.note))}
+    tbBridge()||o.push(el('p','mf','In TBtools you can also draw with its own model (no key) or your ChatGPT plan.'));
+    o.push(el('hr'));ok&&thk(d)&&sg('d',EFF);const r=ok&&reader(d);
+    row('Read images','go',{go:'r'},!ok?'':r?(au?'Auto: ':'')+nameOf(r):canSee(d)?'Itself':'No model can').insertAdjacentHTML('afterbegin',IC.img);
+    o.push(el('hr'));row('Models and keys…',0,{conn:''})}
+  M.replaceChildren(...o)}
+function mmOpen(pg){menuOff();mmBuild(pg);$('mMdD').classList.add('open')}
+function pickM(v,s){const t=who(v);if(!rdy(t))return openConn(t.p,{v});DRAW=v;ls('sgDraw',v);document.body.classList.contains('chat')||A.chat();cfgSync();s&&msg('SVG Chat draws with '+nameOf(t))}
+function pickR(v){if(v!=='auto'&&!rdy(who(v)))return openConn(who(v).p,{v,r:1});RD=v;ls('sgVis',v);cfgSync()}
+function openConn(p,pd){PEND=pd&&pd.v?{v:pd.v,r:pd.r}:null;menuOff();document.body.classList.contains('chat')||A.chat();connSync();$('mConn').hidden=false;const c=p&&$('mCd'+p);
+  if(!c)return $('mConnX').focus();c.classList.add('hl');setTimeout(()=>c.classList.remove('hl'),1800);c.scrollIntoView({block:'nearest'});const i=c.querySelector('input[type=password]');i&&!i.value&&i.focus()}
+function connX(){$('mConn').hidden=true;PEND=null;$('mAsk').focus()}
+function card(r){const c=el('section','card'),h=el('header'),s=el('span','st'),u=el('ul','ml');c.id='mCd'+r.p;s.id='mKs'+r.p;u.id='mKl'+r.p;h.append(el('b',0,r.n));r.by&&h.append(el('small',0,r.by));h.append(s);c.append(h);
+  if(r.body)c.append(r.body,u);else if(r.ok)c.append(el('p',0,r.about||''),u);
+  else{const k=el('div','kf'),i=el('input'),e=el('button','ib'),m=el('p','ew'),g=el('p'),a=el('a',0,new URL(r.get).host+' ↗'),x=el('button','lk','Remove the key');
+    Object.assign(i,{type:'password',id:'mKey'+r.p,placeholder:'Paste an API key',autocomplete:'off',spellcheck:false,value:cfg(r.p).key});i.setAttribute('aria-label',r.n+' API key');
+    i.onchange=()=>keySet(r.p,i.value);i.onkeydown=v=>{v.key==='Enter'?(v.preventDefault(),i.blur()):v.key==='Escape'&&(v.preventDefault(),connX())};
+    e.title='Show or hide the key';e.innerHTML=IC.eye;e.onclick=()=>i.type=i.type==='password'?'text':'password';Object.assign(a,{href:r.get,target:'_blank',rel:'noopener'});
+    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m,g,u,x)}
+  return c}
+function connInit(){const C=$('mConn'),h=el('header'),x=el('button','ib'),B=el('div'),N=el('div'),L=el('p'),f=el('div','ft');x.id='mConnX';x.title='Back to the chat (Esc)';x.innerHTML=IC.back;x.onclick=connX;h.append(x,el('b',0,'Models and keys'));
+  B.id='mConnB';N.id='mNow';L.id='mLead';B.append(N,L,...REG.map(card));
+  if(!tbBridge()){const t=el('section','card dim'),hh=el('header'),p=el('p',0,'Open svguest as a TBtools-II plugin to draw with TBtools’ own model, which needs no key, or with your ChatGPT plan. '),a=el('a',0,'TBtools-II ↗');
+    Object.assign(a,{href:'https://github.com/CJ-Chen/TBtools-II',target:'_blank',rel:'noopener'});p.append(a);hh.append(el('b',0,'In TBtools'));t.append(hh,p);B.append(t)}
+  f.append(el('span',0,`Defaults: ${tbBridge()?'TBtools draws':'GLM-5.3 draws at High'}; Auto reads images.`),btn('Reset choices',()=>{DRAW='';RD='auto';EFF='high';EFFR='max';for(const k of['sgDraw','sgVis','sgThink','sgThinkR'])try{localStorage.removeItem(k)}catch(_){}cfgSync();msg('SVG Chat is back to its default models')}));
+  B.append(f);C.replaceChildren(h,B)}
+function connSync(){const d=drawTo(),ok=rdy(d),r=ok&&reader(d),au=rdAuto(),L=$('mLead'),P=PEND&&PV(who(PEND.v).p);
+  $('mNow').replaceChildren(el('span',0,'Draws'),el('b',0,ok?nameOf(d)+(thk(d)?' · '+ucf(EFF)+' thinking':''):'No model is ready yet'),el('span',0,'Images'),el('b',0,!ok?'–':r?`${nameOf(r)} reads them`+(au?' (Auto)':''):canSee(d)?nameOf(d)+' reads them itself':'No connected model can read them'));
+  L.className=P?'pend':'';L.textContent=P?`${P.add||'Add a key'} to ${PEND.r?'read images with':'draw with'} ${who(PEND.v).m==='*'?P.n:nameOf(who(PEND.v))}: it is picked as soon as it connects.`:`svguest calls these services straight from ${tbBridge()?'TBtools':'this browser'}. Keys are kept in this browser and sent only to their own service.`;
+  for(const q of REG){const S=$('mKs'+q.p);if(!S)continue;const s=conn(q.p),m=$('mKm'+q.p),x=$('mKx'+q.p);
+    S.className='st '+s;S.textContent=q.st?q.st()[1]:q.ok?q.ok()?'Ready':'Not available':s==='ok'?KT[q.p]?.m||'Connected':s==='wa'?'Checking the key…':s==='er'?'Not connected':'No key';
+    m&&(m.textContent=s==='er'&&KT[q.p]?.m||'',m.hidden=s!=='er');x&&(x.hidden=!cfg(q.p).key);
+    $('mKl'+q.p).replaceChildren(...q.ms.map(m=>{const li=el('li',0,m.n);m.see&&li.append(el('em',0,'reads images'));li.append(el('small',0,m.ch?'32,000 characters':m.ctx?fmtK(m.ctx)+' tokens':''));return li}))}}
+function keySet(p,v){v=v.trim();if(v===cfg(p).key&&KT[p]?.s!=='er')return;ls('sg'+p+'Key',v);ls('sg'+p+'Ep','');KS[p]=null;KT[p]=null;v?ep(p).catch(()=>{}):cfgSync()}
+function regAdd(r){const i=REG[0]?.p==='Tb'?1:0,nx=REG[i];REG.splice(i,0,r);const c=card(r),n=nx&&$('mCd'+nx.p);n?n.before(c):$('mConnB').append(c);cfgSync();return c}
+function rtOpen(x){const M=$('mRtM'),o=[el('h5',0,'Retry with')],d=vOf(drawTo());menuOff();
+  for(const q of REG)if(hasP(q.p))for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),y=el('button',v===d?'on':0,m.n);y.dataset.rv=v;y.append(el('small',0,q.n));o.push(y)}
+  M.replaceChildren(...o);M._b=x.closest('.a');$('mRtD').classList.add('open');const r=x.getBoundingClientRect(),h=M.offsetHeight,w=M.offsetWidth;M.style.left=max(4,min(innerWidth-w-4,r.right-w))+'px';M.style.top=(r.top-h-4>4?r.top-h-4:r.bottom+4)+'px'}
+function retry(v,b){if(ac)return;if(!b||LG.lastElementChild!==b||hist.at(-1)?.role!=='assistant'||!b._q)return msg('Only the latest reply can be retried');
+  const Q=b._q,u=b.previousElementSibling;hist.splice(-2);u&&u.classList.contains('u')&&u.remove();b.remove();$('mAsk').value=Q.t;imgs=Q.sent.concat(imgs);files=Q.fl.concat(files);thumbs();ask(0,v,1)}
+$('mChat').addEventListener('click',e=>{const t=e.target,a=s=>t.closest(s);let x;
+  if(a('#mMd'))return mmBuild();
+  if(x=a('[data-go]')){e.stopPropagation();return mmBuild(x.dataset.go)}
+  if(x=a('[data-e]')){e.stopPropagation();x.dataset.e==='d'?ls('sgThink',EFF=x.dataset.x):ls('sgThinkR',EFFR=x.dataset.x);return cfgSync()}
+  if(x=a('[data-m]'))return pickM(x.dataset.m);if(x=a('[data-r]'))return pickR(x.dataset.r);if(x=a('[data-rv]'))return retry(x.dataset.rv,$('mRtM')._b);
+  if(x=a('[data-conn]'))return openConn(x.dataset.conn,x.dataset.pv&&{v:x.dataset.pv});if(x=a('.rtb')){e.stopPropagation();rtOpen(x)}});
+addEventListener('keydown',e=>{e.key==='Escape'&&!$('mConn').hidden&&!dOpen()&&!dlgOpen()&&$('mK').hidden&&(e.stopImmediatePropagation(),e.preventDefault(),connX())},true);
+$('mCk').onclick=()=>$('mConn').hidden?openConn():connX();$('mChX').onclick=()=>A.chat();
 $('mSend').onclick=()=>ask();
 const idbO=(n,s,o)=>new Promise(ok=>{try{const r=indexedDB.open(n,1);r.onupgradeneeded=()=>r.result.createObjectStore(s,o);r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('sgChats','c',{keyPath:'id'}),
   cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
@@ -1651,13 +1747,15 @@ const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Da
   chSum=()=>CH&&CH.sum?`\n\nThis chat continues an earlier one that grew too long. Its summary:\n${CH.sum}`:'',fmtK=n=>n>=1e6?+(n/1e6).toFixed(1)+'M':n>=1e3?+(n/1e3).toFixed(1)+'k':String(n),
   chWhen=u=>{const d=new Date(u),n=new Date();return d.toDateString()===n.toDateString()?d.toTimeString().slice(0,5):d.toLocaleDateString('en',{month:'short',day:'numeric'})},
   chMeta=c=>({id:c.id,t:c.t,u:c.u,n:c.n,k:c.k,from:c.from}),chKeep=()=>ls('sgChatList',JSON.stringify(CL)),
-  ctxU=()=>{const c=$('mCu');c.className='';if(!CH||!hist.length)return c.textContent=CH&&CH.sum?`Continues “${CH.ft}” with its summary`:'New chat: the AI reads only this chat';const to=drawTo(),tb=to.p==='Tb',lim=ctxLim(to),n=tb?mc([{role:'system',content:PROMPT.sys()},...past(hist)]):CH.k||round(mc(past(hist))/3);
-    c.textContent=tb?`Context ${n.toLocaleString('en')} / ${TBMAX.toLocaleString('en')} characters`:`Context ${CH.k?'':'about '}${fmtK(n)} / ${fmtK(lim)} tokens · ${CH.n} message${CH.n>1?'s':''}`;c.className=n>lim*.85?'w':n>lim*.7?'wa':'';c.title='What the AI read for the last reply in this chat (its whole history is sent with each message; other chats are not)'},
-  chHdr=()=>{$('mChT').textContent=(CH?CH.t:'New chat')+' ▾';ctxU()},
+  ctxU=()=>{const B=$('mCuB'),d=drawTo();let s='',f=0;
+    if(CH&&hist.length){const tb=d.p==='Tb',lim=ctxLim(d),n=tb?mc([{role:'system',content:PROMPT.sys()},...past(hist)]):CH.k||round(mc(past(hist))/3);f=min(1,n/lim);
+      s=tb?`${n.toLocaleString('en')} of ${TBMAX.toLocaleString('en')} characters`:`${CH.k?'':'About '}${fmtK(n)} of ${fmtK(lim)} tokens · ${CH.n} message${CH.n>1?'s':''}`}else if(CH&&CH.sum)s=`Continues “${CH.ft}” with its summary`;
+    $('mCuD').hidden=!s;$('mCu').textContent=s;$('mCuI').style.width=f*100+'%';B.className=f>.85?'w':f>.7?'wa':'';B.querySelector('.rv').style.strokeDasharray=`${f?max(.04,f)*43.98:0} 43.98`;B.title='Context: '+s},
+  chHdr=()=>{$('mChT').textContent=CH?CH.t:'New chat';ctxU()},
   chSave=()=>{if(!CH||!hist.length&&!CH.sum&&!CL.some(c=>c.id===CH.id))return;CH.html=LG.innerHTML;CH.hist=hist;aiG&&root&&root.contains(aiG)&&(CH.fig=aiG.id);CH.u=Date.now();CH.n=hist.filter(m=>m.role==='user').length;
     CC.set(CH.id,CH);CL=[chMeta(CH),...CL.filter(c=>c.id!==CH.id)];chKeep();chHdr();return cdb('readwrite',s=>s.put(CH))},
   chShow=c=>{CH=c;hist=c.hist;aiG=c.fig&&root&&byId(c.fig);aiG&&root.contains(aiG)||(aiG=null);LG.innerHTML=c.html||'';LG.querySelectorAll('button:not([data-ai]):not([data-go])').forEach(b=>b.remove());
-    $('mHello').hidden=!!LG.childElementCount;LG.scrollTop=LG.scrollHeight;chHdr();root&&bar()},
+    $('mHello').hidden=!!LG.childElementCount;setupUI();LG.scrollTop=LG.scrollHeight;chHdr();root&&bar()},
   chBusy=()=>ac&&(msg('Wait for the reply to finish, or press Stop, before switching chats'),1),
   chNew=()=>{if(chBusy())return;if(CH&&!hist.length)return msg('This chat is still empty'),$('mAsk').focus();chSave();chShow(chNone());$('mAsk').focus();msg('New chat: the AI starts without the earlier conversation')},
   chOpen=async id=>{if(chBusy()||CH&&CH.id===id)return;const c=CC.get(id)||await cdb('readonly',s=>s.get(id));if(!c){CL=CL.filter(x=>x.id!==id);chKeep();return msg('That chat could not be read')}chSave();CC.set(id,c);chShow(c)},
@@ -1673,7 +1771,7 @@ $('mChT').addEventListener('click',chList);$('mChN').onclick=chNew;
 $('mChL').addEventListener('click',e=>{if(e.target.closest('[data-kp]'))return e.stopPropagation(),$('mChD').classList.remove('open'),kpShow();const d=e.target.closest('.ci'),x=e.target.closest('[data-x]');if(!d||e.target.tagName==='INPUT')return e.stopPropagation();e.stopPropagation();
   if(x)return x.dataset.x==='d'?chDel(d.dataset.c):chRen(d,d.dataset.c);$('mChD').classList.remove('open');chOpen(d.dataset.c)});
 async function chRoll(to,pc){const A=CH,sb=bub('a','This chat is near the model\'s context limit, so it is being summarised to continue in a new chat…'),C=new AbortController(),rids=new Set();
-  ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};$('mSend').textContent='Stop';
+  ac={abort:()=>{C.abort();for(const r of rids)tbBridge()?.abort(r)}};sendUI(1);
   try{const tx=(A.sum?`Summary of the chat before this one:\n${A.sum}\n\n`:'')+hist.map(m=>(m.role==='user'?'User: ':'Assistant: ')+brief(flat(m.content))).join('\n\n'),
       r=await call(to,[{role:'system',content:PROMPT.sum},{role:'user',content:tx.slice(-(to.p==='Tb'?TBMAX-PROMPT.sum.length-500:4e5))}],{signal:C.signal,rids,ui:{think(){},use(){}},eff:'low',quiet:1,on:null}),
       sm=(r.out||'').replace(/```[\s\S]*?(```|$)/g,'').trim();if(!sm)throw Error('The summary came back empty');
@@ -1681,10 +1779,10 @@ async function chRoll(to,pc){const A=CH,sb=bub('a','This chat is near the model\
     sb.replaceChildren(`This chat reached about ${min(pc,100)}% of the context ${nameOf(to)} can read, so it continues in “${B.t}”, which starts from a summary of it. `,o);chSave();
     chShow(B);const d=el('details','tm');d.append(el('summary',0,`Continues “${A.t}”: summary`),el('div',0,sm));LG.append(d);$('mHello').hidden=true;chSave();msg(`Continued in a new chat, “${B.t}”`);return 1}
   catch(e){sb.textContent=e.name==='AbortError'||e.message==='aborted'?'Stopped':'Could not summarise this chat: '+(tbWhy[e.message]||e.message);chSave();return 0}
-  finally{ac=null;$('mSend').textContent='Send'}}
+  finally{ac=null;sendUI(0)}}
 LG.addEventListener('click',e=>{const g=e.target.closest('button[data-go]');if(g)return chOpen(g.dataset.go);const b=e.target.closest('button[data-ai]');if(!b||b.onclick)return;const s=CH&&CH.svgs[b.dataset.k];if(!s)return msg('This figure is no longer stored');b.dataset.ai==='i'?(aiG=null,put(s),chSave()):put(s,1)});
 chShow(chNone());
-$('mModel').addEventListener('change',()=>setTimeout(ctxU));
+connInit();for(const r of REG)if(!r.ok&&cfg(r.p).key){const u=ls('sg'+r.p+'Ep');u&&[r.url,r.plan].includes(u)?(KS[r.p]=Promise.resolve(u),KT[r.p]={s:'ok',m:ksay(r,u)}):ep(r.p).catch(()=>{})}sendUI(0);cfgSync();
 $('mAtt').onclick=()=>$('mAttF').click();
 $('mAttF').onchange=e=>{attach([...e.target.files]);e.target.value=''};
 $('mGrip').onpointerdown=e=>{e.preventDefault();const t=$('mAsk'),y=e.clientY,h=t.offsetHeight,mv=v=>t.style.height=max(40,min($('mChat').clientHeight*.7,h+y-v.clientY))+'px',
@@ -1886,6 +1984,8 @@ const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ct
 $('mKb').lastChild.replaceChildren(...[MAC?'⌘':'Ctrl','K'].map(t=>el('span',0,t)));MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H');
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\{]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled,id:b.dataset.a?'a'+b.dataset.a:'t'+b.dataset.t});
   for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
+  {const dv=vOf(drawTo()),cb=(a,n,f,t)=>{const b=el('button');b.dataset.a=a;b.title=t||'';b.onclick=f;b.append(kIc('chat'));return ad('SVG Chat',b,n,''),b};
+    for(const q of REG)for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);cb('m:'+v,'Draw with '+m.n,()=>pickM(v,1),h?'':`${q.add||'Add a key'} under Models and keys first`).classList.toggle('on',h&&v===dv)}cb('mConn','Models and keys…',()=>openConn())}
   for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
   for(const b of [...$('mTools').querySelectorAll('[data-t]:not(.ddb)'),...$('mFS').querySelectorAll('[data-a]')])ad('Tools',b,/^[^(:]*/.exec(b.title)[0].trim(),kt(b.title),'t');
   for(const c of $('mSide').querySelectorAll(':scope>section')){const g=c.querySelector('h4').firstChild.data.trim();

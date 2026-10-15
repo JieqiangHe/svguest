@@ -1413,7 +1413,7 @@ function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d
 
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
-  REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'A standard API key or a Coding Plan key: it is tested when entered, and the address that works is used.',ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
+  REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'For svguest, use a standard, pay-as-you-go API key. Coding Plan quota is limited to Zhipu\'s supported tools; svguest is not listed.',ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
     {p:'Ds',n:'DeepSeek',to:'DeepSeek',url:'https://api.deepseek.com/chat/completions',get:'https://platform.deepseek.com/api_keys',ms:[{id:'deepseek-v4-pro',n:'DeepSeek V4 Pro',ctx:1048576},{id:'deepseek-flash',n:'DeepSeek Flash',see:1,ctx:1048576}]}];
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
@@ -1539,22 +1539,32 @@ function mmSpec(items,z){let mx=0,my=0;const at=q=>{Array.isArray(q)&&isFinite(q
   return{w:FW,h:FH,items:its,ft:[...ft]}}
 async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getReader(),js=function*(a){for(const l of a){const d=l.startsWith('data:')&&l.slice(5).trim();if(d&&d!=='[DONE]')yield JSON.parse(d)}};let buf='';
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
+const apiMsg=t=>{try{const j=JSON.parse(t),e=j.error||j;return(e.code?'['+e.code+'] ':'')+(e.message||t)}catch(_){return t}},
+  glmNet=(u,e)=>Object.assign(Error(`GLM ${u===PV('Glm').plan?'Coding Plan':'standard API'} could not be reached. Check the network or proxy; the browser may also have blocked the request (CORS). ${u===PV('Glm').plan?'Coding Plan does not cover svguest; use a standard API key. ':''}${e.message}`),{p:'Glm'});
+async function apiPost(p,u,key,body,o={}){const send=b=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,body:JSON.stringify(b)});
+  if(p!=='Glm')return send(body);if(body.stream&&KT[p]?.json===u)body={...body,stream:false};
+  try{return await send(body)}catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;if(!body.stream)throw glmNet(u,e);
+    o.ui?.note('GLM streaming could not open; waiting for a single reply…');
+    try{return await send({...body,stream:false})}catch(x){if(x.name!=='TypeError'||o.signal?.aborted)throw x;throw glmNet(u,x)}}}
 async function probe(p){const R=PV(p),{key}=cfg(p),er=[],cur=()=>cfg(p).key===key;KT[p]={s:'wa'};cfgSync();
-  for(const u of[R.url,R.plan].filter(Boolean))try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify({model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16})});
-    if(r.ok){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:ksay(R,u)},cfgSync());return u}const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}er.push(`${r.status} ${m}`.replace(/\.$/,'').slice(0,200))}catch(e){er.push(e.message)}
-  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Error(m)}
+  for(const u of[R.url,R.plan].filter(Boolean)){const C=new AbortController(),tm=setTimeout(()=>C.abort(),20000);try{const r=await apiPost(p,u,key,{model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16,...(p==='Glm'?{thinking:{type:'enabled'},reasoning_effort:'low'}:{})},{signal:C.signal}),t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}
+    if(r.ok&&!j?.error&&Array.isArray(j?.choices)&&j.choices.length){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:ksay(R,u)},cfgSync());return u}er.push(`${r.status} ${apiMsg(t)||'Empty reply'}`.replace(/\.$/,'').slice(0,300))}catch(e){er.push(e.name==='AbortError'?'Connection test timed out after 20 s':e.message)}finally{clearTimeout(tm)}}
+  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
     if(o.img)p=B.chatImage(o.prompt,o.img,mime(o.img));else{const m=tbFit(msgs);if(!m)throw Error('too_large');p=B.chat(m,{onDelta:s=>o.on&&o.on(s||'')})}
     const id=p.requestId;id&&o.rids.add(id);try{const out=await p||'';o.on&&o.on(out);return{out,cut:0}}finally{o.rids.delete(id)}}
-  const{key}=cfg(to.p),r=await fetch(await ep(to.p),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,
-    body:JSON.stringify({model:to.m,messages:msgs,stream:true,thinking:{type:'enabled'},reasoning_effort:o.eff})});
-  if(!r.ok){const t=await r.text();let m=t;try{m=JSON.parse(t).error.message||t}catch(_){}throw Error(`${r.status} ${m}`.slice(0,300))}
+  try{const{key}=cfg(to.p),url=await ep(to.p);if(o.signal?.aborted)throw new DOMException('Stopped','AbortError');
+  const r=await apiPost(to.p,url,key,{model:to.m,messages:msgs,stream:true,thinking:{type:'enabled'},reasoning_effort:o.eff},o);
+  if(!r.ok){const t=await r.text();throw Object.assign(Error(`${r.status} ${apiMsg(t)}`.slice(0,300)),{p:to.p})}
+  if(to.p==='Glm'&&!/text\/event-stream/i.test(r.headers.get('Content-Type')||'')){const t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}if(j?.error)throw Object.assign(Error(apiMsg(t)),{p:to.p});
+    const ch=j?.choices?.[0],c=ch?.message;if(!c)throw Object.assign(Error('GLM returned an unexpected reply. Recheck the key under Models and keys.'),{p:to.p});
+    KT[to.p]&&(KT[to.p].json=url);c.reasoning_content&&!o.quiet&&o.ui.think(c.reasoning_content);c.content&&o.on&&o.on(c.content);o.ui.use(j.usage);return{out:c.content||'',cut:ch.finish_reason==='length'?1:0}}
   let out='',cut=0,u=null;
   for await(const j of sse(r)){if(j.error)throw Error(j.error.message||JSON.stringify(j.error));j.usage&&(u=j.usage);const ch=j.choices?.[0]||{},c=ch.delta||{};ch.finish_reason==='length'&&(cut=1);
     c.reasoning_content&&!o.quiet&&o.ui.think(c.reasoning_content);if(c.content){out+=c.content;o.on&&o.on(out)}}
-  o.ui.use(u);return{out,cut}}
+  o.ui.use(u);return{out,cut}}catch(e){e.p=to.p;throw e}}
 const join=(o,c)=>{c=c.replace(/^\s*(```\w*\s*)?/,'');if(openP(o)){const i=pt0(c);if(i>=0)return o.slice(0,pt0(o))+c.slice(i)}else{const i=sv(c);if(i>=0)return o.slice(0,sv(o))+c.slice(i)}
   for(let n=min(c.length,o.length,4e3);n>15;n--)if(c[n-1]==='>'&&o.endsWith(c.slice(0,n))&&/<[a-z]/i.test(c.slice(0,n)))return o+c.slice(n);return o+c};
 async function draw(to,base,o){let out='',cut=0;
@@ -1647,7 +1657,7 @@ async function ask(again,mo,rt){if(ac)return ac.abort();
     else if(viaTb){const pk=!ims.length&&tbFit(base),see=ims[0]||!pk&&pi;if(!see&&!pk)throw Error('too_large');res=await draw(to,base,{...go,img:see||null,prompt:see&&tbPrompt(q+st,fl,sl,pd,pa,fn,see,pi,sent.length)})}
     else res=await draw(to,base,{...go,eff:EFF});
   }catch(e){if(!LG.contains(ui.b))return;pushed&&hist.pop();$('mAsk').value||($('mAsk').value=t);imgs=sent.concat(imgs);files=fl.concat(files);
-    e.name==='AbortError'?ui.say('Stopped'):ui.fail((tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''),to.p!=='Tb'&&/\b40[13]\b|api.?key|unauthori|authenticat|not connected|sign in/i.test(e.message)&&to.p);setTimeout(chSave);
+    e.name==='AbortError'?ui.say('Stopped'):ui.fail((tbWhy[e.message]||e.message)+(e.name==='TypeError'?' (network, URL or CORS problem)':''),e.p||to.p!=='Tb'&&/\b40[13]\b|api.?key|unauthori|authenticat|not connected|sign in/i.test(e.message)&&to.p);setTimeout(chSave);
     !again&&hist.length&&e.name!=='AbortError'&&/context.{0,20}(length|window|limit)|too long|exceed|too_large|1261/i.test(e.message)&&setTimeout(async()=>{await chRoll(to,100)&&ask(1)});return}
   finally{ui.end();ac=null;sendUI(0);thumbs()}
   if(sl||cur){const u=hist.at(-1),f=c=>{sx&&(c=c.replace(sx,'\n\n[A selected part of the figure was attached here as SVG.]'));cx&&(c=c.replace(cx,'\n\n[The current figure was attached here as SVG.]'));return c};
@@ -1709,7 +1719,7 @@ function card(r){const c=el('section','card'),h=el('header'),s=el('span','st'),u
     Object.assign(i,{type:'password',id:'mKey'+r.p,placeholder:'Paste an API key',autocomplete:'off',spellcheck:false,value:cfg(r.p).key});i.setAttribute('aria-label',r.n+' API key');
     i.onchange=()=>keySet(r.p,i.value);i.onkeydown=v=>{v.key==='Enter'?(v.preventDefault(),i.blur()):v.key==='Escape'&&(v.preventDefault(),connX())};
     e.title='Show or hide the key';e.innerHTML=IC.eye;e.onclick=()=>i.type=i.type==='password'?'text':'password';Object.assign(a,{href:r.get,target:'_blank',rel:'noopener'});
-    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m,g,u,x)}
+    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m,g,u);if(r.p==='Glm'){const b=el('button','lk','Recheck the key');b.id='mKt'+r.p;b.onclick=()=>keySet(r.p,i.value,1);c.append(b)}c.append(x)}
   return c}
 function connInit(){const C=$('mConn'),h=el('header'),x=el('button','ib'),B=el('div'),N=el('div'),L=el('p'),f=el('div','ft');x.id='mConnX';x.title='Back to the chat (Esc)';x.innerHTML=IC.back;x.onclick=connX;h.append(x,el('b',0,'Models and keys'));
   B.id='mConnB';N.id='mNow';L.id='mLead';B.append(N,L,...REG.map(card));
@@ -1722,9 +1732,9 @@ function connSync(){const d=drawTo(),ok=rdy(d),r=ok&&reader(d),au=rdAuto(),L=$('
   L.className=P?'pend':'';L.textContent=P?`${P.add||'Add a key'} to ${PEND.r?'read images with':'draw with'} ${who(PEND.v).m==='*'?P.n:nameOf(who(PEND.v))}: it is picked as soon as it connects.`:`svguest calls these services straight from ${tbBridge()?'TBtools':'this browser'}. Keys are kept in this browser and sent only to their own service.`;
   for(const q of REG){const S=$('mKs'+q.p);if(!S)continue;const s=conn(q.p),m=$('mKm'+q.p),x=$('mKx'+q.p);
     S.className='st '+s;S.textContent=q.st?q.st()[1]:q.ok?q.ok()?'Ready':'Not available':s==='ok'?KT[q.p]?.m||'Connected':s==='wa'?'Checking the key…':s==='er'?'Not connected':'No key';
-    m&&(m.textContent=s==='er'&&KT[q.p]?.m||'',m.hidden=s!=='er');x&&(x.hidden=!cfg(q.p).key);
+    m&&(m.textContent=s==='er'&&KT[q.p]?.m||'',m.hidden=s!=='er');x&&(x.hidden=!cfg(q.p).key);const b=$('mKt'+q.p);b&&(b.hidden=!cfg(q.p).key,b.disabled=s==='wa');
     $('mKl'+q.p).replaceChildren(...q.ms.map(m=>{const li=el('li',0,m.n);m.see&&li.append(el('em',0,'reads images'));li.append(el('small',0,m.ch?'32,000 characters':m.ctx?fmtK(m.ctx)+' tokens':''));return li}))}}
-function keySet(p,v){v=v.trim();if(v===cfg(p).key&&KT[p]?.s!=='er')return;ls('sg'+p+'Key',v);ls('sg'+p+'Ep','');KS[p]=null;KT[p]=null;v?ep(p).catch(()=>{}):cfgSync()}
+function keySet(p,v,force){v=v.trim();if(!force&&v===cfg(p).key&&KT[p]?.s!=='er')return;ls('sg'+p+'Key',v);ls('sg'+p+'Ep','');KS[p]=null;KT[p]=null;v?ep(p).catch(()=>{}):cfgSync()}
 function regAdd(r){const i=REG[0]?.p==='Tb'?1:0,nx=REG[i];REG.splice(i,0,r);const c=card(r),n=nx&&$('mCd'+nx.p);n?n.before(c):$('mConnB').append(c);cfgSync();return c}
 function rtOpen(x){const M=$('mRtM'),o=[el('h5',0,'Retry with')],d=vOf(drawTo());menuOff();
   for(const q of REG)if(hasP(q.p))for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),y=el('button',v===d?'on':0,m.n);y.dataset.rv=v;y.append(el('small',0,q.n));o.push(y)}

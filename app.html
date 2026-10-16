@@ -1414,7 +1414,7 @@ function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,GLMR=ls('sgGlmRelay')==='1';
 const GLMRELAY='https://svguest-glm.jieqiang-he-dawn.workers.dev',glmWeb=()=>globalThis.location?.origin==='https://jieqianghe.github.io'&&!globalThis.TBSIWC?.glm,glmRelay=()=>glmWeb()&&GLMR;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
-  REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'Use a standard, pay-as-you-go API key. Coding Plan does not include svguest. '+(globalThis.TBSIWC?.glm?'GLM requests go through TBtools on this computer.':glmWeb()?'For browser CORS errors, enable Use Cloudflare relay below.':'For browser CORS errors, use the latest TBtools plugin.'),ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
+  REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'Use the standard API (pay-as-you-go). Coding Plan does not include svguest. '+(globalThis.TBSIWC?.glm?'GLM requests go through TBtools on this computer.':glmWeb()?'For browser CORS errors, enable Use Cloudflare relay below.':'For browser CORS errors, use the latest TBtools plugin.'),ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
     {p:'Ds',n:'DeepSeek',to:'DeepSeek',url:'https://api.deepseek.com/chat/completions',get:'https://platform.deepseek.com/api_keys',ms:[{id:'deepseek-v4-pro',n:'DeepSeek V4 Pro',ctx:1048576},{id:'deepseek-flash',n:'DeepSeek Flash',see:1,ctx:1048576}]}];
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
@@ -1519,7 +1519,7 @@ const tbBridge=()=>window.tbtools?.ai,
 tbBridge()&&REG.unshift({p:'Tb',n:'TBtools',by:'Built into TBtools-II',to:'the TBtools model',ok:()=>!!tbBridge(),about:'No key, no account. It reads up to 32,000 characters of a chat; a longer chat is summarised and continues in a new one.',ms:[{id:'',n:'TBtools',see:1,ch:1,th:0}]});
 const PV=p=>REG.find(r=>r.p===p),mOf=t=>PV(t.p)?.ms.find(m=>m.id===t.m),vOf=t=>t.m?t.p+':'+t.m:t.p,ctxLim=t=>t.p==='Tb'?TBMAX:mOf(t)?.ctx||128e3,
   who=v=>(([p,m=''])=>({p,m}))(String(v||'').split(':')),nameOf=t=>mOf(t)?.n||t.m||PV(t.p)?.n||t.p,canSee=t=>!!mOf(t)?.see,thk=t=>!!mOf(t)&&mOf(t).th!==0,ucf=s=>s[0].toUpperCase()+s.slice(1),
-  cfg=p=>({key:(ls('sg'+p+'Key')||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),ksay=(r,u)=>u===r.plan?'Connected: Coding Plan':r.plan&&u===r.url?'Connected: standard API':'Connected',
+  cfg=p=>({key:(ls('sg'+p+'Key')||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),epName=(r,u)=>u===r.plan?'Coding Plan endpoint':u===r.url?'standard API (pay-as-you-go)':'unknown endpoint',
   hasP=p=>{const r=PV(p);return!!r&&(r.ok?r.ok():!!cfg(p).key)},rdy=t=>!!mOf(t)&&hasP(t.p),
   conn=p=>{const r=PV(p);return!r?'':r.st?r.st()[0]:r.ok?r.ok()?'ok':'':cfg(p).key?KT[p]?.s||'wa':''},
   drawTo=()=>{const t=who(DRAW);return mOf(t)?t:who(tbBridge()?'Tb':'Glm:glm-5.3')},
@@ -1546,9 +1546,9 @@ async function apiPost(p,u,key,body,o={}){const S=p==='Glm'&&globalThis.TBSIWC;
   if(S?.glm){const r=u===PV(p).url?'standard':u===PV(p).plan?'coding':'';if(!r||!/^http:\/\/127\.0\.0\.1:\d+$/.test(S.url)||!S.key)throw Object.assign(Error('GLM local connection is unavailable. Reopen svguest in TBtools.'),{p});
     try{return await fetch(S.url+'/glm/'+r,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key,'x-siwc-key':S.key},signal:o.signal,body:JSON.stringify(body)})}
     catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;throw Object.assign(Error('GLM local connection failed. Reopen svguest in TBtools. '+e.message),{p})}}
-  if(p==='Glm'&&glmRelay()){const r=u===PV(p).url?'standard':u===PV(p).plan?'coding':'';if(!r)throw Object.assign(Error('Unknown GLM API route. Recheck the key under Models and keys.'),{p});
+  if(p==='Glm'&&glmRelay()){const r=u===PV(p).url?'standard':u===PV(p).plan?'coding':'';if(!r)throw Object.assign(Error('Unknown GLM API route. Recheck connection under Models and keys.'),{p});
     try{return await fetch(GLMRELAY+'/glm/'+r,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,credentials:'omit',redirect:'error',body:JSON.stringify(body)})}
-    catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;throw Object.assign(Error('GLM Cloudflare relay could not be reached. Check the network or proxy and try Recheck the key under Models and keys. '+e.message),{p})}}
+    catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;throw Object.assign(Error('GLM Cloudflare relay could not be reached. Check the network or proxy and try Recheck connection under Models and keys. '+e.message),{p})}}
   const send=b=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},signal:o.signal,body:JSON.stringify(b)});
   if(p!=='Glm')return send(body);if(body.stream&&KT[p]?.json===u)body={...body,stream:false};
   try{return await send(body)}catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;if(!body.stream)throw glmNet(u,e);
@@ -1556,7 +1556,7 @@ async function apiPost(p,u,key,body,o={}){const S=p==='Glm'&&globalThis.TBSIWC;
     try{return await send({...body,stream:false})}catch(x){if(x.name!=='TypeError'||o.signal?.aborted)throw x;throw glmNet(u,x)}}}
 async function probe(p){const R=PV(p),{key}=cfg(p),er=[],s=KT[p]={s:'wa'},cur=()=>cfg(p).key===key&&KT[p]===s;cfgSync();
   for(const u of[R.url,R.plan].filter(Boolean)){if(!cur())throw new DOMException('Connection settings changed','AbortError');const C=new AbortController(),tm=setTimeout(()=>C.abort(),20000);s.abort=()=>C.abort();try{const r=await apiPost(p,u,key,{model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16,...(p==='Glm'?{thinking:{type:'enabled'},reasoning_effort:'low'}:{})},{signal:C.signal}),t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}
-    if(r.ok&&!j?.error&&Array.isArray(j?.choices)&&j.choices.length){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:ksay(R,u)},cfgSync());return u}er.push(`${r.status} ${apiMsg(t)||'Empty reply'}`.replace(/\.$/,'').slice(0,300))}catch(e){er.push(e.name==='AbortError'?'Connection test timed out after 20 s':e.message)}finally{clearTimeout(tm)}}
+    if(r.ok&&!j?.error&&Array.isArray(j?.choices)&&j.choices.length){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:'Connected',u},cfgSync());return u}er.push(`${r.status} ${apiMsg(t)||'Empty reply'}`.replace(/\.$/,'').slice(0,300))}catch(e){er.push(e.name==='AbortError'?'Connection test timed out after 20 s':e.message)}finally{clearTimeout(tm)}}
   const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
@@ -1567,7 +1567,7 @@ async function call(to,msgs,o){
   const r=await apiPost(to.p,url,key,{model:to.m,messages:msgs,stream:true,thinking:{type:'enabled'},reasoning_effort:o.eff},o);
   if(!r.ok){const t=await r.text();throw Object.assign(Error(`${r.status} ${apiMsg(t)}`.slice(0,300)),{p:to.p})}
   if(to.p==='Glm'&&!/text\/event-stream/i.test(r.headers.get('Content-Type')||'')){const t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}if(j?.error)throw Object.assign(Error(apiMsg(t)),{p:to.p});
-    const ch=j?.choices?.[0],c=ch?.message;if(!c)throw Object.assign(Error('GLM returned an unexpected reply. Recheck the key under Models and keys.'),{p:to.p});
+    const ch=j?.choices?.[0],c=ch?.message;if(!c)throw Object.assign(Error('GLM returned an unexpected reply. Recheck connection under Models and keys.'),{p:to.p});
     KT[to.p]&&(KT[to.p].json=url);c.reasoning_content&&!o.quiet&&o.ui.think(c.reasoning_content);c.content&&o.on&&o.on(c.content);o.ui.use(j.usage);return{out:c.content||'',cut:ch.finish_reason==='length'?1:0}}
   let out='',cut=0,u=null;
   for await(const j of sse(r)){if(j.error)throw Error(j.error.message||JSON.stringify(j.error));j.usage&&(u=j.usage);const ch=j.choices?.[0]||{},c=ch.delta||{};ch.finish_reason==='length'&&(cut=1);
@@ -1705,7 +1705,7 @@ function mmBuild(pg){const M=$('mMm'),d=drawTo(),ok=rdy(d),au=rdAuto(),o=[],row=
     r&&thk(r)&&(o.push(el('hr')),sg('r',EFFR))}
   else{o.push(el('h5',0,'Draw with'));
     for(const q of REG){const h=hasP(q.p),s=conn(q.p),g=el('div','pg');g.append(el('b',0,q.n));
-      if(h)g.append(el('small',s==='er'?'w':0,q.st?q.st()[1]:q.ok?'Built in, no key':s==='ok'?(KT[q.p]?.m||'').replace(/^Connected(: )?/,'')||'Connected':s==='er'?'Not connected':'Checking the key…'));
+      if(h)g.append(el('small',s==='er'?'w':0,q.st?q.st()[1]:q.ok?'Built in, no key':s==='ok'?'Connected':s==='er'?'Not connected':'Checking connection…'));
       else{const l=el('button','lk',q.add||'Add key');l.dataset.conn=q.p;l.dataset.pv=q.p+':*';g.append(l)}o.push(g);
       for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),b=row(m.n,(h?'':'off')+(ok&&v===vOf(d)?' on':''),{m:v},m.ch?'32k chars':m.ctx?fmtK(m.ctx):'');m.see&&b.firstChild.after(document.createRange().createContextualFragment(IC.img));
         b.title=`${m.n} ${m.see?'reads images and draws':'draws; another model reads images for it'}`+(m.ch||m.ctx?`; it reads up to ${m.ch?'32,000 characters':fmtK(m.ctx)+' tokens'} of a chat`:'')+(h?'':`. ${q.add||'Add a key'} under Models and keys first`)}
@@ -1727,9 +1727,10 @@ function card(r){const c=el('section','card'),h=el('header'),s=el('span','st'),u
     Object.assign(i,{type:'password',id:'mKey'+r.p,placeholder:'Paste an API key',autocomplete:'off',spellcheck:false,value:cfg(r.p).key});i.setAttribute('aria-label',r.n+' API key');
     i.onchange=()=>keySet(r.p,i.value);i.onkeydown=v=>{v.key==='Enter'?(v.preventDefault(),i.blur()):v.key==='Escape'&&(v.preventDefault(),connX())};
     e.title='Show or hide the key';e.innerHTML=IC.eye;e.onclick=()=>i.type=i.type==='password'?'text':'password';Object.assign(a,{href:r.get,target:'_blank',rel:'noopener'});
-    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m,g);
+    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m);
+    if(r.p==='Glm'){const t=el('p');t.id='mEpGlm';t.hidden=true;c.append(t)}c.append(g);
     if(r.p==='Glm'&&glmWeb()){const l=el('label','gr'),j=el('input');Object.assign(j,{type:'checkbox',id:'mGlmRelay',checked:GLMR});j.onchange=()=>glmRelaySet(j.checked);l.append(j,'Use Cloudflare relay');c.append(l,el('p',0,'When enabled, your GLM key and sent content pass through svguest’s Cloudflare Worker to Zhipu AI.'))}
-    c.append(u);if(r.p==='Glm'){const b=el('button','lk','Recheck the key');b.id='mKt'+r.p;b.onclick=()=>keySet(r.p,i.value,1);c.append(b)}c.append(x)}
+    c.append(u);if(r.p==='Glm'){const b=el('button','lk','Recheck connection');b.id='mKt'+r.p;b.onclick=()=>keySet(r.p,i.value,1);c.append(b)}c.append(x)}
   return c}
 function connInit(){const C=$('mConn'),h=el('header'),x=el('button','ib'),B=el('div'),N=el('div'),L=el('p'),f=el('div','ft');x.id='mConnX';x.title='Back to the chat (Esc)';x.innerHTML=IC.back;x.onclick=connX;h.append(x,el('b',0,'Models and keys'));
   B.id='mConnB';N.id='mNow';L.id='mLead';B.append(N,L,...REG.map(card));
@@ -1742,7 +1743,8 @@ function connSync(){const d=drawTo(),ok=rdy(d),r=ok&&reader(d),au=rdAuto(),L=$('
   L.className=P?'pend':'';L.textContent=P?`${P.add||'Add a key'} to ${PEND.r?'read images with':'draw with'} ${who(PEND.v).m==='*'?P.n:nameOf(who(PEND.v))}: it is picked as soon as it connects.`:glmRelay()?'Keys are kept in this browser. GLM keys and sent content go through svguest’s Cloudflare Worker to Zhipu AI; DeepSeek connects directly.':`svguest calls these services straight from ${tbBridge()?'TBtools':'this browser'}. Keys are kept in this browser and sent only to their own service.`;
   const g=$('mGlmRelay');g&&(g.checked=GLMR,g.disabled=!!ac);
   for(const q of REG){const S=$('mKs'+q.p);if(!S)continue;const s=conn(q.p),m=$('mKm'+q.p),x=$('mKx'+q.p);
-    S.className='st '+s;S.textContent=q.st?q.st()[1]:q.ok?q.ok()?'Ready':'Not available':s==='ok'?KT[q.p]?.m||'Connected':s==='wa'?'Checking the key…':s==='er'?'Not connected':'No key';
+    S.className='st '+s;S.textContent=q.st?q.st()[1]:q.ok?q.ok()?'Ready':'Not available':s==='ok'?'Connected':s==='wa'?'Checking connection…':s==='er'?'Not connected':'No key';
+    if(q.p==='Glm'){const t=$('mEpGlm');t.hidden=s!=='ok';t.textContent=s==='ok'?`Tested endpoint: ${epName(q,KT[q.p]?.u)}. This does not verify your subscription or quota usage.`:''}
     m&&(m.textContent=s==='er'&&KT[q.p]?.m||'',m.hidden=s!=='er');x&&(x.hidden=!cfg(q.p).key);const b=$('mKt'+q.p);b&&(b.hidden=!cfg(q.p).key,b.disabled=s==='wa');
     $('mKl'+q.p).replaceChildren(...q.ms.map(m=>{const li=el('li',0,m.n);m.see&&li.append(el('em',0,'reads images'));li.append(el('small',0,m.ch?'32,000 characters':m.ctx?fmtK(m.ctx)+' tokens':''));return li}))}}
 function glmRelaySet(v){if(ac){connSync();return msg('Stop the current reply before changing the GLM connection.')}GLMR=!!v;ls('sgGlmRelay',GLMR?'1':'0');keySet('Glm',cfg('Glm').key,1)}
@@ -1805,7 +1807,7 @@ async function chRoll(to,pc){const A=CH,sb=bub('a','This chat is near the model\
   finally{ac=null;sendUI(0)}}
 LG.addEventListener('click',e=>{const g=e.target.closest('button[data-go]');if(g)return chOpen(g.dataset.go);const b=e.target.closest('button[data-ai]');if(!b||b.onclick)return;const s=CH&&CH.svgs[b.dataset.k];if(!s)return msg('This figure is no longer stored');b.dataset.ai==='i'?(aiG=null,put(s),chSave()):put(s,1)});
 chShow(chNone());
-connInit();for(const r of REG)if(!r.ok&&cfg(r.p).key){const u=ls('sg'+r.p+'Ep');u&&[r.url,r.plan].includes(u)?(KS[r.p]=Promise.resolve(u),KT[r.p]={s:'ok',m:ksay(r,u)}):ep(r.p).catch(()=>{})}sendUI(0);cfgSync();
+connInit();for(const r of REG)if(!r.ok&&cfg(r.p).key){const u=ls('sg'+r.p+'Ep');u&&[r.url,r.plan].includes(u)?(KS[r.p]=Promise.resolve(u),KT[r.p]={s:'ok',m:'Connected',u}):ep(r.p).catch(()=>{})}sendUI(0);cfgSync();
 $('mAtt').onclick=()=>$('mAttF').click();
 $('mAttF').onchange=e=>{attach([...e.target.files]);e.target.value=''};
 $('mGrip').onpointerdown=e=>{e.preventDefault();const t=$('mAsk'),y=e.clientY,h=t.offsetHeight,mv=v=>t.style.height=max(40,min($('mChat').clientHeight*.7,h+y-v.clientY))+'px',

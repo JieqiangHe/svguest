@@ -384,7 +384,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p class="ft">Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data in the browser deletes them. File › Auto-save turns the copies of open files on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick, with your permission.</p>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
-<div id="mWm" hidden><header><b>Watermark</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close">×</button></header><div id="mWmB"></div><div id="mWmS"></div></div>
+<div id="mWm" hidden tabindex="-1"><header><b>Watermark</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close">×</button></header><div id="mWmB"></div><div id="mWmS"></div></div>
 <script>
 'use strict';
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
@@ -2097,13 +2097,13 @@ function wmEngine() {
 var WM=null;
 function wmOpen(){
   if(!WM){WM={doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),engine:null,job:null};
-    const d=$('mWm');d.onkeydown=e=>{const a=document.activeElement;if(e.key==='Escape'){e.preventDefault();a&&a!==document.body&&d.contains(a)?a.blur():wmClose()}};
+    const d=$('mWm');d.onkeydown=e=>{if(e.key!=='Escape')return;e.preventDefault();const a=document.activeElement;a&&a!==d&&d.contains(a)?d.focus():wmClose()};
     d.querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;const h=e.currentTarget,dx=e.clientX-d.offsetLeft,dy=e.clientY-d.offsetTop;h.setPointerCapture(e.pointerId);
       h.onpointermove=m=>{d.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';d.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
     $('mWmX').onclick=wmClose;
   }
   const d=$('mWm');if(d.hidden){d.hidden=false;if(!d._p){const r=view.getBoundingClientRect();d.style.left=max(8,r.right-d.offsetWidth-34)+'px';d.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';d._p=1}}
-  wmLife();wmRender();
+  d.focus();wmLife();wmRender();
 }
 function wmClose(){if(WM?.job)wmCancel();$('mWm').hidden=true;$('mWmMark')?.remove();document.querySelector('[data-a=watermark]').focus()}
 function wmLife(){
@@ -2239,7 +2239,7 @@ function wmTextDetails(parent,text){
 const WMCOV='Only the data still present in the open SVG can be inspected. Opening keeps the live SVG plus comments and processing instructions before the root, but drops DOCTYPE, entity declarations and trailing source nodes; importing can drop document metadata and comments. Placing a PNG or JPEG keeps its exact bytes, while other image formats may already have been converted. Anything discarded before this point can no longer be examined.';
 function wmStats(rows=WM.rows){const inc=rows.filter(f=>f.ruleId==='incomplete'),meta=rows.filter(f=>f.ruleId!=='incomplete'),prov=meta.filter(f=>f.ruleId!=='metadata'),c2=meta.filter(f=>f.ruleId==='c2pa');return{rows,inc,meta,prov,c2}}
 function wmRender(){
-  if(!WM)return;const body=$('mWmB');body.replaceChildren();wmMsg(WM.message);
+  if(!WM)return;const body=$('mWmB'),w=body.parentNode;body.replaceChildren();wmMsg(WM.message);!w.hidden&&!w.contains(document.activeElement)&&w.focus();
   if(WM.review)return wmRenderReview(body);
   const scanning=WM.state==='scanning',stale=WM.state==='outdated';
   if(WM.state==='empty')body.append(el('p',0,'Check SVG metadata and embedded PNG/JPEG provenance information.'),el('p','wm-muted','Metadata inspection only. No files are uploaded.'));

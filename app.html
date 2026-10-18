@@ -154,14 +154,29 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mTools>button,#mTools>.dd>button{border-color:transparent;background:transparent;border-radius:7px;color:var(--h4)}#mTools>button:hover,#mTools>.dd>button:hover{background:var(--btnh);color:var(--fg)}#mTools>button.on,#mTools>.dd>button.on{background:var(--btn);border-color:var(--btnb);color:var(--fg);box-shadow:var(--sh)}
 #mGc,#mCr,#mBz{border-color:var(--btnb);box-shadow:var(--sh)}#mLl .r{left:4px;right:4px;border-radius:5px}:is(#mLb,#mPb){border-color:var(--btnb)}
 #mSide,#mLl,#mLog,#mChL,#mHm,#mRm,#mPop,#mKl,#mHelp form{scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
-#mFg{position:fixed;z-index:19;width:290px;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg[hidden]{display:none}
-#mFg header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
+#mFg,#mWm{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
+#mFg header,#mWm header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden]{display:none}#mFg .kv{grid-template-columns:58px minmax(0,1fr)}#mFg h5{margin:6px 0 0;font-size:11.5px;font-weight:600}#mFg .pph{margin:2px 0 0;line-height:1.4}#mFg .pu{font-style:normal;color:var(--t3)}
-.fgc{display:flex;align-items:center;gap:6px;color:var(--h4);cursor:pointer}#mFgI{margin:0 0 6px}#mFg .kv .f.c:not(:has(.hx)){flex:none;width:36px}#mFg .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mFg .pri:hover{background:var(--fg);opacity:.85}
-#mFgS{margin:8px -8px -8px;padding:4px 8px;min-height:22px;border-top:1px solid var(--h4b);color:var(--h4);font-size:11px;line-height:1.4}#mFgS.bad{color:#e5534b}
+.fgc{display:flex;align-items:center;gap:6px;color:var(--h4);cursor:pointer}#mFgI{margin:0 0 6px}#mFg .kv .f.c:not(:has(.hx)){flex:none;width:36px}#mFg .pri,#mWm .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mFg .pri:hover,#mWm .pri:hover{background:var(--fg);opacity:.85}
+#mFgS,#mWmS{margin:8px -8px -8px;padding:4px 8px;min-height:22px;border-top:1px solid var(--h4b);color:var(--h4);font-size:11px;line-height:1.4}#mFgS.bad,#mWmS.bad{color:#e5534b}
 #mFgM{max-height:110px;overflow:auto;font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums}#mFgM div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fgp{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}.fgp button{height:22px;padding:0;border-radius:5px;box-shadow:inset 0 0 0 1px var(--btnb)}
 #mFgC{display:flex;flex-direction:column;gap:3px}#mFgC>div{display:grid;grid-template-columns:12px 30px 46px 46px minmax(0,1fr);gap:4px;align-items:center}#mFgC b{color:var(--h4)}#mFgC input[type=number]{width:100%;min-width:0;height:22px}#mFgC input[type=color]{width:30px;height:22px}#mFgC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}
+
+/* Watermark Inspector: the window shares the FigKit rules above. */
+#mWmX{margin-left:auto}#mWmB h3{font-size:13px;margin:2px 0 8px}
+#mWmB p{margin:6px 0}#mWmB .wm-muted{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;gap:7px;margin:12px 0}#mWmB .wm-status,#mWmB .wm-head{font-weight:600;margin:4px 0 6px}
+#mWmB .wm-summary{margin:8px 0;padding:6px 9px;background:var(--btn);border-radius:6px;font-size:11px;color:var(--h4)}
+#mWmB .wm-group{margin-top:8px;border-top:1px solid var(--h4b);padding-top:6px}#mWmB summary{cursor:pointer;color:var(--h4);font-size:12px}
+#mWmB .wm-row{padding:8px 0;border-bottom:1px solid var(--h4b)}#mWmB .wm-row:last-child{border:0}
+#mWmB .wm-row-title{display:flex;gap:6px;align-items:baseline;overflow-wrap:anywhere}#mWmB .wm-row input[type=checkbox]{margin:0;flex:none}#mWmB .wm-row>button{margin:6px 0 0}
+#mWmB .wm-tags{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 2px}#mWmB .wm-tag{padding:0 6px;border-radius:4px;font-size:10px;line-height:17px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb);color:var(--h4)}
+#mWmB .wm-tag.a{background:var(--on);color:var(--onfg);box-shadow:none}#mWmB .wm-tag.w{background:var(--wab);color:var(--wa);box-shadow:none}
+#mWmB .wm-evidence{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;background:var(--btn);padding:7px 8px;border-radius:6px;font:11px/1.5 ui-monospace,monospace;user-select:text}
+#mWmB .wm-warning{padding:7px 9px;background:var(--wab);border-left:2px solid var(--wa);border-radius:0 6px 6px 0}#mWmB .wm-opt{display:block;margin:10px 0}#mWmB .wm-opt input{margin-right:7px}
+#mWmB footer{border-top:1px solid var(--h4b);padding-top:10px;margin-top:14px}#mWmB a{color:var(--onb)}#mWm progress{width:100%;height:5px;accent-color:var(--onb)}#mWm :focus-visible{outline:2px solid var(--onb);outline-offset:2px}
+#mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
+.wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
 </style>
 <style>@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
@@ -172,7 +187,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
-<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg>Search commands…<kbd>Ctrl+K</kbd></button>
+<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="watermark" title="Inspect SVG and embedded image metadata locally">Watermark <sup class="be" aria-label="Beta">β</sup></button><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg>Search commands…<kbd>Ctrl+K</kbd></button>
 </div>
 <div id="mTools">
 <button data-t="sel" class="on" title="Select (V)"><svg viewBox="0 0 24 24"><path d="M6 3v16l4.5-4.5 3 6.5 2.5-1.2-3-6.3H19z"/></svg></button>
@@ -369,6 +384,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p class="ft">Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data in the browser deletes them. File › Auto-save turns the copies of open files on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick, with your permission.</p>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
+<div id="mWm" hidden><header><b>Watermark</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close">×</button></header><div id="mWmB"></div><div id="mWmS"></div></div>
 <script>
 'use strict';
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
@@ -584,7 +600,7 @@ function refresh(){if(!root)return;root.contains(ctx)||(ctx=root);syncPage();bar
   const lab=e=>e===root?'Document':e.getAttributeNS(NS.inkscape,'label')||e.id||e.localName,c=[];
   for(let e=ctx;e&&e!==root.parentNode;e=e.parentNode)c.unshift(lab(e));
   $('mCtx').textContent='Context: '+c.join(' › ');
-  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef();fqRef();fgRef()}
+  const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef();fqRef();fgRef();wmLife()}
 const RW=20,GC='#e8457a',GH='#b3124b';let gl=[],gq=null,gp=null;
 const gv=(h,a)=>{const z=Z*k,st=10**Math.floor(Math.log10(U/z));return(h?vb.x:vb.y)+round((a-(h?tx:ty))/z*U/st)*st/U},gmm=G=>`${G.h?'x':'y'} ${f6((G.v-(G.h?vb.x:vb.y))*U)} mm`,
   gsn=(u,e)=>{let x=u.x,y=u.y,gx=null,gy=null;if(!cmd(e)&&gl.length){let bx=5/(Z*k),by=bx;for(const G of gl){const f=abs((G.h?u.x:u.y)-G.v);G.h?f<bx&&(bx=f,x=gx=G.v):f<by&&(by=f,y=gy=G.v)}}return[{x,y},(gx!=null||gy!=null)&&[gx,gy]]},
@@ -1884,8 +1900,456 @@ let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+x
   try{if(!fh)fh=await showSaveFilePicker({suggestedName:n});const w=await fh.createWritable();await w.write(b);await w.close()}
   catch(e){if(e.name==='AbortError')return;fh=null;dl(b,n);dirty=false;svd=undos.at(-1)??null;bar();asNow(1);return msg('Exported '+n)}
   dirty=false;svd=undos.at(-1)??null;bar();asNow(1);msg('Exported '+n)};
+/* Watermark Inspector beta — independent implementation, 2026-10-18.
+ * Read-only references (no upstream code ported):
+ * https://github.com/guillaumemeyer/watermarks-remover
+ * 980c0b4c5786ca710ed77276b6e55b622f340d4c, MIT;
+ * service/scripts/container_meta.py (inspect_svg, clean_svg), image_meta.py
+ * (PNG/JPEG inspection, text chunks and stripping).
+ * https://github.com/ivanusto/unmark-web
+ * a114071609145849ee939dcd792115fcc51dc5ca, MIT;
+ * js/container_meta.js (inspectSvg), js/image_meta.js (PNG/JPEG parsers).
+ * Specs consulted: https://www.w3.org/TR/png-3/ and
+ * https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html
+ * Browser deviations: no pixel decoding, whole-file keyword scans or blanket
+ * metadata stripping; bounded streaming decompression; unknown fields preserved.
+ * Manual updates only. No signature validation. No upstream runtime dependency.
+ */
+function wmEngine() {
+  'use strict';
+  const L = {encoded:64*1024*1024,total:256*1024*1024,metadata:8*1024*1024,
+    inflated:4*1024*1024,ratio:200,findings:2000,metadataTotal:32*1024*1024,
+    nodes:200000,metadataNodes:10000,segments:50000,milliseconds:30000,slice:65536};
+  const rules = [
+    {id:'c2pa',scope:'svg|png|jpeg',match:'recognized caBX, JP/jumb, C2PA namespace or provenance field',tier:'A',label:'C2PA indicator',protected:true,cleanable:false,source:'independent',note:'Presence only; signatures not validated; generic APP11 is not C2PA.'},
+    {id:'ai-field',scope:'svg|png|jpeg',match:'structured DigitalSourceType, AI generator, parameters/prompt/workflow',tier:'A',label:'Possible AI provenance',protected:false,cleanable:true,source:'independent',note:'A declaration or tool field is not proof of how an image was produced.'},
+    {id:'keyword',scope:'svg|png|jpeg',match:'OpenAI|Claude|Anthropic|SynthID|AI-generated|c2pa|jumbf|contentcredentials',tier:'B',label:'Possible AI provenance',protected:false,cleanable:true,source:'independent',note:'Low confidence; metadata keywords can be ordinary quotations.'},
+    {id:'metadata',scope:'svg|png|jpeg',match:'recognized non-rendering metadata',tier:'C',label:'Metadata',protected:false,cleanable:true,source:'independent',note:'Ordinary metadata is not evidence of an AI watermark.'},
+    {id:'incomplete',scope:'svg|png|jpeg',match:'unsupported, malformed or unavailable content',tier:'C',label:'Not inspected',protected:false,cleanable:false,source:'independent',note:'Never a negative result.'}
+  ];
+  const ai=/OpenAI|ChatGPT|DALL[ -]?E|Midjourney|Stable Diffusion|ComfyUI|Automatic1111|Adobe Firefly|Anthropic|Claude/i;
+  const keyword=/OpenAI|Claude|Anthropic|SynthID|AI[- ]generated|c2pa|jumbf|contentcredentials/i;
+  const rights=/author|artist|copyright|license|licence|rights|creator\b|owner|attribution|inkscape|sodipodi|illustrator|adobe:ns:meta|photoshop|documentancestors/i;
+  const critical=/orientation|resolution|pixelaspect|iccprofile|colorspace|colourspace|http:\/\/ns\.adobe\.com\/(?:tiff|exif)\//i;
+  const utf=b=>new TextDecoder('utf-8').decode(b);
+  const latin=b=>{let s='';for(let i=0;i<b.length;i+=8192)s+=String.fromCharCode(...b.subarray(i,i+8192));return s};
+  const eq=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
+  const fp=a=>{let h=2166136261;for(let i=0;i<a.length;i++)h=Math.imul(h^a[i],16777619);return a.length+':'+(h>>>0)};
+  const strfp=s=>{let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return s.length+':'+(h>>>0)};
+  const classify=(text,key='',structured=false)=>{
+    const field=/^(parameters|prompt|workflow)$/i.test(key)||/^(software|creatortool|generator)$/i.test(key)&&ai.test(text)||structured;
+    const r=rules[field?1:keyword.test(text+' '+key)?2:3];
+    return {ruleId:r.id,label:r.label,tier:r.tier,protected:rights.test(key+' '+text),summary:r.note};
+  };
+  const unknown=(title,reason)=>({title,label:'Not inspected',ruleId:'incomplete',tier:'C',summary:reason,details:reason,reason,cleanable:false,incomplete:true});
+  let deadline=0,stop=()=>false,cache=new Map(),cacheBytes=0,total=0,metaTotal=0,kept=0;
+  const check=()=>{if(stop())throw Error('Scan cancelled');if(Date.now()>deadline)throw Error('Time limit reached')};
+  const tick=async()=>{check();await new Promise(r=>setTimeout(r,0));check()};
+  function begin(cancel=()=>false){stop=cancel;deadline=Date.now()+L.milliseconds}
+  async function decode(uri){
+    if(uri.length>L.encoded)throw Error('Encoded image size limit');
+    const p=uri.indexOf(',');if(p<0||p>200)throw Error('Malformed data URI');
+    const head=uri.slice(0,p),m=/^data:([^;,]+)(?:;[^,;]*)*;base64$/i.exec(head);
+    if(!m)throw Error('Non-base64 data URI is unsupported');
+    const raw=uri.slice(p+1);let s='';
+    for(let i=0;i<raw.length;i+=L.slice){s+=raw.slice(i,i+L.slice).replace(/[\t\r\n ]/g,'');await tick()}
+    if(s.length%4)throw Error('Invalid base64');
+    const body=s.replace(/={1,2}$/,'');for(let i=0;i<body.length;i+=L.slice){if(/[^A-Za-z0-9+/]/.test(body.slice(i,i+L.slice)))throw Error('Invalid base64');await tick()}
+    const n=s.length/4*3-(s.endsWith('==')?2:s.endsWith('=')?1:0);
+    if(total+n>L.total)throw Error('Total image byte limit');total+=n;
+    const b=new Uint8Array(n);let o=0;
+    for(let i=0;i<s.length;i+=L.slice){const x=atob(s.slice(i,i+L.slice));for(let j=0;j<x.length;j++)b[o++]=x.charCodeAt(j);await tick()}
+    let h=2166136261;for(let i=0;i<b.length;i+=L.slice){for(let j=i;j<Math.min(b.length,i+L.slice);j++)h=Math.imul(h^b[j],16777619);await tick()}
+    return {b,mime:m[1],fingerprint:b.length+':'+(h>>>0),uriFingerprint:strfp(uri)};
+  }
+  async function crc(b){let c=-1;for(let i=0;i<b.length;i+=L.slice){for(let j=i;j<Math.min(b.length,i+L.slice);j++){c^=b[j];for(let k=0;k<8;k++)c=c>>>1^(0xedb88320&-(c&1))}await tick()}return ~c>>>0}
+  async function inflate(b){
+    if(typeof DecompressionStream!=='function')throw Error('Compressed metadata: DecompressionStream unavailable');
+    let reader;const chunks=[];let n=0;
+    try{reader=new Blob([b]).stream().pipeThrough(new DecompressionStream('deflate')).getReader();
+      for(;;){check();let timer;const r=await Promise.race([reader.read(),new Promise((_,rej)=>{timer=setTimeout(()=>rej(Error('Decompression time limit')),Math.max(1,deadline-Date.now()))})]).finally(()=>clearTimeout(timer));
+        if(r.done)break;n+=r.value.length;if(n>L.inflated||n>Math.max(65536,b.length*L.ratio))throw Error('Possible decompression bomb');chunks.push(r.value);await tick()}
+    }finally{if(reader)reader.cancel().catch(()=>{})}
+    const out=new Uint8Array(n);let p=0;for(const c of chunks){out.set(c,p);p+=c.length}return out;
+  }
+  function textFinding(title,text,key,range){
+    metaTotal+=text.length;if(metaTotal>L.metadataTotal)throw Error('Total metadata size limit');
+    const f={title,details:text,...classify(text,key),range,cleanable:true};
+    if(critical.test(key+' '+text)){f.cleanable=false;f.reason='Contains possible rendering-critical fields'}
+    // XMP namespaces may use arbitrary prefixes. Detect the namespace URI, not a particular prefix.
+    if(/http:\/\/purl.org\/dc\/terms\//.test(text)&&/provenance/.test(text))Object.assign(f,{ruleId:'c2pa',label:'C2PA indicator',tier:'A',protected:true,summary:'Remote provenance reference present — not validated; never fetched.'});
+    const tool=/(?:\bCreatorTool\s*=\s*['"]([^'"]{1,2048})['"]|<(?:[\w.-]+:)?CreatorTool(?:\s[^>]*)?>([^<]{1,2048})<)/.exec(text);
+    if(tool&&/http:\/\/ns.adobe.com\/xap\/1.0\//.test(text)&&ai.test(tool[1]||tool[2]))Object.assign(f,classify(text,key,true));
+    const source=/(?:\bDigitalSourceType\s*=\s*['"]([^'"]{1,2048})['"]|<(?:[\w.-]+:)?DigitalSourceType(?:\s[^>]*)?>([^<]{1,2048})<)/.exec(text);
+    if(source&&/http:\/\/iptc.org\/std\/Iptc4xmpExt\//.test(text)&&/^http:\/\/cv.iptc.org\/newscodes\/digitalsourcetype\/(?:trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia)$/.test((source[1]||source[2]).trim()))Object.assign(f,classify(text,key,true));
+    if(/HasExtendedXMP/.test(text)){f.cleanable=false;f.reason='References Extended XMP; reassembly is unsupported'}
+    if(/<!DOCTYPE|<!ENTITY/i.test(text)){f.cleanable=false;f.reason='XML declarations are not inspected'}
+    return f;
+  }
+  function exif(b,range){
+    const v=new DataView(b.buffer,b.byteOffset,b.byteLength),le=b[0]===73&&b[1]===73;
+    if(b.length<8||!le&&!(b[0]===77&&b[1]===77))throw Error('Invalid TIFF byte order');
+    const u16=p=>{if(p<0||p+2>b.length)throw Error('Truncated EXIF');return v.getUint16(p,le)},u32=p=>{if(p<0||p+4>b.length)throw Error('Truncated EXIF');return v.getUint32(p,le)};
+    if(u16(2)!==42)throw Error('Invalid TIFF header');const p=u32(4),n=u16(p);if(n>1024||p+2+n*12+4>b.length)throw Error('Invalid EXIF IFD');
+    const names={270:'ImageDescription',274:'Orientation',282:'XResolution',283:'YResolution',296:'ResolutionUnit',305:'Software',306:'DateTime',315:'Artist',33432:'Copyright'},rows=[];
+    let blocked='',prot=false,software='',meaningful=false,partial=false;const preservedEntries=[];
+    for(let i=0;i<n;i++){const q=p+2+i*12,tag=u16(q),type=u16(q+2),count=u32(q+4),size=({1:1,2:1,3:2,4:4,5:8,7:1,9:4,10:8})[type];
+      if(!size||count*size>b.length)throw Error('Unsupported EXIF value');const len=count*size,o=len<=4?q+8:u32(q+8);if(o+len>b.length)throw Error('EXIF value out of bounds');
+      const nm=names[tag]||'Tag 0x'+tag.toString(16);let val='';
+      if(type===2)val=latin(b.subarray(o,o+len)).replace(/\0+$/,'');else if(type===3&&count===1)val=String(u16(o));else if(type===5&&count===1)val=u32(o)+'/'+u32(o+4);else{val='('+len+' bytes; unsupported value)';blocked='EXIF fields not fully inspected';partial=true}
+      if(!names[tag]){blocked='EXIF tags/IFDs not fully inspected';partial=true}
+      if([274,282,283,296].includes(tag))preservedEntries.push('EXIF '+nm+': '+val+' — preserved');else meaningful=true;
+      if(tag===274)blocked='Contains Orientation (including normal Orientation 1; preserved in this Beta)';
+      if([282,283,296].includes(tag))blocked='Contains resolution/DPI';
+      if(tag===315||tag===33432)prot=true;if(tag===305)software=val;rows.push(nm+': '+val);
+    }
+    if(u32(p+2+n*12)!==0){blocked='EXIF thumbnail/additional IFD not inspected';partial=true}
+    const f=textFinding('EXIF',rows.join('\n'),'EXIF',range);if(ai.test(software))Object.assign(f,classify(software,'Software'));
+    f.protected=f.protected||prot;f.cleanable=!blocked;f.preservedEntries=preservedEntries;f.onlyPreserved=!!n&&!meaningful&&!partial;if(blocked)f.reason=blocked;else delete f.reason;if(partial)Object.assign(f,{label:'Not inspected',ruleId:'incomplete',incomplete:true,cleanable:false});return f;
+  }
+  async function png(b){
+    const r={format:'PNG',findings:[],preserved:[],parts:[],complete:true,c2pa:false},v=new DataView(b.buffer,b.byteOffset,b.byteLength);
+    let p=8,seenIDAT=false,ended=false,ih=0,count=0,idatEnded=false;
+    while(p<b.length){check();if(++count>L.segments)throw Error('Chunk limit');if(p+12>b.length)throw Error('Truncated PNG chunk');
+      const n=v.getUint32(p),type=latin(b.subarray(p+4,p+8)),end=p+12+n;if(n>0x7fffffff||end>b.length||!/^[A-Za-z]{4}$/.test(type))throw Error('Invalid PNG chunk length/type');
+      if(p===8&&type!=='IHDR')throw Error('IHDR must be first');const d=b.subarray(p+8,p+8+n),range={offset:p,length:n+12,type};r.parts.push(range);
+      if(type==='IHDR'){if(++ih!==1||n!==13)throw Error('Invalid IHDR');r.dimensions=[v.getUint32(p+8),v.getUint32(p+12)];if(!r.dimensions[0]||!r.dimensions[1])throw Error('Invalid PNG dimensions');const depths={0:[1,2,4,8,16],2:[8,16],3:[1,2,4,8],4:[8,16],6:[8,16]};if(!depths[d[9]]?.includes(d[8])||d[10]||d[11]||d[12]>1)throw Error('Invalid PNG color/encoding')}
+      if(type==='IDAT'){if(idatEnded)throw Error('Non-contiguous IDAT');seenIDAT=true}else if(seenIDAT)idatEnded=true;
+      const metadata=/^(tEXt|zTXt|iTXt|eXIf|caBX)$/.test(type),preserved=/^(iCCP|pHYs|sRGB|gAMA|cHRM|cICP|mDCV|cLLI|sBIT|bKGD|hIST|sPLT|tRNS|PLTE|acTL|fcTL|fdAT)$/.test(type);
+      // Check all CRCs, including protected image chunks; never repair malformed input.
+      if(await crc(b.subarray(p+4,p+8+n))!==v.getUint32(p+8+n))throw Error('PNG CRC mismatch in '+type);
+      if(metadata||type==='iCCP')try{
+        if(n>L.metadata)throw Error('Metadata chunk size limit');
+        if(type==='caBX'){r.c2pa=true;r.complete=false;r.findings.push({...unknown('C2PA caBX','Manifest content not fully interpreted; inspect-and-preserve'),label:'C2PA indicator',ruleId:'c2pa',tier:'A',protected:true,summary:'C2PA container present — not validated.',details:'caBX: '+n+' bytes. Signatures and CBOR claims are not validated.',range})}
+        else if(type==='eXIf'){const f=exif(d,range);r.preserved.push(...f.preservedEntries);if(!f.onlyPreserved)r.findings.push(f);if(f.incomplete)r.complete=false}
+        else {let z=d.indexOf(0);if(z<1||z>79)throw Error('Invalid PNG text keyword');const key=latin(d.subarray(0,z));let text,extra='';
+          if(type==='tEXt')text=latin(d.subarray(z+1));
+          else if(type==='zTXt'||type==='iCCP'){if(d[z+1]!==0)throw Error('Unknown compression method');const out=await inflate(d.subarray(z+2));text=type==='iCCP'?'ICC profile: '+out.length+' decompressed bytes':latin(out)}
+          else{const flag=d[z+1],method=d[z+2];if(flag>1||method!==0)throw Error('Invalid iTXt compression');const lang=d.indexOf(0,z+3);if(lang<0)throw Error('Malformed iTXt language');const tr=d.indexOf(0,lang+1);if(tr<0)throw Error('Malformed iTXt translated keyword');extra='\nLanguage: '+latin(d.subarray(z+3,lang))+'\nTranslated keyword: '+utf(d.subarray(lang+1,tr));text=utf(flag?await inflate(d.subarray(tr+1)):d.subarray(tr+1))}
+          if(type==='iCCP')r.preserved.push(type+' — '+text);else r.findings.push(textFinding(type+' · '+key,key+': '+text+extra,key,range));
+        }
+      }catch(e){r.complete=false;r.findings.push(unknown(type,e.message))}
+      if(preserved&&type!=='iCCP')r.preserved.push(type+' — preserved ('+n+' bytes)');
+      if(!metadata&&!preserved&&!/^(IHDR|IDAT|IEND)$/.test(type)){r.complete=false;r.findings.push(unknown(type,'Unknown PNG chunk preserved'))}
+      if(type==='IEND'){if(n||!seenIDAT)throw Error('Invalid IEND or missing IDAT');ended=true;p=end;if(p!==b.length){r.complete=false;r.findings.push(unknown('PNG trailing data',(b.length-p)+' trailing bytes preserved'))}break}p=end;
+      if(r.findings.length>L.findings)throw Error('Finding limit');await tick();
+    }
+    if(!ended)throw Error('Missing IEND');return r;
+  }
+  async function jpeg(b){
+    const r={format:'JPEG',findings:[],preserved:[],parts:[],complete:true,c2pa:false},v=new DataView(b.buffer,b.byteOffset,b.byteLength);let p=2,count=0,sos=false;
+    while(p<b.length){check();if(++count>L.segments)throw Error('Segment limit');const start=p;if(b[p++]!==255)throw Error('Invalid JPEG marker');while(b[p]===255)p++;if(p>=b.length)throw Error('Truncated JPEG marker');const m=b[p++];
+      if(m===0||m===216||m===217)throw Error('Unexpected JPEG marker before SOS');
+      if(m===1||m>=208&&m<=215){r.parts.push({offset:start,length:p-start,type:'marker'});continue}
+      if(p+2>b.length)throw Error('Truncated JPEG length');const n=v.getUint16(p),end=p+n;if(n<2||end>b.length)throw Error('Invalid JPEG segment length');const d=b.subarray(p+2,end),type='APP'+(m-224),range={offset:start,length:end-start,type:m};
+      if(m===218){if(n<6||!r.dimensions)throw Error('Invalid SOS / missing SOF');r.sos=start;sos=true;break}r.parts.push(range);
+      if(m>=192&&m<=207&&![196,200,204].includes(m)){if(n<8)throw Error('Invalid SOF');r.dimensions=[v.getUint16(p+5),v.getUint16(p+3)];r.preserved.push('SOF — dimensions and components preserved')}
+      try{
+        if(m===225){
+          if(latin(d.subarray(0,6))==='Exif\0\0'){const f=exif(d.subarray(6),range);r.preserved.push(...f.preservedEntries);if(!f.onlyPreserved)r.findings.push(f);if(f.incomplete)r.complete=false}
+          else if(latin(d.subarray(0,29))==='http://ns.adobe.com/xap/1.0/\0')r.findings.push(textFinding('XMP',utf(d.subarray(29)),'XMP',range));
+          else if(latin(d.subarray(0,35))==='http://ns.adobe.com/xmp/extension/\0'){r.complete=false;r.findings.push(unknown('Extended XMP','Multi-segment reassembly is unsupported; preserved'))}
+          else{r.complete=false;r.findings.push(unknown(type,'Unrecognized APP1 preserved'))}
+        }else if(m===254)r.findings.push(textFinding('JPEG COM',latin(d),'Comment',range));
+        else if(m===235){const jp=d[0]===74&&d[1]===80,jumb=d.length>=16&&latin(d.subarray(12,16))==='jumb';
+          r.complete=false;if(jp){r.c2pa=true;r.findings.push({...unknown('APP11 JUMBF',jumb?'JUMBF manifest content is not fully interpreted':'Possible fragmented JUMBF; reassembly unsupported'),label:jumb?'C2PA indicator':'Not inspected',ruleId:jumb?'c2pa':'incomplete',tier:jumb?'A':'C',protected:true,summary:jumb?'JUMBF container present — not validated; it may carry C2PA.':'APP11 JP fragment preserved.'})}else r.findings.push(unknown('APP11','Unrecognized APP11; not evidence of C2PA'));
+        }else if(m===237){r.complete=false;r.findings.push({...unknown('APP13 Photoshop/IPTC','Inspect-only: IPTC resource parsing not implemented'),details:'APP13: '+d.length+' bytes. Content not fully inspected; preserved.'})}
+        else if([224,226,238].includes(m)){r.preserved.push(type+' — JFIF / ICC / MPF / Adobe data preserved');if(m===226&&latin(d.subarray(0,4))==='MPF\0'){r.complete=false;r.findings.push(unknown('MPF','Multi-picture offsets would need adjustment; image cleaning disabled'))}}
+        else if(m>=224&&m<=239){r.complete=false;r.findings.push(unknown(type,'Unknown application segment preserved'))}
+      }catch(e){r.complete=false;r.findings.push(unknown(type,e.message))}
+      if(r.findings.length>L.findings)throw Error('Finding limit');p=end;await tick();
+    }
+    if(!sos)throw Error('Missing SOS');if(b.length<4||b[b.length-2]!==255||b[b.length-1]!==217){r.complete=false;r.findings.push(unknown('JPEG ending','EOI is not at the end: trailing data or truncation; no entropy parsing'))}
+    return r;
+  }
+  async function parseBytes(b){let r;
+    if(b.length>=8&&eq(b.subarray(0,8),new Uint8Array([137,80,78,71,13,10,26,10])))r=await png(b);
+    else if(b[0]===255&&b[1]===216)r=await jpeg(b);else throw Error('Unsupported image magic bytes (PNG/JPEG only)');
+    // Incomplete image inspection may hide orientation, provenance bindings, or offsets.
+    if(!r.complete)for(const f of r.findings)if(f.cleanable){f.cleanable=false;f.reason='Image not fully inspected; preserved'}
+    r.c2pa=r.c2pa||r.findings.some(f=>f.label==='C2PA indicator');if(r.c2pa)for(const f of r.findings)f.protected=true;
+    return r;
+  }
+  async function inspect(uri){const d=await decode(uri),hits=cache.get(d.fingerprint)||[];let r=hits.find(x=>eq(x.b,d.b))?.result;
+    if(!r){r=await parseBytes(d.b);kept+=r.findings.length;if(kept>L.findings)throw Error('Finding limit');if(cacheBytes+d.b.length>L.total/2){cache.clear();cacheBytes=0}const bucket=cache.get(d.fingerprint)||[];bucket.push({b:d.b,result:r});cache.set(d.fingerprint,bucket);cacheBytes+=d.b.length}
+    const out={...r,findings:r.findings.map(f=>({...f})),fingerprint:d.fingerprint,uriFingerprint:d.uriFingerprint,mime:d.mime};
+    const expected=r.format==='PNG'?/^image\/png$/i:/^image\/(jpeg|jpg|pjpeg)$/i;
+    if(!expected.test(d.mime)){out.complete=false;out.findings.push(unknown('MIME / magic mismatch',d.mime+' contains '+r.format+' bytes; inspect-only'));for(const f of out.findings){f.cleanable=false;f.reason='MIME / magic mismatch'}}
+    delete out.parts;delete out.sos;return out;
+  }
+  async function clean(uri,fingerprint,ranges){
+    const d=await decode(uri);if(d.fingerprint!==fingerprint)throw Error('Image changed — rescan required');const before=await parseBytes(d.b);
+    if(!before.complete)throw Error('Image not fully inspected');const allowed=before.findings.filter(f=>f.cleanable).map(f=>f.range),rr=ranges.slice().sort((a,b)=>a.offset-b.offset);let end=0,removed=0;
+    for(const r of rr){if(!allowed.some(a=>a.offset===r.offset&&a.length===r.length)||r.offset<end)throw Error('Invalid removal range');end=r.offset+r.length;removed+=r.length}
+    if(!rr.length)throw Error('Nothing selected');const out=new Uint8Array(d.b.length-removed);let from=0,to=0;
+    for(const r of rr){out.set(d.b.subarray(from,r.offset),to);to+=r.offset-from;from=r.offset+r.length}out.set(d.b.subarray(from),to);
+    const after=await parseBytes(out);if(!eq(before.dimensions,after.dimensions)||!after.complete)throw Error('Image invariant failed');
+    const keep=before.parts.filter(a=>!rr.some(r=>r.offset===a.offset));if(keep.length!==after.parts.length)throw Error('Chunk/segment invariant failed');
+    for(let i=0;i<keep.length;i++){const a=keep[i],z=after.parts[i];if(!eq(d.b.subarray(a.offset,a.offset+a.length),out.subarray(z.offset,z.offset+z.length)))throw Error('Untouched bytes changed')}
+    if(before.format==='JPEG'&&!eq(d.b.subarray(before.sos),out.subarray(after.sos)))throw Error('JPEG scan data changed');
+    return {buffer:out.buffer,mime:d.mime};
+  }
+  return {L,rules,begin,tick,check,fp,strfp,classify,unknown,inspect,clean,parseBytes};
+}
+/* End independent byte engine. Instantiated only by Scan Document. */
+
+/* Watermark Inspector UI: no initialization, workers or document inspection until requested. */
+var WM=null;
+function wmOpen(){
+  if(!WM){WM={doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),engine:null,job:null};
+    const d=$('mWm');d.onkeydown=e=>{const a=document.activeElement;if(e.key==='Escape'){e.preventDefault();a&&a!==document.body&&d.contains(a)?a.blur():wmClose()}};
+    d.querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;const h=e.currentTarget,dx=e.clientX-d.offsetLeft,dy=e.clientY-d.offsetTop;h.setPointerCapture(e.pointerId);
+      h.onpointermove=m=>{d.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';d.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
+    $('mWmX').onclick=wmClose;
+  }
+  const d=$('mWm');if(d.hidden){d.hidden=false;if(!d._p){const r=view.getBoundingClientRect();d.style.left=max(8,r.right-d.offsetWidth-34)+'px';d.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';d._p=1}}
+  wmLife();wmRender();
+}
+function wmClose(){if(WM?.job)wmCancel();$('mWm').hidden=true;$('mWmMark')?.remove();document.querySelector('[data-a=watermark]').focus()}
+function wmLife(){
+  if(!WM)return;
+  if(WM.doc!==root){WM.job?.cancel();Object.assign(WM,{doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),review:null,job:null,message:''});!$('mWm').hidden&&wmRender()}
+  else if(WM.rev!==dv&&WM.state!=='empty'&&WM.state!=='outdated'){
+    WM.job?.cancel();WM.job=null;WM.state='outdated';WM.review=null;WM.selected.clear();!$('mWm').hidden&&wmRender();
+  }
+  $('mWmMark')?.remove();
+}
+function wmCancel(){if(!WM?.job)return;WM.job.cancel();WM.job=null;WM.completed=false;WM.rows=[];WM.preserved=[];WM.state='cancelled';WM.review=null;WM.selected.clear();wmRender()}
+function wmJob(){
+  const job={cancelled:false,worker:null,pending:null,engine:null,url:null};
+  job.cancel=()=>{job.cancelled=true;job.worker?.terminate();job.worker=null;job.pending?.(Error('Scan cancelled'));job.pending=null;if(job.url)URL.revokeObjectURL(job.url)};
+  job.close=()=>{job.worker?.terminate();job.worker=null;if(job.url)URL.revokeObjectURL(job.url);job.engine=null};
+  const fallback=()=>{job.engine=wmEngine();job.engine.begin(()=>job.cancelled||WM.doc!==root||WM.rev!==dv);WM.execution='Main-thread batches'};
+  try{
+    const code='const E=('+wmEngine.toString()+')();E.begin();onmessage=async e=>{try{const q=e.data,r=await E[q.method](...q.args);postMessage({ok:true,result:r},r?.buffer?[r.buffer]:[])}catch(e){postMessage({ok:false,error:e.message})}};';
+    job.url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));job.worker=new Worker(job.url);WM.execution='Inline Worker';
+  }catch(_){fallback()}
+  job.call=async(method,...args)=>{
+    if(job.cancelled)throw Error('Scan cancelled');
+    if(!job.worker)return job.engine[method](...args);
+    try{return await new Promise((resolve,reject)=>{let timer;
+      const done=(err,result)=>{clearTimeout(timer);job.pending=null;err?reject(err):resolve(result)};
+      job.pending=err=>done(err);job.worker.onmessage=e=>e.data.ok?done(null,e.data.result):done(Error(e.data.error));
+      job.worker.onerror=e=>{e.preventDefault();const x=Error('Worker unavailable');x.workerUnavailable=true;done(x)};
+      timer=setTimeout(()=>done(Error('Worker time limit reached')),WM.engine.L.milliseconds);job.worker.postMessage({method,args});
+    })}catch(e){if(e.workerUnavailable&&!job.cancelled){job.worker.terminate();job.worker=null;fallback();return job.engine[method](...args)}throw e}
+  };
+  return job;
+}
+const wmXml=n=>new XMLSerializer().serializeToString(n);
+function wmTargetValue(t){return t.kind==='attr'?t.node.getAttributeNS(t.ns,t.local):wmXml(t.node)}
+function wmStale(){
+  wmLife();if(!WM||WM.doc!==root||WM.rev!==dv||WM.state==='outdated'||ed||D||CR)return true;
+  flush();if(pend.length){WM.state='outdated';WM.selected.clear();WM.review=null;wmRender();return true}return false;
+}
+function wmRow(f,target,source='Document',format='SVG'){
+  if(WM.rows.length>=WM.engine.L.findings){WM.truncated=true;return}
+  const row={...f,target,source,format,id:WM.rows.length};WM.rows.push(row);return row;
+}
+async function wmScan(){
+  if(!WM||WM.job)return;if(!root)return;
+  if(ed||D||CR){WM.message='Finish the current edit before scanning.';wmRender();return}
+  flush();if(pend.length){WM.message='Finish the current edit before scanning.';wmRender();return}
+  WM.engine=wmEngine();WM.doc=root;WM.rev=dv;WM.state='scanning';WM.completed=false;WM.rows=[];WM.preserved=[];WM.selected.clear();WM.review=null;WM.message='';WM.truncated=false;WM.inspected=0;WM.processed=0;WM.images=0;WM.elapsed=0;
+  const E=WM.engine,L=E.L,job=wmJob(),doc=root,revision=dv,t0=performance.now();WM.job=job;E.begin(()=>job.cancelled||doc!==root||revision!==dv);wmRender();
+  try{
+    const images=[],meta=new WeakSet(),walker=document.createTreeWalker(doc,1|128|64);let node=doc,n=0,xmlBytes=0;
+    const addSvg=(node,attr,title,key,extra={})=>{
+      const target={kind:attr?'attr':'node',node,ns:attr?.namespaceURI||null,local:attr?.localName,name:attr?.name};
+      let budget=attr?attr.value.length:0,subnodes=0;const fields=[];
+      if(!attr){const walk=document.createTreeWalker(node,1|4|8|64|128);for(let c=node;c;c=walk.nextNode()){
+        if(++subnodes>L.metadataNodes){wmRow(E.unknown(title,'SVG metadata node limit'),null);return}
+        budget+=(c.nodeName?.length||0)*2+8;if(c.nodeType===1){fields.push(c);for(const a of c.attributes)budget+=a.name.length+a.value.length*6+4}else budget+=(c.data?.length||0)*6;
+        if(budget>L.metadata){wmRow(E.unknown(title,'SVG metadata size limit'),null);return}
+      }}
+      if(budget>L.metadata){wmRow(E.unknown(title,'SVG metadata size limit'),null);return}
+      const value=attr?attr.value:wmXml(node);xmlBytes+=value.length;
+      if(value.length>L.metadata||xmlBytes>L.metadataTotal){wmRow(E.unknown(title,'SVG metadata size limit'),null);return}
+      target.fingerprint=E.strfp(value);const classification=E.classify(value,key),f={title,details:value,...classification,cleanable:true,...extra};f.protected=f.protected||classification.protected;
+      if(fields.length&&meta.has(node)){
+        if(fields.some(x=>/c2pa.org/.test(x.namespaceURI||'')||x.namespaceURI==='http://purl.org/dc/terms/'&&x.localName==='provenance'))extra.c2pa=true;
+        if(fields.some(x=>x.localName==='DigitalSourceType'&&/iptc.org/.test(x.namespaceURI||'')&&/trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia/.test(x.textContent+' '+[...x.attributes].map(a=>a.value).join(' '))))Object.assign(f,E.classify(value,key,true));
+      }
+      // Never remove IDs, referenced metadata subtrees or namespace declarations.
+      if(!attr&&node.nodeType===1&&(node.hasAttribute('id')||node.querySelector('[id],style,script,image,foreignObject'))){f.cleanable=false;f.reason='Contains IDs, references or non-metadata content'}
+      if(/orientation|resolution|color-profile/i.test(key)){f.cleanable=false;f.reason='Rendering-critical information'}
+      if(attr&&attr.namespaceURI==='http://www.w3.org/2000/xmlns/'){f.cleanable=false;f.reason='Namespace declaration is preserved'}
+      if(node.nodeType===7&&node.target!=='xpacket'){f.cleanable=false;f.reason='Processing instruction may affect rendering'}
+      if(extra.c2pa){f.protected=true;f.label='C2PA indicator';f.ruleId='c2pa';f.tier='A';f.summary='Provenance structure present — not validated.';f.cleanable=false;f.reason='Manifest content not fully interpreted; inspect-and-preserve'}
+      wmRow(f,target);
+    };
+    if(prolog){if(prolog.length>L.metadata)wmRow(E.unknown('Prolog','Source metadata size limit'),null);else wmRow({title:'Retained pre-root comments / processing instructions',details:prolog,...E.classify(prolog,'prolog'),cleanable:false,reason:'Stored outside the undoable SVG tree; inspect-only'},null)}
+    while(node){
+      if(++n>L.nodes){wmRow(E.unknown('Traversal limit','Remaining SVG nodes not inspected'),null);break}
+      if(node.nodeType===1){
+        const name=node.localName,ns=node.namespaceURI||'',insideMeta=name==='metadata'||meta.has(node.parentNode);if(insideMeta)meta.add(node);
+        if(name==='image'&&ns===NS.svg&&!node.closest('foreignObject'))images.push(node);
+        if(name==='feImage'||name==='foreignObject')wmRow(E.unknown(name,'Unsupported image context; not inspected'),null);
+        if(name==='style'&&/data:image|url\(/i.test(node.textContent))wmRow(E.unknown('CSS image reference','CSS url() payloads are not inspected'),null);
+        if(node.hasAttribute('style')&&/data:image/i.test(node.getAttribute('style')))wmRow(E.unknown('Inline CSS image','CSS image payloads are not inspected'),null);
+        if(node===doc)for(const a of node.attributes){
+          if(a.namespaceURI==='http://www.w3.org/2000/xmlns/'){if(/inkscape|sodipodi|adobe|c2pa/i.test(a.value))WM.preserved.push('Document · '+a.name+' namespace — preserved');continue}
+          if(/generator|creator|software|author|copyright|license/i.test(a.localName)||/inkscape|sodipodi|adobe/i.test(a.namespaceURI||''))addSvg(node,a,a.name,a.localName,{protected:/inkscape|sodipodi|adobe/.test(a.namespaceURI||'')});
+        }
+        if(insideMeta&&/^(RDF|Description|Work|xmpmeta)$/i.test(name))for(const a of node.attributes){
+          if(a.namespaceURI==='http://www.w3.org/2000/xmlns/'||a.namespaceURI==='http://www.w3.org/1999/02/22-rdf-syntax-ns#')continue;
+          const c2pa=/c2pa.org/.test(a.namespaceURI||'')||a.namespaceURI==='http://purl.org/dc/terms/'&&a.localName==='provenance';
+          const structured=a.localName==='DigitalSourceType'&&/iptc.org/.test(a.namespaceURI||'')&&/trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia/.test(a.value);
+          addSvg(node,a,a.name,a.localName,{...E.classify(a.value,a.localName,structured),c2pa});
+        }
+        if(insideMeta&&name!=='metadata'&&!/^(RDF|Description|Work|xmpmeta)$/i.test(name)){
+          // The outer property is the removal unit; RDF list children stay inside it.
+          const p=node.parentNode;if(p.localName==='metadata'||/^(RDF|Description|Work|xmpmeta)$/i.test(p.localName)){
+            addSvg(node,null,node.nodeName,node.localName);
+          }
+        }
+        if(name==='metadata')WM.preserved.push('Document · metadata container — structure preserved; reportable properties are listed separately');
+      }else if(node.nodeType===8||node.nodeType===7){
+        let p=node.parentElement,skip=false;while(p&&p!==doc){if(/^(text|tspan|textPath|title|desc|style|script)$/.test(p.localName)||meta.has(p)){skip=true;break}p=p.parentElement}
+        if(!skip)addSvg(node,null,node.nodeType===8?'XML comment':'Processing instruction',node.nodeType===8?'comment':node.target);
+      }
+      node=walker.nextNode();if(n%100===0){await E.tick();if(WM.truncated)break}
+    }
+    WM.images=images.length;wmProgress();
+    for(let i=0;i<images.length;i++){
+      await E.tick();const image=images[i],source=(image.id?'#'+image.id:'Image '+(i+1)),href=image.getAttributeNode('href'),xlink=image.getAttributeNodeNS(NS.xlink,'href'),attr=href||xlink;
+      if(!attr){wmRow(E.unknown('Image reference','No image data'),{node:image,kind:'image'},source,'Unknown')}
+      else if(!/^data:/i.test(attr.value)){wmRow(E.unknown('External image','External image — not inspected; never fetched'),{node:image,kind:'image'},source,'External')}
+      else{
+        const target={node:image,kind:'image',ns:attr.namespaceURI,local:attr.localName,name:attr.name,uriLength:attr.value.length};
+        try{const result=await job.call('inspect',attr.value);E.check();target.fingerprint=result.fingerprint;target.mime=result.mime;
+          target.uriFingerprint=result.uriFingerprint;
+          if(href&&xlink&&href.value!==xlink.value){result.complete=false;result.findings.push(E.unknown('Alternate xlink:href','Conflicting href / xlink:href; alternate payload not inspected'));for(const f of result.findings){f.cleanable=false;f.reason='Conflicting image references'}}
+          if(href&&xlink&&href.value===xlink.value)target.alternate={ns:xlink.namespaceURI,local:xlink.localName,name:xlink.name};
+          result.complete&&WM.inspected++;for(const f of result.findings)wmRow(f,target,source,result.format);for(const p of result.preserved)WM.preserved.push(source+' · '+p);
+        }catch(e){E.check();wmRow(E.unknown('Image data',e.message),target,source,'Unknown')}
+      }
+      WM.processed=i+1;wmProgress();if(WM.truncated){wmRow(E.unknown('Finding limit','Remaining images not inspected'),null);break}
+    }
+    E.check();if(WM.truncated&&WM.rows.length)WM.rows[WM.rows.length-1]={...E.unknown('Finding limit','Results truncated at '+L.findings+' items; remaining content not inspected'),id:L.findings-1,source:'Document',format:'SVG',target:null};
+    WM.elapsed=performance.now()-t0;WM.completed=true;WM.state='complete';WM.message='';
+  }catch(e){if(WM.doc===doc&&WM.rev===revision&&WM.job===job){WM.rows=[];WM.preserved=[];WM.state=job.cancelled?'cancelled':'failed';WM.message=e.message}}
+  finally{job.close();if(WM.job===job)WM.job=null;if(WM.doc===doc&&WM.rev===revision)wmRender()}
+}
+function wmMsg(t,bad){const s=$('mWmS');s.textContent=t||'';s.classList.toggle('bad',!!bad)}
+function wmProgress(){const p=$('mWmProgress');if(!p)return;wmMsg(WM.images?'Scanning document… '+WM.processed+' / '+WM.images+' images':'Scanning document…');if(WM.images){p.max=WM.images;p.value=WM.processed}else p.removeAttribute('value')}
+function wmTextDetails(parent,text){
+  const pre=el('pre','wm-evidence',text.slice(0,1600));parent.append(pre);if(text.length>1600){const more=btn('Show full metadata ('+text.length.toLocaleString()+' characters)',()=>{pre.textContent=text;more.remove()});parent.append(more)}
+}
+const WMCOV='Only the data still present in the open SVG can be inspected. Opening keeps the live SVG plus comments and processing instructions before the root, but drops DOCTYPE, entity declarations and trailing source nodes; importing can drop document metadata and comments. Placing a PNG or JPEG keeps its exact bytes, while other image formats may already have been converted. Anything discarded before this point can no longer be examined.';
+function wmStats(rows=WM.rows){const inc=rows.filter(f=>f.ruleId==='incomplete'),meta=rows.filter(f=>f.ruleId!=='incomplete'),prov=meta.filter(f=>f.ruleId!=='metadata'),c2=meta.filter(f=>f.ruleId==='c2pa');return{rows,inc,meta,prov,c2}}
+function wmRender(){
+  if(!WM)return;const body=$('mWmB');body.replaceChildren();wmMsg(WM.message);
+  if(WM.review)return wmRenderReview(body);
+  const scanning=WM.state==='scanning',stale=WM.state==='outdated';
+  if(WM.state==='empty')body.append(el('p',0,'Check SVG metadata and embedded PNG/JPEG provenance information.'),el('p','wm-muted','Metadata inspection only. No files are uploaded.'));
+  const actions=el('div','wm-actions'),scan=btn(WM.completed?'Rescan':'Scan Document',wmScan);scan.className='pri';scan.disabled=!root||scanning;actions.append(scan);scanning&&actions.append(btn('Cancel',wmCancel));body.append(actions);
+  const stTxt=({scanning:'Scanning document…',outdated:'Results outdated — rescan required',cancelled:'Scan cancelled',failed:'Scan failed'})[WM.state];
+  stTxt&&body.append(el('p','wm-status',stTxt));
+  if(scanning){const p=el('progress');p.id='mWmProgress';p.setAttribute('aria-label','Images processed');body.append(p);wmProgress()}
+  if(WM.completed&&!scanning){
+    const st=wmStats(),cleanable=st.rows.some(f=>f.cleanable),not=st.inc.length?' · '+st.inc.length+' not inspected':'';
+    const head=el('p','wm-head',st.meta.length?st.meta.length+(st.meta.length>1?' metadata findings':' metadata finding')+not:'No metadata indicators found'+not);head.id='mWmStatus';head.setAttribute('role','status');body.append(head);
+    const bits=[];
+    st.prov.length&&bits.push(st.prov.length+' provenance indicators');
+    st.c2.length&&bits.push(st.c2.length+' C2PA');
+    st.meta.length>st.prov.length&&bits.push(st.meta.length-st.prov.length+' general metadata');
+    WM.images&&bits.push(WM.inspected+' of '+WM.images+' images inspected');
+    bits.length&&body.append(el('p','wm-summary',bits.join(' · ')));
+    if(!st.meta.length&&!st.inc.length)body.append(el('p','wm-muted','No relevant metadata was found in the content inspected.'));
+    body.append(el('p','wm-muted','Only available document data is inspected; this does not rule out visual or pixel-level watermarks.'));
+    if(cleanable){const clean=btn('Clean Selected',wmReview);clean.id='mWmClean';clean.className='pri';clean.disabled=stale||!WM.selected.size;body.append(clean)}
+    const groups=new Map();for(const f of WM.rows){const key=f.target?.kind==='image'?f.target.node:'document';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(f)}
+    for(const rows of groups.values()){
+      const g=el('details','wm-group');g.open=groups.size<5;g.append(el('summary',0,rows[0].source+' · '+rows.length));
+      for(const f of rows)g.append(wmRowUI(f,stale));body.append(g);
+    }
+    if(WM.preserved.length){const p=el('details','wm-group');p.append(el('summary',0,'Preserved information ('+WM.preserved.length+')'));wmTextDetails(p,WM.preserved.join('\n'));body.append(p)}
+    const adv=el('details','wm-group'),cov=el('details'),eng=el('details'),lim=el('details'),ack=el('details'),ap=el('p','wm-muted'),
+      link=(n,u)=>{const a=el('a',0,n);a.href=u;a.target='_blank';a.rel='noopener noreferrer';return a};
+    cov.append(el('summary',0,'Source coverage'),el('p','wm-muted',WMCOV));
+    eng.append(el('summary',0,'Engine'),el('p','wm-muted',WM.execution+' · '+Math.round(WM.elapsed)+' ms · SVG, PNG and JPEG metadata · C2PA signatures are not validated.'));
+    lim.append(el('summary',0,'Technical limitations'),el('p','wm-muted','No pixel-level (including SynthID), statistical, steganographic or visible-logo watermark detection, no OCR, no way to prove how an image was produced, and no C2PA signature validation. A negative result proves nothing.'));
+    ap.append(document.createTextNode('Independent implementation informed by '),link('watermarks-remover','https://github.com/guillaumemeyer/watermarks-remover'),document.createTextNode(' and '),link('unmark-web','https://github.com/ivanusto/unmark-web'),document.createTextNode(' (both MIT).'));
+    ack.append(el('summary',0,'Acknowledgements'),ap);
+    adv.append(el('summary',0,'Advanced details'),cov,eng,lim,ack);body.append(adv);
+  }
+}
+function wmRowUI(f,stale){
+  const row=el('div','wm-row'),title=el('div','wm-row-title');
+  if(f.cleanable){const c=el('input');c.type='checkbox';c.checked=WM.selected.has(f.id);c.disabled=stale;c.setAttribute('aria-label','Select '+f.title+' in '+f.source);
+    c.onchange=()=>{c.checked?WM.selected.add(f.id):WM.selected.delete(f.id);const b=$('mWmClean');b&&(b.disabled=stale||!WM.selected.size)};title.append(c)}
+  title.append(el('strong',0,f.title));
+  const tags=el('div','wm-tags'),chip=(t,c)=>tags.append(el('span',c?'wm-tag '+c:'wm-tag',t));
+  chip(f.format);chip(f.label+(f.tier==='B'?' · low confidence':''),f.ruleId==='c2pa'?'w':f.tier==='A'?'a':0);chip(f.cleanable?f.protected?'Protected':'Cleanable':'Not cleanable');
+  const d=el('details');d.append(el('summary',0,'Details'));wmTextDetails(d,f.details||f.summary);
+  row.append(title,tags,el('p','wm-muted',f.cleanable?f.summary:'Not cleanable — '+(f.reason||f.summary)),d);
+  if(f.target?.kind==='image'){const l=btn('Locate',()=>wmLocate(f));l.disabled=stale;row.append(l)}
+  return row;
+}
+function wmLocate(f){
+  if(wmStale())return;const image=f.target.node,current=image.getAttributeNS(f.target.ns||null,f.target.local||'href');if(!root.contains(image)||f.target.uriFingerprint&&WM.engine.strfp(current||'')!==f.target.uriFingerprint){WM.state='outdated';wmRender();return}
+  let candidates=[image];
+  if(image.closest('defs,symbol')){
+    const ids=new Set();for(let p=image;p&&p!==root;p=p.parentNode)if(p.id)ids.add(p.id);
+    candidates=[...root.getElementsByTagName('use')].filter(u=>{const h=u.getAttribute('href')||u.getAttributeNS(NS.xlink,'href');return h?.startsWith('#')&&ids.has(h.slice(1))&&!u.closest('defs,symbol')});
+  }
+  candidates=candidates.filter(e=>!e.closest('defs,pattern,mask,clipPath,marker,symbol')&&e.getClientRects().length&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden');
+  if(!candidates.length)return wmMsg('Not displayed on canvas — see Details.',1)
+  const e=candidates[(f.locateIndex||0)%candidates.length];f.locateIndex=(f.locateIndex||0)+1;
+  const b=memoize(()=>bbox(e));if(!b||!b.w||!b.h)return wmMsg('Not displayed on canvas — see Details.',1)
+  // Pan with the existing document-coordinate bbox; leave the user's selection untouched.
+  const [x,y]=toS({x:b.x+b.w/2,y:b.y+b.h/2});tx+=view.clientWidth*.35-x;ty+=view.clientHeight/2-y;place();
+  $('mWmMark')?.remove();const r=e.getBoundingClientRect(),mark=el('div','wm-mark');mark.id='mWmMark';mark.setAttribute('aria-hidden','true');Object.assign(mark.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});document.body.append(mark);
+  if(mark.animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches)mark.animate([{opacity:1},{opacity:1,offset:.8},{opacity:0}],{duration:2500}).finished.then(()=>mark.remove()).catch(()=>mark.remove());else setTimeout(()=>mark.remove(),2500);
+  const t='Located '+f.source+(candidates.length>1?' · instance '+((f.locateIndex-1)%candidates.length+1)+' of '+candidates.length:'')+'.';wmMsg(t);$('mMsg').textContent=t;
+}
+function wmReview(){
+  if(wmStale())return;const rows=WM.rows.filter(f=>WM.selected.has(f.id)&&f.cleanable);if(!rows.length)return;
+  WM.review={rows,opt:false};wmRender();
+}
+function wmRenderReview(body){
+  const rows=WM.review.rows,protectedRows=rows.filter(f=>f.protected),provenance=rows.some(f=>f.label!=='Metadata');
+  body.append(el('h3',0,'Review cleaning'),el('p',0,'Only the selected entries are removed; an entire PNG chunk or JPEG segment goes, with every field shown in Details. Undo restores them.'));
+  for(const f of rows){const d=el('details','wm-group');d.append(el('summary',0,f.source+' · '+f.title+(f.range?' · bytes '+f.range.offset+'–'+(f.range.offset+f.range.length-1):'')));wmTextDetails(d,f.details);body.append(d)}
+  body.append(el('p','wm-muted','Preserved: pixels, dimensions, transparency, colour profiles, DPI, Orientation, animation, all unselected metadata, and all SVG geometry, text and references.'));
+  if(provenance)body.append(el('p','wm-warning','Removing metadata erases machine-readable provenance only; it does not change how the figure was made. Follow your journal’s or institution’s AI-disclosure rules.'));
+  const confirm=btn('Confirm Clean',wmClean);confirm.id='mWmConfirm';confirm.className='pri';confirm.disabled=!!protectedRows.length||!!WM.job;
+  if(protectedRows.length){body.append(el('p','wm-warning','Protected information selected: author, copyright, licence, provenance or editor round-trip data may be lost; with C2PA present, any byte change can break its binding.'));
+    const label=el('label','wm-opt'),opt=el('input');opt.type='checkbox';opt.onchange=()=>{WM.review.opt=opt.checked;confirm.disabled=!opt.checked||!!WM.job};label.append(opt,document.createTextNode(' Allow removal of the selected protected information.'));body.append(label)}
+  const buttons=el('div','wm-actions');buttons.append(confirm,btn('Cancel',()=>{if(WM.job)wmCancel();else{WM.review=null;wmRender()}}));body.append(buttons);
+}
+async function wmClean(){
+  if(!WM.review||WM.job||wmStale())return;const rows=WM.review.rows;if(rows.some(f=>f.protected)&&!WM.review.opt)return;
+  const job=wmJob(),doc=root,revision=dv,edits=[],images=new Map(),cached=new Map();WM.job=job;$('mWmConfirm').disabled=true;
+  try{
+    for(const f of rows){const t=f.target;if(!t||!root.contains(t.node))throw Error('Target removed — rescan required');
+      if(t.kind==='image'){let item=images.get(t.node);if(!item)images.set(t.node,item={target:t,ranges:[]});item.ranges.push(f.range)}
+      else{if(WM.engine.strfp(wmTargetValue(t))!==t.fingerprint)throw Error('SVG metadata changed — rescan required');edits.push({target:t})}
+    }
+    for(const {target:t,ranges} of images.values()){
+      const uri=t.node.getAttributeNS(t.ns,t.local);if(uri==null||uri.length!==t.uriLength)throw Error('Image changed — rescan required');
+      if(t.alternate&&t.node.getAttributeNS(t.alternate.ns,t.alternate.local)!==uri)throw Error('Alternate image reference changed');
+      const key=uri+'\n'+ranges.map(x=>x.offset+':'+x.length).sort().join(',');let next=cached.get(key);
+      if(!next){const result=await job.call('clean',uri,t.fingerprint,ranges),b=new Uint8Array(result.buffer);let encoded='';
+        for(let i=0;i<b.length;i+=49152){if(job.cancelled)throw Error('Scan cancelled');encoded+=btoa(String.fromCharCode(...b.subarray(i,i+49152)));await new Promise(r=>setTimeout(r,0))}
+        next='data:'+t.mime+';base64,'+encoded;cached.set(key,next)}
+      edits.push({target:t,next,old:uri});
+    }
+    if(job.cancelled||root!==doc||dv!==revision||wmStale())throw Error('Results outdated — rescan required');
+    for(const edit of edits){const t=edit.target;if(!root.contains(t.node))throw Error('Target detached');if(t.kind==='image'){if(t.node.getAttributeNS(t.ns,t.local)!==edit.old)throw Error('Image changed')}else if(WM.engine.strfp(wmTargetValue(t))!==t.fingerprint)throw Error('Metadata changed')}
+    // Preparation above is read-only. Apply synchronously; reuse the existing rollback/history primitives.
+    flush();const start=pend.length,records=pend,before={undos:undos.slice(),redos:redos.slice(),dirty,dv,svn,why};
+    try{for(const {target:t,next} of edits){if(t.kind==='image'){t.node.setAttributeNS(t.ns,t.name,next);if(t.alternate)t.node.setAttributeNS(t.alternate.ns,t.alternate.name,next)}else if(t.kind==='attr')t.node.removeAttributeNS(t.ns,t.local);else t.node.remove()}
+      flush();why='Clean Metadata';commit();
+    }catch(e){flush();const rollback=records.slice(start).concat(pend===records?[]:pend);revert(rollback);mo.takeRecords();pend=records.slice(0,start);undos=before.undos;redos=before.redos;dirty=before.dirty;dv=before.dv;svn=before.svn;why=before.why;refresh();throw e}
+    WM.review=null;WM.state='outdated';WM.selected.clear();WM.message='Cleaned '+rows.length+' items. Rescan to verify.';
+  }catch(e){if(WM.doc===doc){WM.review=null;WM.message='Nothing was cleaned: '+e.message;WM.state=dv===revision?'complete':'outdated'}}
+  finally{job.close();if(WM.job===job)WM.job=null;wmRender()}
+}
+/* End Watermark Inspector. */
 const A={
-  new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
+  watermark:wmOpen,new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
   svg:save,p300:()=>png(300),p600:()=>png(600),j300:()=>png(300,1),j600:()=>png(600,1),pdf,
   undo:()=>undo(0),redo:()=>undo(1),group,ungroup,copy:copyOut,paste:()=>paste(),del,fit,
   bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),
@@ -2015,7 +2479,7 @@ $('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.f
 const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥'):s;let kC=[],kR=[],kI=0,kM='';
 $('mKb').lastChild.replaceChildren(...[MAC?'⌘':'Ctrl','K'].map(t=>el('span',0,t)));MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H');
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\{]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled,id:b.dataset.a?'a'+b.dataset.a:'t'+b.dataset.t});
-  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
+  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme'],['watermark','Inspect watermarks and metadata (beta)']])ad('General',qa(a),n,a==='help'?'?':'');
   {const dv=vOf(drawTo()),cb=(a,n,f,t)=>{const b=el('button');b.dataset.a=a;b.title=t||'';b.onclick=f;b.append(kIc('chat'));return ad('SVG Chat',b,n,''),b};
     for(const q of REG)for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);cb('m:'+v,'Draw with '+m.n,()=>pickM(v,1),h?'':`${q.add||'Add a key'} under Models and keys first`).classList.toggle('on',h&&v===dv)}cb('mConn','Models and keys…',()=>openConn())}
   for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
@@ -2029,7 +2493,7 @@ const kRc=()=>{try{return JSON.parse(ls('sgRecent')||'[]')}catch(_){return[]}};
 function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEach((c,i)=>c.g in gi||(gi[c.g]=i));
   if(!q){kR=[...kRc().map(id=>kC.find(c=>c.id===id)).filter(Boolean).map(c=>({c:{...c,g:'Recent'},i:-1,s:1})),...kC.map((c,i)=>({c,i,s:1}))];kI=0;return kDraw()}
   kR=kC.map((c,i)=>({c,i,s:q?kSc(c,q):1})).filter(x=>x.s);kR.forEach(x=>gm[x.c.g]=max(gm[x.c.g]||0,x.s));kR.sort((a,b)=>gm[b.c.g]-gm[a.c.g]||gi[a.c.g]-gi[b.c.g]||b.s-a.s||a.i-b.i);kI=0;kDraw()}
-const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',
+const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',watermark:'M2 5.5V2h3.5M10.5 2H14v3.5M14 10.5V14h-3.5M5.5 14H2v-3.5M5.9 5.9a2.55 2.55 0 1 0 3.6 3.6 2.55 2.55 0 0 0-3.6-3.6zM9.9 9.9 12 12',
   new:'M3.5 1.5h6l3 3v10h-9zM9.5 1.5v3h3M8 7v5M5.5 9.5h5',open:'M1.5 13V3h4L7 4.5h5.5V7M1.5 13l2-6h11l-2 6z',imp:'M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5|M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z',
   svg:'M2.5 2.5h9l2 2v9h-11zM5 2.5V6h5V2.5M5 13.5v-4h6v4',svgAs:'M8 13.5H2.5v-11h9l2 2V7M5 2.5V6h5V2.5M9 14.5l.5-2 4-4 1.5 1.5-4 4z',png:'M9.5 3h-8v10h11V8.5M1.5 11l3-3 2.5 2.5 2-2 3 3M11 1.5h3.5V5M14.5 1.5 10 6',
   pdf:'M4.5 6V1.5h7V6M4.5 11.5h-3V6h13v5.5h-3M4.5 9.5h7v5h-7z',undo:'M5 3 2 6l3 3M2 6h7.5a3.5 3.5 0 0 1 0 7H7',redo:'M11 3l3 3-3 3M14 6H6.5a3.5 3.5 0 0 0 0 7H9',copy:'M5.5 5.5h8v8h-8zM10.5 5.5v-3h-8v8h3',

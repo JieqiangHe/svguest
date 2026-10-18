@@ -157,24 +157,20 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mFg,#mWm{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
 #mFg header,#mWm header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden]{display:none}#mFg .kv{grid-template-columns:58px minmax(0,1fr)}#mFg h5{margin:6px 0 0;font-size:11.5px;font-weight:600}#mFg .pph{margin:2px 0 0;line-height:1.4}#mFg .pu{font-style:normal;color:var(--t3)}
-.fgc{display:flex;align-items:center;gap:6px;color:var(--h4);cursor:pointer}#mFgI{margin:0 0 6px}#mFg .kv .f.c:not(:has(.hx)){flex:none;width:36px}#mFg .pri,#mWm .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mFg .pri:hover,#mWm .pri:hover{background:var(--fg);opacity:.85}
+.fgc{display:flex;align-items:center;gap:6px;color:var(--h4);cursor:pointer}#mFgI{margin:0 0 6px}#mFg .kv .f.c:not(:has(.hx)){flex:none;width:36px}#mFg .pri,#mWm .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mFg .pri:not(:disabled):hover,#mWm .pri:not(:disabled):hover{background:var(--fg);opacity:.85}
 #mFgS,#mWmS{margin:8px -8px -8px;padding:4px 8px;min-height:22px;border-top:1px solid var(--h4b);color:var(--h4);font-size:11px;line-height:1.4}#mFgS.bad,#mWmS.bad{color:#e5534b}
 #mFgM{max-height:110px;overflow:auto;font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums}#mFgM div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fgp{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}.fgp button{height:22px;padding:0;border-radius:5px;box-shadow:inset 0 0 0 1px var(--btnb)}
 #mFgC{display:flex;flex-direction:column;gap:3px}#mFgC>div{display:grid;grid-template-columns:12px 30px 46px 46px minmax(0,1fr);gap:4px;align-items:center}#mFgC b{color:var(--h4)}#mFgC input[type=number]{width:100%;min-width:0;height:22px}#mFgC input[type=color]{width:30px;height:22px}#mFgC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}
 
 /* Watermark Inspector: the window shares the FigKit rules above. */
-#mWmX{margin-left:auto}#mWmB h3{font-size:13px;margin:2px 0 8px}
-#mWmB p{margin:6px 0}#mWmB .wm-muted{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;gap:7px;margin:12px 0}#mWmB .wm-status,#mWmB .wm-head{font-weight:600;margin:4px 0 6px}
-#mWmB .wm-summary{margin:8px 0;padding:6px 9px;background:var(--btn);border-radius:6px;font-size:11px;color:var(--h4)}
-#mWmB .wm-group{margin-top:8px;border-top:1px solid var(--h4b);padding-top:6px}#mWmB summary{cursor:pointer;color:var(--h4);font-size:12px}
-#mWmB .wm-row{padding:8px 0;border-bottom:1px solid var(--h4b)}#mWmB .wm-row:last-child{border:0}
-#mWmB .wm-row-title{display:flex;gap:6px;align-items:baseline;overflow-wrap:anywhere}#mWmB .wm-row input[type=checkbox]{margin:0;flex:none}#mWmB .wm-row>button{margin:6px 0 0}
-#mWmB .wm-tags{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0 2px}#mWmB .wm-tag{padding:0 6px;border-radius:4px;font-size:10px;line-height:17px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb);color:var(--h4)}
-#mWmB .wm-tag.a{background:var(--on);color:var(--onfg);box-shadow:none}#mWmB .wm-tag.w{background:var(--wab);color:var(--wa);box-shadow:none}
-#mWmB .wm-evidence{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;background:var(--btn);padding:7px 8px;border-radius:6px;font:11px/1.5 ui-monospace,monospace;user-select:text}
-#mWmB .wm-warning{padding:7px 9px;background:var(--wab);border-left:2px solid var(--wa);border-radius:0 6px 6px 0}#mWmB .wm-opt{display:block;margin:10px 0}#mWmB .wm-opt input{margin-right:7px}
-#mWmB footer{border-top:1px solid var(--h4b);padding-top:10px;margin-top:14px}#mWmB a{color:var(--onb)}#mWm progress{width:100%;height:5px;accent-color:var(--onb)}#mWm :focus-visible{outline:2px solid var(--onb);outline-offset:2px}
+#mWm{width:min(420px,calc(100vw - 16px));display:flex;flex-direction:column;overflow:hidden;padding:0;outline:none}#mWm[hidden]{display:none}#mWm header{flex:none;position:static;margin:0;padding:10px 14px;touch-action:none;user-select:none}#mWm header b{font-size:13px}#mWm header button{line-height:24px}#mWmX{margin-left:auto}#mWm header button:hover{background:var(--btnh)}
+#mWmB{min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 16px;scrollbar-width:thin}#mWmB h3{font-size:14px;margin:0 0 4px}#mWmB p{margin:6px 0;overflow-wrap:anywhere}#mWmB .wm-muted,#mWmF small{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}#mWm button{min-height:28px;padding:3px 9px}#mWm header button{min-height:24px;padding:0 6px}
+#mWmB .wm-head{font-size:14px;font-weight:600;margin:0 0 4px}#mWmB .wm-result{padding:10px 12px;background:var(--btn);border:1px solid var(--btnb);border-radius:8px;margin:12px 0}#mWmB .wm-result p:first-child{margin-top:0}#mWmB .wm-result p:last-child{margin-bottom:0}#mWmB .wm-result.warn{border-left:3px solid var(--wa)}
+#mWmB .wm-group{margin-top:12px;border-top:1px solid var(--h4b);padding-top:10px}#mWmB summary{cursor:pointer;color:var(--h4);font-size:11px;overflow-wrap:anywhere}#mWmB .wm-group>summary{color:var(--fg);font-size:12px;font-weight:600;padding:2px 0}
+#mWmB .wm-row{padding:10px 0;border-bottom:1px solid var(--h4b)}#mWmB .wm-row:last-child{border:0}#mWmB .wm-row-title{display:flex;gap:8px;align-items:flex-start;overflow-wrap:anywhere;line-height:20px}#mWmB label.wm-row-title{cursor:pointer}#mWmB .wm-row input[type=checkbox]{margin:3px 0 0;flex:none;width:14px;height:14px}#mWmB .wm-row-title strong{flex:1;min-width:0}#mWmB .wm-row-info{padding-left:22px}#mWmB .wm-row-info>p{margin:3px 0 6px}#mWmB .wm-row:not(:has(input)) .wm-row-info{padding-left:0}#mWmB .wm-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px}#mWmB .wm-tools details{flex:1;min-width:0}#mWmB .wm-tools button{flex:none;font-size:11px;min-height:24px;padding:1px 7px}#mWmB .wm-tag{flex:none;padding:0 6px;border-radius:4px;font-size:10px;line-height:20px;background:var(--btn);color:var(--h4)}#mWmB .wm-tag.w{background:var(--wab);color:var(--wa)}
+#mWmB .wm-excerpt{padding:6px 8px;background:var(--btn);border-radius:5px;font-size:11px}#mWmB .wm-evidence{white-space:pre-wrap;overflow-wrap:anywhere;max-height:200px;overflow:auto;background:var(--btn);padding:8px;border:1px solid var(--btnb);border-radius:6px;font:11px/1.5 ui-monospace,monospace;user-select:text;-webkit-user-select:text}#mWmB .wm-warning{padding:8px 10px;background:var(--wab);border-left:2px solid var(--wa);border-radius:0 6px 6px 0}#mWmB .wm-opt{display:flex;align-items:flex-start;gap:8px;margin:12px 0}#mWmB .wm-opt input{flex:none;margin:3px 0}
+#mWmF{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;border-top:1px solid var(--h4b)}#mWmF:empty{display:none}#mWmF .wm-pick{display:flex;flex-direction:column;align-items:flex-start;gap:2px}#mWm #mWmSelect{padding:0;border:0;background:none;min-height:18px;font-size:11px;color:var(--onb)}#mWmS{flex:none;min-height:0;margin:0;padding:8px 16px;border-top:1px solid var(--h4b);overflow-wrap:anywhere}#mWmS:empty{display:none}#mWmB a{color:var(--onb)}#mWm progress{width:100%;height:5px;accent-color:var(--onb)}#mWm :focus-visible{outline:2px solid var(--onb);outline-offset:2px}
 #mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
 .wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
 </style>
@@ -384,7 +380,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p class="ft">Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data in the browser deletes them. File › Auto-save turns the copies of open files on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick, with your permission.</p>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
-<div id="mWm" hidden tabindex="-1"><header><b>Watermark</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close">×</button></header><div id="mWmB"></div><div id="mWmS"></div></div>
+<div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
 <script>
 'use strict';
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
@@ -493,7 +489,7 @@ const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='chi
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
-function commit(){ed&&(ed.mrk=null);lnk();fgSync();flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
@@ -1977,13 +1973,14 @@ function wmEngine() {
     const f={title,details:text,...classify(text,key),range,cleanable:true};
     if(critical.test(key+' '+text)){f.cleanable=false;f.reason='Contains possible rendering-critical fields'}
     // XMP namespaces may use arbitrary prefixes. Detect the namespace URI, not a particular prefix.
-    if(/http:\/\/purl.org\/dc\/terms\//.test(text)&&/provenance/.test(text))Object.assign(f,{ruleId:'c2pa',label:'C2PA indicator',tier:'A',protected:true,summary:'Remote provenance reference present — not validated; never fetched.'});
+    const provenance=/http:\/\/purl.org\/dc\/terms\//.test(text)&&/provenance/.test(text);
     const tool=/(?:\bCreatorTool\s*=\s*['"]([^'"]{1,2048})['"]|<(?:[\w.-]+:)?CreatorTool(?:\s[^>]*)?>([^<]{1,2048})<)/.exec(text);
     if(tool&&/http:\/\/ns.adobe.com\/xap\/1.0\//.test(text)&&ai.test(tool[1]||tool[2]))Object.assign(f,classify(text,key,true));
     const source=/(?:\bDigitalSourceType\s*=\s*['"]([^'"]{1,2048})['"]|<(?:[\w.-]+:)?DigitalSourceType(?:\s[^>]*)?>([^<]{1,2048})<)/.exec(text);
     if(source&&/http:\/\/iptc.org\/std\/Iptc4xmpExt\//.test(text)&&/^http:\/\/cv.iptc.org\/newscodes\/digitalsourcetype\/(?:trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia)$/.test((source[1]||source[2]).trim()))Object.assign(f,classify(text,key,true));
     if(/HasExtendedXMP/.test(text)){f.cleanable=false;f.reason='References Extended XMP; reassembly is unsupported'}
     if(/<!DOCTYPE|<!ENTITY/i.test(text)){f.cleanable=false;f.reason='XML declarations are not inspected'}
+    if(provenance)Object.assign(f,{ruleId:'c2pa',label:'C2PA indicator',tier:'A',protected:true,cleanable:false,reason:'Source reference preserved; its binding is not validated',summary:'Remote provenance reference present — not validated; never fetched.'});
     return f;
   }
   function exif(b,range){
@@ -2067,7 +2064,7 @@ function wmEngine() {
     else if(b[0]===255&&b[1]===216)r=await jpeg(b);else throw Error('Unsupported image magic bytes (PNG/JPEG only)');
     // Incomplete image inspection may hide orientation, provenance bindings, or offsets.
     if(!r.complete)for(const f of r.findings)if(f.cleanable){f.cleanable=false;f.reason='Image not fully inspected; preserved'}
-    r.c2pa=r.c2pa||r.findings.some(f=>f.label==='C2PA indicator');if(r.c2pa)for(const f of r.findings)f.protected=true;
+    r.c2pa=r.c2pa||r.findings.some(f=>f.ruleId==='c2pa');if(r.c2pa){r.complete=false;for(const f of r.findings){f.protected=true;if(f.cleanable){f.cleanable=false;f.reason='Source record present; image bytes are preserved'}}}
     return r;
   }
   async function inspect(uri){const d=await decode(uri),hits=cache.get(d.fingerprint)||[];let r=hits.find(x=>eq(x.b,d.b))?.result;
@@ -2097,24 +2094,28 @@ function wmEngine() {
 var WM=null;
 function wmOpen(){
   if(!WM){WM={doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),engine:null,job:null};
-    const d=$('mWm');d.onkeydown=e=>{if(e.key!=='Escape')return;e.preventDefault();const a=document.activeElement;a&&a!==d&&d.contains(a)?d.focus():wmClose()};
-    d.querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;const h=e.currentTarget,dx=e.clientX-d.offsetLeft,dy=e.clientY-d.offsetTop;h.setPointerCapture(e.pointerId);
-      h.onpointermove=m=>{d.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';d.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
-    $('mWmX').onclick=wmClose;
+    const d=$('mWm');d.onkeydown=e=>{if(e.isComposing||e.keyCode===229)return;e.stopPropagation();if(e.key==='Escape'){e.preventDefault();wmClose()}};
+    d.addEventListener('paste',e=>e.stopPropagation());
+    d.addEventListener('mousedown',e=>{if(!e.target.closest('button,input,summary,a,.wm-evidence')){e.preventDefault();d.focus({preventScroll:true})}});
+    d.querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;e.preventDefault();d.focus({preventScroll:true});const h=e.currentTarget,dx=e.clientX-d.offsetLeft,dy=e.clientY-d.offsetTop;h.setPointerCapture(e.pointerId);
+      h.onpointermove=m=>wmPlace(m.clientX-dx,m.clientY-dy);h.onpointerup=h.onpointercancel=h.onlostpointercapture=()=>h.onpointermove=null};
+    $('mWmX').onclick=wmClose;addEventListener('resize',()=>!d.hidden&&wmPlace());
   }
-  const d=$('mWm');if(d.hidden){d.hidden=false;if(!d._p){const r=view.getBoundingClientRect();d.style.left=max(8,r.right-d.offsetWidth-34)+'px';d.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';d._p=1}}
-  d.focus();wmLife();wmRender();
+  const d=$('mWm'),first=!d._p;d.hidden=false;wmLife();wmRender();
+  if(first){const r=view.getBoundingClientRect();wmPlace(r.right-d.offsetWidth-34,r.top+(opts.rulers?RW:0)+8);d._p=1}else wmPlace();
+  d.focus({preventScroll:true});
 }
+function wmPlace(x=$('mWm').offsetLeft,y=$('mWm').offsetTop){const d=$('mWm');d.style.maxHeight=max(80,innerHeight-16)+'px';const top=max(8,min(innerHeight-d.offsetHeight-8,y));d.style.left=max(8,min(innerWidth-d.offsetWidth-8,x))+'px';d.style.top=top+'px';d.style.maxHeight=max(80,innerHeight-top-8)+'px'}
 function wmClose(){if(WM?.job)wmCancel();$('mWm').hidden=true;$('mWmMark')?.remove();document.querySelector('[data-a=watermark]').focus()}
 function wmLife(){
   if(!WM)return;
-  if(WM.doc!==root){WM.job?.cancel();Object.assign(WM,{doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),review:null,job:null,message:''});!$('mWm').hidden&&wmRender()}
+  if(WM.doc!==root){WM.job?.cancel();Object.assign(WM,{doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),review:null,job:null,message:'',notice:''});!$('mWm').hidden&&wmRender()}
   else if(WM.rev!==dv&&WM.state!=='empty'&&WM.state!=='outdated'){
-    WM.job?.cancel();WM.job=null;WM.state='outdated';WM.review=null;WM.selected.clear();!$('mWm').hidden&&wmRender();
+    WM.job?.cancel();WM.job=null;WM.state='outdated';WM.review=null;WM.selected.clear();WM.message=WM.notice='';!$('mWm').hidden&&wmRender();
   }
   $('mWmMark')?.remove();
 }
-function wmCancel(){if(!WM?.job)return;WM.job.cancel();WM.job=null;WM.completed=false;WM.rows=[];WM.preserved=[];WM.state='cancelled';WM.review=null;WM.selected.clear();wmRender()}
+function wmCancel(){if(!WM?.job)return;const clean=WM.job.mode==='clean';WM.job.cancel();WM.job=null;WM.review=null;if(clean){WM.state='complete';WM.message='Removal cancelled. No changes were made.'}else{WM.completed=false;WM.rows=[];WM.preserved=[];WM.state='cancelled';WM.selected.clear();WM.message=''}wmRender()}
 function wmJob(){
   const job={cancelled:false,worker:null,pending:null,engine:null,url:null};
   job.cancel=()=>{job.cancelled=true;job.worker?.terminate();job.worker=null;job.pending?.(Error('Scan cancelled'));job.pending=null;if(job.url)URL.revokeObjectURL(job.url)};
@@ -2123,16 +2124,17 @@ function wmJob(){
   try{
     const code='const E=('+wmEngine.toString()+')();E.begin();onmessage=async e=>{try{const q=e.data,r=await E[q.method](...q.args);postMessage({ok:true,result:r},r?.buffer?[r.buffer]:[])}catch(e){postMessage({ok:false,error:e.message})}};';
     job.url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));job.worker=new Worker(job.url);WM.execution='Inline Worker';
+    job.worker.onerror=e=>{e.preventDefault();job.unavailable=true;const x=Error('Worker unavailable');x.workerUnavailable=true;job.pending?.(x)};
   }catch(_){fallback()}
   job.call=async(method,...args)=>{
     if(job.cancelled)throw Error('Scan cancelled');
+    if(job.unavailable&&job.worker){job.worker.terminate();job.worker=null;fallback()}
     if(!job.worker)return job.engine[method](...args);
     try{return await new Promise((resolve,reject)=>{let timer;
       const done=(err,result)=>{clearTimeout(timer);job.pending=null;err?reject(err):resolve(result)};
       job.pending=err=>done(err);job.worker.onmessage=e=>e.data.ok?done(null,e.data.result):done(Error(e.data.error));
-      job.worker.onerror=e=>{e.preventDefault();const x=Error('Worker unavailable');x.workerUnavailable=true;done(x)};
       timer=setTimeout(()=>done(Error('Worker time limit reached')),WM.engine.L.milliseconds);job.worker.postMessage({method,args});
-    })}catch(e){if(e.workerUnavailable&&!job.cancelled){job.worker.terminate();job.worker=null;fallback();return job.engine[method](...args)}throw e}
+    })}catch(e){if(e.workerUnavailable&&!job.cancelled){job.worker?.terminate();job.worker=null;fallback();return job.engine[method](...args)}throw e}
   };
   return job;
 }
@@ -2146,14 +2148,15 @@ function wmRow(f,target,source='Document',format='SVG'){
   if(WM.rows.length>=WM.engine.L.findings){WM.truncated=true;return}
   const row={...f,target,source,format,id:WM.rows.length};WM.rows.push(row);return row;
 }
-async function wmScan(){
+async function wmScan(verify=false){
   if(!WM||WM.job)return;if(!root)return;
   if(ed||D||CR){WM.message='Finish the current edit before scanning.';wmRender();return}
   flush();if(pend.length){WM.message='Finish the current edit before scanning.';wmRender();return}
+  if(verify!==true)WM.notice='';
   WM.engine=wmEngine();WM.doc=root;WM.rev=dv;WM.state='scanning';WM.completed=false;WM.rows=[];WM.preserved=[];WM.selected.clear();WM.review=null;WM.message='';WM.truncated=false;WM.inspected=0;WM.processed=0;WM.images=0;WM.elapsed=0;
-  const E=WM.engine,L=E.L,job=wmJob(),doc=root,revision=dv,t0=performance.now();WM.job=job;E.begin(()=>job.cancelled||doc!==root||revision!==dv);wmRender();
+  const E=WM.engine,L=E.L,job=wmJob(),doc=root,revision=dv,t0=performance.now();job.mode='scan';WM.job=job;E.begin(()=>job.cancelled||doc!==root||revision!==dv);wmRender();
   try{
-    const images=[],meta=new WeakSet(),walker=document.createTreeWalker(doc,1|128|64);let node=doc,n=0,xmlBytes=0;
+    const images=[],meta=new WeakSet(),units=new WeakSet(),walker=document.createTreeWalker(doc,1|128|64);let node=doc,n=0,xmlBytes=0;
     const addSvg=(node,attr,title,key,extra={})=>{
       const target={kind:attr?'attr':'node',node,ns:attr?.namespaceURI||null,local:attr?.localName,name:attr?.name};
       let budget=attr?attr.value.length:0,subnodes=0;const fields=[];
@@ -2167,7 +2170,7 @@ async function wmScan(){
       if(value.length>L.metadata||xmlBytes>L.metadataTotal){wmRow(E.unknown(title,'SVG metadata size limit'),null);return}
       target.fingerprint=E.strfp(value);const classification=E.classify(value,key),f={title,details:value,...classification,cleanable:true,...extra};f.protected=f.protected||classification.protected;
       if(fields.length&&meta.has(node)){
-        if(fields.some(x=>/c2pa.org/.test(x.namespaceURI||'')||x.namespaceURI==='http://purl.org/dc/terms/'&&x.localName==='provenance'))extra.c2pa=true;
+        if(fields.some(x=>/c2pa\.org/.test(x.namespaceURI||'')||x.namespaceURI==='http://purl.org/dc/terms/'&&x.localName==='provenance'||[...x.attributes].some(a=>/c2pa\.org/.test(a.namespaceURI||'')||a.namespaceURI==='http://purl.org/dc/terms/'&&a.localName==='provenance')))extra.c2pa=true;
         if(fields.some(x=>x.localName==='DigitalSourceType'&&/iptc.org/.test(x.namespaceURI||'')&&/trainedAlgorithmicMedia|compositeWithTrainedAlgorithmicMedia|algorithmicMedia/.test(x.textContent+' '+[...x.attributes].map(a=>a.value).join(' '))))Object.assign(f,E.classify(value,key,true));
       }
       // Never remove IDs, referenced metadata subtrees or namespace declarations.
@@ -2181,6 +2184,7 @@ async function wmScan(){
     if(prolog){if(prolog.length>L.metadata)wmRow(E.unknown('Prolog','Source metadata size limit'),null);else wmRow({title:'Retained pre-root comments / processing instructions',details:prolog,...E.classify(prolog,'prolog'),cleanable:false,reason:'Stored outside the undoable SVG tree; inspect-only'},null)}
     while(node){
       if(++n>L.nodes){wmRow(E.unknown('Traversal limit','Remaining SVG nodes not inspected'),null);break}
+      if(units.has(node.parentNode)){units.add(node);node=walker.nextNode();if(n%100===0)await E.tick();continue}
       if(node.nodeType===1){
         const name=node.localName,ns=node.namespaceURI||'',insideMeta=name==='metadata'||meta.has(node.parentNode);if(insideMeta)meta.add(node);
         if(name==='image'&&ns===NS.svg&&!node.closest('foreignObject'))images.push(node);
@@ -2200,10 +2204,10 @@ async function wmScan(){
         if(insideMeta&&name!=='metadata'&&!/^(RDF|Description|Work|xmpmeta)$/i.test(name)){
           // The outer property is the removal unit; RDF list children stay inside it.
           const p=node.parentNode;if(p.localName==='metadata'||/^(RDF|Description|Work|xmpmeta)$/i.test(p.localName)){
-            addSvg(node,null,node.nodeName,node.localName);
+            units.add(node);addSvg(node,null,node.nodeName,node.localName);
           }
         }
-        if(name==='metadata')WM.preserved.push('Document · metadata container — structure preserved; reportable properties are listed separately');
+        if(name==='metadata'){WM.preserved.push('Document · metadata container — structure preserved; reportable properties are listed separately');for(const c of node.childNodes)if((c.nodeType===3||c.nodeType===4)&&c.data.trim())addSvg(c,null,'Metadata text','metadata')}
       }else if(node.nodeType===8||node.nodeType===7){
         let p=node.parentElement,skip=false;while(p&&p!==doc){if(/^(text|tspan|textPath|title|desc|style|script)$/.test(p.localName)||meta.has(p)){skip=true;break}p=p.parentElement}
         if(!skip)addSvg(node,null,node.nodeType===8?'XML comment':'Processing instruction',node.nodeType===8?'comment':node.target);
@@ -2232,59 +2236,66 @@ async function wmScan(){
   finally{job.close();if(WM.job===job)WM.job=null;if(WM.doc===doc&&WM.rev===revision)wmRender()}
 }
 function wmMsg(t,bad){const s=$('mWmS');s.textContent=t||'';s.classList.toggle('bad',!!bad)}
-function wmProgress(){const p=$('mWmProgress');if(!p)return;wmMsg(WM.images?'Scanning document… '+WM.processed+' / '+WM.images+' images':'Scanning document…');if(WM.images){p.max=WM.images;p.value=WM.processed}else p.removeAttribute('value')}
+function wmProgress(){const p=$('mWmProgress');if(!p)return;wmMsg(WM.images?'Checking images… '+WM.processed+' / '+WM.images:'Checking SVG metadata…');if(WM.images){p.max=WM.images;p.value=WM.processed}else p.removeAttribute('value')}
 function wmTextDetails(parent,text){
-  const pre=el('pre','wm-evidence',text.slice(0,1600));parent.append(pre);if(text.length>1600){const more=btn('Show full metadata ('+text.length.toLocaleString()+' characters)',()=>{pre.textContent=text;more.remove()});parent.append(more)}
+  const pre=el('pre','wm-evidence',text.slice(0,1600));pre.tabIndex=0;parent.append(pre);if(text.length>1600){const more=btn('Show full metadata ('+text.length.toLocaleString()+' characters)',()=>{pre.textContent=text;more.remove();pre.focus({preventScroll:true})});parent.append(more)}
 }
 const WMCOV='Only the data still present in the open SVG can be inspected. Opening keeps the live SVG plus comments and processing instructions before the root, but drops DOCTYPE, entity declarations and trailing source nodes; importing can drop document metadata and comments. Placing a PNG or JPEG keeps its exact bytes, while other image formats may already have been converted. Anything discarded before this point can no longer be examined.';
-function wmStats(rows=WM.rows){const inc=rows.filter(f=>f.ruleId==='incomplete'),meta=rows.filter(f=>f.ruleId!=='incomplete'),prov=meta.filter(f=>f.ruleId!=='metadata'),c2=meta.filter(f=>f.ruleId==='c2pa');return{rows,inc,meta,prov,c2}}
+function wmStats(rows=WM.rows){const inc=rows.filter(f=>f.ruleId==='incomplete'),meta=rows.filter(f=>f.ruleId!=='incomplete'),ai=meta.filter(f=>/^(ai-field|keyword)$/.test(f.ruleId)),c2=meta.filter(f=>f.ruleId==='c2pa'),other=meta.filter(f=>f.ruleId==='metadata');return{rows,inc,meta,ai,c2,other}}
+const wmSource=f=>f.source==='Document'?'SVG document':f.source.startsWith('#')?'Image '+f.source:f.source;
+function wmDescription(f){
+  if(f.ruleId==='ai-field')return['AI tool or generation settings','A tool name or generation field is stored in the file. This does not prove how the image was made.'];
+  if(f.ruleId==='keyword')return['AI-related text','An AI-related word appears in this metadata. Check its context in the raw data.'];
+  if(f.ruleId==='c2pa')return['Source record','Source or editing-history information was found. It may contain Content Credentials (C2PA); authenticity has not been verified.'];
+  if(f.ruleId==='incomplete'){const why=f.reason||f.summary;return['Content could not be checked',/external image/i.test(why)?'This image is linked to a file or URL. Embed a PNG or JPEG to check its metadata.':/unsupported image magic|non-base64/i.test(why)?'Only embedded PNG and JPEG metadata can be checked.':/limit|bomb/i.test(why)?'This item exceeded the inspection limits. It has been left unchanged.':'This content is unsupported, incomplete or could not be read. It has been left unchanged.']}
+  return[/comment/i.test(f.title)?'File comment':f.protected?'Author, licence or editor information':'Other file metadata','Descriptive information stored in the file. This is not evidence of a watermark.'];
+}
+function wmSelection(){
+  const count=WM.selected.size,b=$('mWmClean'),s=$('mWmCount'),all=$('mWmSelect');
+  if(b){b.disabled=WM.state==='outdated'||!count;b.textContent=count?'Review removal ('+count+')':'Review removal'}if(s)s.textContent=count+' selected';if(all){all.textContent=count?'Clear selection':'Select removable';all.disabled=WM.state==='outdated'||!count&&!WM.rows.some(f=>f.cleanable&&!f.protected)}
+}
 function wmRender(){
-  if(!WM)return;const body=$('mWmB'),w=body.parentNode;body.replaceChildren();wmMsg(WM.message);!w.hidden&&!w.contains(document.activeElement)&&w.focus();
-  if(WM.review)return wmRenderReview(body);
+  if(!WM)return;const body=$('mWmB'),w=body.parentNode,focused=w.contains(document.activeElement),foot=$('mWmF');body.replaceChildren();foot.replaceChildren();body.setAttribute('aria-busy',String(!!WM.job));wmMsg(WM.message||WM.notice);
+  const done=()=>{if(!w.hidden){wmPlace();if(focused&&!w.contains(document.activeElement))w.focus({preventScroll:true})}};
+  body.append(el('p','wm-muted','Checks hidden metadata in the SVG and its embedded PNG/JPEG images. Runs locally; nothing is uploaded.'));
+  const scope=el('p','wm-muted','Visible text, logos and watermarks hidden in pixels need a separate visual check.');scope.id='mWmScope';body.append(scope);
+  if(WM.review){wmRenderReview(body);done();return}
   const scanning=WM.state==='scanning',stale=WM.state==='outdated';
-  if(WM.state==='empty')body.append(el('p',0,'Check SVG metadata and embedded PNG/JPEG provenance information.'),el('p','wm-muted','Metadata inspection only. No files are uploaded.'));
-  const actions=el('div','wm-actions'),scan=btn(WM.completed?'Rescan':'Scan Document',wmScan);scan.className='pri';scan.disabled=!root||scanning;actions.append(scan);scanning&&actions.append(btn('Cancel',wmCancel));body.append(actions);
-  const stTxt=({scanning:'Scanning document…',outdated:'Results outdated — rescan required',cancelled:'Scan cancelled',failed:'Scan failed'})[WM.state];
-  stTxt&&body.append(el('p','wm-status',stTxt));
-  if(scanning){const p=el('progress');p.id='mWmProgress';p.setAttribute('aria-label','Images processed');body.append(p);wmProgress()}
+  const actions=el('div','wm-actions'),scan=btn(scanning?'Checking…':WM.completed||stale?'Check again':'Check document',()=>wmScan());scan.id='mWmScan';scan.className='pri';scan.disabled=!root||scanning;actions.append(scan);scanning&&actions.append(btn('Stop',wmCancel));body.append(actions);
+  const stTxt=({outdated:'Document changed. Check again before removing anything.',cancelled:'Check stopped. No changes were made by the check.',failed:'The check could not finish. Try again or inspect the file in its source app.'})[WM.state];
+  stTxt&&body.append(el('p','wm-warning',stTxt));
+  if(scanning){const p=el('progress');p.id='mWmProgress';p.setAttribute('aria-label','Checking metadata');body.append(p);wmProgress()}
   if(WM.completed&&!scanning){
-    const st=wmStats(),cleanable=st.rows.some(f=>f.cleanable),not=st.inc.length?' · '+st.inc.length+' not inspected':'';
-    const head=el('p','wm-head',st.meta.length?st.meta.length+(st.meta.length>1?' metadata findings':' metadata finding')+not:'No metadata indicators found'+not);head.id='mWmStatus';head.setAttribute('role','status');body.append(head);
-    const bits=[];
-    st.prov.length&&bits.push(st.prov.length+' provenance indicators');
-    st.c2.length&&bits.push(st.c2.length+' C2PA');
-    st.meta.length>st.prov.length&&bits.push(st.meta.length-st.prov.length+' general metadata');
-    WM.images&&bits.push(WM.inspected+' of '+WM.images+' images inspected');
-    bits.length&&body.append(el('p','wm-summary',bits.join(' · ')));
-    if(!st.meta.length&&!st.inc.length)body.append(el('p','wm-muted','No relevant metadata was found in the content inspected.'));
-    body.append(el('p','wm-muted','Only available document data is inspected; this does not rule out visual or pixel-level watermarks.'));
-    if(cleanable){const clean=btn('Clean Selected',wmReview);clean.id='mWmClean';clean.className='pri';clean.disabled=stale||!WM.selected.size;body.append(clean)}
-    const groups=new Map();for(const f of WM.rows){const key=f.target?.kind==='image'?f.target.node:'document';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(f)}
-    for(const rows of groups.values()){
-      const g=el('details','wm-group');g.open=groups.size<5;g.append(el('summary',0,rows[0].source+' · '+rows.length));
-      for(const f of rows)g.append(wmRowUI(f,stale));body.append(g);
+    const st=wmStats(),result=el('div','wm-result'+(st.inc.length?' warn':'')),head=el('p','wm-head',stale?'Previous check':st.ai.length?st.ai.length+' AI-related metadata '+(st.ai.length===1?'item':'items'):st.c2.length?'Source records found':st.inc.length?'Some content could not be checked':'No AI-related metadata found');
+    head.id='mWmStatus';head.setAttribute('role','status');result.append(head);
+    result.append(el('p','wm-muted','SVG metadata checked'+(WM.images?' · '+WM.inspected+' of '+WM.images+' images fully checked.':'. No embedded images.')));
+    if(st.c2.length)result.append(el('p','wm-muted',st.c2.length+' source '+(st.c2.length===1?'record':'records')+' kept. These records do not prove AI use.'));
+    if(st.inc.length)result.append(el('p','wm-muted',st.inc.length+' '+(st.inc.length===1?'item needs':'items need')+' a manual check below.'));
+    if(!st.rows.length)result.append(el('p','wm-muted','Nothing to remove from the data checked. This does not rule out a visual or pixel watermark.'));body.append(result);
+    for(const [title,rows,open] of [['AI-related metadata',st.ai,true],['Source records',st.c2,true],['Other metadata',st.other,false],['Not checked',st.inc,true]]){
+      if(!rows.length)continue;const g=el('details','wm-group');g.open=open;g.append(el('summary',0,title+' ('+rows.length+')'));for(const f of rows)g.append(wmRowUI(f,stale));body.append(g);
     }
-    if(WM.preserved.length){const p=el('details','wm-group');p.append(el('summary',0,'Preserved information ('+WM.preserved.length+')'));wmTextDetails(p,WM.preserved.join('\n'));body.append(p)}
-    const adv=el('details','wm-group'),cov=el('details'),eng=el('details'),lim=el('details'),ack=el('details'),ap=el('p','wm-muted'),
-      link=(n,u)=>{const a=el('a',0,n);a.href=u;a.target='_blank';a.rel='noopener noreferrer';return a};
-    cov.append(el('summary',0,'Source coverage'),el('p','wm-muted',WMCOV));
-    eng.append(el('summary',0,'Engine'),el('p','wm-muted',WM.execution+' · '+Math.round(WM.elapsed)+' ms · SVG, PNG and JPEG metadata · C2PA signatures are not validated.'));
-    lim.append(el('summary',0,'Technical limitations'),el('p','wm-muted','No pixel-level (including SynthID), statistical, steganographic or visible-logo watermark detection, no OCR, no way to prove how an image was produced, and no C2PA signature validation. A negative result proves nothing.'));
-    ap.append(document.createTextNode('Independent implementation informed by '),link('watermarks-remover','https://github.com/guillaumemeyer/watermarks-remover'),document.createTextNode(' and '),link('unmark-web','https://github.com/ivanusto/unmark-web'),document.createTextNode(' (both MIT).'));
-    ack.append(el('summary',0,'Acknowledgements'),ap);
-    adv.append(el('summary',0,'Advanced details'),cov,eng,lim,ack);body.append(adv);
+    if(st.rows.some(f=>f.cleanable)){
+      const all=btn(WM.selected.size?'Clear selection':'Select removable',()=>{if(WM.selected.size)WM.selected.clear();else for(const f of WM.rows)if(f.cleanable&&!f.protected)WM.selected.add(f.id);for(const c of body.querySelectorAll('[data-wm-id]'))c.checked=WM.selected.has(+c.dataset.wmId);wmSelection()},'Select removable entries without author, licence or editor information');all.id='mWmSelect';all.disabled=stale||!WM.selected.size&&!st.rows.some(f=>f.cleanable&&!f.protected);
+      const pick=el('div','wm-pick'),count=el('small',0,'0 selected');count.id='mWmCount';const clean=btn('Review removal',wmReview);clean.id='mWmClean';clean.className='pri';pick.append(count,all);foot.append(pick,clean);wmSelection();
+    }else foot.append(el('small',0,st.rows.length?'No removable items.':'Nothing to remove.'));
+    const adv=el('details','wm-group'),cov=el('details'),eng=el('details'),ack=el('details'),ap=el('p','wm-muted'),link=(n,u)=>{const a=el('a',0,n);a.href=u;a.target='_blank';a.rel='noopener noreferrer';return a};
+    cov.append(el('summary',0,'What was available to check'),el('p','wm-muted',WMCOV));eng.append(el('summary',0,'Inspection details'),el('p','wm-muted',WM.execution+' · '+Math.round(WM.elapsed)+' ms · SVG, PNG and JPEG metadata. No OCR, pixel analysis or C2PA signature validation.'));
+    if(WM.preserved.length){const p=el('details');p.append(el('summary',0,'Information left unchanged ('+WM.preserved.length+')'));wmTextDetails(p,WM.preserved.join('\n'));adv.append(p)}
+    ap.append(document.createTextNode('Independent implementation informed by '),link('watermarks-remover','https://github.com/guillaumemeyer/watermarks-remover'),document.createTextNode(' and '),link('unmark-web','https://github.com/ivanusto/unmark-web'),document.createTextNode(' (both MIT).'));ack.append(el('summary',0,'Acknowledgements'),ap);adv.prepend(el('summary',0,'Technical details'));adv.append(cov,eng,ack);body.append(adv);
   }
+  if(!WM.completed&&!scanning)foot.append(el('small',0,'Check → select items → review removal.'));done();
 }
 function wmRowUI(f,stale){
-  const row=el('div','wm-row'),title=el('div','wm-row-title');
-  if(f.cleanable){const c=el('input');c.type='checkbox';c.checked=WM.selected.has(f.id);c.disabled=stale;c.setAttribute('aria-label','Select '+f.title+' in '+f.source);
-    c.onchange=()=>{c.checked?WM.selected.add(f.id):WM.selected.delete(f.id);const b=$('mWmClean');b&&(b.disabled=stale||!WM.selected.size)};title.append(c)}
-  title.append(el('strong',0,f.title));
-  const tags=el('div','wm-tags'),chip=(t,c)=>tags.append(el('span',c?'wm-tag '+c:'wm-tag',t));
-  chip(f.format);chip(f.label+(f.tier==='B'?' · low confidence':''),f.ruleId==='c2pa'?'w':f.tier==='A'?'a':0);chip(f.cleanable?f.protected?'Protected':'Cleanable':'Not cleanable');
-  const d=el('details');d.append(el('summary',0,'Details'));wmTextDetails(d,f.details||f.summary);
-  row.append(title,tags,el('p','wm-muted',f.cleanable?f.summary:'Not cleanable — '+(f.reason||f.summary)),d);
-  if(f.target?.kind==='image'){const l=btn('Locate',()=>wmLocate(f));l.disabled=stale;row.append(l)}
+  const [name,why]=wmDescription(f),row=el('div','wm-row'),title=el(f.cleanable?'label':'div','wm-row-title'),info=el('div','wm-row-info');
+  if(f.cleanable){const c=el('input');c.type='checkbox';c.dataset.wmId=f.id;c.checked=WM.selected.has(f.id);c.disabled=stale;c.setAttribute('aria-label','Select '+f.title+' in '+wmSource(f));c.onchange=()=>{c.checked?WM.selected.add(f.id):WM.selected.delete(f.id);wmSelection()};title.append(c)}
+  title.append(el('strong',0,name));if(!f.cleanable)title.append(el('span','wm-tag','Kept'));else if(f.protected)title.append(el('span','wm-tag w','Review carefully'));else if(f.ruleId==='keyword')title.append(el('span','wm-tag','Possible match'));
+  info.append(el('p','wm-muted',wmSource(f)+' · '+f.title),el('p',0,why));
+  if(/^(ai-field|keyword)$/.test(f.ruleId)){const text=(f.details||'').replace(/<!--|-->|<[^>]*>/g,' ').replace(/\s+/g,' ').trim();if(text)info.append(el('p','wm-excerpt',text.slice(0,160)+(text.length>160?'…':'')))}
+  if(f.protected&&f.cleanable)info.append(el('p','wm-muted','May contain author, licence or editor information.'));
+  if(!f.cleanable&&f.ruleId!=='incomplete')info.append(el('p','wm-muted',f.ruleId==='c2pa'?'Kept to protect the source record and its image binding.':'Kept: '+(f.reason||'This information cannot be safely removed.')));
+  const tools=el('div','wm-tools'),d=el('details');d.append(el('summary',0,'Raw data and reason'));wmTextDetails(d,'Rule: '+f.ruleId+'\nFormat: '+f.format+'\n'+(f.reason?'Reason: '+f.reason+'\n':'')+'\n'+(f.details||f.summary));tools.append(d);info.append(tools);
+  if(f.target?.kind==='image'){const l=btn('Show image',()=>wmLocate(f));l.disabled=stale;tools.append(l)}else info.append(el('p','wm-muted','Stored in the file; no object on the canvas.'));row.append(title,info);
   return row;
 }
 function wmLocate(f){
@@ -2295,11 +2306,15 @@ function wmLocate(f){
     candidates=[...root.getElementsByTagName('use')].filter(u=>{const h=u.getAttribute('href')||u.getAttributeNS(NS.xlink,'href');return h?.startsWith('#')&&ids.has(h.slice(1))&&!u.closest('defs,symbol')});
   }
   candidates=candidates.filter(e=>!e.closest('defs,pattern,mask,clipPath,marker,symbol')&&e.getClientRects().length&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden');
-  if(!candidates.length)return wmMsg('Not displayed on canvas — see Details.',1)
+  if(!candidates.length)return wmMsg('This image has no visible instance on the canvas. See its raw data.',1)
   const e=candidates[(f.locateIndex||0)%candidates.length];f.locateIndex=(f.locateIndex||0)+1;
-  const b=memoize(()=>bbox(e));if(!b||!b.w||!b.h)return wmMsg('Not displayed on canvas — see Details.',1)
+  const b=memoize(()=>bbox(e));if(!b||!b.w||!b.h)return wmMsg('This image has no visible instance on the canvas. See its raw data.',1)
   // Pan with the existing document-coordinate bbox; leave the user's selection untouched.
-  const [x,y]=toS({x:b.x+b.w/2,y:b.y+b.h/2});tx+=view.clientWidth*.35-x;ty+=view.clientHeight/2-y;place();
+  const vr=view.getBoundingClientRect(),wr=$('mWm').getBoundingClientRect();let left=vr.left+(opts.rulers?RW:0)+20,right=vr.right-30,top=vr.top+(opts.rulers?RW:0)+20,bottom=vr.bottom-20;
+  if(wr.left<right&&wr.right>left&&wr.top<bottom&&wr.bottom>top){const l=wr.left-left-16,r=right-wr.right-16;if(max(l,r)>120){if(l>=r)right=wr.left-16;else left=wr.right+16}else if(wr.top-top>bottom-wr.bottom)bottom=wr.top-16;else top=wr.bottom+16}
+  if(right-left<80||bottom-top<80)return wmMsg('Move this panel aside to show the image on the canvas.',1);
+  const next=min(k,(right-left)/(b.w*Z),(bottom-top)/(b.h*Z));if(next<k){k=next;clearTimeout(zt);zt=setTimeout(grid,250)}
+  const [x,y]=toS({x:b.x+b.w/2,y:b.y+b.h/2});tx+=(left+right)/2-vr.left-x;ty+=(top+bottom)/2-vr.top-y;place();
   $('mWmMark')?.remove();const r=e.getBoundingClientRect(),mark=el('div','wm-mark');mark.id='mWmMark';mark.setAttribute('aria-hidden','true');Object.assign(mark.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});document.body.append(mark);
   if(mark.animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches)mark.animate([{opacity:1},{opacity:1,offset:.8},{opacity:0}],{duration:2500}).finished.then(()=>mark.remove()).catch(()=>mark.remove());else setTimeout(()=>mark.remove(),2500);
   const t='Located '+f.source+(candidates.length>1?' · instance '+((f.locateIndex-1)%candidates.length+1)+' of '+candidates.length:'')+'.';wmMsg(t);$('mMsg').textContent=t;
@@ -2309,19 +2324,19 @@ function wmReview(){
   WM.review={rows,opt:false};wmRender();
 }
 function wmRenderReview(body){
-  const rows=WM.review.rows,protectedRows=rows.filter(f=>f.protected),provenance=rows.some(f=>f.label!=='Metadata');
-  body.append(el('h3',0,'Review cleaning'),el('p',0,'Only the selected entries are removed; an entire PNG chunk or JPEG segment goes, with every field shown in Details. Undo restores them.'));
-  for(const f of rows){const d=el('details','wm-group');d.append(el('summary',0,f.source+' · '+f.title+(f.range?' · bytes '+f.range.offset+'–'+(f.range.offset+f.range.length-1):'')));wmTextDetails(d,f.details);body.append(d)}
-  body.append(el('p','wm-muted','Preserved: pixels, dimensions, transparency, colour profiles, DPI, Orientation, animation, all unselected metadata, and all SVG geometry, text and references.'));
-  if(provenance)body.append(el('p','wm-warning','Removing metadata erases machine-readable provenance only; it does not change how the figure was made. Follow your journal’s or institution’s AI-disclosure rules.'));
-  const confirm=btn('Confirm Clean',wmClean);confirm.id='mWmConfirm';confirm.className='pri';confirm.disabled=!!protectedRows.length||!!WM.job;
-  if(protectedRows.length){body.append(el('p','wm-warning','Protected information selected: author, copyright, licence, provenance or editor round-trip data may be lost; with C2PA present, any byte change can break its binding.'));
-    const label=el('label','wm-opt'),opt=el('input');opt.type='checkbox';opt.onchange=()=>{WM.review.opt=opt.checked;confirm.disabled=!opt.checked||!!WM.job};label.append(opt,document.createTextNode(' Allow removal of the selected protected information.'));body.append(label)}
-  const buttons=el('div','wm-actions');buttons.append(confirm,btn('Cancel',()=>{if(WM.job)wmCancel();else{WM.review=null;wmRender()}}));body.append(buttons);
+  const rows=WM.review.rows,protectedRows=rows.filter(f=>f.protected),provenance=rows.some(f=>f.ruleId!=='metadata'),busy=!!WM.job;
+  body.append(el('h3',0,'Remove '+rows.length+' metadata '+(rows.length===1?'item':'items')+'?'),el('p',0,'Only the entries listed below will be removed. Image pixels and visible SVG objects stay unchanged. Undo restores this as one step.'));
+  for(const f of rows){const d=el('details','wm-group');d.append(el('summary',0,wmSource(f)+' · '+f.title));wmTextDetails(d,f.details||f.summary);body.append(d)}
+  body.append(el('p','wm-muted','For PNG/JPEG images, each selected entry removes its entire metadata block, including all fields shown in the raw data. Colour profiles, DPI, orientation and unselected entries stay unchanged.'));
+  if(provenance)body.append(el('p','wm-warning','This removes stored source information, not a visible or pixel watermark. It does not change how the image was made or any disclosure requirements.'));
+  const confirm=btn(busy?'Removing…':'Remove '+rows.length+(rows.length===1?' item':' items'),wmClean);confirm.id='mWmConfirm';confirm.className='pri';confirm.disabled=busy||!!protectedRows.length&&!WM.review.opt;
+  if(protectedRows.length){body.append(el('p','wm-warning','The selection includes author, copyright, licence or editor information. Removing it may lose attribution or editing history.'));
+    const label=el('label','wm-opt'),opt=el('input');opt.type='checkbox';opt.checked=WM.review.opt;opt.disabled=busy;opt.onchange=()=>{WM.review.opt=opt.checked;confirm.disabled=!opt.checked};label.append(opt,document.createTextNode('I understand and want to remove these selected entries.'));body.append(label)}
+  const back=btn(busy?'Cancel removal':'Back',()=>{if(WM.job)wmCancel();else{WM.review=null;wmRender()}});$('mWmF').append(back,confirm);
 }
 async function wmClean(){
   if(!WM.review||WM.job||wmStale())return;const rows=WM.review.rows;if(rows.some(f=>f.protected)&&!WM.review.opt)return;
-  const job=wmJob(),doc=root,revision=dv,edits=[],images=new Map(),cached=new Map();WM.job=job;$('mWmConfirm').disabled=true;
+  const job=wmJob(),doc=root,revision=dv,edits=[],images=new Map(),cached=new Map();let applied=false,appliedRev;job.mode='clean';WM.job=job;wmRender();
   try{
     for(const f of rows){const t=f.target;if(!t||!root.contains(t.node))throw Error('Target removed — rescan required');
       if(t.kind==='image'){let item=images.get(t.node);if(!item)images.set(t.node,item={target:t,ranges:[]});item.ranges.push(f.range)}
@@ -2341,11 +2356,12 @@ async function wmClean(){
     // Preparation above is read-only. Apply synchronously; reuse the existing rollback/history primitives.
     flush();const start=pend.length,records=pend,before={undos:undos.slice(),redos:redos.slice(),dirty,dv,svn,why};
     try{for(const {target:t,next} of edits){if(t.kind==='image'){t.node.setAttributeNS(t.ns,t.name,next);if(t.alternate)t.node.setAttributeNS(t.alternate.ns,t.alternate.name,next)}else if(t.kind==='attr')t.node.removeAttributeNS(t.ns,t.local);else t.node.remove()}
-      flush();why='Clean Metadata';commit();
+      flush();why='Clean Metadata';commit(false);
     }catch(e){flush();const rollback=records.slice(start).concat(pend===records?[]:pend);revert(rollback);mo.takeRecords();pend=records.slice(0,start);undos=before.undos;redos=before.redos;dirty=before.dirty;dv=before.dv;svn=before.svn;why=before.why;refresh();throw e}
-    WM.review=null;WM.state='outdated';WM.selected.clear();WM.message='Cleaned '+rows.length+' items. Rescan to verify.';
-  }catch(e){if(WM.doc===doc){WM.review=null;WM.message='Nothing was cleaned: '+e.message;WM.state=dv===revision?'complete':'outdated'}}
-  finally{job.close();if(WM.job===job)WM.job=null;wmRender()}
+    applied=true;appliedRev=dv;WM.review=null;WM.state='outdated';WM.selected.clear();WM.message='';WM.notice='Removed '+rows.length+' metadata '+(rows.length===1?'item':'items')+'. Undo restores them.';
+  }catch(e){if(WM.doc===doc&&WM.job===job){WM.review=null;WM.message='Nothing was removed: '+e.message;WM.state=dv===revision?'complete':'outdated'}}
+  finally{job.close();if(WM.job===job)WM.job=null;if(WM.doc===doc)wmRender()}
+  if(applied&&root===doc&&dv===appliedRev&&!$('mWm').hidden)await wmScan(true);
 }
 /* End Watermark Inspector. */
 const A={
@@ -2641,7 +2657,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();stp(AN.get(f)||'');f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{gw.style.willChange=view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
-document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog')||dlgOpen())return;e.preventDefault();pdn||!root||A.all()});
+document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog,.wm-evidence')||dlgOpen())return;e.preventDefault();if(t.closest('#mWm'))return;pdn||!root||A.all()});
 let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg);
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=e.clipboardData.getData('text/plain');

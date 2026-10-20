@@ -53,7 +53,20 @@ input,select{font:inherit}
 @media(max-width:620px){#mHelp .hb{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}#mHn{display:flex;gap:4px;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}#mHn button{width:auto;flex:none}#mHn button small{display:none}#mHelp .r{grid-template-columns:1fr;gap:2px}}
 #mHelp dl{margin:0}
 #mHelp dd{margin:0}
-#mKept{padding:0;width:min(560px,94vw)}#mCf{max-width:min(400px,90vw)}#mKept .kr{display:grid;grid-template-columns:7.6em minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid var(--h4b)}#mKept .kr span{color:var(--h4)}#mKept p{margin:10px 0 0}
+#mKept{padding:0;width:min(520px,94vw)}#mCf{max-width:min(400px,90vw)}
+#mKept:focus{outline:none}
+dialog#mKept form{padding:16px 18px 18px}
+#mKept .kl{margin:2px 0 12px;color:var(--h4)}
+#mKept .kr{display:grid;grid-template-columns:32px minmax(0,1fr) auto auto;gap:10px;align-items:center;margin-top:8px;padding:10px 12px;border-radius:9px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb)}
+#mKept .kic{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--side);color:var(--h4)}
+#mKept .kic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}
+#mKept .kt{display:flex;flex-direction:column;gap:1px;min-width:0}
+#mKept .kt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4);font-size:12px}
+#mKept .kr button{height:26px;padding:0 10px}
+#mKept .kr button[hidden]{display:none}
+#mKept .kdl{color:#d1453b}
+#mKept .kdl:hover{border-color:#d1453b66;background:#d1453b14}
+#mKept .kn{display:grid;gap:5px;margin:14px 0 0;padding:12px 0 0 16px;border-top:1px solid var(--h4b);color:var(--h4);font-size:12px;line-height:1.5}
 #mHelp .ft,#mKept .ft{margin:12px 0 0;padding-top:8px;border-top:1px solid var(--h4b);color:var(--h4)}
 kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);border-radius:4px;background:var(--btn)}
 .dd{position:relative}
@@ -435,11 +448,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p><label>Width <input id="mNW" type="number" value="210" min="1" step="0.1"></label> <label>Height <input id="mNH" type="number" value="297" min="1" step="0.1"></label> mm</p>
 <p><button value="ok">Create</button> <button value="">Cancel</button></p>
 </form></dialog>
-<dialog id="mKept"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
-<div class="kr"><b>Open recent</b><span id="mKd"></span><button type="button" data-k="ds">Save as files</button><button type="button" data-k="dc">Clear</button></div>
-<div class="kr"><b>SVG Chat</b><span id="mKc"></span><button type="button" data-k="cs">Save as files</button><button type="button" data-k="cc">Delete all</button></div>
-<p>A web page can't write files to your disk by itself, so svguest keeps these inside this browser, in its own storage for this site (IndexedDB databases sgDocs and sgChats), not in a folder: the browser keeps them in its profile in a form other apps can't open. Save as files downloads them as a .zip: the SVG copies, or each chat as a web page with its figures.</p>
-<p class="ft">Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data in the browser deletes them. File › Auto-save turns the copies of open files on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick, with your permission.</p>
+<dialog id="mKept" tabindex="-1"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
+<p class="kl">Copies svguest keeps for you between visits, in this browser only.</p>
+<div class="kr"><i class="kic"><svg viewBox="0 0 16 16"><path d="M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3M6.5 8.5h3.5M6.5 11h3.5"/></svg></i><div class="kt"><b>Open recent</b><span id="mKd"></span></div><button type="button" data-k="ds" title="Download the kept copies of your files as SVG, in one .zip">Download .zip</button><button type="button" class="kdl" data-k="dc" title="Delete every kept copy (asks first)">Delete all</button></div>
+<div class="kr"><i class="kic"><svg viewBox="0 0 16 16"><path d="M2.5 3h11v7.5h-6L4.5 13v-2.5h-2z"/></svg></i><div class="kt"><b>SVG Chat</b><span id="mKc"></span></div><button type="button" data-k="cs" title="Download every chat as a web page with its figures, in one .zip">Download .zip</button><button type="button" class="kdl" data-k="cc" title="Delete every chat (asks first)">Delete all</button></div>
+<ul class="kn"><li>They sit in this site's own storage in the browser (IndexedDB: sgDocs, sgChats), not in a folder: a web page can't write to your disk by itself.</li>
+<li>Download .zip saves the SVG copies, or each chat as a web page with its figures.</li>
+<li>Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data deletes them.</li>
+<li>File › Auto-save turns the copies on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick.</li></ul>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
 <div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
@@ -1238,7 +1254,7 @@ const LUT={Red:[1,0,0],Green:[0,1,0],Blue:[0,0,1],Cyan:[0,1,1],Magenta:[1,0,1],Y
   lutH=n=>'#'+LUT[n].map(x=>x?'ff':'00').join('');
 const FGK='data-figkit',FGF=FGK+'-for',FGA=FGK+'-at',FGP=FGK+'-pos',FGC=FGK+'-cal',FGB=FGK+'-bar',FGR=FGK+'-roi',FGO={roi:0,inset:1,label:2,frame:2,bar:2,zline:3},FGH='#9333ea',RN=['x','y','width','height'],
   UM={nm:1e-3,um:1,mm:1e3},UL={nm:'nm',um:'µm',mm:'mm'},LA={at:[0,0,0,1],lt:[0,0,1,0],tl:[0,0,0,0],tr:[1,0,1,0],bl:[0,1,0,1],br:[1,1,1,1]},MC=['#ff0000','#00ff00','#0000ff','#ff00ff','#00ffff','#ffff00','#ffffff'],
-  Gf={},FG={pv:null,st:new Set,ps:null,pd:-1,v:0,c:null,m:'',w:'fill'};
+  Gf={},FG={zr:new WeakMap,fv:0,pv:null,st:new Set,ps:null,pd:-1,v:0,c:null,m:'',w:'fill'};
 document.querySelectorAll('[data-g]').forEach(e=>Gf[e.dataset.g]=e);
 const fgK=e=>e&&e.getAttribute&&e.getAttribute(FGK)||'',fgT=e=>[...(e.getAttribute(FGF)||'').matchAll(/url\(#([^)]+)\)/g)].map(m=>{const t=byId(m[1]);return t&&(root.contains(t)||FG.gh&&ghost.contains(t))?t:null}),
   sa=(e,n,v)=>v==null?e.hasAttribute(n)&&e.removeAttribute(n):e.getAttribute(n)!==v&&e.setAttribute(n,v),fgTr=(e,m)=>sa(e,'transform',tStr(m)),
@@ -1451,7 +1467,7 @@ function fgBarDel(){const I=new Set(fgImgs()),L=[...root.querySelectorAll(`[${FG
 const fgZr=([nw,nh])=>{let x=fgn('zx'),y=fgn('zy'),w=fgn('zw'),h=fgn('zh');if(!(w>0&&h>0)){w=round(nw/4)||1;h=round(nh/4)||1;x=round((nw-w)/2);y=round((nh-h)/2)}x=x||0;y=y||0;
     return x<0||y<0||x+w>nw||y+h>nh?`The region must lie inside the picture, which is ${nw} × ${nh} px`:[x/nw,y/nh,(x+w)/nw,(y+h)/nh]},
   fgZo=()=>({c:fgv('zc'),w:fgn('zs')>0?fgn('zs'):.75,m:fgn('zm'),l:Gf.zl.checked,f:Gf.zf.checked});
-function fgZoom(s,roi,o){xns('inkscape');s.id||(s.id=uid('image'));const R=mk('rect',{id:uid('rect'),[FGK]:'roi',[FGF]:`url(#${s.id})`,[FGR]:fgS(roi),[FGP]:fgS([o.w]),'inkscape:label':'Zoom region',style:`fill:none;stroke:${o.c};stroke-width:1`});fgIns(s,R);fgGo(R,1);
+function fgZoom(s,roi,o){xns('inkscape');s.id||(s.id=uid('image'));const R=mk('rect',{id:uid('rect'),[FGK]:'roi',[FGF]:`url(#${s.id})`,[FGR]:fgS(roi),[FGP]:fgS([o.w]),'inkscape:label':'Zoom region',style:`fill:none;stroke:${o.c};stroke-width:1`});fgIns(s,R);fgGo(R,1);FG.zr.set(R,R.getAttribute(FGR));
   const p=R.parentNode,I=s.cloneNode(false);for(const a of[...I.attributes])(/^(id|transform|clip-path|mask|data-figkit.*)$/.test(a.name)||a.localName==='label'&&a.namespaceURI===NS.inkscape)&&I.removeAttributeNode(a);
   setSt(I,'clip-path',null);setSt(I,'mask',null);I.id=uid('image');I.setAttribute(FGK,'inset');I.setAttribute(FGF,`url(#${R.id})`);setA(I,'inkscape:label','Zoom inset');R.after(I);
   const q=fgRr(R,s),b=fgBox(s,p),k=o.m>0?o.m*sc(ctm(p).inverse().multiply(ctm(s))):b.h/q.h;fgTr(I,T(b.x+b.w+fgL(p,2),b.y).multiply(S(k)).multiply(T(-q.x,-q.y)));fgCrop(I,q);fgGo(I);
@@ -1533,7 +1549,7 @@ let fgQ=0;const fgRq=()=>{cancelAnimationFrame(fgQ);fgQ=requestAnimationFrame(fg
 function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').value,c=!FG.ps||!same(FG.ps,sel)||FG.pd!==dv;FG.ps=sel.slice();FG.pd=dv;let r={};
   if(sel.length>2e3)r={e:'Too many objects selected to preview'};else try{r=memoize(()=>FGU[p](c))||{}}catch(e){r={e:e.message}}
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
-  const st=document.querySelector(`#mFg section[data-p=${p}] .fgst li`);st&&st.classList.toggle('ok',p!=='place'&&!!sel.length&&!(h&&/^Select/.test(r.e)));fgMore();hud()}
+  const ok=fgOk(p,r);$('mFg').querySelectorAll(`section[data-p=${p}] .fgst li`).forEach((l,i)=>l.classList.toggle('ok',!!ok[i]));fgMore();hud()}
 function fgOpen(p){if(!root)return;const W=$('mFg');$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}fgShow()}
 function fgShow(){const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
   W.querySelectorAll('section[data-p]').forEach(s=>s.hidden=s!==S);I.hidden=!g;g&&x?x.querySelector('.fgr').before(I):W.querySelector('header').after(I);
@@ -1542,7 +1558,16 @@ function fgShow(){const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[
   p==='place'&&!fgTpl().length&&($('mFgRc').open=true);p==='color'&&fgPalUI();FG.ps=null;fgRef();fgFit()}
 // ── FigKit's window shows what most uses need; the rest waits under More options, whose summary counts the settings that differ from their defaults, so nothing hidden acts unseen
 const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}catch(_){return[]}},fgLw=(k,p,on)=>{const a=fgLs(k).filter(x=>x!==p);on&&a.push(p);ls(k,JSON.stringify(a))},
-  fgUsed=()=>{const p=$('mFgT').value;!FG.hit||$('mFg').hidden||fgLs('sgFkSeen').includes(p)||fgLw('sgFkSeen',p,1)},
+  fgUsed=()=>{const p=$('mFgT').value;if(!FG.hit||$('mFg').hidden)return;FG.done={p,v:dv,f:FG.fv,s:sel.slice()};fgLs('sgFkSeen').includes(p)||fgLw('sgFkSeen',p,1);fgRq()},
+  // the guide's three steps tick as each is done: 1 a fitting selection, 2 settings the tool can use (no error or request in the status line), 3 applied from the
+  // window to this selection with these settings and nothing changed since; the picture tools tick on what the picture has (calibration, bar, zoom box, tint, merge)
+  fgOk=(p,r)=>{const s1=!!sel.length&&!(r.e&&/^Select/.test(r.e)),s2=s1&&!r.e,d=!!FG.done&&FG.done.p===p&&FG.done.v===dv&&FG.done.f===FG.fv&&same(FG.done.s,sel),I=fgImgs()[0],
+      has=(k,f)=>[...root.querySelectorAll(`[${FGK}=${k}]`)].find(f);
+    if(p==='place')return[fgTpl().length>0,s2,d];
+    if(p==='scale')return[!!I,!!I&&!!fgCal(I),!!I&&!!has('bar',g=>fgImg(fgT(g)[0])===I)];
+    if(p==='zoom'){const e=sel.length===1&&sel[0],R=e&&(fgRoi(e)||fgImg(e)&&has('roi',x=>fgT(x)[0]===fgImg(e)));return[!!e&&(!!R||!!fgImg(e)),!!R,!!R&&(!FG.zr.has(R)||FG.zr.get(R)!==R.getAttribute(FGR))]}
+    if(p==='chan'){const J=sel.filter(e=>e.localName==='image');return[J.length>0||sel.some(e=>fgK(e)==='merge'),J.length>0&&J.every(fgLutOf),sel.some(e=>fgK(e)==='merge')]}
+    return[s1,s2,d]},
   fgDf=e=>e.type==='checkbox'?e.checked!==e.defaultChecked:e.localName==='select'?e.value!==(([...e.options].find(o=>o.defaultSelected)||e.options[0]||{}).value??''):e.value!==e.defaultValue,
   fgCh=x=>[...x.querySelectorAll('[data-g]:not([data-nd])')].filter(fgDf),
   fgMore=()=>{const x=$('mFg').querySelector('section:not([hidden]) .fgx');if(!x)return;const n=fgCh(x).length;x.querySelector('summary i').textContent=n?` · ${n} changed`:'';x.querySelector('.fgr').hidden=!n};
@@ -2075,9 +2100,9 @@ const CRC=(()=>{const t=new Int32Array(256);for(let n=0;n<256;n++){let c=n;for(l
   hEsc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]),
   chPage=x=>{const t=el('template');t.innerHTML=x.html||'';t.content.querySelectorAll('p').forEach(p=>{const b=p.querySelector('[data-k]'),i=b?+b.dataset.k:-1;x.svgs?.[i]&&p.replaceWith(Object.assign(el('img'),{src:`figure-${i+1}.svg`,alt:'Figure '+(i+1)}))});t.content.querySelectorAll('button').forEach(b=>b.remove());
     return`<!doctype html><meta charset="utf-8"><title>${hEsc(x.t)}</title><style>body{font:13px/1.45 system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px}body>div{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding:6px 8px;border-radius:6px}.u{margin-left:15%;background:#eef1f5}.a{border:1px solid #ddd}.tm{opacity:.6}img{display:block;max-width:100%;margin-top:4px}.u img{max-height:120px}.a img{max-height:420px;border:1px solid #eee}.th{font-size:11px;opacity:.75}</style><h1>${hEsc(x.t)}</h1><p class="tm">${new Date(x.c||x.u).toLocaleString('en-US')} · ${kpN(x.n||0,'message')}</p>${t.innerHTML}`};
-async function kpShow(){const K=$('mKept');RL=rlR();K.open||K.showModal();const nd=RL.length,nc=CL.length;
-  $('mKd').textContent=asOk?kpN(nd,'file')+(nd?' · '+kpSz(RL.reduce((a,m)=>a+(m.b||0),0)):'')+(opts.auto?'':' · Auto-save is off'):'Not available in this browser';$('mKc').textContent=kpN(nc,'chat');
-  K.querySelectorAll('[data-k]').forEach(b=>b.disabled=!(b.dataset.k[0]==='d'?nd:nc));const a=nc&&await cdb('readonly',s=>s.getAll());a&&($('mKc').textContent=kpN(nc,'chat')+' · '+kpSz(a.reduce((s,c)=>s+JSON.stringify(c).length,0)))}
+async function kpShow(){const K=$('mKept');RL=rlR();K.open||(K.showModal(),K.focus());const nd=RL.length,nc=CL.length;
+  $('mKd').textContent=asOk?(nd?kpN(nd,'file')+' · '+kpSz(RL.reduce((a,m)=>a+(m.b||0),0)):'Nothing kept yet')+(opts.auto?'':' · Auto-save is off'):'Not available in this browser';$('mKc').textContent=nc?kpN(nc,'chat'):'No chats yet';
+  K.querySelectorAll('[data-k]').forEach(b=>b.hidden=!(b.dataset.k[0]==='d'?nd:nc));const a=nc&&await cdb('readonly',s=>s.getAll());a&&($('mKc').textContent=kpN(nc,'chat')+' · '+kpSz(a.reduce((s,c)=>s+JSON.stringify(c).length,0)))}
 async function kpSave(c){const u=new Set,fs=[];msg('Collecting the copies…');
   if(c)for(const m of CL){const x=CH&&CH.id===m.id?CH:CC.get(m.id)||await cdb('readonly',s=>s.get(m.id));if(!x)continue;const d=kpNm(u,x.t,'')+'/';x.svgs?.forEach((s,i)=>s&&fs.push({n:d+`figure-${i+1}.svg`,d:s}));fs.push({n:d+'chat.html',d:chPage(x)})}
   else{asNow();await rdQ;for(const m of rlR()){const r=await rdb('readonly',s=>s.get(m.id));if(r)try{fs.push({n:kpNm(u,m.n.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+'_'+stamp(m.t),'.svg'),d:await ungz(r.z)})}catch(_){}}}
@@ -2598,11 +2623,11 @@ for(const n in LUT){A['tint'+n]=()=>fgTint(lutH(n),0,255);const d=el('i','dot');
 const fgLa=()=>{const d={at:[0,-1],lt:[-1,0],tl:[1,1],tr:[-1,1],bl:[1,-1],br:[-1,-1]}[fgv('la')];Gf.lx.defaultValue=Gf.lx.value=+(d[0]/fgU()).toFixed(3);Gf.ly.defaultValue=Gf.ly.value=+(d[1]/fgU()).toFixed(3)};
 $('mFgT').onchange=e=>{e.target.blur();fgShow()};$('mFgX').onclick=fgX;
 $('mFgU').onchange=e=>{const t=e.target,f=({mm:1,pt:25.4/72,px:25.4/96})[t._u||'mm']/fgU();$('mFg').querySelectorAll('em.u').forEach(m=>{m.textContent=t.value;const i=m.previousElementSibling;i&&i.defaultValue!==''&&(i.defaultValue=+(i.defaultValue*f).toFixed(4));i&&i.value!==''&&(i.value=+(i.value*f).toFixed(4))});t._u=t.value;t.blur();fgRef()};
-$('mFg').addEventListener('input',e=>{const t=e.target,g=t.dataset.g;
+$('mFg').addEventListener('input',e=>{const t=e.target,g=t.dataset.g;FG.fv++;
   if(g==='cc')fgCset(t.value,'cc');else if(g==='ch'){const h=fgHex(t.value);h&&fgCset(h,'ch')}else if(/^c[rgb]$/.test(g||''))fgCset('#'+['cr','cg','cb'].map(n=>max(0,min(255,round(+Gf[n].value||0))).toString(16).padStart(2,'0')).join(''),'rgb');
   else if(/^(ow|oh|px|py)$/.test(g||''))fgFov();else if(g==='fx'||g==='fy'){const o=fgn(g==='fx'?'ow':'oh'),v=fgn(g);o>0&&v>0&&(Gf[g==='fx'?'px':'py'].value=+(v/o).toPrecision(6))}
   else if(g==='tc')Gf.tn.value=[...Gf.tn.options].some(o=>o.value===t.value)?t.value:'';fgRq()});
-$('mFg').addEventListener('change',e=>{const t=e.target,g=t.dataset.g;g==='la'?fgLa():g==='tn'?Gf.tn.value&&(Gf.tc.value=Gf.tn.value):g==='pu'&&fgFov();/select|checkbox/.test(t.type)&&t.blur();fgRq()});
+$('mFg').addEventListener('change',e=>{const t=e.target,g=t.dataset.g;FG.fv++;g==='la'?fgLa():g==='tn'?Gf.tn.value&&(Gf.tc.value=Gf.tn.value):g==='pu'&&fgFov();/select|checkbox/.test(t.type)&&t.blur();fgRq()});
 $('mFg').addEventListener('keydown',e=>{const a=document.activeElement;if(e.key==='Escape'){e.preventDefault();a&&a!==document.body&&$('mFg').contains(a)?a.blur():fgX()}else if(e.key==='Enter'&&e.target.tagName==='INPUT'&&!/checkbox|color/.test(e.target.type)){e.preventDefault();e.target.blur()}});
 $('mFg').querySelector('header').onpointerdown=e=>{if(e.target.closest('button,select'))return;const P=$('mFg'),h=e.currentTarget,dx=e.clientX-P.offsetLeft,dy=e.clientY-P.offsetTop;h.setPointerCapture(e.pointerId);
   h.onpointermove=m=>{P.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';P.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};

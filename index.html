@@ -41,7 +41,7 @@ h1{margin-top:18px;font-weight:650;font-size:clamp(44px,4.8vw,62px);line-height:
 #go:active,#go.press{transform:scale(.98)}
 #go:focus-visible,#thm:focus-visible,.play:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .hint{font-size:12px;color:var(--muted)}
-.compat{margin-top:24px;font-size:12px;line-height:1.8;color:var(--muted);max-width:450px}
+.compat{margin-top:24px;font-size:12px;line-height:1.8;color:var(--muted);max-width:430px;text-wrap:pretty}
 .art{display:grid;place-items:center end;padding:10px 0}
 #logo{width:min(100%,var(--lw));height:auto;overflow:visible;touch-action:none;margin-right:calc(var(--lw)*-16/240)}
 [data-p]{cursor:move;touch-action:none}
@@ -102,7 +102,7 @@ h1{margin-top:18px;font-weight:650;font-size:clamp(44px,4.8vw,62px);line-height:
 another figure.</h1>
      <p class="sub">A tiny SVG editor for scientific figures, in one HTML file. Touch up figures from ggplot2, Inkscape or Adobe Illustrator, right in your browser.</p>
      <div class="actions"><button id="go">Start editing</button><span class="hint">or press Enter</span></div>
-     <p class="compat">Runs in your browser, or in TBtools as a plugin, where SVG&nbsp;Chat can use TBtools' model (no API key) or your own paid ChatGPT plan.<br>Nothing is uploaded; only what you send to SVG&nbsp;Chat leaves your computer.</p>
+     <p class="compat">Runs in your browser or as a TBtools&nbsp;plugin, where SVG&nbsp;Chat can use TBtools'&nbsp;model (no API&nbsp;key) or your own paid ChatGPT&nbsp;plan, and uploads nothing: only what you send to SVG&nbsp;Chat leaves your computer.</p>
     </div>
     <div class="art"><svg id="logo" viewBox="0 10 240 220" aria-label="svguest: an editable roof over a travelling briefcase">
    <path data-p id="roof" d="M22 90L120 32L218 90" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round" pointer-events="stroke"/>

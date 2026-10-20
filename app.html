@@ -23,10 +23,11 @@ button:hover{background-image:linear-gradient(var(--btnh),var(--btnh))}button:di
 input,select{font:inherit}
 #mBar{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:3px;padding:4px;background:var(--bar);border-bottom:1px solid var(--line)}
 #mBar button,#mSt button,#mHelp header button,#mKept header button,#mLay header button,#mPh button{border-color:transparent;background:transparent}#mBar button:hover,#mSt button:hover,#mHelp header button:hover,#mKept header button:hover,#mLay header button:hover,#mPh button:hover{background:var(--btnh)}#mBar button.on{background:var(--on);color:var(--onfg)}#mSt button{flex:none;padding:0 8px;line-height:16px}
-#mTabs{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:2px;margin:0 8px 0 6px;padding-left:8px;border-left:1px solid var(--line);overflow-x:auto;scrollbar-width:none}#mTabs::-webkit-scrollbar{display:none}
-#mTabs .tab{flex:0 1 auto;display:flex;align-items:center;gap:2px;max-width:180px;min-width:64px;height:24px;padding:0 2px 0 9px;border-radius:6px;color:var(--h4);cursor:default;user-select:none}#mTabs .tab:hover{background:var(--btnh)}#mTabs .tab.on{background:var(--btn);color:var(--fg);box-shadow:var(--sh),inset 0 0 0 1px var(--btnb)}
+#mTabs{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:2px;height:28px;margin:0 10px 0 12px;padding:2px;border-radius:8px;background:var(--btnh);box-shadow:inset 0 0 0 1px var(--line);overflow-x:auto;scrollbar-width:none}#mTabs::-webkit-scrollbar{display:none}
+#mTabs .tab{flex:0 1 auto;display:flex;align-items:center;gap:2px;max-width:200px;min-width:72px;height:24px;padding:0 2px 0 9px;border-radius:6px;color:var(--h4);cursor:default;user-select:none}#mTabs .tab:hover{background:var(--btnh)}#mTabs .tab+.tab:not(.on):not(:hover)::before{content:'';position:relative;left:-6px;width:1px;height:12px;margin-right:-1px;background:var(--line)}#mTabs .tab.on+.tab::before{display:none}#mTabs .tab.on{background:var(--btn);color:var(--fg);box-shadow:var(--sh),inset 0 0 0 1px var(--btnb)}
 #mTabs .tab span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mTabs .tab i{font-style:normal;color:var(--onb);margin-right:2px}#mTabs .tab button{flex:none;width:18px;height:18px;min-height:0;padding:0;border:0;border-radius:4px;background:none;color:var(--t3);font-size:13px;line-height:18px;opacity:0}#mTabs .tab:hover button,#mTabs .tab.on button{opacity:1}#mTabs .tab button:hover{background:var(--btnh);color:var(--fg)}
-#mBar #mTabs .nt{position:sticky;right:0;background:var(--bar);flex:none;width:24px;height:24px;min-height:0;padding:0;border:0;background:none;color:var(--h4);font-size:16px;line-height:22px}#mBar #mTabs .nt:hover{background:var(--btnh);color:var(--fg)}
+#mTabs .mem{flex:none;margin-left:auto;padding:0 8px;border-radius:10px;font-size:11px;line-height:18px;color:var(--wa);background:var(--wab);white-space:nowrap}#mTabs .mem.hi{color:var(--er);background:var(--erb)}
+#mBar #mTabs .nt{position:sticky;right:0;background:none;flex:none;width:24px;height:24px;min-height:0;padding:0;border:0;background:none;color:var(--h4);font-size:16px;line-height:22px}#mBar #mTabs .nt:hover{background:var(--btnh);color:var(--fg)}
 #mBar #mKb{margin:0 4px 0 0;display:flex;align-items:center;gap:7px;width:210px;height:24px;padding:0 4px 0 9px;font-size:12px;border:1px solid var(--btnb);border-radius:7px;background:var(--btn);color:var(--t3);cursor:text;transition:border-color .12s,color .12s}#mBar #mKb:hover{border-color:var(--swb);background:var(--btn);color:var(--h4)}
 #mKb svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}#mKb kbd{margin-left:auto;display:flex;gap:2px}#mKb kbd,#mK kbd{border:0;background:none;padding:0;opacity:.6}#mKb kbd{opacity:1}#mKb kbd span{display:grid;place-items:center;min-width:17px;height:16px;padding:0 4px;font:500 10.5px/1 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--h4);background:var(--side);border:1px solid var(--btnb);border-radius:4px}
 #mHelp{padding:0;width:min(880px,96vw);max-width:none;height:min(640px,90vh);max-height:none;overflow:hidden}
@@ -573,10 +574,10 @@ let noM=0;const cfm=async(q,y,n='Cancel',x='')=>{if(!noM){const t=performance.no
   const d=$('mCf'),b=d.querySelectorAll('button');d.querySelector('p').textContent=q;b[0].textContent=y;b[1].textContent=n;d.returnValue='';d.onclick=e=>e.target.tagName==='BUTTON'&&d.close(e.target.value);d.showModal();return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'))},
   discard=async()=>!dirty||cfm('Discard changes that have not been exported?','Discard');
 const bzOn=async(s,t)=>{let i=0,n=0;while(n<3e4&&(i=s.indexOf('<',i)+1))n++;if(n<3e4&&s.length<8e6)return;const o=$('mBz');o.lastChild.textContent=t;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))},bzOff=()=>$('mBz').hidden=true;
-async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(!f)return;imp||tabFresh();
+async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(!f||!imp&&!tabFresh())return;
   const t0=performance.now(),txt=await f.text();await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
   try{imp?doImport(txt,f.name):(load(txt,f.name),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
-  requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${root.getElementsByTagName('*').length} elements · ${round(performance.now()-t0)} ms`)))}
+  const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms`)))}
 const upc=c=>{while(c!==root&&clipOf(c))c=c.parentNode;return c};
 function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.children].find(e=>e.localName==='namedview'),l=nv&&byId(nv.getAttributeNS(NS.inkscape,'current-layer'));
   return l&&root.contains(l)&&isLayer(l)?l:[...root.children].reverse().find(isLayer)||root}
@@ -1469,13 +1470,18 @@ const TABS=[{}];let TI=0;
 const tabGet=()=>({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV,sel:sel.slice(),ctx}),
   tabNm=i=>i===TI?name:TABS[i].name,tabDt=i=>i===TI?dirty:TABS[i].dirty,
   tabBlank=()=>!dirty&&!undos.length&&!redos.length&&/^untitled(\.svg)?$/i.test(name||'')&&!root?.querySelector('path,rect,circle,ellipse,line,polyline,polygon,text,image,use');
-function tabHold(){finish(true);CR&&cropX();ped=null;G&&ghostOff();cpEnd();flush();pend.length&&commit();asNow();TABS[TI]=tabGet();mo.disconnect();root.remove()}
+function tabHold(){finish(true);CR&&cropX();ped=null;G&&ghostOff();cpEnd();flush();pend.length&&commit();asNow();TABS[TI]=tabGet();TABS[TI].n=root.getElementsByTagName('*').length;mo.disconnect();root.remove()}
 function tabShow(i){const t=TABS[TI=i];({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV}=t);TABS[i]={};
   pend=[];gp=gq=null;FQ.b=new Map;FQ.m=[];stage.insertBefore(root,$('mGW'));ghostSync();dv++;svn++;lkV++;
   mo=new MutationObserver(r=>add(pend,r));mo.observe(root,MOO);ctx=t.ctx&&root.contains(t.ctx)?t.ctx:root;
   size();place();sizes();setSel(t.sel.filter(e=>root.contains(e)));hud();msg('Switched to '+name)}
 // Make room for a document about to be loaded: reuse the active tab when it is an untouched blank page, else open a new one.
-let TP=0;function tabFresh(){if(!root||tabBlank())return;TP=TI;tabHold();TABS.push({});TI=TABS.length-1;root=null}
+// Limits, measured in headless Chromium: a document costs about 1.3 KB per element (130 MB per 100k), and switching to
+// a 100k-element one takes about 1 s. So the strip warns by the elements open in all tabs, and stops at 20 tabs.
+const TMAX=20,TWARN=3e5,THIGH=6e5,tabEls=i=>i===TI?(root?root.getElementsByTagName('*').length:0):TABS[i].n||0,
+  tabTot=()=>TABS.reduce((a,_,i)=>a+tabEls(i),0),tabMB=n=>round(n*1.3e-3+TABS.length*5);
+let TP=0;function tabFresh(){if(!root||tabBlank())return true;if(TABS.length>=TMAX){msg(`${TMAX} tabs are open, the most svguest keeps; close one to open another`);return false}
+  TP=TI;tabHold();TABS.push({});TI=TABS.length-1;root=null;return true}
 // A load that failed after tabFresh leaves no document: drop that tab and go back.
 function tabBack(){if(root)return;TABS.splice(TI,1);tabShow(TP<TI?TP:TP-1)}
 function tabGo(i){if(i===TI||!TABS[i]||D)return;tabHold();tabShow(i)}
@@ -1487,7 +1493,8 @@ function tabUI(){const w=$('mTabs');if(!w)return;const n=TABS.length,b=[];
   for(let i=0;i<n;i++){const t=el('div','tab'+(i===TI?' on':'')),x=el('button',0,'×');t.setAttribute('role','tab');t.setAttribute('aria-selected',i===TI);t.title=tabNm(i)+(tabDt(i)?' (not exported)':'');
     tabDt(i)&&t.append(el('i',0,'•'));t.append(el('span',0,(tabNm(i)||'untitled').replace(/\.svg$/i,'')));x.title='Close';x.setAttribute('aria-label','Close '+tabNm(i));t.append(x);
     t.onpointerdown=e=>{e.button===1&&e.preventDefault()};t.onclick=e=>{e.target===x?tabClose(i):tabGo(i)};t.onauxclick=e=>{e.button===1&&tabClose(i)};b.push(t)}
-  const nt=el('button','nt','+');nt.title='New canvas in a new tab';nt.onclick=()=>A.new();b.push(nt);w.replaceChildren(...b);w.querySelector('.on')?.scrollIntoView({block:'nearest',inline:'nearest'})}
+  const tot=n>1?tabTot():0;if(tot>TWARN){const m=el('span','mem'+(tot>THIGH?' hi':''),`≈ ${tabMB(tot)} MB open`);m.title=`${n} tabs hold ${tot.toLocaleString()} elements. Each 100,000 elements take about 130 MB and a second to switch to; close tabs you are not using to keep svguest quick.`;b.push(m)}
+  const nt=el('button','nt','+');nt.title=n>=TMAX?`${TMAX} tabs are open, the most svguest keeps`:'New canvas in a new tab';nt.disabled=n>=TMAX;nt.onclick=()=>A.new();b.push(nt);w.replaceChildren(...b);w.querySelector('.on')?.scrollIntoView({block:'nearest',inline:'nearest'})}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,GLMR=ls('sgGlmRelay')==='1';
@@ -1518,7 +1525,7 @@ const bub=(c,t)=>{const d=el('div',c,t);LG.append(d);$('mHello').hidden=$('mSetu
 function svgOf(t,partial){let s=(/<svg[\s\S]*<\/svg>/i.exec(t)||[])[0]||partial&&(/<svg[\s>][\s\S]*/i.exec(t)||[])[0];if(!s)return null;s=s.replace(/&nbsp;/g,'&#160;');
   /^<svg[^>]*\sxmlns=/i.test(s)||(s=s.replace(/^<svg/i,`<svg xmlns="${NS.svg}"`));s=XNS(s);
   let d;try{d=parse(s)}catch(e){const f=fixSvg(s);if(!f)throw e;d=parse(f)}d.querySelectorAll('script,foreignObject').forEach(e=>e.remove());return new XMLSerializer().serializeToString(d)}
-function put(s,open){if(open)return tabFresh(),load(s,'ai.svg'),setTimeout(()=>asNow(1),300),msg('Opened the AI figure in a new tab');
+function put(s,open){if(open){if(!tabFresh())return;load(s,'ai.svg');setTimeout(()=>asNow(1),300);return msg('Opened the AI figure in a new tab')}
   const o=aiG&&root.contains(aiG)?aiG:null,b=o&&bbox(o);
   once(()=>{if(o){o.contains(ctx)&&(ctx=o.parentNode);o.remove()}doImport(s,'ai');aiG=sel[0];const n=b&&bbox(aiG);n&&(applyM(T(b.x-n.x,b.y-n.y)),commit())});
   msg(o?'Replaced the AI figure (Ctrl+Z to undo)':'Placed the AI figure (Ctrl+Z to undo)');selChip()}
@@ -1926,7 +1933,7 @@ function asNow(f,raw){clearTimeout(asT);asT=0;const b=asOk&&opts.auto;if(!root||
     lu=()=>rlPut(m),go=async()=>{try{if(n<asN)return;r.z=raw?txt:await gz(txt);if(n<asN)return;m.b=r.z.byteLength??r.z.length*2;raw&&lu();(await rdb('readwrite',s=>s.put(r))||(r.h=null,await rdb('readwrite',s=>s.put(r))))&&!raw&&lu()}finally{asP--}};
   raw?go():rdQ=rdQ.then(go)}
 async function rdOpen(id){if(id===DI)return msg('That file is already open');const ot=TABS.findIndex((t,i)=>i!==TI&&t.DI===id);if(ot>=0)return tabGo(ot);RL=rlR();const m=RL.find(x=>x.id===id),r=m&&await rdb('readonly',s=>s.get(id));
-  if(!r){RL=RL.filter(x=>x.id!==id);rlS();return msg('That copy is no longer kept in this browser')}tabFresh();
+  if(!r){RL=RL.filter(x=>x.id!==id);rlS();return msg('That copy is no longer kept in this browser')}if(!tabFresh())return;
   try{const s=await ungz(r.z);await bzOn(s,`Opening ${m.n}…`);load(s,m.n)}catch(e){tabBack();return msg(`Cannot open ${m.n}: ${e.message}`)}finally{bzOff()}
   DI=id;asV=dv;dirty=!!m.u;gl=r.g||[];fh=r.h||null;vwSet(r.v);RL=[m,...RL.filter(x=>x!==m)];rlS();bar();hud();msg(`Opened ${m.n} from Open recent`+(m.u?', with its unsaved changes':''))}
 function rdL(){RL=rlR();const o=RL.map(m=>{const b=el('button',m.id===DI?'on':0);b.append(el('span',0,(m.u?'• ':'')+m.n),el('kbd',0,rdW(m.t)));b.dataset.r=m.id;
@@ -2720,7 +2727,7 @@ let HL=null;function hlpInit(){const c=$('mHc'),n=$('mHn'),q=$('mHq'),S=[...c.qu
 function hlpOpen(){HL||hlpInit();const d=$('mHelp');d.showModal();$('mHq').value&&($('mHq').value='',HL.find());HL.show(0);$('mHq').focus()}
 $('mNew').onchange=e=>e.target.id==='mPre'?nd():e.target.name==='mOr'&&nd(1);$('mNW').oninput=$('mNH').oninput=()=>$('mPre').value='';
 $('mNew').onclose=async()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew').returnValue!=='ok'||!(w>0&&h>0))return;
-  tabFresh();const n=($('mNN').value.trim().replace(/[\\/:*?"<>|]/g,'_')||'untitled').replace(/(\.svg)?$/i,'.svg');load(blank(fm(w),fm(h)),n);msg(`New canvas ${n}: ${fm(w)}×${fm(h)} mm`)};
+  if(!tabFresh())return;const n=($('mNN').value.trim().replace(/[\\/:*?"<>|]/g,'_')||'untitled').replace(/(\.svg)?$/i,'.svg');load(blank(fm(w),fm(h)),n);msg(`New canvas ${n}: ${fm(w)}×${fm(h)} mm`)};
 view.addEventListener('pointerdown',down);addEventListener('pointermove',move);addEventListener('pointerup',up);addEventListener('pointercancel',up);
 view.addEventListener('mousedown',e=>e.target.closest('.ed,#mQ')||e.preventDefault());
 view.addEventListener('dblclick',dbl);view.addEventListener('contextmenu',e=>e.target.closest('.ed')||cmenu(e));view.addEventListener('pointerleave',()=>{mouse=null;hov&&(hov=null,hud());rulers()});

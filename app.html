@@ -448,6 +448,11 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
   const ix=new Map(u.map(e=>[e,-1])),w=document.createTreeWalker(root,1);let i=0;for(let n=root;n&&i<u.length;n=w.nextNode())ix.has(n)&&ix.set(n,i++);return u.sort((x,y)=>ix.get(x)-ix.get(y))},
   add=(a,b)=>{for(const x of b)a.push(x);return a};
 
+// ── Geometry ───────────────────────────────────────────────────────────────────────────────────────────────
+// Matrices are built from number arrays (mx, T, S, Rot, about) in double precision: DOMMatrix's own translate/scale/
+// rotate methods round through float32 and would drift. lm(e) parses e's transform attribute (the shared identity
+// I0 when there is none, so never mutate its result); ctm(e) is the product up to the document root; setT writes
+// a matrix back in the shortest form.
 const mx=(a,b,c,d,e,f)=>new DOMMatrix([a,b,c,d,e,f]),T=(x,y)=>mx(1,0,0,1,x,y),S=(x,y=x)=>mx(x,0,0,y,0,0),about=(M,x,y)=>T(x,y).multiply(M).multiply(T(-x,-y)),
   Rot=g=>{const r=g*PI/180,c=cos(r),s=sin(r);return mx(c,s,-s,c,0,0)},tan=g=>Math.tan(g*PI/180);
 const lm=e=>lms(e.getAttribute&&e.getAttribute('transform'));
@@ -469,6 +474,10 @@ const cached=(m,key,f)=>{if(!memo)return f();const c=memo[m];c.has(key)||c.set(k
 const clipOf=e=>{const c=byId(refId(e.getAttribute('clip-path')||e.style.clipPath));return c&&c.getAttribute('clipPathUnits')!=='objectBoundingBox'&&c};
 const cq=new WeakMap,hcp=e=>{const c=cq.get(e);if(c&&c[0]===dv)return c[1];const r=!!e.querySelector('[clip-path]');cq.set(e,[dv,r]);return r},
   fb=(e,V)=>{if(isGrp(e)||e.hasAttribute('clip-path')||e.style.clipPath)return bbox(e);const r=e.getBoundingClientRect(),s=Z*k;return r.width||r.height?rb((r.left-V.left-tx)/s+vb.x,(r.top-V.top-ty)/s+vb.y,r.width/s,r.height/s):null};
+// Bounding boxes, in user units. lbox: e's own box (getBBox), clipped by its clip-path. mbox(e,M): the box of e
+// under matrix M, exact for circles, ellipses and straight paths even when rotated (it maps the points, not the
+// corners of the local box). bbox(e): mbox with e's full transform, the box the selection and snapping use.
+// Wrap batches of calls in memoize() so parent matrices and clip boxes are computed once.
 function lbox(e){let b=null;
   if(isGrp(e)&&hcp(e)){for(const c of e.children)if(isG(c))b=un(b,mbox(c,lm(c)))}
   else try{const r=e.getBBox();if(r.width||r.height)b=rb(r.x,r.y,r.width,r.height)}catch(_){}
@@ -513,6 +522,12 @@ const sLv=(p,v)=>{const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Set(sel
 function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v);
   L.forEach((e,i)=>{setSt(e,p,vs[i]);e.localName==='text'&&kids(e,p)})}
 
+// ── Undo ───────────────────────────────────────────────────────────────────────────────────────────────────
+// Every change to the document is seen by one MutationObserver (mo) and collected in pend. commit() closes pend
+// into an undo step (named from why, else guessed from the records); revert() plays records backwards. Code that
+// changes the DOM only for display wraps it in quiet(), which throws those records away. once(f) merges every
+// commit made inside f into a single step. Untouched elements must serialise byte-identical, so nothing here
+// rewrites attributes it did not change.
 const flush=()=>(add(pend,mo.takeRecords()),pend.length);
 function quiet(f){flush();f();mo.takeRecords()}
 const hasT=n=>n.nodeType===1&&(/^(text|tspan|style)$/.test(n.localName)||!!n.querySelector('text,style')),
@@ -534,6 +549,10 @@ function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush(
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
 
 const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
+// ── Opening ────────────────────────────────────────────────────────────────────────────────────────────────
+// parse() reads SVG text with DOMParser (an invalid file throws) and, when the text holds anything suspicious,
+// strips scripts, embedded frames and event-handler or javascript: attributes; load() makes the result the active document: viewBox, mm per user unit (U), a fresh undo
+// history and the MutationObserver.
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
   if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
     (XO.test(n)||XJ.test(v)&&(XS.test(v)||XV.test(n)))&&e.removeAttributeNode(a)}
@@ -584,6 +603,7 @@ function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.chi
 const stamp=t=>{const d=t?new Date(t):new Date(),j=a=>a.map(x=>String(x).padStart(2,'0')).join('');return j([d.getFullYear()%100,d.getMonth()+1,d.getDate()])+'_'+j([d.getHours(),d.getMinutes(),d.getSeconds()])};
 const outName=(ext,tag='')=>(name.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+(tag?'_'+tag:'')+'_'+stamp()+ext).toLowerCase();
 const svgRaw=()=>'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n';
+// Export: svgText() ends any text edit and colour preview, then serialises the document with its prolog.
 function svgText(){finish(true);cpEnd();return svgRaw()}
 function dl(b,n){const a=Object.assign(el('a'),{href:URL.createObjectURL(b),download:n});a.click();setTimeout(()=>URL.revokeObjectURL(a.href),6e4)}
 function phys(b,dpi){const c=new Uint8Array(21),v=new DataView(c.buffer),p=round(dpi/0.0254);let r=-1;
@@ -612,6 +632,9 @@ function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opt
   for(let n=0;n*a<=vb.w*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x+n*a/U} ${vb.y}V${vb.y+vb.h}`;
   for(let n=0;n*a<=vb.h*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x} ${vb.y+n*a/U}H${vb.x+vb.w}`;
   gr.children[0].setAttribute('d',d[0]);gr.children[1].setAttribute('d',d[1])}
+// ── View ───────────────────────────────────────────────────────────────────────────────────────────────────
+// Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
+// #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
 function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;stage._k!==k&&(stage._k=k,$('mPage').style.setProperty('--k',k),$('mGrid').style.setProperty('--k',k));ed&&!ed.sd&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();bkB();sbWake();zUI()}
 const bkB=()=>{const b=$('mBk');if(!root)return b.hidden=true;const o=opts.rulers?RW:0,W=view.clientWidth,H=view.clientHeight,w=vb.w*Z*k,h=vb.h*Z*k,ix=max(0,min(W,tx+w)-max(o,tx)),iy=max(0,min(H,ty+h)-max(o,ty));b.hidden=ix*iy>=.5*min(w*h,(W-o)*(H-o))};
 function ctrPg(){const o=opts.rulers?RW:0;tx=o+(view.clientWidth-o-vb.w*Z*k)/2;ty=o+(view.clientHeight-o-vb.h*Z*k)/2;place();msg('Back to the page')}
@@ -621,6 +644,9 @@ function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('
 function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min((r.width-o-40)/vb.w,(r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
 function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;place();clearTimeout(zt);zt=setTimeout(grid,250)}
 
+// ── Selection ──────────────────────────────────────────────────────────────────────────────────────────────
+// sel is the selected elements; ctx is the group the selection lives in (Esc climbs it). setSel filters locked
+// elements and calls refresh(), which recomputes the selection box (sb), handles and the side panel.
 function setSel(a,q){CR&&!(a.length===1&&a[0]===CR.s)&&cropOK();const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
 function bar(){tabUI();const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['fgSwap',sel.length!==2],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
   document.title=(dirty?'• ':'')+name+' — svguest';doc();qa('undo').firstChild.data='Undo'+(undos.length?' '+undos.at(-1).n:'');qa('redo').firstChild.data='Redo'+(redos.length?' '+redos.at(-1).n:'');$('mGc').hidden=!gl.length;$('mGc').textContent=`Clear ${gl.length} guide${gl.length>1?'s':''}`}
@@ -706,6 +732,8 @@ function setSeg(e,[a,b],c,dd){const P=q=>fc(q.x)+','+fc(q.y);if(e.localName==='l
   e.setAttribute('d',c&&'v'in c?shD(elD(a,c.h,c.v)):c?`M ${P(a)} Q ${P(c)} ${P(b)}`:`M ${P(a)} L ${P(b)}`)}
 const l2p=e=>{const s=seg(e),p=document.createElementNS(NS.svg,'path');for(const x of e.attributes)/^(x1|y1|x2|y2)$/.test(x.name)||p.setAttributeNS(x.namespaceURI,x.name,x.value);e.replaceWith(p);sel=sel.map(x=>x===e?p:x);setSeg(p,s,null);gcs(p).fill!=='none'&&setSt(p,'fill','none');return p};
 const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,i,a)=>i<4?v:v||e.ry.baseVal.value);
+// The HUD is an SVG overlay in screen coordinates: selection box and handles, hover outline, snap marks, guides,
+// FigKit previews. It is redrawn from state and never touches the document.
 function hud(M){H.replaceChildren();if(!root)return;rulers();
   const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(c===GH?'':';stroke-dasharray:6 3')+(p?';opacity:.5':''))};
   gl.forEach((G,i)=>gL(G,gq&&gq.h===G.h&&gq.i===i?GH:GC));gp?gL(gp,GC,1):gq&&gq.i<0&&gL({h:gq.h,v:gv(gq.h,gq.a)},GC,1);
@@ -768,6 +796,8 @@ function sizes(){if(!root)return;const g=new Map(),t0=performance.now();
 function pick(t){let c=root;for(;;){let e=t;while(e.parentNode!==c)e=e.parentNode;if(isLayer(e)&&e!==t){c=e;continue}return[e,c]}}
 function grab(t,whole){const e=t.closest('text')||t;return whole?pick(t):[e,e.parentNode]}
 const thru=f=>{const o=[gw,$('mCap'),...H.children];o.forEach(x=>x.style.pointerEvents='none');try{return f()}finally{o.forEach(x=>x.style.pointerEvents='')}};
+// hit(e): the element under the pointer, with overlays made click-through for the test (thru). A thin line or a
+// small mark painted above within 4 px wins over a filled area, so thin strokes stay easy to pick.
 function hit(e){return thru(()=>{const ef=(x,y)=>{let t=document.elementFromPoint(e.clientX+x,e.clientY+y);while(t&&t.namespaceURI!==NS.svg)t=t.parentNode;return t!==root&&root.contains(t)?t:null},
     thin=t=>{const r=t.getBoundingClientRect();return min(r.width,r.height)<6||t.localName==='line'||gcs(t).fill==='none'},t=ef(0,0);
     if(t&&(t.closest('text')||thin(t)))return t;
@@ -778,6 +808,9 @@ function selBelow(ev,cur){const w=cmd(ev),g=[];for(const t of thru(()=>document.
 function bd(t){if(t.localName!=='rect'||sel.some(s=>s.contains(t))||gcs(t).fill==='none')return false;let x=t.previousElementSibling;while(x&&!isG(x))x=x.previousElementSibling;if(x)return false;
   return memoize(()=>{const b=bbox(t);if(!b||b.w*b.h<.25*vb.w*vb.h)return false;const w=document.createTreeWalker(root,1);w.currentNode=t;
     for(let i=0,n;i<200&&(n=w.nextNode());i++){if(!LF.test(n.localName)||n.closest('defs,clipPath,mask,marker,pattern,symbol'))continue;const q=bbox(n);if(q&&q.x>=b.x&&q.y>=b.y&&q.x+q.w<=b.x+b.w&&q.y+q.h<=b.y+b.h)return true}return false})}
+// boxed(c,R,touch): what a selection box selects inside c. Groups that fit wholly are taken, otherwise the search
+// goes into them; touch also takes anything the box crosses. Leaves are measured with getBoundingClientRect, which
+// is far faster than bbox on files with 100k elements.
 function boxed(c,R,tch){const o=[],V=view.getBoundingClientRect(),s=Z*k,big=c.childElementCount>BIG,B=big?rb((R.x-vb.x)*s+tx+V.left,(R.y-vb.y)*s+ty+V.top,R.w*s,R.h*s):R;
   for(const x of cands(c)){const q=big?(r=>rb(r.x,r.y,r.width,r.height))(x.getBoundingClientRect()):fb(x,V);if(!q||!isect(q,B))continue;
     q.x>=B.x&&q.y>=B.y&&q.x+q.w<=B.x+B.w&&q.y+q.h<=B.y+B.h?o.push(x):isGrp(x)?add(o,boxed(x,R,tch)):tch&&(big||touches(x,R))&&o.push(x)}return o}
@@ -817,6 +850,8 @@ const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lk
       E.length&&o.push({c,E,s,a:c.localName==='line'?['x1','y1','x2','y2'].map(n=>c.getAttribute(n)):c.getAttribute('d')})}D.lk=o.length?o:null},
   lkPv=M=>D.lk&&quiet(()=>{for(const{c,E,s,a}of D.lk){const Mi=ctm(c).inverse(),q=s.map(p=>({x:p.x,y:p.y})),dd=[];for(const[i,P,[t,u,v]]of E){q[i]=Mi.transformPoint(M.transformPoint(P));dd[i]={t,u,v,M}}typeof a==='string'&&c.setAttribute('d',a);setSeg(c,q,undefined,dd)}}),
   lkRs=d=>{d&&d.lk&&quiet(()=>{for(const{c,a}of d.lk)c.localName==='line'?['x1','y1','x2','y2'].forEach((n,i)=>c.setAttribute(n,a[i])):c.setAttribute('d',a)});d&&(d.lk=null)};
+// Connectors: line ends attached to objects carry data-sg-from / data-sg-to = url(#id) u v, a point in the target's
+// own box. lnk() runs at the start of each commit and moves those ends to follow their targets, in the same step.
 function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))continue;const s=seg(c);if(!s)continue;let ch=0,Mi=null;
   LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&lkP(...r);if(!P)return;const q=(Mi||(Mi=ctm(c).inverse())).transformPoint(P);if(abs(q.x-s[i].x)>5e-6||abs(q.y-s[i].y)>5e-6){s[i]=q;ch=1}});ch&&setSeg(c,s)}}
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
@@ -828,6 +863,10 @@ function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.p
     for(const a of ch){const c=a.cloneNode(false);['id','clip-path','mask','filter'].forEach(x=>c.removeAttribute(x));g=g.appendChild(c)}w.set(p,g)}
   g.appendChild(e);return{e,p,n}})})}
 function ghostOff(M){quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefore(G[i].e,G[i].n);ghost.replaceChildren();gw.style.transform=''});G=null;M?(applyM(M),commit()):refresh()}
+// ── Pointer ────────────────────────────────────────────────────────────────────────────────────────────────
+// down/move/up drive every canvas gesture. down() decides what the drag is (D.t: a move, a handle, a box select,
+// drawing, a point, a crop…). A move drag lifts the selection into the ghost layer and moves it with one CSS
+// transform; up() applies the final matrix to the real elements (applyM) and commits once.
 function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge|text)$/.test(tool)||LNT.test(tool)?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
   if(e.button===1||e.button===0&&space){D={t:'pan',p,tx,ty};return cap()}
   if(e.button)return;
@@ -984,6 +1023,10 @@ function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d
   quiet(()=>{const c=edCl(t,vis);
     ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
   const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:cs.textDecorationLine})}
+// ── Text editing ───────────────────────────────────────────────────────────────────────────────────────────
+// edit() hides the <text> and lays a contenteditable copy (.ed) over it, or uses the Text panel's box (sd). Styled
+// runs are mirrored as spans whose data-k points back to the tspan they came from; finish() reads the lines back
+// (edLines) and rebuilds only what changed (setLines), as one Edit text step.
 function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
   if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:tbFill(d,t)}
   else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
@@ -1484,7 +1527,8 @@ let TP=0;function tabFresh(){if(!root||tabBlank())return true;if(TABS.length>=TM
   TP=TI;tabHold();TABS.push({});TI=TABS.length-1;root=null;return true}
 // A load that failed after tabFresh leaves no document: drop that tab and go back.
 function tabBack(){if(root)return;TABS.splice(TI,1);tabShow(TP<TI?TP:TP-1)}
-function tabGo(i){if(i===TI||!TABS[i]||D)return;tabHold();tabShow(i)}
+async function tabGo(i){if(i===TI||!TABS[i]||D||tabGo.b)return;if((TABS[i].n||0)>=3e4){tabGo.b=1;const o=$('mBz');o.lastChild.textContent=`Opening ${TABS[i].name}…`;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))}
+  try{tabHold();tabShow(i)}finally{tabGo.b=0;bzOff()}}
 async function tabClose(i){if(D)return;if(tabDt(i)&&!await cfm(`Close ${tabNm(i)} without exporting it? Its last state stays in File › Open recent.`,'Close'))return;
   if(TABS.length<2){i===TI&&(load(blank(210,297),'untitled.svg'),msg('Closed; a new blank page is open'));return}
   if(i!==TI){TABS.splice(i,1);i<TI&&TI--;return tabUI()}
@@ -1652,6 +1696,10 @@ async function probe(p){const R=PV(p),{key}=cfg(p),s=KT[p]={s:'wa'},cur=()=>cfg(
   const kt=rs.map(x=>x[0]),er=rs.map(x=>x[1]),ok=us[kt.indexOf(1)]||null;
   if(ok){cur()&&(ls('sg'+p+'Ep',ok),both&&ls('sg'+p+'Kt',JSON.stringify({kt,er})),KT[p]={s:'ok',m:'Connected',u:ok,kt,ker:er},cfgSync());return ok}
   both&&ls('sg'+p+'Kt','');const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
+// ── SVG Chat requests ──────────────────────────────────────────────────────────────────────────────────────
+// call(to,msgs,o) is the single path to every model: TBtools through its bridge, GLM and DeepSeek through their
+// OpenAI-compatible Chat Completions endpoints, streamed with the sse() reader. o.on receives text as it arrives,
+// o.ui the thinking text and usage.
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
@@ -1728,6 +1776,9 @@ function tbPrompt(q,fl,sl,pd,pa,fn,see,pi,n){const y=PROMPT.sys();let x=q,h='';c
   n>1&&(x+=`\n\nOnly the first of ${n} attached images was sent.`);
   for(const m of past(hist).slice(0,-1).reverse()){const l=`${m.role==='assistant'?'Assistant':'User'}: ${flat(m.content)}\n`;if(!ok(h+l))break;h=l+h}
   return y+(h&&'\n\n'+h)+x}
+// ask() runs one chat turn: it gathers the question, attachments and selection, has a vision model describe an
+// attached image first when needed (look), keeps the request within the model's context (rolling the chat over
+// when needed), then draw() streams the reply and land() places the SVG or applies a <patch>.
 async function ask(again,mo,rt){if(ac)return ac.abort();
   const t=$('mAsk').value.trim(),sent=imgs,fl=files,
     q=t||(sent.length?'Redraw this figure.':fl.length?'Draw a figure from the attached file.':'');if(!q)return;

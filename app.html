@@ -288,7 +288,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <span>Sizes</span><div><select data-g="gs"><option value="">Keep</option><option value="w">Same width</option><option value="h">Same height</option></select><label class="f" title="Empty: the first object's"><input type="number" step="0.1" min="0" data-g="gv" placeholder="first"><em class="u">mm</em></label></div>
 <span>In cell</span><select data-g="ga"><option value="tl">Top left</option><option value="c">Centred</option></select></div>
 <div class="row"><button data-a="fgGridGo" class="pri">Arrange</button></div>
-<details class="fgm"><summary>How it works</summary><p class="pph">The grid starts at the selection's top left; a column is as wide as its widest object, a row as tall as its tallest. Rows: by height on the page, objects whose centres lie within the first one's height share a row. The last row may be short.</p></details></section>
+<details class="fgm"><summary>How it works</summary><p class="pph">The grid starts at the selection's top left; a column is as wide as its widest object, a row as tall as its tallest. Rows: from the top down, an object shares a row when its centre lies within the row's height, or its top above the middle of an object in it. The last row may be short.</p></details></section>
 <section data-p="space"><ol class="fgst"><li>Select two or more objects</li><li>Click an align button, or set the spacing below</li><li>Click <b>Space</b></li></ol><div class="seg ic" id="mFgAl"></div>
 <div class="kv"><span>Align to</span><select data-g="at"><option value="">The selection</option><option value="k">The first selected</option><option value="p">The page</option></select></div>
 <h5>Space</h5><div class="kv"><span>Direction</span><select data-g="dd"><option value="h">Across, left to right</option><option value="v">Down, top to bottom</option></select>
@@ -1249,11 +1249,12 @@ function fgBar(f,i,b){const p=f.parentNode,[L,un='um',d='h',th='2']=(f.getAttrib
     else FG.m='A scale bar keeps the length its calibration gives; change it in FigKit › Scale bar';f.removeAttribute('transform')}
   if(typeof k!=='number'||!(+L>0)||!R){sa(f,'display','none');sa(f,FGK+'-bad','1');FG.m=`A scale bar is hidden: its picture ${typeof k=='string'?k:'has no size'}`;return}
   f.hasAttribute(FGK+'-bad')&&(f.removeAttribute(FGK+'-bad'),f.removeAttribute('display'));
-  const len=+L*UM[un]*k,w=fgPt(p,+th||2),h=d!=='v',bw=h?len:w,bh=h?w:len;let x0=0,y0=0,x1=bw,y1=bh,tx=0,ty=0;
+  const h=d!=='v',Q=ctm(p),len=+L*UM[un]*k,w=(+th||2)/PT/U/(h?hypot(Q.c,Q.d):hypot(Q.a,Q.b)),bw=h?len:w,bh=h?w:len;let x0=0,y0=0,x1=bw,y1=bh,tx=0,ty=0;
   if(t){const s=`${fm(+L)} ${UL[un]||un}`;t.textContent!==s&&(t.textContent=s);const ax=at(t,'x')||0,ay=at(t,'y')||0,q=t.getBBox(),fs=parseFloat(gcs(t).fontSize)||0,ox=q.x-ax,oy=q.y-ay,g=q.y+q.height-ay+.15*fs;
     if(h){tx=bw/2;ty=-g;x0=min(0,tx+ox);x1=max(bw,tx+ox+q.width);y0=min(0,ty+oy)}else{tx=-g;ty=bh/2;x0=min(0,tx+oy);y0=min(0,ty-ox-q.width);y1=max(bh,ty-ox)}}
   const ex=fgL(p,mx),ey=fgL(p,my),X=c[1]==='r'?b.x+b.w-ex-x1:b.x+ex-x0,Y=c[0]==='b'?b.y+b.h-ey-y1:b.y+ey-y0;
-  RN.forEach((n,j)=>sa(R,n,fc([X,Y,bw,bh][j])));if(t){const a=fc(X+tx),z=fc(Y+ty);sa(t,'x',a);sa(t,'y',z);sa(t,'transform',h?null:`rotate(-90 ${a} ${z})`)}}
+  // getBBox is float32, so the text's offsets jitter in the last digit: keep a value within that noise, or every update rewrites it
+  const sq=(e,n,v)=>fgEq(e.getAttribute(n),v)||e.setAttribute(n,v);RN.forEach((n,j)=>sq(R,n,fc([X,Y,bw,bh][j])));if(t){sq(t,'x',fc(X+tx));sq(t,'y',fc(Y+ty));sa(t,'transform',h?null:`rotate(-90 ${t.getAttribute('x')} ${t.getAttribute('y')})`)}}
 const FGD={
   label:{sig:(f,t,b)=>fgS([b.x,b.y,b.w,b.h]),
     q(f,b){const A=LA[fgPos(f)[0]]||LA.at,l=mbox(f,lm(f));return l&&[b.x+A[0]*b.w,b.y+A[1]*b.h,l.x+A[2]*l.w,l.y+A[3]*l.h]},
@@ -1263,7 +1264,9 @@ const FGD={
     r(f,b){const P=fgPos(f),w=parseFloat(gcs(f).strokeWidth)||0,e=(P[0]==='out'?w/2:P[0]==='mid'?0:-w/2)+fgL(f.parentNode,+P[1]||0);return[b.x-e,b.y-e,b.w+2*e,b.h+2*e].map(fc)},
     place(f,t,b){const r=this.r(f,b);sa(f,'transform',null);RN.forEach((n,i)=>sa(f,n,r[i]))},
     read(f,t,b){const r=this.r(f,b);(f.hasAttribute('transform')||RN.some((n,i)=>!fgEq(f.getAttribute(n),r[i])))&&(fgOff(f),FG.m='A frame moved on its own no longer follows its panel; it is a plain rectangle now')}},
-  bar:{box:(f,[t])=>{const i=fgImg(t);return i&&fgBox(i,f.parentNode)},
+  bar:{box:(f,[t])=>{const i=fgImg(t),b=i&&fgBox(i,f.parentNode),c=b&&tb(fgCR(i),ctm(f.parentNode).inverse().multiply(ctm(i)));if(!c)return b;
+      // the picture shown, not its element box: preserveAspectRatio can letterbox it inside that box
+      const x=max(b.x,c.x),y=max(b.y,c.y),X=min(b.x+b.w,c.x+c.w),Y=min(b.y+b.h,c.y+c.h);return X>x&&Y>y?rb(x,y,X-x,Y-y):b},
     sig:(f,[t],b)=>{const i=fgImg(t),m=ctm(f.parentNode).inverse().multiply(ctm(i));return fgS([b.x,b.y,b.w,b.h,m.a,m.b,m.c,m.d,fgCa(i)||'-',f.getAttribute(FGB)||'',f.getAttribute(FGP)||''])},
     place(f,[t],b){fgBar(f,fgImg(t),b)},read(f,[t],b){fgBar(f,fgImg(t),b)}},
   roi:{box:()=>1,m:(f,s)=>ctm(f.parentNode).inverse().multiply(ctm(s)),
@@ -1308,8 +1311,10 @@ const fgSel=()=>Gf.in.checked?sel.flatMap(e=>isGrp(e)&&!isLayer(e)&&!/^(merge|ba
   fgImgs=()=>[...new Set(fgSel().flatMap(e=>e.localName==='image'?[e]:fgK(e)==='merge'?[fgImg(e)]:fgK(e)==='bar'?[fgImg(fgT(e)[0])]:isGrp(e)?[...e.getElementsByTagName('image')]:[]))].filter(Boolean),
   fgImgsAll=()=>[...new Set(sel.flatMap(e=>e.localName==='image'?[e]:[...e.getElementsByTagName('image')]))],
   fgOrd=(a,o)=>{if(o==='doc')return order(a);if(o!=='read'&&o!=='col')return a.slice();const B=new Map(a.map(e=>[e,bbox(e)])),h=o==='read',ky=h?'y':'x',kh=h?'h':'w',kx=h?'x':'y',kw=h?'w':'h',
-      cy=e=>B.get(e)[ky]+B.get(e)[kh]/2,cx=e=>B.get(e)[kx]+B.get(e)[kw]/2,r=a.filter(e=>B.get(e)).sort((x,y)=>cy(x)-cy(y)),out=[];
-    while(r.length){const b=B.get(r[0]),row=r.filter(e=>cy(e)<=b[ky]+b[kh]).sort((x,y)=>cx(x)-cx(y)),s=new Set(row);out.push(...row);for(let i=r.length;i--;)s.has(r[i])&&r.splice(i,1)}return out};
+      t=e=>B.get(e)[ky],bt=e=>t(e)+B.get(e)[kh],cy=e=>t(e)+B.get(e)[kh]/2,cx=e=>B.get(e)[kx]+B.get(e)[kw]/2,r=a.filter(e=>B.get(e)).sort((x,y)=>t(x)-t(y)||cx(x)-cx(y)),out=[];
+    // A row grows from its topmost object: one joins when its centre lies within the row's span, or its top above a member's centre (short panels beside tall ones)
+    while(r.length){const row=[r.shift()];let hi=bt(row[0]),mc=cy(row[0]);for(let i=0;i<r.length;i++)if(cy(r[i])<=hi||t(r[i])<=mc){const e=r.splice(i,1)[0];row.push(e);hi=max(hi,bt(e));mc=max(mc,cy(e));i=-1}
+      out.push(...row.sort((x,y)=>cx(x)-cx(y)))}return out};
 function fgSizeCalc(){const a=fgTg(),m=fgv('sm'),W=fgm('sw'),Hh=fgm('sh'),nw=/w|fit/.test(m),nh=/h|fit/.test(m),st=/o|wh/.test(m),c=fgv('sa')==='c';
   if(!a.length)return'Select the objects to size';if(nw&&!(W>0))return'Enter a width';if(nh&&!(Hh>0))return'Enter a height';const o=[];
   for(const e of a){const b=bbox(e);if(!b||nw&&!b.w||nh&&!b.h)return`${lyName(e)} has no ${nw&&b&&!b.w?'width':'height'} to size`;let sx,sy;
@@ -1331,7 +1336,7 @@ function fgSpaceCalc(){const a=fgTg().filter(e=>bbox(e)),n=a.length,h=fgv('dd')=
   return s.map((e,i)=>{const d=pos[i]-L[i][p];return[e,h?T(d,0):T(0,d),L[i]]})}
 const fgTok=t=>t&&t.format==='svguest-figkit-positions'&&t.version===1&&typeof t.name=='string'&&Array.isArray(t.slots)&&t.slots.length>0&&t.slots.every(s=>s&&[s.x,s.y,s.w,s.h].every(Number.isFinite)),
   fgTpl=()=>{try{const a=JSON.parse(ls('sgFkTpl')||'[]');return Array.isArray(a)?a.filter(fgTok):[]}catch(_){return[]}},fgTplW=a=>ls('sgFkTpl',JSON.stringify(a)),
-  fgTplUI=nm=>{const L=fgTpl(),s=Gf.pt,v=nm||s.value;s.replaceChildren(...L.map(t=>new Option(`${t.name} · ${t.slots.length}${t.reference==='object'?' · from an object':''}`,t.name)));L.length||s.append(Object.assign(new Option('No templates yet',''),{disabled:true}));v&&L.some(t=>t.name===v)&&(s.value=v)};
+  fgTplUI=nm=>{const L=fgTpl(),s=Gf.pt,v=nm||s.value;s.replaceChildren(...L.map(t=>new Option(`${t.name} · ${t.slots.length}${t.reference==='object'?' · from an object':''}`,t.name)));L.length||s.append(Object.assign(new Option('No templates yet',''),{disabled:true,selected:true}));v&&L.some(t=>t.name===v)&&(s.value=v)};
 function fgTplCalc(){const t=fgTpl().find(x=>x.name===fgv('pt'));if(!t)return'Record or import a template first';const a0=fgTg(),k=t.reference==='object'?a0[0]:null,a=fgOrd(a0.filter(e=>e!==k),fgv('po'));
   if(k&&!a.length)return'This template starts from an object: select that object first, then the objects to place';
   if(a.length!==t.slots.length)return`The template has ${fgN(t.slots.length,'slot')}, and ${fgN(a.length,'object')} ${k?'besides the first ':''}${a.length===1?'is':'are'} selected: nothing moves until the numbers match`;
@@ -1467,7 +1472,7 @@ const FGU={
     $('mFgZi').textContent=`${lyName(s)}${n?`: ${n[0]} × ${n[1]} px`:''}`+(R?' · zoom box selected: change the numbers and Update':' · empty region: the middle quarter');
     const r=n&&fgZr(n);return{pv:Array.isArray(r)&&!R?[{b:tb((q=>rb(q.x+r[0]*q.w,q.y+r[1]*q.h,(r[2]-r[0])*q.w,(r[3]-r[1])*q.h))(fgCR(s)),ctm(s))}]:null,st:typeof r=='string'?r:R?`${fgN(fgIns_(R).length,'inset')} linked to this box`:'The outline shows the region'}},
   chan:c=>{const I=sel.filter(e=>e.localName==='image');if(c){const C=$('mFgC'),L=fgLutOf(fgImgsAll()[0]||root);L&&(Gf.tc.value=L[0],Gf.tn.value=[...Gf.tn.options].some(o=>o.value===L[0])?L[0]:'',Gf.t0.value=L[1],Gf.t1.value=L[2]);
-      C.replaceChildren(...I.slice(0,7).map((i,j)=>{const d=el('div'),q=fgLutOf(i)||[MC[j],0,255],[a,b,x]=[0,1,2].map(()=>el('input'));a.type='color';a.value=q[0];b.type=x.type='number';b.min=0;b.max=254;x.min=1;x.max=255;b.value=q[1];x.value=q[2];b.title='Min';x.title='Max';d.append(el('b',0,j+1),a,b,x,el('span',0,lyName(i)));return d}));
+      const uc=I.slice(0,7).map(fgLutOf),fr=MC.filter(c=>!uc.some(q=>q&&q[0]===c));C.replaceChildren(...I.slice(0,7).map((i,j)=>{const d=el('div'),q=uc[j]||[fr.shift()||MC[j],0,255],[a,b,x]=[0,1,2].map(()=>el('input'));a.type='color';a.value=q[0];b.type=x.type='number';b.min=0;b.max=254;x.min=1;x.max=255;b.value=q[1];x.value=q[2];b.title='Min';x.title='Max';d.append(el('b',0,j+1),a,b,x,el('span',0,lyName(i)));return d}));
       I.length>7&&C.append(el('p','pph',`Only 7 can be merged; ${I.length} pictures are selected`))}
     return I.length?{st:`${fgN(I.length,'picture')} selected, in this order`}:{e:'Select pictures (images)'}}};
 function fgFov(){const ow=fgn('ow'),oh=fgn('oh'),px=fgn('px'),py=Gf.py.value===''?px:fgn('py');Gf.fx.value=ow>0&&px>0?+(ow*px).toPrecision(6):'';Gf.fy.value=oh>0&&py>0?+(oh*py).toPrecision(6):'';$('mFg').querySelector('.pu').textContent=UL[fgv('pu')]}
@@ -1477,7 +1482,9 @@ function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').va
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
   const st=document.querySelector(`#mFg section[data-p=${p}] .fgst li`);st&&st.classList.toggle('ok',p!=='place'&&!!sel.length&&!(h&&/^Select/.test(r.e)));hud()}
 function fgOpen(p){if(!root)return;const W=$('mFg');$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}fgShow()}
-function fgShow(){const p=$('mFgT').value;$('mFg').querySelectorAll('section[data-p]').forEach(s=>s.hidden=s.dataset.p!==p);$('mFgI').hidden=!/^(size|grid|space|place|label|frame)$/.test(p);p==='color'&&fgPalUI();FG.ps=null;fgRef()}
+function fgShow(){const p=$('mFgT').value;$('mFg').querySelectorAll('section[data-p]').forEach(s=>s.hidden=s.dataset.p!==p);$('mFgI').hidden=!/^(size|grid|space|place|label|frame)$/.test(p);p==='color'&&fgPalUI();FG.ps=null;fgRef();fgFit()}
+// keep the window's foot (buttons, status) on screen when a taller pane opens or the window shrinks
+const fgFit=()=>{const W=$('mFg');if(W.hidden)return;const r=W.getBoundingClientRect();r.bottom>innerHeight-8&&(W.style.top=max(8,innerHeight-8-r.height)+'px')};addEventListener('resize',fgFit);$('mFg').addEventListener('toggle',fgFit,true);
 const fgX=()=>{$('mFg').hidden=true;FG.pv=null;hud()};
 function lock(){finish(true);if(!sel.length)return;const n=sel.length;xns('sodipodi');sel.forEach(e=>setA(e,'sodipodi:insensitive','true'));setSel([],1);commit();msg(`Locked ${nObj(n)}: clicks and box selection pass through; Ctrl+Alt+2 unlocks all`)}
 function unlock(){finish(true);const a=[...root.querySelectorAll('[*|insensitive]')].filter(e=>e.hasAttributeNS(NS.sodipodi,'insensitive')),l=a.filter(e=>!isLayer(e)),y=a.length-l.length;if(!a.length)return msg('Nothing is locked');

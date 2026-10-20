@@ -1571,10 +1571,18 @@ async function apiPost(p,u,key,body,o={}){const S=p==='Glm'&&globalThis.TBSIWC;
   try{return await send(body)}catch(e){if(e.name!=='TypeError'||o.signal?.aborted)throw e;if(!body.stream)throw glmNet(u,e);
     o.ui?.note('GLM streaming could not open; waiting for a single reply…');
     try{return await send({...body,stream:false})}catch(x){if(x.name!=='TypeError'||o.signal?.aborted)throw x;throw glmNet(u,x)}}}
-async function probe(p){const R=PV(p),{key}=cfg(p),er=[],s=KT[p]={s:'wa'},cur=()=>cfg(p).key===key&&KT[p]===s;cfgSync();
-  for(const u of[R.url,R.plan].filter(Boolean)){if(!cur())throw new DOMException('Connection settings changed','AbortError');const C=new AbortController(),tm=setTimeout(()=>C.abort(),20000);s.abort=()=>C.abort();try{const r=await apiPost(p,u,key,{model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16,...(p==='Glm'?{thinking:{type:'enabled'},reasoning_effort:'low'}:{})},{signal:C.signal}),t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}
-    if(r.ok&&!j?.error&&Array.isArray(j?.choices)&&j.choices.length){cur()&&(ls('sg'+p+'Ep',u),KT[p]={s:'ok',m:'Connected',u},cfgSync());return u}er.push(`${r.status} ${apiMsg(t)||'Empty reply'}`.replace(/\.$/,'').slice(0,300))}catch(e){er.push(e.name==='AbortError'?'Connection test timed out after 20 s':e.message)}finally{clearTimeout(tm)}}
-  const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
+// Tests a saved key with a tiny request. GLM keys are tried on both the standard API and the Coding Plan endpoint, so the card
+// can say which ones accept the key (kt: [standard, coding], 1 accepted, 0 refused); the first that works becomes the endpoint.
+async function probe(p){const R=PV(p),{key}=cfg(p),s=KT[p]={s:'wa'},cur=()=>cfg(p).key===key&&KT[p]===s,both=p==='Glm',cs=[];cfgSync();
+  s.abort=()=>cs.forEach(C=>C.abort());
+  const one=async u=>{const C=new AbortController(),tm=setTimeout(()=>C.abort(),20000);cs.push(C);try{const r=await apiPost(p,u,key,{model:R.ms[0].id,messages:[{role:'user',content:'Hi'}],max_tokens:16,...(p==='Glm'?{thinking:{type:'enabled'},reasoning_effort:'low'}:{})},{signal:C.signal}),t=await r.text();let j;try{j=JSON.parse(t)}catch(_){}
+    return r.ok&&!j?.error&&Array.isArray(j?.choices)&&j.choices.length?[1,'']:[0,`${r.status} ${apiMsg(t)||'Empty reply'}`.replace(/\.$/,'').slice(0,300)]}catch(e){return[0,e.name==='AbortError'?'Connection test timed out after 20 s':e.message]}finally{clearTimeout(tm)}};
+  const us=[R.url,R.plan].filter(Boolean),rs=both?await Promise.all(us.map(one)):[];
+  if(!both)for(const u of us){if(!cur())break;const x=await one(u);rs.push(x);if(x[0])break}
+  if(!cur())throw new DOMException('Connection settings changed','AbortError');
+  const kt=rs.map(x=>x[0]),er=rs.map(x=>x[1]),ok=us[kt.indexOf(1)]||null;
+  if(ok){cur()&&(ls('sg'+p+'Ep',ok),both&&ls('sg'+p+'Kt',JSON.stringify({kt,er})),KT[p]={s:'ok',m:'Connected',u:ok,kt,ker:er},cfgSync());return ok}
+  both&&ls('sg'+p+'Kt','');const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
 async function call(to,msgs,o){
   if(o.signal?.aborted)throw to.p==='Tb'?Error('aborted'):new DOMException('Stopped','AbortError');
   if(to.p==='Tb'){const B=tbBridge();if(!B)throw Error('closed');let p;
@@ -1761,11 +1769,18 @@ function connSync(){const d=drawTo(),ok=rdy(d),r=ok&&reader(d),au=rdAuto(),L=$('
   const g=$('mGlmRelay');g&&(g.checked=GLMR,g.disabled=!!ac);
   for(const q of REG){const S=$('mKs'+q.p);if(!S)continue;const s=conn(q.p),m=$('mKm'+q.p),x=$('mKx'+q.p);
     S.className='st '+s;S.textContent=q.st?q.st()[1]:q.ok?q.ok()?'Ready':'Not available':s==='ok'?'Connected':s==='wa'?'Checking connection…':s==='er'?'Not connected':'No key';
-    if(q.p==='Glm'){const t=$('mEpGlm');t.hidden=s!=='ok';t.textContent=s==='ok'?`Tested endpoint: ${epName(q,KT[q.p]?.u)}. This does not verify your subscription or quota usage.`:''}
+    if(q.p==='Glm'){const t=$('mEpGlm');t.hidden=s!=='ok';t.replaceChildren(...s==='ok'?glmKind(KT[q.p]):[])}
     m&&(m.textContent=s==='er'&&KT[q.p]?.m||'',m.hidden=s!=='er');x&&(x.hidden=!cfg(q.p).key);const b=$('mKt'+q.p);b&&(b.hidden=!cfg(q.p).key,b.disabled=s==='wa');
     $('mKl'+q.p).replaceChildren(...q.ms.map(m=>{const li=el('li',0,m.n);m.see&&li.append(el('em',0,'reads images'));li.append(el('small',0,m.ch?'32,000 characters':m.ctx?fmtK(m.ctx)+' tokens':''));return li}))}}
 function glmRelaySet(v){if(ac){connSync();return msg('Stop the current reply before changing the GLM connection.')}GLMR=!!v;ls('sgGlmRelay',GLMR?'1':'0');keySet('Glm',cfg('Glm').key,1)}
-function keySet(p,v,force){v=v.trim();if(!force&&v===cfg(p).key&&KT[p]?.s!=='er')return;KT[p]?.abort?.();ls('sg'+p+'Key',v);ls('sg'+p+'Ep','');KS[p]=null;KT[p]=null;v?ep(p).catch(()=>{}):cfgSync()}
+// What the GLM card says about a key that connected: its type, judged by which endpoints accepted it.
+function glmKind(k){const[a,b]=k?.kt||[],e=k?.ker||[],h=el('b'),n=el('span');
+  if(a&&b)h.textContent='Works with both the standard API and Coding Plan.',n.textContent=' svguest uses the standard API, billed pay-as-you-go.';
+  else if(a)h.textContent='Standard API key (pay-as-you-go).',n.textContent=b===0?' The Coding Plan endpoint refused it, so it is not a Coding Plan key.':'';
+  else if(b)h.textContent='Coding Plan key.',n.textContent=` Only the Coding Plan endpoint accepted it${e[0]?` (standard API: ${e[0]})`:''}. Zhipu's Coding Plan covers its listed coding tools only, so it may stop working here; a pay-as-you-go key is the reliable choice.`;
+  else h.textContent=`Connected: ${epName(PV('Glm'),k?.u)}.`;
+  return[h,n]}
+function keySet(p,v,force){v=v.trim();if(!force&&v===cfg(p).key&&KT[p]?.s!=='er')return;KT[p]?.abort?.();ls('sg'+p+'Key',v);ls('sg'+p+'Ep','');KS[p]=null;KT[p]=null;p==='Glm'&&ls('sgGlmKt','');v?ep(p).catch(()=>{}):cfgSync()}
 function regAdd(r){const i=REG[0]?.p==='Tb'?1:0,nx=REG[i];REG.splice(i,0,r);const c=card(r),n=nx&&$('mCd'+nx.p);n?n.before(c):$('mConnB').append(c);cfgSync();return c}
 function rtOpen(x){const M=$('mRtM'),o=[el('h5',0,'Retry with')],d=vOf(drawTo());menuOff();
   for(const q of REG)if(hasP(q.p))for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),y=el('button',v===d?'on':0,m.n);y.dataset.rv=v;y.append(el('small',0,q.n));o.push(y)}
@@ -1824,7 +1839,7 @@ async function chRoll(to,pc){const A=CH,sb=bub('a','This chat is near the model\
   finally{ac=null;sendUI(0)}}
 LG.addEventListener('click',e=>{const g=e.target.closest('button[data-go]');if(g)return chOpen(g.dataset.go);const b=e.target.closest('button[data-ai]');if(!b||b.onclick)return;const s=CH&&CH.svgs[b.dataset.k];if(!s)return msg('This figure is no longer stored');b.dataset.ai==='i'?(aiG=null,put(s),chSave()):put(s,1)});
 chShow(chNone());
-connInit();for(const r of REG)if(!r.ok&&cfg(r.p).key){const u=ls('sg'+r.p+'Ep');u&&[r.url,r.plan].includes(u)?(KS[r.p]=Promise.resolve(u),KT[r.p]={s:'ok',m:'Connected',u}):ep(r.p).catch(()=>{})}sendUI(0);cfgSync();
+connInit();for(const r of REG)if(!r.ok&&cfg(r.p).key){const u=ls('sg'+r.p+'Ep');u&&[r.url,r.plan].includes(u)?(KS[r.p]=Promise.resolve(u),KT[r.p]={s:'ok',m:'Connected',u,...(t=>t&&{kt:t.kt,ker:t.er})((()=>{try{return JSON.parse(ls('sg'+r.p+'Kt')||'null')}catch(_){}})())}):ep(r.p).catch(()=>{})}sendUI(0);cfgSync();
 $('mAtt').onclick=()=>$('mAttF').click();
 $('mAttF').onchange=e=>{attach([...e.target.files]);e.target.value=''};
 $('mGrip').onpointerdown=e=>{e.preventDefault();const t=$('mAsk'),y=e.clientY,h=t.offsetHeight,mv=v=>t.style.height=max(40,min($('mChat').clientHeight*.7,h+y-v.clientY))+'px',

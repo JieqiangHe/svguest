@@ -605,6 +605,7 @@ function load(txt,nm){asNow();const d=parse(txt);prolog='';
   for(let n=d.firstChild;n!==d.documentElement;n=n.nextSibling)n.nodeType===8?prolog+=`<!--${n.data}-->\n`:n.nodeType===7&&(prolog+=`<?${n.target} ${n.data}?>\n`);
   finish(false);root&&root.remove();mo&&mo.disconnect();
   root=document.adoptNode(d.documentElement);name=nm;
+  {const v=root.viewBox.baseVal;root.hasAttribute('viewBox')&&!(v&&v.width>0&&v.height>0&&Math.max(v.width,v.height,Math.abs(v.x),Math.abs(v.y))<1e12)&&root.removeAttribute('viewBox')}
   if(!root.hasAttribute('viewBox'))root.setAttribute('viewBox',`0 0 ${fm((mmOf(root.getAttribute('width'))||210)*96/25.4)} ${fm((mmOf(root.getAttribute('height'))||297)*96/25.4)}`);
   const b=root.viewBox.baseVal;vb=rb(b.x,b.y,b.width,b.height);U=unitOf(root,vb.w);
   fit();stage.insertBefore(root,$('mGW'));

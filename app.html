@@ -1270,13 +1270,19 @@ const natH=u=>{if(/^data:image\/png;base64,/i.test(u))try{const b=atob(u.slice(2
   fgPer=(i,p,d)=>{const c=fgCal(i);if(!c)return'is not calibrated';const r=fgCR(i),m=ctm(p).inverse().multiply(ctm(i)),sx=hypot(m.a,m.b),sy=hypot(m.c,m.d);
     if(!(sx>0&&sy>0)||abs(m.a*m.c+m.b*m.d)>1e-6*sx*sy)return'is skewed';const kx=sx*r.w/(c.ow*c.px),ky=sy*r.h/(c.oh*c.py);
     if(abs(m.b)<=1e-9*sx&&abs(m.c)<=1e-9*sy)return d==='v'?ky:kx;return abs(kx-ky)<=1e-4*max(kx,ky)?kx:'is rotated, and its pixels or its scaling differ across and down, so a level bar would be wrong'};
-function fgBar(f,i,b){const p=f.parentNode,[L,un='um',d='h',th='2',tz]=(f.getAttribute(FGB)||'').split(/\s+/),P=fgPos(f),c=P[0]||'br',R=f.querySelector('rect'),t=f.querySelector('text'),k=fgPer(i,p,d);let mx=+P[1]||0,my=+P[2]||0;
+// A scale bar's text keeps its size in pt, as the bar keeps its thickness, when what holds it is scaled. FGZ remembers, per text and in memory only (so no
+// file is rewritten, made today or before), every font-size it has had with the size in pt that went with it: one seen before (Undo, Redo) keeps that size,
+// a new one was typed by hand and becomes the size. A file's bars are measured as they open (fgChk), pasted or imported ones at their first commit.
+const FGZ=new WeakMap,fgZm=t=>{const v=parseFloat(gcs(t).fontSize);return v>0?v:0},fgZk=v=>v.toPrecision(9),
+  fgZa=(t,v,z)=>{let m=FGZ.get(t);m||FGZ.set(t,m=new Map);m.delete(fgZk(v));m.set(fgZk(v),z);m.size>64&&m.delete(m.keys().next().value)},
+  fgZs=(f,t)=>{const v=fgZm(t);v&&!(FGZ.get(t)||new Map).has(fgZk(v))&&fgZa(t,v,v*sc(ctm(f.parentNode))*U*PT)};
+function fgBar(f,i,b){const p=f.parentNode,[L,un='um',d='h',th='2']=(f.getAttribute(FGB)||'').split(/\s+/),P=fgPos(f),c=P[0]||'br',R=f.querySelector('rect'),t=f.querySelector('text'),k=fgPer(i,p,d);let mx=+P[1]||0,my=+P[2]||0;
   if(f.hasAttribute('transform')){const m=lm(f),u=mbox(f,m);if(u&&abs(m.a-1)+abs(m.b)+abs(m.c)+abs(m.d-1)<1e-9){[mx,my]=fgMm(p,c[1]==='r'?b.x+b.w-u.x-u.w:u.x-b.x,c[0]==='b'?b.y+b.h-u.y-u.h:u.y-b.y).map(v=>+v.toFixed(4));sa(f,FGP,fgS([c,mx,my]))}
     else FG.m='A scale bar keeps the length its calibration gives; change it in FigKit › Scale bar';f.removeAttribute('transform')}
   if(typeof k!=='number'||!(+L>0)||!R){sa(f,'display','none');sa(f,FGK+'-bad','1');FG.m=`A scale bar is hidden: its picture ${typeof k=='string'?k:'has no size'}`;return}
   f.hasAttribute(FGK+'-bad')&&(f.removeAttribute(FGK+'-bad'),f.removeAttribute('display'));
   const h=d!=='v',Q=ctm(p),len=+L*UM[un]*k,w=(+th||2)/PT/U/(h?hypot(Q.c,Q.d):hypot(Q.a,Q.b)),bw=h?len:w,bh=h?w:len;let x0=0,y0=0,x1=bw,y1=bh,tx=0,ty=0;
-  if(t){const s=`${fm(+L)} ${UL[un]||un}`;t.textContent!==s&&(t.textContent=s);+tz>0&&fgSts(t,[['font-size',f6(fgPt(p,+tz))+'px']]);const ax=at(t,'x')||0,ay=at(t,'y')||0,q=t.getBBox(),fs=parseFloat(gcs(t).fontSize)||0,ox=q.x-ax,oy=q.y-ay,g=q.y+q.height-ay+.15*fs;
+  if(t){const s=`${fm(+L)} ${UL[un]||un}`;t.textContent!==s&&(t.textContent=s);const cv=fgZm(t),m=FGZ.get(t),z=m&&m.get(fgZk(cv))||cv*sc(Q)*U*PT,nv=z/PT/U/sc(Q);cv&&nv>0&&abs(nv-cv)>1e-6*max(1,nv)&&fgSts(t,[['font-size',f6(nv)+'px']]);FG.gh||!cv||(fgZa(t,cv,z),fgZa(t,fgZm(t),z));const ax=at(t,'x')||0,ay=at(t,'y')||0,q=t.getBBox(),fs=parseFloat(gcs(t).fontSize)||0,ox=q.x-ax,oy=q.y-ay,g=q.y+q.height-ay+.15*fs;
     if(h){tx=bw/2;ty=-g;x0=min(0,tx+ox);x1=max(bw,tx+ox+q.width);y0=min(0,ty+oy)}else{tx=-g;ty=bh/2;x0=min(0,tx+oy);y0=min(0,ty-ox-q.width);y1=max(bh,ty-ox)}}
   const ex=fgL(p,mx),ey=fgL(p,my),X=c[1]==='r'?b.x+b.w-ex-x1:b.x+ex-x0,Y=c[0]==='b'?b.y+b.h-ey-y1:b.y+ey-y0;
   // getBBox is float32, so the text's offsets jitter in the last digit: keep a value within that noise, or every update rewrites it
@@ -1335,7 +1341,7 @@ const fgPre=()=>{FG.dk=null;const L=fgAll(),gf=$('mGF');if(!L.length)return;for(
     for(const[ns,nm,v]of A)e.getAttribute(nm)!==v&&e.setAttributeNS(ns,nm,v)}})};
 function fgSync(){if(!root)return;const L=fgAll();if(!L.length)return;const n=FG.st.size;for(const f of L)if(root.contains(f))try{fgGo(f)}catch(_){}
   const d=n-FG.st.size;d>0&&!FG.m&&(FG.m=`Also brought ${d} linked object${d>1?'s':''} back in line with what ${d>1?'they belong':'it belongs'} to`);FG.m&&(msg(FG.m),FG.m='')}
-function fgChk(){FG.st=new Set;FG.pv=null;for(const f of fgAll())try{const D=FGD[fgK(f)],ts=fgT(f);if(!ts.length||ts.some(t=>!t))continue;const b=D.box?D.box(f,ts):fgBox(ts[0],f.parentNode);b&&!fgEq(D.sig(f,ts,b),f.getAttribute(FGA))&&FG.st.add(f)}catch(_){}
+function fgChk(){FG.st=new Set;FG.pv=null;for(const f of fgAll())try{fgK(f)==='bar'&&(t=>t&&fgZs(f,t))(f.querySelector('text'));const D=FGD[fgK(f)],ts=fgT(f);if(!ts.length||ts.some(t=>!t))continue;const b=D.box?D.box(f,ts):fgBox(ts[0],f.parentNode);b&&!fgEq(D.sig(f,ts,b),f.getAttribute(FGA))&&FG.st.add(f)}catch(_){}
   const n=FG.st.size;n&&requestAnimationFrame(()=>setTimeout(()=>msg(`${n} linked object${n>1?'s':''} (labels, frames, scale bars or zoom insets, outlined in red) no longer ${n>1?'match what they belong':'matches what it belongs'} to, perhaps after editing elsewhere: FigKit › Update linked objects`),120))}
 const fgCut=(ns,m)=>{const v=new Set(m.values()),ok=e=>{const k=fgK(e),t=fgT(e);return k==='inset'?fgK(t[0])==='roi':k==='zline'?fgK(t[0])==='roi'&&fgK(t[1])==='inset':true};
   for(let r=0;r<3;r++)for(const n of ns)for(const e of[n,...n.querySelectorAll(`[${FGF}]`)])e.hasAttribute(FGF)&&([...e.getAttribute(FGF).matchAll(/url\(#([^)]+)\)/g)].some(x=>!v.has(x[1]))||!ok(e))&&((c=>c&&e.setAttribute(FGC,c))(fgK(e)==='inset'&&fgCa(e)),fgOff(e))};
@@ -1438,7 +1444,7 @@ function fgBarGo(){const I=fgImgs(),L=fgn('bl'),u=fgv('bu'),th=fgn('bt'),c=fgv('
   for(const i of I){const k=fgPer(i,upc(i.parentNode),d);if(typeof k=='string')return msg(`${lyName(i)} ${k}`+(k==='is not calibrated'?': enter its pixel size above and Save calibration first':'')+'. Nothing was changed')}
   fgDo('Scale bar',()=>{const ex=fgMap('bar');xns('inkscape');let n=0;for(const i of I){let g=ex.get(i);if(!g){i.id||(i.id=uid('image'));g=mk('g',{id:uid('g'),[FGK]:'bar',[FGF]:`url(#${i.id})`,'inkscape:label':'Scale bar'});mk('rect',{id:uid('rect')},g);fgIns(i,g);n++}
       const p=g.parentNode;let t=g.querySelector('text');fgSts(g.querySelector('rect'),[['fill',c],['stroke','none']]);sh&&!t&&(t=mk('text',{'xml:space':'preserve',id:uid('text'),style:'font-family:Arial'},g));!sh&&t&&(t.remove(),t=null);
-      t&&fgSts(t,[['font-size',f6(fgPt(p,fs))+'px'],['fill',c],['text-anchor','middle']]);sa(g,FGB,fgS(sh?[L,u,d,th,fs]:[L,u,d,th]));sa(g,FGP,fgS([fgv('bk'),+((fgn('bx')||0)*fgU()).toFixed(4),+((fgn('by')||0)*fgU()).toFixed(4)]));fgGo(g,1)}
+      t&&fgSts(t,[['font-size',f6(fgPt(p,fs))+'px'],['fill',c],['text-anchor','middle']]);sa(g,FGB,fgS([L,u,d,th]));sa(g,FGP,fgS([fgv('bk'),+((fgn('bx')||0)*fgU()).toFixed(4),+((fgn('by')||0)*fgU()).toFixed(4)]));fgGo(g,1)}
     FG.v++;msg(`${n?'Added':'Updated'} ${I.length>1?I.length+' scale bars':'the scale bar'} (${fm(L)} ${UL[u]}): ${I.length>1?'they are':'it is'} redrawn whenever ${I.length>1?'their pictures change':'its picture changes'}`)})}
 function fgBarDel(){const I=new Set(fgImgs()),L=[...root.querySelectorAll(`[${FGK}=bar]`)].filter(g=>I.has(fgT(g)[0])||sel.includes(g));if(!L.length)return msg('The selected pictures have no scale bars');
   fgDo('Remove scale bars',()=>{L.forEach(g=>g.remove());FG.v++;setSel(sel.filter(e=>root.contains(e)),1);msg(`Removed ${fgN(L.length,'scale bar')}`)})}
@@ -1503,6 +1509,9 @@ const FGU={
   color:c=>{if(c){const l=lf0(),v=l&&gcs(l)[FG.w];v&&/^rgb/.test(v)&&fgCset(hex(v))}return sel.length?{st:`Applies to the ${FG.w} of ${fgN(sel.length,'object')}`}:{e:'Select objects to colour'}},
   scale:c=>{const I=fgImgs(),i=I[0],cs=$('mFgCd').querySelector('summary i');if(!i)return $('mFgCi').textContent=$('mFgBi').textContent=cs.textContent='',cs.className='',{e:'Select a picture'};const k=fgCal(i);
     cs.textContent=k?`${k.v[2]}${k.v[3]!==k.v[2]?' × '+k.v[3]:''} ${UL[k.u]} per pixel`:'needed for a scale bar';cs.className=k?'':'w';
+    const g=c&&[...root.querySelectorAll(`[${FGK}=bar]`)].find(g=>fgImg(fgT(g)[0])===i);
+    if(g){const[L,un='um',d='h',th='2']=(g.getAttribute(FGB)||'').split(/\s+/),P=fgPos(g),t=g.querySelector('text'),cl=hex(gcs(g.querySelector('rect')).fill);Gf.bl.value=L;Gf.bu.value=un;Gf.bd.value=d;Gf.bt.value=th;Gf.bk.value=P[0]||'br';
+      Gf.bx.value=+((+P[1]||0)/fgU()).toFixed(3);Gf.by.value=+((+P[2]||0)/fgU()).toFixed(3);Gf.bs.checked=!!t;t&&(Gf.bz.value=+(fgZm(t)*sc(ctm(g.parentNode))*U*PT).toFixed(2));cl&&(Gf.bc.value=cl,hxS(Gf.bc,cl))}
     if(c){$('mFgCd').open=!k;Gf.ow.value=k?k.ow:'';Gf.oh.value=k?k.oh:'';Gf.px.value=k?k.v[2]:'';Gf.py.value=k&&k.v[3]!==k.v[2]?k.v[3]:'';k&&(Gf.pu.value=k.u);fgFov();
       fgNat(i).then(n=>{if(fgImgs()[0]!==i)return;FG.zn=[i,n];k||!n||(Gf.ow.value=n[0],Gf.oh.value=n[1],fgFov());fgRq()})}
     const n=FG.zn&&FG.zn[0]===i&&FG.zn[1];$('mFgCi').textContent=`${lyName(i)}${n?`: ${n[0]} × ${n[1]} px as embedded`:''}${k&&(!n||n[0]!==k.ow||n[1]!==k.oh)?`; calibrated as ${k.ow} × ${k.oh}`:''}`+(I.length>1?` (and ${I.length-1} more)`:'');

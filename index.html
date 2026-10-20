@@ -11,11 +11,11 @@
 <meta property="og:description" content="Touch up figures from ggplot2, Inkscape or Adobe Illustrator in your browser or in TBtools. Nothing is uploaded.">
 <meta property="og:url" content="https://www.svguest.online/">
 <link rel="prefetch" href="app.html">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%23111827'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%231c1c1c'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
 <script>{let t;try{t=localStorage.sgTheme}catch(_){}(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}</script>
 <style>
-:root{--lw:310px;--ink:#111827;--body:#3f4654;--muted:#6b7280;--paper:#f7f8fa;--line:#e3e6eb;--frame:#1118271f;--card:#eef1f5;--img:none;color-scheme:light}
-[data-theme=dark]{--ink:#e8ebf0;--body:#b4bac4;--muted:#858c97;--paper:#0f1115;--line:#262a31;--frame:#e8ebf01f;--card:#171a20;--img:brightness(.82);color-scheme:dark}
+:root{--lw:310px;--ink:#1c1c1c;--body:#454545;--muted:#6e6e6e;--paper:#f6f6f6;--line:#e2e2e2;--frame:#1c1c1c1f;--card:#ececec;--img:none;color-scheme:light}
+[data-theme=dark]{--ink:#e6e6e6;--body:#bdbdbd;--muted:#8f8f8f;--paper:#1f1f1f;--line:#333333;--frame:#e6e6e61f;--card:#292929;--img:brightness(.82);color-scheme:dark}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;background:var(--paper)}
 body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
@@ -205,7 +205,7 @@ addEventListener('resize',hud_);
 cover.addEventListener('scroll',hud_);
 
 const SD=matchMedia('(prefers-color-scheme:dark)'),de=document.documentElement,sv=()=>{try{return localStorage.sgTheme}catch(_){}};
-function th(d){de.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23e8ebf0':'%23111827');thm.title=`Theme: ${d?'dark':'light'}${sv()?'':', as the system'}. Click for the ${d?'light':'dark'} theme`;thm.setAttribute('aria-label',thm.title)}
+function th(d){de.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23e6e6e6':'%231c1c1c');thm.title=`Theme: ${d?'dark':'light'}${sv()?'':', as the system'}. Click for the ${d?'light':'dark'} theme`;thm.setAttribute('aria-label',thm.title)}
 SD.addEventListener('change',e=>sv()||th(e.matches));
 thm.onclick=()=>{const d=de.dataset.theme!=='dark';try{d===SD.matches?localStorage.removeItem('sgTheme'):localStorage.sgTheme=d?'dark':'light'}catch(_){}th(d)};
 th(de.dataset.theme==='dark');

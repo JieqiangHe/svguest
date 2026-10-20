@@ -13,6 +13,7 @@ The Java side is a thin shell: it opens the plugin folder's `index.html` via fil
 - `assets/tbtools-ai.json`: the opt-in for apps that use the TBtools model (see TBtools model bridge below).
 - `scripts/Siwc.java`, `assets/siwc.json`: the ChatGPT plan bridge and its opt-in (see ChatGPT plan bridge below).
 - `scripts/svguest-stage.sh`, `assets/svguest-chatgpt.js`: svguest only — stages its plugin copy with the ChatGPT option added.
+- `scripts/svguest-repack.sh <svguest_repo> [plugin]`: svguest only — restages `app.html` into the existing `svguest.plugin` and keeps its compiled `svguest.jar`, so an app-only change needs no JDK or TBtools jar (cloud sessions included). Java changes still go through `build.sh`.
 
 ## Environment
 

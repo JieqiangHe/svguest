@@ -227,7 +227,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div id="mTs"><div id="mTx" class="ed" spellcheck="false" data-ph="Select one text to edit it here" title="The selected text: type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes. Select characters to restyle only them"></div>
 <div class="kv"><span>Font</span><label class="f"><input list="mFonts" data-f="ff"></label>
 <span>Size</span><div><label class="f"><input type="number" step="0.5" min="0.5" data-f="fs"><em>pt</em></label><label class="f c" title="Text colour"><input type="color" data-f="tc"><span class="hx"></span></label></div></div>
-<div class="row"><span class="seg"><button data-a="bold" title="Bold"><b>B</b></button><button data-a="ital" title="Italic"><i>I</i></button><button data-a="sup" title="Superscript: applies to selected characters while editing">X²</button><button data-a="sub" title="Subscript: applies to selected characters while editing">X₂</button></span><span class="seg ic t">
+<div class="row"><span class="seg"><button data-a="bold" title="Bold (Ctrl+B while editing)"><b>B</b></button><button data-a="ital" title="Italic (Ctrl+I while editing)"><i>I</i></button><button data-a="und" title="Underline (Ctrl+U while editing)"><u>U</u></button><button data-a="sup" title="Superscript: applies to selected characters while editing">X²</button><button data-a="sub" title="Subscript: applies to selected characters while editing">X₂</button></span><span class="seg ic t">
 <button data-a="tal" title="Text left: lines start at the anchor point; the text keeps its place"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="2.5"/><rect x="2" y="6.75" width="8" height="2.5"/><rect x="2" y="10.5" width="10" height="2.5"/></svg></button>
 <button data-a="tac" title="Text center: lines center on the anchor point; the text keeps its place"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="2.5"/><rect x="4" y="6.75" width="8" height="2.5"/><rect x="3" y="10.5" width="10" height="2.5"/></svg></button>
 <button data-a="tar" title="Text right: lines end at the anchor point; the text keeps its place"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="2.5"/><rect x="6" y="6.75" width="8" height="2.5"/><rect x="4" y="10.5" width="10" height="2.5"/></svg></button>
@@ -390,7 +390,7 @@ const $=i=>document.getElementById(i),view=$('mView'),stage=$('mStage'),gw=$('mG
 document.querySelectorAll('[data-f]').forEach(e=>F[e.dataset.f]=e);
 const PT=72/25.4,BIG=2e3,UNIT={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/96,'':25.4/96},LEAF='path,rect,circle,ellipse,line,polyline,polygon,text,use,image',
   GR=/^(g|a|switch|path|rect|circle|ellipse|line|polyline|polygon|text|image|use|svg|foreignObject)$/,
-  PRES=/^(fill|fill-opacity|fill-rule|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-dasharray|stroke-dashoffset|font-family|font-size|font-weight|font-style|text-anchor|letter-spacing|color|visibility|display|opacity)$/;
+  PRES=/^(fill|fill-opacity|fill-rule|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-dasharray|stroke-dashoffset|font-family|font-size|font-weight|font-style|text-decoration|text-anchor|letter-spacing|color|visibility|display|opacity)$/;
 let root,name,prolog,vb,U,Z=1,k=1,tx=0,ty=0,zt,sel=[],sb=null,sbs=[],cb=null,ctx,mo,pend=[],undos=[],redos=[],dirty=false,tool='sel',D=null,G=null,CR=null,LKC=null,lkV=0,Pop={x:null,m:[]},ed=null,space=false,clip=null,mouse=null,idn=0,fileMode=0,ped=null;
 
 const fm=v=>abs(v)<1e-9?'0':String(+v.toPrecision(8)),fc=v=>String(+v.toFixed(5)||0),f6=v=>String(+v.toPrecision(6));
@@ -705,7 +705,7 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
 const tbPos=(L,fl,tb)=>{const b=L.map(l=>{let q=null;try{q=l.getBBox()}catch(_){}return q&&q.width?q:{x:at(l,'x')??0,width:0}}),a=min(...b.map(q=>q.x)),w=max(...b.map(q=>q.x+q.width))-a,y0=at(L[0],'y')??0,
   px=max(9,min(13,(tb.clientWidth-12)*fl/w)),s=px/fl,ps=L.map((l,i)=>[(b[i].x-a)*s,((at(l,'y')??y0+i*1.2*fl)-y0)*s-i*1.2*px]);ps.px=px;return ps.some(p=>abs(p[0])>.5||abs(p[1])>.5)?ps:null},
   tbFill=(tb,t)=>{tb._t=t;tb._v=dv;tb.replaceChildren();tb.classList.remove('pl');tb.style.fontSize='';if(!t)return;const[r,L]=edSrc(t),c=gcs(L?L[0]:r),ps=L&&tbPos(L,parseFloat(c.fontSize),tb);
-    ps&&(tb.classList.add('pl'),tb.style.fontSize=ps.px+'px');Object.assign(tb.style,{fontFamily:c.fontFamily,fontWeight:c.fontWeight,fontStyle:c.fontStyle,color:/^rgb/.test(c.fill)?c.fill:'#000'});return tb._ks=edFill(tb,r,L,ps)};
+    ps&&(tb.classList.add('pl'),tb.style.fontSize=ps.px+'px');Object.assign(tb.style,{fontFamily:c.fontFamily,fontWeight:c.fontWeight,fontStyle:c.fontStyle,textDecoration:gcs(t).textDecorationLine,color:/^rgb/.test(c.fill)?c.fill:'#000'});return tb._ks=edFill(tb,r,L,ps)};
 function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.toFixed(3),tb=$('mTx');
   if(ed)ed.sd&&edPvQ();else{const e=sel.length===1&&sel[0],t1=e&&(e.localName==='text'?e:isGrp(e)&&(x=>x.length===1&&x[0])(e.getElementsByTagName('text')))||null;
     if(tb._t!==t1||tb._v!==dv){tb.contentEditable=!!t1;tbFill(tb,t1)}}
@@ -887,7 +887,7 @@ function build(a,seen){const o=[],st=[];for(const{c,ch}of a){let i=0;while(i<st.
 function mirror(n,o,ks){for(const c of n.childNodes){
   if(c.nodeType===3){o.append(c.data.replace(/\n/g,''));continue}
   if(c.localName!=='tspan')continue;const s=(/super|sub/.exec(stGet(c,'baseline-shift'))||[])[0],e=el(s?s.slice(0,3):'span'),cs=gcs(c);
-  e.dataset.k=ks.push(c)-1;e.dataset.s=s||'';Object.assign(e.style,{fontSize:parseFloat(cs.fontSize)/parseFloat(gcs(n).fontSize)+'em',fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle});
+  e.dataset.k=ks.push(c)-1;e.dataset.s=s||'';Object.assign(e.style,{fontSize:parseFloat(cs.fontSize)/parseFloat(gcs(n).fontSize)+'em',fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:cs.textDecorationLine});
   /^rgb/.test(cs.fill)&&(e.style.color=cs.fill);mirror(c,e,ks);o.append(e)}}
 function edLines(d){const L=[[]],nl=()=>L.push([]);let after=0;
   const walk=(n,ch)=>{for(const c of n.childNodes){
@@ -947,12 +947,12 @@ const edCl=(t,vis)=>{const c=t.cloneNode(true);vis==null?c.removeAttribute('visi
 function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d),hx=root.hasAttribute('xmlns:sodipodi');
   quiet(()=>{const c=edCl(t,vis);
     ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
-  const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle})}
+  const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:cs.textDecorationLine})}
 function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
   if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:tbFill(d,t)}
   else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
   d.contentEditable='true';
-  Object.assign(d.style,{left:tx+o[0]+'px',top:ty+o[1]+'px',fontSize:fs+'px',lineHeight:lh,fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,
+  Object.assign(d.style,{left:tx+o[0]+'px',top:ty+o[1]+'px',fontSize:fs+'px',lineHeight:lh,fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:gcs(t).textDecorationLine,
     color:/^rgb/.test(cs.fill)?cs.fill:'#000',textAlign:{middle:'center',end:'right'}[cs.textAnchor]||'left',transformOrigin:`0 ${fs*(lh/2+.35)}px`,transform:`rotate(${-ang(t)}deg) translateX(${{middle:-50,end:-100}[cs.textAnchor]||0}%)`});
   const s=sc(m)*Z*k,ps=L&&L.map((l,i)=>[(at(l,'x')-at(L[0],'x'))*s,(at(l,'y')-at(L[0],'y'))*s-i*lh*fs]),pl=ps&&ps.some(p=>abs(p[0])>.5||abs(p[1])>.5)&&ps;
   ks=edFill(d,r,L,pl);pl&&d.classList.add('pl',{middle:'pc',end:'pe'}[cs.textAnchor]||'ps');view.append(d)}
@@ -961,7 +961,7 @@ function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs
   quiet(()=>{t.setAttribute('visibility','hidden');if(!sd&&r!==t&&r.textContent.trim()!==t.textContent.trim()){const c=edCl(t,ed.vis);ip.reduce((n,i)=>n.childNodes[i],c).setAttribute('visibility','hidden');t.after(c);ed.pv=c}});
   if(sd){edPv();d.oninput=edPvQ}
   d.onkeydown=e=>{e.stopPropagation();if(e.isComposing||e.keyCode===229)return;
-    if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel');sd&&d.blur()}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}};
+    if(e.key==='Enter'){e.preventDefault();document.execCommand('insertLineBreak')}else if(e.key==='Escape'){finish(true);setTool('sel');sd&&d.blur()}else if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='Equal'){e.preventDefault();document.execCommand(e.altKey?'subscript':'superscript')}else if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&/^Key[BIU]$/.test(e.code)){e.preventDefault();e.stopPropagation();A[{KeyB:'bold',KeyI:'ital',KeyU:'und'}[e.code]]()}};
   d.onblur=e=>{const to=e.relatedTarget;to&&to.matches('[data-f=fs],[data-f=ff],[data-f=tc]')&&part()||finish(true)};
   d.onpaste=e=>{e.preventDefault();e.clipboardData.getData('text/plain').split(/\r\n?|\n/).forEach((x,i)=>{i&&document.execCommand('insertLineBreak');x&&document.execCommand('insertText',false,x)})};
   if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
@@ -1008,7 +1008,7 @@ const KP=['fill','stroke','stroke-linecap','stroke-linejoin','stroke-miterlimit'
   leaf=(g,f,cap=1/0)=>{const w=twalk(g);for(let n,i=0;i<cap&&(n=w.nextNode());i++)if(f(n))return n},
   klea=g=>{const w=twalk(g),o=[];for(let n;n=w.nextNode();)o.push(n);return o},lv=(a=sel)=>a.flatMap(e=>isGrp(e)?klea(e):[e]),
   kps=(lf,P=KP)=>lf.map(e=>(c=>P.map(p=>c[p]))(gcs(e))),kpr=(lf,kv,P=KP)=>{const c=kps(lf,P);lf.forEach((e,i)=>P.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))},
-  KQ=[...KP,'stroke-width','stroke-dasharray','stroke-dashoffset','fill-opacity','stroke-opacity','fill-rule','opacity','font-family','font-size','font-weight','font-style','text-anchor','letter-spacing'];
+  KQ=[...KP,'stroke-width','stroke-dasharray','stroke-dashoffset','fill-opacity','stroke-opacity','fill-rule','opacity','font-family','font-size','font-weight','font-style','text-decoration','text-anchor','letter-spacing'];
 function ungroup(q){const out=[];
   for(const g of order(sel)){if(!isGrp(g)||isLayer(g)){out.push(g);continue}
     const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf),cc=new Map;
@@ -2368,7 +2368,7 @@ const A={
   watermark:wmOpen,new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
   svg:save,p300:()=>png(300),p600:()=>png(600),j300:()=>png(300,1),j600:()=>png(600,1),pdf,
   undo:()=>undo(0),redo:()=>undo(1),group,ungroup,copy:copyOut,paste:()=>paste(),del,fit,
-  bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),
+  bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),und:()=>flip('text-decoration','textDecoration','underline',c=>/underline/.test(c.textDecorationLine)),
   sup:()=>ed&&document.execCommand('superscript'),sub:()=>ed&&document.execCommand('subscript'),
   theme:()=>{const d=document.documentElement.dataset.theme!=='dark';if(d===SD.matches)try{localStorage.removeItem('sgTheme')}catch(_){}else ls('sgTheme',d?'dark':'light');setTheme(d)},
   help:()=>{$('mHelp').showModal();$('mHelp').scrollTop=0},rulers:()=>toggle('rulers'),grid:()=>toggle('grid'),touch:()=>toggle('touch'),auto:()=>{toggle('auto');opts.auto?(asNow(1),msg('Auto-save on: the open file is copied into this browser as you work (File › Open recent)')):(clearTimeout(asT),msg('Auto-save off: no more copies are kept; Open recent keeps the ones it has'))},kept:()=>kpShow(),autoDir:()=>fdSet(),

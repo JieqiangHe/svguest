@@ -143,12 +143,16 @@ const H=[[0,0],[.5,0],[1,0],[1,.5],[1,1],[.5,1],[0,1],[0,.5]],U=[],E=[...documen
 let cur=null,op=null,tEd=null,dragged=false;
 // Easter egg: the first change to the house or the header logo retypes the headline's last word into a blue "paper accepted!"; a double-click reset puts it back and arms it again.
 const h1=document.querySelector('h1'),ey=document.querySelector('.eyebrow'),H1=h1.textContent,EY=ey.textContent;let eg=0,egT=0;
+const RM=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+// The extra line eases the headline open or shut instead of jumping (the text below and the house follow); `fit` drops the fixed height once the text is final.
+function ease(h0,h){if(RM()||h0===h)return;h1.style.height=h0+'px';h1.offsetHeight;h1.style.transition='height .5s cubic-bezier(.2,.7,.2,1)';h1.style.height=h+'px'}
+const fit=()=>h1.style.cssText='';
 function qed(){eg=1;ey.textContent='You found the easter egg';const a=H1.replace(/figure\.$/,''),F=[],q=document.createElement('span');q.className='qe';
  for(let i=7;i>=0;i--)F.push('figure.'.slice(0,i));for(let i=1;i<=15;i++)F.push('paper accepted!'.slice(0,i));
  const w=i=>{h1.textContent=a;i>7&&(q.textContent=F[i],h1.append(q));i<8&&(h1.textContent+=F[i])};
- if(matchMedia('(prefers-reduced-motion:reduce)').matches)return w(F.length-1);
- let i=0;const f=()=>{w(i);++i<F.length&&(egT=setTimeout(f,i===8?320:75))};f()}
-function unqed(){clearTimeout(egT);eg=0;h1.textContent=H1;ey.textContent=EY}
+ const h0=h1.offsetHeight;w(F.length-1);const h=h1.offsetHeight;if(RM())return;w(0);ease(h0,h);
+ let i=0;const f=()=>{w(i);++i<F.length?egT=setTimeout(f,i===8?320:75):egT=setTimeout(fit,300)};f()}
+function unqed(){clearTimeout(egT);eg=0;fit();const h0=h1.offsetHeight;h1.textContent=H1;ey.textContent=EY;ease(h0,h1.offsetHeight);egT=setTimeout(fit,550)}
 const isS=e=>e instanceof SVGElement&&e!==logo;
 const T=e=>(e.dataset.t||'0,0').split(',').map(Number),S=e=>+(e.dataset.s||1);
 const pt=e=>new DOMPoint(e.clientX,e.clientY).matrixTransform(logo.getScreenCTM().inverse());

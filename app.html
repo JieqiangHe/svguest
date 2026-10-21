@@ -7,6 +7,7 @@
 <title>svguest</title>
 <script>try{const t=localStorage.sgTheme;(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
+/* ══ 01 Basics ══ */
 :root{--swb:#00000047;--fsd:#f7f7f7;--fg:#262626;--bar:#e9e9e9;--line:#0000001a;--btn:#fafafa;--btnb:#00000021;--btnh:#00000012;--bfg:#262626;--on:#1a73e81f;--onb:#1a73e8;--onfg:#1f1f1f;--view:#d4d4d4;--side:#f2f2f2;--h4:#595959;--h4b:#00000014;--pageb:#00000038;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883;--t3:#6e6e6e;--ok:#2f8f55;--wa:#b4761a;--wab:#b4761a17;--er:#cc4136;--erb:#cc41360f;--sh:0 1px 2px #0000001f;--shm:0 0 0 1px #0000001a,0 8px 24px -6px #0000004d}
 [data-theme=dark]{color-scheme:dark;--swb:#ffffff4d;--fsd:#2a2a2a;--fg:#e3e3e3;--bar:#1f1f1f;--line:#ffffff1a;--btn:#303030;--btnb:#ffffff1f;--btnh:#ffffff14;--bfg:#e3e3e3;--on:#4c8df633;--onb:#4c8df6;--onfg:#f5f5f5;--view:#383838;--side:#262626;--h4:#a6a6a6;--h4b:#ffffff14;--pageb:#00000066;--sbt:#8a8a8a;--sbh:#b0b0b0;--sbk:#8883;--t3:#8c8c8c;--ok:#4fc27e;--wa:#e2a33c;--wab:#e2a33c1c;--er:#f07a70;--erb:#f07a7014;--sh:0 1px 2px #0009;--shm:0 0 0 1px #ffffff1f,0 8px 24px -6px #000c}
 :where(input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=range]):not([type=file]),select,textarea){padding:1px 5px;background:var(--btn);color:var(--fg);border:1px solid var(--btnb);border-radius:6px}
@@ -21,8 +22,10 @@ body{display:grid;grid-template:auto 1fr auto/48px 1fr 236px}
 button{font:inherit;padding:2px 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);color:var(--bfg);cursor:pointer}
 button:hover{background-image:linear-gradient(var(--btnh),var(--btnh))}button:disabled{opacity:.4;cursor:default}button.on{background:var(--on);border-color:transparent;color:var(--onfg)}
 input,select{font:inherit}
+/* ══ 55 Menus ══ */
 #mBar{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:3px;padding:4px;background:var(--bar);border-bottom:1px solid var(--line)}
 #mBar button,#mSt button,#mHelp header button,#mKept header button,#mLay header button,#mPh button{border-color:transparent;background:transparent}#mBar button:hover,#mSt button:hover,#mHelp header button:hover,#mKept header button:hover,#mLay header button:hover,#mPh button:hover{background:var(--btnh)}#mBar button.on{background:var(--on);color:var(--onfg)}#mSt button{flex:none;padding:0 8px;line-height:16px}
+/* ══ 33 Document tabs ══ */
 #mTabs{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:2px;height:28px;margin:0 8px 0 0;overflow-x:auto;scrollbar-width:none}#mTabs::-webkit-scrollbar{display:none}
 #mTabs .tab{position:relative;flex:0 1 auto;display:flex;align-items:center;gap:4px;max-width:200px;min-width:92px;height:26px;padding:0 4px 0 10px;border-radius:6px;color:var(--h4);cursor:default;user-select:none}#mTabs .tab:hover{background:var(--btnh);color:var(--fg)}
 #mTabs .tab.on{background:var(--btn);color:var(--fg);box-shadow:var(--sh),inset 0 0 0 1px var(--btnb)}
@@ -30,8 +33,10 @@ input,select{font:inherit}
 #mBar #mTabs .tab button{flex:none;display:grid;place-items:center;width:18px;height:18px;min-height:0;padding:0;border:0;border-radius:4px;background:none;color:var(--t3);visibility:hidden}#mBar #mTabs .tab button svg{width:10px;height:10px;stroke:currentColor;stroke-width:1.6;fill:none}#mBar #mTabs .tab:hover button,#mBar #mTabs .tab.on button{visibility:visible}#mBar #mTabs .tab button:hover{background:var(--btnh);color:var(--fg)}
 #mTabs .mem{flex:none;margin-left:auto;padding:0 8px;border-radius:10px;font-size:11px;line-height:18px;color:var(--wa);background:var(--wab);white-space:nowrap}#mTabs .mem.hi{color:var(--er);background:var(--erb)}
 #mBar #mTabs .nt{position:sticky;right:0;background:var(--bar);flex:none;display:grid;place-items:center;width:26px;height:26px;min-height:0;padding:0;border:0;border-radius:6px;background:none;color:var(--h4)}#mBar #mTabs .nt svg{width:12px;height:12px;stroke:currentColor;stroke-width:1.6;fill:none}#mBar #mTabs .nt:hover{background:linear-gradient(var(--btnh),var(--btnh)),var(--bar);color:var(--fg)}#mBar #mTabs .nt:disabled{opacity:.35}
+/* ══ 54 Command palette ══ */
 #mBar #mKb{margin:0 4px 0 0;display:flex;align-items:center;gap:6px;flex:none;width:auto;height:24px;padding:0 4px 0 9px;font-size:12px;border:1px solid var(--btnb);border-radius:7px;background:var(--btn);color:var(--t3);cursor:text;transition:border-color .12s,color .12s}#mBar #mKb:hover{border-color:var(--swb);background:var(--btn);color:var(--h4)}
 #mKb svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}#mKb kbd{margin-left:6px;display:flex;gap:2px;flex:none}#mKb>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mKb kbd,#mK kbd{border:0;background:none;padding:0;opacity:.6}#mKb kbd{opacity:1}#mKb kbd span{display:grid;place-items:center;min-width:17px;height:16px;padding:0 4px;font:500 10.5px/1 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--h4);background:var(--side);border:1px solid var(--btnb);border-radius:4px}
+/* ══ 60 Dialogs ══ */
 #mHelp{padding:0;width:min(880px,96vw);max-width:none;height:min(640px,90vh);max-height:none;overflow:hidden}
 #mHelp form,#mKept form{padding:12px 20px;font-size:12.5px;line-height:1.45}
 #mHelp header,#mKept header{display:flex;align-items:center}
@@ -53,6 +58,7 @@ input,select{font:inherit}
 @media(max-width:620px){#mHelp .hb{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}#mHn{display:flex;gap:4px;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}#mHn button{width:auto;flex:none}#mHn button small{display:none}#mHelp .r{grid-template-columns:1fr;gap:2px}}
 #mHelp dl{margin:0}
 #mHelp dd{margin:0}
+/* ══ 41 Kept in this browser ══ */
 #mKept{padding:0;width:min(520px,94vw)}#mCf{max-width:min(400px,90vw)}
 #mKept:focus{outline:none}
 dialog#mKept form{padding:16px 18px 18px}
@@ -68,7 +74,9 @@ dialog#mKept form{padding:16px 18px 18px}
 #mKept .kdl:hover{border-color:#d1453b66;background:#d1453b14}
 #mKept .kn{display:grid;gap:5px;margin:14px 0 0;padding:12px 0 0 16px;border-top:1px solid var(--h4b);color:var(--h4);font-size:12px;line-height:1.5}
 #mHelp .ft,#mKept .ft{margin:12px 0 0;padding-top:8px;border-top:1px solid var(--h4b);color:var(--h4)}
+/* ══ 01 Basics ══ */
 kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);border-radius:4px;background:var(--btn)}
+/* ══ 55 Menus ══ */
 .dd{position:relative}
 .menu{display:none;position:absolute;left:0;top:100%;margin-top:3px;z-index:20;min-width:170px;padding:4px;background:var(--btn);border:0;border-radius:8px;box-shadow:var(--shm)}
 .dd.open>.menu{display:block}.menu .dot{position:absolute;left:7px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;box-shadow:0 0 0 1px var(--btnb)}
@@ -82,6 +90,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .menu hr{border:0;border-top:1px solid var(--line);margin:4px 6px}.menu .sub{position:relative}.menu .sub>.menu{left:calc(100% + 4px);top:-5px;margin:0;min-width:110px}.menu .sub.hv>.menu,.menu .sub.open>.menu{display:block}.menu .sub.hv>.sb,.menu .sub.open>.sb{background:var(--btnh)}#mBar .menu.aim button:hover{background:transparent}.sb i{font-style:normal;opacity:.6}
 #mBar>i{width:1px;height:18px;background:var(--line);margin:0 4px}
 #mBrand{display:flex;align-items:center;padding:0 7px 0 6px;color:var(--fg);user-select:none;-webkit-user-select:none}#mBrand svg{width:71px;height:16px}
+/* ══ 17 Tools and ghost ══ */
 #mTools{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;background:var(--bar);border-right:1px solid var(--line)}
 #mTools button{width:36px;height:36px;padding:0;display:grid;place-items:center}
 #mTools svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
@@ -93,6 +102,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mFS label{position:absolute;width:22px;height:22px;border:1px solid var(--swb);border-radius:3px;background-color:var(--c,#fff);cursor:pointer}#mFS label:hover{outline:2px solid var(--btnh)}#mFS label:has(:focus-visible),#mFS button:focus-visible{outline:1.5px solid var(--onb);outline-offset:1px}#mFS input{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
 #mFF{left:3px;top:8px;z-index:2}#mFS #mSF{left:13px;top:18px;z-index:1;background:none;box-shadow:inset 0 0 0 4px var(--c,#fff)}#mSF::after{content:"";position:absolute;inset:3px;border:1px solid var(--swb);border-radius:1px}#mFS.st #mSF{z-index:3}#mFS label.no,#mFS #mSF.no{box-shadow:none;background:#fff linear-gradient(to top right,#0000 45%,#e5534b 45%,#e5534b 55%,#0000 55%) padding-box}#mSF.no::after{content:none}
 #mFS button{position:absolute;width:18px;height:22px;padding:0;border:0;border-radius:4px;background:none;color:var(--h4);display:grid;place-items:center}#mFS button:hover{background:var(--btnh);color:var(--fg)}#mFX{right:0;top:2px;height:15px!important;width:13px!important}#mFX svg{width:12px;height:12px}#mFS .fr{display:flex;align-items:center;justify-content:space-evenly;height:26px;border-top:1px solid var(--line)}#mFS .fr button{position:static}#mFS .fr i{width:1px;height:12px;background:var(--line)}
+/* ══ 07 View ══ */
 #mView{position:relative;overflow:hidden;background:var(--view);will-change:transform}
 #mStage{position:absolute;left:0;top:0;transform-origin:0 0;font:initial;color:#000;-webkit-font-smoothing:auto}
 #mPage,#mGrid,#mGW,#mStage>svg{position:absolute!important;left:0;top:0;width:100%!important;height:100%!important;overflow:visible!important}
@@ -100,24 +110,34 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mGrid{pointer-events:none}#mGrid path{fill:none;stroke-width:calc(1px / var(--k,1));vector-effect:non-scaling-stroke;shape-rendering:crispEdges}#mGrid .mi{stroke:#5a78aa30}#mGrid .ma{stroke:#5a78aa70}
 .noR #mRx,.noR #mRy{display:none}
 #mGW{will-change:transform;transform-origin:0 0}
+/* ══ 32 Context menu ══ */
 #mCM{position:fixed;z-index:30}#mCM button{border-color:transparent;background:transparent}
+/* ══ 17 Tools and ghost ══ */
 #mGhost{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
 #mGF{pointer-events:none}
+/* ══ 12 HUD ══ */
 #mCap{position:absolute;inset:0}
 #mHud{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* ══ 09 Rulers and guides ══ */
 #mRx,#mRy{position:absolute;left:0;top:0;width:100%;height:20px}#mRy{width:20px;height:100%}
+/* ══ 10 Scrollbars ══ */
 #mSx,#mSy{position:absolute;right:0;bottom:0;opacity:.55;transition:opacity .25s}#mSx{left:20px;right:16px;height:16px}#mSy{top:204px;bottom:16px;width:16px}.noR #mSx{left:0}.noR #mSy{top:184px}
 #mView.sbOn #mSx,#mView.sbOn #mSy,#mSx:hover,#mSy:hover,#mSx.on,#mSy.on{opacity:1}
 #mSx::before,#mSy::before{content:"";position:absolute;inset:2px;border-radius:6px;background:var(--sbk);opacity:0;transition:opacity .15s}#mSx:hover::before,#mSy:hover::before,#mSx.on::before,#mSy.on::before{opacity:1}
 #mSx i,#mSy i{position:absolute;border-radius:4px;background:var(--sbt);transition:top .12s,bottom .12s,left .12s,right .12s,background .12s}#mSx i{top:5px;bottom:5px}#mSy i{left:5px;right:5px}
 #mSx:hover i,#mSx.on i{top:3px;bottom:3px;background:var(--sbh)}#mSy:hover i,#mSy.on i{left:3px;right:3px;background:var(--sbh)}
+/* ══ 12 HUD ══ */
 #mHud [data-h]{pointer-events:all;cursor:pointer}
+/* ══ 09 Rulers and guides ══ */
 #mGc{position:absolute;top:26px;left:26px;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border:1px solid var(--btnb);border-radius:11px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:0 1px 4px #0002}#mGc::before{content:"";width:11px;border-top:1.5px dashed #e8457a}#mGc[hidden]{display:none}#mPop{position:fixed;z-index:19;width:252px;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg)}#mPop[hidden]{display:none}#mPop header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:6px;margin:0 -8px 4px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mPop header b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}#mPop header svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round}#mPop header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px;cursor:pointer}#mPop header button:hover{background:var(--btnh)}#mPop>.kv{margin:4px 0}#mPop.nt .pt,#mPop.nt #mTs{display:none}#mPop:is([data-k=o],[data-k=text]) .ap>.r:not(:last-child),#mPop[data-k=shape] .ap>.hd{display:none}.pph{margin:2px 0 6px;color:var(--h4);font-size:11px}#mCrS{position:absolute;width:0;height:0}#mStage [data-mcr]{clip-path:none!important;mask:url(#mCrM)!important}#mCr{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:2px;border:1px solid var(--btnb);border-radius:13px;background:var(--btn);box-shadow:0 1px 4px #0002}#mCr[hidden]{display:none}#mBk{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;height:24px;padding:0 11px 0 9px;border:1px solid var(--btnb);border-radius:12px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:var(--sh)}#mBk[hidden]{display:none}#mBk svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.4}
+/* ══ 05 Opening ══ */
 #mBz{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border:1px solid var(--btnb);border-radius:15px;background:var(--btn);color:var(--bfg);box-shadow:0 2px 10px #0003;white-space:nowrap}#mBz[hidden]{display:none}
 #mBz i{width:14px;height:14px;border:2px solid #8a8a8a55;border-top-color:var(--onb);border-radius:50%}@media(prefers-reduced-motion:no-preference){#mBz i{animation:mBzR .8s linear infinite}}@keyframes mBzR{to{transform:rotate(1turn)}}#mCr button{height:20px;padding:0 10px;border:0;border-radius:10px;background:none;color:var(--bfg);font-size:11px}#mCr button:hover{background:var(--btnh)}#mCr #mCrA{background:#1a73e8;color:#fff}#mCr #mCrA:hover{background:#1765cc}.noR #mCr{top:6px}.noR #mGc{top:6px;left:6px}
+/* ══ 49 Find and replace ══ */
 #mQ{position:absolute;top:26px;right:30px;display:flex;flex-direction:column;gap:3px;padding:4px;background:var(--btn);color:var(--bfg);border:0;border-radius:8px;box-shadow:var(--shm);font-size:12px}#mQ[hidden]{display:none}.noR #mQ{top:6px}#mQ>div{display:flex;align-items:center;gap:2px}#mQ .qi{position:relative;display:flex}
 #mQ input,[data-theme=dark] #mQ input{width:170px;height:22px;padding:0 5px;font-size:12px}#mQf,[data-theme=dark] #mQf{padding-right:44px}#mQ button{height:22px;min-width:20px;padding:0 4px;border:1px solid transparent;border-radius:3px;background:transparent;color:inherit;line-height:1}#mQ button:hover{background:var(--btnh)}#mQ button.on{background:var(--on);color:var(--onfg)}#mQ button:disabled{opacity:.35}
 #mQ .qi button{position:absolute;top:3px;height:16px;min-width:19px;padding:0 2px;font-size:11px}#mQc{right:22px}#mQw{right:3px}#mQ svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;vertical-align:middle}#mQo,#mQa{border-color:var(--btnb)!important;font-size:11.5px;padding:0 7px!important}#mQn{min-width:46px;padding:0 2px;color:var(--h4);font-size:11px;text-align:center;font-variant-numeric:tabular-nums}
+/* ══ 13 Side panel ══ */
 #mDk{position:absolute;top:26px;right:0;display:flex;flex-direction:column;gap:6px;pointer-events:none}.noR #mDk{top:6px}:is(#mLb,#mPb){pointer-events:auto;width:22px;padding:7px 0 9px;display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid var(--line);border-right:0;border-radius:6px 0 0 6px;background:var(--bar);color:var(--h4);font-size:11px;box-shadow:-1px 1px 3px #0001}:is(#mLb,#mPb):hover,#mGc:hover,#mBk:hover{background-image:linear-gradient(var(--btnh),var(--btnh));color:var(--fg)}#mLb.on,#mPb.on{background:var(--side);color:var(--fg)}:is(#mLb,#mPb) span{writing-mode:vertical-rl;letter-spacing:.03em}:is(#mLb,#mPb) svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round}
 #mSide{overflow:auto;padding:0 8px 8px;background:var(--side);border-left:1px solid var(--line)}
 #mPh,#mLay>header{height:36px;flex:none}
@@ -135,25 +155,32 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.ic rect{stroke:none}.seg.o rect{fill:none;stroke:currentColor;stroke-width:1.4}
 :is(#mSide,#mPop,#mFg) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mPop,#mFg) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mPop,#mFg) .tgb svg,:is(#mSide,#mPop,#mFg) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mPop,#mFg) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mPop,#mFg) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
 .ap input[type=color].dim{opacity:.35}:is(#mSide,#mPop,#mFg) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mPop,#mFg) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mPop,#mFg) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mPop,#mFg) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mPop,#mFg) .nn:hover{border-color:var(--swb)}:is(#mSide,#mPop,#mFg) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mPop,#mFg) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mPop,#mFg) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mPop,#mFg) input::-webkit-inner-spin-button{display:none}
+/* ══ 50 History and status bar ══ */
 #mSt{grid-column:1/-1;height:24px;display:flex;align-items:center;gap:16px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap}
 #mSt>span{min-width:0;overflow:hidden;text-overflow:ellipsis}#mDoc{color:var(--h4)}#mRt{flex:none;display:flex;gap:8px;position:relative;height:18px;padding-left:calc(14ch + 8px);color:var(--h4);font-variant-numeric:tabular-nums}#mPos{position:absolute;left:0;top:0;width:14ch;height:18px;line-height:18px;contain:strict;text-align:right;white-space:nowrap}#mLat{min-width:9ch}#mLat.slow{color:#c98a00}#mLat.bad{color:#e5534b}#mHm{max-height:60vh;overflow:auto}#mRm{min-width:220px}#mRm span{max-width:280px;overflow:hidden;text-overflow:ellipsis}#mHm button.fu{opacity:.55;font-style:italic}#mMsg{flex:0 1000 auto}#mCtx{max-width:300px}
+/* ══ 52 Zoom box ══ */
 #mZw{flex:none;display:flex;align-items:center;gap:0;margin-left:-8px}#mZw .dd{display:flex;align-items:center}#mSt .menu{top:auto;bottom:100%;margin:0 0 3px;min-width:150px}#mZw button{padding:0 3px}#mZw .ddb{font-size:9px;opacity:.7}#mZw>button{width:16px;padding:0;font-size:14px}#mSt [data-a=theme]{margin-left:-10px;padding:1px 5px}#mSt svg.kg{display:block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.2}#mSt .kf{fill:currentColor;stroke:none}
 #mZoom{width:42px;height:18px;padding:0 2px;border:1px solid transparent;border-radius:3px;background:transparent;color:inherit;text-align:right;font:inherit;font-variant-numeric:tabular-nums}#mZoom:hover{border-color:var(--btnb)}#mZoom:focus{min-width:calc(5.8ch + 6px);outline:none;border-color:var(--onb);background:var(--btn)}
 #mZs,[data-theme=dark] #mZs{-webkit-appearance:none;appearance:none;width:80px;height:16px;margin:0 1px;padding:0;border:0;border-radius:0;background:linear-gradient(#8a8a8a99,#8a8a8a99) center/1px 9px no-repeat;cursor:pointer}#mZs:focus{outline:none}
 #mZs::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-moz-range-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-4.5px;border:1px solid var(--swb);border-radius:50%;background:var(--btn);box-shadow:0 1px 2px #0003}#mZs::-moz-range-thumb{width:9px;height:9px;border:1px solid var(--swb);border-radius:50%;background:var(--btn)}#mZs:hover::-webkit-slider-thumb{border-color:var(--fg)}#mZs:hover::-moz-range-thumb{border-color:var(--fg)}#mSt>i{width:1px;height:14px;flex:none;margin-left:auto;background:var(--line)}
+/* ══ 21 Text editing ══ */
 .ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}.ed.pl{outline:none;background:none}.ed.pl>div{position:relative;width:max-content;min-width:4px;outline:1px solid #1a73e8;background:#fffd}.ed.pc>div{margin:0 auto}.ed.pe>div{margin-left:auto}#mTx{position:static;display:block;width:100%;min-height:42px;max-height:160px;overflow:auto;margin:0;padding:3px 5px;white-space:pre-wrap;overflow-wrap:anywhere;outline:none;border:1px solid var(--btnb);border-radius:6px;background:#fff;color:#000;font-size:13px;line-height:1.35;cursor:text}#mTx:focus{border-color:var(--onb);box-shadow:0 0 0 1px var(--onb)}#mTx[contenteditable=false]{cursor:default}#mTx.pl{white-space:pre}#mTx.pl>div{outline:none;background:none;line-height:1.2}[data-theme=dark] #mTx{color-scheme:light;filter:invert(1) hue-rotate(180deg);background:#d9d9d9;border-color:#bfbfbf}[data-theme=dark] #mTx:focus{border-color:#5c5c5c;box-shadow:none}[data-theme=dark] #mTx::selection,[data-theme=dark] #mTx ::selection{background:#48a1ff;color:#000}#mTx:empty::before{content:attr(data-ph);color:#888;font:12px system-ui,sans-serif;font-style:normal;font-weight:normal}::selection{background:#1a73e8;color:#fff}
+/* ══ 51 Panel toggles ══ */
 body.chat{grid-template-columns:48px 1fr 236px 300px}body.lay{grid-template-columns:48px 1fr 220px 236px}body.lay.chat{grid-template-columns:48px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}.lay #mChat{grid-area:2/5}
 body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48px 1fr 0 300px}body.noP.lay{grid-template-columns:48px 1fr 220px 0}body.noP.lay.chat{grid-template-columns:48px 1fr 220px 0 300px}.noP #mSide{display:none}
+/* ══ 53 Layers ══ */
 #mLay{display:none;grid-area:2/3;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
 #mLm{display:flex;align-items:center;gap:6px;padding:2px 4px 2px 8px;background:#ffd60026;border-bottom:1px solid var(--h4b);color:var(--h4);font-size:11.5px}#mLm[hidden]{display:none}#mLm span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mLm button{border-color:transparent;background:transparent;padding:0 5px;font-size:14px;line-height:18px}#mLm button:hover{background:var(--btnh)}#mLl mark{background:#ffd60073;color:inherit;border-radius:2px}
 #mLl{flex:1;overflow:auto;position:relative}#mLl>div{position:relative}#mLl p{margin:8px;color:var(--h4)}#mLl .r{position:absolute;left:0;right:0;height:20px;display:flex;align-items:center;gap:4px;padding-right:2px;white-space:nowrap;cursor:default}#mLl .r:hover,#mLl .r.hv{background:var(--btnh)}#mLl .r.on{background:var(--on);color:var(--onfg)}[data-theme=dark] #mLl .r.on{background:#26344d;color:var(--fg)}#mLl .r.in{box-shadow:inset 2px 0 var(--onb)}
 #mLl .r>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}#mLl small{opacity:.55;margin-left:4px}#mLl svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}#mLl .t{opacity:.7}#mLl .r>.c{width:12px;flex:none;display:grid;place-items:center}#mLl .c svg{width:10px;height:10px;stroke-width:1.8}#mLl .r.o .c svg{transform:rotate(90deg)}
 #mLl i{width:9px;height:9px;flex:none;border:1px solid var(--swb);border-radius:2px}#mLl b{width:18px;height:18px;flex:none;display:grid;place-items:center;border-radius:3px;visibility:hidden}#mLl .r:hover b,#mLl b.x{visibility:visible}#mLl b:hover{background:var(--line)}#mLl b.y{opacity:.4}#mLl .r.hid>span,#mLl .r.hid>.t{opacity:.4}
+/* ══ 54 Command palette ══ */
 #mK{position:fixed;inset:0;z-index:40;background:#0003}#mK[hidden]{display:none}#mK>div{position:absolute;left:50%;top:15vh;transform:translateX(-50%);width:min(560px,100vw - 32px);padding:4px;background:var(--btn);color:var(--bfg);border:0;border-radius:10px;box-shadow:var(--shm),0 30px 70px -20px #0005}
 #mKq,[data-theme=dark] #mKq{display:block;width:100%;padding:6px 8px;font-size:14px;color:inherit;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}#mKl{max-height:min(52vh,420px);overflow:auto;padding:2px 0}#mKl h4{margin:6px 8px 2px;font-size:11px;color:var(--h4)}#mKl p{margin:10px 8px;color:var(--h4)}
 #mKl div{display:flex;align-items:center;gap:8px;padding:3px 8px;border-radius:6px;white-space:nowrap;cursor:pointer}#mKl div.on{background:var(--btnh)}#mKl div.d{opacity:.4;cursor:default}#mKl kbd{margin-left:auto;padding-left:16px}#mKl .ki{width:16px;height:16px;flex:none;display:grid;place-items:center}#mKl .ki svg{width:16px;height:16px}#mKl .ki svg.kg{fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}#mKl .ki .kf{fill:currentColor;stroke:none}#mKl .ki.kt{font-size:12.5px;line-height:1}#mKl .kc{color:var(--h4);font-size:11px}
 .ki.t svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}.ki.f svg{fill:currentColor;stroke:currentColor}.ki.f rect{stroke:none}#mK>div>p{margin:0;padding:5px 8px 2px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mK>div>p kbd{margin:0 3px 0 10px}#mK>div>p kbd:first-child{margin-left:0}
 @media(prefers-reduced-motion:no-preference){#mK{animation:mKf .15s}}@keyframes mKf{from{opacity:0}}
+/* ══ 38 SVG Chat panel ══ */
 #mChat{display:none;grid-area:2/4;flex-direction:column;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
 #mChat .chg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}#mChat .ib{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mChat .ib:hover{background:var(--btnh);color:var(--fg)}
 #mChH{position:relative;flex:none;display:flex;align-items:center;gap:1px;height:34px;padding:0 4px;border-bottom:1px solid var(--line)}#mChD{position:static;flex:1;min-width:0}#mChT{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600;padding:3px 6px;border-color:transparent;background:transparent}#mChT::after{content:' ▾';font-weight:400;color:var(--t3)}#mChT:hover,#mChD.open>#mChT{background:var(--btnh)}#mChL{left:4px;right:4px;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:6px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}[data-theme=dark] #mChL .ci.on{background:#26344d;color:var(--fg)}[data-theme=dark] #mChL .ci.on small{color:var(--h4);opacity:1}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mChL hr{border:0;border-top:1px solid var(--line);margin:4px 2px}#mChL>button{display:block;width:100%;padding:4px 6px;border:0;background:transparent;text-align:left;color:var(--h4)}#mChL>button:hover{background:var(--btnh);color:var(--fg)}
@@ -182,9 +209,11 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mConn .st{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--h4);white-space:nowrap}#mConn .st::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--t3);opacity:.6}#mConn .st.ok::before{background:var(--ok);opacity:1}#mConn .st.wa::before{background:var(--wa);opacity:1}#mConn .st.er{color:var(--er)}#mConn .st.er::before{background:var(--er);opacity:1}
 #mConn .kf{display:flex;gap:4px}#mConn .kf input{flex:1;min-width:0;font-family:ui-monospace,monospace;font-size:11.5px}#mConn .kf .ib{border-color:var(--btnb)}#mConn .ml{list-style:none;margin:0;padding:6px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:1px}#mConn .ml li{display:flex;align-items:center;gap:6px;min-height:20px;font-size:11.5px}#mConn .ml em{padding:0 5px;border-radius:4px;box-shadow:inset 0 0 0 1px var(--btnb);font-style:normal;font-size:10.5px;color:var(--h4)}#mConn .ml small{margin-left:auto;color:var(--t3)}
 #mConn .lk{align-self:flex-start;padding:0;border:0;background:none;color:var(--h4);font-size:11.5px}#mConn .lk:hover{background:none;color:var(--er)}#mConn .gr{display:flex;align-items:center;gap:6px;font-size:11.5px}#mConn .gr input{width:auto;height:auto;margin:0;accent-color:var(--onb)}#mConn .ft{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 2px 0;color:var(--t3);font-size:11px;line-height:1.4}#mConn .ft button{flex:none;padding:0;border:0;background:none;color:var(--h4);font-size:11px}#mConn .ft button:hover{background:none;text-decoration:underline}
+/* ══ 01 Basics: look ══ */
 #mTools>button,#mTools>.dd>button{border-color:transparent;background:transparent;border-radius:7px;color:var(--h4)}#mTools>button:hover,#mTools>.dd>button:hover{background:var(--btnh);color:var(--fg)}#mTools>button.on,#mTools>.dd>button.on{background:var(--btn);border-color:var(--btnb);color:var(--fg);box-shadow:var(--sh)}
 #mGc,#mCr,#mBz{border-color:var(--btnb);box-shadow:var(--sh)}#mLl .r{left:4px;right:4px;border-radius:5px}:is(#mLb,#mPb){border-color:var(--btnb)}
 #mSide,#mLl,#mLog,#mChL,#mHm,#mRm,#mPop,#mKl,#mHelp form{scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
+/* ══ 29 FigKit window ══ */
 #mFg,#mWm{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
 #mFg header,#mWm header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden],#mFg [hidden]{display:none!important}
@@ -209,7 +238,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 .fgp{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}.fgp button{height:22px;padding:0;border-radius:5px;box-shadow:inset 0 0 0 1px var(--btnb)}
 #mFgC{display:flex;flex-direction:column;gap:3px}#mFgC>div{display:grid;grid-template-columns:12px 30px 46px 46px minmax(0,1fr);gap:4px;align-items:center}#mFgC b{color:var(--h4)}#mFgC input[type=number]{width:100%;min-width:0;height:22px}#mFgC input[type=color]{width:30px;height:22px}#mFgC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}
 
-/* Watermark Inspector: the window shares the FigKit rules above. */
+/* ══ 45 Watermark UI ══ */
+/* The window shares the FigKit rules above. */
 #mWm{width:min(420px,calc(100vw - 16px));display:flex;flex-direction:column;overflow:hidden;padding:0;outline:none}#mWm[hidden]{display:none}#mWm header{flex:none;position:static;margin:0;padding:10px 14px;touch-action:none;user-select:none}#mWm header b{font-size:13px}#mWm header button{line-height:24px}#mWmX{margin-left:auto}#mWm header button:hover{background:var(--btnh)}
 #mWmB{min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 16px;scrollbar-width:thin}#mWmB h3{font-size:14px;margin:0 0 4px}#mWmB p{margin:6px 0;overflow-wrap:anywhere}#mWmB .wm-muted,#mWmF small{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}#mWm button{min-height:28px;padding:3px 9px}#mWm header button{min-height:24px;padding:0 6px}
 #mWmB .wm-head{font-size:14px;font-weight:600;margin:0 0 4px}#mWmB .wm-result{padding:10px 12px;background:var(--btn);border:1px solid var(--btnb);border-radius:8px;margin:12px 0}#mWmB .wm-result p:first-child{margin-top:0}#mWmB .wm-result p:last-child{margin-bottom:0}#mWmB .wm-result.warn{border-left:3px solid var(--wa)}
@@ -230,9 +260,10 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
 .wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
 </style>
-<style>@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
+<style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
 <body>
+<!-- ══ 55 Menus ══ -->
 <div id="mBar">
 <span id="mBrand"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
 <div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><div class="sub" id="mRc"><button class="sb" title="The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser">Open recent<i>›</i></button><div class="menu" id="mRm"></div></div><button data-a="auto" title="Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)">Auto-save</button><button data-a="autoDir" title="Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop">Auto-save to a folder…<small>Chrome/Edge only</small></button><button data-a="imp" title="Place an SVG, PNG or JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
@@ -241,6 +272,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
 <div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="watermark" title="Inspect SVG and embedded image metadata locally">Watermark <sup class="be" aria-label="Beta">β</sup></button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
 </div>
+<!-- ══ 17 Tools and ghost ══ -->
 <div id="mTools">
 <button data-t="sel" class="on" title="Select (V)"><svg viewBox="0 0 24 24"><path d="M6 3v16l4.5-4.5 3 6.5 2.5-1.2-3-6.3H19z"/></svg></button>
 <button data-t="text" title="Text (T)"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
@@ -253,8 +285,11 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <a href="https://github.com/JieqiangHe/svguest" target="_blank" rel="noopener" title="svguest on GitHub"><svg viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 <a href="https://www.svguest.online/" target="_blank" rel="noopener" title="svguest website: www.svguest.online" class="sg"><svg viewBox="6 4.75 228 228" style="fill:none;stroke:currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="16"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="12"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="15"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="15"/></svg></a>
 </div>
+<!-- ══ 07 View ══ -->
 <div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div><svg id="mGF" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><svg id="mCrS" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true"><mask id="mCrM" maskUnits="userSpaceOnUse"><rect id="mCrO" fill="#6b6b6b"/><rect id="mCrI" fill="#fff"/></mask></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mBk" hidden title="Centre the page in the window (Ctrl+0 fits it)"><svg viewBox="0 0 16 16"><path d="M2.5 3.5h11v9h-11zM8 6v4M6 8h4"/></svg>Back to page</button><button id="mGc" hidden title="Remove every guide (also View › Clear guides)"></button><div id="mCr" hidden><button id="mCrA" title="Apply the crop (Enter or double-click)">Apply crop</button><button id="mCrX" title="Cancel (Esc)">Cancel</button></div><div id="mBz" hidden><i></i><span></span></div><div id="mQ" hidden><div><span class="qi"><input id="mQf" placeholder="Find" spellcheck="false" autocomplete="off"><button id="mQc" title="Match case">Aa</button><button id="mQw" title="Whole word"><u>ab</u></button></span><span id="mQn"></span><button id="mQp" title="Previous (Shift+Enter)">↑</button><button id="mQx" title="Next (Enter)">↓</button><button id="mQl" title="List the matches in Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button><button id="mQz" title="Close (Esc)">×</button></div><div><input id="mQr" placeholder="Replace" spellcheck="false" autocomplete="off"><button id="mQo" title="Replace this one and go to the next (Enter)">Replace</button><button id="mQa" title="Replace every match">All</button></div></div><div id="mDk"><button id="mPb" data-a="props" title="Properties: hide or show the side panel"><svg viewBox="0 0 16 16"><path d="M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z"/></svg><span>Properties</span></button><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg><span>Layers</span></button></div></div>
+<!-- ══ 53 Layers ══ -->
 <div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLm" hidden><span></span><button title="Back to every object (closes Find and replace)">×</button></div><div id="mLl"><div></div></div></div>
+<!-- ══ 13 Side panel ══ -->
 <div id="mSide">
 <header id="mPh"><b>Properties</b><small id="mKind"></small><button data-a="props" title="Hide; the Properties tab at the canvas's right edge shows it again" aria-label="Hide">×</button></header>
 <section><h4>Page <small>mm</small></h4><div>
@@ -303,6 +338,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 </div><div id="mPop" hidden><header><span id="mPopI"></span><b id="mPopT"></b><button id="mPopX" title="Close (Esc)">×</button></header>
 <div class="kv"><span>Name</span><input id="mPopN" placeholder="none" spellcheck="false" title="The name Layers shows (saved as an Inkscape label)"></div><div id="mPopE"></div>
 <h4>Transform <small>mm</small></h4><i data-s="mTf"></i><h4 class="pt">Text</h4><i data-s="mTs"></i><h4>Appearance</h4><i data-s="mAp"></i></div>
+<!-- ══ 29 FigKit window ══ -->
 <div id="mFg" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
 <label class="fgc" id="mFgI" title="Off: a selected group is one object. On: the objects directly inside each selected group are the objects"><input type="checkbox" data-g="in"> Objects inside selected groups</label>
 <section data-p="size"><ol class="fgst"><li>Select the objects</li><li>Choose width or height and type the size</li><li>Click <b>Resize each</b></li></ol><div class="kv"><span>Size</span><select data-g="sm"><option value="w">Width, in proportion</option><option value="h">Height, in proportion</option><option value="fit">Fit within W × H</option><option value="wo">Width only (stretch)</option><option value="ho">Height only (stretch)</option><option value="wh">Width and height (stretch)</option></select>
@@ -395,6 +431,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="row"><button data-a="fgMergeGo" class="pri">Merge</button></div></div>
 <details class="fgm"><summary>How it works</summary><p class="pph">For showing, not for measuring: the colour and range are an SVG filter (grey by Rec. 709 weights, then the range, then the colour), and the pictures' pixels are never changed. Levels are those of the embedded 8-bit picture. Merging needs pictures of the same pixel size; they are overlaid pixel to pixel as they are, not registered, in a new group beside them.</p></details></section>
 <p id="mFgS"></p></div>
+<!-- ══ 38 SVG Chat panel ══ -->
 <div id="mChat">
 <div id="mChH"><div class="dd" id="mChD"><button class="ddb" id="mChT" title="Switch to another chat, rename or delete one">New chat</button><div class="menu" id="mChL"></div></div><button class="ib" id="mChN" title="Start a new chat; this one is kept"><svg class="chg" viewBox="0 0 16 16"><path d="M7.5 3h-3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-3M11.2 2.8a1.3 1.3 0 0 1 1.9 1.9L8.3 9.5 6 10l.5-2.3z"/></svg></button><button class="ib" id="mChX" title="Close SVG Chat"><svg class="chg" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/></svg></button></div>
 <div id="mCb">
@@ -412,10 +449,15 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section id="mConn" hidden aria-label="Models and keys"></section>
 </div>
 </div>
+<!-- ══ 50 History and status bar ══ -->
 <div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
+<!-- ══ 05 Opening ══ -->
 <input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" hidden>
+<!-- ══ 32 Context menu ══ -->
 <div id="mCM" class="menu"></div>
+<!-- ══ 54 Command palette ══ -->
 <div id="mK" hidden><div role="dialog" aria-label="Commands"><input id="mKq" placeholder="Type a command…" spellcheck="false" autocomplete="off"><div id="mKl" role="listbox"></div><p><kbd>↑↓</kbd>Navigate<kbd>↵</kbd>Run<kbd>Esc</kbd>Close</p></div></div>
+<!-- ══ 60 Dialogs ══ -->
 <dialog id="mHelp" aria-label="Help"><form method="dialog"><header><h3>Help</h3><label class="hq"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg><input id="mHq" type="search" placeholder="Search help…" autocomplete="off" spellcheck="false" aria-label="Search help"></label><button value="" title="Close (Esc)" aria-label="Close">×</button></header><div class="hb"><nav id="mHn" aria-label="Help topics"></nav><div class="cols" id="mHc">
 <div>
 <section class="gs"><h4>Getting started</h4><ol>
@@ -448,6 +490,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p><label>Width <input id="mNW" type="number" value="210" min="1" step="0.1"></label> <label>Height <input id="mNH" type="number" value="297" min="1" step="0.1"></label> mm</p>
 <p><button value="ok">Create</button> <button value="">Cancel</button></p>
 </form></dialog>
+<!-- ══ 41 Kept in this browser ══ -->
 <dialog id="mKept" tabindex="-1"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
 <p class="kl">Copies svguest keeps for you between visits, in this browser only.</p>
 <div class="kr"><i class="kic"><svg viewBox="0 0 16 16"><path d="M4 1.5h5.5l3 3v10H4zM9.5 1.5v3h3M6.5 8.5h3.5M6.5 11h3.5"/></svg></i><div class="kt"><b>Open recent</b><span id="mKd"></span></div><button type="button" data-k="ds" title="Download the kept copies of your files as SVG, in one .zip">Download .zip</button><button type="button" class="kdl" data-k="dc" title="Delete every kept copy (asks first)">Delete all</button></div>
@@ -458,9 +501,78 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <li>File › Auto-save turns the copies on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick.</li></ul>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
+<!-- ══ 45 Watermark UI ══ -->
 <div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
 <script>
 'use strict';
+// Sections, in file order (search "══ NN"; the CSS and HTML parts use the same names):
+// 00 State: constants, DOM handles, the shared document state
+// 01 Basics: number output, DOM builders, ids, document order
+// 02 Geometry: matrices in double precision, bounding boxes
+// 03 Styles: style attribute edits, text sizes, styleSet
+// 04 Undo: MutationObserver records, commit, revert, step names
+// 05 Opening: parse, load, import, confirm dialogs, reading files
+// 06 Export: file names, SVG text, PNG/JPG, PDF
+// 07 View: screen mapping, page size, fit, zoom
+// 08 Selection: selection state, status line, refresh
+// 09 Rulers and guides: ruler canvases, guides, guide snapping
+// 10 Scrollbars: overlay scrollbars
+// 11 Line shapes: line tools, wedge, brace, elbow routing, seg/setSeg
+// 12 HUD: selection box, handles, hover, snap marks, guides
+// 13 Side panel: Properties refresh (panel), text-size list
+// 14 Hit testing: pick/grab, hit, box select, outlines
+// 15 Snapping: snap points for line ends (snapT, osn, lsn)
+// 16 Connectors: line ends attached to objects, lnk
+// 17 Tools and ghost: Esc, setTool, the drag ghost
+// 18 Pointer: down/move/up, every canvas gesture
+// 19 Drawing: new shapes, arrowhead markers, new text
+// 20 Text lines: lines, tspans, wrapping, the Text panel preview
+// 21 Text editing: edit/finish, in-place and Text panel editor
+// 22 Clipboard and grouping: copy, paste, delete, z-order, group, ungroup, align, nudge
+// 23 Marker heads: arrowheads on any path, line or polyline
+// 24 Point editing: path parsing (pparse, pmodel), anchors
+// 25 Style commands: dash, bold/italic, anchors, eyedropper style, pen, swap, transform again
+// 26 Crop: crop tool, crop clipPaths
+// 27 FigKit links: labels, frames, bars, zoom insets kept fitted (fgSync)
+// 28 FigKit tools: size, grid, space, positions, labels, frames, colours, pictures
+// 29 FigKit window: previews and status per pane (FGU), guide, More options
+// 30 Lock: lock and unlock (sodipodi:insensitive)
+// 31 Hover and auto-scroll: hover outline, edge auto-scroll, box-select preview
+// 32 Context menu: right-click menu (CM)
+// 33 Document tabs: tabs: tabFresh, tabHold/tabShow, limits
+// 34 SVG Chat state: chat globals, PROMPT, reply parsing, patch
+// 35 Attachments: images, files, selection chip, CMYK check, Place image
+// 36 Models: service registry (REG), keys, endpoints, probe
+// 37 SVG Chat requests: call, draw, panels, look, ask, land
+// 38 SVG Chat panel: composer, model menu, Models and keys, Retry
+// 39 Chats: chat list, IndexedDB storage, roll-over
+// 40 Open recent: browser copies (sgDocs), autosave, close-time backup
+// 41 Kept in this browser: zip download, the Kept window
+// 42 Auto-save to a folder: folder writes through File System Access
+// 43 Save: Ctrl+S, save as
+// 44 Watermark engine: metadata scanner (wmEngine)
+// 45 Watermark UI: scan, findings, removal
+// 46 Actions: A: the action behind every data-a button
+// 47 FigKit wiring: FigKit actions and window events
+// 48 More actions: zoom steps, z-order, anchors, chat, guides
+// 49 Find and replace: find bar, replace, matches in Layers
+// 50 History and status bar: Edit › History, lag readout
+// 51 Panel toggles: heads link and swap, Layers, Properties
+// 52 Zoom box: zoom field, presets, slider
+// 53 Layers: layer list, Find, picking rows
+// 54 Command palette: command list, scoring, Recent, icons (KI)
+// 55 Menus: button clicks, step names, menu and submenu hover
+// 56 Layers window: #mPop, borrowing the side panel's sections
+// 57 Side panel fields: field change and key handlers (sideCh, sideK)
+// 58 Fonts: font list, installed fonts
+// 59 Colour preview: live preview while a colour picker is open
+// 60 Dialogs: file input, New canvas, Help
+// 61 Events: canvas pointer and wheel, scrollbars, drop, unload
+// 62 Keyboard: shortcuts, keys under input methods, Select all
+// 63 Paste: SVG and images from the clipboard
+// 64 Startup: options, theme, action names, the first page
+// ══ 00 State ════
+// Constants and handles every section uses (F: side-panel fields by data-f), then the document state.
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
 const NS={svg:'http://www.w3.org/2000/svg',inkscape:'http://www.inkscape.org/namespaces/inkscape',sodipodi:'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',xlink:'http://www.w3.org/1999/xlink',xml:'http://www.w3.org/XML/1998/namespace'},PX={'http://www.w3.org/2000/xmlns/':'xmlns'};
 for(const n in NS)PX[NS[n]]=n;
@@ -471,6 +583,9 @@ const PT=72/25.4,BIG=2e3,UNIT={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/9
   PRES=/^(fill|fill-opacity|fill-rule|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-dasharray|stroke-dashoffset|font-family|font-size|font-weight|font-style|text-decoration|text-anchor|letter-spacing|color|visibility|display|opacity)$/;
 let root,name,prolog,vb,U,Z=1,k=1,tx=0,ty=0,zt,sel=[],sb=null,sbs=[],cb=null,ctx,mo,pend=[],undos=[],redos=[],dirty=false,tool='sel',D=null,G=null,CR=null,LKC=null,lkV=0,Pop={x:null,m:[]},ed=null,space=false,clip=null,mouse=null,idn=0,fileMode=0,ped=null;
 
+// ══ 01 Basics ════
+// fm/fc/f6 format numbers for output; mk builds SVG elements, el HTML ones; uid/reid keep ids unique;
+// order() sorts into document order (an index map from 64 elements on).
 const fm=v=>abs(v)<1e-9?'0':String(+v.toPrecision(8)),fc=v=>String(+v.toFixed(5)||0),f6=v=>String(+v.toPrecision(6));
 const mmOf=s=>{const m=/^\s*([\d.eE+-]+)\s*([a-z]*)\s*$/.exec(s||'');return m&&UNIT[m[2]]!=null?m[1]*UNIT[m[2]]:null};
 const unitOf=(s,w)=>(mmOf(s.getAttribute('width'))||w*25.4/96)/w;
@@ -492,7 +607,7 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
   const ix=new Map(u.map(e=>[e,-1])),w=document.createTreeWalker(root,1);let i=0;for(let n=root;n&&i<u.length;n=w.nextNode())ix.has(n)&&ix.set(n,i++);return u.sort((x,y)=>ix.get(x)-ix.get(y))},
   add=(a,b)=>{for(const x of b)a.push(x);return a};
 
-// ── Geometry ───────────────────────────────────────────────────────────────────────────────────────────────
+// ══ 02 Geometry ════
 // Matrices are built from number arrays (mx, T, S, Rot, about) in double precision: DOMMatrix's own translate/scale/
 // rotate methods round through float32 and would drift. lm(e) parses e's transform attribute (the shared identity
 // I0 when there is none, so never mutate its result); ctm(e) is the product up to the document root; setT writes
@@ -548,6 +663,9 @@ function mbox(e,M){if(!M.b&&!M.c||!M.a&&!M.d||isGrp(e)&&e.getElementsByTagName('
 const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,e.hasAttribute('transform')?pm(e).multiply(lm(e)):pm(e));
 function applyM(M,els=sel){lkDet(els);const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
+// ══ 03 Styles ════
+// setSts writes style properties in place (order kept) and drops the matching presentation attributes;
+// styleSet colours the selection's leaves.
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
 const setSt=(e,p,v)=>setSts(e,[[p,v]]);
 function setSts(e,kv){const m=new Map(kv),o=[],done=new Set;
@@ -566,7 +684,7 @@ const sLv=(p,v)=>{const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Set(sel
 function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v);
   L.forEach((e,i)=>{setSt(e,p,vs[i]);e.localName==='text'&&kids(e,p)})}
 
-// ── Undo ───────────────────────────────────────────────────────────────────────────────────────────────────
+// ══ 04 Undo ════
 // Every change to the document is seen by one MutationObserver (mo) and collected in pend. commit() closes pend
 // into an undo step (named from why, else guessed from the records); revert() plays records backwards. Code that
 // changes the DOM only for display wraps it in quiet(), which throws those records away. once(f) merges every
@@ -592,11 +710,11 @@ function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush(
   const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
 
-const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
-// ── Opening ────────────────────────────────────────────────────────────────────────────────────────────────
+// ══ 05 Opening ════
 // parse() reads SVG text with DOMParser (an invalid file throws) and, when the text holds anything suspicious,
 // strips scripts, embedded frames and event-handler or javascript: attributes; load() makes the result the active document: viewBox, mm per user unit (U), a fresh undo
 // history and the MutationObserver.
+const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
   if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
     (XO.test(n)||XJ.test(v)&&(XS.test(v)||XV.test(n)))&&e.removeAttributeNode(a)}
@@ -645,6 +763,9 @@ async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(f&&isTif(f))
 const upc=c=>{while(c!==root&&clipOf(c))c=c.parentNode;return c};
 function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.children].find(e=>e.localName==='namedview'),l=nv&&byId(nv.getAttributeNS(NS.inkscape,'current-layer'));
   return l&&root.contains(l)&&isLayer(l)?l:[...root.children].reverse().find(isLayer)||root}
+// ══ 06 Export ════
+// outName stamps names (_YYMMDD_HHMMSS, old stamps stripped); png() renders on white and writes the dpi
+// (pHYs, JFIF); pdf() prints a hidden iframe.
 const stamp=t=>{const d=t?new Date(t):new Date(),j=a=>a.map(x=>String(x).padStart(2,'0')).join('');return j([d.getFullYear()%100,d.getMonth()+1,d.getDate()])+'_'+j([d.getHours(),d.getMinutes(),d.getSeconds()])};
 const outName=(ext,tag='')=>(name.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+(tag?'_'+tag:'')+'_'+stamp()+ext).toLowerCase();
 const svgRaw=()=>'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n';
@@ -669,6 +790,9 @@ async function png(dpi,j){const f=j?'JPG':'PNG',W=round(vb.w*U/25.4*dpi),Hh=roun
     dl((j?jfif:phys)(b,dpi),outName(j?'.jpg':'.png',dpi+'dpi'));msg(`Exported ${W}×${Hh} ${f} (${dpi} dpi)`)}
   catch(e){msg(f+' export failed: '+e.message)}finally{URL.revokeObjectURL(url)}}
 
+// ══ 07 View ════
+// Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
+// #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
 const vp=e=>{const r=view.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]},cmd=e=>e.ctrlKey||e.metaKey;
 const toU=p=>({x:(p[0]-tx)/(Z*k)+vb.x,y:(p[1]-ty)/(Z*k)+vb.y}),toS=q=>[tx+(q.x-vb.x)*Z*k,ty+(q.y-vb.y)*Z*k];
 function size(){stage.style.width=vb.w*Z+'px';stage.style.height=vb.h*Z+'px';grid()}
@@ -677,9 +801,6 @@ function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opt
   for(let n=0;n*a<=vb.w*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x+n*a/U} ${vb.y}V${vb.y+vb.h}`;
   for(let n=0;n*a<=vb.h*U+1e-9;n++)d[+(n*a%b===0)]+=`M${vb.x} ${vb.y+n*a/U}H${vb.x+vb.w}`;
   gr.children[0].setAttribute('d',d[0]);gr.children[1].setAttribute('d',d[1])}
-// ── View ───────────────────────────────────────────────────────────────────────────────────────────────────
-// Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
-// #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
 function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;stage._k!==k&&(stage._k=k,$('mPage').style.setProperty('--k',k),$('mGrid').style.setProperty('--k',k));ed&&!ed.sd&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();bkB();sbWake();zUI()}
 const bkB=()=>{const b=$('mBk');if(!root)return b.hidden=true;const o=opts.rulers?RW:0,W=view.clientWidth,H=view.clientHeight,w=vb.w*Z*k,h=vb.h*Z*k,ix=max(0,min(W,tx+w)-max(o,tx)),iy=max(0,min(H,ty+h)-max(o,ty));b.hidden=ix*iy>=.5*min(w*h,(W-o)*(H-o))};
 function ctrPg(){const o=opts.rulers?RW:0;tx=o+(view.clientWidth-o-vb.w*Z*k)/2;ty=o+(view.clientHeight-o-vb.h*Z*k)/2;place();msg('Back to the page')}
@@ -689,7 +810,7 @@ function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('
 function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min((r.width-o-40)/vb.w,(r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
 function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;place();clearTimeout(zt);zt=setTimeout(grid,250)}
 
-// ── Selection ──────────────────────────────────────────────────────────────────────────────────────────────
+// ══ 08 Selection ════
 // sel is the selected elements; ctx is the group the selection lives in (Esc climbs it). setSel filters locked
 // elements and calls refresh(), which recomputes the selection box (sb), handles and the side panel.
 function setSel(a,q){CR&&!(a.length===1&&a[0]===CR.s)&&cropOK();const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
@@ -704,6 +825,9 @@ function refresh(){if(!root)return;root.contains(ctx)||(ctx=root);syncPage();bar
   for(let e=ctx;e&&e!==root.parentNode;e=e.parentNode)c.unshift(lab(e));
   $('mCtx').textContent='Context: '+c.join(' › ');
   const e=sel[0];$('mSel').textContent=!e?'':sel.length>1?`${sel.length} objects selected`:`Selected ${e.localName}${e.id?'#'+e.id:''}`+(isGrp(e)?` (${e.getElementsByTagName('*').length} descendants)`:'');selChip();lyRef();fqRef();fgRef();wmLife()}
+// ══ 09 Rulers and guides ════
+// Guides (gl, {h,v}: h 1 is a vertical line at x = v) are view state: not exported, not undoable. The ruler
+// canvases take their own pointer events, so down() never sees them.
 const RW=20,GC='#e8457a',GH='#b3124b';let gl=[],gq=null,gp=null;
 const gv=(h,a)=>{const z=Z*k,st=10**Math.floor(Math.log10(U/z));return(h?vb.x:vb.y)+round((a-(h?tx:ty))/z*U/st)*st/U},gmm=G=>`${G.h?'x':'y'} ${f6((G.v-(G.h?vb.x:vb.y))*U)} mm`,
   gsn=(u,e)=>{let x=u.x,y=u.y,gx=null,gy=null;if(!cmd(e)&&gl.length){let bx=5/(Z*k),by=bx;for(const G of gl){const f=abs((G.h?u.x:u.y)-G.v);G.h?f<bx&&(bx=f,x=gx=G.v):f<by&&(by=f,y=gy=G.v)}}return[{x,y},(gx!=null||gy!=null)&&[gx,gy]]},
@@ -735,10 +859,15 @@ for(const h of[1,0]){const c=$(h?'mRx':'mRy');let G=null;
     if(e.type==='pointerup')if(g.o&&!g.on){gl.splice(gl.indexOf(g.o),1);msg('Removed the guide')}else if(gp){gl.push(gp);msg(`Guide at ${gmm(gp)}; click its mark on the ruler to remove it`)}
     gp=null;gq=null;c.style.cursor='';bar();hud()};
   c.onpointerleave=()=>{G||(gq=null,c.style.cursor='',hud())};c.ondblclick=c.oncontextmenu=e=>{e.preventDefault();e.stopPropagation()}}
+// ══ 10 Scrollbars ════
+// The range is the page ± 20 px joined with the view; sbR freezes it while a thumb is dragged.
 let sbR=[];const sbg=h=>{const W=h?view.clientWidth:view.clientHeight,o=h?-tx:-ty,P=(h?vb.w:vb.h)*Z*k,R=sbR[+!h]||[min(-20,o),max(P+20,o+W)];return{W,o,R,s:W/(R[1]-R[0])}};
 let sbT=0;const sbWake=()=>{view.classList.add('sbOn');clearTimeout(sbT);sbT=setTimeout(()=>view.classList.remove('sbOn'),1200)};
 function bars(){for(const h of[1,0]){const b=$(h?'mSx':'mSy'),g=root&&sbg(h);if(b.hidden=!g||g.s>.999)continue;const L=h?b.clientWidth:b.clientHeight,t=max(32,g.s*L);if(b.hidden=t>=L)continue;
   const x=(g.o-g.R[0])/(g.R[1]-g.R[0]-g.W)*(L-t);Object.assign(b.firstChild.style,h?{left:x+'px',width:t+'px'}:{top:x+'px',height:t+'px'})}}
+// ══ 11 Line shapes ════
+// seg(e) reads a two-point line, a one-bend quadratic or an elbow path; setSeg writes it back, keeping a bend's
+// proportion and re-routing elbows. rte() picks the shortest elbow route that leaves, enters and crosses no box wrongly.
 const LNT=/^(line|arrow|inhibit|elbow|brace)$/,WDG=(a,b)=>{const y=max(a.y,b.y);return[[a.x,y],[b.x,y],[b.x,min(a.y,b.y)]]},shD=a=>a.map(v=>typeof v==='string'?v:v.map?fc(v[0])+','+fc(v[1]):fc(v)).join(' '),
   elD=(a,h,v)=>['M',[a.x,a.y],...v.flatMap((x,i)=>[(i%2===0)===h?'H':'V',x])],ePts=(a,h,v)=>{let p=a;return[a,...v.map((x,i)=>p=(i%2===0)===h?{x,y:p.y}:{x:p.x,y:x})]},
   uvOf=(t,p)=>{const b=t.getBBox(),q=ctm(t).inverse().transformPoint(p);return[b.width?(q.x-b.x)/b.width:0,b.height?(q.y-b.y)/b.height:0]},spO=o=>o&&o.e?(([u,v])=>({t:o.e,u,v}))(uvOf(o.e,o)):null,
@@ -777,6 +906,7 @@ function setSeg(e,[a,b],c,dd){const P=q=>fc(q.x)+','+fc(q.y);if(e.localName==='l
   e.setAttribute('d',c&&'v'in c?shD(elD(a,c.h,c.v)):c?`M ${P(a)} Q ${P(c)} ${P(b)}`:`M ${P(a)} L ${P(b)}`)}
 const l2p=e=>{const s=seg(e),p=document.createElementNS(NS.svg,'path');for(const x of e.attributes)/^(x1|y1|x2|y2)$/.test(x.name)||p.setAttributeNS(x.namespaceURI,x.name,x.value);e.replaceWith(p);sel=sel.map(x=>x===e?p:x);setSeg(p,s,null);gcs(p).fill!=='none'&&setSt(p,'fill','none');return p};
 const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,i,a)=>i<4?v:v||e.ry.baseVal.value);
+// ══ 12 HUD ════
 // The HUD is an SVG overlay in screen coordinates: selection box and handles, hover outline, snap marks, guides,
 // FigKit previews. It is redrawn from state and never touches the document.
 function hud(M){H.replaceChildren();if(!root)return;rulers();
@@ -811,6 +941,9 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
     :LNT.test(D.t)?mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],style:'stroke:#1a73e8'},H)
     :D.t==='ellipse'?mk('ellipse',{cx:(a[0]+b[0])/2,cy:(a[1]+b[1])/2,rx:abs(a[0]-b[0])/2,ry:abs(a[1]-b[1])/2,style:st},H)
     :mk('rect',{x:min(a[0],b[0]),y:min(a[1],b[1]),width:abs(a[0]-b[0]),height:abs(a[1]-b[1]),style:st},H)}}
+// ══ 13 Side panel ════
+// panel() refills the fields from the selection and never writes the document; sizes() lists the text sizes,
+// deferred past 30 ms on text-heavy files (sizesQ).
 const tbPos=(L,fl,tb)=>{const b=L.map(l=>{let q=null;try{q=l.getBBox()}catch(_){}return q&&q.width?q:{x:at(l,'x')??0,width:0}}),a=min(...b.map(q=>q.x)),w=max(...b.map(q=>q.x+q.width))-a,y0=at(L[0],'y')??0,
   px=max(9,min(13,(tb.clientWidth-12)*fl/w)),s=px/fl,ps=L.map((l,i)=>[(b[i].x-a)*s,((at(l,'y')??y0+i*1.2*fl)-y0)*s-i*1.2*px]);ps.px=px;return ps.some(p=>abs(p[0])>.5||abs(p[1])>.5)?ps:null},
   tbFill=(tb,t)=>{tb._t=t;tb._v=dv;tb.replaceChildren();tb.classList.remove('pl');tb.style.fontSize='';if(!t)return;const[r,L]=edSrc(t),c=gcs(L?L[0]:r),ps=L&&tbPos(L,parseFloat(c.fontSize),tb);
@@ -838,6 +971,7 @@ function sizes(){if(!root)return;const g=new Map(),t0=performance.now();
   $('mSizes').replaceChildren(...[...g].sort((a,b)=>a[0]-b[0]).map(([s,ts])=>{const d=el('div');
     d.innerHTML=`<span>${s} pt × ${ts.length}</span>→<input type="number" step="0.5" min="0.5"> pt<button>Select</button>`;
     d.querySelector('input').onchange=e=>{ts.forEach(t=>setSize(t,+e.target.value));commit()};d.querySelector('button').onclick=()=>setSel(ts.filter(t=>!lkd(t)));return d}));szMs=performance.now()-t0}
+// ══ 14 Hit testing ════
 function pick(t){let c=root;for(;;){let e=t;while(e.parentNode!==c)e=e.parentNode;if(isLayer(e)&&e!==t){c=e;continue}return[e,c]}}
 function grab(t,whole){const e=t.closest('text')||t;return whole?pick(t):[e,e.parentNode]}
 const thru=f=>{const o=[gw,$('mCap'),...H.children];o.forEach(x=>x.style.pointerEvents='none');try{return f()}finally{o.forEach(x=>x.style.pointerEvents='')}};
@@ -872,6 +1006,9 @@ function outl(e){if(e.localName==='line'){const M=ctm(e);return[seg(e).map(q=>M.
     else if(cm==='C'||cm==='Q')for(let i=1;i<=8;i++){const t=i/8,u=1-t;c.push(cm==='C'?{x:u*u*u*x+3*u*u*t*p[0]+3*u*t*t*p[2]+t*t*t*ex,y:u*u*u*y+3*u*u*t*p[1]+3*u*t*t*p[3]+t*t*t*ey}:{x:u*u*x+2*u*t*p[0]+t*t*ex,y:u*u*y+2*u*t*p[1]+t*t*ey})}
     else if(cm==='A')add(c,arcPts(x,y,p));else c.push({x:ex,y:ey});x=ex;y=ey}
   m.poly&&e.localName==='polygon'&&c&&c.push(s);return L.map(l=>l.map(q=>M.transformPoint(q)))}
+// ══ 15 Snapping ════
+// snapT collects anchors, midpoints, centres and outline segments of the leaves in view once per drag, and gives
+// up past 4000 objects or 80 ms (remembered in SO until the view or file changes).
 let SO=null;function snapT(X){const vk=[tx,ty,Z*k].join();if(SO&&SO[0]===vk&&SO[1]===root)return null;const off=()=>(SO=[vk,root],null),V=view.getBoundingClientRect(),z=Z*k,x0=-tx/z+vb.x,y0=-ty/z+vb.y,x1=x0+view.clientWidth/z,y1=y0+view.clientHeight/z,P=[],S=[],E=[],t0=performance.now(),ad=(x,y,t)=>P.push(x,y,t,E.length-1),mid=(a,c)=>ad((a.x+c.x)/2,(a.y+c.y)/2,1);let n=0,i=0;
   for(const e of klea(root)){if(!(++i&255)&&performance.now()-t0>80)return off();if(e===X)continue;const f=fb(e,V);if(!f||f.x>x1||f.y>y1||f.x+f.w<x0||f.y+f.h<y0)continue;if(++n>4000||performance.now()-t0>80)return off();E.push(e);const ln=e.localName==='line',m=!ln&&pmodel(e),L=(ln||m)&&outl(e),b=f,j=E.length-1;
     if(L){for(const l of L)for(let i=1;i<l.length;i++)S.push(l[i-1].x,l[i-1].y,l[i].x,l[i].y,j);
@@ -883,6 +1020,9 @@ const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=
     if(!ed){for(let i=0;i<A.length;i+=4){const d=(A[i]-u.x)**2+(A[i+1]-u.y)**2+(T.l[A[i+3]]?r*r*.01:0);d<b&&(b=d,o={x:A[i],y:A[i+1],k:A[i+2],e:T.e[A[i+3]]})}return o}
     for(let i=0;i<A.length;i+=5){const ax=A[i],ay=A[i+1],vx=A[i+2]-ax,vy=A[i+3]-ay,l=vx*vx+vy*vy,t=l?max(0,min(1,((u.x-ax)*vx+(u.y-ay)*vy)/l)):0,x=ax+t*vx,y=ay+t*vy,d=(x-u.x)**2+(y-u.y)**2+(T.l[A[i+4]]?r*r*.01:0);d<b&&(b=d,o={x,y,k:3,e:T.e[A[i+4]]})}return o},
   lsn=(u,e,T)=>{if(cmd(e))return[u,0,null];let o=osn(u,T);if(o)return[o,0,o];const[s,g]=gsn(u,e);return g?[s,g,null]:(o=osn(u,T,1))?[o,0,o]:[u,0,null]},SNK=['an anchor','a midpoint','a centre','an edge'];
+// ══ 16 Connectors ════
+// Connectors: line ends attached to objects carry data-sg-from / data-sg-to = url(#id) u v, a point in the target's
+// own box. lnk() runs at the start of each commit and moves those ends to follow their targets, in the same step.
 const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
   lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-sg-from],[data-sg-to]')]}).L},
   lkP=(t,u,v)=>{const b=t.getBBox();return b.width||b.height?ctm(t).transformPoint({x:b.x+u*b.width,y:b.y+v*b.height}):null},
@@ -895,10 +1035,10 @@ const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lk
       E.length&&o.push({c,E,s,a:c.localName==='line'?['x1','y1','x2','y2'].map(n=>c.getAttribute(n)):c.getAttribute('d')})}D.lk=o.length?o:null},
   lkPv=M=>D.lk&&quiet(()=>{for(const{c,E,s,a}of D.lk){const Mi=ctm(c).inverse(),q=s.map(p=>({x:p.x,y:p.y})),dd=[];for(const[i,P,[t,u,v]]of E){q[i]=Mi.transformPoint(M.transformPoint(P));dd[i]={t,u,v,M}}typeof a==='string'&&c.setAttribute('d',a);setSeg(c,q,undefined,dd)}}),
   lkRs=d=>{d&&d.lk&&quiet(()=>{for(const{c,a}of d.lk)c.localName==='line'?['x1','y1','x2','y2'].forEach((n,i)=>c.setAttribute(n,a[i])):c.setAttribute('d',a)});d&&(d.lk=null)};
-// Connectors: line ends attached to objects carry data-sg-from / data-sg-to = url(#id) u v, a point in the target's
-// own box. lnk() runs at the start of each commit and moves those ends to follow their targets, in the same step.
 function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))continue;const s=seg(c);if(!s)continue;let ch=0,Mi=null;
   LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&lkP(...r);if(!P)return;const q=(Mi||(Mi=ctm(c).inverse())).transformPoint(P);if(abs(q.x-s[i].x)>5e-6||abs(q.y-s[i].y)>5e-6){s[i]=q;ch=1}});ch&&setSeg(c,s)}}
+// ══ 17 Tools and ghost ════
+// ghostOn moves the selected nodes into #mGhost so a drag is one CSS transform; ghostOff puts them back.
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
 function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){lkRs(D);ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
 function setTool(t){CR&&t!=='crop'&&cropOK();tool=t;const v=$('mTools').querySelector(`.menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));$('mTools').querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair';t==='crop'&&!CR&&sel.length===1&&sel[0].localName==='image'&&cropGo(sel[0])}
@@ -908,7 +1048,7 @@ function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.p
     for(const a of ch){const c=a.cloneNode(false);['id','clip-path','mask','filter'].forEach(x=>c.removeAttribute(x));g=g.appendChild(c)}w.set(p,g)}
   g.appendChild(e);return{e,p,n}})})}
 function ghostOff(M){fgRs();quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefore(G[i].e,G[i].n);ghost.replaceChildren();gw.style.transform=''});G=null;M?(applyM(M),commit()):refresh()}
-// ── Pointer ────────────────────────────────────────────────────────────────────────────────────────────────
+// ══ 18 Pointer ════
 // down/move/up drive every canvas gesture. down() decides what the drag is (D.t: a move, a handle, a box select,
 // drawing, a point, a crop…). A move drag lifts the selection into the ghost layer and moves it with one CSS
 // transform; up() applies the final matrix to the real elements (applyM) and commits once.
@@ -978,6 +1118,8 @@ function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=
   if(d.q)create(d.t,toU(d.p),toU(d.q),[d.sp0,d.sp]);else hud()}
 function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t,undefined,0,e);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
 
+// ══ 19 Drawing ════
+// create() turns a drag into a shape in curParent() and attaches connector ends; MK/mark() hold the markers.
 function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse|wedge)$/.test(t),cn=ln&&t!=='brace',hd=t==='elbow'?'arrow':t,
     s=t==='wedge'&&pen.fill==='none'?`fill:${pen.stroke==='none'?'#000000':pen.stroke};stroke:none`:`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
   if(t==='rect')e=mk('rect',{id:uid('rect'),x:fc(min(Pa.x,Pb.x)),y:fc(min(Pa.y,Pb.y)),width:fc(abs(Pb.x-Pa.x)),height:fc(abs(Pb.y-Pa.y)),style:s},p);
@@ -991,6 +1133,9 @@ function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];by
 const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),x:fc(q.x),y:fc(q.y),style:`${b}font-size:${f6(pt/PT/U/sc(ctm(p)))}px;font-family:Arial;fill:#000000`},p,txt);
 function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk=flush(),t=arial(p,q,11);ctx=p;setSel([t]);edit(t,null,mrk)}
 
+// ══ 20 Text lines ════
+// Lines are Inkscape's sodipodi:role="line" tspans (lnKids) or Illustrator's positioned tspans (edLn); setLines
+// rewrites only what changed; tryWrap breaks a text to a width.
 const at=(e,a)=>{const l=e[a]&&e[a].baseVal;return l&&l.numberOfItems?l.getItem(0).value:null};
 const edLn=t=>{const L=lnKids(t);if(L)return L;const c=[...t.children];let y=-1/0;return c.length>1&&[...t.childNodes].every(n=>n.nodeType!==1?n.nodeType!==3||!n.data.trim():n.localName==='tspan'&&n.hasAttribute('x')&&n.hasAttribute('y')&&!many(n,'x')&&!many(n,'y')&&(v=>v>y&&(y=v,1))(at(n,'y')))?c:null};
 const lnKids=t=>{const c=[...t.children];return c.length&&c.every(e=>e.localName==='tspan'&&e.getAttributeNS(NS.sodipodi,'role')==='line')?c:null};
@@ -1068,7 +1213,7 @@ function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d
   quiet(()=>{const c=edCl(t,vis);
     ed.pv?ed.pv.replaceWith(c):t.after(c);ed.pv=c;if(JSON.stringify(lns)!==r0){setLines(c,ip.reduce((n,i)=>n.childNodes[i],c),L,edMap(ks,lns));noTL(c)}hx||root.removeAttribute('xmlns:sodipodi')});
   const cs=gcs(t);Object.assign(d.style,{fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:cs.textDecorationLine})}
-// ── Text editing ───────────────────────────────────────────────────────────────────────────────────────────
+// ══ 21 Text editing ════
 // edit() hides the <text> and lays a contenteditable copy (.ed) over it, or uses the Text panel's box (sd). Styled
 // runs are mirrored as spans whose data-k points back to the tspan they came from; finish() reads the lines back
 // (edLines) and rebuilds only what changed (setLines), as one Edit text step.
@@ -1110,6 +1255,9 @@ function setRange(r){const g=getSelection();g.removeAllRanges();g.addRange(r)}
 document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||!g.rangeCount||!ed.d.contains(g.anchorNode))return;ed.rg=g.getRangeAt(0).cloneRange();
   const cs=edAt();F.fs.value=+(parseFloat(cs.fontSize)*U*PT/ed.zk).toFixed(2);F.ff.value=family(cs);F.tc.value=hex(cs.color)});
 
+// ══ 22 Clipboard and grouping ════
+// paste renames ids with one map (reid, relink) and cuts links to anything not pasted; ungroup snapshots
+// class-computed paint (KP) so svglite styles survive.
 function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
@@ -1152,6 +1300,8 @@ function align(c){const R=area();if(!R)return;
   for(const e of sel){const b=bbox(e);if(!b)continue;
     applyM(T({l:R.x-b.x,c:R.x+(R.w-b.w)/2-b.x,r:R.x+R.w-b.x-b.w}[c]||0,{t:R.y-b.y,m:R.y+(R.h-b.h)/2-b.y,b:R.y+R.h-b.y-b.h}[c]||0),[e])}commit()}
 function nudge(x,y,big){const d=(big?1:0.1)/U,M=T(x*d,y*d);keep(M,sb);applyM(M);why='Nudge';commit()}
+// ══ 23 Marker heads ════
+// Base markers are <Name>Sg; a scaled head is a clone <base>_h<p> (hmk); mgc drops ours once nothing uses them.
 const MP=['marker-start','marker-mid','marker-end'];
 function hmk(id,p){const b=id.replace(/_h\d+$/,''),B=byId(b),c=+(/_h(\d+)$/.exec(id)||[0,100])[1];if(B&&p===100)return b;const n=b+'_h'+p;if(byId(n))return n;
   const s=B||byId(id),m=s.cloneNode(false),x=+s.getAttribute('refX')||0,y=+s.getAttribute('refY')||0,f=fm(B?p/100:p/c),g=mk('g',{transform:x||y?`translate(${fm(x)},${fm(y)}) scale(${f}) translate(${fm(-x)},${fm(-y)})`:`scale(${f})`},m);
@@ -1163,6 +1313,8 @@ function heads(p,J=[0,1,2]){const old=new Set(),L=lv(),R=L.map(e=>{const c=gcs(e
   L.forEach((e,i)=>J.forEach(j=>{const a=MP[j],id=R[i][j];if(!id||!byId(id))return;const n=hmk(id,p);n!==id&&(setSt(e,a,`url(#${n})`),old.add(id))}));mgc(old)}
 function headSet(j,t){const old=new Set;for(const e of mkl()){const c=gcs(e),o=refId(c.getPropertyValue(MP[j?2:0])),q=refId(c.getPropertyValue(MP[j?0:2])),p=o?hp(o):q?hp(q):pen.head;
   mset(e,MP[j?2:0],t&&`url(#${hmk(mark(t),p)})`);o&&old.add(o)}t&&old.add(MK[t][0]);mgc(old)}
+// ══ 24 Point editing ════
+// pmodel(e) is cached per d/points in PMC: treat it as read-only.
 const PN=/[MmLlHhVvCcSsQqTtAaZz]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g,PM='Points: drag one and only it moves (Shift: 45° steps); Esc or a click outside ends';
 function pparse(d){const t=d.match(PN)||[],o=[];let i=0,c='',x=0,y=0,sx=0,sy=0,lc=null;const N=()=>+t[i++],P=r=>[N()+(r?x:0),N()+(r?y:0)],rf=q=>[2*x-q[0],2*y-q[1]];
   while(i<t.length){if(/[a-z]/i.test(t[i]))c=t[i++];else if(!c)return null;const C=c.toUpperCase(),r=c!==C;let s,l=null;
@@ -1191,6 +1343,8 @@ function moveA(o,[i0,i1],dx,dy){const mv=(s,j)=>{s.p[j]+=dx;s.p[j+1]+=dy},en=j=>
 function pwrite(e,m,o){m.poly?e.setAttribute('points',o.map(s=>fc(s.p[0])+','+fc(s.p[1])).join(' ')):e.setAttribute('d',pstr(o))}
 function toPath(e){const kv=kps([e]),p=document.createElementNS(NS.svg,'path');for(const a of e.attributes)/^(x|y|width|height|rx|ry|cx|cy|r)$/.test(a.name)||p.setAttributeNS(a.namespaceURI,a.name,a.value);
   e.replaceWith(p);kpr([p],kv);sel=sel.map(x=>x===e?p:x);return p}
+// ══ 25 Style commands ════
+// sty is the copied style (widths in pt); pen the paint new shapes get; again the last transform about the box centre.
 function dash(e){const w=parseFloat(gcs(e).strokeWidth)||1,d=F.dash.value;return d?[d==='d'?4*w:w,2*w].map(fm).join():null}
 function flip(p,css,v,on){const ts=part()?null:selTexts();if(ts&&!ts.length)return;const x=on(ts?gcs(ts[0]):edAt())?'normal':v;
   if(!ts)return restyle(s=>setRun(s,p,x,css));ts.forEach(t=>setFont(t,p,x));commit()}
@@ -1235,6 +1389,9 @@ function dflt(){finish(true);pen.fill='none';pen.stroke='#000000';if(!sel.length
 let fsA='fill';const fsAct=p=>{fsA=p;$('mFS').classList.toggle('st',p==='stroke')};
 function fsNo(){finish(true);const p=fsA;stp(p==='fill'?'No fill':'No stroke');if(!sel.length){pen[p]='none';return panel()}styleSet(p,'none');commit()}
 function fsz(d){const ts=selTexts();if(!ts.length)return;ts.forEach(t=>setSize(t,max(.5,+(tsize(t)+d).toFixed(1))));why='Font size';commit()}
+// ══ 26 Crop ════
+// CR is the open session; cropR writes a crop… clipPath in the image's own coordinates, chaining an existing
+// clip-path. Pixels are never touched.
 const cropK=v=>{const K=byId(refId(v));return K&&/^crop/.test(K.id)&&K.childElementCount===1&&K.firstElementChild.localName==='rect'&&K};
 const cropGo=s=>{const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width'),v('height'));if(!(ib.w>0&&ib.h>0))return msg('This photo has no size to crop');
   const K=cropK(stGet(s,'clip-path')),q=K&&K.firstElementChild,c=q&&isect(rb(...['x','y','width','height'].map(n=>+q.getAttribute(n)||0)),ib);
@@ -1251,6 +1408,9 @@ function cropR(s,c){const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width')
   else{const cl=solo?K:mk('clipPath',{id:uid('crop')},defs());solo||(base&&cl.setAttribute('clip-path',base),mk('rect',{},cl));
     for(const[n,x]of[['x',c.x],['y',c.y],['width',c.w],['height',c.h]])cl.firstElementChild.setAttribute(n,fc(x));s.setAttribute('clip-path',`url(#${cl.id})`)}
   ctx=s.parentNode;setSel([s],1);why=full?'Remove crop':'Crop';commit();msg(full?'Removed the crop':'Cropped the photo; press C to change the crop')}
+// ══ 27 FigKit links ════
+// FigKit objects carry data-figkit (kind) and data-figkit-for (targets). fgSync() runs in each commit and re-places
+// a link whose target signature (data-figkit-at) changed; sa/fgTr/fgSts write only differences.
 const LUT={Red:[1,0,0],Green:[0,1,0],Blue:[0,0,1],Cyan:[0,1,1],Magenta:[1,0,1],Yellow:[1,1,0],Gray:[1,1,1]},lutC=n=>n==='Gray'?'#9a9a9a':`rgb(${LUT[n].map(x=>x?215:95)})`,
   lutH=n=>'#'+LUT[n].map(x=>x?'ff':'00').join('');
 const FGK='data-figkit',FGF=FGK+'-for',FGA=FGK+'-at',FGP=FGK+'-pos',FGC=FGK+'-cal',FGB=FGK+'-bar',FGR=FGK+'-roi',FGO={roi:0,inset:1,label:2,frame:2,bar:2,zline:3},FGH='#9333ea',RN=['x','y','width','height'],
@@ -1366,6 +1526,8 @@ const fgHud=poly=>{if(!G&&!$('mFg').hidden)for(const v of FG.pv||[]){v.b&&poly(v
     if(v.l){const[a,c]=v.l.map(toS);mk('line',{x1:a[0],y1:a[1],x2:c[0],y2:c[1],style:`stroke:${FGH};stroke-width:1.2`},H)}
     if(v.n!=null){const[x,y]=toS(v.p||{x:v.b.x,y:v.b.y});mk('text',{x:x+(v.dx??3),y:y+(v.dy??12),style:`font:600 11px system-ui,sans-serif;fill:${FGH};stroke:#fff;stroke-width:3px;paint-order:stroke;text-anchor:${v.ta||'start'}`},H,v.n)}}
   for(const f of FG.st)if(root.contains(f)){const b=memoize(()=>bbox(f));b&&poly(b,'stroke:#e5534b;stroke-dasharray:3 2')}};
+// ══ 28 FigKit tools ════
+// Every apply goes through fgDo: one named undo step, reverted whole on an exception or a refusal (fgErr).
 const fgv=n=>Gf[n].type==='checkbox'?Gf[n].checked:Gf[n].value,fgn=n=>{const v=Gf[n].value===''?NaN:+Gf[n].value;return abs(v)<1e7?v:NaN},
   fgU=()=>({mm:1,pt:25.4/72,px:25.4/96})[$('mFgU').value]||1,fgm=n=>fgn(n)*fgU()/U,fgF=v=>`${fm(+(v*U/fgU()).toFixed(3))} ${$('mFgU').value}`,
   fgN=(n,w)=>`${n} ${w}${n===1?'':'s'}`,fgErr=t=>(msg(t),false),
@@ -1510,6 +1672,8 @@ async function fgMergeGo(){const I=sel.filter(e=>e.localName==='image');if(I.len
     ctx=p;setSel([g],1);msg(`Merged ${I.length} channels (${{screen:'Screen','plus-lighter':'Add',lighten:'Lighten'}[mode]}) into a new group on the right; the pictures themselves are unchanged`+(dc?"; they had different crops, so the first one's is used":''))})}
 function fgUpd(){const L=fgAll().filter(f=>root.contains(f));if(!L.length)return msg('There are no linked labels, frames, scale bars or zoom insets');
   fgDo('Update linked objects',()=>{let n=0;for(const f of L){const a=flush();try{fgGo(f,1)}catch(_){}flush()>a&&n++}FG.st.clear();msg(n?`Brought ${fgN(n,'linked object')} back in line`:`All ${fgN(L.length,'linked object')} already match`)})}
+// ══ 29 FigKit window ════
+// fgRef runs FGU[pane](c), which returns {pv,st} or {e}; previews live in the HUD only, so closing restores nothing.
 const FGU={
   size:()=>{const sm=fgv('sm');Gf.sw.disabled=!/w|fit/.test(sm);Gf.sh.disabled=!/h|fit/.test(sm);const r=fgSizeCalc(),b=fgTg().map(bbox)[0];Gf.sw.placeholder=b?fm(+(b.w*U/fgU()).toFixed(2)):'';Gf.sh.placeholder=b?fm(+(b.h*U/fgU()).toFixed(2)):'';
     return typeof r=='string'?{e:r}:{pv:r.map(([e,M,b])=>({b:tb(b,M)})),st:`${fgN(r.length,'object')}: the new size of each is outlined`}},
@@ -1557,7 +1721,7 @@ function fgShow(){const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[
   // the numbered guide leads until the tool has been used once, then waits under How it works
   fgLs('sgFkSeen').includes(p)?S.querySelector('.fgm>summary').after(ol):S.prepend(ol);x&&(x.open=fgLs('sgFkMore').includes(p));
   p==='place'&&!fgTpl().length&&($('mFgRc').open=true);p==='color'&&fgPalUI();FG.ps=null;fgRef();fgFit()}
-// ── FigKit's window shows what most uses need; the rest waits under More options, whose summary counts the settings that differ from their defaults, so nothing hidden acts unseen
+// FigKit's window shows what most uses need; the rest waits under More options, whose summary counts the settings that differ from their defaults, so nothing hidden acts unseen
 const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}catch(_){return[]}},fgLw=(k,p,on)=>{const a=fgLs(k).filter(x=>x!==p);on&&a.push(p);ls(k,JSON.stringify(a))},
   fgUsed=()=>{const p=$('mFgT').value;if(!FG.hit||$('mFg').hidden)return;FG.done={p,v:dv,f:FG.fv,s:sel.slice()};fgLs('sgFkSeen').includes(p)||fgLw('sgFkSeen',p,1);fgRq()},
   // the guide's three steps tick as each is done: 1 a fitting selection, 2 settings the tool can use (no error or request in the status line), 3 applied from the
@@ -1575,10 +1739,14 @@ const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}
 // keep the window's foot (buttons, status) on screen when a taller pane opens or the window shrinks
 const fgFit=()=>{const W=$('mFg');if(W.hidden)return;const r=W.getBoundingClientRect();r.bottom>innerHeight-8&&(W.style.top=max(8,innerHeight-8-r.height)+'px')};addEventListener('resize',fgFit);$('mFg').addEventListener('toggle',fgFit,true);
 const fgX=()=>{$('mFg').hidden=true;FG.pv=null;hud()};
+// ══ 30 Lock ════
+// lkd(e): e or an ancestor (layers aside) is locked; locked nodes are kept out of every selection.
 function lock(){finish(true);if(!sel.length)return;const n=sel.length;xns('sodipodi');sel.forEach(e=>setA(e,'sodipodi:insensitive','true'));setSel([],1);commit();msg(`Locked ${nObj(n)}: clicks and box selection pass through; Ctrl+Alt+2 unlocks all`)}
 function unlock(){finish(true);const a=[...root.querySelectorAll('[*|insensitive]')].filter(e=>e.hasAttributeNS(NS.sodipodi,'insensitive')),l=a.filter(e=>!isLayer(e)),y=a.length-l.length;if(!a.length)return msg('Nothing is locked');
   a.forEach(e=>e.removeAttributeNS(NS.sodipodi,'insensitive'));ctx=root;setSel(l,1);commit();msg('Unlocked '+[l.length&&nObj(l.length),y&&`${y} layer${y>1?'s':''}`].filter(Boolean).join(' and '))}
 const lkd=e=>{for(;e&&e!==root&&e.nodeType===1;e=e.parentNode)if(e.getAttributeNS(NS.sodipodi,'insensitive')&&!isLayer(e))return true;return false};
+// ══ 31 Hover and auto-scroll ════
+// hoverAt throttles hovCalc to one per frame (a 90 ms timeout when hit() is slow).
 let hov=null,hovL=null,hovB=null,hovE=null,hovQ=0,hovT=0,hovSlow=0,ctl=0,edgeR=0,edgeE=null,cmE=null;
 function hoverAt(e){hovE=e;ctl=cmd(e);if(hovSlow){clearTimeout(hovT);hovT=setTimeout(hovCalc,90)}else if(!hovQ){hovQ=1;requestAnimationFrame(()=>{hovQ=0;hovCalc()})}}
 function hovCalc(){const e=hovE,r=e&&e.target.closest?.('#mLl .r');let h=null;
@@ -1592,6 +1760,8 @@ function edgeTick(){edgeR=0;const d=D,e=edgeE;if(!d||d.t==='pan'||!d.on||!e)retu
 function bandPrev(){if(D.pvOff||D.pvT)return;D.pvT=setTimeout(()=>{const d=D;if(!d||d.t!=='band'||!d.q)return;d.pvT=0;const a=toU(d.p),b=toU(d.q),R=rb(min(a.x,b.x),min(a.y,b.y),abs(a.x-b.x),abs(a.y-b.y)),t0=performance.now();
   let got=memoize(()=>boxed(root,R,d.tch));d.w&&(got=order(got.map(x=>pick(x)[0])));d.pv=memoize(()=>got.slice(0,300).map(bbox).filter(Boolean));performance.now()-t0>60&&(d.pvOff=1);
   d.pm=1;msg(`${got.length} object${got.length===1?'':'s'} ${d.tch?got.length===1?'touches':'touch':'in'} the box`+(d.pvOff?'; the preview stops here because the file is large':''));hud()},60)}
+// ══ 32 Context menu ════
+// cmE keeps the event, so Paste here pastes at the pointer; Ctrl+click is ignored (macOS selection).
 const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste here','Ctrl+V'],['pplace','Paste in place','Ctrl+Shift+V'],['del','Delete','Del'],0,['group','Group','Ctrl+G'],['ungroup','Ungroup','Ctrl+Shift+G'],0,
   ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
 function cmenu(e){e.preventDefault();if(!root||e.ctrlKey)return;finish(true);const t=hit(e);cmE=e;if(t&&!sel.some(s=>s.contains(t))){const[ob,c]=grab(t,0);ctx=c;setSel([ob])}
@@ -1604,7 +1774,8 @@ addEventListener('keydown',e=>CR&&!/^(Escape|Shift|Control|Alt|Meta| )$/.test(e.
 addEventListener('keydown',e=>{/^(Control|Meta)$/.test(e.key)&&(ctl=1,hovE&&!hovSlow&&hovCalc());if(e.key==='Escape'&&$('mCM').style.display){cmOff();e.stopImmediatePropagation();e.preventDefault()}},true);
 addEventListener('keyup',e=>{/^(Control|Meta)$/.test(e.key)&&(ctl=0,hovE&&!hovSlow&&hovCalc())});
 function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
-// Document tabs. Every open document keeps its own live <svg>, view, selection, guides and undo history; the
+// ══ 33 Document tabs ════
+// Every open document keeps its own live <svg>, view, selection, guides and undo history; the
 // background ones are detached from the page, so nothing is serialised when switching. TABS[TI] is filled only
 // while a tab is in the background: the active document lives in the usual globals (root, name, undos…).
 const TABS=[{}];let TI=0;
@@ -1639,6 +1810,8 @@ function tabUI(){const w=$('mTabs');if(!w)return;const n=TABS.length,b=[];
   const nt=el('button','nt');nt.innerHTML='<svg viewBox="0 0 12 12"><path d="M6 1.5v9M1.5 6h9"/></svg>';nt.title=n>=TMAX?`${TMAX} tabs are open, the most svguest keeps`:'New canvas in a new tab';nt.disabled=n>=TMAX;nt.onclick=()=>A.new();b.push(nt);w.replaceChildren(...b);const o=w.querySelector('.on');if(o){const l=o.offsetLeft-w.offsetLeft,r=l+o.offsetWidth+30;l<w.scrollLeft?w.scrollLeft=l:r>w.scrollLeft+w.clientWidth&&(w.scrollLeft=r-w.clientWidth)}}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
+// ══ 34 SVG Chat state ════
+// hist is the current chat's history (the only one sent); aiG the figure it drew, which follow-ups patch.
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,GLMR=ls('sgGlmRelay')==='1';
 const GLMRELAY='https://svguest-glm.jieqiang-he-dawn.workers.dev',glmWeb=()=>globalThis.location?.origin==='https://jieqianghe.github.io'&&!globalThis.TBSIWC?.glm,glmRelay=()=>glmWeb()&&GLMR;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
@@ -1689,6 +1862,8 @@ function patch(t){const m=/<patch[\s>][\s\S]*?(<\/patch>|$)/i.exec(t);if(!m)retu
           drop(e);e.replaceWith(x)}else aiG.append(x);reg(x);n++}}
     sel=sel.filter(e=>root.contains(e));commit()});
   ctx=aiG.parentNode;setSel([aiG]);msg(n?`Changed ${nObj(n)} in the AI figure (Ctrl+Z to undo)`:'The AI sent no changes');return n}
+// ══ 35 Attachments ════
+// An attached selection goes as SVG (frag, up to SELMAX characters); refs/deps collect what it references.
 const img=u=>Object.assign(new Image(),{src:u}),chip=(c,t)=>el('span',c,t),xb=(f,ti)=>Object.assign(btn('×',f,ti),{className:'x'});
 function thumbs(){const rm=(e,a,i)=>(e.append(xb(()=>{a.splice(i,1);thumbs()},'Remove')),e),q=el('div','rq','Redraw this image as an editable figure?');
   q.append(btn('Redraw',()=>ask()),btn('Not now',()=>{rq=0;thumbs();$('mAsk').focus()}));
@@ -1742,6 +1917,9 @@ function aiSwap(s,t){const els=t.els.filter(e=>root.contains(e));if(!els.length)
     doImport(s,'ai');const g=sel[0];setT(g,ctm(par).inverse().multiply(ctm(g.parentNode)).multiply(lm(g)));par.insertBefore(g,nx&&nx.parentNode===par?nx:null);ctx=par;
     applyM(T(t.b.x-vb.x,t.b.y-vb.y),[g]);setSel([g]);commit()});
   msg('Replaced the selection (Ctrl+Z to undo)')}
+// ══ 36 Models ════
+// REG lists services and models; menus, cards, context limits and palette commands are built from it, so a new
+// model is one line. Values are "Prov:model" (who reads, vOf writes).
 const tbBridge=()=>window.tbtools?.ai,
   tbFit=ms=>{const s=ms[0]?.role==='system'?ms[0].content:PROMPT.sys(),b=ms.filter(m=>m.role!=='system').slice(-19).map(m=>({role:m.role,content:flat(m.content)})),n=()=>s.length+b.reduce((a,m)=>a+m.content.length,0);
     while(b[1]&&n()>TBMAX)b.shift();while(b.length>2&&b[0].role!=='user')b.shift();return n()>TBMAX?null:[{role:'system',content:s},...b]},
@@ -1796,7 +1974,7 @@ async function probe(p){const R=PV(p),{key}=cfg(p),s=KT[p]={s:'wa'},cur=()=>cfg(
   const kt=rs.map(x=>x[0]),er=rs.map(x=>x[1]),ok=us[kt.indexOf(1)]||null;
   if(ok){cur()&&(ls('sg'+p+'Ep',ok),both&&ls('sg'+p+'Kt',JSON.stringify({kt,er})),KT[p]={s:'ok',m:'Connected',u:ok,kt,ker:er},cfgSync());return ok}
   both&&ls('sg'+p+'Kt','');const m=er[1]&&er[1]!==er[0]?`standard API: ${er[0]}; Coding Plan: ${er[1]}`:er[0];if(cur()){ls('sg'+p+'Ep','');KS[p]=null;KT[p]={s:'er',m:'Not connected: '+m};cfgSync()}throw Object.assign(Error(m),{p})}
-// ── SVG Chat requests ──────────────────────────────────────────────────────────────────────────────────────
+// ══ 37 SVG Chat requests ════
 // call(to,msgs,o) is the single path to every model: TBtools through its bridge, GLM and DeepSeek through their
 // OpenAI-compatible Chat Completions endpoints, streamed with the sse() reader. o.on receives text as it arrives,
 // o.ui the thinking text and usage.
@@ -1925,6 +2103,8 @@ function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   if(sl)return p.append(btn('Replace selection',()=>aiSwap(s,sl)),ins);
   const op=btn('Open as new',()=>put(s,1));op.dataset.ai='o';op.dataset.k=k;p.append(ins,op);put(s);
   bar();return 1}
+// ══ 38 SVG Chat panel ════
+// mmBuild rebuilds the model menu on every open; connInit builds Models and keys once, connSync refreshes it.
 const IC={up:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></svg>',stop:'<svg class="chg" viewBox="0 0 16 16"><rect x="4.5" y="4.5" width="7" height="7" rx="1.5" fill="currentColor" stroke="none"/></svg>',
     img:'<svg class="chg" viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="9" rx="1.5"/><circle cx="6" cy="6.8" r="1"/><path d="m3 11.5 3.2-3 2.3 2 2-1.6 2.5 2.3"/></svg>',warn:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 2.5 1.8 13.2h12.4z"/><path d="M8 6.8v3M8 11.6v.1"/></svg>',
     back:'<svg class="chg" viewBox="0 0 16 16"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg>',eye:'<svg class="chg" viewBox="0 0 16 16"><path d="M1.8 8S4 3.8 8 3.8 14.2 8 14.2 8 12 12.2 8 12.2 1.8 8 1.8 8z"/><circle cx="8" cy="8" r="1.9"/></svg>',
@@ -2016,6 +2196,9 @@ $('mChat').addEventListener('click',e=>{const t=e.target,a=s=>t.closest(s);let x
 addEventListener('keydown',e=>{e.key==='Escape'&&!$('mConn').hidden&&!dOpen()&&!dlgOpen()&&$('mK').hidden&&(e.stopImmediatePropagation(),e.preventDefault(),connX())},true);
 $('mChX').onclick=()=>A.chat();
 $('mSend').onclick=()=>ask();
+// ══ 39 Chats ════
+// A chat CH is {id,t,c,u,hist,html,svgs,fig,n,k}; chSave writes it to IndexedDB sgChats and the list CL to
+// localStorage. Switching is refused while a reply runs (chBusy).
 const idbO=(n,s,o)=>new Promise(ok=>{try{const r=indexedDB.open(n,1);r.onupgradeneeded=()=>r.result.createObjectStore(s,o);r.onsuccess=()=>ok(r.result);r.onerror=r.onblocked=()=>ok(null)}catch(_){ok(null)}}),CDB=idbO('sgChats','c',{keyPath:'id'}),
   cdb=(m,f)=>CDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('c',m),q=f(t.objectStore('c'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),CC=new Map;
 let CH=null,CL=(()=>{try{return JSON.parse(ls('sgChatList')||'[]')}catch(_){return[]}})();
@@ -2068,6 +2251,9 @@ $('mChat').ondrop=e=>{e.preventDefault();e.stopPropagation();attach([...e.dataTr
 $('mAsk').onpaste=e=>{const fs=[...e.clipboardData.files];if(fs.length){e.preventDefault();attach(fs)}};
 $('mAsk').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();ac||ask()}};
 
+// ══ 40 Open recent ════
+// asNow stores the open document (not when unchanged, editing or dragging); pagehide also writes a synchronous
+// localStorage backup that the next start merges.
 const RDB=idbO('sgDocs','d',{keyPath:'id'}),
   rdb=(m,f)=>RDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('d',m),q=f(t.objectStore('d'));t.oncomplete=()=>ok(m==='readonly'?q.result:1);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),
   gz=async s=>{try{return await new Response(new Blob([s]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()}catch(_){return s}},
@@ -2092,6 +2278,8 @@ function rdL(){RL=rlR();const o=RL.map(m=>{const b=el('button',m.id===DI?'on':0)
   const kb=el('button',0,'Kept in this browser…');kb.dataset.a='kept';kb.title='Where the copies and chats are kept, and how to save them as files';
   $('mRm').replaceChildren(...(o.length?[...o,el('hr'),kb,Object.assign(el('button',0,'Clear list'),{onclick:rdClr})]:[Object.assign(el('button',0,asOk?'No recent files yet':'Not available in this browser'),{disabled:true}),el('hr'),kb]))}
 async function rdClr(){if(!await cfm('Clear Open recent? The copies kept in this browser are deleted.','Clear'))return;rdb('readwrite',s=>s.clear());RL=[];rlS();DI=null;asV=-1;msg('Cleared Open recent')}
+// ══ 41 Kept in this browser ════
+// zipB writes a stored zip (CRC32 table in CRC).
 const CRC=(()=>{const t=new Int32Array(256);for(let n=0;n<256;n++){let c=n;for(let j=0;j<8;j++)c=c&1?0xEDB88320^c>>>1:c>>>1;t[n]=c}return t})(),
   zle=a=>{const v=new DataView(new ArrayBuffer(a.reduce((s,x)=>s+x[1],0)));let i=0;for(const[x,n]of a)n<4?v.setUint16(i,x,1):v.setUint32(i,x,1),i+=n;return v.buffer},
   zipB=fs=>{const E=new TextEncoder,o=[],c=[],d=new Date,tm=d.getHours()<<11|d.getMinutes()<<5|d.getSeconds()>>1,dt=d.getFullYear()-1980<<9|d.getMonth()+1<<5|d.getDate();let at=0;
@@ -2111,6 +2299,8 @@ async function kpSave(c){const u=new Set,fs=[];msg('Collecting the copies…');
   else{asNow();await rdQ;for(const m of rlR()){const r=await rdb('readonly',s=>s.get(m.id));if(r)try{fs.push({n:kpNm(u,m.n.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+'_'+stamp(m.t),'.svg'),d:await ungz(r.z)})}catch(_){}}}
   if(!fs.length)return msg('Nothing to save');const n=`svguest_${c?'chats':'recent'}_${stamp()}.zip`;dl(zipB(fs),n);msg(`Saved ${c?kpN(CL.length,'chat'):kpN(fs.length,'file')} to ${n}, in your downloads`)}
 $('mKept').addEventListener('click',e=>{if(e.target===$('mKept'))return $('mKept').close();const k=e.target.closest('[data-k]')?.dataset.k;k&&({ds:()=>kpSave(0),cs:()=>kpSave(1),dc:()=>rdClr().then(kpShow),cc:()=>chAll().then(kpShow)})[k]()});
+// ══ 42 Auto-save to a folder ════
+// FD is the writable handle, FDh the stored one; files are named with the entry's creation stamp, never overwritten.
 const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?idbO('sgDir','h'):Promise.resolve(null),
   fdb=(m,f)=>FDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('h',m),q=f(t.objectStore('h'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),fdL={};
 let fdN=0,fdM=0,fdQ=Promise.resolve();
@@ -2127,10 +2317,14 @@ $('mRc').onpointerenter=rdL;$('mRc').firstChild.addEventListener('click',rdL);$(
 document.addEventListener('visibilitychange',()=>document.hidden&&asNow());addEventListener('pagehide',()=>{if(asV===dv&&!asP||!root||!asOk||!opts.auto||ed||D||G||cpS||CR)return;const id=DI||(DI='d'+Date.now().toString(36)),txt=svgRaw();
   txt.length<2e6&&ls('sgDocCrash',JSON.stringify({m:{id,n:name,t:Date.now(),s:txt.length,e:nOb(),u:dirty,b:txt.length*2},g:gl,v:vwGet(),txt}));asNow(1,1)});
 (c=>{if(!c)return;const no=()=>{try{localStorage.removeItem('sgDocCrash')}catch(_){}};try{c=JSON.parse(c)}catch(_){return no()}rlPut(c.m);rdb('readwrite',s=>s.put({id:c.m.id,z:c.txt,g:c.g||[],v:c.v,h:null})).then(k=>k&&no())})(ls('sgDocCrash'));
+// ══ 43 Save ════
+// fh keeps the save picker's handle so later saves write back; without the API it downloads.
 let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+xml'}),n=outName('.svg');
   try{if(!fh)fh=await showSaveFilePicker({suggestedName:n});const w=await fh.createWritable();await w.write(b);await w.close()}
   catch(e){if(e.name==='AbortError')return;fh=null;dl(b,n);dirty=false;svd=undos.at(-1)??null;bar();asNow(1);return msg('Exported '+n)}
   dirty=false;svd=undos.at(-1)??null;bar();asNow(1);msg('Exported '+n)};
+// ══ 44 Watermark engine ════
+// wmEngine is self-contained: wmJob runs its source in an inline Worker, so it may use nothing from outside.
 /* Watermark Inspector beta — independent implementation, 2026-10-18.
  * Read-only references (no upstream code ported):
  * https://github.com/guillaumemeyer/watermarks-remover
@@ -2326,6 +2520,7 @@ function wmEngine() {
 }
 /* End independent byte engine. Instantiated only by Scan Document. */
 
+// ══ 45 Watermark UI ════
 /* Watermark Inspector UI: no initialization, workers or document inspection until requested. */
 var WM=null;
 function wmOpen(){
@@ -2601,6 +2796,8 @@ async function wmClean(){
   if(applied&&root===doc&&dv===appliedRev&&!$('mWm').hidden)await wmScan(true);
 }
 /* End Watermark Inspector. */
+// ══ 46 Actions ════
+// Buttons, menus, keys and the palette all call A[data-a]; AN (filled at startup) names undo steps after them.
 const A={
   watermark:wmOpen,new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
   svg:save,p300:()=>png(300),p600:()=>png(600),j300:()=>png(300,1),j600:()=>png(600,1),pdf,
@@ -2616,6 +2813,7 @@ const A={
 for(const c of'lcrtmb')A['a'+c]=()=>align(c);
 A.cut=()=>{copyOut();del()};A.below=()=>cmE&&selBelow(cmE,sel[0]);A.pasteHere=()=>{cmE&&(mouse=vp(cmE));paste()};
 A.cropI=()=>setTool('crop');A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value;s?.localName==='image'&&cropR(s,rb(v('x'),v('y'),v('width'),v('height')))};
+// ══ 47 FigKit wiring ════
 Object.assign(A,{fgSize:()=>fgOpen('size'),fgGrid:()=>fgOpen('grid'),fgSpace:()=>fgOpen('space'),fgPlace:()=>fgOpen('place'),fgLabel:()=>fgOpen('label'),fgFrame:()=>fgOpen('frame'),fgColor:()=>fgOpen('color'),fgScale:()=>fgOpen('scale'),fgZoom:()=>fgOpen('zoom'),fgChan:()=>fgOpen('chan'),xmg:()=>fgOpen('chan'),
   fgSizeGo:()=>fgRun('Size each',fgSizeCalc),fgGridGo:()=>fgRun('Arrange in a grid',fgGridCalc),fgSpaceGo:()=>fgRun('Space',fgSpaceCalc),fgTplGo:()=>fgRun('Positions',fgTplCalc),
   fgSwap,fgSwap2:fgSwap,fgMeasure,fgTplRec,fgTplDel,fgTplOut,fgTplIn:()=>{$('mFgF').value='';$('mFgF').click()},fgLabelGo,fgLabelDel,fgFrameGo,fgFrameDel,fgColorGo:()=>fgColorGo(),
@@ -2644,11 +2842,14 @@ for(const t of['pointerdown','keydown'])addEventListener(t,e=>FG.hit=$('mFg').co
 $('mFg').addEventListener('toggle',e=>{const x=e.target;x.classList&&x.classList.contains('fgx')&&!x.closest('section').hidden&&fgLw('sgFkMore',x.closest('section').dataset.p,x.open)},true);
 $('mFg').addEventListener('click',e=>{const b=e.target.closest('.fgr');if(!b)return;for(const f of fgCh(b.parentNode)){f.type==='checkbox'?f.checked=f.defaultChecked:f.localName==='select'?f.value=([...f.options].find(o=>o.defaultSelected)||f.options[0]).value:f.value=f.defaultValue;
   for(const t of['input','change'])f.dispatchEvent(new Event(t,{bubbles:true}))}fgRq()});
+// ══ 48 More actions ════
 const zv=(f,p)=>{const z=zPct()*f;z>.03&&z<2.6e5&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
 A.chat=()=>{const on=document.body.classList.toggle('chat');ls('sgChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
 A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
+// ══ 49 Find and replace ════
+// fqRun collects matches in unlocked texts; fqRep edits the text nodes in place, so tspan formatting survives.
 const FQ={m:[],i:-1,b:new Map,raf:0},fqOn=()=>!$('mQ').hidden,
   fqL=()=>fqOn()&&!!$('mQf').value,
   fqRe=()=>{const q=$('mQf').value;if(!q)return null;const e=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp($('mQw').classList.contains('on')?`(?<![\\p{L}\\p{N}_])${e}(?![\\p{L}\\p{N}_])`:e,'gu'+($('mQc').classList.contains('on')?'':'i'))},
@@ -2669,6 +2870,7 @@ $('mQl').onclick=()=>{lyOn()||A.layers();lyBuild()};$('mLm').lastChild.onclick=(
 $('mQo').onclick=()=>{const m=FQ.m[FQ.i];if(!m)return;const r=$('mQr').value;finish(true);fqRep(m.t,[m],r);why='Replace';commit();fqRun(0,1);const j=FQ.m.findIndex(x=>x.t===m.t?x.i>=m.i+r.length:!!(m.t.compareDocumentPosition(x.t)&4));FQ.m.length?(FQ.i=j<0?0:j,fqGo(0)):(hud(),msg('Replaced the last match'))};
 $('mQa').onclick=()=>{const n=FQ.m.length;if(!n)return;finish(true);const g=new Map;for(const m of FQ.m)g.has(m.t)||g.set(m.t,[]),g.get(m.t).push(m);g.forEach((ms,t)=>fqRep(t,ms,$('mQr').value));why='Replace all';commit();fqRun(0);msg(`Replaced ${n} match${n>1?'es':''} in ${g.size} text${g.size>1?'s':''}`)};
 $('mQ').onkeydown=e=>{if(cmd(e)&&e.key.toLowerCase()==='h'){e.preventDefault();$('mQf').select()}else if(e.key==='Escape'){e.preventDefault();fqX()}else if(e.key==='Enter'&&!e.isComposing&&e.keyCode!==229){e.preventDefault();e.target.id==='mQr'?$('mQo').click():fqGo(e.shiftKey?-1:1)}};
+// ══ 50 History and status bar ════
 function hiL(){const U=undos,R=redos,o=[],it=(t,a,c)=>{const b=el('button',c||0,t);Object.assign(b.dataset,a);o.push(b)};
   R.slice(-12).forEach((x,i,a)=>it(x.n||'Change',{r:a.length-i},'fu'));U.slice(-25).reverse().forEach((x,i)=>it(x.n||'Change',{u:i},i?0:'on'));U.length&&it('Start',{u:U.length});
   $('mHm').replaceChildren(...(o.length?o:[Object.assign(el('button',0,'No changes yet'),{disabled:true})]))}
@@ -2676,11 +2878,14 @@ $('mHi').onpointerenter=hiL;$('mHi').firstChild.addEventListener('click',hiL);
 $('mHm').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;const u=+b.dataset.u||0,r=+b.dataset.r||0;for(let i=0;i<u;i++)undo(0,1);for(let i=0;i<r;i++)undo(1,1);(u||r)&&msg(u?`Went back ${u} step${u>1?'s':''}`:`Went forward ${r} step${r>1?'s':''}`)};
 const LT={a:[],e:0,w:0};addEventListener('pointermove',e=>{if(LT.w)return;LT.w=1;LT.e=e.timeStamp;requestAnimationFrame(()=>setTimeout(()=>{LT.w=0;const v=performance.now()-LT.e;v>=0&&v<5e3&&LT.a.push(v);LT.a.length>30&&LT.a.shift()}))},true);
 setInterval(()=>{const a=LT.a,l=$('mLat');if(!a.length)return;const m=a.reduce((x,y)=>x+y)/a.length,w=max(...a);const t=`Lag ${round(m)} ms`;t!==l.textContent&&(l.textContent=t);l.title=`Mouse latency: from a mouse move to the finished frame. Average ${m.toFixed(1)} ms, worst ${round(w)} ms over the last ${a.length} moves`;l.className=m>50?'bad':m>25?'slow':''},400);
+// ══ 51 Panel toggles ════
 let hlk=0;A.hlk=()=>{hlk=!hlk;qa('hlk').classList.toggle('on',hlk)};
 A.hsw=()=>{finish(true);for(const e of mkl()){const c=gcs(e),u=v=>(v=refId(c.getPropertyValue(v)))&&`url(#${v})`,a=u('marker-start'),b=u('marker-end');(a||b)&&(mset(e,'marker-start',b),mset(e,'marker-end',a))}commit()};
 A.layers=()=>{const on=document.body.classList.toggle('lay');qa('layers').classList.toggle('on',on);$('mLb').classList.toggle('on',on);place();on?(Ly.ps=[],lyBuild(1)):(hov=null,hud())};
 function sideOn(on){document.body.classList.toggle('noP',!on);qa('props').classList.toggle('on',on);$('mPb').classList.toggle('on',on)}
 A.props=()=>{const on=document.body.classList.contains('noP'),sd=$('mSide'),tb=$('mTx');sideOn(on);ls('sgProps',on?1:0);if(on){sd.contains(tb)&&(tb._v=-1);panel()}else{ed&&ed.sd&&sd.contains(tb)&&finish(true);sd.contains(document.activeElement)&&document.activeElement.blur()}place()};
+// ══ 52 Zoom box ════
+// zPct: 100 % is 96 dpi real size; the slider is logarithmic from 5 to 2000 %.
 const zPct=()=>Z*k/U*2540/96,zTo=p=>{p=parseFloat(p);p>0&&isFinite(p)&&zv(p/zPct())},
   zUI=()=>{const p=zPct(),i=$('mZoom');document.activeElement===i||(i.value=round(p)+'%',i.style.width=`calc(${i.value.length+.8}ch + 6px)`);$('mZs').value=1e3*Math.log(p/5)/Math.log(400);for(const b of $('mZm').children)b.dataset.z&&b.classList.toggle('on',+b.dataset.z===round(p))};
 $('mZm').append(...[25,50,75,100,150,200,400,800].map(z=>{const b=el('button',0,z+'%');b.dataset.z=z;return b}),el('hr'),(b=>(b.dataset.a='fit',b.append(el('kbd',0,'Ctrl+0')),b))(el('button',0,'Fit to window')));
@@ -2688,6 +2893,8 @@ $('mZm').onclick=e=>{const b=e.target.closest('[data-z]');b&&zTo(b.dataset.z)};
 let zf=0;$('mZoom').onfocus=e=>{e.target.select();zf=1};$('mZoom').onmouseup=e=>{zf&&e.preventDefault();zf=0};$('mZoom').onblur=()=>{zf=0;zUI()};
 $('mZoom').onkeydown=e=>{if(e.key==='Enter'){zTo(e.target.value);e.target.blur()}else if(e.key==='Escape')e.target.blur()};
 $('mZs').oninput=e=>zTo(5*400**(e.target.value/1e3));$('mZs').onchange=e=>e.target.blur();
+// ══ 53 Layers ════
+// lyBuild flattens the expanded groups, front-most first; lyDraw renders only the rows in view.
 const LN={g:'Group',a:'Link',switch:'Switch',path:'Path',rect:'Rectangle',circle:'Circle',ellipse:'Ellipse',line:'Line',polyline:'Polyline',polygon:'Polygon',text:'Text',image:'Image',use:'Clone',svg:'SVG',foreignObject:'Object'},
   LI={g:'M1.5 4.5h5l1.5 1.5h6.5v7h-13z',L:'M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5',text:'M3.5 4.5V3h9v1.5M8 3v10M6 13h4',rect:'M2.5 3.5h11v9h-11z',circle:'M2.5 8a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0-11 0',line:'M3 13 13 3',polyline:'M2 12l4-5 3 3 5-6',
     polygon:'M8 2.5l6 10.5H2z',path:'M2 13C3 3 13 13 14 3',image:'M2 3h12v10H2zM2 11l4-4 3 3 2-2 3 3',use:'M7 9l2-2M6 6 4.5 7.5a2.1 2.1 0 0 0 3 3L9 9M10 10l1.5-1.5a2.1 2.1 0 0 0-3-3L7 7',c:'M6 4l4 4-4 4',
@@ -2734,6 +2941,9 @@ $('mLf').oninput=()=>{clearTimeout(Ly.ft);Ly.ft=setTimeout(()=>{Ly.q=$('mLf').va
 $('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.ft);$('mLf').value=Ly.q='';$('mLf').blur();lyBuild(1)}
   else if(e.key==='Enter'&&!e.isComposing){clearTimeout(Ly.ft);Ly.q=$('mLf').value.trim();if(!Ly.q)return;lyBuild();const a=Ly.rows.map(r=>r[0]).filter(x=>!lkd(x)&&!isLayer(x));finish(true);
     ctx=a.length&&a.every(x=>x.parentNode===a[0].parentNode)?a[0].parentNode:root;Ly.me=1;setSel(a);msg(a.length?`Selected ${nObj(sel.length)} matching “${Ly.q}”`:'Nothing to select');$('mLf').blur()}};
+// ══ 54 Command palette ════
+// kCol gathers commands from the menus, tools and side panel on every open; kRun clicks the original button
+// after 60 ms, which keeps the user activation.
 const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥').replace(/\bCtrl\b/g,'⌘').replace(/\bAlt\b/g,'⌥').replace(/\bShift\b/g,'⇧'):s;let kC=[],kR=[],kI=0,kM='';
 $('mKb').lastChild.replaceChildren(...[MAC?'⌘':'Ctrl','K'].map(t=>el('span',0,t)));MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H',document.querySelectorAll('.menu kbd,#mCM kbd').forEach(k=>k.textContent=kTx(k.textContent).replace(/^Del$/,'⌫')));
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\{]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled,id:b.dataset.a?'a'+b.dataset.a:'t'+b.dataset.t});
@@ -2785,6 +2995,9 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
   if(!o)return;e.stopImmediatePropagation();if(e.isComposing||e.keyCode===229)return;
   if(e.key==='Escape'){e.preventDefault();kClose()}else if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();kMove(e.key==='ArrowUp'?-1:1)}else if(e.key==='Enter'){e.preventDefault();kRun(kI)}},true);
 
+// ══ 55 Menus ════
+// The body click handler names undo steps after the button (bName); submenus open by a hover controller with
+// a bridge (.aim), not CSS :hover.
 const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim();return t.length>2?t:(b.title||'').split(/[:(]/)[0].trim()||t},AN=new Map;
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
 document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
@@ -2798,6 +3011,8 @@ $('mBar').addEventListener('mouseover',e=>{const d=e.target.closest('.dd');d&&!d
     const r=S.lastElementChild.getBoundingClientRect(),x=p&&(p[0]<r.left?r.left:r.right),y=p&&(x-p[0])*(c[0]-p[0])>0&&p[1]+(c[1]-p[1])*(x-p[0])/(c[0]-p[0]);
     y>=r.top-8&&y<=r.bottom+8?(L=t,M=m,m.classList.add('aim'),clearTimeout(T),T=setTimeout(()=>hv(L),300)):hv(t)});
     m.addEventListener('pointerleave',()=>{clearTimeout(T);T=0;M&&M.classList.remove('aim')})}}
+// ══ 56 Layers window ════
+// popOpen moves #mTf, #mTs and #mAp into the window, leaving placeholders; popX moves them back.
 function popOpen(x,rr){if(Pop.x===x||!(sel.length===1&&sel[0]===x))return;popX();const P=$('mPop'),n=x.localName,E=$('mPopE'),k=n==='text'?'text':isGrp(x)?'group':/^(rect|circle|ellipse|polygon)$/.test(n)?'shape':/^(path|line|polyline)$/.test(n)?'line':'o';
   P.dataset.k=k;P.classList.toggle('nt',!(k==='text'||k==='group'&&x.getElementsByTagName('text').length));Pop.x=x;
   Pop.m=['mTf','mTs','mAp'].map(id=>{const d=$(id),ph=el('p','pph','Shown in the Layers window'),s=P.querySelector(`[data-s=${id}]`);d.replaceWith(ph);s.replaceWith(d);return[d,ph,s]});
@@ -2814,6 +3029,7 @@ $('mPop').addEventListener('change',e=>{const x=Pop.x,t=e.target;if(!x||!root)re
 $('mPopX').onclick=popX;
 $('mPop').querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;const P=$('mPop'),h=e.currentTarget,dx=e.clientX-P.offsetLeft,dy=e.clientY-P.offsetTop;h.setPointerCapture(e.pointerId);
   h.onpointermove=m=>{P.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';P.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
+// ══ 57 Side panel fields ════
 const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||t.type==='number'&&(t.value===''||!(abs(v)<1e7)))return;stp({x:'Move',y:'Move',w:'Resize',h:'Resize',r:'Rotate',pw:'Page size',ph:'Page size',pg:'Page size',fs:'Font size',ff:'Font',tc:'Text colour',fill:'Fill',nofill:'No fill',stroke:'Stroke',nostroke:'No stroke',sw:'Stroke width',dash:'Line style',h0:'Start head',h1:'End head',k0:'Head size',k1:'Head size',op:'Opacity'}[f]||'');
   if(ed){if(/^(fs|ff|tc)$/.test(f)&&part()){f==='fs'?v>0&&restyleSize(v):f==='ff'?t.value.trim()&&restyle(s=>setRun(s,'font-family',fam(t.value.trim()),'fontFamily')):restyle(s=>setRun(s,'fill',t.value,'color'));
     t.type==='color'&&(t.blur(),edFocus());return}finish(true)}
@@ -2838,6 +3054,8 @@ const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||
 $('mSide').addEventListener('click',e=>{const h=e.target.closest('#mSide>section>h4');h&&(h.parentNode.classList.toggle('shut'),ls('sgShut',SEC.flatMap((c,i)=>c.classList.contains('shut')?[i]:[]).join()))});addEventListener('input',e=>{const t=e.target;t.type==='color'&&t.nextElementSibling?.classList.contains('hx')&&hxS(t,t.value)},true);$('mPop').addEventListener('change',sideCh);
 $('mTx').addEventListener('focusin',()=>{const t=$('mTx')._t;!ed&&t&&root.contains(t)&&!lkd(t)&&edit(t,null,undefined,1)});
 const sideK=e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()};$('mSide').addEventListener('keydown',sideK);$('mPop').addEventListener('keydown',sideK);
+// ══ 58 Fonts ════
+// localFonts adds installed families (queryLocalFonts where allowed, else canvas width tests of CAND).
 const FONTS=[...$('mFonts').options].map(o=>o.value),sysF=[],fontList=()=>{const u=new Set(FONTS);root&&texts().forEach(t=>u.add(family(gcs(t))));sysF.forEach(f=>u.add(f));$('mFonts').replaceChildren(...[...u].map(f=>new Option(f)))};
 const CAND=('Helvetica Neue,Arial Narrow,Arial Black,Arial Rounded MT Bold,Avenir,Avenir Next,Avenir Next Condensed,Futura,Gill Sans,Optima,Palatino,Baskerville,Big Caslon,Didot,Bodoni 72,Georgia,Times,'
   +'Hoefler Text,Iowan Old Style,Charter,Cochin,Athelas,Seravek,Superclarendon,American Typewriter,Courier,Menlo,Monaco,Lucida Grande,Geneva,Verdana,Tahoma,Trebuchet MS,Impact,Comic Sans MS,Copperplate,'
@@ -2853,6 +3071,8 @@ async function localFonts(req){if(sysF.length)return;let a=[];
 localFonts();
 F.ff.onfocus=()=>{fontList();localFonts(1);F.ff.placeholder=F.ff.value;F.ff.value=''};
 F.ff.addEventListener('blur',()=>{F.ff.value||(F.ff.value=F.ff.placeholder);F.ff.placeholder=''});
+// ══ 59 Colour preview ════
+// cpIn marks the leaves with data-mcp and sets one !important rule (CPR); cpEnd removes both before the real change.
 const CPS=el('style');CPS.textContent='#mStage [data-mcp],#mStage [data-mcp] tspan{}';document.head.append(CPS);const CPR=CPS.sheet.cssRules[0];let cpS=null;
 const cpEnd=()=>{if(!cpS)return;const s=cpS;cpS=null;CPR.style.cssText='';quiet(()=>s.L.forEach(e=>e.removeAttribute('data-mcp')))},
   cpIn=t=>{const b=t.closest('#mFS'),f=b?t.id==='mFc'?'fill':'stroke':t.dataset.f,p=f==='tc'?'fill':f;if(!root||!/^(fill|stroke|tc)$/.test(f||''))return;
@@ -2862,6 +3082,7 @@ for(const v of['pointerdown','focusin'])addEventListener(v,e=>{const t=e.target;
 addEventListener('input',e=>e.target.type==='color'&&cpIn(e.target),true);addEventListener('change',cpEnd,true);addEventListener('keydown',e=>e.key==='Escape'&&cpEnd(),true);
 $('mFS').onpointerdown=$('mFS').onfocusin=e=>{const l=e.target.closest('label');l&&fsAct(l.id==='mFF'?'fill':'stroke')};
 $('mFS').onchange=e=>{const t=e.target,p=t.id==='mFc'?'fill':'stroke';t.blur();if(!root)return;finish(true);stp(p==='fill'?'Fill':'Stroke');if(!sel.length){pen[p]=t.value;return panel()}styleSet(p,t.value);commit()};
+// ══ 60 Dialogs ════
 $('mFile').onchange=e=>readFile(e.target.files[0],fileMode);
 $('mPre').append(...[...F.pg.options].slice(1).map(o=>new Option(`${o.text} (${o.value.split(',').map(round).join('×')} mm)`,o.value)),new Option('Custom',''));
 const nd=o=>{const v=$('mPre').value,l=$('mNew').querySelector('[name=mOr]:checked').value==='l';let w=+$('mNW').value,h=+$('mNH').value;if(v&&!o)[w,h]=v.split(',').map(Number);if(w!==h&&(o?l!==w>h:l&&w<h))[w,h]=[h,w];$('mNW').value=w;$('mNH').value=h;if(w!==h)$('mNew').querySelector(`[name=mOr][value=${w>h?'l':'p'}]`).checked=true};
@@ -2884,6 +3105,7 @@ function hlpOpen(){HL||hlpInit();const d=$('mHelp');d.showModal();$('mHq').value
 $('mNew').onchange=e=>e.target.id==='mPre'?nd():e.target.name==='mOr'&&nd(1);$('mNW').oninput=$('mNH').oninput=()=>$('mPre').value='';
 $('mNew').onclose=async()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew').returnValue!=='ok'||!(w>0&&h>0))return;
   if(!tabFresh())return;const n=($('mNN').value.trim().replace(/[\\/:*?"<>|]/g,'_')||'untitled').replace(/(\.svg)?$/i,'.svg');load(blank(fm(w),fm(h)),n);msg(`New canvas ${n}: ${fm(w)}×${fm(h)} mm`)};
+// ══ 61 Events ════
 view.addEventListener('pointerdown',down);addEventListener('pointermove',move);addEventListener('pointerup',up);addEventListener('pointercancel',up);
 view.addEventListener('mousedown',e=>e.target.closest('.ed,#mQ')||e.preventDefault());
 view.addEventListener('dblclick',dbl);view.addEventListener('contextmenu',e=>e.target.closest('.ed')||cmenu(e));view.addEventListener('pointerleave',()=>{mouse=null;hov&&(hov=null,hud());rulers()});
@@ -2900,6 +3122,7 @@ addEventListener('drop',async e=>{e.preventDefault();const a=[...e.dataTransfer.
   if(f&&isImg(f))return fs.filter(isImg).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
 addEventListener('beforeunload',e=>{if(dirty||TABS.some((t,i)=>i!==TI&&t.dirty)){e.preventDefault();e.returnValue=''}});
 addEventListener('keyup',e=>{if(e.key===' ')space=false});addEventListener('blur',()=>space=false);
+// ══ 62 Keyboard ════
 // Keys are read from e.key, which follows the keyboard layout (AZERTY and the like). When an input method is on, e.key
 // is "Process" or a full-width character (Pinyin turns \ into 、 and ? into ？), so the physical key in e.code is used.
 const CK={Backslash:'\\|',Slash:'/?',BracketLeft:'[{',BracketRight:']}',Period:'.>',Comma:',<',Quote:"'\"",Minus:'-_',Equal:'=+',Semicolon:';:'},
@@ -2921,6 +3144,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{gw.style.willChange=view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog,.wm-evidence')||dlgOpen())return;e.preventDefault();if(t.closest('#mWm'))return;pdn||!root||A.all()});
+// ══ 63 Paste ════
 // SVG on the clipboard: image/svg+xml (some design apps), plain text starting with <svg or <?xml, or an inline <svg> copied from a web page
 // (text/html). The page must hold nothing but the drawing, so copying ordinary text that merely contains an icon pastes as before.
 const clipSvg=c=>{let t=c.getData('image/svg+xml')||c.getData('text/plain');if(/^\s*(<svg|<\?xml)/i.test(t))return t;const h=c.getData('text/html');if(!/<svg/i.test(h))return '';
@@ -2931,6 +3155,8 @@ let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.c
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=clipSvg(e.clipboardData);
   if(root&&!f&&t&&t!==lastOut){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});
+// ══ 64 Startup ════
+// Runs last, after every declaration: options, theme, AN, then a blank A4 page.
 const opts={rulers:ls('sgRulers')!=='0',grid:ls('sgGrid')==='1',touch:ls('sgTouch')!=='0',auto:ls('sgAuto')!=='0'};
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
 function toggle(o){opts[o]=!opts[o];ls('sg'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}

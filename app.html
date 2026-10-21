@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%231c1c1c'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
 <title>svguest</title>
-<script>try{const t=localStorage.sgTheme;(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
+<script>document.documentElement.className='ld';try{const t=localStorage.sgTheme;(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}catch(_){}</script>
 <style>
 /* ══ 01 Basics ══ */
 :root{--swb:#00000047;--fsd:#f7f7f7;--fg:#262626;--bar:#e9e9e9;--line:#0000001a;--btn:#fafafa;--btnb:#00000021;--btnh:#00000012;--bfg:#262626;--on:#1a73e81f;--onb:#1a73e8;--onfg:#1f1f1f;--view:#d4d4d4;--side:#f2f2f2;--h4:#595959;--h4b:#00000014;--pageb:#00000038;--sbt:#8a8a8a;--sbh:#666;--sbk:#8883;--t3:#6e6e6e;--ok:#2f8f55;--wa:#b4761a;--wab:#b4761a17;--er:#cc4136;--erb:#cc41360f;--sh:0 1px 2px #0000001f;--shm:0 0 0 1px #0000001a,0 8px 24px -6px #0000004d}
@@ -17,6 +17,8 @@ input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-we
 .kv input[type=color].dim{opacity:.35}
 dialog{border:0;border-radius:10px;background:var(--side);color:var(--fg);box-shadow:var(--shm),0 30px 80px -20px #0005}dialog::backdrop{background:#0000004d}
 *{box-sizing:border-box}
+/* the body stays undisplayed until the script starts (ld): the parser would otherwise lay out and paint the half-read page several times */
+html{background:var(--bar)}html.ld body{display:none}
 html,body{margin:0;height:100%;overflow:hidden;font:12px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--fg);-webkit-font-smoothing:antialiased}
 body{display:grid;grid-template:auto 1fr auto/48px 1fr 236px}
 button{font:inherit;padding:2px 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);color:var(--bfg);cursor:pointer}
@@ -215,9 +217,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mSide,#mLl,#mLog,#mChL,#mHm,#mRm,#mPop,#mKl,#mHelp form{scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
 /* ══ 28a Picture adjustment ══ */
 #mFgCv{display:block;width:100%;max-width:200px;aspect-ratio:1;margin:2px auto 0;background:var(--btn);border-radius:6px;touch-action:none;cursor:crosshair}
-#mFgCv :is(.cg,polyline){fill:none;stroke:var(--line);vector-effect:non-scaling-stroke}
-#mFgCv polyline{stroke:var(--fg);stroke-width:1.5}
+#mFgCv .cg{fill:none;stroke:var(--line);vector-effect:non-scaling-stroke}
+#mFgCv polyline{fill:none;stroke:var(--fg);stroke-width:1.5;vector-effect:non-scaling-stroke}
 #mFgCv circle{fill:var(--side);stroke:var(--fg);vector-effect:non-scaling-stroke;cursor:move}
+#mFgCv .hs,#mFgLh .hs{fill:var(--h4);opacity:.25}
+#mFgCv .ha{fill:none;stroke:var(--onb);opacity:.7;vector-effect:non-scaling-stroke}
+#mFgLh{display:block;width:100%;height:30px;background:var(--btn);border-radius:4px}
+#mFgLh :is(.lk,.lg){fill:none;stroke:var(--fg);stroke-width:1.5;vector-effect:non-scaling-stroke}
+#mFgLh .lg{stroke-dasharray:3 2;stroke-width:1}
 #mFgCv[data-c="1"] polyline{stroke:#e5534b}
 #mFgCv[data-c="2"] polyline{stroke:#2e9e5b}
 #mFgCv[data-c="3"] polyline{stroke:#1a73e8}
@@ -432,10 +439,11 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="row"><button data-a="fgZoomAll" title="Select a zoom box (or its inset) and other pictures: each gets the same region and an inset">Same region on other pictures</button></div>
 <details class="fgm"><summary>How it works</summary><p class="pph">The region is kept in the picture's own pixels, so it stays on the same spot as the picture moves or scales; drag or resize the box (or crop the inset) to change it. The inset shows the embedded picture's own pixels, not a screenshot. The same region on other pictures is the same relative place in each, not an alignment of them.</p></details></section>
 <section data-p="adj"><ol class="fgst"><li>Select pictures</li><li>Adjust</li><li>Click <b>Apply</b></li></ol><div class="kv"><span>Levels</span><div><label class="f" title="Levels at or below this become black (0 to 254); the same value as Min under Channels">Black<input type="number" min="0" max="254" step="1" data-g="ab" value="0"></label><label class="f" title="Levels at or above this become white (1 to 255); the same value as Max under Channels">White<input type="number" min="1" max="255" step="1" data-g="aw" value="255"></label></div>
+<div class="r" id="mFgLr" hidden><span></span><svg id="mFgLh" viewBox="0 0 255 40" preserveAspectRatio="none"><title>Brightness histogram of the picture; the lines mark black, the midtone (gamma) and white</title><path class="hs"/><path class="lk"/><path class="lg"/></svg></div>
 <span>Gamma</span><label class="f" title="Midtones: above 1 lighter, below 1 darker (0.1 to 10)"><input type="number" min="0.1" max="10" step="0.1" data-g="ag" value="1"></label>
 <span>Brightness</span><label class="f" title="−100 to 100"><input type="number" min="-100" max="100" step="5" data-g="abr" value="0"></label>
 <span>Contrast</span><label class="f" title="−100 to 100"><input type="number" min="-100" max="100" step="5" data-g="act" value="0"></label></div>
-<details class="fgx"><summary>More options<i></i></summary><div class="kv"><span>Curve</span><select data-g="ach" data-nd><option value="0">RGB</option><option value="1">Red</option><option value="2">Green</option><option value="3">Blue</option></select></div><svg id="mFgCv" viewBox="-6 -6 267 267"><path class="cg" d="M64 0v255M128 0v255M191 0v255M0 64h255M0 128h255M0 191h255M0 255 255 0"/><rect class="cg" width="255" height="255"/><polyline/><g></g></svg><input data-g="acv" hidden><p class="pph">Click to add a point, drag to move it, double-click to remove it.</p></details>
+<details class="fgx"><summary>More options<i></i></summary><div class="kv"><span>Curve</span><select data-g="ach" data-nd><option value="0">RGB</option><option value="1">Red</option><option value="2">Green</option><option value="3">Blue</option></select></div><svg id="mFgCv" viewBox="-6 -6 267 267"><path class="hs"/><path class="ha"/><path class="cg" d="M64 0v255M128 0v255M191 0v255M0 64h255M0 128h255M0 191h255M0 255 255 0"/><rect class="cg" width="255" height="255"/><polyline/><g></g></svg><input data-g="acv" hidden><p class="pph">Click to add a point, drag to move it, double-click to remove it.</p></details>
 <div class="row"><button data-a="fgAdjGo" class="pri">Apply</button><button data-a="fgAdjRs" title="Back to the settings the pictures had (also Esc)">Reset</button></div><div class="row"><button data-a="fgAdjDel" title="Take the adjustment off; a tint from Channels stays">Remove adjustment</button></div>
 <details class="fgm"><summary>How it works</summary><p class="pph">The adjustment is an SVG filter on the picture (one lookup table per channel, ahead of any tint from Channels), so the pixels never change and Inkscape shows it too. Black and White are the same values as Min and Max under Channels. Gamma and curves are not linear: say so in the figure legend or methods when you submit.</p></details></section>
 <section data-p="chan"><ol class="fgst"><li>Select grayscale pictures</li><li>Pick a colour and click <b>Tint</b></li><li>Or select 2–7 pictures and click <b>Merge</b></li></ol><h5>Pseudocolor</h5><div class="kv"><span>Colour</span><div><select data-g="tn"><option value="#ff0000">Red</option><option value="#00ff00" selected>Green</option><option value="#0000ff">Blue</option><option value="#00ffff">Cyan</option><option value="#ff00ff">Magenta</option><option value="#ffff00">Yellow</option><option value="#ffffff">Gray</option><option value="">Other</option></select><label class="f c"><input type="color" data-g="tc" value="#00ff00"></label></div>
@@ -495,7 +503,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
 <section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo; Edit › History lists the steps</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
 <section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
-<section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd></dl></section>
+<section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd></dl></section>
 </div>
 </div></div><p class="ft"><span class="nm">On a Mac, <kbd>⌘</kbd> works in place of <kbd>Ctrl</kbd>. </span>Everything runs in your browser; only what you send to SVG Chat leaves it.</p></form></dialog>
 <dialog id="mNew"><form method="dialog">
@@ -608,6 +616,7 @@ let undos=[],redos=[],dirty=false; // steps: arrays of MutationRecords named by 
 let Pop={x:null,m:[]}; // 56 Layers window: x the object shown, m the sections it borrowed (kept here: code run at load reaches it)
 
 // ══ 01 Basics ════
+document.documentElement.classList.remove('ld');
 // fm/fc/f6 format numbers for output; mk builds SVG elements, el HTML ones; uid/reid keep ids unique;
 // order() sorts into document order (an index map from 64 elements on).
 let idn=0; // uid's counter
@@ -1866,6 +1875,7 @@ const LW=[.2126,.7152,.0722];	// Rec. 709 grey weights
 const ADF=['ab','aw','ag','abr','act','acv'];	// the Adjust pane's fields (Gf), in FG.a0's order
 const ADS=el('style');	// the preview's rules
 let AD=null;	// the preview: {L pictures, F filters in #mCrS, Q each filter's settings before the pane's}
+let HG=null;	// the histograms' source: {i picture, h its href, p its pixels (RGBA, at most 512 px a side), H [L,R,G,B] counts, k/A the last adjusted counts}
 document.head.append(ADS);
 const cl1=v=>max(0,min(1,v)),lvN=(s,a,b,d)=>s!=null&&s!==''&&+s>=a&&+s<=b?+s:d;
 // lvPts(s): a curve's points [[x,y],…] (0–255, x rising), straight when s is empty or unreadable; lvCs writes them back ('' when straight)
@@ -1993,6 +2003,7 @@ function adjFill(){
   Gf.acv.value=Q.cv.join('|').replace(/^\|*$/,'');
   FG.a0=ADF.map(n=>Gf[n].value);
   cvDraw();
+  hgLoad(i);
 }
 function adjRs(){
   adjEnd();
@@ -2031,12 +2042,79 @@ function adjEnd(){
   quiet(()=>a.L.forEach(e=>e.removeAttribute('data-mad')));
   a.F.forEach(f=>f.remove());
 }
+// Histograms: the picture's own pixels (decoded in memory, at most 512 px a side, transparent ones left out) as grey fills, brightness by the
+// Rec. 709 weights or one channel, behind the curve and under Levels; the pane's settings, applied to the same pixels, as a blue line on the curve.
+// A picture the browser won't let a page read (an outside link) shows none. Nothing is written.
+async function hgLoad(i){
+  const h=i?i.getAttribute('href')||i.getAttributeNS(NS.xlink,'href')||'':'';
+  if(HG&&HG.i===i&&HG.h===h)return hgDraw();
+  const g=i?{i,h,p:null,H:null}:null;
+  HG=g;
+  hgDraw();
+  if(!g)return;
+  try{
+    const im=new Image();
+    im.src=h;
+    await im.decode();
+    const s=min(1,512/max(im.naturalWidth,im.naturalHeight)),w=max(1,round(im.naturalWidth*s)),t=max(1,round(im.naturalHeight*s)),c=el('canvas'),x=c.getContext('2d',{willReadFrequently:true});
+    c.width=w;
+    c.height=t;
+    x.drawImage(im,0,0,w,t);
+    g.p=x.getImageData(0,0,w,t).data;
+    g.H=hgCount(g.p);
+  }catch(_){}
+  if(HG===g)hgDraw();
+}
+// hgCount(p,T): 256-bin counts [L,R,G,B] of the pixels p, each channel first looked up in T when given
+function hgCount(p,T){
+  const H=[0,1,2,3].map(()=>new Uint32Array(256));
+  for(let k=0;k<p.length;k+=4){
+    if(!p[k+3])continue;
+    const r=T?T[0][p[k]]:p[k],g=T?T[1][p[k+1]]:p[k+1],b=T?T[2][p[k+2]]:p[k+2];
+    H[0][round(LW[0]*r+LW[1]*g+LW[2]*b)]++;
+    H[1][r]++;
+    H[2][g]++;
+    H[3][b]++;
+  }
+  return H;
+}
+// hgPath(h,y0,f): a histogram as a path over x 0–255 from the baseline y0 up to its height; scaled to the tallest bin but the two ends,
+// which clipped pictures pile up; f closes it for a fill, else it is a line averaged over 5 levels (stretched levels leave gaps between
+// bins, and their comb would hide the curve)
+function hgPath(h,y0,f){
+  if(!f)h=h.map((_,v)=>{const a=h.slice(max(0,v-2),v+3);return a.reduce((x,y)=>x+y)/a.length});
+  const m=max(1,...h.slice(1,255));
+  let d=`M0 ${f?y0:f6(y0-min(1,h[0]/m)*y0*.92)}`;
+  for(let v=0;v<256;v++)d+=`L${v} ${f6(y0-min(1,h[v]/m)*y0*.92)}`;
+  return f?d+`L255 ${y0}Z`:d;
+}
+function hgDraw(){
+  const S=$('mFgCv'),L=$('mFgLh'),j=+Gf.ach.value,H=HG&&HG.H,P=adjP();
+  let A=null;
+  if(H&&typeof P!=='string'&&lvTone({...LV0,...P})){
+    const Q={...LV0,...P},k=lvStr(Q);
+    if(HG.k!==k){
+      HG.k=k;
+      HG.A=hgCount(HG.p,[0,1,2].map(c=>{const f=lvFn(Q,c);return Uint8Array.from({length:256},(_,v)=>round(f(v/255)*255))}));
+    }
+    A=HG.A;
+  }
+  S.querySelector('.hs').setAttribute('d',H?hgPath(H[j],255,1):'');
+  S.querySelector('.ha').setAttribute('d',A?hgPath(A[j],255,0):'');
+  $('mFgLr').hidden=!H;
+  if(!H)return;
+  L.querySelector('.hs').setAttribute('d',hgPath(H[0],40,1));
+  const lo=typeof P==='string'?0:P.lo,hi=typeof P==='string'?255:P.hi,g=typeof P==='string'?1:P.g;
+  L.querySelector('.lk').setAttribute('d',`M${lo} 0V40M${hi} 0V40`);
+  L.querySelector('.lg').setAttribute('d',`M${f6(lo+(hi-lo)*.5**g)} 0V40`);
+}
 // cvDraw(): the curve editor shows the channel picked in Curve: the curve sampled every 4 levels and its points
 function cvDraw(){
   const S=$('mFgCv'),j=+Gf.ach.value,p=lvPts(adjCv()[j]),f=lvMono(p);
   S.dataset.c=j;
   S.querySelector('polyline').setAttribute('points',Array.from({length:65},(_,i)=>`${min(255,i*4)},${f6(255-f(min(255,i*4)))}`).join(' '));
   S.querySelector('g').replaceChildren(...p.map(q=>mk('circle',{cx:q[0],cy:255-q[1],r:5})));
+  hgDraw();
 }
 // cvAt(e): the pointer in curve levels; cvW(a,j,p): curve j becomes p, through the hidden field acv, so More options counts and resets it
 function cvAt(e){
@@ -2104,6 +2182,7 @@ const FGU={
       if(ADF.every((n,j)=>Gf[n].value===FG.a0[j]))adjEnd();
       else adjPv(P);
     }
+    hgDraw();
     return{st:fgN(I.length,'picture')+(AD?': previewing; Apply keeps it, Reset or Esc goes back':'')}}};
 function fgFov(){const ow=fgn('ow'),oh=fgn('oh'),px=fgn('px'),py=Gf.py.value===''?px:fgn('py');Gf.fx.value=ow>0&&px>0?+(ow*px).toPrecision(6):'';Gf.fy.value=oh>0&&py>0?+(oh*py).toPrecision(6):'';$('mFg').querySelector('.pu').textContent=UL[fgv('pu')]}
 let fgQ=0;const fgRq=()=>{cancelAnimationFrame(fgQ);fgQ=requestAnimationFrame(fgRef)};
@@ -2664,7 +2743,7 @@ const chNone=()=>({id:'c'+Date.now().toString(36),t:'New chat',c:Date.now(),u:Da
   chSave=()=>{if(!CH||!hist.length&&!CH.sum&&!CL.some(c=>c.id===CH.id))return;CH.html=LG.innerHTML;CH.hist=hist;aiG&&root&&root.contains(aiG)&&(CH.fig=aiG.id);CH.u=Date.now();CH.n=hist.filter(m=>m.role==='user').length;
     CC.set(CH.id,CH);CL=[chMeta(CH),...CL.filter(c=>c.id!==CH.id)];chKeep();chHdr();return cdb('readwrite',s=>s.put(CH))},
   chShow=c=>{CH=c;hist=c.hist;aiG=c.fig&&root&&byId(c.fig);aiG&&root.contains(aiG)||(aiG=null);LG.innerHTML=c.html||'';LG.querySelectorAll('button:not([data-ai]):not([data-go])').forEach(b=>b.remove());
-    $('mHello').hidden=!!LG.childElementCount;setupUI();LG.scrollTop=LG.scrollHeight;chHdr();root&&bar()},
+    $('mHello').hidden=!!LG.childElementCount;setupUI();if(LG.childElementCount)LG.scrollTop=LG.scrollHeight;chHdr();root&&bar()},
   chBusy=()=>ac&&(msg('Wait for the reply to finish, or press Stop, before switching chats'),1),
   chNew=()=>{if(chBusy())return;if(CH&&!hist.length)return msg('This chat is still empty'),$('mAsk').focus();chSave();chShow(chNone());$('mAsk').focus();msg('New chat: the AI starts without the earlier conversation')},
   chOpen=async id=>{if(chBusy()||CH&&CH.id===id)return;const c=CC.get(id)||await cdb('readonly',s=>s.get(id));if(!c){CL=CL.filter(x=>x.id!==id);chKeep();return msg('That chat could not be read')}chSave();CC.set(id,c);chShow(c)},

@@ -14,8 +14,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 4.75 228 228'%3E%3Cg fill='none' stroke='%231c1c1c'%3E%3Cpath d='M29 85.86L113 36.14M127 36.14L211 85.86' stroke-width='19'/%3E%3Cpath d='M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z' stroke-width='14'/%3E%3Cpath d='M98 111V101Q98 95 104 95H136Q142 95 142 101V111' stroke-width='17'/%3E%3Crect x='44' y='111' width='152' height='100' rx='5' stroke-width='17'/%3E%3C/g%3E%3C/svg%3E">
 <script>{let t;try{t=localStorage.sgTheme}catch(_){}(t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches)&&(document.documentElement.dataset.theme='dark')}</script>
 <style>
-:root{--lw:310px;--ink:#1c1c1c;--body:#454545;--muted:#6e6e6e;--paper:#f6f6f6;--line:#e2e2e2;--frame:#1c1c1c1f;--card:#ececec;--ok:#1f8a4f;--img:none;color-scheme:light}
-[data-theme=dark]{--ink:#e6e6e6;--body:#bdbdbd;--muted:#8f8f8f;--paper:#1f1f1f;--line:#333333;--frame:#e6e6e61f;--card:#292929;--ok:#4cc38a;--img:brightness(.82);color-scheme:dark}
+:root{--lw:310px;--ink:#1c1c1c;--body:#454545;--muted:#6e6e6e;--paper:#f6f6f6;--line:#e2e2e2;--frame:#1c1c1c1f;--card:#ececec;--ok:#c8102e;--img:none;color-scheme:light}
+[data-theme=dark]{--ink:#e6e6e6;--body:#bdbdbd;--muted:#8f8f8f;--paper:#1f1f1f;--line:#333333;--frame:#e6e6e61f;--card:#292929;--ok:#ff6161;--img:brightness(.82);color-scheme:dark}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;background:var(--paper)}
 body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
@@ -141,7 +141,7 @@ another figure.</h1>
 <script>
 const H=[[0,0],[.5,0],[1,0],[1,.5],[1,1],[.5,1],[0,1],[0,.5]],U=[],E=[...document.querySelectorAll('[data-p]'),lbl];
 let cur=null,op=null,tEd=null,dragged=false;
-// Easter egg: the first change to the house or the header logo retypes the headline's last word into "paper accepted!", with accepted in green; a double-click reset puts it back and arms it again.
+// Easter egg: the first change to the house or the header logo retypes the headline's last word into "paper accepted!", with accepted in red; a double-click reset puts it back and arms it again.
 const h1=document.querySelector('h1'),ey=document.querySelector('.eyebrow'),H1=h1.textContent,EY=ey.textContent;let eg=0,egT=0;
 const RM=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 // The extra line eases the headline open or shut instead of jumping (the text below and the house follow); `fit` drops the fixed height once the text is final.

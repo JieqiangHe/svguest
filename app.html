@@ -572,7 +572,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 63 Paste: SVG and images from the clipboard
 // 64 Startup: options, theme, action names, the first page
 // ══ 00 State ════
-// Constants and handles every section uses (F: side-panel fields by data-f), then the document state.
+// Constants and handles every section uses (F: side-panel fields by data-f), then the state several sections share;
+// the rest is declared at the head of its own section.
 const{abs,round,min,max,hypot,atan2,PI,cos,sin}=Math,gcs=e=>getComputedStyle(e);
 const NS={svg:'http://www.w3.org/2000/svg',inkscape:'http://www.inkscape.org/namespaces/inkscape',sodipodi:'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',xlink:'http://www.w3.org/1999/xlink',xml:'http://www.w3.org/XML/1998/namespace'},PX={'http://www.w3.org/2000/xmlns/':'xmlns'};
 for(const n in NS)PX[NS[n]]=n;
@@ -581,11 +582,15 @@ document.querySelectorAll('[data-f]').forEach(e=>F[e.dataset.f]=e);
 const PT=72/25.4,BIG=2e3,UNIT={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/96,'':25.4/96},LEAF='path,rect,circle,ellipse,line,polyline,polygon,text,use,image',
   GR=/^(g|a|switch|path|rect|circle|ellipse|line|polyline|polygon|text|image|use|svg|foreignObject)$/,
   PRES=/^(fill|fill-opacity|fill-rule|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-dasharray|stroke-dashoffset|font-family|font-size|font-weight|font-style|text-decoration|text-anchor|letter-spacing|color|visibility|display|opacity)$/;
-let root,name,prolog,vb,U,Z=1,k=1,tx=0,ty=0,zt,sel=[],sb=null,sbs=[],cb=null,ctx,mo,pend=[],undos=[],redos=[],dirty=false,tool='sel',D=null,G=null,CR=null,LKC=null,lkV=0,Pop={x:null,m:[]},ed=null,space=false,clip=null,mouse=null,idn=0,fileMode=0,ped=null;
+let root,name,prolog,vb,U; // the document <svg>, its file name, the text before it (kept on export), its viewBox {x,y,w,h}, mm per user unit
+let sel=[],ctx; // the selected elements; the group they live in (Esc climbs it)
+let undos=[],redos=[],dirty=false; // steps: arrays of MutationRecords named by .n; dirty: changed since the last save
+let Pop={x:null,m:[]}; // 56 Layers window: x the object shown, m the sections it borrowed (kept here: code run at load reaches it)
 
 // ══ 01 Basics ════
 // fm/fc/f6 format numbers for output; mk builds SVG elements, el HTML ones; uid/reid keep ids unique;
 // order() sorts into document order (an index map from 64 elements on).
+let idn=0; // uid's counter
 const fm=v=>abs(v)<1e-9?'0':String(+v.toPrecision(8)),fc=v=>String(+v.toFixed(5)||0),f6=v=>String(+v.toPrecision(6));
 const mmOf=s=>{const m=/^\s*([\d.eE+-]+)\s*([a-z]*)\s*$/.exec(s||'');return m&&UNIT[m[2]]!=null?m[1]*UNIT[m[2]]:null};
 const unitOf=(s,w)=>(mmOf(s.getAttribute('width'))||w*25.4/96)/w;
@@ -690,11 +695,13 @@ function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v)
 // changes the DOM only for display wraps it in quiet(), which throws those records away. once(f) merges every
 // commit made inside f into a single step. Untouched elements must serialise byte-identical, so nothing here
 // rewrites attributes it did not change.
+let mo,pend=[]; // the MutationObserver on root; its records not yet committed
 const flush=()=>(add(pend,mo.takeRecords()),pend.length);
 function quiet(f){flush();f();mo.takeRecords()}
 const hasT=n=>n.nodeType===1&&(/^(text|tspan|style)$/.test(n.localName)||!!n.querySelector('text,style')),
   tHit=rs=>rs.length>500||rs.some(r=>r.type==='childList'?r.target.closest('text,style')||[...r.addedNodes,...r.removedNodes].some(hasT):r.type==='characterData'?r.target.parentNode?.closest('style'):!(r.attributeName==='transform'&&(a=>(b=>a.a===b.a&&a.b===b.b&&a.c===b.c&&a.d===b.d)(lm(r.target)))(lms(r.oldValue))||TNA.has(r.attributeName))&&hasT(r.target));
 let hold=0;const TNA=new Set(['x','y','dx','dy','rotate','textLength','lengthAdjust','id']);
+// why: the next step's name; svd: the undo top at the last save or load; dv: document version; svn: structure version
 let why='',svd=null,dv=0,svn=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
 const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='childList'?(a+=r.addedNodes.length,d+=r.removedNodes.length):r.type==='characterData'?t++:s.add(r.attributeName);
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
@@ -714,6 +721,7 @@ function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush(
 // parse() reads SVG text with DOMParser (an invalid file throws) and, when the text holds anything suspicious,
 // strips scripts, embedded frames and event-handler or javascript: attributes; load() makes the result the active document: viewBox, mm per user unit (U), a fresh undo
 // history and the MutationObserver.
+let fileMode=0; // what the file input does: 0 open, 1 import
 const XB=/^(iframe|frame|object|embed|script|meta|link|base)$/i,XO=/^on|^srcdoc$/i,XJ=/javascript:/i,XS=/^\s*javascript:/i,XV=/^(values|to|from|by)$/;
 function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml');if(d.documentElement.localName!=='svg'||d.getElementsByTagName('parsererror').length)throw Error('not a valid SVG');
   if(/<!ENTITY|&#|javascript|srcdoc|[\s:]on[^\s=/>]*\s*=\s*["']|<([\w.-]+:)?(iframe|frame|object|embed|script|meta|link|base)\b/i.test(txt))for(const e of[...d.getElementsByTagName('*')])if(XB.test(e.localName))e.remove();else for(let i=e.attributes.length;i--;){const a=e.attributes[i],n=a.localName,v=a.value;
@@ -793,6 +801,7 @@ async function png(dpi,j){const f=j?'JPG':'PNG',W=round(vb.w*U/25.4*dpi),Hh=roun
 // ══ 07 View ════
 // Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
 // #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
+let Z=1,k=1,tx=0,ty=0,zt; // Z: scale set by Fit; k: zoom, #mStage's CSS scale; tx,ty: pan in px; zt: unused
 const vp=e=>{const r=view.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]},cmd=e=>e.ctrlKey||e.metaKey;
 const toU=p=>({x:(p[0]-tx)/(Z*k)+vb.x,y:(p[1]-ty)/(Z*k)+vb.y}),toS=q=>[tx+(q.x-vb.x)*Z*k,ty+(q.y-vb.y)*Z*k];
 function size(){stage.style.width=vb.w*Z+'px';stage.style.height=vb.h*Z+'px';grid()}
@@ -813,6 +822,7 @@ function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;p
 // ══ 08 Selection ════
 // sel is the selected elements; ctx is the group the selection lives in (Esc climbs it). setSel filters locked
 // elements and calls refresh(), which recomputes the selection box (sb), handles and the side panel.
+let sb=null,sbs=[],cb=null; // the selection's box; each selected object's box (2 to 200); the box of ctx
 function setSel(a,q){CR&&!(a.length===1&&a[0]===CR.s)&&cropOK();const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
 function bar(){tabUI();const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['fgSwap',sel.length!==2],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
   document.title=(dirty?'• ':'')+name+' — svguest';doc();qa('undo').firstChild.data='Undo'+(undos.length?' '+undos.at(-1).n:'');qa('redo').firstChild.data='Redo'+(redos.length?' '+redos.at(-1).n:'');$('mGc').hidden=!gl.length;$('mGc').textContent=`Clear ${gl.length} guide${gl.length>1?'s':''}`}
@@ -1023,6 +1033,7 @@ const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=
 // ══ 16 Connectors ════
 // Connectors: line ends attached to objects carry data-sg-from / data-sg-to = url(#id) u v, a point in the target's
 // own box. lnk() runs at the start of each commit and moves those ends to follow their targets, in the same step.
+let LKC=null,lkV=0; // lkAll's cache; bumped when attachments change
 const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
   lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-sg-from],[data-sg-to]')]}).L},
   lkP=(t,u,v)=>{const b=t.getBBox();return b.width||b.height?ctm(t).transformPoint({x:b.x+u*b.width,y:b.y+v*b.height}):null},
@@ -1039,6 +1050,7 @@ function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))cont
   LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&lkP(...r);if(!P)return;const q=(Mi||(Mi=ctm(c).inverse())).transformPoint(P);if(abs(q.x-s[i].x)>5e-6||abs(q.y-s[i].y)>5e-6){s[i]=q;ch=1}});ch&&setSeg(c,s)}}
 // ══ 17 Tools and ghost ════
 // ghostOn moves the selected nodes into #mGhost so a drag is one CSS transform; ghostOff puts them back.
+let tool='sel',G=null; // the current tool (data-t); the nodes lifted into the ghost during a drag
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
 function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){lkRs(D);ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
 function setTool(t){CR&&t!=='crop'&&cropOK();tool=t;const v=$('mTools').querySelector(`.menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));$('mTools').querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair';t==='crop'&&!CR&&sel.length===1&&sel[0].localName==='image'&&cropGo(sel[0])}
@@ -1052,6 +1064,7 @@ function ghostOff(M){fgRs();quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefo
 // down/move/up drive every canvas gesture. down() decides what the drag is (D.t: a move, a handle, a box select,
 // drawing, a point, a crop…). A move drag lifts the selection into the ghost layer and moves it with one CSS
 // transform; up() applies the final matrix to the real elements (applyM) and commits once.
+let D=null,mouse=null,space=false; // the drag in progress (D.t its kind); the last pointer position in view px; Space held
 function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge|text)$/.test(tool)||LNT.test(tool)?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
   if(e.button===1||e.button===0&&space){D={t:'pan',p,tx,ty};return cap()}
   if(e.button)return;
@@ -1217,6 +1230,7 @@ function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d
 // edit() hides the <text> and lays a contenteditable copy (.ed) over it, or uses the Text panel's box (sd). Styled
 // runs are mirrored as spans whose data-k points back to the tspan they came from; finish() reads the lines back
 // (edLines) and rebuilds only what changed (setLines), as one Edit text step.
+let ed=null; // the open editor, null when none
 function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
   if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:tbFill(d,t)}
   else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
@@ -1258,6 +1272,7 @@ document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||
 // ══ 22 Clipboard and grouping ════
 // paste renames ids with one map (reid, relink) and cuts links to anything not pasted; ungroup snapshots
 // class-computed paint (KP) so svglite styles survive.
+let clip=null; // what Copy took
 function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
@@ -1315,6 +1330,7 @@ function headSet(j,t){const old=new Set;for(const e of mkl()){const c=gcs(e),o=r
   mset(e,MP[j?2:0],t&&`url(#${hmk(mark(t),p)})`);o&&old.add(o)}t&&old.add(MK[t][0]);mgc(old)}
 // ══ 24 Point editing ════
 // pmodel(e) is cached per d/points in PMC: treat it as read-only.
+let ped=null; // the shape whose anchors are shown
 const PN=/[MmLlHhVvCcSsQqTtAaZz]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g,PM='Points: drag one and only it moves (Shift: 45° steps); Esc or a click outside ends';
 function pparse(d){const t=d.match(PN)||[],o=[];let i=0,c='',x=0,y=0,sx=0,sy=0,lc=null;const N=()=>+t[i++],P=r=>[N()+(r?x:0),N()+(r?y:0)],rf=q=>[2*x-q[0],2*y-q[1]];
   while(i<t.length){if(/[a-z]/i.test(t[i]))c=t[i++];else if(!c)return null;const C=c.toUpperCase(),r=c!==C;let s,l=null;
@@ -1392,6 +1408,7 @@ function fsz(d){const ts=selTexts();if(!ts.length)return;ts.forEach(t=>setSize(t
 // ══ 26 Crop ════
 // CR is the open session; cropR writes a crop… clipPath in the image's own coordinates, chaining an existing
 // clip-path. Pixels are never touched.
+let CR=null; // the crop session, null when none
 const cropK=v=>{const K=byId(refId(v));return K&&/^crop/.test(K.id)&&K.childElementCount===1&&K.firstElementChild.localName==='rect'&&K};
 const cropGo=s=>{const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width'),v('height'));if(!(ib.w>0&&ib.h>0))return msg('This photo has no size to crop');
   const K=cropK(stGet(s,'clip-path')),q=K&&K.firstElementChild,c=q&&isect(rb(...['x','y','width','height'].map(n=>+q.getAttribute(n)||0)),ib);
@@ -1747,6 +1764,8 @@ function unlock(){finish(true);const a=[...root.querySelectorAll('[*|insensitive
 const lkd=e=>{for(;e&&e!==root&&e.nodeType===1;e=e.parentNode)if(e.getAttributeNS(NS.sodipodi,'insensitive')&&!isLayer(e))return true;return false};
 // ══ 31 Hover and auto-scroll ════
 // hoverAt throttles hovCalc to one per frame (a 90 ms timeout when hit() is slow).
+// hov: the hovered object, hovL/hovB its outline or box; hovE: the last pointer event; hovQ/hovT/hovSlow: throttling;
+// ctl: Ctrl held; edgeR/edgeE: auto-scroll frame and event; cmE: the context menu's event
 let hov=null,hovL=null,hovB=null,hovE=null,hovQ=0,hovT=0,hovSlow=0,ctl=0,edgeR=0,edgeE=null,cmE=null;
 function hoverAt(e){hovE=e;ctl=cmd(e);if(hovSlow){clearTimeout(hovT);hovT=setTimeout(hovCalc,90)}else if(!hovQ){hovQ=1;requestAnimationFrame(()=>{hovQ=0;hovCalc()})}}
 function hovCalc(){const e=hovE,r=e&&e.target.closest?.('#mLl .r');let h=null;
@@ -1812,6 +1831,8 @@ function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d
 
 // ══ 34 SVG Chat state ════
 // hist is the current chat's history (the only one sent); aiG the figure it drew, which follow-ups patch.
+// hist: this chat's history (what the AI reads); aiG: the figure it drew; ac: the running reply (abort()); imgs, files,
+// notes: attachments and passing notes; rq: offer Redraw for an image; GLMR: the GLM relay is chosen
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,GLMR=ls('sgGlmRelay')==='1';
 const GLMRELAY='https://svguest-glm.jieqiang-he-dawn.workers.dev',glmWeb=()=>globalThis.location?.origin==='https://jieqianghe.github.io'&&!globalThis.TBSIWC?.glm,glmRelay=()=>glmWeb()&&GLMR;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
@@ -1933,6 +1954,7 @@ const PV=p=>REG.find(r=>r.p===p),mOf=t=>PV(t.p)?.ms.find(m=>m.id===t.m),vOf=t=>t
   drawTo=()=>{const t=who(DRAW);return mOf(t)?t:who(tbBridge()?'Tb':'Glm:glm-5.3')},
   reader=(d=drawTo())=>{const v=RD!=='auto'&&RD!=='self'&&who(RD);if(v&&rdy(v)&&canSee(v))return vOf(v)===vOf(d)?null:v;if(canSee(d))return null;
     const f=r=>{const m=hasP(r.p)&&r.ms.find(m=>m.see);return m?{p:r.p,m:m.id}:null};return PV(d.p)&&f(PV(d.p))||REG.map(f).find(Boolean)||null};
+// the model that draws and the one that reads images ('Prov:model'); their thinking; a choice waiting for its key
 let DRAW=ls('sgDraw')||'',RD=ls('sgVis')||'auto',EFF=ls('sgThink')||'high',EFFR=ls('sgThinkR')||'max',PEND=null;
 const tem=(t,h)=>{const L=t.t.split('\n'),dn=/[gjpqy,;()[\]{}|_]/.test(L.at(-1));return[h/(.9+(L.length-1)*1.2+(dn?.2:0)),L.length,dn]},isTx=t=>t&&t.k==='text'&&Array.isArray(t.b)&&typeof t.t=='string';
 function mmSpec(items,z){let mx=0,my=0;const at=q=>{Array.isArray(q)&&isFinite(q[0])&&isFinite(q[1])&&(mx=max(mx,q[0]),my=max(my,q[1]))};
@@ -2262,6 +2284,8 @@ const RDB=idbO('sgDocs','d',{keyPath:'id'}),
   vwSet=v=>{if(!v||!(v.z>0))return;const r=view.getBoundingClientRect();Z=v.z;k=1;tx=r.width/2-(v.x-vb.x)*Z;ty=r.height/2-(v.y-vb.y)*Z;size();place()},
   rdW=t=>{const d=new Date(t),n=new Date(),p=x=>String(x).padStart(2,'0');return d.toDateString()===n.toDateString()?p(d.getHours())+':'+p(d.getMinutes()):d.getFullYear()===n.getFullYear()?'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getMonth()]+' '+d.getDate():d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())},
   rlS=()=>ls('sgDocs',JSON.stringify(RL)),rlR=()=>{try{return JSON.parse(ls('sgDocs')||'[]')}catch(_){return[]}};
+// RL: Open recent's list; DI: the open document's entry; FD/FDh: the folder handle, writable/stored; asT: timer;
+// asV: dv last stored; asMs: last serialising time; asOk: IndexedDB works; asN: snapshot number; asP: writes in flight
 let RL=rlR(),DI=null,FD=null,FDh=null,asT=0,asV=-1,asMs=0,asOk=0,asN=0,asP=0,rdQ=Promise.resolve();RDB.then(d=>{asOk=!!d;rdL()});
 const asQ=()=>{clearTimeout(asT);asT=setTimeout(()=>(window.requestIdleCallback||setTimeout)(()=>asNow()),asMs>50?1e4:2e3)};
 function rlPut(m){const kp=[],dr=[];let b=0;for(const x of[m,...rlR().filter(x=>x.id!==m.id)])x.id===DI||kp.length<10&&b+(x.b||0)<=2e8?(kp.push(x),b+=x.b||0):dr.push(x);RL=kp;rlS();dr.length&&rdb('readwrite',s=>dr.forEach(x=>s.delete(x.id)))}
@@ -2303,6 +2327,7 @@ $('mKept').addEventListener('click',e=>{if(e.target===$('mKept'))return $('mKept
 // FD is the writable handle, FDh the stored one; files are named with the entry's creation stamp, never overwritten.
 const FDOK=typeof showDirectoryPicker==='function',FDB=FDOK?idbO('sgDir','h'):Promise.resolve(null),
   fdb=(m,f)=>FDB.then(d=>d&&new Promise(ok=>{try{const t=d.transaction('h',m),q=f(t.objectStore('h'));t.oncomplete=()=>ok(q.result);t.onerror=t.onabort=()=>ok(null)}catch(_){ok(null)}})),fdL={};
+// write counter (the newest write of a file wins, fdL); paused message shown; write queue
 let fdN=0,fdM=0,fdQ=Promise.resolve();
 function fdUI(){const b=qa('autoDir');b.disabled=!FDOK;b.classList.toggle('on',!!FD);b.firstChild.data=FDh?`Auto-save to “${FDh.name}”`+(FD?'':' (paused)'):'Auto-save to a folder…'}
 function fdW(m,txt){if(!FD)return FDh&&!fdM&&(fdM=1,msg(`Not written to “${FDh.name}”: allow it again under File › Auto-save to “${FDh.name}”`));

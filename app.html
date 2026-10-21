@@ -19,6 +19,8 @@ dialog{border:0;border-radius:10px;background:var(--side);color:var(--fg);box-sh
 *{box-sizing:border-box}
 /* the body stays undisplayed until the script starts (ld): the parser would otherwise lay out and paint the half-read page several times */
 html{background:var(--bar)}html.ld body{display:none}
+/* Theme changes cross-fade between two snapshots of the page (thFade) */
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s;animation-timing-function:ease-in-out}
 html,body{margin:0;height:100%;overflow:hidden;font:12px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--fg);-webkit-font-smoothing:antialiased}
 body{display:grid;grid-template:auto 1fr auto/48px 1fr 236px}
 button{font:inherit;padding:2px 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);color:var(--bfg);cursor:pointer}
@@ -3338,7 +3340,7 @@ const A={
   undo:()=>undo(0),redo:()=>undo(1),group,ungroup,copy:copyOut,paste:()=>paste(),del,fit,
   bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),und:()=>flip('text-decoration','textDecoration','underline',c=>/underline/.test(c.textDecorationLine)),
   sup:()=>ed&&document.execCommand('superscript'),sub:()=>ed&&document.execCommand('subscript'),
-  theme:()=>{const d=document.documentElement.dataset.theme!=='dark';if(d===SD.matches)try{localStorage.removeItem('sgTheme')}catch(_){}else ls('sgTheme',d?'dark':'light');setTheme(d)},
+  theme:()=>{const d=document.documentElement.dataset.theme!=='dark';if(d===SD.matches)try{localStorage.removeItem('sgTheme')}catch(_){}else ls('sgTheme',d?'dark':'light');thFade(()=>setTheme(d))},
   help:()=>hlpOpen(),rulers:()=>toggle('rulers'),grid:()=>toggle('grid'),touch:()=>toggle('touch'),auto:()=>{toggle('auto');opts.auto?(asNow(1),msg('Auto-save on: the open file is copied into this browser as you work (File › Open recent)')):(clearTimeout(asT),msg('Auto-save off: no more copies are kept; Open recent keeps the ones it has'))},kept:()=>kpShow(),autoDir:()=>fdSet(),
   portrait:()=>vb.w>vb.h&&setPage(vb.x,vb.y,vb.h,vb.w),landscape:()=>vb.h>vb.w&&setPage(vb.x,vb.y,vb.h,vb.w),
   fitPage:()=>{finish(true);const b=memoize(()=>cands(root,1).reduce((a,e)=>un(a,bbox(e)),null)),m=1/U;b?setPage(b.x-m,b.y-m,b.w+2*m,b.h+2*m):msg('Nothing to fit')},
@@ -3712,7 +3714,12 @@ const opts={rulers:ls('sgRulers')!=='0',grid:ls('sgGrid')==='1',touch:ls('sgTouc
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
 function toggle(o){opts[o]=!opts[o];ls('sg'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}
 function setTheme(d){document.documentElement.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23e6e6e6':'%231c1c1c');RC=null;qa('theme').title=`Theme: ${d?'dark':'light'}${ls('sgTheme')?'':', as the system'}. Click for the ${d?'light':'dark'} interface`;rulers()}
-const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',e=>ls('sgTheme')||setTheme(e.matches));
+// Theme changes cross-fade: the View Transitions API swaps two snapshots of the page, so the drawing isn't restyled frame by frame however large it is; instant without the API, with reduced motion or in a hidden tab.
+function thFade(f){
+  if(!document.startViewTransition||document.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches)return f();
+  document.startViewTransition(f);
+}
+const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',e=>ls('sgTheme')||thFade(()=>setTheme(e.matches)));
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
 views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);

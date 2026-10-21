@@ -86,6 +86,7 @@ h1 .qe,.eyebrow.ok{color:var(--ok)}h1.one{white-space:pre}.pitch{min-width:0}
 }
 @media (max-width:470px){.story figcaption br:not(:last-of-type){display:none}.story figcaption a{white-space:nowrap}}
 @media (max-width:340px){.story figure{grid-template-columns:1fr;gap:9px}.story img{height:auto;min-height:0}}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s;animation-timing-function:ease-in-out}
 @media (prefers-reduced-motion:reduce){#hud .c{animation:none}#go{transition:none}}
 </style>
 </head>
@@ -240,8 +241,13 @@ cover.addEventListener('scroll',hud_);
 
 const SD=matchMedia('(prefers-color-scheme:dark)'),de=document.documentElement,sv=()=>{try{return localStorage.sgTheme}catch(_){}};
 function th(d){de.dataset.theme=d?'dark':'light';const l=document.querySelector('link[rel=icon]');l.href=l.getAttribute('href').replace(/%23\w{6}/,d?'%23e6e6e6':'%231c1c1c');thm.title=`Theme: ${d?'dark':'light'}${sv()?'':', as the system'}. Click for the ${d?'light':'dark'} theme`;thm.setAttribute('aria-label',thm.title)}
-SD.addEventListener('change',e=>sv()||th(e.matches));
-thm.onclick=()=>{const d=de.dataset.theme!=='dark';try{d===SD.matches?localStorage.removeItem('sgTheme'):localStorage.sgTheme=d?'dark':'light'}catch(_){}th(d)};
+// A theme change cross-fades (View Transitions); instant without the API, with reduced motion or in a hidden tab.
+function thF(d){
+  if(!document.startViewTransition||document.hidden||RM())return th(d);
+  document.startViewTransition(()=>th(d));
+}
+SD.addEventListener('change',e=>sv()||thF(e.matches));
+thm.onclick=()=>{const d=de.dataset.theme!=='dark';try{d===SD.matches?localStorage.removeItem('sgTheme'):localStorage.sgTheme=d?'dark':'light'}catch(_){}thF(d)};
 th(de.dataset.theme==='dark');
 const start=()=>{cur=tEd=null;hud_();location.href='app.html'};
 go.onclick=start;

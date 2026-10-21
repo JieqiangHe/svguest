@@ -141,13 +141,22 @@ another figure.</h1>
 <script>
 const H=[[0,0],[.5,0],[1,0],[1,.5],[1,1],[.5,1],[0,1],[0,.5]],U=[],E=[...document.querySelectorAll('[data-p]'),lbl];
 let cur=null,op=null,tEd=null,dragged=false;
-// Second easter egg: once a part of the big house has been changed (eg 1), the first drag of the header logo retypes the headline into Erdős's motto (eg 2); a double-click reset puts it back.
+// Easter egg: the first change to the house or the header logo retypes the headline into Erdős's motto and sends up a burst of little roofs (`party`); a double-click reset puts it back and arms it again.
 const h1=document.querySelector('h1'),ey=document.querySelector('.eyebrow'),H1=h1.textContent,EY=ey.textContent;let eg=0,egT=0;
-function qed(){eg=2;ey.textContent='You found the second roof';const a=H1.replace(/figure\.$/,''),F=[];
+function qed(x,y){eg=1;party(x,y);ey.textContent='You found the easter egg';const a=H1.replace(/figure\.$/,''),F=[];
  for(let i=7;i>=0;i--)F.push('figure.'.slice(0,i));for(let i=1;i<=6;i++)F.push('proof.'.slice(0,i));
  const end=()=>{const q=document.createElement('span');q.className='qe';q.textContent='∎';q.title='Q.E.D.';h1.append(q)};
  if(matchMedia('(prefers-reduced-motion:reduce)').matches){h1.textContent=a+'proof.';return end()}
  let i=0;const f=()=>{h1.textContent=a+F[i];++i<F.length?egT=setTimeout(f,i===8?320:75):end()};f()}
+const qedAt=e=>{const b=e.getBoundingClientRect();qed(b.left+b.width/2,b.top+b.height/2)};
+function party(x,y){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const c=document.createElement('canvas'),d=devicePixelRatio||1,W=innerWidth,V=innerHeight,g=c.getContext('2d'),C=[getComputedStyle(h1).color,'#e9af00','#1a73e8','#d9534f','#3a9d6a'],t0=performance.now();
+ c.width=W*d;c.height=V*d;c.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9';document.body.append(c);g.scale(d,d);
+ const P=Array.from({length:48},(_,i)=>{const a=-Math.PI/2+(Math.random()-.5)*2.4,v=5+Math.random()*8;return{x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:Math.random()*6,vr:(Math.random()-.5)*.3,s:5+Math.random()*6,c:C[i%5]}});
+ const f=n=>{const t=(n-t0)/1800;g.clearRect(0,0,W,V);if(t>=1)return c.remove();g.globalAlpha=Math.min(1,(1-t)*2.5);g.lineWidth=1.6;g.lineJoin='round';
+  for(const q of P){q.vy+=.28;q.vx*=.985;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;const s=q.s;g.save();g.translate(q.x,q.y);g.rotate(q.r);g.strokeStyle=g.fillStyle=q.c;
+   g.beginPath();g.moveTo(-s,s/2);g.lineTo(0,-s/2);g.lineTo(s,s/2);g.stroke();for(const[u,v]of[[-s,s/2],[0,-s/2],[s,s/2]])g.fillRect(u-1.5,v-1.5,3,3);g.restore()}
+  requestAnimationFrame(f)};requestAnimationFrame(f)}
 function unqed(){clearTimeout(egT);eg=0;h1.textContent=H1;ey.textContent=EY}
 const isS=e=>e instanceof SVGElement&&e!==logo;
 const T=e=>(e.dataset.t||'0,0').split(',').map(Number),S=e=>+(e.dataset.s||1);
@@ -193,7 +202,6 @@ addEventListener('pointerdown',e=>{
 });
 addEventListener('pointermove',e=>{
  if(!op)return;
- if(!dragged&&op.k!=='m'||op.k==='m'&&!dragged&&Math.abs(e.clientX-op.sx)+Math.abs(e.clientY-op.sy)>=4){const g=op.k==='m'?op.el:cur;logo.contains(g)?eg||(eg=1):eg===1&&g.classList.contains('brand')&&(op.q=1)}
  if(op.k==='m'){
   const dx=e.clientX-op.sx,dy=e.clientY-op.sy;
   if(!dragged){if(Math.abs(dx)+Math.abs(dy)<4)return;dragged=true;const{el,x,y}=op,s=S(el);push(()=>put(el,x,y,s),'move')}
@@ -203,12 +211,12 @@ addEventListener('pointermove',e=>{
   const P=new DOMPoint(e.clientX,e.clientY).matrixTransform(roof.getScreenCTM().inverse()),q=roofPts();q[op.i]=P.x;q[op.i+1]=P.y;roof.setAttribute('d',`M${q[0]} ${q[1]}L${q[2]} ${q[3]}L${q[4]} ${q[5]}`)}
  hud_();
 });
-addEventListener('pointerup',()=>{op&&op.q&&eg===1&&qed();op=null});
+addEventListener('pointerup',e=>{op&&dragged&&!eg&&qed(e.clientX,e.clientY);op=null});
 addEventListener('click',e=>{if(dragged&&e.target.closest('a,#go')){e.preventDefault();e.stopImmediatePropagation()}},true);
 addEventListener('dblclick',e=>{
  if(e.target.closest('a,button,dialog'))return;
  const t=document.elementFromPoint(e.clientX,e.clientY);
- if(t&&t.tagName==='text'&&t.closest('#logo')){const o=t.textContent;push(()=>{t.textContent=o},'retype');tEd=cur=t;eg||(eg=1);hud_();return}
+ if(t&&t.tagName==='text'&&t.closest('#logo')){const o=t.textContent;push(()=>{t.textContent=o},'retype');tEd=cur=t;eg||qedAt(t);hud_();return}
  reset();
 });
 addEventListener('resize',hud_);
@@ -230,8 +238,8 @@ addEventListener('keydown',e=>{
   else if(e.key.length===1&&!e.metaKey&&!e.ctrlKey)tEd.textContent+=e.key;
   hud_();return}
  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){e.preventDefault();const s=U.pop();s&&s[0]();hud_();return}
- if(cur&&(e.key==='Delete'||e.key==='Backspace')){e.preventDefault();logo.contains(cur)&&(eg||(eg=1));const el=cur,p=el.parentNode,n=el.nextSibling;push(()=>p.insertBefore(el,n),'delete');el.remove();cur=null;hud_();return}
- if(cur&&e.key.startsWith('Arrow')){e.preventDefault();logo.contains(cur)&&(eg||(eg=1));const el=cur,[x,y]=T(el),s=S(el),k=e.shiftKey?10:1;push(()=>put(el,x,y,s),'nudge',el);
+ if(cur&&(e.key==='Delete'||e.key==='Backspace')){e.preventDefault();eg||qedAt(cur);const el=cur,p=el.parentNode,n=el.nextSibling;push(()=>p.insertBefore(el,n),'delete');el.remove();cur=null;hud_();return}
+ if(cur&&e.key.startsWith('Arrow')){e.preventDefault();eg||qedAt(cur);const el=cur,[x,y]=T(el),s=S(el),k=e.shiftKey?10:1;push(()=>put(el,x,y,s),'nudge',el);
   put(el,x+(e.key==='ArrowLeft'?-k:e.key==='ArrowRight'?k:0),y+(e.key==='ArrowUp'?-k:e.key==='ArrowDown'?k:0),s);hud_();return}
  if(e.key==='Escape'){cur=null;hud_();return}
  if(e.key==='Enter'&&!e.target.closest('a,button')){e.preventDefault();go.classList.add('press');setTimeout(start,90)}

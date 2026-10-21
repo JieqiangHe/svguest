@@ -141,7 +141,7 @@ another figure.</h1>
 <script>
 const H=[[0,0],[.5,0],[1,0],[1,.5],[1,1],[.5,1],[0,1],[0,.5]],U=[],E=[...document.querySelectorAll('[data-p]'),lbl];
 let cur=null,op=null,tEd=null,dragged=false;
-// Easter egg: the first change to the house or the header logo retypes the headline into Erdős's motto and fires little roofs from the bottom corners and centre (`party`); a double-click reset puts it back and arms it again.
+// Easter egg: the first change to the house or the header logo retypes the headline into Erdős's motto and fires little roofs from the bottom corners towards the middle (`party`); a double-click reset puts it back and arms it again.
 const h1=document.querySelector('h1'),ey=document.querySelector('.eyebrow'),H1=h1.textContent,EY=ey.textContent;let eg=0,egT=0;
 function qed(){eg=1;party();ey.textContent='You found the easter egg';const a=H1.replace(/figure\.$/,''),F=[];
  for(let i=7;i>=0;i--)F.push('figure.'.slice(0,i));for(let i=1;i<=6;i++)F.push('proof.'.slice(0,i));
@@ -149,12 +149,13 @@ function qed(){eg=1;party();ey.textContent='You found the easter egg';const a=H1
  if(matchMedia('(prefers-reduced-motion:reduce)').matches){h1.textContent=a+'proof.';return end()}
  let i=0;const f=()=>{h1.textContent=a+F[i];++i<F.length?egT=setTimeout(f,i===8?320:75):end()};f()}
 function party(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
- const c=document.createElement('canvas'),d=devicePixelRatio||1,W=innerWidth,V=innerHeight,g=c.getContext('2d'),C=[getComputedStyle(h1).color,'#e9af00','#1a73e8','#d9534f','#3a9d6a'],P=[],t0=performance.now(),G=.3,v0=Math.sqrt(2*G*V*.8);
+ const c=document.createElement('canvas'),d=devicePixelRatio||1,W=innerWidth,V=innerHeight,g=c.getContext('2d'),C=[getComputedStyle(h1).color,'#e9af00','#1a73e8','#d9534f','#3a9d6a'],P=[],t0=performance.now(),G=.3;
  c.width=W*d;c.height=V*d;c.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9';document.body.append(c);g.scale(d,d);
- // three cannons, like fireworks: the bottom corners fire up and inwards, the bottom centre straight up a moment later
- for(const[x,a,w]of[[0,-1.05,0],[W,-2.09,0],[W/2,-Math.PI/2,14]])for(let i=0;i<55;i++){const b=a+(Math.random()-.5)*.5,v=v0*(.6+Math.random()*.45);P.push({x,y:V+8,vx:Math.cos(b)*v,vy:Math.sin(b)*v,w,r:Math.random()*6,vr:(Math.random()-.5)*.3,s:5+Math.random()*6,c:C[i%5],f:Math.random()*6})}
+ // two cannons, like party poppers: the bottom corners fire up and inwards, aimed so the roofs peak around the middle of the screen, then fall like confetti
+ const vy=Math.sqrt(2*G*V*.62),T=vy/G,vx=W/2*.015/(1-Math.pow(.985,T));
+ for(const x of[0,W])for(let i=0;i<80;i++){const m=.75+Math.random()*.4;P.push({x,y:V+8,vx:(x?-1:1)*vx*(.55+Math.random()*.6),vy:-vy*m,r:Math.random()*6,vr:(Math.random()-.5)*.3,s:5+Math.random()*6,c:C[i%5],f:Math.random()*6})}
  let n0=t0;const f=n=>{const t=(n-t0)/3200,k=Math.min(2,(n-n0)/16.7);n0=n;g.clearRect(0,0,W,V);if(t>=1)return c.remove();g.globalAlpha=Math.min(1,(1-t)*3);g.lineWidth=1.6;g.lineJoin='round';
-  for(const q of P){if(q.w>0){q.w-=k;continue}q.vy=Math.min(q.vy+G*k,2.6);q.vx*=Math.pow(.985,k);q.x+=(q.vx+(q.vy>0?Math.sin(n/300+q.f)*.8:0))*k;q.y+=q.vy*k;q.r+=q.vr*k;const s=q.s;g.save();g.translate(q.x,q.y);g.rotate(q.r);g.strokeStyle=g.fillStyle=q.c;
+  for(const q of P){q.vy=Math.min(q.vy+G*k,2.6);q.vx*=Math.pow(.985,k);q.x+=(q.vx+(q.vy>0?Math.sin(n/300+q.f)*.8:0))*k;q.y+=q.vy*k;q.r+=q.vr*k;const s=q.s;g.save();g.translate(q.x,q.y);g.rotate(q.r);g.strokeStyle=g.fillStyle=q.c;
    g.beginPath();g.moveTo(-s,s/2);g.lineTo(0,-s/2);g.lineTo(s,s/2);g.stroke();for(const[u,v]of[[-s,s/2],[0,-s/2],[s,s/2]])g.fillRect(u-1.5,v-1.5,3,3);g.restore()}
   requestAnimationFrame(f)};requestAnimationFrame(f)}
 function unqed(){clearTimeout(egT);eg=0;h1.textContent=H1;ey.textContent=EY}

@@ -501,6 +501,9 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <li>File › Auto-save turns the copies on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick.</li></ul>
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
+<!-- ══ 38 SVG Chat panel ══ -->
+<template id="mCardT"><section class="card"><header><b></b><small></small><span class="st"></span></header></section></template>
+<template id="mKeyT"><div class="kf"><input type="password" placeholder="Paste an API key" autocomplete="off" spellcheck="false"><button class="ib" title="Show or hide the key"></button></div><p class="ew"></p><p><a target="_blank" rel="noopener"></a></p><button class="lk">Remove the key</button></template>
 <!-- ══ 45 Watermark UI ══ -->
 <div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
 <script>
@@ -2320,16 +2323,64 @@ function pickR(v){if(v!=='auto'&&!rdy(who(v)))return openConn(who(v).p,{v,r:1});
 function openConn(p,pd){PEND=pd&&pd.v?{v:pd.v,r:pd.r}:null;menuOff();document.body.classList.contains('chat')||A.chat();connSync();$('mConn').hidden=false;const c=p&&$('mCd'+p);
   if(!c)return $('mConnX').focus();c.classList.add('hl');setTimeout(()=>c.classList.remove('hl'),1800);c.scrollIntoView({block:'nearest'});const i=c.querySelector('input[type=password]');i&&!i.value&&i.focus()}
 function connX(){$('mConn').hidden=true;PEND=null;$('mAsk').focus()}
-function card(r){const c=el('section','card'),h=el('header'),s=el('span','st'),u=el('ul','ml');c.id='mCd'+r.p;s.id='mKs'+r.p;u.id='mKl'+r.p;h.append(el('b',0,r.n));r.by&&h.append(el('small',0,r.by));h.append(s);c.append(h);
-  if(r.body)c.append(r.body,u);else if(r.ok)c.append(el('p',0,r.about||''),u);
-  else{const k=el('div','kf'),i=el('input'),e=el('button','ib'),m=el('p','ew'),g=el('p'),a=el('a',0,new URL(r.get).host+' ↗'),x=el('button','lk','Remove the key');
-    Object.assign(i,{type:'password',id:'mKey'+r.p,placeholder:'Paste an API key',autocomplete:'off',spellcheck:false,value:cfg(r.p).key});i.setAttribute('aria-label',r.n+' API key');
-    i.onchange=()=>keySet(r.p,i.value);i.onkeydown=v=>{v.key==='Enter'?(v.preventDefault(),i.blur()):v.key==='Escape'&&(v.preventDefault(),connX())};
-    e.title='Show or hide the key';e.innerHTML=IC.eye;e.onclick=()=>i.type=i.type==='password'?'text':'password';Object.assign(a,{href:r.get,target:'_blank',rel:'noopener'});
-    g.append((r.hint?r.hint+' ':'')+'Get a key at ',a);m.id='mKm'+r.p;x.id='mKx'+r.p;x.onclick=()=>{i.value='';keySet(r.p,'')};k.append(i,e);c.append(k,m);
-    if(r.p==='Glm'){const t=el('p');t.id='mEpGlm';t.hidden=true;c.append(t)}c.append(g);
-    if(r.p==='Glm'&&glmWeb()){const l=el('label','gr'),j=el('input');Object.assign(j,{type:'checkbox',id:'mGlmRelay',checked:GLMR});j.onchange=()=>glmRelaySet(j.checked);l.append(j,'Use Cloudflare relay');c.append(l,el('p',0,'When enabled, your GLM key and sent content pass through svguest’s Cloudflare Worker to Zhipu AI.'))}
-    c.append(u);if(r.p==='Glm'){const b=el('button','lk','Recheck connection');b.id='mKt'+r.p;b.onclick=()=>keySet(r.p,i.value,1);c.append(b)}c.append(x)}
+// card(r): the Models and keys card of service r. Its skeleton is in <template id="mCardT"> (header) and "mKeyT"
+// (key field, notes, Remove the key); a plugin service brings its own body, TBtools a line about itself.
+function card(r){
+  const c=$('mCardT').content.firstElementChild.cloneNode(true);
+  const[b,sm,s]=c.firstElementChild.children;
+  const u=el('ul','ml');
+  c.id='mCd'+r.p;
+  s.id='mKs'+r.p;
+  u.id='mKl'+r.p;
+  b.textContent=r.n;
+  if(r.by)sm.textContent=r.by;
+  else sm.remove();
+  if(r.body){
+    c.append(r.body,u);
+    return c}
+  if(r.ok){
+    c.append(el('p',0,r.about||''),u);
+    return c}
+  c.append($('mKeyT').content.cloneNode(true));
+  const i=c.querySelector('.kf input'),e=c.querySelector('.kf button'),m=c.querySelector('.ew'),g=m.nextElementSibling,a=g.firstElementChild,x=c.lastElementChild;
+  i.id='mKey'+r.p;
+  i.value=cfg(r.p).key;
+  i.setAttribute('aria-label',r.n+' API key');
+  i.onchange=()=>keySet(r.p,i.value);
+  i.onkeydown=v=>{
+    if(v.key==='Enter'){
+      v.preventDefault();
+      i.blur()}
+    else if(v.key==='Escape'){
+      v.preventDefault();
+      connX()}};
+  e.innerHTML=IC.eye;
+  e.onclick=()=>i.type=i.type==='password'?'text':'password';
+  a.href=r.get;
+  a.textContent=new URL(r.get).host+' ↗';
+  g.prepend((r.hint?r.hint+' ':'')+'Get a key at ');
+  m.id='mKm'+r.p;
+  x.id='mKx'+r.p;
+  x.onclick=()=>{
+    i.value='';
+    keySet(r.p,'')};
+  x.before(u);
+  if(r.p!=='Glm')return c;
+  // GLM only: the key's kind, the relay option (on the GitHub Pages site) and Recheck connection
+  const t=el('p');
+  t.id='mEpGlm';
+  t.hidden=true;
+  g.before(t);
+  if(glmWeb()){
+    const l=el('label','gr'),j=el('input');
+    Object.assign(j,{type:'checkbox',id:'mGlmRelay',checked:GLMR});
+    j.onchange=()=>glmRelaySet(j.checked);
+    l.append(j,'Use Cloudflare relay');
+    u.before(l,el('p',0,'When enabled, your GLM key and sent content pass through svguest’s Cloudflare Worker to Zhipu AI.'))}
+  const k=el('button','lk','Recheck connection');
+  k.id='mKt'+r.p;
+  k.onclick=()=>keySet(r.p,i.value,1);
+  x.before(k);
   return c}
 function connInit(){const C=$('mConn'),h=el('header'),x=el('button','ib'),B=el('div'),N=el('div'),L=el('p'),f=el('div','ft');x.id='mConnX';x.title='Back to the chat (Esc)';x.innerHTML=IC.back;x.onclick=connX;h.append(x,el('b',0,'Models and keys'));
   B.id='mConnB';N.id='mNow';L.id='mLead';B.append(N,L,...REG.map(card));

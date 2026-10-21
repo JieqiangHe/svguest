@@ -1,5 +1,5 @@
 ---
-name: svguest-release
+name: jh-svguest-release
 description: Release a new svguest version (vX.Y.Z): bump the version, rebuild the TBtools plugin, tag, move the release branch that GitHub Pages and www.svguest.online deploy from, and publish the GitHub Release with svguest.plugin and app.html. Use whenever the user asks to release, publish, ship, tag or deploy a new version of svguest, update the live site, or write release notes — even without saying "release".
 ---
 

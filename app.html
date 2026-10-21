@@ -2921,11 +2921,16 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{gw.style.willChange=view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog,.wm-evidence')||dlgOpen())return;e.preventDefault();if(t.closest('#mWm'))return;pdn||!root||A.all()});
+// SVG on the clipboard: image/svg+xml (some design apps), plain text starting with <svg or <?xml, or an inline <svg> copied from a web page
+// (text/html). The page must hold nothing but the drawing, so copying ordinary text that merely contains an icon pastes as before.
+const clipSvg=c=>{let t=c.getData('image/svg+xml')||c.getData('text/plain');if(/^\s*(<svg|<\?xml)/i.test(t))return t;const h=c.getData('text/html');if(!/<svg/i.test(h))return '';
+  const d=new DOMParser().parseFromString(h,'text/html'),v=d.querySelector('svg');if(!v)return '';const b=d.body.cloneNode(true);b.querySelectorAll('svg,style,script').forEach(x=>x.remove());if(b.textContent.trim())return '';
+  v.hasAttribute('xmlns')||v.setAttribute('xmlns','http://www.w3.org/2000/svg');return new XMLSerializer().serializeToString(v)};
 let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg),tf=[...e.clipboardData.files].filter(isTif);
   if(!f&&tf.length){e.preventDefault();return msg(tifM(tf))}
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
-  const t=e.clipboardData.getData('text/plain');
-  if(root&&!f&&t&&t!==lastOut&&/^\s*(<svg|<\?xml)/i.test(t)){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});
+  const t=clipSvg(e.clipboardData);
+  if(root&&!f&&t&&t!==lastOut){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});
 const opts={rulers:ls('sgRulers')!=='0',grid:ls('sgGrid')==='1',touch:ls('sgTouch')!=='0',auto:ls('sgAuto')!=='0'};
 function views(){document.body.classList.toggle('noR',!opts.rulers);grid();for(const o in opts)qa(o).classList.toggle('on',opts[o]);rulers();bars()}
 function toggle(o){opts[o]=!opts[o];ls('sg'+o[0].toUpperCase()+o.slice(1),opts[o]?1:0);views()}

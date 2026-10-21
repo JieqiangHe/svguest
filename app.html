@@ -638,7 +638,7 @@ let noM=0;const cfm=async(q,y,n='Cancel',x='')=>{if(!noM){const t=performance.no
   const d=$('mCf'),b=d.querySelectorAll('button');d.querySelector('p').textContent=q;b[0].textContent=y;b[1].textContent=n;d.returnValue='';d.onclick=e=>e.target.tagName==='BUTTON'&&d.close(e.target.value);d.showModal();return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'))},
   discard=async()=>!dirty||cfm('Discard changes that have not been exported?','Discard');
 const bzOn=async(s,t)=>{let i=0,n=0;while(n<3e4&&(i=s.indexOf('<',i)+1))n++;if(n<3e4&&s.length<8e6)return;const o=$('mBz');o.lastChild.textContent=t;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))},bzOff=()=>$('mBz').hidden=true;
-async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(!f||!imp&&!tabFresh())return;
+async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(f&&isTif(f))return msg(tifM([f]));if(!f||!imp&&!tabFresh())return;
   const t0=performance.now(),txt=await f.text();await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
   try{imp?doImport(txt,f.name):(load(txt,f.name),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
   const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms`)))}
@@ -1696,10 +1696,12 @@ function thumbs(){const rm=(e,a,i)=>(e.append(xb(()=>{a.splice(i,1);thumbs()},'R
 const shrink=(f,sz)=>new Promise((ok,no)=>{const m=new Image(),u=URL.createObjectURL(f);m.onerror=()=>{URL.revokeObjectURL(u);no(Error('Cannot read '+f.name))};
   m.onload=()=>{const r=sz?sz/max(m.width,m.height):min(1,1600/max(m.width,m.height)),c=cv(round(m.width*r),round(m.height*r)),g=c.getContext('2d');
     g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(m,0,0,c.width,c.height);URL.revokeObjectURL(u);let d=c.toDataURL('image/png');d.length>4e6&&(d=c.toDataURL('image/jpeg',.9));ok(d)};m.src=u});
-const isImg=f=>/^image\/(png|jpeg|gif|webp)$/.test(f.type);
+const isImg=f=>/^image\/(png|jpeg|gif|webp)$/.test(f.type),isTif=f=>/\.tiff?$/i.test(f.name)||f.type==='image/tiff',
+  tifM=L=>`${L.length>1?L.length+' TIFF files':L[0].name}: most browsers can't show TIFF, so ${L.length>1?'they':'it'} can't be placed; save ${L.length>1?'them':'it'} as PNG in ImageJ or Fiji (File › Save As › PNG; 16-bit pictures become 8-bit) and place ${L.length>1?'those':'that'}`;
 function note(t){msg(t);notes.push(t);thumbs();setTimeout(()=>{notes=notes.filter(x=>x!==t);thumbs()},8e3)}
 async function attach(fs){document.body.classList.contains('chat')||A.chat();
   for(const f of fs)try{if(isImg(f)){imgs.push(await shrink(f)),rq=1;continue}
+    if(isTif(f)){note(tifM([f]));continue}
     if(/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(f.name)||/^image\/(?!svg)/.test(f.type)){note(`${f.name}: can't read this type; attach an image or a plain-text file (save or copy the text as .txt)`);continue}
     const t=await f.text();if(/\0/.test(t.slice(0,4096))){note(`${f.name} is not a text file`);continue}
     files.push({n:f.name,t:t.slice(0,3e5)});t.length>3e5&&note(`${f.name} was cut to the first 300,000 characters`)}catch(e){note(e.message)}
@@ -2893,8 +2895,9 @@ for(const h of[1,0]){const b=$(h?'mSx':'mSy');b.onpointerdown=e=>{e.stopPropagat
   b.setPointerCapture(e.pointerId);b.classList.add('on');go(e);b.onpointermove=go;b.onpointerup=b.onpointercancel=()=>{sbR[+!h]=null;b.classList.remove('on');b.onpointermove=b.onpointerup=b.onpointercancel=null;bars()}}}
 addEventListener('resize',place);
 addEventListener('dragover',e=>e.preventDefault());
-addEventListener('drop',async e=>{e.preventDefault();const fs=[...e.dataTransfer.files],f=fs[0],r=view.getBoundingClientRect();if(f&&isImg(f))return fs.filter(isImg).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));
-  if(f&&(/\.tiff?$/i.test(f.name)||f.type==='image/tiff'))return msg(`${f.name}: most browsers can't show TIFF, so it can't be placed; save it as PNG in ImageJ or Fiji (File › Save As › PNG; 16-bit pictures become 8-bit) and place that`);if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
+addEventListener('drop',async e=>{e.preventDefault();const a=[...e.dataTransfer.files],tf=a.filter(isTif),fs=a.filter(f=>!isTif(f)),f=fs[0],r=view.getBoundingClientRect();
+  if(tf.length){msg(tifM(tf));if(!f)return;setTimeout(()=>msg(tifM(tf)),600)}
+  if(f&&isImg(f))return fs.filter(isImg).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
 addEventListener('beforeunload',e=>{if(dirty||TABS.some((t,i)=>i!==TI&&t.dirty)){e.preventDefault();e.returnValue=''}});
 addEventListener('keyup',e=>{if(e.key===' ')space=false});addEventListener('blur',()=>space=false);
 // Keys are read from e.key, which follows the keyboard layout (AZERTY and the like). When an input method is on, e.key
@@ -2918,7 +2921,8 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{gw.style.willChange=view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog,.wm-evidence')||dlgOpen())return;e.preventDefault();if(t.closest('#mWm'))return;pdn||!root||A.all()});
-let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg);
+let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg),tf=[...e.clipboardData.files].filter(isTif);
+  if(!f&&tf.length){e.preventDefault();return msg(tifM(tf))}
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=e.clipboardData.getData('text/plain');
   if(root&&!f&&t&&t!==lastOut&&/^\s*(<svg|<\?xml)/i.test(t)){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});

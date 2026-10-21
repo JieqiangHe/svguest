@@ -47,6 +47,8 @@ git ls-remote origin "refs/tags/$new" refs/heads/release refs/heads/main
 
 `release` and the tag's `^{}` must name the same commit. Never force-push `release` backwards without asking: that rolls the live site back.
 
+`release` is permanent: never delete it, and never offer it when cleaning up branches (only `claude/…` and other work branches go). If it is missing, recreate it at the latest tag's commit (`git push origin <tag>^{commit}:refs/heads/release`) and tell the user; the sites keep serving their last build meanwhile, but a rebuild would fail. A GitHub ruleset on `release` with only "Restrict deletions" guards it (not "Restrict updates", which would block step 3).
+
 ## 4. Release notes (confirm with the user first)
 
 Draft in English, short, in a file outside the repo (scratchpad), and show it to the user before publishing:

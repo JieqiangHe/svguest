@@ -2814,7 +2814,7 @@ $('mPop').addEventListener('change',e=>{const x=Pop.x,t=e.target;if(!x||!root)re
 $('mPopX').onclick=popX;
 $('mPop').querySelector('header').onpointerdown=e=>{if(e.target.closest('button'))return;const P=$('mPop'),h=e.currentTarget,dx=e.clientX-P.offsetLeft,dy=e.clientY-P.offsetTop;h.setPointerCapture(e.pointerId);
   h.onpointermove=m=>{P.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';P.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
-const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||t.type==='number'&&(t.value===''||isNaN(v)))return;stp({x:'Move',y:'Move',w:'Resize',h:'Resize',r:'Rotate',pw:'Page size',ph:'Page size',pg:'Page size',fs:'Font size',ff:'Font',tc:'Text colour',fill:'Fill',nofill:'No fill',stroke:'Stroke',nostroke:'No stroke',sw:'Stroke width',dash:'Line style',h0:'Start head',h1:'End head',k0:'Head size',k1:'Head size',op:'Opacity'}[f]||'');
+const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||t.type==='number'&&(t.value===''||!(abs(v)<1e7)))return;stp({x:'Move',y:'Move',w:'Resize',h:'Resize',r:'Rotate',pw:'Page size',ph:'Page size',pg:'Page size',fs:'Font size',ff:'Font',tc:'Text colour',fill:'Fill',nofill:'No fill',stroke:'Stroke',nostroke:'No stroke',sw:'Stroke width',dash:'Line style',h0:'Start head',h1:'End head',k0:'Head size',k1:'Head size',op:'Opacity'}[f]||'');
   if(ed){if(/^(fs|ff|tc)$/.test(f)&&part()){f==='fs'?v>0&&restyleSize(v):f==='ff'?t.value.trim()&&restyle(s=>setRun(s,'font-family',fam(t.value.trim()),'fontFamily')):restyle(s=>setRun(s,'fill',t.value,'color'));
     t.type==='color'&&(t.blur(),edFocus());return}finish(true)}
   if(f==='pg'){t.blur();if(!t.value)return;let[w,h]=t.value.split(',').map(Number);if(vb.w>vb.h&&w<h)[w,h]=[h,w];return setPage(vb.x,vb.y,w/U,h/U)}
@@ -2829,7 +2829,7 @@ const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||
   else if(f==='ff')t.value.trim()&&selTexts().forEach(x=>setFont(x,'font-family',fam(t.value.trim())));
   else if(f==='tc')selTexts().forEach(x=>{setSt(x,'fill',t.value);kids(x,'fill')});
   else if(/^(no)?(fill|stroke)$/.test(f)){const p=f.replace('no',''),n=F['no'+p];f===p&&(n.checked=false);styleSet(p,n.checked?'none':F[p].value)}
-  else if(f==='sw'){styleSet('stroke-width',e=>f6(v/(sc(ctm(e))*U*PT)));F.dash.value&&styleSet('stroke-dasharray',dash)}
+  else if(f==='sw'){styleSet('stroke-width',e=>f6(max(0,v)/(sc(ctm(e))*U*PT)));F.dash.value&&styleSet('stroke-dasharray',dash)}
   else if(f==='dash')styleSet('stroke-dasharray',dash);
   else if(f==='h0'||f==='h1')headSet(+f[1],t.value);
   else if(f==='k0'||f==='k1')v>0&&heads(round(v),hlk?[0,2]:[f==='k0'?0:2]);

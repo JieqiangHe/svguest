@@ -1640,7 +1640,7 @@ const FGD={
     place(f,t,b){const q=this.q(f,b);if(!q)return;const P=fgPos(f),o=fgV(f.parentNode,+P[1]||0,+P[2]||0);fgMv(f,q[0]+o.x-q[2],q[1]+o.y-q[3])},
     read(f,t,b){const q=this.q(f,b);if(!q)return;const P=fgPos(f),[x,y]=fgMm(f.parentNode,q[2]-q[0],q[3]-q[1]);(abs(x-(+P[1]||0))>1e-4||abs(y-(+P[2]||0))>1e-4)&&sa(f,FGP,fgS([P[0]||'at',+x.toFixed(4),+y.toFixed(4)]))}},
   frame:{sig:(f,t,b)=>fgS([b.x,b.y,b.w,b.h,f.getAttribute(FGP)||'',parseFloat(gcs(f).strokeWidth)||0]),
-    r(f,b){const P=fgPos(f),w=parseFloat(gcs(f).strokeWidth)||0,e=(P[0]==='out'?w/2:P[0]==='mid'?0:-w/2)+fgL(f.parentNode,+P[1]||0);return[b.x-e,b.y-e,b.w+2*e,b.h+2*e].map(fc)},
+    r(f,b){const P=fgPos(f),w=parseFloat(gcs(f).strokeWidth)||0,e=(P[0]==='out'?w/2:P[0]==='mid'?0:-w/2)+fgL(f.parentNode,+P[1]||0);return[b.x-e,b.y-e,max(0,b.w+2*e),max(0,b.h+2*e)].map(fc)},
     place(f,t,b){const r=this.r(f,b);sa(f,'transform',null);RN.forEach((n,i)=>sa(f,n,r[i]))},
     read(f,t,b){const r=this.r(f,b);(f.hasAttribute('transform')||RN.some((n,i)=>!fgEq(f.getAttribute(n),r[i])))&&(fgOff(f),FG.m='A frame moved on its own no longer follows its panel; it is a plain rectangle now')}},
   bar:{box:(f,[t])=>{const i=fgImg(t),b=i&&fgBox(i,f.parentNode),c=b&&tb(fgCR(i),ctm(f.parentNode).inverse().multiply(ctm(i)));if(!c)return b;
@@ -2012,6 +2012,7 @@ function svgOf(t,partial){let s=(/<svg[\s\S]*<\/svg>/i.exec(t)||[])[0]||partial&
 // put(svg,open): Insert copy, or open as a new tab
 function put(s,open){if(open){if(!tabFresh())return;load(s,'ai.svg');setTimeout(()=>asNow(1),300);return msg('Opened the AI figure in a new tab')}
   const o=aiG&&root.contains(aiG)?aiG:null,b=o&&bbox(o);
+  stp(o?'Replace AI figure':'Place AI figure');
   once(()=>{if(o){o.contains(ctx)&&(ctx=o.parentNode);o.remove()}doImport(s,'ai');aiG=sel[0];const n=b&&bbox(aiG);n&&(applyM(T(b.x-n.x,b.y-n.y)),commit())});
   msg(o?'Replaced the AI figure (Ctrl+Z to undo)':'Placed the AI figure (Ctrl+Z to undo)');selChip()}
 // patch(t): applies a <patch> reply to aiG as one step
@@ -2025,6 +2026,7 @@ function patch(t){const m=/<patch[\s>][\s\S]*?(<\/patch>|$)/i.exec(t);if(!m)retu
   const fid=id=>id&&pool.get(id),ids=e=>new Set([e,...e.querySelectorAll('[id]')].map(x=>x.id).filter(Boolean)),
     imp=(x,ok)=>{const n=document.importNode(x,true);for(const y of[n,...n.querySelectorAll('[id]')])y.id&&!ok.has(y.id)&&byId(y.id)&&(y.id=uid(y.localName));return n};
   let n=0;
+  stp('Edit AI figure');
   once(()=>{for(const c of[...P.children]){const tg=c.localName;
       if(tg==='delete'){for(const id of(c.getAttribute('ids')||'').split(/[\s,]+/)){const e=fid(id);if(e&&e!==aiG){e.contains(ctx)&&(ctx=e.parentNode);drop(e);e.remove();n++}}}
       else if(tg==='add'){const a=fid(c.getAttribute('after')),bf=fid(c.getAttribute('before')),ns=[...c.children].map(x=>imp(x,new Set));a&&a!==aiG?a.after(...ns):bf&&bf!==aiG?bf.before(...ns):aiG.append(...ns);ns.forEach(reg);n+=ns.length}

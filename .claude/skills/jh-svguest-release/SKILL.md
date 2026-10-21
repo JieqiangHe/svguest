@@ -27,7 +27,7 @@ sed -i "s/$old/$new/g" app.html index.html # macOS: sed -i ''
 grep -c "$new" app.html index.html        # expect 2 and 2
 ```
 
-Don't touch README's Releasing section (it names `v1.0.0` only as an example). The plugin has no version field of its own; it carries `app.html`, so rebuild it:
+The README carries no release steps (the user wants it short); this skill is the only place for them. The plugin has no version field of its own; it carries `app.html`, so rebuild it:
 
 ```bash
 bash .claude/skills/jh-html-to-tbtools-plugin/scripts/svguest-repack.sh .

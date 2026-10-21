@@ -15,12 +15,3 @@ A tiny SVG editor for scientific figures, in one HTML file. Touch up figures fro
 https://github.com/user-attachments/assets/a6501747-b90a-4e66-8a97-4ff731155efa
 
 Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.
-
-## Releasing
-
-The site deploys from the `release` branch, so it changes only when a version is released:
-
-1. Update the version (`v1.0.0`) in `app.html` and `index.html`, rebuild `svguest.plugin`, and commit to `main`.
-2. `git tag -a vX.Y.Z -m "svguest vX.Y.Z"` and `git push origin vX.Y.Z`.
-3. `git push origin main:release` (GitHub Pages and the svguest.online mirror follow `release`).
-4. `gh release create vX.Y.Z svguest.plugin app.html --title "svguest vX.Y.Z" --notes-file notes.md --latest`

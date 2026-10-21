@@ -591,23 +591,35 @@ let Pop={x:null,m:[]}; // 56 Layers window: x the object shown, m the sections i
 // fm/fc/f6 format numbers for output; mk builds SVG elements, el HTML ones; uid/reid keep ids unique;
 // order() sorts into document order (an index map from 64 elements on).
 let idn=0; // uid's counter
+// fm: 8 significant digits, fc: fixed to 1e-5, f6: 6 digits, as attribute strings
 const fm=v=>abs(v)<1e-9?'0':String(+v.toPrecision(8)),fc=v=>String(+v.toFixed(5)||0),f6=v=>String(+v.toPrecision(6));
+// mmOf: a length with its unit ('10mm', '72pt') in mm, else null; unitOf(svg,w): mm per user unit from its width
 const mmOf=s=>{const m=/^\s*([\d.eE+-]+)\s*([a-z]*)\s*$/.exec(s||'');return m&&UNIT[m[2]]!=null?m[1]*UNIT[m[2]]:null};
 const unitOf=(s,w)=>(mmOf(s.getAttribute('width'))||w*25.4/96)/w;
+// msg: the status line's message; posT: the pointer position readout
 const msg=t=>$('mMsg').textContent=t,posT=s=>{const p=$('mPos'),n=max(14,Math.ceil(s.length*.92));p._n!==n&&(p._n=n,p.style.width=n+'ch',$('mRt').style.paddingLeft=`calc(${n}ch + 8px)`);p.textContent=s};
+// byId: getElementById that allows an empty id; refId: the id inside url(#id), else undefined
 const byId=i=>i&&document.getElementById(i);
 const refId=v=>(v&&/url\(\s*['"]?#([^'")]+)/.exec(v)||[])[1];
+// setA: sets an attribute, a prefixed one (xlink:href) in its namespace; mk(tag,attrs,parent,text): a new SVG element
 function setA(e,n,v){const i=n.indexOf(':');i>0?e.setAttributeNS(NS[n.slice(0,i)],n,v):e.setAttribute(n,v)}
 function mk(t,a,p,txt){const e=document.createElementNS(NS.svg,t);for(const n in a)setA(e,n,a[n]);if(txt!=null)e.textContent=txt;p&&p.appendChild(e);return e}
+// el(tag,class,text): a new HTML element; btn(text,onclick,title); cv(w,h): a canvas; qa(a): the [data-a=a] button,
+// cached; ls(n,v): read or write localStorage, errors ignored
 const el=(t,c,x)=>{const e=document.createElement(t);c&&(e.className=c);x!=null&&(e.textContent=x);return e},btn=(t,f,ti)=>{const e=el('button',0,t);e.onclick=f;ti&&(e.title=ti);return e},
   cv=(w,h)=>Object.assign(el('canvas'),{width:w,height:h}),QA={},qa=a=>{const e=QA[a];return e&&e.isConnected?e:QA[a]=document.querySelector(`[data-a=${a}]`)},ls=(n,v)=>{try{return v==null?localStorage[n]:localStorage[n]=v}catch(_){}};
+// isG: a graphic SVG element (GR); isGrp: g, a or switch; isLayer: an Inkscape layer; top_(c): root or a layer
 const GRS=new Set(GR.source.slice(2,-2).split('|')),GPS=new Set(['g','a','switch']),isG=e=>e&&e.namespaceURI===NS.svg&&GRS.has(e.localName);
 const isGrp=e=>GPS.has(e.localName);
 const isLayer=e=>e.localName==='g'&&e.getAttributeNS(NS.inkscape,'groupmode')==='layer';
 const top_=c=>c===root||isLayer(c);
+// uid(p): a fresh id p<n>; reid(n,M): new ids in n's subtree, its url(#) references relinked (M: one map for several)
 const uid=p=>{while(byId(p+ ++idn));return p+idn},reid=(n,M)=>{const m=M||new Map();for(const x of[n,...n.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=uid(x.localName));M||m.size&&relink([n],m);return n};
+// fk(f,p): p's first child matching f; defs(): root's <defs>, made if missing;
+// xns(p): declares namespace p on root
 const fk=(f,p=root)=>{for(let e=p.firstElementChild;e;e=e.nextElementSibling)if(f(e))return e},defs=()=>fk(e=>e.localName==='defs')||root.insertBefore(mk('defs',{id:uid('defs')}),fk(isG)||null);
 const xns=p=>root.hasAttribute('xmlns:'+p)||root.setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:'+p,NS[p]);
+// order(a): a without duplicates, in document order; add(a,b): pushes b's items onto a
 const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y)=>x.compareDocumentPosition(y)&4?-1:1);
   const ix=new Map(u.map(e=>[e,-1])),w=document.createTreeWalker(root,1);let i=0;for(let n=root;n&&i<u.length;n=w.nextNode())ix.has(n)&&ix.set(n,i++);return u.sort((x,y)=>ix.get(x)-ix.get(y))},
   add=(a,b)=>{for(const x of b)a.push(x);return a};
@@ -617,24 +629,35 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
 // rotate methods round through float32 and would drift. lm(e) parses e's transform attribute (the shared identity
 // I0 when there is none, so never mutate its result); ctm(e) is the product up to the document root; setT writes
 // a matrix back in the shortest form.
+// mx(a…f), T(x,y), S(x,y=x), Rot(degrees), about(M,x,y): M about the point (x,y)
 const mx=(a,b,c,d,e,f)=>new DOMMatrix([a,b,c,d,e,f]),T=(x,y)=>mx(1,0,0,1,x,y),S=(x,y=x)=>mx(x,0,0,y,0,0),about=(M,x,y)=>T(x,y).multiply(M).multiply(T(-x,-y)),
   Rot=g=>{const r=g*PI/180,c=cos(r),s=sin(r);return mx(c,s,-s,c,0,0)},tan=g=>Math.tan(g*PI/180);
+// lm(e): e's own transform in double precision; the shared I0 when it has none, so never mutate the result
 const lm=e=>lms(e.getAttribute&&e.getAttribute('transform'));
 const I0=new DOMMatrix();function lms(s){if(!s)return I0;const m=new DOMMatrix();
   for(const[,f,a]of s.matchAll(/(\w+)\s*\(([^)]*)\)/g)){const v=(a.match(/[-+]?(\d*\.\d+|\d+\.?)(e[-+]?\d+)?/gi)||[]).map(Number),[x,y=0,z=0]=v;
     m.multiplySelf(f==='matrix'&&v.length===6?mx(...v):f==='translate'?T(x,y):f==='scale'?S(x,v.length>1?y:x):f==='rotate'?about(Rot(x),y,z):f==='skewX'?mx(1,0,tan(x),1,0,0):f==='skewY'?mx(1,tan(x),0,1,0,0):T(0,0))}
   return m}
+// ctm(e): the transform from e's coordinates to root's, ancestors without a transform skipped
 function ctm(e){const m=new DOMMatrix();for(;e&&e!==root;e=e.parentNode){const t=e.getAttribute&&e.getAttribute('transform');t&&m.preMultiplySelf(lms(t))}return m}
+// sc(m): m's scale (√
+// det
+// ); ang(e): e's rotation in degrees, counterclockwise; q45(x,y): the vector at a 45° step, and the step
 const sc=m=>Math.sqrt(abs(m.a*m.d-m.b*m.c)),ang=e=>{const m=ctm(e);return-atan2(m.b,m.a)*180/PI},q45=(x,y)=>{const a=round(atan2(y,x)/(PI/4)),r=hypot(x,y);return[r*cos(a*PI/4),r*sin(a*PI/4),a]};
+// tStr(m): m as a transform attribute (null for the identity, translate() when only moved); setT writes it or removes it
 const tStr=m=>{const v=[fm(m.a),fm(m.b),fm(m.c),fm(m.d),fc(m.e),fc(m.f)];return v.join()==='1,0,0,1,0,0'?null:v.slice(0,4).join()==='1,0,0,1'?`translate(${v[4]},${v[5]})`:`matrix(${v})`};
 function setT(e,m){const t=tStr(m);t?e.setAttribute('transform',t):e.removeAttribute('transform')}
+// Boxes are {x,y,w,h} (rb). pb(points,m) and tb(box,m): the box of the points or of a box under m; un, isect:
+// union and intersection (null when empty)
 const rb=(x,y,w,h)=>({x,y,w,h});
 function pb(p,m){let x=1/0,y=x,X=-x,Y=-x;for(const[a,b]of p){const q=m.transformPoint({x:a,y:b});x=min(x,q.x);y=min(y,q.y);X=max(X,q.x);Y=max(Y,q.y)}return rb(x,y,X-x,Y-y)}
 const tb=(b,m)=>b&&pb([[b.x,b.y],[b.x+b.w,b.y],[b.x,b.y+b.h],[b.x+b.w,b.y+b.h]],m);
 function un(a,b){if(!a||!b)return a||b;const x=min(a.x,b.x),y=min(a.y,b.y);return rb(x,y,max(a.x+a.w,b.x+b.w)-x,max(a.y+a.h,b.y+b.h)-y)}
 function isect(a,b){const x=max(a.x,b.x),y=max(a.y,b.y),w=min(a.x+a.w,b.x+b.w)-x,h=min(a.y+a.h,b.y+b.h)-y;return w<0||h<0?null:rb(x,y,w,h)}
+// memoize(f): runs f with parent matrices (pm) and clip boxes (cached) computed once; nested calls share it
 let memo=null;
 const cached=(m,key,f)=>{if(!memo)return f();const c=memo[m];c.has(key)||c.set(key,f());return c.get(key)},memoize=f=>{if(memo)return f();memo={c:new Map(),k:new Map()};try{return f()}finally{memo=null}};
+// clipOf(e): e's clipPath; hcp(e): a clipped child of group e (cached per dv); fb(e,V): e's native box in user units
 const clipOf=e=>{const c=byId(refId(e.getAttribute('clip-path')||e.style.clipPath));return c&&c.getAttribute('clipPathUnits')!=='objectBoundingBox'&&c};
 const cq=new WeakMap,hcp=e=>{const c=cq.get(e);if(c&&c[0]===dv)return c[1];const r=!!e.querySelector('[clip-path]');cq.set(e,[dv,r]);return r},
   fb=(e,V)=>{if(isGrp(e)||e.hasAttribute('clip-path')||e.style.clipPath)return bbox(e);const r=e.getBoundingClientRect(),s=Z*k;return r.width||r.height?rb((r.left-V.left-tx)/s+vb.x,(r.top-V.top-ty)/s+vb.y,r.width/s,r.height/s):null};
@@ -665,26 +688,35 @@ function mbox(e,M){if(!M.b&&!M.c||!M.a&&!M.d||isGrp(e)&&e.getElementsByTagName('
   const cp=b&&clipOf(e);
   if(cp){let c=null;const K=M.multiply(lm(cp));for(const r of cp.children)if(isG(r))c=un(c,mbox(r,K.multiply(lm(r))));if(c)b=isect(b,c)}
   return b}
+// pm(e): ctm of e's parent (memoized); bbox(e): e's box in root's user units, without stroke, or null
 const pm=e=>cached('c',e.parentNode,()=>ctm(e.parentNode)),bbox=e=>mbox(e,e.hasAttribute('transform')?pm(e).multiply(lm(e)):pm(e));
+// applyM(M,els): moves els by M, given in root's coordinates; a connector moved without its object loses that end
 function applyM(M,els=sel){lkDet(els);const c=new Map;for(const e of els){const p=e.parentNode,Q=c.get(p)||(P=>(c.set(p,P=P.inverse().multiply(M).multiply(P)),P))(ctm(p));setT(e,Q.multiply(lm(e)))}}
 
 // ══ 03 Styles ════
 // setSts writes style properties in place (order kept) and drops the matching presentation attributes;
 // styleSet colours the selection's leaves.
+// stGet(e,p): property p from the style attribute, else the presentation attribute
 function stGet(e,p){const m=new RegExp('(?:^|;)\\s*'+p+'\\s*:([^;]*)').exec(e.getAttribute('style')||'');return m?m[1].trim():e.getAttribute(p)}
+// setSt(e,p,v), setSts(e,[[p,v]…]): write style properties in place (null removes) and drop the presentation attributes
 const setSt=(e,p,v)=>setSts(e,[[p,v]]);
 function setSts(e,kv){const m=new Map(kv),o=[],done=new Set;
   for(const d of(e.getAttribute('style')||'').split(';')){const i=d.indexOf(':');if(i<0)continue;const nm=d.slice(0,i).trim();if(!m.has(nm))o.push(d.trim());else if(!done.has(nm)){const v=m.get(nm);v!=null&&o.push(nm+':'+v);done.add(nm)}}
   for(const[nm,v]of m)done.has(nm)||v==null||o.push(nm+':'+v);o.length?e.setAttribute('style',o.join(';')):e.removeAttribute('style');for(const nm of m.keys())e.removeAttribute(nm)}
 function kids(t,p,rel){for(const c of t.getElementsByTagName('tspan')){const v=stGet(c,p);if(v!=null&&!(rel&&/%|em$/.test(v)))setSt(c,p,null)}}
 function noTL(t){for(const x of[t,...t.getElementsByTagName('tspan')]){x.removeAttribute('textLength');x.removeAttribute('lengthAdjust')}}
+// texts(): the document's texts outside defs, clipPath, marker…; selTexts(): the selected ones, inside groups too;
+// tsize(t): its size in pt on the page
 const texts=()=>{const a=[...root.getElementsByTagName('text')],x=new Set;if(a.length<2e3)return a.filter(t=>!t.closest('defs,clipPath,mask,marker,pattern,symbol'));for(const n of['defs','clipPath','mask','marker','pattern','symbol'])for(const c of root.getElementsByTagName(n))for(const t of c.getElementsByTagName('text'))x.add(t);return x.size?a.filter(t=>!x.has(t)):a};
 const selTexts=()=>sel.flatMap(e=>e.localName==='text'?[e]:[...e.getElementsByTagName('text')]);
 const tsize=t=>parseFloat(gcs(t).fontSize)*sc(t.hasAttribute('transform')?pm(t).multiply(lm(t)):pm(t))*U*PT;
+// setSize(t,pt): t's font-size so it shows at pt; setFont(t,p,v): a font property, Inkscape's font specification cleared
 function setSize(t,pt){if(!(pt>0))return;setSt(t,'font-size',f6(pt/(sc(ctm(t))*U*PT))+'px');kids(t,'font-size',1);noTL(t);relines(t)}
 function setFont(t,p,v){setSt(t,p,v);setSt(t,'-inkscape-font-specification',null);kids(t,p);kids(t,'-inkscape-font-specification');noTL(t)}
+// family(cs): the first family of a computed style; fam(f): quoted when it has spaces; hex(c): rgb() as #rrggbb
 const family=cs=>cs.fontFamily.split(',')[0].replace(/["']/g,''),fam=f=>/\s/.test(f)&&!/^['"]/.test(f)?`'${f}'`:f;
 const hex=c=>{const m=/rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c);return m?'#'+m.slice(1,4).map(x=>(+x).toString(16).padStart(2,'0')).join(''):'#000000'};
+// sLv(p,v): the leaves styleSet(p,v) changes; styleSet sets p to v (or v(leaf)) on the selection's leaves
 const sLv=(p,v)=>{const no=/^(fill|stroke)$/.test(p)&&v!=='none',own=new Set(sel);return sel.flatMap(e=>isGrp(e)?[...e.querySelectorAll(LEAF)]:[e]).filter(e=>!no||own.has(e)||gcs(e)[p]!=='none')};
 function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v);
   L.forEach((e,i)=>{setSt(e,p,vs[i]);e.localName==='text'&&kids(e,p)})}
@@ -696,23 +728,29 @@ function styleSet(p,v){const L=sLv(p,v),vs=L.map(e=>typeof v=='function'?v(e):v)
 // commit made inside f into a single step. Untouched elements must serialise byte-identical, so nothing here
 // rewrites attributes it did not change.
 let mo,pend=[]; // the MutationObserver on root; its records not yet committed
+// flush(): moves the observer's records into pend and returns their count; quiet(f): runs f unrecorded
 const flush=()=>(add(pend,mo.takeRecords()),pend.length);
 function quiet(f){flush();f();mo.takeRecords()}
 const hasT=n=>n.nodeType===1&&(/^(text|tspan|style)$/.test(n.localName)||!!n.querySelector('text,style')),
   tHit=rs=>rs.length>500||rs.some(r=>r.type==='childList'?r.target.closest('text,style')||[...r.addedNodes,...r.removedNodes].some(hasT):r.type==='characterData'?r.target.parentNode?.closest('style'):!(r.attributeName==='transform'&&(a=>(b=>a.a===b.a&&a.b===b.b&&a.c===b.c&&a.d===b.d)(lm(r.target)))(lms(r.oldValue))||TNA.has(r.attributeName))&&hasT(r.target));
 let hold=0;const TNA=new Set(['x','y','dx','dy','rotate','textLength','lengthAdjust','id']);
-// why: the next step's name; svd: the undo top at the last save or load; dv: document version; svn: structure version
+// why: the next step's name; svd: the undo top at the last save or load; dv: document version; svn: structure version; stp(n) names it until this task ends
 let why='',svd=null,dv=0,svn=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
+// guess(records): a step name from what changed (Edit text, Add, Delete, Transform, Style…)
 const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='childList'?(a+=r.addedNodes.length,d+=r.removedNodes.length):r.type==='characterData'?t++:s.add(r.attributeName);
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
+// trim keeps 200 steps; merge joins the last two; once(f,j): all commits inside f make one step (j: join the last one)
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
+// commit(sync): closes pend into one named step after lnk() and fgSync() (sync false skips them), then refreshes
 function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+// revert(records): plays them backwards
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
   else if(m.type==='characterData')t.data=m.oldValue;
   else{m.addedNodes.forEach(n=>n.remove());m.removedNodes.forEach(n=>t.insertBefore(n,m.nextSibling))}}}
 const mvs=rs=>{let n=0;for(const m of rs)m.type==='childList'&&(n+=m.addedNodes.length+m.removedNodes.length);return n},dtch=f=>{const p=root.parentNode,n=root.nextSibling;root.remove();try{f()}finally{p.insertBefore(root,n)}};
+// undo(r,q): one step back (r: forward); q: quietly, for History's jumps
 function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[];redos=[]}
   const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
@@ -748,10 +786,13 @@ const blank=(w,h)=>`<svg width="${w}mm" height="${h}mm" viewBox="0 0 ${w} ${h}" 
   <defs id="defs1"/>
   <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1"/>
 </svg>`;
+// relink(nodes,map): rewrites url(#id) and href references in nodes, old id → new
 function relink(ns,map){if(!map.size)return;const fix=v=>v.replace(/url\(\s*(['"]?)#([^'")]+)\1\s*\)/g,(m,q,i)=>map.has(i)?`url(#${map.get(i)})`:m).replace(/^#(.+)$/,(m,i)=>map.has(i)?'#'+map.get(i):m);
   for(const n of ns)for(const e of[n,...n.getElementsByTagName('*')]){for(const n of e.getAttributeNames()){const o=e.getAttribute(n);if(o[0]==='#'||o.includes('url(')){const v=fix(o);v!==o&&e.setAttribute(n,v)}}
     if(e.localName==='style'){const v=fix(e.textContent);v!==e.textContent&&(e.textContent=v)}}}
+// pfx(nodes,c): gives their ids a fresh prefix c<n>_ so an import can't collide; returns [prefix, map]
 const pfx=(ns,c)=>{let n=1;while(root.querySelector(`[id^="${c}${n}_"]`))n++;const m=new Map;for(const d of ns)for(const x of[d,...d.querySelectorAll('[id]')])x.id&&m.set(x.id,x.id=c+n+'_'+x.id);relink(ns,m);return[c+n+'_',m]};
+// doImport(txt,name): adds an SVG as one group, its defs moved into the document's
 function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement),[pre,pm]=pfx([...r.children],'i');lkCut([...r.children],pm);
   const b=r.viewBox.baseVal,hv=r.hasAttribute('viewBox'),uI=hv?unitOf(r,b.width):25.4/96,
     g=mk('g',{id:pre+'g','inkscape:label':nm.replace(/\.svg$/i,'')}),p=curParent();
@@ -760,25 +801,32 @@ function doImport(txt,nm){const r=document.adoptNode(parse(txt).documentElement)
   for(const l of[...g.getElementsByTagName('g')])isLayer(l)&&l.removeAttributeNS(NS.inkscape,'groupmode');
   setT(g,ctm(p).inverse().multiply(T(vb.x,vb.y)).multiply(S(uI/U)).multiply(T(hv?-b.x:0,hv?-b.y:0)));
   p.appendChild(g);fgCut([g],pm);ctx=p;setSel([g],1);commit();cmykChk(g)}
+// cfm(q,yes,no,x): an async confirm; where the host blocks confirm() (noM), the #mCf dialog. discard(): may the
+// open document be dropped
 let noM=0;const cfm=async(q,y,n='Cancel',x='')=>{if(!noM){const t=performance.now(),r=confirm(q+x);if(r||performance.now()-t>30)return r;noM=1}
   const d=$('mCf'),b=d.querySelectorAll('button');d.querySelector('p').textContent=q;b[0].textContent=y;b[1].textContent=n;d.returnValue='';d.onclick=e=>e.target.tagName==='BUTTON'&&d.close(e.target.value);d.showModal();return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'))},
   discard=async()=>!dirty||cfm('Discard changes that have not been exported?','Discard');
 const bzOn=async(s,t)=>{let i=0,n=0;while(n<3e4&&(i=s.indexOf('<',i)+1))n++;if(n<3e4&&s.length<8e6)return;const o=$('mBz');o.lastChild.textContent=t;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))},bzOff=()=>$('mBz').hidden=true;
+// readFile(f,imp): opens a file in a tab, or imports it (imp); pictures are placed
 async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(f&&isTif(f))return msg(tifM([f]));if(!f||!imp&&!tabFresh())return;
   const t0=performance.now(),txt=await f.text();await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
   try{imp?doImport(txt,f.name):(load(txt,f.name),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
   const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms`)))}
+// curParent(): where new objects go: ctx, outside clipped groups, else the current layer
 const upc=c=>{while(c!==root&&clipOf(c))c=c.parentNode;return c};
 function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.children].find(e=>e.localName==='namedview'),l=nv&&byId(nv.getAttributeNS(NS.inkscape,'current-layer'));
   return l&&root.contains(l)&&isLayer(l)?l:[...root.children].reverse().find(isLayer)||root}
 // ══ 06 Export ════
 // outName stamps names (_YYMMDD_HHMMSS, old stamps stripped); png() renders on white and writes the dpi
 // (pHYs, JFIF); pdf() prints a hidden iframe.
+// stamp(t): YYMMDD_HHMMSS in local time; outName(ext,tag): name[_tag]_stamp.ext, lower case
 const stamp=t=>{const d=t?new Date(t):new Date(),j=a=>a.map(x=>String(x).padStart(2,'0')).join('');return j([d.getFullYear()%100,d.getMonth()+1,d.getDate()])+'_'+j([d.getHours(),d.getMinutes(),d.getSeconds()])};
 const outName=(ext,tag='')=>(name.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+(tag?'_'+tag:'')+'_'+stamp()+ext).toLowerCase();
+// svgRaw(): the document as text without ending an edit (autosave); svgText() is for exports
 const svgRaw=()=>'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n';
 // Export: svgText() ends any text edit and colour preview, then serialises the document with its prolog.
 function svgText(){finish(true);cpEnd();return svgRaw()}
+// dl(blob,name): downloads it
 function dl(b,n){const a=Object.assign(el('a'),{href:URL.createObjectURL(b),download:n});a.click();setTimeout(()=>URL.revokeObjectURL(a.href),6e4)}
 function phys(b,dpi){const c=new Uint8Array(21),v=new DataView(c.buffer),p=round(dpi/0.0254);let r=-1;
   v.setUint32(0,9);c.set([112,72,89,115],4);v.setUint32(8,p);v.setUint32(12,p);c[16]=1;
@@ -802,7 +850,9 @@ async function png(dpi,j){const f=j?'JPG':'PNG',W=round(vb.w*U/25.4*dpi),Hh=roun
 // Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
 // #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
 let Z=1,k=1,tx=0,ty=0,zt; // Z: scale set by Fit; k: zoom, #mStage's CSS scale; tx,ty: pan in px; zt: unused
+// vp(e): the pointer in view px; cmd(e): Ctrl or ⌘ held
 const vp=e=>{const r=view.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]},cmd=e=>e.ctrlKey||e.metaKey;
+// toU([x,y]): view px to user units; toS({x,y}): user units to view px
 const toU=p=>({x:(p[0]-tx)/(Z*k)+vb.x,y:(p[1]-ty)/(Z*k)+vb.y}),toS=q=>[tx+(q.x-vb.x)*Z*k,ty+(q.y-vb.y)*Z*k];
 function size(){stage.style.width=vb.w*Z+'px';stage.style.height=vb.h*Z+'px';grid()}
 function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opts.grid||!root)return;
@@ -813,9 +863,11 @@ function grid(){const gr=$('mGrid');gr.style.display=opts.grid?'':'none';if(!opt
 function place(){stage.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;stage._k!==k&&(stage._k=k,$('mPage').style.setProperty('--k',k),$('mGrid').style.setProperty('--k',k));ed&&!ed.sd&&Object.assign(ed.d.style,{left:tx+ed.o[0]+'px',top:ty+ed.o[1]+'px'});hud();bars();bkB();sbWake();zUI()}
 const bkB=()=>{const b=$('mBk');if(!root)return b.hidden=true;const o=opts.rulers?RW:0,W=view.clientWidth,H=view.clientHeight,w=vb.w*Z*k,h=vb.h*Z*k,ix=max(0,min(W,tx+w)-max(o,tx)),iy=max(0,min(H,ty+h)-max(o,ty));b.hidden=ix*iy>=.5*min(w*h,(W-o)*(H-o))};
 function ctrPg(){const o=opts.rulers?RW:0;tx=o+(view.clientWidth-o-vb.w*Z*k)/2;ty=o+(view.clientHeight-o-vb.h*Z*k)/2;place();msg('Back to the page')}
+// syncPage(): rereads viewBox and U; setPage(x,y,w,h): resizes the page (undoable)
 function syncPage(){const b=root.viewBox.baseVal,u=unitOf(root,b.width);if(b.x===vb.x&&b.y===vb.y&&b.width===vb.w&&b.height===vb.h&&u===U)return;
   vb=rb(b.x,b.y,b.width,b.height);U=u;ghost.setAttribute('viewBox',root.getAttribute('viewBox'));fit()}
 function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('viewBox',[x,y,w,h].map(fm).join(' '));root.setAttribute('width',fm(w*U)+'mm');root.setAttribute('height',fm(h*U)+'mm');commit()}
+// fit(): the page to the window (sets Z); zoomAt(p,f): zooms by f about view point p (k only)
 function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min((r.width-o-40)/vb.w,(r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
 function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;place();clearTimeout(zt);zt=setTimeout(grid,250)}
 
@@ -823,12 +875,15 @@ function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;p
 // sel is the selected elements; ctx is the group the selection lives in (Esc climbs it). setSel filters locked
 // elements and calls refresh(), which recomputes the selection box (sb), handles and the side panel.
 let sb=null,sbs=[],cb=null; // the selection's box; each selected object's box (2 to 200); the box of ctx
+// setSel(a,q): selects a, locked ones dropped; q skips refresh()
 function setSel(a,q){CR&&!(a.length===1&&a[0]===CR.s)&&cropOK();const s=new Set(a);(s.size!==sel.length||sel.some(e=>!s.has(e)))&&(ped=null);sel=[...s].filter(e=>{for(let p=e.parentNode;p&&p!==root;p=p.parentNode)if(s.has(p))return false;return true});q||refresh()}
+// bar(): menu states, undo names, title and status for the current state
 function bar(){tabUI();const ns=!sel.length;for(const[a,off]of[['undo',!undos.length],['redo',!redos.length],['again',!again||ns],['fgSwap',sel.length!==2],['gclr',!gl.length],...['paste','pfront','pback','pplace'].map(a=>[a,!clip]),...['copy','del','none','tint','sf','ss','lock',...Object.keys(LUT).map(n=>'tint'+n)].map(a=>[a,ns])])qa(a).disabled=off;
   document.title=(dirty?'• ':'')+name+' — svguest';doc();qa('undo').firstChild.data='Undo'+(undos.length?' '+undos.at(-1).n:'');qa('redo').firstChild.data='Redo'+(redos.length?' '+redos.at(-1).n:'');$('mGc').hidden=!gl.length;$('mGc').textContent=`Clear ${gl.length} guide${gl.length>1?'s':''}`}
 let nOc=[];const nOb=()=>{if(nOc[0]===svn&&nOc[2]===root)return nOc[1];const t=(e,n)=>e.getElementsByTagName(n).length,c=e=>t(e,'*')-t(e,'tspan')-t(e,'g');let n=c(root);for(const x of root.children)isG(x)||(n-=c(x)+1);nOc=[svn,n=max(0,n),root];return n},
   doc=()=>{const m=performance.memory,n=nOb();$('mDoc').textContent=[(dirty?'• ':'')+name,n?n.toLocaleString('en-US')+' object'+(n>1?'s':''):'empty page',m&&'Memory '+round(m.usedJSHeapSize/1048576)+' MB'].filter(Boolean).join(' · ')};
 setInterval(()=>root&&!document.hidden&&doc(),5e3);
+// refresh(): after any change: selection box, HUD, panel, status; ctx back to root if it left the document
 function refresh(){if(!root)return;root.contains(ctx)||(ctx=root);syncPage();bar();sb=null;sbs=[];const V=sel.length>300&&view.getBoundingClientRect();memoize(()=>{for(const e of sel){const b=V?fb(e,V):bbox(e);sb=un(sb,b);sel.length>1&&sel.length<=200&&b&&sbs.push(b)}});
   cb=top_(ctx)?null:bbox(ctx);hud();panel();
   const lab=e=>e===root?'Document':e.getAttributeNS(NS.inkscape,'label')||e.id||e.localName,c=[];
@@ -839,6 +894,7 @@ function refresh(){if(!root)return;root.contains(ctx)||(ctx=root);syncPage();bar
 // Guides (gl, {h,v}: h 1 is a vertical line at x = v) are view state: not exported, not undoable. The ruler
 // canvases take their own pointer events, so down() never sees them.
 const RW=20,GC='#e8457a',GH='#b3124b';let gl=[],gq=null,gp=null;
+// gv: a guide value rounded to the screen; gsn(u,e): u snapped to guides within 5 px, and the guide; gAt: the guide at a ruler point
 const gv=(h,a)=>{const z=Z*k,st=10**Math.floor(Math.log10(U/z));return(h?vb.x:vb.y)+round((a-(h?tx:ty))/z*U/st)*st/U},gmm=G=>`${G.h?'x':'y'} ${f6((G.v-(G.h?vb.x:vb.y))*U)} mm`,
   gsn=(u,e)=>{let x=u.x,y=u.y,gx=null,gy=null;if(!cmd(e)&&gl.length){let bx=5/(Z*k),by=bx;for(const G of gl){const f=abs((G.h?u.x:u.y)-G.v);G.h?f<bx&&(bx=f,x=gx=G.v):f<by&&(by=f,y=gy=G.v)}}return[{x,y},(gx!=null||gy!=null)&&[gx,gy]]},
   gAt=(e,h)=>{const p=vp(e),a=h?p[0]:p[1];if(a<RW)return null;let i=-1,d=5;gl.forEach((G,j)=>{const x=abs(toS({x:G.v,y:G.v})[G.h?0:1]-a);G.h===h&&x<d&&(d=x,i=j)});return{h,a,i}};
@@ -906,10 +962,13 @@ function rte(S,E,A,B,g,hn){const sg=Math.sign;let a=A&&A.d,b=B&&B.d,bx=[A&&A.b,B
   run();best||(bx=[],run());return best||[S,c(px,S.y),c(px,E.y),E]}
 const NUM='[-+]?(?:\\d*\\.\\d+|\\d+\\.?)(?:[eE][-+]?\\d+)?',SEG=new RegExp(`^\\s*([Mm])\\s*(${NUM})[\\s,]*(${NUM})\\s*([Ll]?)[\\s,]*(${NUM})[\\s,]*(${NUM})\\s*$`),QSEG=new RegExp(`^\\s*M\\s*(${NUM})[\\s,]*(${NUM})\\s*Q\\s*(${NUM})[\\s,]*(${NUM})[\\s,]*(${NUM})[\\s,]*(${NUM})\\s*$`),
   ESEG=new RegExp(`^\\s*[Mm]\\s*(${NUM})[\\s,]*(${NUM})((?:\\s*[HVhv]\\s*${NUM}){2,6})\\s*$`);
+// seg(e): the ends [a,b] of a two-point line in e's coordinates (.c: a bend's control point, .e: an elbow's legs), else null
 function seg(e){if(!e)return null;if(e.localName==='line')return[['x1','y1'],['x2','y2']].map(([a,b])=>({x:e[a].baseVal.value,y:e[b].baseVal.value}));
   const d=e.localName==='path'&&e.getAttribute('d')||'',m=SEG.exec(d);if(!m){const q=d&&QSEG.exec(d),w=!q&&d&&ESEG.exec(d);
     if(w){const t=w[3].match(/[HVhv]|[^\sHVhv]+/g),h=/H/i.test(t[0]),v=[];let x=+w[1],y=+w[2];for(let i=0;i<t.length;i+=2){const H=/H/i.test(t[i]),r=/[hv]/.test(t[i]),n=+t[i+1];if(H!==(i/2%2===0===h))return null;v.push(H?x=r?x+n:n:y=r?y+n:n)}const r=[{x:+w[1],y:+w[2]},{x,y}];r.e={h,v};return r}if(!q)return null;const n=q.slice(1).map(Number),r=[{x:n[0],y:n[1]},{x:n[4],y:n[5]}];r.c={x:n[2],y:n[3]};return r}
   const[,c,a,b,l,x,y]=m,q={x:+a,y:+b};return[q,l==='l'||c==='m'&&!l?{x:q.x+ +x,y:q.y+ +y}:{x:+x,y:+y}]}
+// setSeg(e,[a,b],c,dd): writes the ends; c undefined keeps the bend or re-routes the elbow, null straightens;
+// dd overrides an end's attachment
 function setSeg(e,[a,b],c,dd){const P=q=>fc(q.x)+','+fc(q.y);if(e.localName==='line')return[['x1',a.x],['y1',a.y],['x2',b.x],['y2',b.y]].forEach(([n,v])=>e.setAttribute(n,fc(v)));
   if(c===undefined){const o=seg(e),C=o&&o.c,E=o&&o.e;if(E){const[A,B]=o,k=E.h?'x':'y',d=B[k]-A[k],M=ctm(e),Mi=M.inverse();c=elR(a,b,[0,1].map(i=>dd&&dd[i]!==undefined?dd[i]:(r=>r&&{t:r[0],u:r[1],v:r[2]})(lkR(e,LKA[i]))),q=>Mi.transformPoint(q),3/U/sc(M),E.v.length===3?(t=>t>=0&&t<=1?{h:E.h,t}:null)(d?(E.v[0]-A[k])/d:.5):null)}else if(C){const[A,B]=o,dx=B.x-A.x,dy=B.y-A.y,L=dx*dx+dy*dy,hx=(A.x+2*C.x+B.x)/4-A.x,hy=(A.y+2*C.y+B.y)/4-A.y,u=L?(hx*dx+hy*dy)/L:.5,v=L?(hy*dx-hx*dy)/L:0,ex=b.x-a.x,ey=b.y-a.y,Hx=a.x+u*ex-v*ey,Hy=a.y+u*ey+v*ex;
     c={x:2*Hx-(a.x+b.x)/2,y:2*Hy-(a.y+b.y)/2}}}
@@ -919,6 +978,7 @@ const rgeo=e=>['x','y','width','height','rx'].map(a=>e[a].baseVal.value).map((v,
 // ══ 12 HUD ════
 // The HUD is an SVG overlay in screen coordinates: selection box and handles, hover outline, snap marks, guides,
 // FigKit previews. It is redrawn from state and never touches the document.
+// hud(M): redraws the overlay; M is the drag matrix while a move, scale or rotate runs
 function hud(M){H.replaceChildren();if(!root)return;rulers();
   const gL=(G,c,p)=>{const q=round(toS({x:G.v,y:G.v})[G.h?0:1])+.5;mk('line',G.h?{x1:q,x2:q,y1:0,y2:'100%'}:{x1:0,x2:'100%',y1:q,y2:q},H).setAttribute('style',`stroke:${c};shape-rendering:crispEdges`+(c===GH?'':';stroke-dasharray:6 3')+(p?';opacity:.5':''))};
   gl.forEach((G,i)=>gL(G,gq&&gq.h===G.h&&gq.i===i?GH:GC));gp?gL(gp,GC,1):gq&&gq.i<0&&gL({h:gq.h,v:gv(gq.h,gq.a)},GC,1);
@@ -973,6 +1033,7 @@ function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.t
   for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
   qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100);const N=sel.length,sd=$('mSide');$('mKind').textContent=!N?'Nothing selected':N>1?N+' objects':lyName(e);sd.classList.toggle('nos',!N);sd.classList.toggle('not',!t&&!ed);
   hxS(F.fill,l&&(F.nofill.checked?'None':F.fill.value));hxS(F.stroke,l&&(F.nostroke.checked?'None':F.stroke.value));hxS(F.tc,t&&F.tc.value)}
+// hxS(c,v): the hex text beside colour field c
 const hxS=(c,v)=>c.nextElementSibling.textContent=v?v.toUpperCase().replace('NONE','None'):'';
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
 let szT=0,szMs=0;const sizesQ=()=>{if(szMs<30)return sizes();cancelAnimationFrame(szT);szT=requestAnimationFrame(()=>setTimeout(sizes))};
@@ -982,8 +1043,11 @@ function sizes(){if(!root)return;const g=new Map(),t0=performance.now();
     d.innerHTML=`<span>${s} pt × ${ts.length}</span>→<input type="number" step="0.5" min="0.5"> pt<button>Select</button>`;
     d.querySelector('input').onchange=e=>{ts.forEach(t=>setSize(t,+e.target.value));commit()};d.querySelector('button').onclick=()=>setSel(ts.filter(t=>!lkd(t)));return d}));szMs=performance.now()-t0}
 // ══ 14 Hit testing ════
+// pick(t): [t's top-level object, its parent], looking into layers; grab(t,whole): the part under the pointer
+// (a whole text), or pick
 function pick(t){let c=root;for(;;){let e=t;while(e.parentNode!==c)e=e.parentNode;if(isLayer(e)&&e!==t){c=e;continue}return[e,c]}}
 function grab(t,whole){const e=t.closest('text')||t;return whole?pick(t):[e,e.parentNode]}
+// thru(f): runs f with the overlays click-through, for elementFromPoint
 const thru=f=>{const o=[gw,$('mCap'),...H.children];o.forEach(x=>x.style.pointerEvents='none');try{return f()}finally{o.forEach(x=>x.style.pointerEvents='')}};
 // hit(e): the element under the pointer, with overlays made click-through for the test (thru). A thin line or a
 // small mark painted above within 4 px wins over a filled area, so thin strokes stay easy to pick.
@@ -1003,13 +1067,16 @@ function bd(t){if(t.localName!=='rect'||sel.some(s=>s.contains(t))||gcs(t).fill=
 function boxed(c,R,tch){const o=[],V=view.getBoundingClientRect(),s=Z*k,big=c.childElementCount>BIG,B=big?rb((R.x-vb.x)*s+tx+V.left,(R.y-vb.y)*s+ty+V.top,R.w*s,R.h*s):R;
   for(const x of cands(c)){const q=big?(r=>rb(r.x,r.y,r.width,r.height))(x.getBoundingClientRect()):fb(x,V);if(!q||!isect(q,B))continue;
     q.x>=B.x&&q.y>=B.y&&q.x+q.w<=B.x+B.w&&q.y+q.h<=B.y+B.h?o.push(x):isGrp(x)?add(o,boxed(x,R,tch)):tch&&(big||touches(x,R))&&o.push(x)}return o}
+// cands(c,lk): c's selectable children, layers opened; lk includes locked ones
 function cands(c,lk){const o=[];for(const e of c.children){if(!isG(e)||!lk&&e.getAttributeNS(NS.sodipodi,'insensitive'))continue;if(!isLayer(e))o.push(e);else if(gcs(e).display!=='none')add(o,cands(e,lk))}return o}
+// inR(point,R): inside R; sr(a,b,R): segment ab crosses R
 const inR=(q,R)=>q.x>=R.x&&q.x<=R.x+R.w&&q.y>=R.y&&q.y<=R.y+R.h,
   sr=(a,b,R)=>{let t0=0,t1=1;const dx=b.x-a.x,dy=b.y-a.y;for(const[p,q]of[[-dx,a.x-R.x],[dx,R.x+R.w-a.x],[-dy,a.y-R.y],[dy,R.y+R.h-a.y]]){if(!p){if(q<0)return false;continue}const r=q/p;p<0?t0=max(t0,r):t1=min(t1,r);if(t0>t1)return false}return true};
 const arcPts=(x1,y1,[a,b,r,fa,fs,x2,y2])=>{const c=cos(r*PI/180),s=sin(r*PI/180),dx=(x1-x2)/2,dy=(y1-y2)/2,X=c*dx+s*dy,Y=-s*dx+c*dy;a=abs(a);b=abs(b);if(!a||!b)return[{x:x2,y:y2}];
   const l=X*X/(a*a)+Y*Y/(b*b);l>1&&(a*=Math.sqrt(l),b*=Math.sqrt(l));const q=(+fa===+fs?-1:1)*Math.sqrt(max(0,(a*a*b*b-a*a*Y*Y-b*b*X*X)/(a*a*Y*Y+b*b*X*X))),cx=q*a*Y/b,cy=-q*b*X/a,
     an=(ux,uy,vx,vy)=>atan2(ux*vy-uy*vx,ux*vx+uy*vy),t1=an(1,0,(X-cx)/a,(Y-cy)/b),ox=c*cx-s*cy+(x1+x2)/2,oy=s*cx+c*cy+(y1+y2)/2;let dt=an((X-cx)/a,(Y-cy)/b,(-X-cx)/a,(-Y-cy)/b);!+fs&&dt>0&&(dt-=2*PI);+fs&&dt<0&&(dt+=2*PI);
   return Array.from({length:8},(_,i)=>{const t=t1+dt*(i+1)/8;return{x:ox+c*a*cos(t)-s*b*sin(t),y:oy+s*a*cos(t)+c*b*sin(t)}})};
+// outl(e): e's outline as polylines in root's coordinates (curves sampled), null when unreadable
 function outl(e){if(e.localName==='line'){const M=ctm(e);return[seg(e).map(q=>M.transformPoint(q))]}const m=pmodel(e);if(!m)return null;const M=ctm(e),L=[];let c=null,s={x:0,y:0},x=0,y=0;
   for(const{c:cm,p}of m.o){if(cm==='Z'){c&&c.push(s);x=s.x;y=s.y;continue}const ex=p.at(-2),ey=p.at(-1);
     if(cm==='M')L.push(c=[s={x:ex,y:ey}]);
@@ -1026,6 +1093,7 @@ let SO=null;function snapT(X){const vk=[tx,ty,Z*k].join();if(SO&&SO[0]===vk&&SO[
       else{const M=ctm(e);let q=null,s0=null,cl=/^(rect|circle|ellipse|polygon)$/.test(e.localName),X0=1/0,X1=-1/0,Y0=1/0,Y1=-1/0;for(const{c,p}of m.o){if(c==='Z'){cl=1;q&&s0&&(q.x!==s0.x||q.y!==s0.y)&&mid(q,s0);q=s0;continue}const a=M.transformPoint({x:p.at(-2),y:p.at(-1)});ad(a.x,a.y,0);X0=min(X0,a.x);X1=max(X1,a.x);Y0=min(Y0,a.y);Y1=max(Y1,a.y);c==='M'?s0=a:c==='L'&&q&&mid(q,a);q=a}cl&&ad((X0+X1)/2,(Y0+Y1)/2,2)}}
     else{const Q=[[b.x,b.y],[b.x+b.w,b.y],[b.x+b.w,b.y+b.h],[b.x,b.y+b.h]];Q.forEach(([x,y],i)=>{const[u,v]=Q[(i+1)%4];ad(x,y,0);ad((x+u)/2,(y+v)/2,1);S.push(x,y,u,v,j)});ad(b.x+b.w/2,b.y+b.h/2,2)}}
   return{p:P,s:S,e:E,l:E.map(e=>!!seg(e))}}
+// osn(u,T,edge): the nearest snap point (edge: outline point) within 6 px; lsn(u,e,T): [point, guide, snap] for a line end
 const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=null;
     if(!ed){for(let i=0;i<A.length;i+=4){const d=(A[i]-u.x)**2+(A[i+1]-u.y)**2+(T.l[A[i+3]]?r*r*.01:0);d<b&&(b=d,o={x:A[i],y:A[i+1],k:A[i+2],e:T.e[A[i+3]]})}return o}
     for(let i=0;i<A.length;i+=5){const ax=A[i],ay=A[i+1],vx=A[i+2]-ax,vy=A[i+3]-ay,l=vx*vx+vy*vy,t=l?max(0,min(1,((u.x-ax)*vx+(u.y-ay)*vy)/l)):0,x=ax+t*vx,y=ay+t*vy,d=(x-u.x)**2+(y-u.y)**2+(T.l[A[i+4]]?r*r*.01:0);d<b&&(b=d,o={x,y,k:3,e:T.e[A[i+4]]})}return o},
@@ -1034,11 +1102,15 @@ const osn=(u,T,ed)=>{if(!T)return null;const r=6/(Z*k),A=ed?T.s:T.p;let b=r*r,o=
 // Connectors: line ends attached to objects carry data-sg-from / data-sg-to = url(#id) u v, a point in the target's
 // own box. lnk() runs at the start of each commit and moves those ends to follow their targets, in the same step.
 let LKC=null,lkV=0; // lkAll's cache; bumped when attachments change
+// lkR(c,a): [target,u,v] of attached end a; lkAll(): every connector (cached per svn, lkV); lkP(t,u,v): that point of t's box
+// in root's coordinates; lkSet(c,i,snap): attaches end i, or detaches it
 const LKA=['data-sg-from','data-sg-to'],LKR=/url\(#([^)]+)\)\s*(\S*)\s*(\S*)/,lkR=(c,a)=>{const m=LKR.exec(c.getAttribute(a)||''),t=m&&byId(m[1]);return t&&root.contains(t)&&m[2]&&m[3]&&isFinite(m[2])&&isFinite(m[3])?[t,+m[2],+m[3]]:null},lkT=(c,a)=>(lkR(c,a)||[])[0],
   lkAll=()=>{const k=svn+','+lkV;return(LKC&&LKC.k===k&&LKC.r===root?LKC:LKC={k,r:root,L:[...root.querySelectorAll('[data-sg-from],[data-sg-to]')]}).L},
   lkP=(t,u,v)=>{const b=t.getBBox();return b.width||b.height?ctm(t).transformPoint({x:b.x+u*b.width,y:b.y+v*b.height}):null},
   lkSet=(c,i,sp)=>{const a=LKA[i],t=sp&&sp.e;lkV++;if(!t||!root.contains(t))return c.hasAttribute(a)&&c.removeAttribute(a);t.id||(t.id=uid(t.localName));const b=t.getBBox(),q=ctm(t).inverse().transformPoint(sp);
     c.setAttribute(a,`url(#${t.id}) ${fm(b.width?(q.x-b.x)/b.width:0)} ${fm(b.height?(q.y-b.y)/b.height:0)}`)},
+  // lkCut: drops attachments to objects not copied; lkDet(els): detaches ends moved without their object;
+  // lkPre/lkPv/lkRs: connectors follow a drag live, then restore before the commit
   lkCut=(ns,m)=>{const v=new Set(m.values());for(const n of ns)for(const e of[n,...n.querySelectorAll('[data-sg-from],[data-sg-to]')])for(const a of LKA){const r=LKR.exec(e.getAttribute(a)||'');r&&!v.has(r[1])&&e.removeAttribute(a)}},
   lkDet=els=>{const L=lkAll();if(!L.length)return;const A=[...els,...sel],inM=t=>A.some(x=>x===t||x.contains(t));for(const c of L)if(inM(c))for(const a of LKA){const t=lkT(c,a);t&&!inM(t)&&(c.removeAttribute(a),lkV++)}},
   lkPre=()=>{const L=lkAll(),o=[];D.lk=null;if(!L.length)return;const inS=t=>sel.some(x=>x===t||x.contains(t));
@@ -1052,7 +1124,9 @@ function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))cont
 // ghostOn moves the selected nodes into #mGhost so a drag is one CSS transform; ghostOff puts them back.
 let tool='sel',G=null; // the current tool (data-t); the nodes lifted into the ghost during a drag
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
+// esc(): Esc's ladder: crop, Layers window, drag, point editing, tool, then up one group
 function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){lkRs(D);ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
+// setTool(t): switches tool (applying an open crop)
 function setTool(t){CR&&t!=='crop'&&cropOK();tool=t;const v=$('mTools').querySelector(`.menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));$('mTools').querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair';t==='crop'&&!CR&&sel.length===1&&sel[0].localName==='image'&&cropGo(sel[0])}
 
 function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.parentNode,n=e.nextSibling;let g=w.get(p);
@@ -1113,6 +1187,7 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
   else{e.shiftKey&&/^(line|arrow|inhibit|brace)$/.test(D.t)&&([dx,dy]=q45(dx,dy));
     if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.sp=null;if(!e.shiftKey&&D.t!=='band'){const ln=LNT.test(D.t),[s,g,o]=ln?lsn(toU(D.q),e,D.os===undefined?D.os=snapT():D.os):gsn(toU(D.q),e);D.q=toS(s);D.g=g;D.sp=o||null;ln&&(D.pm=1,msg(o?'On '+SNK[o.k]:''))}D.t==='band'&&bandPrev();return hud()}
   lkPv(M);fgPv(M);D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
+// snapSet(): the snap targets of a move drag (D.s0, D.sn)
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
   c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
 const tog=(t,w)=>{let[ob,c]=grab(t,w);const o=sel.find(s=>s!==ob&&s.contains(ob));o?ob=o:ctx=c;setSel(sel.includes(ob)?sel.filter(x=>x!==ob):[...sel,ob])};
@@ -1133,6 +1208,7 @@ function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('
 
 // ══ 19 Drawing ════
 // create() turns a drag into a shape in curParent() and attaches connector ends; MK/mark() hold the markers.
+// create(t,a,b,ends): the shape for tool t from a to b (user units), its ends attached to their snaps
 function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse|wedge)$/.test(t),cn=ln&&t!=='brace',hd=t==='elbow'?'arrow':t,
     s=t==='wedge'&&pen.fill==='none'?`fill:${pen.stroke==='none'?'#000000':pen.stroke};stroke:none`:`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
   if(t==='rect')e=mk('rect',{id:uid('rect'),x:fc(min(Pa.x,Pb.x)),y:fc(min(Pa.y,Pb.y)),width:fc(abs(Pb.x-Pa.x)),height:fc(abs(Pb.y-Pa.y)),style:s},p);
@@ -1141,6 +1217,7 @@ function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transform
   else e=mk('path',{id:uid('path'),d:t==='elbow'?(c=>shD(elD(Pa,c.h,c.v)))(elR(Pa,Pb,[0,1].map(i=>L&&spO(L[i])),q=>Pi.transformPoint(q),3/U/sc(ctm(p)))):t in SHP?shD(SHP[t](Pa,Pb,1/U/sc(ctm(p)))):`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+(t==='brace'?';stroke-linecap:round;stroke-linejoin:round':';stroke-linecap:butt')+(hd in MK?`;marker-end:url(#${hmk(mark(hd),pen.head)})`:'')},p);hd in MK&&mgc([MK[hd][0]]);
   cn&&L&&L.forEach((o,i)=>o&&o.e&&lkSet(e,i,o));ctx=p;setTool('sel');setSel([e],1);commit();cn&&L&&L.some(o=>o&&o.e)&&msg('Attached: the end follows the object it snapped to')}
 const MK={arrow:['ArrowTipSg','M 0,0 10,5 0,10 z',10,10,9],inhibit:['TeeSg','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenTipSg','M 1,1 9,5 1,9',10,10,9,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthTipSg','M 0,0 10,5 0,10 3,5 z',10,10,9],dot:['DotSg','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
+// mark(t): adds marker MK[t] to defs once
 function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];byId(id)||mk('path',{d,style:st},
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
 const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),x:fc(q.x),y:fc(q.y),style:`${b}font-size:${f6(pt/PT/U/sc(ctm(p)))}px;font-family:Arial;fill:#000000`},p,txt);
@@ -1149,9 +1226,12 @@ function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk
 // ══ 20 Text lines ════
 // Lines are Inkscape's sodipodi:role="line" tspans (lnKids) or Illustrator's positioned tspans (edLn); setLines
 // rewrites only what changed; tryWrap breaks a text to a width.
+// at(e,a): the first value of e's x, y, dx or dy list, else null
 const at=(e,a)=>{const l=e[a]&&e[a].baseVal;return l&&l.numberOfItems?l.getItem(0).value:null};
+// edLn(t): t's lines: Inkscape's role=line tspans or Illustrator's positioned ones, else null (lnKids: Inkscape's only)
 const edLn=t=>{const L=lnKids(t);if(L)return L;const c=[...t.children];let y=-1/0;return c.length>1&&[...t.childNodes].every(n=>n.nodeType!==1?n.nodeType!==3||!n.data.trim():n.localName==='tspan'&&n.hasAttribute('x')&&n.hasAttribute('y')&&!many(n,'x')&&!many(n,'y')&&(v=>v>y&&(y=v,1))(at(n,'y')))?c:null};
 const lnKids=t=>{const c=[...t.children];return c.length&&c.every(e=>e.localName==='tspan'&&e.getAttributeNS(NS.sodipodi,'role')==='line')?c:null};
+// lhRaw(t): t's own line-height as a factor, else 0 (lhOf: 1.25 then)
 function lhRaw(t){const v=stGet(t,'line-height')||'',n=parseFloat(v),f=/%$/.test(v)?n/100:/[a-z]$/i.test(v)&&!/em$/i.test(v)?mmOf(v)/UNIT.px/parseFloat(gcs(t).fontSize):n;return f>0?f:0}
 const lhOf=t=>lhRaw(t)||1.25;
 function relines(t){const L=lnKids(t);if(!L)return;const y=at(L[0],'y')??at(t,'y')??0,h=parseFloat(gcs(t).fontSize)*lhOf(t);L.forEach((l,i)=>l.setAttribute('y',fc(y+i*h)))}
@@ -1167,6 +1247,7 @@ function mirror(n,o,ks){for(const c of n.childNodes){
   if(c.localName!=='tspan')continue;const s=(/super|sub/.exec(stGet(c,'baseline-shift'))||[])[0],e=el(s?s.slice(0,3):'span'),cs=gcs(c);
   e.dataset.k=ks.push(c)-1;e.dataset.s=s||'';Object.assign(e.style,{fontSize:parseFloat(cs.fontSize)/parseFloat(gcs(n).fontSize)+'em',fontFamily:cs.fontFamily,fontWeight:cs.fontWeight,fontStyle:cs.fontStyle,textDecoration:cs.textDecorationLine});
   /^rgb/.test(cs.fill)&&(e.style.color=cs.fill);mirror(c,e,ks);o.append(e)}}
+// edLines(div): the editor's content as lines of runs
 function edLines(d){const L=[[]],nl=()=>L.push([]);let after=0;
   const walk=(n,ch)=>{for(const c of n.childNodes){
     if(c.nodeType===3){if(!c.data)continue;after&&(nl(),after=0);c.data.split('\n').forEach((x,i)=>{i&&nl();for(const y of x)L.at(-1).push({c:y,ch})})}
@@ -1174,6 +1255,7 @@ function edLines(d){const L=[[]],nl=()=>L.push([]);let after=0;
     else if(c.nodeType===1){const b=/^(DIV|P)$/.test(c.tagName),ki=c.dataset.k,s={SUP:'super',SUB:'sub'}[c.tagName]||'',st=c.dataset.st;b&&((L.at(-1).length||after)&&nl(),after=0);
       walk(c,[...ch,...ki?s===c.dataset.s?[+ki]:['~'+ki,...s?[s]:[]]:s?[s]:[],...st?['s:'+st]:[]]);b&&(after=1)}}};
   walk(d,[]);while(L.length>1&&!L.at(-1).length)L.pop();return L}
+// setLines(t,run,ln,lines): writes edited lines into t (run: the edited tspan; ln: t is written as lines), only what changed
 function setLines(t,r,ln,lns){const L=ln&&edLn(t),h=L&&L.length>1&&!lnKids(t)?(at(L.at(-1),'y')-at(L[0],'y'))/(L.length-1):parseFloat(gcs(r).fontSize)*lhOf(t),sn=new Set(),b=l=>build(l,sn);
   if(L){let p;lns.forEach((l,i)=>{let n=L[i];if(!n){n=p.cloneNode(false);n.removeAttribute('id');n.setAttribute('y',fc((at(p,'y')??at(t,'y')??0)+h));p.after(n)}n.replaceChildren(...b(l));p=n});L.slice(lns.length).forEach(n=>n.remove());return}
   if(lns.length<2)return r.replaceChildren(...b(lns[0]));
@@ -1231,6 +1313,7 @@ function edPv(){if(!ed||!ed.sd)return;const{t,L,d,ks,ip,vis,r0}=ed,lns=edLines(d
 // runs are mirrored as spans whose data-k points back to the tspan they came from; finish() reads the lines back
 // (edLines) and rebuilds only what changed (setLines), as one Edit text step.
 let ed=null; // the open editor, null when none
+// edit(t,hit,mark,sd,P): opens the editor on t (sd: in the Text panel's box; P: the click, for the caret)
 function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs(a),m=ctm(t),fs=parseFloat(cs.fontSize)*sc(m)*Z*k,lh=lhOf(t);let d,o,ks;
   if(sd){d=$('mTx');ks=d._t===t&&d._v===dv?d._ks:tbFill(d,t)}
   else{const q=m.transformPoint({x:at(a,'x')??at(t,'x')??0,y:at(a,'y')??at(t,'y')??0});d=el('div','ed');o=[(q.x-vb.x)*Z*k,(q.y-vb.y)*Z*k-fs*(lh/2+.35)];
@@ -1250,11 +1333,13 @@ function edit(t,h,mrk,sd,P){finish(true);const[r,L]=edSrc(t,h),a=L?L[0]:r,cs=gcs
   if(sd)return msg('Type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes, Ctrl+Z then undoes the edit');
   msg('Esc finishes (then drag to move), Enter starts a new line, Ctrl+Z undoes the edit; select characters to restyle only them in the Text panel');
   d.focus();let rg=P&&document.caretRangeFromPoint?.(P.clientX,P.clientY);rg&&d.contains(rg.startContainer)||(rg=document.createRange(),rg.selectNodeContents(d),rg.collapse(false));setRange(rg)}
+// finish(ok): closes the editor; ok writes the text as one Edit text step
 function finish(ok){if(!ed)return;const{t,r,L,d,ks,r0,vis,mrk,sd,pv}=ed,lns=edLines(d);ed=null;cancelAnimationFrame(pvR);sd||d.remove();
   quiet(()=>{pv&&pv.remove();vis==null?t.removeAttribute('visibility'):t.setAttribute('visibility',vis)});
   if(ok&&JSON.stringify(lns)!==r0){setLines(t,r,L,edMap(ks,lns));noTL(t)}
   if(!t.textContent.trim()){t.remove();if(mrk!=null){flush();pend.length=mrk}setSel([],1)}
   why=why||'Edit text';commit()}
+// part(): only some characters are selected in the editor; restyle(f) applies f to them
 const part=()=>{const r=ed&&ed.rg,sq=s=>s.replace(/\s/g,'');return!!r&&!r.collapsed&&sq(r.toString())!==sq(ed.d.textContent)},
   decl=(s,p,v)=>{const x=mk('tspan',{style:s});setSt(x,p,v);return x.getAttribute('style')||''},
   setRun=(s,p,v,css,cssv=v)=>{s.dataset.st=decl(s.dataset.st,p,v);s.style[css]=cssv},
@@ -1273,7 +1358,9 @@ document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||
 // paste renames ids with one map (reid, relink) and cuts links to anything not pasted; ungroup snapshots
 // class-computed paint (KP) so svglite styles survive.
 let clip=null; // what Copy took
+// copy(live): clip = the selection, parent matrices and referenced defs (live: no clones)
 function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
+// paste(inPlace): adds clip at the pointer, or in place, ids renamed
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
   if(clip.r===root)ds=ds.filter(d=>!byId(d.id));else map=pfx(ds,'p')[1];for(const d of ds)defs().appendChild(d);
@@ -1288,14 +1375,17 @@ function zorder(w){const s=order(sel),q=new Set(sel),sib=(e,n)=>{do e=n?e.nextEl
   if(w==='dn')s.forEach(e=>{const n=sib(e,0);n&&!q.has(n)&&n.before(e)});commit()}
 function group(){if(!sel.length)return;const s=order(sel),l=s[s.length-1],p=l.parentNode,Pi=ctm(p).inverse(),g=mk('g',{id:uid('g')});p.insertBefore(g,l.nextSibling);
   for(const e of s){e.parentNode!==p&&setT(e,Pi.multiply(ctm(e.parentNode)).multiply(lm(e)));g.appendChild(e)}ctx=p;setSel([g],1);commit()}
+// decls(e): e's presentation attributes and style declarations as [name,value]
 function decls(e){const o=[];for(const a of e.attributes)PRES.test(a.name)&&o.push([a.name,a.value]);
   for(const d of(e.getAttribute('style')||'').split(';')){const i=d.indexOf(':');i>0&&o.push([d.slice(0,i).trim(),d.slice(i+1).trim()])}return o}
+// klea(g), leaf(g,f): g's leaves, skipping defs, clipPath…; lv(a): the selection's leaves; kps/kpr: read and restore their KP paint
 const KP=['fill','stroke','stroke-linecap','stroke-linejoin','stroke-miterlimit'],SKIP=/^(defs|clipPath|mask|marker|pattern|symbol)$/,LF=new RegExp(`^(${LEAF.replace(/,/g,'|')})$`),
   twalk=g=>document.createTreeWalker(g,1,{acceptNode:n=>SKIP.test(n.localName)?2:LF.test(n.localName)?1:3}),
   leaf=(g,f,cap=1/0)=>{const w=twalk(g);for(let n,i=0;i<cap&&(n=w.nextNode());i++)if(f(n))return n},
   klea=g=>{const w=twalk(g),o=[];for(let n;n=w.nextNode();)o.push(n);return o},lv=(a=sel)=>a.flatMap(e=>isGrp(e)?klea(e):[e]),
   kps=(lf,P=KP)=>lf.map(e=>(c=>P.map(p=>c[p]))(gcs(e))),kpr=(lf,kv,P=KP)=>{const c=kps(lf,P);lf.forEach((e,i)=>P.forEach((p,j)=>c[i][j]!==kv[i][j]&&setSt(e,p,kv[i][j])))},
   KQ=[...KP,'stroke-width','stroke-dasharray','stroke-dashoffset','fill-opacity','stroke-opacity','fill-rule','opacity','font-family','font-size','font-weight','font-style','text-decoration','text-anchor','letter-spacing'];
+// ungroup(q): one level; q skips the commit (ungroupAll)
 function ungroup(q){const out=[];
   for(const g of order(sel)){if(!isGrp(g)||isLayer(g)){out.push(g);continue}
     const M=lm(g),cp=g.getAttribute('clip-path'),ds=decls(g),lf=g.getAttribute('class')?klea(g):null,kv=lf&&kps(lf),cc=new Map;
@@ -1321,6 +1411,7 @@ const MP=['marker-start','marker-mid','marker-end'];
 function hmk(id,p){const b=id.replace(/_h\d+$/,''),B=byId(b),c=+(/_h(\d+)$/.exec(id)||[0,100])[1];if(B&&p===100)return b;const n=b+'_h'+p;if(byId(n))return n;
   const s=B||byId(id),m=s.cloneNode(false),x=+s.getAttribute('refX')||0,y=+s.getAttribute('refY')||0,f=fm(B?p/100:p/c),g=mk('g',{transform:x||y?`translate(${fm(x)},${fm(y)}) scale(${f}) translate(${fm(-x)},${fm(-y)})`:`scale(${f})`},m);
   m.id=n;setSt(m,'overflow','visible');for(const ch of s.childNodes){const q=ch.cloneNode(true);g.appendChild(q.nodeType===1?reid(q):q)}s.after(m);return n}
+// mkl(): the selected paths, lines and polylines, which heads apply to
 const ML=/^(path|line|polyline)$/,mkl=()=>lv().filter(e=>ML.test(e.localName)),hp=i=>+(/_h(\d+)$/.exec(i)||[0,100])[1],
   mgc=ids=>{for(const id of ids)if(/(Sg|_h\d+)$/.test(id))try{root.querySelector(`[style*="#${id})"],[marker-start="url(#${id})"],[marker-mid="url(#${id})"],[marker-end="url(#${id})"]`)||byId(id)?.remove()}catch(_){}},
   mset=(e,a,v)=>{setSt(e,a,v);v||gcs(e).getPropertyValue(a)==='none'||setSt(e,a,'none')};
@@ -1343,6 +1434,7 @@ function pparse(d){const t=d.match(PN)||[],o=[];let i=0,c='',x=0,y=0,sx=0,sy=0,l
   return o}
 const pstr=o=>o.map(s=>s.c==='Z'?'Z':s.c+' '+(s.c==='A'?[...s.p.slice(0,3).map(fm),s.p[3],s.p[4],fc(s.p[5])+','+fc(s.p[6])].join(' '):s.p.map((v,j)=>(j?j%2?',':' ':'')+fc(v)).join(''))).join(' ');
 const PMC=new WeakMap;
+// pmodel(e): {o:[{c,p}]}, absolute segments (poly for polylines), or null; cached in PMC, so read-only
 function pmodel(e){const n=e&&e.localName,v=a=>e[a].baseVal.value,pl=/^poly(line|gon)$/.test(n),k=(pl||n==='path')&&e.getAttribute(pl?'points':'d')||'',c=k&&PMC.get(e);let d;if(c&&c[0]===k)return c[1];
   if(pl){const a=k.trim().split(/[\s,]+/).map(Number),o=[];for(let i=0;i+1<a.length;i+=2)o.push({c:i?'L':'M',p:[a[i],a[i+1]]});
     const r=o.length>1&&o.length<=BIG&&!o.some(s=>s.p.some(isNaN))?{o,poly:1}:null;k&&PMC.set(e,[k,r]);return r}
@@ -1387,12 +1479,14 @@ function styCopy(l=lf0()){if(!l)return;const c=gcs(l),w=parseFloat(c.strokeWidth
   sty={p:PS.map(p=>[p,/^rgb/.test(c[p])?hex(c[p]):c[p]]),w:w*ptw(l),d:c.strokeDasharray==='none'?0:c.strokeDasharray.split(/[\s,]+/).map(x=>parseFloat(x)/w),t:l.localName==='text'&&[family(c),c.fontWeight,c.fontStyle,tsize(l)]}}
 function styPaste(a=sel){finish(true);if(!sty||!a.length)return;for(const e of lv(a)){if(e.localName==='text'){setSt(e,'fill',sty.p[0][1]);kids(e,'fill');if(sty.t){const[f,b,i,z]=sty.t;setFont(e,'font-family',fam(f));setFont(e,'font-weight',b);setFont(e,'font-style',i);setSize(e,z)}continue}
   const w=sty.w/ptw(e);setSts(e,[...sty.p,['stroke-width',f6(w)],['stroke-dasharray',sty.d?sty.d.map(x=>fm(x*w)).join():'none']])}commit()}
+// pen: the fill, stroke and head scale of new shapes; pnt(v): a computed paint as hex or url(#id)
 const pen={fill:'none',stroke:'#000000',head:100},pnt=v=>/^rgb\(/.test(v)?hex(v):/^url/.test(v)?(m=>m?`url(#${m[1]})`:v)(/#([^'")]+)/.exec(v)):v;
 function swapFS(){finish(true);if(!sel.length){[pen.fill,pen.stroke]=[pen.stroke,pen.fill];return panel()}
   const L=lv().filter(e=>e.localName!=='image'),C=L.map(e=>{const c=gcs(e);return[c.fill,c.stroke,c.fillOpacity,c.strokeOpacity]});
   for(const[i,e]of L.entries()){const[f,s,fo,so]=C[i];if(f===s&&fo===so)continue;
     setSts(e,[['fill',pnt(s)],['stroke',pnt(f)],...fo!==so?[['fill-opacity',so],['stroke-opacity',fo]]:[]]);e.localName==='text'&&['fill','stroke','fill-opacity','stroke-opacity'].forEach(p=>kids(e,p))}
   commit()}
+// keep(M,b,c): remembers M about b's centre for Transform again (c: it was an Alt copy)
 let again=null;const keep=(M,b,c)=>{if(!b)return;const x=b.x+b.w/2,y=b.y+b.h/2;again={M:T(-x,-y).multiply(M).multiply(T(x,y)),c}},
   dup=()=>{const o=clip;copy(1);paste(true);clip=o;bar()};
 function tAgain(){finish(true);if(!again)return msg('Nothing to repeat yet: move, scale or rotate something first');if(!sel.length)return;
@@ -1409,12 +1503,14 @@ function fsz(d){const ts=selTexts();if(!ts.length)return;ts.forEach(t=>setSize(t
 // CR is the open session; cropR writes a crop… clipPath in the image's own coordinates, chaining an existing
 // clip-path. Pixels are never touched.
 let CR=null; // the crop session, null when none
+// cropK(v): the crop clipPath that clip-path v names, else null
 const cropK=v=>{const K=byId(refId(v));return K&&/^crop/.test(K.id)&&K.childElementCount===1&&K.firstElementChild.localName==='rect'&&K};
 const cropGo=s=>{const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width'),v('height'));if(!(ib.w>0&&ib.h>0))return msg('This photo has no size to crop');
   const K=cropK(stGet(s,'clip-path')),q=K&&K.firstElementChild,c=q&&isect(rb(...['x','y','width','height'].map(n=>+q.getAttribute(n)||0)),ib);
   CR={s,ib,m:ctm(s),r:c&&c.w>0&&c.h>0?c:{...ib}};CR.r1={...CR.r};quiet(()=>s.setAttribute('data-mcr',''));
   $('mCr').hidden=false;msg('Drag the handles or the box to crop; Enter or double-click applies, Esc cancels');hud()},
   cropUn=()=>{const s=CR.s;CR=null;$('mCr').hidden=true;quiet(()=>{s.removeAttribute('data-mcr');root.querySelectorAll('[data-mcr]').forEach(e=>e.removeAttribute('data-mcr'))})},
+  // cropOK applies the open crop, cropX cancels it
   cropEnd=()=>{cropUn();setTool('sel');hud()},cropX=()=>{CR&&(cropEnd(),msg('Crop cancelled'))},
   cropOK=()=>{if(!CR)return;const{s,r,r1}=CR;cropEnd();['x','y','w','h'].every(n=>r[n]===r1[n])?msg(''):cropR(s,r)};
 function cropR(s,c){const v=n=>s[n].baseVal.value,ib=rb(v('x'),v('y'),v('width'),v('height')),cpv=stGet(s,'clip-path'),K=cropK(cpv),mine=!!K,
@@ -1434,6 +1530,7 @@ const FGK='data-figkit',FGF=FGK+'-for',FGA=FGK+'-at',FGP=FGK+'-pos',FGC=FGK+'-ca
   UM={nm:1e-3,um:1,mm:1e3},UL={nm:'nm',um:'µm',mm:'mm'},LA={at:[0,0,0,1],lt:[0,0,1,0],tl:[0,0,0,0],tr:[1,0,1,0],bl:[0,1,0,1],br:[1,1,1,1]},MC=['#ff0000','#00ff00','#0000ff','#ff00ff','#00ffff','#ffff00','#ffffff'],
   Gf={},FG={zr:new WeakMap,fv:0,pv:null,st:new Set,ps:null,pd:-1,v:0,c:null,m:'',w:'fill'};
 document.querySelectorAll('[data-g]').forEach(e=>Gf[e.dataset.g]=e);
+// fgK(e): e's FigKit kind; fgT(e): its targets
 const fgK=e=>e&&e.getAttribute&&e.getAttribute(FGK)||'',fgT=e=>[...(e.getAttribute(FGF)||'').matchAll(/url\(#([^)]+)\)/g)].map(m=>{const t=byId(m[1]);return t&&(root.contains(t)||FG.gh&&ghost.contains(t))?t:null}),
   sa=(e,n,v)=>v==null?e.hasAttribute(n)&&e.removeAttribute(n):e.getAttribute(n)!==v&&e.setAttribute(n,v),fgTr=(e,m)=>sa(e,'transform',tStr(m)),
   fgS=a=>a.map(v=>typeof v=='number'?f6(v):v).join(' '),
@@ -1533,8 +1630,10 @@ const fgPre=()=>{FG.dk=null;const L=fgAll(),gf=$('mGF');if(!L.length)return;for(
       const c=g.appendChild(f.cloneNode(true));for(const e of[c,...c.querySelectorAll('[id]')])e.removeAttribute('id')}}),
   fgRs=()=>{const k=FG.dk;FG.dk=null;k&&quiet(()=>{$('mGF').replaceChildren();for(const[,S]of k.L)for(const[e,A]of S){const n=new Set(A.map(a=>a[1]));for(const a of[...e.attributes])n.has(a.name)||e.removeAttributeNode(a);
     for(const[ns,nm,v]of A)e.getAttribute(nm)!==v&&e.setAttributeNS(ns,nm,v)}})};
+// fgSync(): in commit(), refits every link whose target changed
 function fgSync(){if(!root)return;const L=fgAll();if(!L.length)return;const n=FG.st.size;for(const f of L)if(root.contains(f))try{fgGo(f)}catch(_){}
   const d=n-FG.st.size;d>0&&!FG.m&&(FG.m=`Also brought ${d} linked object${d>1?'s':''} back in line with what ${d>1?'they belong':'it belongs'} to`);FG.m&&(msg(FG.m),FG.m='')}
+// fgChk(): on load, marks links that no longer fit (FG.st)
 function fgChk(){FG.st=new Set;FG.pv=null;for(const f of fgAll())try{fgK(f)==='bar'&&(t=>t&&fgZs(f,t))(f.querySelector('text'));const D=FGD[fgK(f)],ts=fgT(f);if(!ts.length||ts.some(t=>!t))continue;const b=D.box?D.box(f,ts):fgBox(ts[0],f.parentNode);b&&!fgEq(D.sig(f,ts,b),f.getAttribute(FGA))&&FG.st.add(f)}catch(_){}
   const n=FG.st.size;n&&requestAnimationFrame(()=>setTimeout(()=>msg(`${n} linked object${n>1?'s':''} (labels, frames, scale bars or zoom insets, outlined in red) no longer ${n>1?'match what they belong':'matches what it belongs'} to, perhaps after editing elsewhere: FigKit › Update linked objects`),120))}
 const fgCut=(ns,m)=>{const v=new Set(m.values()),ok=e=>{const k=fgK(e),t=fgT(e);return k==='inset'?fgK(t[0])==='roi':k==='zline'?fgK(t[0])==='roi'&&fgK(t[1])==='inset':true};
@@ -1545,6 +1644,8 @@ const fgHud=poly=>{if(!G&&!$('mFg').hidden)for(const v of FG.pv||[]){v.b&&poly(v
   for(const f of FG.st)if(root.contains(f)){const b=memoize(()=>bbox(f));b&&poly(b,'stroke:#e5534b;stroke-dasharray:3 2')}};
 // ══ 28 FigKit tools ════
 // Every apply goes through fgDo: one named undo step, reverted whole on an exception or a refusal (fgErr).
+// fgv(n): FigKit field n's value (Gf); fgn: as a number; fgm: in user units from the pane's unit; fgDo(name,f): one step,
+// all or nothing
 const fgv=n=>Gf[n].type==='checkbox'?Gf[n].checked:Gf[n].value,fgn=n=>{const v=Gf[n].value===''?NaN:+Gf[n].value;return abs(v)<1e7?v:NaN},
   fgU=()=>({mm:1,pt:25.4/72,px:25.4/96})[$('mFgU').value]||1,fgm=n=>fgn(n)*fgU()/U,fgF=v=>`${fm(+(v*U/fgU()).toFixed(3))} ${$('mFgU').value}`,
   fgN=(n,w)=>`${n} ${w}${n===1?'':'s'}`,fgErr=t=>(msg(t),false),
@@ -1798,6 +1899,7 @@ function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 // background ones are detached from the page, so nothing is serialised when switching. TABS[TI] is filled only
 // while a tab is in the background: the active document lives in the usual globals (root, name, undos…).
 const TABS=[{}];let TI=0;
+// tabGet(): a snapshot of the active document's globals; tabHold/tabShow swap them
 const tabGet=()=>({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV,sel:sel.slice(),ctx}),
   tabNm=i=>i===TI?name:TABS[i].name,tabDt=i=>i===TI?dirty:TABS[i].dirty,
   tabBlank=()=>!dirty&&!undos.length&&!redos.length&&/^untitled(\.svg)?$/i.test(name||'')&&!root?.querySelector('path,rect,circle,ellipse,line,polyline,polygon,text,image,use');
@@ -1858,13 +1960,16 @@ const bub=(c,t)=>{const d=el('div',c,t);LG.append(d);$('mHello').hidden=$('mSetu
   mime=u=>u.match(/^data:(image\/(png|jpeg|gif|webp))/)?.[1]||'image/png',
   dims=u=>new Promise((ok,no)=>{const m=new Image();m.onload=()=>ok({w:m.naturalWidth,h:m.naturalHeight});m.onerror=()=>no(Error('Cannot read the image'));m.src=u}),
   fixSvg=s=>{const h=new DOMParser().parseFromString('<body>'+s,'text/html').querySelector('svg');return h&&new XMLSerializer().serializeToString(h)};
+// svgOf(t,partial): the SVG in a reply, namespaces added, repaired as HTML when XML fails
 function svgOf(t,partial){let s=(/<svg[\s\S]*<\/svg>/i.exec(t)||[])[0]||partial&&(/<svg[\s>][\s\S]*/i.exec(t)||[])[0];if(!s)return null;s=s.replace(/&nbsp;/g,'&#160;');
   /^<svg[^>]*\sxmlns=/i.test(s)||(s=s.replace(/^<svg/i,`<svg xmlns="${NS.svg}"`));s=XNS(s);
   let d;try{d=parse(s)}catch(e){const f=fixSvg(s);if(!f)throw e;d=parse(f)}d.querySelectorAll('script,foreignObject').forEach(e=>e.remove());return new XMLSerializer().serializeToString(d)}
+// put(svg,open): Insert copy, or open as a new tab
 function put(s,open){if(open){if(!tabFresh())return;load(s,'ai.svg');setTimeout(()=>asNow(1),300);return msg('Opened the AI figure in a new tab')}
   const o=aiG&&root.contains(aiG)?aiG:null,b=o&&bbox(o);
   once(()=>{if(o){o.contains(ctx)&&(ctx=o.parentNode);o.remove()}doImport(s,'ai');aiG=sel[0];const n=b&&bbox(aiG);n&&(applyM(T(b.x-n.x,b.y-n.y)),commit())});
   msg(o?'Replaced the AI figure (Ctrl+Z to undo)':'Placed the AI figure (Ctrl+Z to undo)');selChip()}
+// patch(t): applies a <patch> reply to aiG as one step
 function patch(t){const m=/<patch[\s>][\s\S]*?(<\/patch>|$)/i.exec(t);if(!m)return null;if(!aiG||!root.contains(aiG))return msg('The AI sent changes, but its figure is no longer on the canvas'),0;
   if(!m[1])return msg('The AI\'s changes were cut off, so none were applied; ask again, or for fewer changes at a time'),0;
   const w=`<svg xmlns="${NS.svg}" xmlns:xlink="${NS.xlink}" xmlns:inkscape="${NS.inkscape}" xmlns:sodipodi="${NS.sodipodi}">${m[0].replace(/&nbsp;/g,'&#160;')}</svg>`;let d;
@@ -1922,11 +2027,13 @@ function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())retu
   e.title='The selected objects are sent with your message';e.append(xb(()=>{skip=sel.slice();selChip()},'Send without the selection'));c.replaceChildren(e);chipsUI()}
 const selPart=()=>selOn()?frag(order(sel)):null,copyOut=()=>{copy();if(!sel.length)return;const n=sel.reduce((n,e)=>n+e.getElementsByTagName('*').length,0),f=n<2e4&&frag(order(sel));
   lastOut=f?f.x:`svguest: ${nObj(sel.length)} copied`;navigator.clipboard?.writeText(lastOut).catch(()=>{})};
+// frag(els): els as a standalone SVG with what they reference
 function frag(els){const b=memoize(()=>els.reduce((a,e)=>un(a,bbox(e)),null));if(!b)return null;
   const s=mk('svg',{width:fm(b.w*U)+'mm',height:fm(b.h*U)+'mm',viewBox:[b.x,b.y,b.w,b.h].map(fm).join(' ')}),d=mk('defs',{},s),P=['fill','stroke','stroke-width','font-family','font-size','font-weight','font-style','text-anchor'];
   for(const e of els){const st=[],g=mk('g',{},s);for(let a=e.parentNode;a;a=a===root?null:a.parentNode){const v=[...P.filter(q=>a.hasAttribute(q)).map(q=>q+':'+a.getAttribute(q)),a.getAttribute('style')].filter(Boolean).join(';');v&&st.unshift(v)}
     setT(g,ctm(e.parentNode));st.length&&g.setAttribute('style',st.join(';'));g.append(e.cloneNode(true))}
   d.append(...deps([s]));return{els,b,x:new XMLSerializer().serializeToString(s)}}
+// refs(nodes): the defs they reference (deps: cloned)
 function refs(ns){const seen=new Set();
   for(let q=ns;q.length;){const x=q.map(n=>new XMLSerializer().serializeToString(n)).join('');q=[];
     for(const[,i,j]of x.matchAll(/url\(\s*['"]?#([^'")\s]+)|href="#([^"]+)"/g)){const r=byId(i||j);r&&!seen.has(r)&&(seen.add(r),q.push(r))}}
@@ -1946,6 +2053,8 @@ const tbBridge=()=>window.tbtools?.ai,
     while(b[1]&&n()>TBMAX)b.shift();while(b.length>2&&b[0].role!=='user')b.shift();return n()>TBMAX?null:[{role:'system',content:s},...b]},
   tbWhy={aborted:'Stopped',denied:'TBtools declined this request.',busy:'TBtools is busy. Try again in a moment.',closed:'The TBtools model bridge is closed.',invalid:'TBtools could not read this request.',too_many:'This conversation is too long for TBtools.',too_large:'This message is too large for TBtools.',empty:'Empty reply'};
 tbBridge()&&REG.unshift({p:'Tb',n:'TBtools',by:'Built into TBtools-II',to:'the TBtools model',ok:()=>!!tbBridge(),about:'No key, no account. It reads up to 32,000 characters of a chat; a longer chat is summarised and continues in a new one.',ms:[{id:'',n:'TBtools',see:1,ch:1,th:0}]});
+// PV(p): REG entry; mOf(t): model of {p,m}; who(v)/vOf(t): 'Prov:model' ⇄ {p,m}; hasP(p): usable; drawTo(): the drawing model;
+// reader(d): the model that reads images, null when d reads them itself
 const PV=p=>REG.find(r=>r.p===p),mOf=t=>PV(t.p)?.ms.find(m=>m.id===t.m),vOf=t=>t.m?t.p+':'+t.m:t.p,ctxLim=t=>t.p==='Tb'?TBMAX:mOf(t)?.ctx||128e3,
   who=v=>(([p,m=''])=>({p,m}))(String(v||'').split(':')),nameOf=t=>mOf(t)?.n||t.m||PV(t.p)?.n||t.p,canSee=t=>!!mOf(t)?.see,thk=t=>!!mOf(t)&&mOf(t).th!==0,ucf=s=>s[0].toUpperCase()+s.slice(1),
   cfg=p=>({key:(ls('sg'+p+'Key')||'').trim()}),ep=p=>KS[p]||(KS[p]=probe(p)),epName=(r,u)=>u===r.plan?'Coding Plan endpoint':u===r.url?'standard API (pay-as-you-go)':'unknown endpoint',
@@ -1968,10 +2077,12 @@ function mmSpec(items,z){let mx=0,my=0;const at=q=>{Array.isArray(q)&&isFinite(q
   const ft=new Set;tx.sort((a,b)=>a.fs-b.fs);for(let i=0,j;i<tx.length;i=j){for(j=i;j<tx.length&&tx[j].fs<=tx[i].fs*1.2;j++);const v=tx[(i+j-1)>>1].fs*72/254,m=round((v>=4.8&&v<=10?min(8,max(6,v)):v)*254/72);
     (m<21||m>28)&&ft.add(+(m*72/254).toFixed(1));for(let q=i;q<j;q++){const t=tx[q];t.fs=m;t.n>1&&(t.lh=round(1.2*m));delete t.n}}
   return{w:FW,h:FH,items:its,ft:[...ft]}}
+// sse(response): yields the JSON events of a server-sent event stream
 async function*sse(r){const rd=r.body.pipeThrough(new TextDecoderStream()).getReader(),js=function*(a){for(const l of a){const d=l.startsWith('data:')&&l.slice(5).trim();if(d&&d!=='[DONE]')yield JSON.parse(d)}};let buf='';
   for(;;){const{value,done}=await rd.read();if(done)break;const a=(buf+=value).split('\n');buf=a.pop();yield*js(a)}yield*js([buf])}
 const apiMsg=t=>{try{const j=JSON.parse(t),e=j.error||j;return(e.code?'['+e.code+'] ':'')+(e.message||t)}catch(_){return t}},
   glmNet=(u,e)=>Object.assign(Error(`GLM ${u===PV('Glm').plan?'Coding Plan':'standard API'} could not be reached. Check the network or proxy. If the browser console reports CORS, ${glmWeb()?'enable Use Cloudflare relay under Models and keys':'use the latest TBtools plugin'}. ${e.message}`),{p:'Glm'});
+// apiPost(p,url,key,body,o): POSTs through the TBtools bridge, the GLM relay or fetch
 async function apiPost(p,u,key,body,o={}){const S=p==='Glm'&&globalThis.TBSIWC;
   if(S?.glm){const r=u===PV(p).url?'standard':u===PV(p).plan?'coding':'';if(!r||!/^http:\/\/127\.0\.0\.1:\d+$/.test(S.url)||!S.key)throw Object.assign(Error('GLM local connection is unavailable. Reopen svguest in TBtools.'),{p});
     try{return await fetch(S.url+'/glm/'+r,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key,'x-siwc-key':S.key},signal:o.signal,body:JSON.stringify(body)})}
@@ -2017,6 +2128,7 @@ async function call(to,msgs,o){
   o.ui.use(u);return{out,cut}}catch(e){e.p=to.p;throw e}}
 const join=(o,c)=>{c=c.replace(/^\s*(```\w*\s*)?/,'');if(openP(o)){const i=pt0(c);if(i>=0)return o.slice(0,pt0(o))+c.slice(i)}else{const i=sv(c);if(i>=0)return o.slice(0,sv(o))+c.slice(i)}
   for(let n=min(c.length,o.length,4e3);n>15;n--)if(c[n-1]==='>'&&o.endsWith(c.slice(0,n))&&/<[a-z]/i.test(c.slice(0,n)))return o+c.slice(n);return o+c};
+// draw(to,base,o): one reply, continued while cut off; returns {out,cut}
 async function draw(to,base,o){let out='',cut=0;
   for(let n=0;;n++){const prev=out,more=n?[...base,...con(prev)]:base;if(n&&to.p==='Tb'&&tbFit(more)?.at(-2)?.content!==prev){cut=1;break}
     let r,e=n?'low':o.eff;
@@ -2026,6 +2138,7 @@ async function draw(to,base,o){let out='',cut=0;
     const op=sv(out)>=0&&!/<\/svg>/i.test(out)||openP(out);to.p==='Tb'&&op&&(cut=1);if(!cut||!op||n>2)break;
     const j=out.lastIndexOf('>');j>(openP(out)?pt0(out):sv(out))&&(out=out.slice(0,j+1));o.ui.note(`The reply was cut off at the token limit; continuing (${n+1}/3)`)}
   return{out,cut}}
+// past(h,see,kl): the history to resend: images only for models that see, only the live figure's SVG in full
 const past=(h,vis,kl)=>{const live=aiG&&root.contains(aiG)&&!kl;let ks=-1,im=-1;
   for(let i=h.length;i--;){const m=h[i];m.role==='assistant'?ks<0&&/<svg[\s>]/i.test(m.content)&&(ks=i):im<0&&Array.isArray(m.content)&&(im=i)}
   return h.map((m,i)=>m.role==='assistant'?live||i!==ks?{role:'assistant',content:brief(m.content)}:m:typeof m.content=='string'||vis&&i===im?m:{role:'user',content:flat(m.content)})};
@@ -2116,6 +2229,7 @@ async function ask(again,mo,rt){if(ac)return ac.abort();
   if(sl||cur){const u=hist.at(-1),f=c=>{sx&&(c=c.replace(sx,'\n\n[A selected part of the figure was attached here as SVG.]'));cx&&(c=c.replace(cx,'\n\n[The current figure was attached here as SVG.]'));return c};
     u.content=Array.isArray(u.content)?u.content.filter(c=>c.image_url?.url!==pi).map(c=>c.type==='text'?{...c,text:f(c.text)}:c):f(u.content)}
   hist.push({role:'assistant',content:res.out});const pl=land(res,sl,ri,ui);ui.fin();pl&&!sl&&!cur&&ui.rt({t,sent,fl});CH&&(CH.k=ui.tok()||CH.k);chSave()}
+// land(reply,sel,read,ui): places the reply: a patch, else Insert copy, Replace selection and Open as new
 function land({out,cut,miss},sl,ri,ui){const b=ui.b;
   cut&&b.append(el('div',0,'The reply was cut off at the token limit. Ask for a simpler figure, or for one panel at a time.'));ri?.sp?.ft?.length&&b.append(el('div',0,`Text came out at ${ri.sp.ft.join(' and ')} pt to keep the original's proportions; change each size under All text in the side panel.`));miss&&miss.length&&b.append(el('div',0,`Panel ${miss.join(', ')} could not be drawn; ask for ${miss.length>1?'them':'it'} again.`));
   if(patch(out)!=null)return;
@@ -2288,6 +2402,7 @@ const RDB=idbO('sgDocs','d',{keyPath:'id'}),
 // asV: dv last stored; asMs: last serialising time; asOk: IndexedDB works; asN: snapshot number; asP: writes in flight
 let RL=rlR(),DI=null,FD=null,FDh=null,asT=0,asV=-1,asMs=0,asOk=0,asN=0,asP=0,rdQ=Promise.resolve();RDB.then(d=>{asOk=!!d;rdL()});
 const asQ=()=>{clearTimeout(asT);asT=setTimeout(()=>(window.requestIdleCallback||setTimeout)(()=>asNow()),asMs>50?1e4:2e3)};
+// rlPut(m): adds or updates entry m, dropping the oldest past 10 or 200 MB (never the open one)
 function rlPut(m){const kp=[],dr=[];let b=0;for(const x of[m,...rlR().filter(x=>x.id!==m.id)])x.id===DI||kp.length<10&&b+(x.b||0)<=2e8?(kp.push(x),b+=x.b||0):dr.push(x);RL=kp;rlS();dr.length&&rdb('readwrite',s=>dr.forEach(x=>s.delete(x.id)))}
 function asNow(f,raw){clearTimeout(asT);asT=0;const b=asOk&&opts.auto;if(!root||!b&&!FDh)return;if(ed||D||G||cpS||CR)return asT=setTimeout(()=>asNow(f,raw),1e3);if(!f&&asV===dv||!f&&!DI&&!undos.length)return;
   const t0=performance.now(),txt=svgRaw(),m={id:DI||(DI='d'+Date.now().toString(36)),n:name,t:Date.now(),s:txt.length,e:nOb(),u:dirty},r={id:m.id,g:gl.map(x=>({...x})),v:vwGet(),h:typeof FileSystemHandle!='undefined'&&fh||null};asMs=performance.now()-t0;asV=dv;fdW(m,txt);if(!b)return;asP++;const n=++asN,
@@ -2926,6 +3041,7 @@ const LN={g:'Group',a:'Link',switch:'Switch',path:'Path',rect:'Rectangle',circle
     eye:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',off:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8zM2.5 13.5l11-11',lk:'M4 7.5h8v6H4zM5.5 7.5V5.5a2.5 2.5 0 0 1 5 0v2',ul:'M4 7.5h8v6H4zM5.5 7.5V5.5a2.5 2.5 0 0 1 5 0'},
   ico=(d,c)=>{const v=mk('svg',{viewBox:'0 0 16 16'});c&&v.setAttribute('class',c);mk('path',{d},v);return v},
   Ly={rows:[],open:new WeakSet,doc:null,an:null,q:'',ps:[],me:0,raf:0,sr:0,ft:0},lyOn=()=>document.body.classList.contains('lay'),
+  // lyName(e): e's name in Layers: its label, text or type
   lyName=e=>e.getAttributeNS(NS.inkscape,'label')||(e.localName==='text'?e.textContent.replace(/\s+/g,' ').trim().slice(0,120)||'Text':isLayer(e)?'Layer':LN[e.localName]||e.localName),
   lyX=e=>{const r=e.target.closest('#mLl .r'),x=r&&Ly.rows[+r.dataset.i]?.[0];return root&&x&&root.contains(x)?x:null},
   lyHv=()=>{if(lyOn())for(const r of $('mLl').firstChild.children)r.dataset.i&&r.classList.toggle('hv',Ly.rows[+r.dataset.i]?.[0]===hov)};
@@ -3026,6 +3142,7 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
 const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim();return t.length>2?t:(b.title||'').split(/[:(]/)[0].trim()||t},AN=new Map;
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
 document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
+// dOpen(): the open menu; menuOff(x): closes the menus but x; dlgOpen(): a modal dialog is open
 const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open,
   menuOff=x=>{MENUS.forEach(d=>d.classList.contains('open')&&d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));SUBS.forEach(s=>x&&x.contains(s)||s.classList.remove('hv'))};
 addEventListener('click',e=>{const d=e.target.closest('.dd'),u=e.target.closest('.sb');menuOff(d);u?u.parentNode.classList.toggle('open'):d&&(e.target.closest('.ddb')?d.classList.toggle('open')||menuOff():e.target.closest('.menu button')&&(d.classList.remove('open'),menuOff()))});

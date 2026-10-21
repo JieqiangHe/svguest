@@ -58,7 +58,7 @@ h1{margin-top:18px;font-weight:650;font-size:clamp(44px,4.8vw,62px);line-height:
 .story figcaption{margin:9px calc(32px - var(--lw)*26.25/240) 0 0;font-size:10.5px;line-height:1.6;color:var(--muted);white-space:nowrap}
 .story figcaption a{display:inline;text-decoration:underline}
 .legal{border-top:1px solid var(--line);margin-top:auto;display:flex;justify-content:center;align-items:center;gap:24px;padding:22px 0 26px;color:var(--muted);font-size:11px;line-height:1.7}
-h1 .qe{color:var(--ok)}h1.one{white-space:pre}.pitch{min-width:0}
+h1 .qe,.eyebrow.ok{color:var(--ok)}h1.one{white-space:pre}.pitch{min-width:0}
 @keyframes k{50%{opacity:0}}
 #hud{position:fixed;inset:0;pointer-events:none}
 #hud .b{position:absolute;border:1px dashed var(--ink)}
@@ -149,12 +149,13 @@ function ease(h0,h){if(RM()||h0===h)return;h1.style.height=h0+'px';h1.offsetHeig
 const fit=()=>h1.style.cssText='';
 // "another paper accepted!" stays on one line when it reaches no closer than 32 px to the house (or, stacked, to the column's edge); else it wraps
 function one(){h1.classList.add('one');const L=h1.getBoundingClientRect(),G=logo.getBoundingClientRect(),m=G.left>L.left+L.width/2&&G.top<L.bottom?G.left-32:L.right;L.left+h1.scrollWidth>m&&h1.classList.remove('one')}
-function qed(){eg=1;ey.textContent='Reviewer 2 says: accept';const a=H1.replace(/figure\.$/,''),F=[],q=document.createElement('span');q.className='qe';
+// The decision line comes last, typed into the eyebrow half a second after the headline, as the punchline
+function qed(){eg=1;const a=H1.replace(/figure\.$/,''),F=[],q=document.createElement('span'),D='✓ Decision: accept without revisions',dec=n=>{ey.classList.add('ok');ey.textContent=D.slice(0,n)};q.className='qe';
  for(let i=7;i>=0;i--)F.push('figure.'.slice(0,i));for(let i=1;i<=15;i++)F.push('paper accepted!'.slice(0,i));
  const w=i=>{const t=F[i];h1.textContent=a+t.slice(0,6);t.length>6&&i>7&&(q.textContent=t.slice(6),h1.append(q))};
- const h0=h1.offsetHeight;w(F.length-1);one();const h=h1.offsetHeight;if(RM())return;w(0);ease(h0,h);
- let i=0;const f=()=>{w(i);++i<F.length?egT=setTimeout(f,i===8?320:75):egT=setTimeout(fit,300)};f()}
-function unqed(){clearTimeout(egT);eg=0;fit();h1.classList.remove('one');const h0=h1.offsetHeight;h1.textContent=H1;ey.textContent=EY;ease(h0,h1.offsetHeight);egT=setTimeout(fit,550)}
+ const h0=h1.offsetHeight;w(F.length-1);one();const h=h1.offsetHeight;if(RM())return dec(D.length);w(0);ease(h0,h);
+ let i=0,n=1;const g=()=>{dec(n);++n<=D.length&&(egT=setTimeout(g,35))},f=()=>{w(i);++i<F.length?egT=setTimeout(f,i===8?320:75):egT=setTimeout(()=>{fit();g()},500)};f()}
+function unqed(){clearTimeout(egT);eg=0;fit();h1.classList.remove('one');const h0=h1.offsetHeight;h1.textContent=H1;ey.textContent=EY;ey.classList.remove('ok');ease(h0,h1.offsetHeight);egT=setTimeout(fit,550)}
 const isS=e=>e instanceof SVGElement&&e!==logo;
 const T=e=>(e.dataset.t||'0,0').split(',').map(Number),S=e=>+(e.dataset.s||1);
 const pt=e=>new DOMPoint(e.clientX,e.clientY).matrixTransform(logo.getScreenCTM().inverse());

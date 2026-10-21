@@ -147,7 +147,7 @@ const RM=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 // The extra line eases the headline open or shut instead of jumping (the text below and the house follow); `fit` drops the fixed height once the text is final.
 function ease(h0,h){if(RM()||h0===h)return;h1.style.height=h0+'px';h1.offsetHeight;h1.style.transition='height .5s cubic-bezier(.2,.7,.2,1)';h1.style.height=h+'px'}
 const fit=()=>h1.style.cssText='';
-function qed(){eg=1;ey.textContent='You found the easter egg';const a=H1.replace(/figure\.$/,''),F=[],q=document.createElement('span');q.className='qe';
+function qed(){eg=1;ey.textContent='Reviewer 2 says: accept';const a=H1.replace(/figure\.$/,''),F=[],q=document.createElement('span');q.className='qe';
  for(let i=7;i>=0;i--)F.push('figure.'.slice(0,i));for(let i=1;i<=15;i++)F.push('paper accepted!'.slice(0,i));
  const w=i=>{const t=F[i];h1.textContent=a+t.slice(0,6);t.length>6&&i>7&&(q.textContent=t.slice(6),h1.append(q))};
  const h0=h1.offsetHeight;w(F.length-1);const h=h1.offsetHeight;if(RM())return;w(0);ease(h0,h);

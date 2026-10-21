@@ -849,7 +849,7 @@ async function png(dpi,j){const f=j?'JPG':'PNG',W=round(vb.w*U/25.4*dpi),Hh=roun
 // ══ 07 View ════
 // Screen px = user units × Z × k, offset by tx, ty. Z is set only by Fit; zooming changes k alone, a CSS scale on
 // #mStage, so a zoom never restyles the drawing. place() positions the stage, page and grid for the current view.
-let Z=1,k=1,tx=0,ty=0,zt; // Z: scale set by Fit; k: zoom, #mStage's CSS scale; tx,ty: pan in px; zt: unused
+let Z=1,k=1,tx=0,ty=0,zt; // Z: scale set by Fit; k: zoom, #mStage's CSS scale; tx,ty: pan in px; zt: the grid redraw timer after a zoom
 // vp(e): the pointer in view px; cmd(e): Ctrl or ⌘ held
 const vp=e=>{const r=view.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]},cmd=e=>e.ctrlKey||e.metaKey;
 // toU([x,y]): view px to user units; toS({x,y}): user units to view px
@@ -2456,7 +2456,9 @@ fdUI();FDOK&&fdb('readonly',s=>s.get('d')).then(async h=>{if(!h)return;FDh=h;try
 $('mRc').onpointerenter=rdL;$('mRc').firstChild.addEventListener('click',rdL);$('mRm').addEventListener('click',e=>{const b=e.target.closest('button[data-r]');b&&rdOpen(b.dataset.r)});
 document.addEventListener('visibilitychange',()=>document.hidden&&asNow());addEventListener('pagehide',()=>{if(asV===dv&&!asP||!root||!asOk||!opts.auto||ed||D||G||cpS||CR)return;const id=DI||(DI='d'+Date.now().toString(36)),txt=svgRaw();
   txt.length<2e6&&ls('sgDocCrash',JSON.stringify({m:{id,n:name,t:Date.now(),s:txt.length,e:nOb(),u:dirty,b:txt.length*2},g:gl,v:vwGet(),txt}));asNow(1,1)});
-(c=>{if(!c)return;const no=()=>{try{localStorage.removeItem('sgDocCrash')}catch(_){}};try{c=JSON.parse(c)}catch(_){return no()}rlPut(c.m);rdb('readwrite',s=>s.put({id:c.m.id,z:c.txt,g:c.g||[],v:c.v,h:null})).then(k=>k&&no())})(ls('sgDocCrash'));
+(c=>{if(!c)return;const no=()=>{try{localStorage.removeItem('sgDocCrash')}catch(_){}};try{c=JSON.parse(c)}catch(_){return no()}
+  if(!c||!c.m||!c.m.id||typeof c.txt!=='string')return no(); // a backup this version didn't write: drop it rather than stop the startup
+  rlPut(c.m);rdb('readwrite',s=>s.put({id:c.m.id,z:c.txt,g:c.g||[],v:c.v,h:null})).then(k=>k&&no())})(ls('sgDocCrash'));
 // ══ 43 Save ════
 // fh keeps the save picker's handle so later saves write back; without the API it downloads.
 let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+xml'}),n=outName('.svg');

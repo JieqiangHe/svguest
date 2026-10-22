@@ -2293,7 +2293,9 @@ function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d
 // hist: this chat's history (what the AI reads); aiG: the figure it drew; ac: the running reply (abort()); imgs, files,
 // notes: attachments and passing notes; rq: offer Redraw for an image; GLMR: the GLM relay is chosen
 let hist=[],aiG=null,ac=null,imgs=[],files=[],notes=[],rq=0,GLMR=ls('sgGlmRelay')==='1';
-const GLMRELAY='https://svguest-glm.jieqiang-he-dawn.workers.dev',glmWeb=()=>globalThis.location?.origin==='https://jieqianghe.github.io'&&!globalThis.TBSIWC?.glm,glmRelay=()=>glmWeb()&&GLMR;
+// GLMWEB: the sites the Cloudflare relay serves (its Worker allows only these origins)
+const GLMWEB=['https://jieqianghe.github.io','https://www.svguest.online','https://svguest.online'];
+const GLMRELAY='https://svguest-glm.jieqiang-he-dawn.workers.dev',glmWeb=()=>GLMWEB.includes(globalThis.location?.origin)&&!globalThis.TBSIWC?.glm,glmRelay=()=>glmWeb()&&GLMR;
 const LG=$('mLog'),TBMAX=32e3,SELMAX=2e5,CHUNK=60,KS={},KT={},
   REG=[{p:'Glm',n:'GLM',by:'Zhipu AI',to:'GLM (Zhipu AI)',url:'https://open.bigmodel.cn/api/paas/v4/chat/completions',plan:'https://open.bigmodel.cn/api/coding/paas/v4/chat/completions',get:'https://open.bigmodel.cn/',hint:'Use the standard API (pay-as-you-go). Coding Plan does not include svguest. '+(globalThis.TBSIWC?.glm?'GLM requests go through TBtools on this computer.':glmWeb()?'For browser CORS errors, enable Use Cloudflare relay below.':'For browser CORS errors, use the latest TBtools plugin.'),ms:[{id:'glm-5.3',n:'GLM-5.3',ctx:1e6},{id:'glm-5.3-flash',n:'GLM-5.3 Flash',see:1,ctx:1e6}]},
     {p:'Ds',n:'DeepSeek',to:'DeepSeek',url:'https://api.deepseek.com/chat/completions',get:'https://platform.deepseek.com/api_keys',ms:[{id:'deepseek-v4-pro',n:'DeepSeek V4 Pro',ctx:1048576},{id:'deepseek-flash',n:'DeepSeek Flash',see:1,ctx:1048576}]}];
@@ -2671,7 +2673,7 @@ function card(r){
     keySet(r.p,'')};
   x.before(u);
   if(r.p!=='Glm')return c;
-  // GLM only: the key's kind, the relay option (on the GitHub Pages site) and Recheck connection
+  // GLM only: the key's kind, the relay option (on the svguest sites, GLMWEB) and Recheck connection
   const t=el('p');
   t.id='mEpGlm';
   t.hidden=true;

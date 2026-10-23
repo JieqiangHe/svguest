@@ -14,10 +14,10 @@ A tiny SVG editor for scientific figures, in one HTML file. Touch up figures fro
 
 https://github.com/user-attachments/assets/a6501747-b90a-4e66-8a97-4ff731155efa
 
+Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.
+
 ## Acknowledgements
 
 <p align="center">Thanks to <a href="https://github.com/CJ-Chen/TBtools-II">TBtools-II</a> and its author, Chengjie Chen (<a href="https://github.com/CJ-Chen">@CJ-Chen</a>), for hosting svguest as a plugin and for opening TBtools' model to SVG Chat, and to <a href="https://bioanno.com/index">BioAnno</a> for its support.</p>
 
 <p align="center"><a href="https://github.com/CJ-Chen/TBtools-II"><img src="tbtools.svg" alt="TBtools-II" width="72" height="72"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://bioanno.com/index"><img src="bioanno.svg" alt="BioAnno" width="72" height="72"></a></p>
-
-Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.

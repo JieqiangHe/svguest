@@ -133,7 +133,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 /* ══ 12 HUD ══ */
 #mHud [data-h]{pointer-events:all;cursor:pointer}
 /* ══ 09 Rulers and guides ══ */
-#mGc{position:absolute;top:26px;left:26px;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border:1px solid var(--btnb);border-radius:11px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:0 1px 4px #0002}#mGc::before{content:"";width:11px;border-top:1.5px dashed #e8457a}#mGc[hidden]{display:none}#mPop{position:fixed;z-index:19;width:252px;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg)}#mPop[hidden]{display:none}#mPop header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:6px;margin:0 -8px 4px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mPop header b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}#mPop header svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round}#mPop header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px;cursor:pointer}#mPop header button:hover{background:var(--btnh)}#mPop>.kv{margin:4px 0}#mPop.nt .pt,#mPop.nt #mTs{display:none}#mPop:is([data-k=o],[data-k=text]) .ap>.r:not(:last-child),#mPop[data-k=shape] .ap>.hd{display:none}.pph{margin:2px 0 6px;color:var(--h4);font-size:11px}#mCrS{position:absolute;width:0;height:0}#mStage [data-mcr]{clip-path:none!important;mask:url(#mCrM)!important}#mCr{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:2px;border:1px solid var(--btnb);border-radius:13px;background:var(--btn);box-shadow:0 1px 4px #0002}#mCr[hidden]{display:none}#mBk{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;height:24px;padding:0 11px 0 9px;border:1px solid var(--btnb);border-radius:12px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:var(--sh)}#mBk[hidden]{display:none}#mBk svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.4}
+#mGc{position:absolute;top:26px;left:26px;display:flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border:1px solid var(--btnb);border-radius:11px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:0 1px 4px #0002}#mGc::before{content:"";width:11px;border-top:1.5px dashed #e8457a}#mGc[hidden]{display:none}#mPop header b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mPop header svg{width:14px;height:14px;display:block;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round}#mPop>.kv{margin:4px 0}#mPop.nt .pt,#mPop.nt #mTs{display:none}#mPop:is([data-k=o],[data-k=text]) .ap>.r:not(:last-child),#mPop[data-k=shape] .ap>.hd{display:none}.pph{margin:2px 0 6px;color:var(--h4);font-size:11px}#mCrS{position:absolute;width:0;height:0}#mStage [data-mcr]{clip-path:none!important;mask:url(#mCrM)!important}#mCr{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:2px;border:1px solid var(--btnb);border-radius:13px;background:var(--btn);box-shadow:0 1px 4px #0002}#mCr[hidden]{display:none}#mBk{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;height:24px;padding:0 11px 0 9px;border:1px solid var(--btnb);border-radius:12px;background:var(--btn);color:var(--bfg);font-size:11px;box-shadow:var(--sh)}#mBk[hidden]{display:none}#mBk svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.4}
 /* ══ 05 Opening ══ */
 #mBz{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border:1px solid var(--btnb);border-radius:15px;background:var(--btn);color:var(--bfg);box-shadow:0 2px 10px #0003;white-space:nowrap}#mBz[hidden]{display:none}
 #mBz i{width:14px;height:14px;border:2px solid #8a8a8a55;border-top-color:var(--onb);border-radius:50%}@media(prefers-reduced-motion:no-preference){#mBz i{animation:mBzR .8s linear infinite}}@keyframes mBzR{to{transform:rotate(1turn)}}#mCr button{height:20px;padding:0 10px;border:0;border-radius:10px;background:none;color:var(--bfg);font-size:11px}#mCr button:hover{background:var(--btnh)}#mCr #mCrA{background:#1a73e8;color:#fff}#mCr #mCrA:hover{background:#1765cc}.noR #mCr{top:6px}.noR #mGc{top:6px;left:6px}
@@ -239,8 +239,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mStage[data-cv=p]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvp)}#mStage[data-cv=d]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvd)}
 #mStage[data-cv=t]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvt)}#mStage[data-cv=g]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvg)}
 /* ══ 29 FigKit window ══ */
-/* .win: the floating windows (FigKit, Watermark check, edit record), one look; stacking in 45a */
-.win{position:fixed;z-index:16;width:min(360px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}.win[hidden]{display:none}
+/* .win: the floating windows (FigKit, Watermark check, edit record, Layers window), one look; stacking in 45a */
+.win{position:fixed;z-index:16;width:min(360px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}.win[hidden]{display:none!important}
 .win>header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;height:34px;margin:0 -8px 6px;padding:0 4px 0 12px;background:var(--bar);border-bottom:1px solid var(--h4b);cursor:move;touch-action:none;user-select:none}.win>header b{margin-right:4px;font-size:12.5px;font-weight:600;color:var(--fg)}.win>header>button:last-child{flex:none;width:26px;height:26px;min-height:0;margin-left:auto;padding:0;border:0;border-radius:6px;background:none;font-size:16px;line-height:26px;color:var(--h4)}.win>header>button:last-child:hover{background:var(--btnh);color:var(--fg)}.win.wbk{box-shadow:var(--sh)}.win.wbk>header{background:var(--side)}.win.wbk>header b{color:var(--t3)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden],#mFg [hidden]{display:none!important}
 #mFg header select{border-color:transparent;background-color:transparent}
@@ -369,7 +369,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>All text</h4><div>
 <div class="row"><button data-a="arial">All to Arial</button></div>
 <div id="mSizes"></div></div></section>
-</div><div id="mPop" hidden><header><span id="mPopI"></span><b id="mPopT"></b><button id="mPopX" title="Close (Esc)">×</button></header>
+</div><div id="mPop" class="win" hidden><header><span id="mPopI"></span><b id="mPopT"></b><button id="mPopX" title="Close (Esc)">×</button></header>
 <div class="kv"><span>Name</span><input id="mPopN" placeholder="none" spellcheck="false" title="The name Layers shows (saved as an Inkscape label)"></div><div id="mPopE"></div>
 <h4>Transform <small>mm</small></h4><i data-s="mTf"></i><h4 class="pt">Text</h4><i data-s="mTs"></i><h4>Appearance</h4><i data-s="mAp"></i></div>
 <!-- ══ 29 FigKit window ══ -->
@@ -3710,12 +3710,12 @@ function pvClose(){
   $('mPv').hidden=true;
   qa('prov').classList.remove('on');
 }
-// Floating windows (.win: FigKit, the Watermark check, the edit record) share one look and stack like windows in
+// Floating windows (.win: FigKit, the Watermark check, the edit record, the Layers window) share one look and stack like windows in
 // classic Windows: they keep their order front to back (WINS, front last), the front one has the active title bar, and
 // one that opens while others are open cascades one title bar down and right of the front one, so every title bar
 // stays in view; with none open it takes its last place, or the first step of the cascade in the canvas's top right.
-// A press anywhere on a window brings it to the front.
-const WINS=['mFg','mWm','mPv'],WSTEP=30; // the floating windows, back to front; the cascade step in px
+// The Layers window keeps its place beside its row. A press anywhere on a window brings it to the front.
+const WINS=['mFg','mWm','mPv','mPop'],WSTEP=30; // the floating windows, back to front; the cascade step in px
 function winTop(id,fresh){
   const W=$(id),f=WINS.filter(x=>x!==id&&!$(x).hidden).at(-1);
   if(fresh){
@@ -3737,7 +3737,7 @@ function winTop(id,fresh){
   });
 }
 addEventListener('pointerdown',e=>{
-  const w=e.target.closest&&e.target.closest('#mFg,#mWm,#mPv');
+  const w=e.target.closest&&e.target.closest('.win');
   if(w)winTop(w.id);
 },true);
 $('mPvX').onclick=pvClose;
@@ -4024,7 +4024,7 @@ function popOpen(x,rr){if(Pop.x===x||!(sel.length===1&&sel[0]===x))return;popX()
   $('mPopI').replaceChildren(ico(LI[isGrp(x)?'g':n==='ellipse'?'circle':/^(text|rect|circle|line|polyline|polygon|path|image|use)$/.test(n)?n:'rect']));E.replaceChildren();
   if(n==='rect'){const d=el('div','kv'),w=el('label','f'),i=el('input');i.type='number';i.step='0.1';i.min='0';i.id='mPopR';w.append(i,el('em',0,'mm'));d.append(el('span',0,'Corners'),w);E.append(d)}
   if(n==='image'){const d=el('div','row'),c=cmyk(x);for(const[a,t]of[['cropI','Crop image'],['uncrop','Remove crop']]){const b=el('button',0,t);b.dataset.a=a;d.append(b)}E.append(d);c&&E.append(el('p','pph',c===1?'CMYK photo without a colour profile: its colours may look wrong; convert it to sRGB in the app it came from':'CMYK photo with a colour profile: colours may differ slightly; convert it to sRGB for exact colours'))}
-  P.hidden=false;popSync();const L=$('mLay').getBoundingClientRect();P.style.left=max(8,L.left-P.offsetWidth-6)+'px';P.style.top=max(8,min(rr.top-6,innerHeight-P.offsetHeight-8))+'px';msg('Edit it here; Esc or × closes')}
+  P.hidden=false;popSync();const L=$('mLay').getBoundingClientRect();P.style.left=max(8,L.left-P.offsetWidth-6)+'px';P.style.top=max(8,min(rr.top-6,innerHeight-P.offsetHeight-8))+'px';winTop('mPop');msg('Edit it here; Esc or × closes')}
 function popX(){if(!Pop.x)return;Pop.x=null;ed&&ed.sd&&finish(true);Pop.m.forEach(([d,ph,s])=>{d.replaceWith(s);ph.replaceWith(d)});Pop.m=[];$('mPop').hidden=true}
 function popSync(){const x=Pop.x;if(!x)return;if(!(sel.length===1&&sel[0]===x)||!root.contains(x)||!lyOn())return popX();const n=x.localName,N=$('mPopN'),R=$('mPopR'),u=$('mPopE').querySelector('[data-a=uncrop]'),a=document.activeElement;
   $('mPopT').textContent=(LN[n]||n)+(isGrp(x)?` · ${x.childElementCount}`:'')+(x.id?' #'+x.id:'');a!==N&&(N.value=x.getAttributeNS(NS.inkscape,'label')||'');R&&a!==R&&(R.value=+(rgeo(x)[4]*sc(ctm(x))*U).toFixed(2));u&&(u.disabled=!cropK(stGet(x,'clip-path')))}

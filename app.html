@@ -239,8 +239,9 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mStage[data-cv=p]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvp)}#mStage[data-cv=d]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvd)}
 #mStage[data-cv=t]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvt)}#mStage[data-cv=g]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvg)}
 /* ══ 29 FigKit window ══ */
-#mFg,#mWm,#mPv{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
-#mFg header,#mWm header,#mPv header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
+/* .win: the floating windows (FigKit, Watermark check, edit record), one look; stacking in 45a */
+.win{position:fixed;z-index:16;width:min(360px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}.win[hidden]{display:none}
+.win>header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;height:34px;margin:0 -8px 6px;padding:0 4px 0 12px;background:var(--bar);border-bottom:1px solid var(--h4b);cursor:move;touch-action:none;user-select:none}.win>header b{margin-right:4px;font-size:12.5px;font-weight:600;color:var(--fg)}.win>header>button:last-child{flex:none;width:26px;height:26px;min-height:0;margin-left:auto;padding:0;border:0;border-radius:6px;background:none;font-size:16px;line-height:26px;color:var(--h4)}.win>header>button:last-child:hover{background:var(--btnh);color:var(--fg)}.win.wbk{box-shadow:var(--sh)}.win.wbk>header{background:var(--side)}.win.wbk>header b{color:var(--t3)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden],#mFg [hidden]{display:none!important}
 #mFg header select{border-color:transparent;background-color:transparent}
 #mFg header select:is(:hover,:focus-visible){border-color:var(--btnb);background-color:var(--btn)}
@@ -265,8 +266,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 
 /* ══ 45 Watermark UI ══ */
 /* The window shares the FigKit rules above. */
-#mWm{width:min(420px,calc(100vw - 16px));display:flex;flex-direction:column;overflow:hidden;padding:0;outline:none}#mWm[hidden]{display:none}#mWm header{flex:none;position:static;margin:0;padding:10px 14px;touch-action:none;user-select:none}#mWm header b{font-size:13px}#mWm header button{line-height:24px}#mWmX{margin-left:auto}#mWm header button:hover{background:var(--btnh)}
-#mWmB{min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 16px;scrollbar-width:thin}#mWmB h3{font-size:14px;margin:0 0 4px}#mWmB p{margin:6px 0;overflow-wrap:anywhere}#mWmB .wm-muted,#mWmF small{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}#mWm button{min-height:28px;padding:3px 9px}#mWm header button{min-height:24px;padding:0 6px}
+#mWm>header{flex:none;position:static;margin:0}#mWm{display:flex;flex-direction:column;overflow:hidden;padding:0;outline:none}#mWm[hidden]{display:none}
+#mWmB{min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 16px;scrollbar-width:thin}#mWmB h3{font-size:14px;margin:0 0 4px}#mWmB p{margin:6px 0;overflow-wrap:anywhere}#mWmB .wm-muted,#mWmF small{color:var(--h4);font-size:11px}#mWmB .wm-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}#mWm button{min-height:28px;padding:3px 9px}
 #mWmB .wm-head{font-size:14px;font-weight:600;margin:0 0 4px}#mWmB .wm-result{padding:10px 12px;background:var(--btn);border:1px solid var(--btnb);border-radius:8px;margin:12px 0}#mWmB .wm-result p:first-child{margin-top:0}#mWmB .wm-result p:last-child{margin-bottom:0}#mWmB .wm-result.warn{border-left:3px solid var(--wa)}
 #mWmB .wm-group{margin-top:12px;border-top:1px solid var(--h4b);padding-top:10px}#mWmB summary{cursor:pointer;color:var(--h4);font-size:11px;overflow-wrap:anywhere}#mWmB .wm-group>summary{color:var(--fg);font-size:12px;font-weight:600;padding:2px 0}
 #mWmB .wm-row{padding:10px 0;border-bottom:1px solid var(--h4b)}#mWmB .wm-row:last-child{border:0}#mWmB .wm-row-title{display:flex;gap:8px;align-items:flex-start;overflow-wrap:anywhere;line-height:20px}#mWmB label.wm-row-title{cursor:pointer}#mWmB .wm-row input[type=checkbox]{margin:3px 0 0;flex:none;width:14px;height:14px}#mWmB .wm-row-title strong{flex:1;min-width:0}#mWmB .wm-row-info{padding-left:22px}#mWmB .wm-row-info>p{margin:3px 0 6px}#mWmB .wm-row:not(:has(input)) .wm-row-info{padding-left:0}#mWmB .wm-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px}#mWmB .wm-tools details{flex:1;min-width:0}#mWmB .wm-tools button{flex:none;font-size:11px;min-height:24px;padding:1px 7px}#mWmB .wm-tag{flex:none;padding:0 6px;border-radius:4px;font-size:10px;line-height:20px;background:var(--btn);color:var(--h4)}#mWmB .wm-tag.w{background:var(--wab);color:var(--wa)}
@@ -285,7 +286,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
 .wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
 /* ══ 45a Edit record ══ */
-#mPv{width:min(360px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px}#mPv[hidden]{display:none}:is(#mFg,#mWm,#mPv).wbk{box-shadow:var(--sh)}:is(#mFg,#mWm,#mPv).wbk header b{color:var(--t3)}#mPv header b{flex:1;color:var(--fg)}#mPv header button{border-color:transparent;background:none}
+#mPv{display:flex;flex-direction:column;gap:6px}#mPv>header{margin-bottom:0}
 #mPvS{font-size:11.5px;line-height:1.5;color:var(--h4);overflow-wrap:anywhere}#mPvS b{color:var(--fg);font-weight:600}
 #mPvL{display:flex;flex-direction:column;gap:2px;max-height:min(46vh,380px);overflow:auto;font-size:11.5px;font-variant-numeric:tabular-nums;scrollbar-width:thin}
 #mPvL details>summary{cursor:pointer;color:var(--h4);padding:2px 0}#mPvL h6{margin:4px 0 1px;font-size:11.5px;font-weight:600}
@@ -372,7 +373,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="kv"><span>Name</span><input id="mPopN" placeholder="none" spellcheck="false" title="The name Layers shows (saved as an Inkscape label)"></div><div id="mPopE"></div>
 <h4>Transform <small>mm</small></h4><i data-s="mTf"></i><h4 class="pt">Text</h4><i data-s="mTs"></i><h4>Appearance</h4><i data-s="mAp"></i></div>
 <!-- ══ 29 FigKit window ══ -->
-<div id="mFg" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="cvd">Colour blindness</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
+<div id="mFg" class="win" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="cvd">Colour blindness</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
 <label class="fgc" id="mFgI" title="Off: a selected group is one object. On: the objects directly inside each selected group are the objects"><input type="checkbox" data-g="in"> Objects inside selected groups</label>
 <section data-p="size"><ol class="fgst"><li>Select the objects</li><li>Choose width or height and type the size</li><li>Click <b>Resize each</b></li></ol><div class="kv"><span>Size</span><select data-g="sm"><option value="w">Width, in proportion</option><option value="h">Height, in proportion</option><option value="fit">Fit within W × H</option><option value="wo">Width only (stretch)</option><option value="ho">Height only (stretch)</option><option value="wh">Width and height (stretch)</option></select>
 <span>W × H</span><div><label class="f">W<input type="number" step="0.1" min="0" data-g="sw"><em class="u">mm</em></label><label class="f">H<input type="number" step="0.1" min="0" data-g="sh"><em class="u">mm</em></label></div>
@@ -554,7 +555,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <template id="mCardT"><section class="card"><header><b></b><small></small><span class="st"></span></header></section></template>
 <template id="mKeyT"><div class="kf"><input type="password" placeholder="Paste an API key" autocomplete="off" spellcheck="false"><button class="ib" title="Show or hide the key"></button></div><p class="ew"></p><p><a target="_blank" rel="noopener"></a></p><button class="lk">Remove the key</button></template>
 <!-- ══ 45a Edit record ══ -->
-<div id="mPv" hidden role="dialog" aria-labelledby="mPvT"><header><b id="mPvT">Edit record</b><button id="mPvX" title="Close (Esc)" aria-label="Close the edit record">×</button></header>
+<div id="mPv" class="win" hidden role="dialog" aria-labelledby="mPvT"><header><b id="mPvT">Edit record</b><button id="mPvX" title="Close (Esc)" aria-label="Close the edit record">×</button></header>
 <div id="mPvS"></div>
 <label class="fgc" title="Writes this record, with the record of earlier sessions, into a &lt;metadata&gt; block of every SVG you export or save, so it travels with the file. A file that already carries one keeps it."><input type="checkbox" id="mPvE"> Add the record to exported SVGs</label>
 <label class="fgc" title="Crops, picture adjustments, tints, merges and other changes to embedded pictures"><input type="checkbox" id="mPvP"> Picture edits only</label>
@@ -562,7 +563,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="row"><button data-a="provTxt" title="Download this record as a text file">Download record</button><button data-a="watermark" title="Look for hidden AI information in the SVG and its embedded pictures">Check for AI information…</button></div>
 </div>
 <!-- ══ 45 Watermark UI ══ -->
-<div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
+<div id="mWm" class="win" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
 <script>
 'use strict';
 // Sections, in file order (search "══ NN"; the CSS and HTML parts use the same names):
@@ -2458,7 +2459,7 @@ function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').va
   if(sel.length>2e3)r={e:'Too many objects selected to preview'};else try{r=memoize(()=>FGU[p](c))||{}}catch(e){r={e:e.message}}
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
   const ok=fgOk(p,r);$('mFg').querySelectorAll(`section[data-p=${p}] .fgst li`).forEach((l,i)=>l.classList.toggle('ok',!!ok[i]));fgMore();hud()}
-function fgOpen(p){if(!root)return;const W=$('mFg'),fr=W.hidden;$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}winTop('mFg',fr);fgShow()}
+function fgOpen(p){if(!root)return;const W=$('mFg'),fr=W.hidden;$('mFgT').value=p;W.hidden=false;winTop('mFg',fr);fgShow()}
 function fgShow(){adjEnd();const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
   if(p!=='cvd')cvView('');
   W.querySelectorAll('section[data-p]').forEach(s=>s.hidden=s!==S);I.hidden=!g;g&&x?x.querySelector('.fgr').before(I):W.querySelector('header').after(I);
@@ -3338,9 +3339,9 @@ function wmOpen(){
       h.onpointermove=m=>wmPlace(m.clientX-dx,m.clientY-dy);h.onpointerup=h.onpointercancel=h.onlostpointercapture=()=>h.onpointermove=null};
     $('mWmX').onclick=wmClose;addEventListener('resize',()=>!d.hidden&&wmPlace());
   }
-  const d=$('mWm'),first=!d._p,fr=d.hidden;d.hidden=false;wmLife();wmRender();
-  if(first){const r=view.getBoundingClientRect();wmPlace(r.right-d.offsetWidth-34,r.top+(opts.rulers?RW:0)+8);d._p=1}else wmPlace();
+  const d=$('mWm'),fr=d.hidden;d.hidden=false;wmLife();wmRender();
   winTop('mWm',fr);
+  wmPlace();
   d.focus({preventScroll:true});
 }
 function wmPlace(x=$('mWm').offsetLeft,y=$('mWm').offsetTop){const d=$('mWm');d.style.maxHeight=max(80,innerHeight-16)+'px';const top=max(8,min(innerHeight-d.offsetHeight-8,y));d.style.left=max(8,min(innerWidth-d.offsetWidth-8,x))+'px';d.style.top=top+'px';d.style.maxHeight=max(80,innerHeight-top-8)+'px'}
@@ -3702,12 +3703,6 @@ function pvOpen(){
   if(!W.hidden)return pvClose();
   W.hidden=false;
   qa('prov').classList.add('on');
-  if(!W._p){
-    const r=view.getBoundingClientRect();
-    W.style.left=max(8,r.right-W.offsetWidth-34)+'px';
-    W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';
-    W._p=1;
-  }
   winTop('mPv',1);
   pvUI();
 }
@@ -3715,24 +3710,31 @@ function pvClose(){
   $('mPv').hidden=true;
   qa('prov').classList.remove('on');
 }
-// winTop(id,fresh): FigKit, the Watermark check and the edit record can be open together, stacked like cards: the one in
-// use is in front (z-index 19; the others 18, with a lighter shadow, .wbk). One that opens where another already sits
-// moves 32 px down and 16 px left, so the headers of those behind stay visible; a press anywhere on one brings it forward.
-const WINS=['mFg','mWm','mPv']; // the floating windows
+// Floating windows (.win: FigKit, the Watermark check, the edit record) share one look and stack like windows in
+// classic Windows: they keep their order front to back (WINS, front last), the front one has the active title bar, and
+// one that opens while others are open cascades one title bar down and right of the front one, so every title bar
+// stays in view; with none open it takes its last place, or the first step of the cascade in the canvas's top right.
+// A press anywhere on a window brings it to the front.
+const WINS=['mFg','mWm','mPv'],WSTEP=30; // the floating windows, back to front; the cascade step in px
 function winTop(id,fresh){
-  const W=$(id),hit=x=>abs(x.offsetTop-W.offsetTop)<24&&x.offsetLeft<W.offsetLeft+W.offsetWidth&&W.offsetLeft<x.offsetLeft+x.offsetWidth;
-  for(let n=0;fresh&&n<WINS.length;n++){
-    const o=WINS.map($).find(x=>x!==W&&!x.hidden&&hit(x));
-    if(!o)break;
-    W.style.top=min(innerHeight-80,o.offsetTop+32)+'px';
-    W.style.left=max(8,W.offsetLeft-16)+'px';
+  const W=$(id),f=WINS.filter(x=>x!==id&&!$(x).hidden).at(-1);
+  if(fresh){
+    const r=view.getBoundingClientRect(),x0=r.right-W.offsetWidth-34-2*WSTEP,y0=r.top+(opts.rulers?RW:0)+8;
+    let x=f?$(f).offsetLeft+WSTEP:W._p?W.offsetLeft:x0,y=f?$(f).offsetTop+WSTEP:W._p?W.offsetTop:y0;
+    if(x+W.offsetWidth>innerWidth-8||y>innerHeight-160){
+      x=x0;
+      y=y0;
+    }
+    W.style.left=max(8,x)+'px';
+    W.style.top=max(8,y)+'px';
+    W._p=1;
   }
-  if(fresh&&id==='mWm')wmPlace();
-  if(fresh&&id==='mFg')fgFit();
-  for(const x of WINS){
-    $(x).style.zIndex=x===id?19:18;
+  WINS.splice(WINS.indexOf(id),1);
+  WINS.push(id);
+  WINS.forEach((x,i)=>{
+    $(x).style.zIndex=16+i;
     $(x).classList.toggle('wbk',x!==id);
-  }
+  });
 }
 addEventListener('pointerdown',e=>{
   const w=e.target.closest&&e.target.closest('#mFg,#mWm,#mPv');

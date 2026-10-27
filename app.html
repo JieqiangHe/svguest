@@ -230,6 +230,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mFgCv[data-c="1"] polyline{stroke:#e5534b}
 #mFgCv[data-c="2"] polyline{stroke:#2e9e5b}
 #mFgCv[data-c="3"] polyline{stroke:#1a73e8}
+/* ══ 28b Colour vision ══ */
+#mFgVw{display:flex}#mFgVw button{flex:1;min-width:0;padding:0 2px}
+.cvs{display:flex;flex-direction:column;gap:2px;font-size:11.5px}.cvs .ok{color:#2e9e5b}.cvs .no{color:#e5534b}.cvs b{font-weight:600}
+.cvl{display:flex;flex-direction:column;gap:2px;max-height:150px;overflow:auto;font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums}.cvl:empty{display:none}
+.cvl>div{display:flex;align-items:center;gap:3px;min-height:18px;border-radius:4px;padding:0 2px}.cvl>div[data-i]{cursor:pointer}.cvl>div[data-i]:hover{background:var(--btnh)}
+.cvl i{flex:none;width:14px;height:14px;border-radius:3px;box-shadow:inset 0 0 0 1px var(--btnb)}.cvl i+i{margin-left:-1px}.cvl span{margin-left:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cvl .no{color:#e5534b}.cvl h6{margin:3px 0 0;font-size:11px;font-weight:600;color:var(--fg)}
+#mStage[data-cv=p]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvp)}#mStage[data-cv=d]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvd)}
+#mStage[data-cv=t]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvt)}#mStage[data-cv=g]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvg)}
 /* ══ 29 FigKit window ══ */
 #mFg,#mWm{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
 #mFg header,#mWm header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
@@ -287,7 +295,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
-<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="watermark" title="Inspect SVG and embedded image metadata locally">Watermark <sup class="be" aria-label="Beta">β</sup></button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
+<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="watermark" title="Inspect SVG and embedded image metadata locally">Watermark <sup class="be" aria-label="Beta">β</sup></button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
 </div>
 <!-- ══ 17 Tools and ghost ══ -->
 <div id="mTools">
@@ -356,7 +364,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="kv"><span>Name</span><input id="mPopN" placeholder="none" spellcheck="false" title="The name Layers shows (saved as an Inkscape label)"></div><div id="mPopE"></div>
 <h4>Transform <small>mm</small></h4><i data-s="mTf"></i><h4 class="pt">Text</h4><i data-s="mTs"></i><h4>Appearance</h4><i data-s="mAp"></i></div>
 <!-- ══ 29 FigKit window ══ -->
-<div id="mFg" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
+<div id="mFg" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="cvd">Colour blindness</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
 <label class="fgc" id="mFgI" title="Off: a selected group is one object. On: the objects directly inside each selected group are the objects"><input type="checkbox" data-g="in"> Objects inside selected groups</label>
 <section data-p="size"><ol class="fgst"><li>Select the objects</li><li>Choose width or height and type the size</li><li>Click <b>Resize each</b></li></ol><div class="kv"><span>Size</span><select data-g="sm"><option value="w">Width, in proportion</option><option value="h">Height, in proportion</option><option value="fit">Fit within W × H</option><option value="wo">Width only (stretch)</option><option value="ho">Height only (stretch)</option><option value="wh">Width and height (stretch)</option></select>
 <span>W × H</span><div><label class="f">W<input type="number" step="0.1" min="0" data-g="sw"><em class="u">mm</em></label><label class="f">H<input type="number" step="0.1" min="0" data-g="sh"><em class="u">mm</em></label></div>
@@ -417,6 +425,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <details class="fgx"><summary>More options<i></i></summary><div class="kv"><span>RGB</span><div><label class="f">R<input type="number" min="0" max="255" step="1" data-g="cr" data-nd></label><label class="f">G<input type="number" min="0" max="255" step="1" data-g="cg" data-nd></label><label class="f">B<input type="number" min="0" max="255" step="1" data-g="cb" data-nd></label></div></div>
 <div class="row"><button data-a="fgPalReset" title="Back to the starting colours">Reset palette</button></div></details>
 <details class="fgm"><summary>How it works</summary><p class="pph">A swatch applies its colour to the fill or stroke chosen above; right-click one to remove it. The palette is svguest's own choice and is kept in this browser.</p></details></section>
+<section data-p="cvd"><ol class="fgst"><li>Select objects, or nothing for the whole drawing</li><li>See which colours run together</li><li>Pick a palette and click <b>Remap colours</b></li></ol>
+<div class="seg" id="mFgVw" title="Show the canvas as seen with each colour vision deficiency (display only; exports are unchanged)"><button data-v="" class="on">Normal</button><button data-v="p" title="Protanopia: no red cones (about 1 in 100 men)">Protan</button><button data-v="d" title="Deuteranopia: no green cones (about 1 in 100 men; a milder green weakness affects about 5 in 100)">Deutan</button><button data-v="t" title="Tritanopia: no blue cones (rare)">Tritan</button><button data-v="g" title="Greyscale, as in black-and-white print">Grey</button></div>
+<div id="mFgVs" class="cvs"></div><div id="mFgVl" class="cvl"></div>
+<div class="kv"><span>Palette</span><select data-g="cvp"><option value="oi">Okabe–Ito (7 colours)</option><option value="tb">Tol bright (6)</option><option value="tv">Tol vibrant (6)</option></select></div>
+<div id="mFgVm" class="cvl"></div>
+<div class="row"><button data-a="cvdGo" class="pri">Remap colours</button></div>
+<details class="fgx"><summary>More options<i></i></summary><div class="kv"><span>Threshold</span><label class="f" title="Two colours count as hard to tell apart below this CIEDE2000 difference: about 2 is just noticeable, 10 is a common minimum for colours that must be told apart at a glance"><input type="number" min="1" max="50" step="1" data-g="cvt" value="10"><em>ΔE</em></label></div><label class="fgc"><input type="checkbox" data-g="cvg"> Remap greys, black and white too</label></details>
+<details class="fgm"><summary>How it works</summary><p class="pph">The colours are the fills and strokes the objects show (classes and inherited colours included); gradients, patterns and pictures are not measured, though the view shows them. Each pair is compared with CIEDE2000 after simulating protanopia, deuteranopia and tritanopia (Machado et al. 2009); a pair that normal vision tells apart but a simulation brings under the threshold is listed. Remapping gives each colour, most used first, its own palette colour, choosing the closest overall, and keeps greys, black and white. Click a colour to select what uses it. One undo step.</p></details></section>
 <section data-p="scale"><ol class="fgst"><li>Select a picture</li><li>Enter its pixel size (from the microscope software or ImageJ) and click <b>Save calibration</b></li><li>Set the length and click <b>Add or update</b></li></ol><p class="pph" id="mFgCi"></p>
 <details class="fgk" id="mFgCd"><summary>Calibration<i></i></summary><div class="kv"><span>Pixels</span><div><label class="f" title="Width of the original picture, in pixels">W<input type="number" min="1" step="1" data-g="ow"></label><label class="f" title="Height of the original picture, in pixels">H<input type="number" min="1" step="1" data-g="oh"></label></div>
 <span>Pixel size</span><div><label class="f">X<input type="number" min="0" step="any" data-g="px"></label><label class="f" title="Empty: square pixels">Y<input type="number" min="0" step="any" data-g="py"></label><select data-g="pu"><option value="nm">nm</option><option value="um" selected>µm</option><option value="mm">mm</option></select></div>
@@ -565,6 +581,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 27 FigKit links: labels, frames, bars, zoom insets kept fitted (fgSync)
 // 28 FigKit tools: size, grid, space, positions, labels, frames, colours, pictures
 // 28a Picture adjustment: levels, gamma, brightness, contrast, curves and the tint in one filter per picture (fgLut), preview
+// 28b Colour vision: colour-blind check (CIEDE2000 under simulated deficiencies), remapping to a safe palette, simulated view
 // 29 FigKit window: previews and status per pane (FGU), guide, More options
 // 30 Lock: lock and unlock (sodipodi:insensitive)
 // 31 Hover and auto-scroll: hover outline, edge auto-scroll, box-select preview
@@ -661,6 +678,17 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
 // declared later, so they can sit before every section that reads them.
 // STATS: the visit counter (64a): the Worker's /hit address and the hosts that count
 const STATS={url:'https://svguest-stats.jieqiang-he-dawn.workers.dev/hit',hosts:/^(jieqianghe\.github\.io|(www\.)?svguest\.online)$/};
+// CVD: colour vision deficiencies for 28b. m: Machado, Oliveira and Fernandes (2009) simulation matrices at severity 1,
+// rows of a 3×3 applied to linear RGB; pal: colour-blind-safe palettes (Okabe and Ito 2002; Paul Tol's bright and vibrant)
+const CVD={
+  t:[['p','Protanopia','red-blind'],['d','Deuteranopia','green-blind'],['t','Tritanopia','blue-blind']],
+  m:{p:[.152286,1.052583,-.204868,.114503,.786281,.099216,-.003882,-.048116,1.051998],
+    d:[.367322,.860646,-.227968,.280085,.672501,.047413,-.01182,.04294,.968881],
+    t:[1.255528,-.076749,-.178779,-.078411,.930809,.147602,.004733,.691367,.3039],
+    g:[.2126,.7152,.0722,.2126,.7152,.0722,.2126,.7152,.0722]},
+  pal:{oi:['#e69f00','#56b4e9','#009e73','#f0e442','#0072b2','#d55e00','#cc79a7'],
+    tb:['#4477aa','#66ccee','#228833','#ccbb44','#ee6677','#aa3377'],
+    tv:['#0077bb','#33bbee','#009988','#ee7733','#cc3311','#ee3377']}};
 // PROMPT: every prompt sent to the models (sys, sum, look, con, units, whole, panel, cur…)
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
@@ -687,7 +715,7 @@ const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 
   dn:'M8 2.5V13M4.5 9.5 8 13l3.5-3.5',bot:'M2.5 14.5h11M8 2v9.5M4.5 8 8 11.5 11.5 8',arial:'M3 13.5 8 2.5l5 11M5 9.5h6',
   fgSize:'M1.5 5.5h6v6h-6zM10 7.5h4.5v4H10zM1.5 14h13M1.5 13v2M14.5 13v2',fgGrid:'M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z',fgSpace:'M1.5 1.5v13M14.5 1.5v13M4.5 4.5H7v7H4.5zM9 4.5h2.5v7H9z',fgPlace:'M1.5 1.5h5v5h-5zM9.5 9.5h5v5h-5zM7 7l2.5 2.5M9.5 7.5v2h-2',
   fgSwap:'M2 5h11M10.5 2.5 13 5l-2.5 2.5M14 11H3M5.5 8.5 3 11l2.5 2.5',fgLabel:'M2.5 2.5h11v11h-11zM4.5 9 6 4.5 7.5 9M5 7.5h2',fgFrame:'M1.5 1.5h13v13h-13zM4.5 4.5h7v7h-7z',fgScale:'M1.5 2.5h13v11h-13zM8.5 10.5h4',fgZoom:'M1.5 4.5h6v7h-6zM3 6.5h2v2H3zM5 6.5l4.5-3M5 8.5l4.5 4M9.5 2.5h5v11h-5z',
-  fgColor:'M8 1.5a6.5 6.5 0 0 0 0 13c.9 0 1.4-.6 1.4-1.3 0-.8-.6-1-.6-1.7 0-.7.6-1.2 1.2-1.2h1.7a2.8 2.8 0 0 0 2.8-2.8C14.5 4.2 11.6 1.5 8 1.5z|M4.6 6.6a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM7.5 3.8a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM10.6 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z',fgAdj:'M1.5 1.5h13v13h-13zM3.5 12.5C7.5 12.5 8.5 3.5 12.5 3.5',fgChan:'M8 1.5 4.2 7.2a4.4 4.4 0 1 0 7.6 0zM5.5 10.5h5'};
+  fgCvd:'M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z|M8 5.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z',fgColor:'M8 1.5a6.5 6.5 0 0 0 0 13c.9 0 1.4-.6 1.4-1.3 0-.8-.6-1-.6-1.7 0-.7.6-1.2 1.2-1.2h1.7a2.8 2.8 0 0 0 2.8-2.8C14.5 4.2 11.6 1.5 8 1.5z|M4.6 6.6a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM7.5 3.8a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM10.6 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z',fgAdj:'M1.5 1.5h13v13h-13zM3.5 12.5C7.5 12.5 8.5 3.5 12.5 3.5',fgChan:'M8 1.5 4.2 7.2a4.4 4.4 0 1 0 7.6 0zM5.5 10.5h5'};
 // LI: Layers' type icons (16-unit paths; the palette reuses them)
 const LI={g:'M1.5 4.5h5l1.5 1.5h6.5v7h-13z',L:'M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5',text:'M3.5 4.5V3h9v1.5M8 3v10M6 13h4',rect:'M2.5 3.5h11v9h-11z',circle:'M2.5 8a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0-11 0',line:'M3 13 13 3',polyline:'M2 12l4-5 3 3 5-6',
     polygon:'M8 2.5l6 10.5H2z',path:'M2 13C3 3 13 13 14 3',image:'M2 3h12v10H2zM2 11l4-4 3 3 2-2 3 3',use:'M7 9l2-2M6 6 4.5 7.5a2.1 2.1 0 0 0 3 3L9 9M10 10l1.5-1.5a2.1 2.1 0 0 0-3-3L7 7',c:'M6 4l4 4-4 4',
@@ -2135,6 +2163,213 @@ function cvW(a,j,p){
   Gf.acv.value=a.join('|').replace(/^\|*$/,'');
   Gf.acv.dispatchEvent(new Event('input',{bubbles:true}));
 }
+// ══ 28b Colour vision ════
+// Checks whether the figure's colours stay apart for colour-blind readers and remaps them to a safe palette (CVD, 01a).
+// Colours come from the computed fill and stroke of the selection's leaves, or of the whole drawing with nothing
+// selected, so classes, inheritance and currentColor count; gradients, patterns and pictures are not measured.
+// Colours within ΔE 2 of each other are one colour (antialiasing and rounding variants). A pair counts as hard to
+// tell apart when normal vision sees at least the threshold (CIEDE2000) and a simulation brings it under it.
+// Remapping gives each chromatic colour, most used first, a palette colour of its own, the assignment with the least
+// total change (exhaustive: at most 7 × 7); greys stay unless asked. The view is a CSS filter on the drawing, built
+// from the same matrices in linear RGB (#mCvp…, in #mCrS), so it is display only.
+let CV=null; // the last check: {k: what it was computed for, cs: colours [{h,lab,n,E:[[element,'fill'|'stroke']],g,s:{p,d,t}}], bad: per type the pairs under the threshold}
+const cvLin=v=>(v/=255)<=.04045?v/12.92:((v+.055)/1.055)**2.4,
+  cvGam=v=>round(255*(v<=.0031308?12.92*v:1.055*v**(1/2.4)-.055)),
+  cvRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),
+  cvHex=a=>'#'+a.map(x=>x.toString(16).padStart(2,'0')).join(''),
+  cvSim=(h,k)=>{const m=CVD.m[k],l=cvRgb(h).map(cvLin);return cvHex([0,1,2].map(i=>cvGam(min(1,max(0,m[3*i]*l[0]+m[3*i+1]*l[1]+m[3*i+2]*l[2])))))};
+// cvLab(h): CIELAB (D65) of a hex colour
+function cvLab(h){
+  const[R,G,B]=cvRgb(h).map(cvLin),f=t=>t>216/24389?Math.cbrt(t):(24389/27*t+16)/116;
+  const x=f((.4124564*R+.3575761*G+.1804375*B)/.95047),y=f(.2126729*R+.7151522*G+.072175*B),z=f((.0193339*R+.119192*G+.9503041*B)/1.08883);
+  return[116*y-16,500*(x-y),200*(y-z)];
+}
+// de00(a,b): CIEDE2000 colour difference of two Lab colours (Sharma, Wu and Dalal 2005)
+function de00([L1,a1,b1],[L2,a2,b2]){
+  const d=PI/180,q7=c=>Math.sqrt(c**7/(c**7+25**7)),G=.5*(1-q7((hypot(a1,b1)+hypot(a2,b2))/2));
+  const A1=(1+G)*a1,A2=(1+G)*a2,c1=hypot(A1,b1),c2=hypot(A2,b2),hu=(x,y)=>x||y?(atan2(y,x)/d+360)%360:0,h1=hu(A1,b1),h2=hu(A2,b2);
+  let dh=0,hm=h1+h2;
+  if(c1*c2){
+    dh=h2-h1;
+    if(dh>180)dh-=360;
+    else if(dh<-180)dh+=360;
+    if(abs(h1-h2)>180)hm+=hm<360?360:-360;
+    hm/=2;
+  }
+  const Lm=(L1+L2)/2-50,cm=(c1+c2)/2,dH=2*Math.sqrt(c1*c2)*sin(dh*d/2);
+  const T=1-.17*cos((hm-30)*d)+.24*cos(2*hm*d)+.32*cos((3*hm+6)*d)-.2*cos((4*hm-63)*d);
+  const SL=1+.015*Lm*Lm/Math.sqrt(20+Lm*Lm),SC=1+.045*cm,SH=1+.015*cm*T,RT=-sin(60*Math.exp(-(((hm-275)/25)**2))*d)*2*q7(cm);
+  const l=(L2-L1)/SL,c=(c2-c1)/SC,h=dH/SH;
+  return Math.sqrt(l*l+c*c+h*h+RT*c*h);
+}
+// cvCol(): the colours in use, most used first; a tspan counts only where its colour differs from its text's
+function cvCol(){
+  const L=sel.length?lv():klea(root),M=new Map;
+  if(L.length>2e4)return'Too many objects to check at once; select part of the figure';
+  for(const e of L){
+    if(e.localName==='image')continue;
+    const T=e.localName==='text'?[e,...e.querySelectorAll('tspan')]:[e];
+    for(const t of T){
+      const cs=gcs(t),ps=t===e?null:gcs(t.parentNode);
+      for(const p of['fill','stroke']){
+        const v=cs[p];
+        if(!/^rgb/.test(v)||/^rgba\(.*,\s*0\)$/.test(v)||ps&&ps[p]===v)continue;
+        if(p==='stroke'&&!(parseFloat(cs.strokeWidth)>0))continue;
+        const h=hex(v);
+        let c=M.get(h);
+        if(!c){
+          c={h,n:0,E:[]};
+          M.set(h,c);
+        }
+        c.E.push([t,p]);
+        c.n++;
+      }
+    }
+  }
+  const o=[];
+  for(const c of[...M.values()].sort((a,b)=>b.n-a.n)){
+    c.lab=cvLab(c.h);
+    const g=o.find(x=>de00(x.lab,c.lab)<2);
+    if(g){
+      g.E.push(...c.E);
+      g.n+=c.n;
+      continue;
+    }
+    c.g=hypot(c.lab[1],c.lab[2])<6;
+    c.s={};
+    for(const[k]of CVD.t)c.s[k]=cvLab(cvSim(c.h,k));
+    o.push(c);
+  }
+  return o;
+}
+// cvBad(cs,th): per deficiency, the pairs normal vision tells apart that the simulation brings under th, worst first
+function cvBad(cs,th){
+  const B={};
+  for(const[k]of CVD.t){
+    B[k]=[];
+    for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){
+      const d0=de00(cs[i].lab,cs[j].lab),dk=de00(cs[i].s[k],cs[j].s[k]);
+      if(d0>=th&&dk<th)B[k].push([cs[i],cs[j],dk,d0]);
+    }
+    B[k].sort((a,b)=>a[2]-b[2]);
+  }
+  return B;
+}
+// cvMap(cs,pal,all,th): Map colour → new hex, plus the colours left as they are when the palette runs out. Each
+// colour, most used first, gets a palette colour of its own; of all assignments (at most 7 × 7, searched exhaustively)
+// the one with the fewest pairs that run together in a simulation wins, then the one that changes the colours least.
+function cvMap(cs,pal,all,th){
+  const A=cs.filter(c=>all||!c.g),K=A.slice(0,pal.length),F=cs.filter(c=>!K.includes(c));
+  const P=pal.map(h=>({lab:cvLab(h),s:Object.fromEntries(CVD.t.map(([k])=>[k,cvLab(cvSim(h,k))]))}));
+  const run=(a,b)=>de00(a.lab,b.lab)>=th&&CVD.t.some(([k])=>de00(a.s[k],b.s[k])<th);
+  const D=K.map(c=>P.map(p=>de00(c.lab,p.lab))),X=P.map(a=>P.map(b=>run(a,b))),Y=P.map(a=>F.reduce((n,f)=>n+run(a,f),0));
+  let bs=Infinity,best=[];
+  const cur=[],used=[];
+  const go=(i,t)=>{
+    if(t>=bs)return;
+    if(i===K.length){
+      bs=t;
+      best=cur.slice();
+      return;
+    }
+    for(let j=0;j<P.length;j++)if(!used[j]){
+      let x=Y[j];
+      for(let q=0;q<i;q++)x+=X[j][cur[q]];
+      used[j]=1;
+      cur[i]=j;
+      go(i+1,t+D[i][j]+1e4*x);
+      used[j]=0;
+    }
+  };
+  go(0,0);
+  const M=new Map(K.map((c,i)=>[c,pal[best[i]]]));
+  return{M,left:A.slice(pal.length)};
+}
+// cvChk(c): the check for the current selection and settings, recomputed only when they or the document changed
+function cvChk(c){
+  const k=[dv,fgn('cvt'),...sel].join();
+  if(!c&&CV&&CV.k===k)return CV;
+  const cs=cvCol();
+  CV=typeof cs==='string'?{k,e:cs}:{k,cs,bad:cvBad(cs,fgn('cvt')||10)};
+  return CV;
+}
+const cvSw=(h,t)=>{const i=el('i');i.style.background=h;i.title=t||h.toUpperCase();return i};
+// cvUI(): the summary per deficiency, the colour list (normal, then as each simulation shows it) and the remap preview
+function cvUI(V){
+  const th=fgn('cvt')||10,n=V.cs.length,np=n*(n-1)/2,S=$('mFgVs'),Lc=$('mFgVl'),Mp=$('mFgVm');
+  S.replaceChildren(...CVD.t.map(([k,nm,w])=>{
+    const b=V.bad[k],d=el('div',b.length?'no':'ok');
+    d.append(el('b',0,nm),` (${w}): `+(b.length?`${fgN(b.length,'pair')} of ${np} hard to tell apart`:np?'all colours stay apart':'nothing to compare'));
+    d.title=b.slice(0,8).map(([a,c,dk,d0])=>`${a.h.toUpperCase()} and ${c.h.toUpperCase()}: ΔE ${dk.toFixed(1)} (normal vision ${d0.toFixed(1)})`).join('\n');
+    return d;
+  }));
+  const rows=[el('h6',0,`Colours in the ${sel.length?'selection':'drawing'}: normal, protan, deutan, tritan`)];
+  V.cs.forEach((c,i)=>{
+    const d=el('div'),bad=CVD.t.some(([k])=>V.bad[k].some(p=>p[0]===c||p[1]===c));
+    d.dataset.i=i;
+    d.title='Click to select the objects that use this colour';
+    d.append(cvSw(c.h),...CVD.t.map(([k,nm])=>cvSw(cvSim(c.h,k),nm)),el('span',bad?'no':'',`${c.h.toUpperCase()} · ${fgN(c.n,'use')}${c.g?' · grey':''}${bad?' · runs together':''}`));
+    rows.push(d);
+  });
+  const pr=CVD.t.flatMap(([k,nm])=>V.bad[k].map(b=>[k,nm,...b])).sort((a,b)=>a[4]-b[4]).slice(0,8);
+  if(pr.length)rows.push(el('h6',0,'Pairs that run together, as seen with the deficiency'));
+  for(const[k,nm,a,c,dk,d0]of pr){
+    const d=el('div');
+    d.append(cvSw(cvSim(a.h,k),a.h.toUpperCase()),cvSw(cvSim(c.h,k),c.h.toUpperCase()),el('span',0,`${nm}: ΔE ${dk.toFixed(1)} (normal vision ${d0.toFixed(1)})`));
+    rows.push(d);
+  }
+  Lc.replaceChildren(...rows);
+  const{M,left}=cvMap(V.cs,CVD.pal[fgv('cvp')],Gf.cvg.checked,fgn('cvt')||10),ch=[...M].filter(([c,h])=>c.h!==h);
+  const m=[el('h6',0,ch.length?'Remap':'Remap: nothing to change')];
+  for(const[c,h]of ch){
+    const d=el('div');
+    d.append(cvSw(c.h),el('span',0,'→'),cvSw(h),el('span',0,h.toUpperCase()));
+    m.push(d);
+  }
+  if(ch.length){
+    const cs2=V.cs.map(c=>M.has(c)?{lab:cvLab(M.get(c)),s:Object.fromEntries(CVD.t.map(([k])=>[k,cvLab(cvSim(M.get(c),k))]))}:c),b2=cvBad(cs2,th);
+    m.push(el('div',0,'After: '+CVD.t.map(([k,nm])=>`${nm.slice(0,4)}. ${b2[k].length}`).join(' · ')+' pairs hard to tell apart'));
+  }
+  if(left.length)m.push(el('div','no',`${fgN(left.length,'colour')} more than the palette holds stay as they are`));
+  Mp.replaceChildren(...m);
+  qa('cvdGo').disabled=!ch.length;
+  const t=CVD.t.reduce((a,[k])=>a+V.bad[k].length,0);
+  return t?`${fgN(n,'colour')}: ${fgN(t,'pair')} run together for some readers`:`${fgN(n,'colour')}: all stay apart in the three simulations`;
+}
+// cvdGo(): writes the remap as one step (Remap colours)
+function cvdGo(){
+  const V=cvChk(1);
+  if(V.e)return msg(V.e);
+  const{M}=cvMap(V.cs,CVD.pal[fgv('cvp')],Gf.cvg.checked,fgn('cvt')||10);
+  let n=0;
+  fgDo('Remap colours',()=>{
+    for(const[c,h]of M){
+      if(c.h===h)continue;
+      for(const[e,p]of c.E){
+        setSts(e,[[p,h]]);
+        n++;
+      }
+    }
+  });
+  msg(n?`Remapped colours: ${n} fill${n>1?'s and strokes':' or stroke'} changed`:'Nothing to remap');
+}
+// cvView(k): shows the canvas through simulation k ('' for normal); the filters are built on first use
+function cvView(k){
+  if(k&&!$('mCvp')){
+    const S=$('mCrS');
+    for(const x of['p','d','t','g']){
+      const f=document.createElementNS(NS.svg,'filter'),m=document.createElementNS(NS.svg,'feColorMatrix'),v=CVD.m[x];
+      f.id='mCv'+x;
+      f.setAttribute('color-interpolation-filters','linearRGB');
+      m.setAttribute('values',[0,1,2].map(i=>v.slice(3*i,3*i+3).join(' ')+' 0 0').join(' ')+' 0 0 0 1 0');
+      f.append(m);
+      S.append(f);
+    }
+  }
+  if(k)stage.dataset.cv=k;
+  else delete stage.dataset.cv;
+  for(const b of $('mFgVw').children)b.classList.toggle('on',b.dataset.v===k);
+}
 // ══ 29 FigKit window ════
 // fgRef runs FGU[pane](c), which returns {pv,st} or {e}; previews live in the HUD only, so closing restores nothing.
 const FGU={
@@ -2168,6 +2403,16 @@ const FGU={
       else for(const x of['zx','zy','zw','zh','zm'])Gf[x].value=''}
     $('mFgZi').textContent=`${lyName(s)}${n?`: ${n[0]} × ${n[1]} px`:''}`+(R?' · zoom box selected: change the numbers and Update':' · empty region: the middle quarter');
     const r=n&&fgZr(n);return{pv:Array.isArray(r)&&!R?[{b:tb((q=>rb(q.x+r[0]*q.w,q.y+r[1]*q.h,(r[2]-r[0])*q.w,(r[3]-r[1])*q.h))(fgCR(s)),ctm(s))}]:null,st:typeof r=='string'?r:R?`${fgN(fgIns_(R).length,'inset')} linked to this box`:'The outline shows the region'}},
+  cvd:c=>{
+    const V=cvChk(c);
+    if(V.e)return{e:V.e};
+    if(!V.cs.length){
+      for(const x of['mFgVs','mFgVl','mFgVm'])$(x).replaceChildren();
+      qa('cvdGo').disabled=true;
+      return{e:sel.length?'Select objects with a fill or stroke colour':'The drawing has no fill or stroke colours to check'};
+    }
+    return{st:cvUI(V)};
+  },
   chan:c=>{const I=sel.filter(e=>e.localName==='image');$('mFgMg').hidden=I.length<2;$('mFgMh').hidden=I.length>1;if(c){const C=$('mFgC'),L=lvOf(fgImgsAll()[0]||root);if(L.c){Gf.tc.value=L.c;Gf.tn.value=[...Gf.tn.options].some(o=>o.value===L.c)?L.c:''}Gf.t0.value=Gf.ab.value=L.lo;Gf.t1.value=Gf.aw.value=L.hi;
       const uc=I.slice(0,7).map(i=>(L=>L.c?[L.c,L.lo,L.hi]:null)(lvOf(i))),fr=MC.filter(c=>!uc.some(q=>q&&q[0]===c));C.replaceChildren(...I.slice(0,7).map((i,j)=>{const d=el('div'),q=uc[j]||[fr.shift()||MC[j],0,255],[a,b,x]=[0,1,2].map(()=>el('input'));a.type='color';a.value=q[0];b.type=x.type='number';b.min=0;b.max=254;x.min=1;x.max=255;b.value=q[1];x.value=q[2];b.title='Min';x.title='Max';d.append(el('b',0,j+1),a,b,x,el('span',0,lyName(i)));return d}));
       I.length>7&&C.append(el('p','pph',`Only 7 can be merged; ${I.length} pictures are selected`))}
@@ -2200,7 +2445,7 @@ function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').va
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
   const ok=fgOk(p,r);$('mFg').querySelectorAll(`section[data-p=${p}] .fgst li`).forEach((l,i)=>l.classList.toggle('ok',!!ok[i]));fgMore();hud()}
 function fgOpen(p){if(!root)return;const W=$('mFg');$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}fgShow()}
-function fgShow(){adjEnd();const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
+function fgShow(){adjEnd();if($('mFgT').value!=='cvd')cvView('');const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
   W.querySelectorAll('section[data-p]').forEach(s=>s.hidden=s!==S);I.hidden=!g;g&&x?x.querySelector('.fgr').before(I):W.querySelector('header').after(I);
   // the numbered guide leads until the tool has been used once, then waits under How it works
   fgLs('sgFkSeen').includes(p)?S.querySelector('.fgm>summary').after(ol):S.prepend(ol);x&&(x.open=fgLs('sgFkMore').includes(p));
@@ -2213,6 +2458,7 @@ const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}
   fgOk=(p,r)=>{const s1=!!sel.length&&!(r.e&&/^Select/.test(r.e)),s2=s1&&!r.e,d=!!FG.done&&FG.done.p===p&&FG.done.v===dv&&FG.done.f===FG.fv&&same(FG.done.s,sel),I=fgImgs()[0],
       has=(k,f)=>[...root.querySelectorAll(`[${FGK}=${k}]`)].find(f);
     if(p==='place')return[fgTpl().length>0,s2,d];
+    if(p==='cvd')return[true,!r.e,d];
     if(p==='scale')return[!!I,!!I&&!!fgCal(I),!!I&&!!has('bar',g=>fgImg(fgT(g)[0])===I)];
     if(p==='zoom'){const e=sel.length===1&&sel[0],R=e&&(fgRoi(e)||fgImg(e)&&has('roi',x=>fgT(x)[0]===fgImg(e)));return[!!e&&(!!R||!!fgImg(e)),!!R,!!R&&(!FG.zr.has(R)||FG.zr.get(R)!==R.getAttribute(FGR))]}
     if(p==='chan'){const J=sel.filter(e=>e.localName==='image');return[J.length>0||sel.some(e=>fgK(e)==='merge'),J.length>0&&J.every(i=>lvOf(i).c),sel.some(e=>fgK(e)==='merge')]}
@@ -2222,7 +2468,7 @@ const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}
   fgMore=()=>{const x=$('mFg').querySelector('section:not([hidden]) .fgx');if(!x)return;const n=fgCh(x).length;x.querySelector('summary i').textContent=n?` · ${n} changed`:'';x.querySelector('.fgr').hidden=!n};
 // keep the window's foot (buttons, status) on screen when a taller pane opens or the window shrinks
 const fgFit=()=>{const W=$('mFg');if(W.hidden)return;const r=W.getBoundingClientRect();r.bottom>innerHeight-8&&(W.style.top=max(8,innerHeight-8-r.height)+'px')};addEventListener('resize',fgFit);$('mFg').addEventListener('toggle',fgFit,true);
-const fgX=()=>{adjEnd();$('mFg').hidden=true;FG.pv=null;hud()};
+const fgX=()=>{adjEnd();cvView('');$('mFg').hidden=true;FG.pv=null;hud()};
 // ══ 30 Lock ════
 // lkd(e): e or an ancestor (layers aside) is locked; locked nodes are kept out of every selection.
 function lock(){finish(true);if(!sel.length)return;const n=sel.length;xns('sodipodi');sel.forEach(e=>setA(e,'sodipodi:insensitive','true'));setSel([],1);commit();msg(`Locked ${nObj(n)}: clicks and box selection pass through; Ctrl+Alt+2 unlocks all`)}
@@ -3363,7 +3609,7 @@ Object.assign(A,{fgSize:()=>fgOpen('size'),fgGrid:()=>fgOpen('grid'),fgSpace:()=
   fgSizeGo:()=>fgRun('Size each',fgSizeCalc),fgGridGo:()=>fgRun('Arrange in a grid',fgGridCalc),fgSpaceGo:()=>fgRun('Space',fgSpaceCalc),fgTplGo:()=>fgRun('Positions',fgTplCalc),
   fgSwap,fgSwap2:fgSwap,fgMeasure,fgTplRec,fgTplDel,fgTplOut,fgTplIn:()=>{$('mFgF').value='';$('mFgF').click()},fgLabelGo,fgLabelDel,fgFrameGo,fgFrameDel,fgColorGo:()=>fgColorGo(),
   fgPalAdd:()=>{const c=Gf.cc.value,a=fgPal();a.includes(c)||fgPalW([...a,c]);msg(`${c.toUpperCase()} is in your palette`)},fgPalReset:()=>{try{localStorage.removeItem('sgFkPal')}catch(_){}fgPalUI()},
-  fgCalGo,fgCalDel,fgBarGo,fgBarDel,fgZoomGo,fgZoomSet,fgZoomAll,fgTintGo:()=>fgTint(Gf.tc.value,fgn('t0'),fgn('t1')),fgTintDel:fgUntint,tint:fgUntint,fgMergeGo,fgUpd});
+  fgCalGo,fgCalDel,fgBarGo,fgBarDel,fgZoomGo,fgZoomSet,fgZoomAll,fgTintGo:()=>fgTint(Gf.tc.value,fgn('t0'),fgn('t1')),fgTintDel:fgUntint,tint:fgUntint,fgMergeGo,fgUpd,fgCvd:()=>fgOpen('cvd'),cvdGo});
 for(const c of'lcrtmb'){A['fgA'+c]=()=>fgAlign(c);const b=qa('a'+c).cloneNode(true);b.dataset.a='fgA'+c;$('mFgAl').append(b)}
 for(const n in LUT){A['tint'+n]=()=>fgTint(lutH(n));const d=el('i','dot');d.style.background=lutC(n);qa('tint'+n).prepend(d)}
 const fgLa=()=>{const d={at:[0,-1],lt:[-1,0],tl:[1,1],tr:[-1,1],bl:[1,-1],br:[-1,-1]}[fgv('la')];Gf.lx.defaultValue=Gf.lx.value=+(d[0]/fgU()).toFixed(3);Gf.ly.defaultValue=Gf.ly.value=+(d[1]/fgU()).toFixed(3)};
@@ -3381,6 +3627,18 @@ $('mFgF').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const t=
   fgTplW([t,...fgTpl().filter(x=>x.name!==t.name)]);fgTplUI(t.name);fgRef();msg(`Imported “${t.name}”: ${fgN(t.slots.length,'slot')}`)}catch(x){msg(`Cannot read ${f.name}: ${x.message}`)}};
 $('mFgP').onclick=e=>{const b=e.target.closest('button');b&&(fgCset(b.dataset.c),fgColorGo(b.dataset.c))};$('mFgP').oncontextmenu=e=>{const b=e.target.closest('button');if(!b)return;e.preventDefault();fgPalW(fgPal().filter(c=>c!==b.dataset.c))};
 $('mFgW').onclick=e=>{const b=e.target.closest('button');if(!b)return;FG.w=b.dataset.v;[...$('mFgW').children].forEach(x=>x.classList.toggle('on',x===b));FG.ps=null;fgRef()};
+// Colour blindness (28b): the view buttons switch the simulated view; a colour row selects the objects using it
+$('mFgVw').onclick=e=>{
+  const b=e.target.closest('button');
+  if(b)cvView(b.dataset.v);
+};
+$('mFgVl').onclick=e=>{
+  const r=e.target.closest('[data-i]'),c=r&&CV&&CV.cs&&CV.cs[+r.dataset.i];
+  if(!c)return;
+  const E=[...new Set(c.E.map(([x])=>x.closest('text')||x))].filter(x=>root.contains(x)&&!lkd(x));
+  setSel(E);
+  msg(`Selected ${nObj(E.length)} using ${c.h.toUpperCase()}`);
+};
 fgTplUI();fgCset(Gf.cc.value);hxS(Gf.fc,Gf.fc.value);hxS(Gf.bc,Gf.bc.value);
 for(const x of $('mFg').querySelectorAll('.fgx'))x.append(Object.assign(el('button','fgr','Reset to defaults'),{hidden:true,title:'Put the options above back to their starting values'}));
 for(const t of['pointerdown','keydown'])addEventListener(t,e=>FG.hit=$('mFg').contains(e.target),true);

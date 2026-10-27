@@ -113,7 +113,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mPage{--q:calc(1px / var(--k,1));background:#fff;outline:var(--q) solid var(--pageb);box-shadow:0 var(--q) calc(3*var(--q)) #0000001a,0 calc(12*var(--q)) calc(32*var(--q)) calc(-10*var(--q)) #0000004d}
 #mGrid{pointer-events:none}#mGrid path{fill:none;stroke-width:calc(1px / var(--k,1));vector-effect:non-scaling-stroke;shape-rendering:crispEdges}#mGrid .mi{stroke:#5a78aa30}#mGrid .ma{stroke:#5a78aa70}
 .noR #mRx,.noR #mRy{display:none}
-#mGW{will-change:transform;transform-origin:0 0}
+#mGW{transform-origin:0 0}#mGW.dr{will-change:transform}
 /* ══ 32 Context menu ══ */
 #mCM{position:fixed;z-index:30}#mCM button{border-color:transparent;background:transparent}
 /* ══ 17 Tools and ghost ══ */
@@ -1205,18 +1205,22 @@ function lnk(){if(!root)return;for(const c of lkAll()){if(!root.contains(c))cont
   LKA.forEach((a,i)=>{const r=lkR(c,a),P=r&&lkP(...r);if(!P)return;const q=(Mi||(Mi=ctm(c).inverse())).transformPoint(P);if(abs(q.x-s[i].x)>5e-6||abs(q.y-s[i].y)>5e-6){s[i]=q;ch=1}});ch&&setSeg(c,s)}}
 // ══ 17 Tools and ghost ════
 // ghostOn moves the selected nodes into #mGhost so a drag is one CSS transform; ghostOff puts them back.
+// The ghost gets its own compositing layer only while a drag runs (#mGW.dr), and never in Safari: a composited layer
+// inside the CSS-scaled #mStage makes WebKit composite the stage too and stretch a bitmap drawn at 1x, so the drawing
+// went blurry when zoomed in; Chromium rasters each new layer at the current zoom.
 let tool='sel',G=null; // the current tool (data-t); the nodes lifted into the ghost during a drag
+const GWL=!/AppleWebKit/.test(navigator.userAgent)||/Chrome|Chromium|Edg/.test(navigator.userAgent); // the ghost may be composited
 const touches=(e,R)=>{const L=outl(e);return!L||L.some(l=>l.length===1?inR(l[0],R):l.some((q,i)=>i&&sr(l[i-1],q,R)))};
 // esc(): Esc's ladder: crop, Layers window, drag, point editing, tool, then up one group
 function esc(){if(CR)return cropX();if(Pop.x)return popX();if(G){lkRs(D);ghostOff();D=null}else if(ped){ped=null;hud()}else if(tool!=='sel')setTool('sel');else if(!top_(ctx)){const c=ctx;ctx=c.parentNode;setSel([c])}else setSel([])}
 // setTool(t): switches tool (applying an open crop)
 function setTool(t){CR&&t!=='crop'&&cropOK();tool=t;const v=$('mTools').querySelector(`.menu [data-t="${t}"]`),g=v&&v.closest('.dd').firstChild;g&&g.dataset.t!==t&&(g.dataset.t=t,g.firstChild.replaceWith(v.firstChild.cloneNode(true)));$('mTools').querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('mCap').style.cursor=t==='sel'?'default':t==='text'?'text':'crosshair';t==='crop'&&!CR&&sel.length===1&&sel[0].localName==='image'&&cropGo(sel[0])}
 
-function ghostOn(){quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.parentNode,n=e.nextSibling;let g=w.get(p);
+function ghostOn(){if(GWL)gw.classList.add('dr');quiet(()=>{const w=new Map();G=order(sel).map(e=>{const p=e.parentNode,n=e.nextSibling;let g=w.get(p);
   if(!g){const ch=[];for(let a=p;a!==root;a=a.parentNode)ch.unshift(a);g=ghost;
     for(const a of ch){const c=a.cloneNode(false);['id','clip-path','mask','filter'].forEach(x=>c.removeAttribute(x));g=g.appendChild(c)}w.set(p,g)}
   g.appendChild(e);return{e,p,n}})})}
-function ghostOff(M){fgRs();quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefore(G[i].e,G[i].n);ghost.replaceChildren();gw.style.transform=''});G=null;M?(applyM(M),commit()):refresh()}
+function ghostOff(M){fgRs();quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefore(G[i].e,G[i].n);ghost.replaceChildren();gw.style.transform='';gw.classList.remove('dr')});G=null;M?(applyM(M),commit()):refresh()}
 // ══ 18 Pointer ════
 // down/move/up drive every canvas gesture. down() decides what the drag is (D.t: a move, a handle, a box select,
 // drawing, a point, a crop…). A move drag lifts the selection into the ghost layer and moves it with one CSS
@@ -3697,7 +3701,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
   else f={Enter:CR&&cropOK,Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,x:e.shiftKey&&swapFS,d:dflt,'/':fsNo,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();stp(AN.get(f)||'');f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
-document.addEventListener('visibilitychange',()=>{gw.style.willChange=view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
+document.addEventListener('visibilitychange',()=>{view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||t.closest('input,textarea,select,[contenteditable],.ed,#mLog,.wm-evidence')||dlgOpen())return;e.preventDefault();if(t.closest('#mWm'))return;pdn||!root||A.all()});
 // ══ 63 Paste ════
 // SVG on the clipboard: image/svg+xml (some design apps), plain text starting with <svg or <?xml, or an inline <svg> copied from a web page

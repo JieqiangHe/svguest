@@ -239,8 +239,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mStage[data-cv=p]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvp)}#mStage[data-cv=d]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvd)}
 #mStage[data-cv=t]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvt)}#mStage[data-cv=g]>:is(svg:not(#mGrid,#mGF),#mGW){filter:url(#mCvg)}
 /* ══ 29 FigKit window ══ */
-#mFg,#mWm{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
-#mFg header,#mWm header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
+#mFg,#mWm,#mPv{position:fixed;z-index:19;max-height:calc(100vh - 16px);overflow:auto;padding:0 8px 8px;background:var(--side);border:0;border-radius:10px;box-shadow:var(--shm);color:var(--fg);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg{width:290px}#mWm{width:min(360px,calc(100vw - 16px))}#mFg[hidden]{display:none}
+#mFg header,#mWm header,#mPv header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;margin:0 -8px 6px;padding:4px 4px 4px 8px;background:var(--side);border-bottom:1px solid var(--h4b);cursor:move}#mFg header b{margin-right:2px;color:var(--h4)}#mFg header select{width:auto;height:22px}#mFgT{flex:1;min-width:0}#mFg header button,#mWm header button{border:0;background:none;padding:0 6px;font-size:15px;line-height:18px}#mFg header button:hover{background:var(--btnh)}
 #mFg section{display:flex;flex-direction:column;gap:5px}#mFg section[hidden],#mFgI[hidden],#mFg [hidden]{display:none!important}
 #mFg header select{border-color:transparent;background-color:transparent}
 #mFg header select:is(:hover,:focus-visible){border-color:var(--btnb);background-color:var(--btn)}
@@ -284,6 +284,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mWmB .wm-list{margin:8px 0;padding:0;list-style:none;display:grid;gap:6px}#mWmB .wm-list li{display:flex;gap:8px;align-items:baseline}#mWmB .wm-tech{margin-top:16px}
 #mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
 .wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
+/* ══ 45a Edit record ══ */
+#mPv{width:min(360px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px}#mPv header b{flex:1;color:var(--fg)}#mPv header button{border-color:transparent;background:none}
+#mPvS{font-size:11.5px;line-height:1.5;color:var(--h4);overflow-wrap:anywhere}#mPvS b{color:var(--fg);font-weight:600}
+#mPvL{display:flex;flex-direction:column;gap:2px;max-height:min(46vh,380px);overflow:auto;font-size:11.5px;font-variant-numeric:tabular-nums;scrollbar-width:thin}
+#mPvL details>summary{cursor:pointer;color:var(--h4);padding:2px 0}#mPvL h6{margin:4px 0 1px;font-size:11.5px;font-weight:600}
+#mPvL .st{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px;padding:1px 2px;border-radius:4px}#mPvL .st:nth-child(odd){background:var(--btn)}#mPvL .st i{font-style:normal;color:var(--t3)}#mPvL .st span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#mPvL .st.pic span::before{content:"▣ ";color:#d08700}#mPvL p{color:var(--t3)}
+#mPv .row{display:flex;gap:6px;flex-wrap:wrap}#mPv .row button{flex:1}
 </style>
 <style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
@@ -295,7 +303,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button></div></div><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i>
-<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="watermark" title="Inspect SVG and embedded image metadata locally">Watermark <sup class="be" aria-label="Beta">β</sup></button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
+<div class="dd" id="mFgD"><button class="ddb">FigKit ▾</button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="prov" title="Edit record: where this figure came from and every change made to it, with time; can travel inside the exported SVG. Also checks for hidden AI information.">Provenance</button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
 </div>
 <!-- ══ 17 Tools and ghost ══ -->
 <div id="mTools">
@@ -518,10 +526,10 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
-<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
+<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd><dt>Provenance</dt><dd>The edit record: the file opened and every step since, with time; picture edits marked; can travel inside exported SVGs</dd></dl></section>
 <section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo; Edit › History lists the steps</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
 <section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
-<section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd></dl></section>
+<section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd><dt>Colour blindness</dt><dd>Colours that run together for colour-blind readers, the canvas as they see it, and a remap to a safe palette</dd></dl></section>
 </div>
 </div></div><p class="ft"><span class="nm">On a Mac, <kbd>⌘</kbd> works in place of <kbd>Ctrl</kbd>. </span>Everything runs in your browser; only what you send to SVG Chat leaves it.</p></form></dialog>
 <dialog id="mNew"><form method="dialog">
@@ -545,6 +553,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <!-- ══ 38 SVG Chat panel ══ -->
 <template id="mCardT"><section class="card"><header><b></b><small></small><span class="st"></span></header></section></template>
 <template id="mKeyT"><div class="kf"><input type="password" placeholder="Paste an API key" autocomplete="off" spellcheck="false"><button class="ib" title="Show or hide the key"></button></div><p class="ew"></p><p><a target="_blank" rel="noopener"></a></p><button class="lk">Remove the key</button></template>
+<!-- ══ 45a Edit record ══ -->
+<div id="mPv" hidden role="dialog" aria-labelledby="mPvT"><header><b id="mPvT">Edit record</b><button id="mPvX" title="Close (Esc)" aria-label="Close the edit record">×</button></header>
+<div id="mPvS"></div>
+<label class="fgc" title="Writes this record, with the record of earlier sessions, into a &lt;metadata&gt; block of every SVG you export or save, so it travels with the file. A file that already carries one keeps it."><input type="checkbox" id="mPvE"> Add the record to exported SVGs</label>
+<label class="fgc" title="Crops, picture adjustments, tints, merges and other changes to embedded pictures"><input type="checkbox" id="mPvP"> Picture edits only</label>
+<div id="mPvL"></div>
+<div class="row"><button data-a="provTxt" title="Download this record as a text file">Download record</button><button data-a="watermark" title="Look for hidden AI information in the SVG and its embedded pictures">Check for AI information…</button></div>
+</div>
 <!-- ══ 45 Watermark UI ══ -->
 <div id="mWm" hidden tabindex="-1" role="dialog" aria-labelledby="mWmTitle" aria-describedby="mWmScope"><header><b id="mWmTitle">Watermark check</b><sup class="be" aria-label="Beta">β</sup><button id="mWmX" title="Close (Esc)" aria-label="Close watermark check">×</button></header><div id="mWmB"></div><div id="mWmF"></div><div id="mWmS" role="status" aria-live="polite"></div></div>
 <script>
@@ -599,6 +615,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 43 Save: Ctrl+S, save as
 // 44 Watermark engine: metadata scanner (wmEngine)
 // 45 Watermark UI: scan, findings, removal
+// 45a Edit record: provenance log of every step, kept per document and written into exported SVGs
 // 46 Actions: A: the action behind every data-a button
 // 47 FigKit wiring: FigKit actions and window events
 // 48 More actions: zoom steps, z-order, anchors, chat, guides
@@ -700,7 +717,7 @@ const PROMPT={
   panel:(g,[x0,y0,x1,y1])=>` Draw only panel "${g}", whose items are listed below, with width="${fm((x1-x0)/10)}mm" height="${fm((y1-y0)/10)}mm" viewBox="${x0} ${y0} ${x1-x0} ${y1-y0}", so that the coordinates stay those of the description.`,
   cur:x=>`\n\nThe current figure, including any edits the user made by hand, as SVG:\n\`\`\`svg\n${x}\n\`\`\`\nTo change it, reply with a short sentence and a <patch>...</patch> block instead of a full SVG, unless most of it changes. Inside the patch, an element with the id of an existing one replaces it (children included), <delete ids="id1 id2"/> removes elements, and <add after="id">...</add> inserts new elements after that one (without after, at the end). Keep the ids as they are.`};
 // KI: command palette icons by data-a, 'stroke path|fill path'; add one with every new menu command
-const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',watermark:'M2 5.5V2h3.5M10.5 2H14v3.5M14 10.5V14h-3.5M5.5 14H2v-3.5M5.9 5.9a2.55 2.55 0 1 0 3.6 3.6 2.55 2.55 0 0 0-3.6-3.6zM9.9 9.9 12 12',
+const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',prov:'M4 1.5h8v13H4zM6 4.5h4M6 7.5h4M6 10.5h2.5',watermark:'M2 5.5V2h3.5M10.5 2H14v3.5M14 10.5V14h-3.5M5.5 14H2v-3.5M5.9 5.9a2.55 2.55 0 1 0 3.6 3.6 2.55 2.55 0 0 0-3.6-3.6zM9.9 9.9 12 12',
   new:'M3.5 1.5h6l3 3v10h-9zM9.5 1.5v3h3M8 7v5M5.5 9.5h5',open:'M1.5 13V3h4L7 4.5h5.5V7M1.5 13l2-6h11l-2 6z',imp:'M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5|M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z',
   svg:'M2.5 2.5h9l2 2v9h-11zM5 2.5V6h5V2.5M5 13.5v-4h6v4',svgAs:'M8 13.5H2.5v-11h9l2 2V7M5 2.5V6h5V2.5M9 14.5l.5-2 4-4 1.5 1.5-4 4z',png:'M9.5 3h-8v10h11V8.5M1.5 11l3-3 2.5 2.5 2-2 3 3M11 1.5h3.5V5M14.5 1.5 10 6',
   pdf:'M4.5 6V1.5h7V6M4.5 11.5h-3V6h13v5.5h-3M4.5 9.5h7v5h-7z',undo:'M5 3 2 6l3 3M2 6h7.5a3.5 3.5 0 0 1 0 7H7',redo:'M11 3l3 3-3 3M14 6H6.5a3.5 3.5 0 0 0 0 7H9',copy:'M5.5 5.5h8v8h-8zM10.5 5.5v-3h-8v8h3',
@@ -857,7 +874,7 @@ const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='chi
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
 // commit(sync): closes pend into one named step after lnk() and fgSync() (sync false skips them), then refreshes
-function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);pvLog(pend.n,r);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
 // revert(records): plays them backwards
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
@@ -866,7 +883,7 @@ function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
 const mvs=rs=>{let n=0;for(const m of rs)m.type==='childList'&&(n+=m.addedNodes.length+m.removedNodes.length);return n},dtch=f=>{const p=root.parentNode,n=root.nextSibling;root.remove();try{f()}finally{p.insertBefore(root,n)}};
 // undo(r,q): one step back (r: forward); q: quietly, for History's jumps
 function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[];redos=[]}
-  const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
+  const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;pvLog(`${r?'Redo':'Undo'}: ${x.n||'change'}`,y);(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
 
 // ══ 05 Opening ════
@@ -882,7 +899,7 @@ function parse(txt){const d=new DOMParser().parseFromString(txt,'image/svg+xml')
 function load(txt,nm){asNow();const d=parse(txt);prolog='';
   for(let n=d.firstChild;n!==d.documentElement;n=n.nextSibling)n.nodeType===8?prolog+=`<!--${n.data}-->\n`:n.nodeType===7&&(prolog+=`<?${n.target} ${n.data}?>\n`);
   finish(false);root&&root.remove();mo&&mo.disconnect();
-  root=document.adoptNode(d.documentElement);name=nm;
+  root=document.adoptNode(d.documentElement);name=nm;pvLoad(txt,nm);
   {const v=root.viewBox.baseVal;root.hasAttribute('viewBox')&&!(v&&v.width>0&&v.height>0&&Math.max(v.width,v.height,Math.abs(v.x),Math.abs(v.y))<1e12)&&root.removeAttribute('viewBox')}
   if(!root.hasAttribute('viewBox'))root.setAttribute('viewBox',`0 0 ${fm((mmOf(root.getAttribute('width'))||210)*96/25.4)} ${fm((mmOf(root.getAttribute('height'))||297)*96/25.4)}`);
   const b=root.viewBox.baseVal;vb=rb(b.x,b.y,b.width,b.height);U=unitOf(root,vb.w);
@@ -937,7 +954,7 @@ function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.chi
 const stamp=t=>{const d=t?new Date(t):new Date(),j=a=>a.map(x=>String(x).padStart(2,'0')).join('');return j([d.getFullYear()%100,d.getMonth()+1,d.getDate()])+'_'+j([d.getHours(),d.getMinutes(),d.getSeconds()])};
 const outName=(ext,tag='')=>(name.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+(tag?'_'+tag:'')+'_'+stamp()+ext).toLowerCase();
 // svgRaw(): the document as text without ending an edit (autosave); svgText() is for exports
-const svgRaw=()=>'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+new XMLSerializer().serializeToString(root)+'\n';
+const svgRaw=()=>'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'+prolog+pvPut(new XMLSerializer().serializeToString(root))+'\n';
 // Export: svgText() ends any text edit and colour preview, then serialises the document with its prolog.
 function svgText(){finish(true);cpEnd();adjEnd();return svgRaw()}
 // dl(blob,name): downloads it
@@ -2510,11 +2527,11 @@ function chooseFile(m){fileMode=m;$('mFile').value='';$('mFile').click()}
 // while a tab is in the background: the active document lives in the usual globals (root, name, undos…).
 const TABS=[{}];let TI=0;
 // tabGet(): a snapshot of the active document's globals; tabHold/tabShow swap them
-const tabGet=()=>({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV,sel:sel.slice(),ctx}),
+const tabGet=()=>({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV,REC,sel:sel.slice(),ctx}),
   tabNm=i=>i===TI?name:TABS[i].name,tabDt=i=>i===TI?dirty:TABS[i].dirty,
   tabBlank=()=>!dirty&&!undos.length&&!redos.length&&/^untitled(\.svg)?$/i.test(name||'')&&!root?.querySelector('path,rect,circle,ellipse,line,polyline,polygon,text,image,use');
 function tabHold(){finish(true);CR&&cropX();ped=null;G&&ghostOff();cpEnd();flush();pend.length&&commit();asNow();TABS[TI]=tabGet();TABS[TI].n=root.getElementsByTagName('*').length;mo.disconnect();root.remove()}
-function tabShow(i){const t=TABS[TI=i];({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV}=t);TABS[i]={};
+function tabShow(i){const t=TABS[TI=i];({root,prolog,name,vb,U,Z,k,tx,ty,undos,redos,dirty,svd,fh,gl,DI,asV,REC}=t);pvUI();TABS[i]={};
   pend=[];gp=gq=null;FQ.b=new Map;FQ.m=[];stage.insertBefore(root,$('mGW'));ghostSync();dv++;svn++;lkV++;
   mo=new MutationObserver(r=>add(pend,r));mo.observe(root,MOO);ctx=t.ctx&&root.contains(t.ctx)?t.ctx:root;
   size();place();sizes();setSel(t.sel.filter(e=>root.contains(e)));hud();msg('Switched to '+name)}
@@ -3587,10 +3604,145 @@ async function wmClean(){
   if(applied&&root===doc&&dv===appliedRev&&!$('mWm').hidden)await wmScan(true);
 }
 /* End Watermark Inspector. */
+// ══ 45a Edit record ════
+// A provenance log for scientific figures: where the document came from (file name, size and SHA-256 of its text) and
+// every step made to it, with time, how many elements it touched and whether it touched an embedded picture (crops,
+// adjustments, tints, merges: what journals ask authors to disclose). It is append-only: undo and redo are logged as
+// steps of their own. A burst of the same step (held arrow keys) is one entry with a count. The log lives outside the
+// document (in REC, per tab), so undo history and untouched exports are unaffected; svgRaw() appends it as one
+// <metadata id="svguest-record"> when Add the record is on (sgRec) or the file came with one, and load() takes such a
+// block out of the document again and keeps its earlier sessions. So the record also rides in autosave copies.
+let REC={o:[],s:null,k:0}; // the open document's record: o earlier sessions from the file, s this session {f,b,h,t,ev:[{t,n,o,p,x}]}, k the file carried one
+const PVNS='https://svguest.online/ns/record/1',PVA=()=>$('mBrand').title||'svguest'; // the record's namespace; the app and version
+const pvOn=()=>REC.k||ls('sgRec')==='1';
+// pvLoad(txt,nm): starts the record of a newly loaded document, taking an embedded record out of the document first
+function pvLoad(txt,nm){
+  const m=root.querySelector('metadata#svguest-record'),o=[];
+  if(m){
+    for(const q of m.getElementsByTagNameNS(PVNS,'session')){
+      const ev=[...q.getElementsByTagNameNS(PVNS,'step')].map(e=>({t:Date.parse(e.getAttribute('time'))||0,n:e.textContent,o:+e.getAttribute('objects')||0,p:e.getAttribute('picture')==='1',x:+e.getAttribute('times')||1}));
+      o.push({f:q.getAttribute('file')||'',b:+q.getAttribute('bytes')||0,h:q.getAttribute('sha256')||'',t:Date.parse(q.getAttribute('opened'))||0,a:q.getAttribute('app')||'',ev});
+    }
+    m.remove();
+  }
+  REC={o,s:{f:nm,b:new TextEncoder().encode(txt).length,h:'',t:Date.now(),a:PVA(),ev:[]},k:!!m};
+  const s=REC.s;
+  if(crypto.subtle)crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt)).then(d=>{
+    s.h=[...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('');
+    pvUI();
+  }).catch(()=>{});
+  pvUI();
+}
+// pvLog(n,rs): logs a step named n from its mutation records
+function pvLog(n,rs){
+  const s=REC.s;
+  if(!s)return;
+  const T=new Set;
+  let pic=false;
+  for(const m of rs){
+    const t=m.type==='characterData'?m.target.parentNode:m.target;
+    if(t)T.add(t);
+    if(!pic&&t&&t.closest&&(t.localName==='image'||t.closest('clipPath,filter,mask')))pic=true;
+    if(!pic&&m.type==='childList')pic=[...m.addedNodes,...m.removedNodes].some(x=>x.nodeType===1&&(x.localName==='image'||!!x.querySelector('image')));
+  }
+  const now=Date.now(),l=s.ev.at(-1);
+  if(l&&l.n===n&&now-l.t2<3e3){
+    l.x++;
+    l.t2=now;
+    l.o=max(l.o,T.size);
+    l.p=l.p||pic;
+  }
+  else s.ev.push({t:now,t2:now,n,o:T.size,p:pic,x:1});
+  pvQ();
+}
+const pvX=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'),pvIso=t=>new Date(t).toISOString().replace(/\.\d{3}Z$/,'Z');
+// pvXml(): the record as XML, earlier sessions first; this session only once it has steps
+function pvXml(){
+  const S=[...REC.o,...(REC.s&&REC.s.ev.length?[REC.s]:[])];
+  if(!S.length)return'';
+  const ses=S.map(q=>`<sg:session app="${pvX(q.a||'')}" opened="${pvIso(q.t)}" file="${pvX(q.f)}" bytes="${q.b}" sha256="${q.h}">`+
+    q.ev.map(e=>`<sg:step time="${pvIso(e.t)}" objects="${e.o}"${e.p?' picture="1"':''}${e.x>1?` times="${e.x}"`:''}>${pvX(e.n)}</sg:step>`).join('')+'</sg:session>');
+  return`<metadata id="svguest-record"><sg:record xmlns:sg="${PVNS}">${ses.join('')}</sg:record></metadata>`;
+}
+// pvPut(x): the serialised document x with the record before its closing tag, when the record is on
+function pvPut(x){
+  if(!pvOn())return x;
+  const r=pvXml(),i=x.lastIndexOf('</');
+  return r&&i>0?x.slice(0,i)+r+x.slice(i):x;
+}
+// pvTxt(): the record as plain text, for Download record
+function pvTxt(){
+  const S=[...REC.o,REC.s].filter(Boolean),d=t=>new Date(t).toLocaleString();
+  return S.map(q=>[`${q.f} · opened ${d(q.t)}${q.a?' in '+q.a:''}`,`  ${q.b} bytes · SHA-256 ${q.h||'not available'}`,
+    ...q.ev.map(e=>`  ${d(e.t)}  ${e.n}${e.x>1?' ×'+e.x:''} · ${e.o} element${e.o===1?'':'s'}${e.p?' · picture':''}`),q.ev.length?'':'  no changes'].filter(Boolean).join('\n')).join('\n\n')+'\n';
+}
+let recR=0;const pvQ=()=>{if(!$('mPv').hidden&&!recR)recR=requestAnimationFrame(()=>{recR=0;pvUI()})};
+// pvUI(): fills the window: the source, then the sessions, this one open and newest first
+function pvUI(){
+  const W=$('mPv');
+  if(W.hidden||!REC.s)return;
+  const s=REC.s,po=$('mPvP').checked,tm=t=>new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}),kb=b=>b>=1e6?(b/1e6).toFixed(1)+' MB':b>=1e3?(b/1e3).toFixed(1)+' KB':b+' bytes';
+  const S=$('mPvS');
+  S.replaceChildren(el('b',0,s.f),` · opened ${new Date(s.t).toLocaleString()} · ${kb(s.b)}`,el('br'),`SHA-256 of the opened text: ${s.h?s.h.slice(0,16)+'…':'…'}`);
+  S.title=s.h;
+  $('mPvE').checked=pvOn();
+  const rows=q=>{const E=q.ev.filter(e=>!po||e.p);if(!E.length)return[el('p',0,po?'No picture edits':'No changes yet')];
+    return E.slice().reverse().map(e=>{const d=el('div','st'+(e.p?' pic':''));d.append(el('i',0,tm(e.t)),el('span',0,e.n+(e.x>1?' ×'+e.x:'')),el('i',0,e.o+' el.'));d.title=`${new Date(e.t).toLocaleString()} · ${e.o} element${e.o===1?'':'s'} changed${e.p?' · touches an embedded picture':''}`;return d})};
+  const L=[el('h6',0,'This session'),...rows(s)];
+  for(const q of REC.o.slice().reverse()){
+    const d=el('details'),sm=el('summary',0,`${q.f||'Earlier session'} · ${new Date(q.t).toLocaleString()} · ${fgN(q.ev.length,'step')}`);
+    sm.title=`${q.a||''} · SHA-256 ${q.h||'not recorded'}`;
+    d.append(sm,...rows(q));
+    L.push(d);
+  }
+  if(REC.o.length)L.splice(L.length-REC.o.length,0,el('h6',0,'Earlier sessions, from the file'));
+  $('mPvL').replaceChildren(...L);
+}
+function pvOpen(){
+  const W=$('mPv');
+  if(!W.hidden)return pvClose();
+  W.hidden=false;
+  qa('prov').classList.add('on');
+  if(!W._p){
+    const r=view.getBoundingClientRect();
+    W.style.left=max(8,r.right-W.offsetWidth-34)+'px';
+    W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';
+    W._p=1;
+  }
+  pvUI();
+}
+function pvClose(){
+  $('mPv').hidden=true;
+  qa('prov').classList.remove('on');
+}
+$('mPvX').onclick=pvClose;
+$('mPvP').onchange=pvUI;
+$('mPvE').onchange=e=>{
+  REC.k=false;
+  ls('sgRec',e.target.checked?'1':'0');
+  asNow(1);
+  msg(e.target.checked?'Exported SVGs now carry the edit record':'Exported SVGs no longer carry the edit record');
+};
+$('mPv').addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  e.stopPropagation();
+  pvClose();
+});
+// the header drags the window
+$('mPv').querySelector('header').addEventListener('pointerdown',e=>{
+  if(e.target.closest('button'))return;
+  const W=$('mPv'),x0=e.clientX-W.offsetLeft,y0=e.clientY-W.offsetTop,h=e.currentTarget;
+  h.setPointerCapture(e.pointerId);
+  h.onpointermove=m=>{
+    W.style.left=min(innerWidth-60,max(0,m.clientX-x0))+'px';
+    W.style.top=min(innerHeight-30,max(0,m.clientY-y0))+'px';
+  };
+  h.onpointerup=()=>h.onpointermove=h.onpointerup=null;
+});
 // ══ 46 Actions ════
 // Buttons, menus, keys and the palette all call A[data-a]; AN (filled at startup) names undo steps after them.
 const A={
-  watermark:wmOpen,new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
+  watermark:wmOpen,prov:pvOpen,provTxt:()=>dl(new Blob([pvTxt()],{type:'text/plain'}),outName('.txt','record')),new:newDoc,open:()=>chooseFile(0),imp:()=>chooseFile(1),lock,unlock,
   svg:save,p300:()=>png(300),p600:()=>png(600),j300:()=>png(300,1),j600:()=>png(600,1),pdf,
   undo:()=>undo(0),redo:()=>undo(1),group,ungroup,copy:copyOut,paste:()=>paste(),del,fit,
   bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),und:()=>flip('text-decoration','textDecoration','underline',c=>/underline/.test(c.textDecorationLine)),
@@ -3788,7 +3940,7 @@ $('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.f
 const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥').replace(/\bCtrl\b/g,'⌘').replace(/\bAlt\b/g,'⌥').replace(/\bShift\b/g,'⇧'):s;let kC=[],kR=[],kI=0,kM='';
 $('mKb').lastChild.replaceChildren(...[MAC?'⌘':'Ctrl','K'].map(t=>el('span',0,t)));MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H',document.querySelectorAll('.menu kbd,#mCM kbd').forEach(k=>k.textContent=kTx(k.textContent).replace(/^Del$/,'⌫')));
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\{]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled,id:b.dataset.a?'a'+b.dataset.a:'t'+b.dataset.t});
-  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme'],['watermark','Inspect watermarks and metadata (beta)']])ad('General',qa(a),n,a==='help'?'?':'');
+  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['theme','Switch light or dark theme'],['prov','Edit record (provenance)'],['watermark','Check for hidden AI information']])ad('General',qa(a),n,a==='help'?'?':'');
   {const dv=vOf(drawTo()),cb=(a,n,f,t)=>{const b=el('button');b.dataset.a=a;b.title=t||'';b.onclick=f;b.append(kIc('chat'));return ad('SVG Chat',b,n,''),b};
     for(const q of REG)for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);cb('m:'+v,'Draw with '+m.n,()=>pickM(v,1),h?'':`${q.add||'Add a key'} under Models and keys first`).classList.toggle('on',h&&v===dv)}cb('mConn','Models and keys…',()=>openConn())}
   for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}

@@ -2187,7 +2187,7 @@ function cvW(a,j,p){
 // Remapping gives each chromatic colour, most used first, a palette colour of its own, the assignment with the least
 // total change (exhaustive: at most 7 × 7); greys stay unless asked. The view is a CSS filter on the drawing, built
 // from the same matrices in linear RGB (#mCvp…, in #mCrS), so it is display only.
-let CV=null; // the last check: {k: what it was computed for, cs: colours [{h,lab,n,E:[[element,'fill'|'stroke']],g,s:{p,d,t}}], bad: per type the pairs under the threshold}
+let CV=null; // the last check: {k: document version and threshold, s: the selection, cs: colours [{h,lab,n,E:[[element,'fill'|'stroke']],g,s:{p,d,t}}], bad: per type the pairs under the threshold}
 const cvLin=v=>(v/=255)<=.04045?v/12.92:((v+.055)/1.055)**2.4,
   cvGam=v=>round(255*(v<=.0031308?12.92*v:1.055*v**(1/2.4)-.055)),
   cvRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),
@@ -2302,10 +2302,10 @@ function cvMap(cs,pal,all,th){
 }
 // cvChk(c): the check for the current selection and settings, recomputed only when they or the document changed
 function cvChk(c){
-  const k=[dv,fgn('cvt'),...sel].join();
-  if(!c&&CV&&CV.k===k)return CV;
-  const cs=cvCol();
-  CV=typeof cs==='string'?{k,e:cs}:{k,cs,bad:cvBad(cs,fgn('cvt')||10)};
+  const k=dv+' '+fgn('cvt');
+  if(!c&&CV&&CV.k===k&&same(CV.s,sel))return CV;
+  const cs=cvCol(),s=sel.slice();
+  CV=typeof cs==='string'?{k,s,e:cs}:{k,s,cs,bad:cvBad(cs,fgn('cvt')||10)};
   return CV;
 }
 const cvSw=(h,t)=>{const i=el('i');i.style.background=h;i.title=t||h.toUpperCase();return i};
@@ -2357,7 +2357,7 @@ function cvdGo(){
   if(V.e)return msg(V.e);
   const{M}=cvMap(V.cs,CVD.pal[fgv('cvp')],Gf.cvg.checked,fgn('cvt')||10);
   let n=0;
-  fgDo('Remap colours',()=>{
+  const ok=fgDo('Remap colours',()=>{
     for(const[c,h]of M){
       if(c.h===h)continue;
       for(const[e,p]of c.E){
@@ -2365,8 +2365,9 @@ function cvdGo(){
         n++;
       }
     }
+    return true;
   });
-  msg(n?`Remapped colours: ${n} fill${n>1?'s and strokes':' or stroke'} changed`:'Nothing to remap');
+  if(ok)msg(n?`Remapped colours: ${n} fill${n>1?'s and strokes':' or stroke'} changed`:'Nothing to remap');
 }
 // cvView(k): shows the canvas through simulation k ('' for normal); the filters are built on first use
 function cvView(k){
@@ -3748,9 +3749,9 @@ $('mPvE').onchange=e=>{
   asNow(1);
   msg(e.target.checked?'Exported SVGs now carry the edit record':'Exported SVGs no longer carry the edit record');
 };
-// Esc closes the window wherever the focus is, before Esc's other uses (text fields and dialogs keep theirs)
+// Esc closes the window, when it is the front one, wherever the focus is, before Esc's other uses (text fields and dialogs keep theirs)
 addEventListener('keydown',e=>{
-  if(e.key!=='Escape'||$('mPv').hidden||dlgOpen())return;
+  if(e.key!=='Escape'||$('mPv').hidden||dlgOpen()||WINS.filter(x=>!$(x).hidden).at(-1)!=='mPv')return;
   if(!e.target.closest('#mPv')&&e.target.closest('input,textarea,select,[contenteditable]'))return;
   e.stopPropagation();
   pvClose();

@@ -3721,11 +3721,13 @@ $('mPvE').onchange=e=>{
   asNow(1);
   msg(e.target.checked?'Exported SVGs now carry the edit record':'Exported SVGs no longer carry the edit record');
 };
-$('mPv').addEventListener('keydown',e=>{
-  if(e.key!=='Escape')return;
+// Esc closes the window wherever the focus is, before Esc's other uses (text fields and dialogs keep theirs)
+addEventListener('keydown',e=>{
+  if(e.key!=='Escape'||$('mPv').hidden||dlgOpen())return;
+  if(!e.target.closest('#mPv')&&e.target.closest('input,textarea,select,[contenteditable]'))return;
   e.stopPropagation();
   pvClose();
-});
+},true);
 // the header drags the window
 $('mPv').querySelector('header').addEventListener('pointerdown',e=>{
   if(e.target.closest('button'))return;

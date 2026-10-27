@@ -285,7 +285,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mBar .be,#mWm header .be{font-size:9px;line-height:0;font-weight:600;vertical-align:.6em;margin-left:2px;color:var(--h4)}
 .wm-mark{position:fixed;pointer-events:none;z-index:85;outline:3px dashed var(--onb);outline-offset:4px;box-shadow:0 0 0 1px var(--fg)}
 /* ══ 45a Edit record ══ */
-#mPv{width:min(360px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px}#mPv[hidden]{display:none}#mPv header b{flex:1;color:var(--fg)}#mPv header button{border-color:transparent;background:none}
+#mPv{width:min(360px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px}#mPv[hidden]{display:none}:is(#mFg,#mWm,#mPv).wbk{box-shadow:var(--sh)}:is(#mFg,#mWm,#mPv).wbk header b{color:var(--t3)}#mPv header b{flex:1;color:var(--fg)}#mPv header button{border-color:transparent;background:none}
 #mPvS{font-size:11.5px;line-height:1.5;color:var(--h4);overflow-wrap:anywhere}#mPvS b{color:var(--fg);font-weight:600}
 #mPvL{display:flex;flex-direction:column;gap:2px;max-height:min(46vh,380px);overflow:auto;font-size:11.5px;font-variant-numeric:tabular-nums;scrollbar-width:thin}
 #mPvL details>summary{cursor:pointer;color:var(--h4);padding:2px 0}#mPvL h6{margin:4px 0 1px;font-size:11.5px;font-weight:600}
@@ -2458,7 +2458,7 @@ function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').va
   if(sel.length>2e3)r={e:'Too many objects selected to preview'};else try{r=memoize(()=>FGU[p](c))||{}}catch(e){r={e:e.message}}
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
   const ok=fgOk(p,r);$('mFg').querySelectorAll(`section[data-p=${p}] .fgst li`).forEach((l,i)=>l.classList.toggle('ok',!!ok[i]));fgMore();hud()}
-function fgOpen(p){if(!root)return;winOne('mFg');const W=$('mFg');$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}fgShow()}
+function fgOpen(p){if(!root)return;const W=$('mFg'),fr=W.hidden;$('mFgT').value=p;if(W.hidden){W.hidden=false;if(!W._p){const r=view.getBoundingClientRect();W.style.left=max(8,r.right-W.offsetWidth-34)+'px';W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';W._p=1}}winTop('mFg',fr);fgShow()}
 function fgShow(){adjEnd();const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
   if(p!=='cvd')cvView('');
   W.querySelectorAll('section[data-p]').forEach(s=>s.hidden=s!==S);I.hidden=!g;g&&x?x.querySelector('.fgr').before(I):W.querySelector('header').after(I);
@@ -3330,7 +3330,6 @@ function wmEngine() {
 /* Watermark Inspector UI: no initialization, workers or document inspection until requested. */
 var WM=null;
 function wmOpen(){
-  winOne('mWm');
   if(!WM){WM={doc:root,rev:dv,state:'empty',completed:false,rows:[],preserved:[],selected:new Set(),engine:null,job:null};
     const d=$('mWm');d.onkeydown=e=>{if(e.isComposing||e.keyCode===229)return;e.stopPropagation();if(e.key==='Escape'){e.preventDefault();wmClose()}};
     d.addEventListener('paste',e=>e.stopPropagation());
@@ -3339,8 +3338,9 @@ function wmOpen(){
       h.onpointermove=m=>wmPlace(m.clientX-dx,m.clientY-dy);h.onpointerup=h.onpointercancel=h.onlostpointercapture=()=>h.onpointermove=null};
     $('mWmX').onclick=wmClose;addEventListener('resize',()=>!d.hidden&&wmPlace());
   }
-  const d=$('mWm'),first=!d._p;d.hidden=false;wmLife();wmRender();
+  const d=$('mWm'),first=!d._p,fr=d.hidden;d.hidden=false;wmLife();wmRender();
   if(first){const r=view.getBoundingClientRect();wmPlace(r.right-d.offsetWidth-34,r.top+(opts.rulers?RW:0)+8);d._p=1}else wmPlace();
+  winTop('mWm',fr);
   d.focus({preventScroll:true});
 }
 function wmPlace(x=$('mWm').offsetLeft,y=$('mWm').offsetTop){const d=$('mWm');d.style.maxHeight=max(80,innerHeight-16)+'px';const top=max(8,min(innerHeight-d.offsetHeight-8,y));d.style.left=max(8,min(innerWidth-d.offsetWidth-8,x))+'px';d.style.top=top+'px';d.style.maxHeight=max(80,innerHeight-top-8)+'px'}
@@ -3700,7 +3700,6 @@ function pvUI(){
 function pvOpen(){
   const W=$('mPv');
   if(!W.hidden)return pvClose();
-  winOne('mPv');
   W.hidden=false;
   qa('prov').classList.add('on');
   if(!W._p){
@@ -3709,19 +3708,36 @@ function pvOpen(){
     W.style.top=max(8,r.top+(opts.rulers?RW:0)+8)+'px';
     W._p=1;
   }
+  winTop('mPv',1);
   pvUI();
 }
 function pvClose(){
   $('mPv').hidden=true;
   qa('prov').classList.remove('on');
 }
-// winOne(id): FigKit, the Watermark check and the edit record share the same corner, so one floating window shows at a
-// time: opening one closes the others (each through its own close, so previews and scans end properly)
-function winOne(id){
-  if(id!=='mFg'&&!$('mFg').hidden)fgX();
-  if(id!=='mWm'&&!$('mWm').hidden)wmClose();
-  if(id!=='mPv'&&!$('mPv').hidden)pvClose();
+// winTop(id,fresh): FigKit, the Watermark check and the edit record can be open together, stacked like cards: the one in
+// use is in front (z-index 19; the others 18, with a lighter shadow, .wbk). One that opens where another already sits
+// moves 32 px down and 16 px left, so the headers of those behind stay visible; a press anywhere on one brings it forward.
+const WINS=['mFg','mWm','mPv']; // the floating windows
+function winTop(id,fresh){
+  const W=$(id),hit=x=>abs(x.offsetTop-W.offsetTop)<24&&x.offsetLeft<W.offsetLeft+W.offsetWidth&&W.offsetLeft<x.offsetLeft+x.offsetWidth;
+  for(let n=0;fresh&&n<WINS.length;n++){
+    const o=WINS.map($).find(x=>x!==W&&!x.hidden&&hit(x));
+    if(!o)break;
+    W.style.top=min(innerHeight-80,o.offsetTop+32)+'px';
+    W.style.left=max(8,W.offsetLeft-16)+'px';
+  }
+  if(fresh&&id==='mWm')wmPlace();
+  if(fresh&&id==='mFg')fgFit();
+  for(const x of WINS){
+    $(x).style.zIndex=x===id?19:18;
+    $(x).classList.toggle('wbk',x!==id);
+  }
 }
+addEventListener('pointerdown',e=>{
+  const w=e.target.closest&&e.target.closest('#mFg,#mWm,#mPv');
+  if(w)winTop(w.id);
+},true);
 $('mPvX').onclick=pvClose;
 $('mPvP').onchange=pvUI;
 $('mPvE').onchange=e=>{

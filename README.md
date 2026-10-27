@@ -2,7 +2,7 @@
 
 > I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.
 
-A tiny SVG editor for scientific figures, in one HTML file. Touch up figures from ggplot2, Inkscape or Adobe Illustrator in your browser or in TBtools. As a single file it may also open in the built-in viewers of VS Code or RStudio (untested). Nothing is uploaded.
+A tiny SVG editor for scientific figures, in one HTML file. Touch up figures from ggplot2, Inkscape or Adobe Illustrator in your browser or in TBtools. As a single file it may also open in the built-in viewers of VS Code or RStudio (untested). Your figures are never uploaded.
 
 **Live: https://www.svguest.online** (also at https://jieqianghe.github.io/svguest/)
 

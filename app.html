@@ -601,6 +601,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 62 Keyboard: shortcuts, keys under input methods, Select all
 // 63 Paste: SVG and images from the clipboard
 // 64 Startup: options, theme, action names, the first page
+// 64a Visit count: one anonymous page-view beacon on the svguest sites
 // ══ 00 State ════
 // Constants and handles every section uses (F: side-panel fields by data-f), then the state several sections share;
 // the rest is declared at the head of its own section.
@@ -658,6 +659,8 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
 // ══ 01a Data ════
 // Constant data kept apart from the code: prompts, icons, labels, font names. Plain literals that use nothing
 // declared later, so they can sit before every section that reads them.
+// STATS: the visit counter (64a): the Worker's /hit address and the hosts that count
+const STATS={url:'https://svguest-stats.jieqiang-he-dawn.workers.dev/hit',hosts:/^(jieqianghe\.github\.io|(www\.)?svguest\.online)$/};
 // PROMPT: every prompt sent to the models (sys, sum, look, con, units, whole, panel, cur…)
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
@@ -3729,6 +3732,19 @@ const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
 views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
+// ══ 64a Visit count ════
+// Counts app opens on the two websites only (not TBtools, not a downloaded copy): one beacon with the page name and
+// the referring site's host name, no cookie, no id, nothing about the document; the Worker keeps daily totals.
+// Skipped when the browser asks not to be tracked (Do Not Track, Global Privacy Control).
+function visit(){
+  if(!STATS.hosts.test(location.hostname)||!navigator.sendBeacon)return;
+  if(navigator.doNotTrack==='1'||navigator.globalPrivacyControl)return;
+  let r='';
+  try{r=new URL(document.referrer).hostname}catch(_){}
+  if(r===location.hostname)r='';
+  try{navigator.sendBeacon(STATS.url+'?p=app&r='+encodeURIComponent(r))}catch(_){}
+}
+visit();
 </script>
 </body>
 </html>

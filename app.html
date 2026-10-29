@@ -435,13 +435,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="row"><button data-a="fgPalReset" title="Back to the starting colours">Reset palette</button></div></details>
 <details class="fgm"><summary>How it works</summary><p class="pph">A swatch applies its colour to the fill or stroke chosen above; right-click one to remove it. The palette is svguest's own choice and is kept in this browser.</p></details></section>
 <section data-p="cvd"><ol class="fgst"><li>Select objects, or nothing for the whole drawing</li><li>See which colours run together</li><li>Pick a palette and click <b>Remap colours</b></li></ol>
-<div class="seg" id="mFgVw" title="Show the canvas as seen with each colour vision deficiency (display only; exports are unchanged)"><button data-v="" class="on">Normal</button><button data-v="p" title="Protanopia: no red cones (about 1 in 100 men)">Protan</button><button data-v="d" title="Deuteranopia: no green cones (about 1 in 100 men; a milder green weakness affects about 5 in 100)">Deutan</button><button data-v="t" title="Tritanopia: no blue cones (rare)">Tritan</button><button data-v="g" title="Greyscale, as in black-and-white print">Grey</button></div>
+<div class="seg" id="mFgVw" title="Show the canvas as seen with each colour vision deficiency, at the severity below (display only; exports are unchanged)"><button data-v="" class="on">Normal</button><button data-v="p" title="Protan: red cones weak or missing (about 2 in 100 men)">Protan</button><button data-v="d" title="Deutan: green cones weak or missing (about 6 in 100 men, most of them mildly)">Deutan</button><button data-v="t" title="Tritan: blue cones weak or missing (rare)">Tritan</button><button data-v="g" title="Greyscale, as in black-and-white print">Grey</button></div>
+<div class="kv"><span>Severity</span><select data-g="cvs" title="How strongly the cone is shifted, for the view and the colour list (the check itself covers every severity). Most colour-blind readers are mildly to moderately affected; 100 % means the cone is missing."><option value="40">Mild (40 %)</option><option value="70">Strong (70 %)</option><option value="100" selected>Complete (100 %)</option></select></div>
 <div id="mFgVs" class="cvs"></div><div id="mFgVl" class="cvl"></div>
 <div class="kv"><span>Palette</span><select data-g="cvp"><option value="oi">Okabe–Ito (7 colours)</option><option value="tb">Tol bright (6)</option><option value="tv">Tol vibrant (6)</option></select></div>
 <div id="mFgVm" class="cvl"></div>
 <div class="row"><button data-a="cvdGo" class="pri">Remap colours</button></div>
 <details class="fgx"><summary>More options<i></i></summary><div class="kv"><span>Threshold</span><label class="f" title="Two colours count as hard to tell apart below this CIEDE2000 difference: about 2 is just noticeable, 10 is a common minimum for colours that must be told apart at a glance"><input type="number" min="1" max="50" step="1" data-g="cvt" value="10"><em>ΔE</em></label></div><label class="fgc"><input type="checkbox" data-g="cvg"> Remap greys, black and white too</label></details>
-<details class="fgm"><summary>How it works</summary><p class="pph">The colours are the fills and strokes the objects show (classes and inherited colours included); gradients, patterns and pictures are not measured, though the view shows them. Each pair is compared with CIEDE2000 after simulating protanopia, deuteranopia and tritanopia (Machado et al. 2009); a pair that normal vision tells apart but a simulation brings under the threshold is listed. Remapping gives each colour, most used first, its own palette colour, choosing the closest overall, and keeps greys, black and white. Click a colour to select what uses it. One undo step.</p></details></section>
+<details class="fgm"><summary>How it works</summary><p class="pph">The colours are the fills and strokes the objects show (classes and inherited colours included); gradients, patterns and pictures are not measured, though the view shows them. Each pair is compared with CIEDE2000 after simulating the red, green and blue cone deficiencies at every severity from 10 % to 100 % (Machado et al. 2009); a pair that normal vision tells apart but some severity brings under the threshold is listed with the mildest severity where it happens, since most colour-blind readers are only mildly affected. Remapping gives each colour, most used first, its own palette colour, first avoiding pairs that run together at mild severities, then staying close to the original colours, and keeps greys, black and white. Click a colour to select what uses it. One undo step.</p></details></section>
 <section data-p="scale"><ol class="fgst"><li>Select a picture</li><li>Enter its pixel size (from the microscope software or ImageJ) and click <b>Save calibration</b></li><li>Set the length and click <b>Add or update</b></li></ol><p class="pph" id="mFgCi"></p>
 <details class="fgk" id="mFgCd"><summary>Calibration<i></i></summary><div class="kv"><span>Pixels</span><div><label class="f" title="Width of the original picture, in pixels">W<input type="number" min="1" step="1" data-g="ow"></label><label class="f" title="Height of the original picture, in pixels">H<input type="number" min="1" step="1" data-g="oh"></label></div>
 <span>Pixel size</span><div><label class="f">X<input type="number" min="0" step="any" data-g="px"></label><label class="f" title="Empty: square pixels">Y<input type="number" min="0" step="any" data-g="py"></label><select data-g="pu"><option value="nm">nm</option><option value="um" selected>µm</option><option value="mm">mm</option></select></div>
@@ -693,14 +694,44 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
 // ══ 01a Data ════
 // Constant data kept apart from the code: prompts, icons, labels, font names. Plain literals that use nothing
 // declared later, so they can sit before every section that reads them.
-// CVD: colour vision deficiencies for 28b. m: Machado, Oliveira and Fernandes (2009) simulation matrices at severity 1,
-// rows of a 3×3 applied to linear RGB; pal: colour-blind-safe palettes (Okabe and Ito 2002; Paul Tol's bright and vibrant)
+// CVD: colour vision deficiencies for 28b. t: key, name, the cone that is weak or missing; m: Machado, Oliveira and
+// Fernandes (2009) simulation matrices for severity 10 %, 20 % … 100 % (100 % = protanopia, deuteranopia, tritanopia),
+// rows of a 3×3 applied to linear RGB, as published with the paper; g: greyscale (Rec. 709); pal: colour-blind-safe
+// palettes (Okabe and Ito 2002; Paul Tol's bright and vibrant)
 const CVD={
-  t:[['p','Protanopia','red-blind'],['d','Deuteranopia','green-blind'],['t','Tritanopia','blue-blind']],
-  m:{p:[.152286,1.052583,-.204868,.114503,.786281,.099216,-.003882,-.048116,1.051998],
-    d:[.367322,.860646,-.227968,.280085,.672501,.047413,-.01182,.04294,.968881],
-    t:[1.255528,-.076749,-.178779,-.078411,.930809,.147602,.004733,.691367,.3039],
-    g:[.2126,.7152,.0722,.2126,.7152,.0722,.2126,.7152,.0722]},
+  t:[['p','Protan','red'],['d','Deutan','green'],['t','Tritan','blue']],
+  m:{
+    p:[[.856167,.182038,-.038205,.029342,.955115,.015544,-.00288,-.001563,1.004443],
+      [.734766,.334872,-.069637,.05184,.919198,.028963,-.004928,-.004209,1.009137],
+      [.630323,.465641,-.095964,.069181,.890046,.040773,-.006308,-.007724,1.014032],
+      [.539009,.579343,-.118352,.082546,.866121,.051332,-.007136,-.011959,1.019095],
+      [.458064,.679578,-.137642,.092785,.846313,.060902,-.007494,-.016807,1.024301],
+      [.38545,.769005,-.154455,.100526,.829802,.069673,-.007442,-.02219,1.029632],
+      [.319627,.849633,-.169261,.106241,.815969,.07779,-.007025,-.028051,1.035076],
+      [.259411,.923008,-.18242,.110296,.80434,.085364,-.006276,-.034346,1.040622],
+      [.203876,.990338,-.194214,.112975,.794542,.092483,-.005222,-.041043,1.046265],
+      [.152286,1.052583,-.204868,.114503,.786281,.099216,-.003882,-.048116,1.051998]],
+    d:[[.866435,.177704,-.044139,.049567,.939063,.01137,-.003453,.007233,.99622],
+      [.760729,.319078,-.079807,.090568,.889315,.020117,-.006027,.013325,.992702],
+      [.675425,.43385,-.109275,.125303,.847755,.026942,-.00795,.018572,.989378],
+      [.605511,.52856,-.134071,.155318,.812366,.032316,-.009376,.023176,.9862],
+      [.547494,.607765,-.155259,.181692,.781742,.036566,-.01041,.027275,.983136],
+      [.498864,.674741,-.173604,.205199,.754872,.039929,-.011131,.030969,.980162],
+      [.457771,.731899,-.18967,.226409,.731012,.042579,-.011595,.034333,.977261],
+      [.422823,.781057,-.203881,.245752,.709602,.044646,-.011843,.037423,.974421],
+      [.392952,.82361,-.216562,.263559,.69021,.046232,-.01191,.040281,.97163],
+      [.367322,.860646,-.227968,.280085,.672501,.047413,-.01182,.04294,.968881]],
+    t:[[.92667,.092514,-.019184,.021191,.964503,.014306,.008437,.054813,.93675],
+      [.89572,.13333,-.02905,.029997,.9454,.024603,.013027,.104707,.882266],
+      [.905871,.127791,-.033662,.026856,.941251,.031893,.01341,.148296,.838294],
+      [.948035,.08949,-.037526,.014364,.946792,.038844,.010853,.193991,.795156],
+      [1.017277,.027029,-.044306,-.006113,.958479,.047634,.006379,.248708,.744913],
+      [1.104996,-.046633,-.058363,-.032137,.971635,.060503,.001336,.317922,.680742],
+      [1.193214,-.109812,-.083402,-.058496,.97941,.079086,-.002346,.403492,.598854],
+      [1.257728,-.139648,-.118081,-.078003,.975409,.102594,-.003316,.501214,.502102],
+      [1.278864,-.125333,-.153531,-.084748,.957674,.127074,-.000989,.601151,.399838],
+      [1.255528,-.076749,-.178779,-.078411,.930809,.147602,.004733,.691367,.3039]]},
+  g:[.2126,.7152,.0722,.2126,.7152,.0722,.2126,.7152,.0722],
   pal:{oi:['#e69f00','#56b4e9','#009e73','#f0e442','#0072b2','#d55e00','#cc79a7'],
     tb:['#4477aa','#66ccee','#228833','#ccbb44','#ee6677','#aa3377'],
     tv:['#0077bb','#33bbee','#009988','#ee7733','#cc3311','#ee3377']}};
@@ -2182,17 +2213,30 @@ function cvW(a,j,p){
 // Checks whether the figure's colours stay apart for colour-blind readers and remaps them to a safe palette (CVD, 01a).
 // Colours come from the computed fill and stroke of the selection's leaves, or of the whole drawing with nothing
 // selected, so classes, inheritance and currentColor count; gradients, patterns and pictures are not measured.
-// Colours within ΔE 2 of each other are one colour (antialiasing and rounding variants). A pair counts as hard to
-// tell apart when normal vision sees at least the threshold (CIEDE2000) and a simulation brings it under it.
-// Remapping gives each chromatic colour, most used first, a palette colour of its own, the assignment with the least
-// total change (exhaustive: at most 7 × 7); greys stay unless asked. The view is a CSS filter on the drawing, built
-// from the same matrices in linear RGB (#mCvp…, in #mCrS), so it is display only.
-let CV=null; // the last check: {k: document version and threshold, s: the selection, cs: colours [{h,lab,n,E:[[element,'fill'|'stroke']],g,s:{p,d,t}}], bad: per type the pairs under the threshold}
+// Colours within ΔE 2 of each other are one colour (antialiasing and rounding variants). Each deficiency is simulated
+// at ten severities, 10 % to 100 % (most colour-blind readers are anomalous trichromats, not dichromats), and a pair
+// runs together when normal vision sees at least the threshold (CIEDE2000) and some severity brings it under it; its
+// onset, the mildest such severity, says how many readers it reaches. Remapping gives each chromatic colour, most used
+// first, a palette colour of its own: the assignment whose remaining pairs set in at the strongest severities (each
+// weighs 11 − its onset level), then the one with the least total change (exhaustive: at most 7 × 7); greys stay
+// unless asked. The view is a CSS filter on the drawing with the same matrices in linear RGB at the chosen severity
+// (#mCvp…, in #mCrS), so it is display only.
+let CV=null; // the last check: {k: document version and threshold, s: the selection, cs: colours [{h,lab,n,E:[[element,'fill'|'stroke']],g,s:{p,d,t: Lab at each of the ten severities}}], bad: per type the pairs that run together}
 const cvLin=v=>(v/=255)<=.04045?v/12.92:((v+.055)/1.055)**2.4,
   cvGam=v=>round(255*(v<=.0031308?12.92*v:1.055*v**(1/2.4)-.055)),
   cvRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),
   cvHex=a=>'#'+a.map(x=>x.toString(16).padStart(2,'0')).join(''),
-  cvSim=(h,k)=>{const m=CVD.m[k],l=cvRgb(h).map(cvLin);return cvHex([0,1,2].map(i=>cvGam(min(1,max(0,m[3*i]*l[0]+m[3*i+1]*l[1]+m[3*i+2]*l[2])))))};
+  cvSim=(h,k,v=1)=>{const m=cvMx(k,v),l=cvRgb(h).map(cvLin);return cvHex([0,1,2].map(i=>cvGam(min(1,max(0,m[3*i]*l[0]+m[3*i+1]*l[1]+m[3*i+2]*l[2])))))},
+  cvSims=h=>Object.fromEntries(CVD.t.map(([k])=>[k,CVD.m[k].map((_,i)=>cvLab(cvSim(h,k,(i+1)/10)))])), // Lab at 10 % … 100 %
+  cvPc=i=>`${i*10} %`; // a severity level (1–10) as a percentage
+// cvMx(k,v): the simulation matrix of deficiency k at severity v (0–1), between the published 10 % steps by linear
+// interpolation (from the identity below 10 %); g: greyscale
+function cvMx(k,v){
+  if(k==='g')return CVD.g;
+  const M=CVD.m[k],x=min(10,max(0,v*10)),i=Math.floor(x),f=x-i,I=[1,0,0,0,1,0,0,0,1],a=i?M[i-1]:I;
+  if(!f||i===10)return a;
+  return a.map((q,j)=>q+(M[i][j]-q)*f);
+}
 // cvLab(h): CIELAB (D65) of a hex colour
 function cvLab(h){
   const[R,G,B]=cvRgb(h).map(cvLin),f=t=>t>216/24389?Math.cbrt(t):(24389/27*t+16)/116;
@@ -2251,32 +2295,46 @@ function cvCol(){
       continue;
     }
     c.g=hypot(c.lab[1],c.lab[2])<6;
-    c.s={};
-    for(const[k]of CVD.t)c.s[k]=cvLab(cvSim(c.h,k));
+    c.s=cvSims(c.h);
     o.push(c);
   }
   return o;
 }
-// cvBad(cs,th): per deficiency, the pairs normal vision tells apart that the simulation brings under th, worst first
+// cvOn(a,b,k,th): the mildest severity level (1–10) at which deficiency k brings the pair under th, else 0
+function cvOn(a,b,k,th){
+  for(let i=0;i<10;i++)if(de00(a.s[k][i],b.s[k][i])<th)return i+1;
+  return 0;
+}
+// cvBad(cs,th): per deficiency, the pairs normal vision tells apart that some severity brings under th, as
+// [a, b, onset level, ΔE at the onset, ΔE in normal vision, ΔE at 100 %], the mildest onsets first
 function cvBad(cs,th){
   const B={};
   for(const[k]of CVD.t){
     B[k]=[];
     for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){
-      const d0=de00(cs[i].lab,cs[j].lab),dk=de00(cs[i].s[k],cs[j].s[k]);
-      if(d0>=th&&dk<th)B[k].push([cs[i],cs[j],dk,d0]);
+      const a=cs[i],b=cs[j],d0=de00(a.lab,b.lab),o=d0>=th&&cvOn(a,b,k,th);
+      if(o)B[k].push([a,b,o,de00(a.s[k][o-1],b.s[k][o-1]),d0,de00(a.s[k][9],b.s[k][9])]);
     }
-    B[k].sort((a,b)=>a[2]-b[2]);
+    B[k].sort((x,y)=>x[2]-y[2]||x[5]-y[5]);
   }
   return B;
 }
 // cvMap(cs,pal,all,th): Map colour → new hex, plus the colours left as they are when the palette runs out. Each
 // colour, most used first, gets a palette colour of its own; of all assignments (at most 7 × 7, searched exhaustively)
-// the one with the fewest pairs that run together in a simulation wins, then the one that changes the colours least.
+// the one whose remaining pairs weigh least wins (a pair that runs together from severity level o weighs 11 − o, so
+// one that reaches mild readers counts most), then the one that changes the colours least.
 function cvMap(cs,pal,all,th){
   const A=cs.filter(c=>all||!c.g),K=A.slice(0,pal.length),F=cs.filter(c=>!K.includes(c));
-  const P=pal.map(h=>({lab:cvLab(h),s:Object.fromEntries(CVD.t.map(([k])=>[k,cvLab(cvSim(h,k))]))}));
-  const run=(a,b)=>de00(a.lab,b.lab)>=th&&CVD.t.some(([k])=>de00(a.s[k],b.s[k])<th);
+  const P=pal.map(h=>({lab:cvLab(h),s:cvSims(h)}));
+  const run=(a,b)=>{
+    if(de00(a.lab,b.lab)<th)return 0;
+    let w=0;
+    for(const[k]of CVD.t){
+      const o=cvOn(a,b,k,th);
+      if(o)w=max(w,11-o);
+    }
+    return w;
+  };
   const D=K.map(c=>P.map(p=>de00(c.lab,p.lab))),X=P.map(a=>P.map(b=>run(a,b))),Y=P.map(a=>F.reduce((n,f)=>n+run(a,f),0));
   let bs=Infinity,best=[];
   const cur=[],used=[];
@@ -2309,32 +2367,35 @@ function cvChk(c){
   return CV;
 }
 const cvSw=(h,t)=>{const i=el('i');i.style.background=h;i.title=t||h.toUpperCase();return i};
-// cvUI(): the summary per deficiency, the colour list (normal, then as each simulation shows it) and the remap preview
+// cvFirst(b): " from N %" for a list of cvBad pairs (the mildest onset), or ''
+const cvFirst=b=>b.length?` from ${cvPc(b[0][2])}`:'';
+// cvUI(): the summary per deficiency, the colour list (normal, then as each simulation shows it at the view's
+// severity), the pairs that run together (shown at their onset) and the remap preview
 function cvUI(V){
-  const th=fgn('cvt')||10,n=V.cs.length,np=n*(n-1)/2,S=$('mFgVs'),Lc=$('mFgVl'),Mp=$('mFgVm');
+  const th=fgn('cvt')||10,v=(fgn('cvs')||100)/100,n=V.cs.length,np=n*(n-1)/2,S=$('mFgVs'),Lc=$('mFgVl'),Mp=$('mFgVm');
   S.replaceChildren(...CVD.t.map(([k,nm,w])=>{
     const b=V.bad[k],d=el('div',b.length?'no':'ok');
-    d.append(el('b',0,nm),` (${w}): `+(b.length?`${fgN(b.length,'pair')} of ${np} hard to tell apart`:np?'all colours stay apart':'nothing to compare'));
-    d.title=b.slice(0,8).map(([a,c,dk,d0])=>`${a.h.toUpperCase()} and ${c.h.toUpperCase()}: ΔE ${dk.toFixed(1)} (normal vision ${d0.toFixed(1)})`).join('\n');
+    d.append(el('b',0,nm),` (${w}): `+(b.length?`${fgN(b.length,'pair')} of ${np} ${b.length>1?'run':'runs'} together,${cvFirst(b)} severity`:np?'all colours stay apart, even at 100 %':'nothing to compare'));
+    d.title=b.length?'The severity is how strongly that cone is shifted (100 %: missing). Most colour-blind readers are mildly to moderately affected, so a pair that runs together from a low severity reaches many more readers.':'';
     return d;
   }));
-  const rows=[el('h6',0,`Colours in the ${sel.length?'selection':'drawing'}: normal, protan, deutan, tritan`)];
+  const rows=[el('h6',0,`Colours in the ${sel.length?'selection':'drawing'}: normal, protan, deutan, tritan at ${round(v*100)} %`)];
   V.cs.forEach((c,i)=>{
     const d=el('div'),bad=CVD.t.some(([k])=>V.bad[k].some(p=>p[0]===c||p[1]===c));
     d.dataset.i=i;
     d.title='Click to select the objects that use this colour';
-    d.append(cvSw(c.h),...CVD.t.map(([k,nm])=>cvSw(cvSim(c.h,k),nm)),el('span',bad?'no':'',`${c.h.toUpperCase()} · ${fgN(c.n,'use')}${c.g?' · grey':''}${bad?' · runs together':''}`));
+    d.append(cvSw(c.h),...CVD.t.map(([k,nm])=>cvSw(cvSim(c.h,k,v),nm)),el('span',bad?'no':'',`${c.h.toUpperCase()} · ${fgN(c.n,'use')}${c.g?' · grey':''}${bad?' · runs together':''}`));
     rows.push(d);
   });
-  const pr=CVD.t.flatMap(([k,nm])=>V.bad[k].map(b=>[k,nm,...b])).sort((a,b)=>a[4]-b[4]).slice(0,8);
-  if(pr.length)rows.push(el('h6',0,'Pairs that run together, as seen with the deficiency'));
-  for(const[k,nm,a,c,dk,d0]of pr){
+  const pr=CVD.t.flatMap(([k,nm])=>V.bad[k].map(b=>[k,nm,...b])).sort((a,b)=>a[4]-b[4]||a[7]-b[7]).slice(0,8);
+  if(pr.length)rows.push(el('h6',0,'Pairs that run together, mildest first, as seen where they start'));
+  for(const[k,nm,a,c,o,dk,d0,d1]of pr){
     const d=el('div');
-    d.append(cvSw(cvSim(a.h,k),a.h.toUpperCase()),cvSw(cvSim(c.h,k),c.h.toUpperCase()),el('span',0,`${nm}: ΔE ${dk.toFixed(1)} (normal vision ${d0.toFixed(1)})`));
+    d.append(cvSw(cvSim(a.h,k,o/10),a.h.toUpperCase()),cvSw(cvSim(c.h,k,o/10),c.h.toUpperCase()),el('span',0,`${nm} from ${cvPc(o)}: ΔE ${dk.toFixed(1)} there, ${d1.toFixed(1)} at 100 % (normal ${d0.toFixed(1)})`));
     rows.push(d);
   }
   Lc.replaceChildren(...rows);
-  const{M,left}=cvMap(V.cs,CVD.pal[fgv('cvp')],Gf.cvg.checked,fgn('cvt')||10),ch=[...M].filter(([c,h])=>c.h!==h);
+  const{M,left}=cvMap(V.cs,CVD.pal[fgv('cvp')],Gf.cvg.checked,th),ch=[...M].filter(([c,h])=>c.h!==h);
   const m=[el('h6',0,ch.length?'Remap':'Remap: nothing to change')];
   for(const[c,h]of ch){
     const d=el('div');
@@ -2342,14 +2403,14 @@ function cvUI(V){
     m.push(d);
   }
   if(ch.length){
-    const cs2=V.cs.map(c=>M.has(c)?{lab:cvLab(M.get(c)),s:Object.fromEntries(CVD.t.map(([k])=>[k,cvLab(cvSim(M.get(c),k))]))}:c),b2=cvBad(cs2,th);
-    m.push(el('div',0,'After: '+CVD.t.map(([k,nm])=>`${nm.slice(0,4)}. ${b2[k].length}`).join(' · ')+' pairs hard to tell apart'));
+    const cs2=V.cs.map(c=>M.has(c)?{lab:cvLab(M.get(c)),s:cvSims(M.get(c))}:c),b2=cvBad(cs2,th);
+    m.push(el('div',0,'After: '+CVD.t.map(([k,nm])=>`${nm} ${b2[k].length}${cvFirst(b2[k])}`).join(' · ')));
   }
   if(left.length)m.push(el('div','no',`${fgN(left.length,'colour')} more than the palette holds stay as they are`));
   Mp.replaceChildren(...m);
   qa('cvdGo').disabled=!ch.length;
-  const t=CVD.t.reduce((a,[k])=>a+V.bad[k].length,0);
-  return t?`${fgN(n,'colour')}: ${fgN(t,'pair')} run together for some readers`:`${fgN(n,'colour')}: all stay apart in the three simulations`;
+  const B=CVD.t.flatMap(([k])=>V.bad[k]).sort((a,b)=>a[2]-b[2]);
+  return B.length?`${fgN(n,'colour')}: ${fgN(B.length,'pair')} ${B.length>1?'run':'runs'} together for some readers,${cvFirst(B)} severity`:`${fgN(n,'colour')}: all stay apart at every severity`;
 }
 // cvdGo(): writes the remap as one step (Remap colours)
 function cvdGo(){
@@ -2369,17 +2430,22 @@ function cvdGo(){
   });
   if(ok)msg(n?`Remapped colours: ${n} fill${n>1?'s and strokes':' or stroke'} changed`:'Nothing to remap');
 }
-// cvView(k): shows the canvas through simulation k ('' for normal); the filters are built on first use
+// cvView(k): shows the canvas through simulation k ('' for normal) at the pane's severity; the filters are built on
+// first use and their matrices rewritten only when the severity changed
 function cvView(k){
-  if(k&&!$('mCvp')){
-    const S=$('mCrS');
+  const S=$('mCrS'),v=(fgn('cvs')||100)/100;
+  if(k&&!$('mCvp'))for(const x of['p','d','t','g']){
+    const f=document.createElementNS(NS.svg,'filter');
+    f.id='mCv'+x;
+    f.setAttribute('color-interpolation-filters','linearRGB');
+    f.append(document.createElementNS(NS.svg,'feColorMatrix'));
+    S.append(f);
+  }
+  if(k&&S._v!==v){
+    S._v=v;
     for(const x of['p','d','t','g']){
-      const f=document.createElementNS(NS.svg,'filter'),m=document.createElementNS(NS.svg,'feColorMatrix'),v=CVD.m[x];
-      f.id='mCv'+x;
-      f.setAttribute('color-interpolation-filters','linearRGB');
-      m.setAttribute('values',[0,1,2].map(i=>v.slice(3*i,3*i+3).join(' ')+' 0 0').join(' ')+' 0 0 0 1 0');
-      f.append(m);
-      S.append(f);
+      const m=cvMx(x,v);
+      $('mCv'+x).firstChild.setAttribute('values',[0,1,2].map(i=>m.slice(3*i,3*i+3).join(' ')+' 0 0').join(' ')+' 0 0 0 1 0');
     }
   }
   if(k)stage.dataset.cv=k;
@@ -2421,6 +2487,7 @@ const FGU={
     const r=n&&fgZr(n);return{pv:Array.isArray(r)&&!R?[{b:tb((q=>rb(q.x+r[0]*q.w,q.y+r[1]*q.h,(r[2]-r[0])*q.w,(r[3]-r[1])*q.h))(fgCR(s)),ctm(s))}]:null,st:typeof r=='string'?r:R?`${fgN(fgIns_(R).length,'inset')} linked to this box`:'The outline shows the region'}},
   cvd:c=>{
     const V=cvChk(c);
+    if(stage.dataset.cv)cvView(stage.dataset.cv);
     if(V.e)return{e:V.e};
     if(!V.cs.length){
       for(const x of['mFgVs','mFgVl','mFgVm'])$(x).replaceChildren();

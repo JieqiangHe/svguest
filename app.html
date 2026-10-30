@@ -170,8 +170,8 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 /* ══ 21 Text editing ══ */
 .ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}.ed.pl{outline:none;background:none}.ed.pl>div{position:relative;width:max-content;min-width:4px;outline:1px solid #1a73e8;background:#fffd}.ed.pc>div{margin:0 auto}.ed.pe>div{margin-left:auto}#mTx{position:static;display:block;width:100%;min-height:42px;max-height:160px;overflow:auto;margin:0;padding:3px 5px;white-space:pre-wrap;overflow-wrap:anywhere;outline:none;border:1px solid var(--btnb);border-radius:6px;background:#fff;color:#000;font-size:13px;line-height:1.35;cursor:text}#mTx:focus{border-color:var(--onb);box-shadow:0 0 0 1px var(--onb)}#mTx[contenteditable=false]{cursor:default}#mTx.pl{white-space:pre}#mTx.pl>div{outline:none;background:none;line-height:1.2}[data-theme=dark] #mTx{color-scheme:light;filter:invert(1) hue-rotate(180deg);background:#d9d9d9;border-color:#bfbfbf}[data-theme=dark] #mTx:focus{border-color:#5c5c5c;box-shadow:none}[data-theme=dark] #mTx::selection,[data-theme=dark] #mTx ::selection{background:#48a1ff;color:#000}#mTx:empty::before{content:attr(data-ph);color:#888;font:12px system-ui,sans-serif;font-style:normal;font-weight:normal}::selection{background:#1a73e8;color:#fff}
 /* ══ 51 Panel toggles ══ */
-body.dock{grid-template-columns:48px 1fr 236px 300px}body.lay{grid-template-columns:48px 1fr 220px 236px}body.lay.dock{grid-template-columns:48px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}
-body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48px 1fr 0 300px}body.noP.lay{grid-template-columns:48px 1fr 220px 0}body.noP.lay.dock{grid-template-columns:48px 1fr 220px 0 300px}.noP #mSide{display:none}
+body.chat{grid-template-columns:48px 1fr 236px 300px}body.lay{grid-template-columns:48px 1fr 220px 236px}body.lay.chat{grid-template-columns:48px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}.lay #mChat{grid-area:2/5}
+body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48px 1fr 0 300px}body.noP.lay{grid-template-columns:48px 1fr 220px 0}body.noP.lay.chat{grid-template-columns:48px 1fr 220px 0 300px}.noP #mSide{display:none}
 /* ══ 53 Layers ══ */
 #mLay{display:none;grid-area:2/3;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
 #mLm{display:flex;align-items:center;gap:6px;padding:2px 4px 2px 8px;background:#ffd60026;border-bottom:1px solid var(--h4b);color:var(--h4);font-size:11.5px}#mLm[hidden]{display:none}#mLm span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mLm button{border-color:transparent;background:transparent;padding:0 5px;font-size:14px;line-height:18px}#mLm button:hover{background:var(--btnh)}#mLl mark{background:#ffd60073;color:inherit;border-radius:2px}
@@ -185,7 +185,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 .ki.t svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}.ki.f svg{fill:currentColor;stroke:currentColor}.ki.f rect{stroke:none}#mK>div>p{margin:0;padding:5px 8px 2px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mK>div>p kbd{margin:0 3px 0 10px}#mK>div>p kbd:first-child{margin-left:0}
 @media(prefers-reduced-motion:no-preference){#mK{animation:mKf .15s}}@keyframes mKf{from{opacity:0}}
 /* ══ 38 SVG Chat panel ══ */
-#mChat{display:none;flex:1;min-height:0;flex-direction:column;overflow:hidden;background:var(--side)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
+#mChat{display:none;grid-area:2/4;flex-direction:column;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
 #mChat .chg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}#mChat .ib{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mChat .ib:hover{background:var(--btnh);color:var(--fg)}
 #mChH{position:relative;flex:none;display:flex;align-items:center;gap:1px;height:34px;padding:0 4px;border-bottom:1px solid var(--line)}#mChD{position:static;flex:1;min-width:0}#mChT{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600;padding:3px 6px;border-color:transparent;background:transparent}#mChT::after{content:' ▾';font-weight:400;color:var(--t3)}#mChT:hover,#mChD.open>#mChT{background:var(--btnh)}#mChL{left:4px;right:4px;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:6px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}[data-theme=dark] #mChL .ci.on{background:#26344d;color:var(--fg)}[data-theme=dark] #mChL .ci.on small{color:var(--h4);opacity:1}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mChL hr{border:0;border-top:1px solid var(--line);margin:4px 2px}#mChL>button{display:block;width:100%;padding:4px 6px;border:0;background:transparent;text-align:left;color:var(--h4)}#mChL>button:hover{background:var(--btnh);color:var(--fg)}
 #mCb{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}#mHello{margin:10px 10px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
@@ -259,23 +259,15 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 #mFg .f.c .hxi{flex:1;width:0;height:100%;padding:0;border:0;border-radius:0;background:none;cursor:text;text-transform:uppercase;font-variant-numeric:tabular-nums}#mFg .kv{grid-template-columns:58px minmax(0,1fr)}#mFg h5{margin:6px 0 0;font-size:11.5px;font-weight:600}#mFg .pph{margin:2px 0 0;line-height:1.4}#mFg .fgst{margin:2px 0 4px;padding:8px 10px 8px 30px;border-radius:8px;background:var(--btn);box-shadow:inset 0 0 0 1px var(--btnb);counter-reset:f;list-style:none;display:grid;gap:3px;font-size:11.5px;line-height:1.4}#mFg .fgst li{counter-increment:f;position:relative}#mFg .fgst li::before{content:counter(f);position:absolute;left:-21px;top:1px;width:15px;height:15px;border-radius:50%;background:var(--onb);color:#fff;font-size:9.5px;font-weight:600;line-height:15px;text-align:center}#mFg .fgst li.ok::before{content:"✓";background:#2e9e5b}#mFg .fgst li.ok{color:var(--t3)}
 #mFg .fgm summary{cursor:pointer;color:var(--h4);font-size:11.5px;margin-top:2px}#mFg .fgm[open] summary{margin-bottom:2px}#mFgS.hint{color:var(--onb)}#mFg .row select{flex:1;min-width:0;width:auto}#mFgS.hint::before{content:"→ "}#mFg .pu{font-style:normal;color:var(--t3)}
 .fgc{display:flex;align-items:center;gap:6px;color:var(--h4);cursor:pointer}#mFgI{margin:0 0 6px}#mFg .kv .f.c:not(:has(.hx,.hxi)){flex:none;width:36px}#mFg .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mFg .pri:not(:disabled):hover{background:var(--fg);opacity:.85}
-#mFgS{position:sticky;bottom:-10px;margin:8px -10px -10px;padding:4px 10px;background:var(--side);min-height:22px;border-top:1px solid var(--h4b);color:var(--h4);font-size:11px;line-height:1.4}#mFgS.bad{color:#e5534b}
+#mFgS{margin:8px -8px -8px;padding:4px 8px;min-height:22px;border-top:1px solid var(--h4b);color:var(--h4);font-size:11px;line-height:1.4}#mFgS.bad{color:#e5534b}
 #mFgM{max-height:110px;overflow:auto;font-size:11px;color:var(--h4);font-variant-numeric:tabular-nums}#mFgM div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fgp{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}.fgp button{height:22px;padding:0;border-radius:5px;box-shadow:inset 0 0 0 1px var(--btnb)}
 #mFgC{display:flex;flex-direction:column;gap:3px}#mFgC>div{display:grid;grid-template-columns:12px 30px 46px 46px minmax(0,1fr);gap:4px;align-items:center}#mFgC b{color:var(--h4)}#mFgC input[type=number]{width:100%;min-width:0;height:22px}#mFgC input[type=color]{width:30px;height:22px}#mFgC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}
 
-/* ══ 29b Dock ══ */
-/* one column at the right for FigKit, the Library and SVG Chat, one shown at a time (body.dock) */
-#mDock{display:none;grid-area:2/-2;flex-direction:column;min-height:0;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}body.dock #mDock{display:flex}
-#mDkT{flex:none;display:flex;align-items:center;gap:2px;height:36px;padding:0 4px 0 6px;border-bottom:1px solid var(--line)}#mDkT>i{flex:1}
-#mDkT>button[data-k]{height:26px;padding:0 10px;border-color:transparent;background:transparent;color:var(--h4);font-weight:500}#mDkT>button[data-k]:hover{background:var(--btnh);color:var(--fg)}#mDkT>button.on{background:var(--btn);border-color:var(--btnb);color:var(--fg);box-shadow:var(--sh)}
-#mDock .ib{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mDock .ib:hover{background:var(--btnh);color:var(--fg)}
-#mDock .chg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}#mChX{display:none!important}
-#mFg{flex:1;min-height:0;overflow:auto;padding:0 10px 10px;scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}#mFg[hidden]{display:none}
-#mFg>header{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:4px;height:38px;margin:0 -10px 6px;padding:0 6px;background:var(--side);border-bottom:1px solid var(--h4b)}#mFgX{display:none}
 /* ══ 29a Library ══ */
-#mLib{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}body.lib #mLib{display:flex}
-#mLib>header{flex:none;display:flex;align-items:center;padding:8px 10px 0}#mLib>header input{flex:1;min-width:0;height:26px}
+/* a drop-down under its top-bar button, in the menus' look; placed by lbPlace */
+#mLib{position:fixed;z-index:20;display:flex;flex-direction:column;width:min(340px,calc(100vw - 16px));max-height:min(620px,calc(100vh - 90px));overflow:hidden;background:var(--btn);border-radius:8px;box-shadow:var(--shm)}#mLib[hidden]{display:none}
+#mLib>header{flex:none;display:flex;padding:8px 10px 0}#mLib>header input{flex:1;min-width:0;height:26px}
 #mLbB{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px;scrollbar-width:thin}
 #mLib .row{display:flex;gap:6px}#mLib .row>button{flex:none;height:26px;padding:0 10px;white-space:nowrap}#mLib .row>i{flex:1}#mLib .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mLib .pri:not(:disabled):hover{background:var(--fg);opacity:.85}
 #mLbR{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:8px 10px;border-radius:8px;background:var(--on);font-size:11px;line-height:1.45}#mLbR>button{height:24px}#mLbR[hidden],#mLbF[hidden]{display:none}
@@ -284,7 +276,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 #mLbG{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}#mLbG>p{grid-column:1/-1;margin:16px 0;text-align:center}
 .lbt{display:flex;flex-direction:column;gap:4px;padding:5px;border:1px solid transparent;border-radius:8px;cursor:grab}.lbt:hover{background:var(--btnh)}.lbt:focus-visible{border-color:var(--onb);outline:none}
 .lbt img{width:100%;aspect-ratio:1;object-fit:contain;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff;pointer-events:none}.lbt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:11px;color:var(--h4)}
-#mLbW{flex:none;margin:0;padding:6px 12px;border-top:1px solid var(--line);color:var(--t3);font-size:11px;line-height:1.4}
+#mLbW{flex:none;margin:0;padding:6px 12px;border-top:1px solid var(--line);background:var(--btn);color:var(--t3);font-size:11px;line-height:1.4}
 </style>
 <style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
@@ -364,10 +356,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 </div><div id="mPop" class="win" hidden><header><span id="mPopI"></span><b id="mPopT"></b><button id="mPopX" title="Close (Esc)">×</button></header>
 <div class="kv"><span>Name</span><input id="mPopN" placeholder="none" spellcheck="false" title="The name Layers shows (saved as an Inkscape label)"></div><div id="mPopE"></div>
 <h4>Transform <small>mm</small></h4><i data-s="mTf"></i><h4 class="pt">Text</h4><i data-s="mTs"></i><h4>Appearance</h4><i data-s="mAp"></i></div>
-<!-- ══ 29b Dock ══ -->
-<div id="mDock"><nav id="mDkT" role="tablist" aria-label="Side panel"><button data-k="fg" title="Figure layout and picture tools">FigKit</button><button data-k="lib" title="Your own assets">Library</button><button data-k="chat" title="Draw and edit with AI">SVG Chat</button><i></i><button class="ib" id="mDkX" title="Close the side panel"><svg class="chg" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/></svg></button></nav>
 <!-- ══ 29 FigKit window ══ -->
-<div id="mFg" hidden><header><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="cvd">Colour blindness</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
+<div id="mFg" class="win" hidden><header><b>FigKit</b><select id="mFgT" title="Tool"><option value="size">Size each</option><option value="grid">Grid</option><option value="space">Align and space</option><option value="place">Positions</option><option value="label">Panel labels</option><option value="frame">Frames</option><option value="color">Colours</option><option value="cvd">Colour blindness</option><option value="scale">Scale bar</option><option value="zoom">Zoom inset</option><option value="adj">Adjust picture</option><option value="chan">Channels</option></select><select id="mFgU" title="Unit of the lengths below; pt and px are layout units (px = 1/96 inch), not a picture's pixels"><option>mm</option><option>pt</option><option>px</option></select><button id="mFgX" title="Close; nothing changes until you apply">×</button></header>
 <label class="fgc" id="mFgI" title="Off: a selected group is one object. On: the objects directly inside each selected group are the objects"><input type="checkbox" data-g="in"> Objects inside selected groups</label>
 <section data-p="size"><ol class="fgst"><li>Select the objects</li><li>Choose width or height and type the size</li><li>Click <b>Resize each</b></li></ol><div class="kv"><span>Size</span><select data-g="sm"><option value="w">Width, in proportion</option><option value="h">Height, in proportion</option><option value="fit">Fit within W × H</option><option value="wo">Width only (stretch)</option><option value="ho">Height only (stretch)</option><option value="wh">Width and height (stretch)</option></select>
 <span>W × H</span><div><label class="f">W<input type="number" step="0.1" min="0" data-g="sw"><em class="u">mm</em></label><label class="f">H<input type="number" step="0.1" min="0" data-g="sh"><em class="u">mm</em></label></div>
@@ -477,7 +467,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 <details class="fgm"><summary>How it works</summary><p class="pph">For showing, not for measuring: the colour and range are an SVG filter (the range, which is Adjust picture's Black and White, then grey by Rec. 709 weights, then the colour), and the pictures' pixels are never changed. Levels are those of the embedded 8-bit picture. Merging needs pictures of the same pixel size; they are overlaid pixel to pixel as they are, not registered, in a new group beside them.</p></details></section>
 <p id="mFgS"></p></div>
 <!-- ══ 29a Library ══ -->
-<div id="mLib"><header><input id="mLbQ" type="search" placeholder="Search" spellcheck="false" autocomplete="off" title="Find assets by name or category; Esc clears"></header>
+<div id="mLib" hidden><header><input id="mLbQ" type="search" placeholder="Search" spellcheck="false" autocomplete="off" title="Find assets by name or category; Esc clears"></header>
 <div id="mLbB"><div class="row"><button data-a="libAdd" class="pri" title="Save the selected objects as one asset (also Right-click › Add to Library…)">Add selection</button><i></i><button id="mLbI" title="Add the assets of an exported Library (.zip) or SVG files">Import…</button><button id="mLbE" title="Download the whole Library as a .zip, one folder per category: a copy to keep, or to import in another browser or TBtools">Export</button></div>
 <div id="mLbR" hidden><span></span><button id="mLbRe" class="pri">Export now</button></div>
 <div id="mLbF" hidden><span id="mLbFl">Name</span><input id="mLbFn" spellcheck="false" autocomplete="off"><span>Category</span><input id="mLbFc" list="mLbCl" spellcheck="false" autocomplete="off" placeholder="none" title="Pick one or type a new one"><datalist id="mLbCl"></datalist><div class="row"><button id="mLbFo" class="pri">Save</button><button id="mLbFx">Cancel</button></div></div>
@@ -499,7 +489,6 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 <p id="mNote"></p>
 <div class="dd" id="mRtD"><div class="menu cm" id="mRtM"></div></div>
 <section id="mConn" hidden aria-label="Models and keys"></section>
-</div>
 </div>
 </div>
 <!-- ══ 50 History and status bar ══ -->
@@ -597,7 +586,6 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.dock{grid-template-columns:48
 // 28b Colour vision: colour-blind check (CIEDE2000 under simulated deficiencies), remapping to a safe palette, simulated view
 // 29 FigKit window: previews and status per pane (FGU), guide, More options
 // 29a Library: the user's own assets, kept in this browser, inserted at their real size; export and import
-// 29b Dock: the right-hand column shared by FigKit, the Library and SVG Chat, with tabs
 // 30 Lock: lock and unlock (sodipodi:insensitive)
 // 31 Hover and auto-scroll: hover outline, edge auto-scroll, box-select preview
 // 32 Context menu: right-click menu (CM)
@@ -2522,13 +2510,13 @@ function fgRef(){const W=$('mFg');if(W.hidden||!root)return;const p=$('mFgT').va
   if(sel.length>2e3)r={e:'Too many objects selected to preview'};else try{r=memoize(()=>FGU[p](c))||{}}catch(e){r={e:e.message}}
   FG.pv=r.pv||null;const s=$('mFgS'),h=!!r.e&&/^(Select|Enter|Record|Add|Choose|Pick|Type)\b/.test(r.e);s.textContent=r.e||r.st||'';s.classList.toggle('bad',!!r.e&&!h);s.classList.toggle('hint',h);
   const ok=fgOk(p,r);$('mFg').querySelectorAll(`section[data-p=${p}] .fgst li`).forEach((l,i)=>l.classList.toggle('ok',!!ok[i]));fgMore();hud()}
-function fgOpen(p){if(!root)return;$('mFgT').value=p;if(DK!=='fg')dkShow('fg');fgShow()}
+function fgOpen(p){if(!root)return;const W=$('mFg'),fr=W.hidden;$('mFgT').value=p;W.hidden=false;winTop('mFg',fr);fgShow()}
 function fgShow(){adjEnd();const p=$('mFgT').value,W=$('mFg'),S=W.querySelector(`section[data-p=${p}]`),x=S.querySelector('.fgx'),I=$('mFgI'),g=/^(size|grid|space|place|label|frame)$/.test(p),ol=S.querySelector('.fgst');
   if(p!=='cvd')cvView('');
   W.querySelectorAll('section[data-p]').forEach(s=>s.hidden=s!==S);I.hidden=!g;g&&x?x.querySelector('.fgr').before(I):W.querySelector('header').after(I);
   // the numbered guide leads until the tool has been used once, then waits under How it works
   fgLs('sgFkSeen').includes(p)?S.querySelector('.fgm>summary').after(ol):S.prepend(ol);x&&(x.open=fgLs('sgFkMore').includes(p));
-  p==='place'&&!fgTpl().length&&($('mFgRc').open=true);p==='color'&&fgPalUI();FG.ps=null;fgRef()}
+  p==='place'&&!fgTpl().length&&($('mFgRc').open=true);p==='color'&&fgPalUI();FG.ps=null;fgRef();fgFit()}
 // FigKit's window shows what most uses need; the rest waits under More options, whose summary counts the settings that differ from their defaults, so nothing hidden acts unseen
 const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}catch(_){return[]}},fgLw=(k,p,on)=>{const a=fgLs(k).filter(x=>x!==p);on&&a.push(p);ls(k,JSON.stringify(a))},
   fgUsed=()=>{const p=$('mFgT').value;if(!FG.hit||$('mFg').hidden)return;FG.done={p,v:dv,f:FG.fv,s:sel.slice()};fgLs('sgFkSeen').includes(p)||fgLw('sgFkSeen',p,1);fgRq()},
@@ -2546,8 +2534,8 @@ const fgLs=k=>{try{const a=JSON.parse(ls(k)||'[]');return Array.isArray(a)?a:[]}
   fgCh=x=>[...x.querySelectorAll('[data-g]:not([data-nd])')].filter(fgDf),
   fgMore=()=>{const x=$('mFg').querySelector('section:not([hidden]) .fgx');if(!x)return;const n=fgCh(x).length;x.querySelector('summary i').textContent=n?` · ${n} changed`:'';x.querySelector('.fgr').hidden=!n};
 // keep the window's foot (buttons, status) on screen when a taller pane opens or the window shrinks
-// fgEnd(): FigKit leaves the dock (29b): its previews and simulated view end; fgX: closes the dock from FigKit
-const fgEnd=()=>{adjEnd();cvView('');FG.pv=null;hud()},fgX=()=>dkShow('');
+const fgFit=()=>{const W=$('mFg');if(W.hidden)return;const r=W.getBoundingClientRect();r.bottom>innerHeight-8&&(W.style.top=max(8,innerHeight-8-r.height)+'px')};addEventListener('resize',fgFit);$('mFg').addEventListener('toggle',fgFit,true);
+const fgX=()=>{adjEnd();cvView('');$('mFg').hidden=true;FG.pv=null;hud()};
 // ══ 29a Library ════
 // The Library keeps the user's own assets in this browser: IndexedDB sgLib, store f, one record {p,d,t} per asset
 // (path "category/name.svg", the SVG text, the time it was saved). Each asset is a self-contained SVG at its real size
@@ -2634,11 +2622,37 @@ function lbUI(){
   $('mLbW').textContent=`${kpN(it.length,'asset')} · kept in this browser · `+(t?'exported '+rdW(t):'never exported')+(n?`, ${n} not exported`:'');
 }
 // lbOpen(), lbX(), lbTg(): show, close or toggle the panel
-// the Library is a tab of the dock (29b)
-function lbOpen(){
-  if(DK!=='lib')dkShow('lib');
+// a drop-down under the top bar's Library button, like a menu: a press elsewhere (but on its context menu or a
+// confirm box), Esc or the button closes it; it stays open while assets are inserted or dragged out
+const lbOn=()=>!$('mLib').hidden;
+function lbPlace(){
+  const r=qa('lib').getBoundingClientRect(),W=$('mLib');
+  W.style.top=r.bottom+3+'px';
+  W.style.left=max(8,min(r.left,innerWidth-W.offsetWidth-8))+'px';
 }
-const lbX=()=>dkShow(''),lbTg=()=>dkTg('lib');
+function lbOpen(){
+  if(lbOn())return;
+  menuOff();
+  $('mLib').hidden=false;
+  qa('lib').classList.add('on');
+  lbPlace();
+  lbLoad();
+}
+function lbX(){
+  $('mLib').hidden=true;
+  qa('lib').classList.remove('on');
+  lbForm(null);
+}
+function lbTg(){
+  if(lbOn())lbX();
+  else lbOpen();
+}
+addEventListener('pointerdown',e=>{
+  if(lbOn()&&!e.target.closest('#mLib,#mCM,#mCf,[data-a=lib]'))lbX();
+},true);
+addEventListener('resize',()=>{
+  if(lbOn())lbPlace();
+});
 // lbSvg(els): the selection as an asset; class styles (svglite, Illustrator's .cls-1) are written inline first, as for a paste onto another canvas
 function lbSvg(els){
   const s=order(els),fr=frag(s);
@@ -2783,7 +2797,7 @@ async function lbExp(){
   ls('sgLibExp',String(Date.now()));
   ls('sgLibCh','0');
   ls('sgLibCt','0');
-  if(DK==='lib')lbUI();
+  if(lbOn())lbUI();
   msg(`Exported ${kpN(a.length,'asset')} to ${n}, in your downloads; the Library's Import… takes them back`);
 }
 // lbUnzip(buf): the files of a zip as {n,d} text (stored, or deflated where DecompressionStream exists)
@@ -2874,46 +2888,6 @@ $('mLib').addEventListener('keydown',e=>{
     lbIns(t.dataset.p);
   }
 });
-// ══ 29b Dock ════
-// FigKit, the Library and SVG Chat share one column at the right (#mDock, body.dock), one at a time, picked by its
-// tabs or the top bar (asked for by the user, 30 Oct 2026, rather than a column each, which left little canvas).
-// Switching keeps each panel's state (a message half typed, the Library's search, FigKit's fields). What shows a
-// panel is what it always was, so their code is unchanged: body.chat, body.lib, and FigKit's hidden attribute;
-// FigKit ends its previews and simulated view when it leaves (fgEnd). The open panel is remembered (sgDock), FigKit
-// excepted: it needs a selection to be useful.
-let DK=''; // the panel shown: 'fg', 'lib', 'chat', or '' with the column closed
-// dkShow(k,q): shows panel k ('' closes the column); q: quietly, at startup, before the first page is placed
-function dkShow(k,q){
-  const b=document.body;
-  if(DK==='fg'&&k!=='fg')fgEnd();
-  if(DK==='lib'&&k!=='lib')lbForm(null);
-  DK=k;
-  b.classList.toggle('dock',!!k);
-  b.classList.toggle('chat',k==='chat');
-  b.classList.toggle('lib',k==='lib');
-  $('mFg').hidden=k!=='fg';
-  for(const t of $('mDkT').querySelectorAll('[data-k]'))t.classList.toggle('on',t.dataset.k===k);
-  qa('chat').classList.toggle('on',k==='chat');
-  qa('lib').classList.toggle('on',k==='lib');
-  $('mFgD').firstElementChild.classList.toggle('on',k==='fg');
-  ls('sgDock',k==='fg'?'':k);
-  if(k==='lib')lbLoad();
-  if(q)return;
-  place();
-  if(k==='chat')$('mAsk').focus();
-}
-// dkTg(k): the top bar's Library and SVG Chat: shows k, or closes the column when k is already shown
-function dkTg(k){
-  if(DK===k)dkShow('');
-  else dkShow(k);
-}
-$('mDkT').addEventListener('click',e=>{
-  const t=e.target.closest('[data-k]');
-  if(!t)return;
-  if(t.dataset.k==='fg')fgOpen($('mFgT').value);
-  else dkShow(t.dataset.k);
-});
-$('mDkX').onclick=()=>dkShow('');
 // ══ 30 Lock ════
 // lkd(e): e or an ancestor (layers aside) is locked; locked nodes are kept out of every selection.
 function lock(){finish(true);if(!sel.length)return;const n=sel.length;xns('sodipodi');sel.forEach(e=>setA(e,'sodipodi:insensitive','true'));setSel([],1);commit();msg(`Locked ${nObj(n)}: clicks and box selection pass through; Ctrl+Alt+2 unlocks all`)}
@@ -3560,12 +3534,12 @@ let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+x
   catch(e){if(e.name==='AbortError')return;fh=null;dl(b,n);dirty=false;svd=undos.at(-1)??null;bar();asNow(1);return msg('Exported '+n)}
   dirty=false;svd=undos.at(-1)??null;bar();asNow(1);msg('Exported '+n)};
 // ══ 45a Windows ════
-// Floating windows (.win: the Layers window; FigKit moved into the dock, 29b) share one look and stack like windows in
+// Floating windows (.win: FigKit and the Layers window) share one look and stack like windows in
 // classic Windows: they keep their order front to back (WINS, front last), the front one has the active title bar, and
 // one that opens while others are open cascades one title bar down and right of the front one, so every title bar
 // stays in view; with none open it takes its last place, or the first step of the cascade in the canvas's top right.
 // The Layers window keeps its place beside its row. A press anywhere on a window brings it to the front.
-const WINS=['mPop'],WSTEP=30; // the floating windows, back to front; the cascade step in px
+const WINS=['mFg','mPop'],WSTEP=30; // the floating windows, back to front; the cascade step in px
 function winTop(id,fresh){
   const W=$(id),f=WINS.filter(x=>x!==id&&!$(x).hidden).at(-1);
   if(fresh){
@@ -3624,6 +3598,8 @@ $('mFg').addEventListener('input',e=>{const t=e.target,g=t.dataset.g;FG.fv++;
   else if(g==='tc')Gf.tn.value=[...Gf.tn.options].some(o=>o.value===t.value)?t.value:'';fgRq()});
 $('mFg').addEventListener('change',e=>{const t=e.target,g=t.dataset.g;FG.fv++;g==='la'?fgLa():g==='tn'?Gf.tn.value&&(Gf.tc.value=Gf.tn.value):g==='pu'&&fgFov();/select|checkbox/.test(t.type)&&t.blur();fgRq()});
 $('mFg').addEventListener('keydown',e=>{const a=document.activeElement;if(e.key==='Escape'){e.preventDefault();a&&a!==document.body&&$('mFg').contains(a)?a.blur():fgX()}else if(e.key==='Enter'&&e.target.tagName==='INPUT'&&!/checkbox|color/.test(e.target.type)){e.preventDefault();e.target.blur()}});
+$('mFg').querySelector('header').onpointerdown=e=>{if(e.target.closest('button,select'))return;const P=$('mFg'),h=e.currentTarget,dx=e.clientX-P.offsetLeft,dy=e.clientY-P.offsetTop;h.setPointerCapture(e.pointerId);
+  h.onpointermove=m=>{P.style.left=max(0,min(innerWidth-40,m.clientX-dx))+'px';P.style.top=max(0,min(innerHeight-30,m.clientY-dy))+'px'};h.onpointerup=()=>h.onpointermove=null};
 $('mFgF').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const t=JSON.parse(await f.text());if(!fgTok(t))return msg(`${f.name} is not an svguest positions template (version 1)`);
   fgTplW([t,...fgTpl().filter(x=>x.name!==t.name)]);fgTplUI(t.name);fgRef();msg(`Imported “${t.name}”: ${fgN(t.slots.length,'slot')}`)}catch(x){msg(`Cannot read ${f.name}: ${x.message}`)}};
 $('mFgP').onclick=e=>{const b=e.target.closest('button');b&&(fgCset(b.dataset.c),fgColorGo(b.dataset.c))};$('mFgP').oncontextmenu=e=>{const b=e.target.closest('button');if(!b)return;e.preventDefault();fgPalW(fgPal().filter(c=>c!==b.dataset.c))};
@@ -3691,7 +3667,7 @@ cvDraw();
 const zv=(f,p)=>{const z=zPct()*f;z>.03&&z<2.6e5&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
-A.chat=()=>dkTg('chat');
+A.chat=()=>{const on=document.body.classList.toggle('chat');ls('sgChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
 A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
 // ══ 49 Find and replace ════
 // fqRun collects matches in unlocked texts; fqRep edits the text nodes in place, so tspan formatting survives.
@@ -3826,7 +3802,7 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
 // a bridge (.aim), not CSS :hover.
 const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim();return t.length>2?t:(b.title||'').split(/[:(]/)[0].trim()||t},AN=new Map;
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
-document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib .row>button,#mDkT button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
+document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib .row>button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
 // dOpen(): the open menu; menuOff(x): closes the menus but x; dlgOpen(): a modal dialog is open
 const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open,
   menuOff=x=>{MENUS.forEach(d=>d.classList.contains('open')&&d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));SUBS.forEach(s=>x&&x.contains(s)||s.classList.remove('hv'))};
@@ -3990,7 +3966,7 @@ function thFade(f){
 const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',e=>ls('sgTheme')||thFade(()=>setTheme(e.matches)));
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
-views();sideOn(ls('sgProps')!=='0');{const k=ls('sgDock')??(ls('sgChat')==='1'?'chat':'');dkShow(/^(chat|lib)$/.test(k)?k:'',1)}load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
+views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
 </script>
 </body>
 </html>

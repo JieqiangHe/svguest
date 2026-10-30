@@ -276,7 +276,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mLbG{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}#mLbG>p{grid-column:1/-1;margin:16px 0;text-align:center}
 .lbt{display:flex;flex-direction:column;gap:4px;padding:5px;border:1px solid transparent;border-radius:8px;cursor:grab}.lbt:hover{background:var(--btnh)}.lbt:focus-visible{border-color:var(--onb);outline:none}
 .lbt img{width:100%;aspect-ratio:1;object-fit:contain;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff;pointer-events:none}.lbt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:11px;color:var(--h4)}
-#mLbW{flex:none;margin:0;padding:6px 12px;border-top:1px solid var(--line);background:var(--btn);color:var(--t3);font-size:11px;line-height:1.4}
+#mLbW{flex:none;margin:0;padding:6px 12px;border-top:1px solid var(--line);color:var(--t3);font-size:11px;line-height:1.4}
 </style>
 <style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
@@ -2621,9 +2621,9 @@ function lbUI(){
   R.firstChild.textContent=`${kpN(n,'change')} since ${t?'the last export ('+rdW(t)+')':'you started'}. The Library lives only in this browser: export it now and then to keep a copy.`;
   $('mLbW').textContent=`${kpN(it.length,'asset')} · kept in this browser · `+(t?'exported '+rdW(t):'never exported')+(n?`, ${n} not exported`:'');
 }
-// lbOpen(), lbX(), lbTg(): show, close or toggle the panel
-// a drop-down under the top bar's Library button, like a menu: a press elsewhere (but on its context menu or a
-// confirm box), Esc or the button closes it; it stays open while assets are inserted or dragged out
+// lbOpen(), lbX(), lbTg(): show, close or toggle the panel, a drop-down under the top bar's Library button, like a
+// menu: a press elsewhere (but on its context menu or a confirm box), Esc or the button closes it; it stays open while
+// assets are inserted or dragged out
 const lbOn=()=>!$('mLib').hidden;
 function lbPlace(){
   const r=qa('lib').getBoundingClientRect(),W=$('mLib');
@@ -2693,6 +2693,7 @@ function lbForm(f){
 }
 // lbPut(rs,del): writes records and deletes paths in one transaction
 const lbPut=(rs,del=[])=>ldb('readwrite',s=>{for(const p of del)s.delete(p);for(const r of rs)s.put(r)});
+// lbSave(): applies the form: saves the new asset, renames or moves one, or renames a category (merging into one that exists)
 async function lbSave(){
   const f=LB.f;
   if(!f)return;
@@ -2763,6 +2764,7 @@ function lbMenu(e,L){
   m.style.left=max(4,min(e.clientX,innerWidth-r.width-4))+'px';
   m.style.top=max(4,min(e.clientY,innerHeight-r.height-4))+'px';
 }
+// lbItM(e,p), lbCatM(e,c): the right-click menus of an asset and of a category chip
 function lbItM(e,p){
   const x=(LB.it||[]).find(a=>a.p===p);
   if(!x)return;
@@ -3500,7 +3502,7 @@ const CRC=(()=>{const t=new Int32Array(256);for(let n=0;n<256;n++){let c=n;for(l
     return`<!doctype html><meta charset="utf-8"><title>${hEsc(x.t)}</title><style>body{font:13px/1.45 system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px}body>div{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding:6px 8px;border-radius:6px}.u{margin-left:15%;background:#eef1f5}.a{border:1px solid #ddd}.tm{opacity:.6}img{display:block;max-width:100%;margin-top:4px}.u img{max-height:120px}.a img{max-height:420px;border:1px solid #eee}.th{font-size:11px;opacity:.75}</style><h1>${hEsc(x.t)}</h1><p class="tm">${new Date(x.c||x.u).toLocaleString('en-US')} · ${kpN(x.n||0,'message')}</p>${t.innerHTML}`};
 async function kpShow(){const K=$('mKept');RL=rlR();K.open||(K.showModal(),K.focus());const nd=RL.length,nc=CL.length;
   $('mKd').textContent=asOk?(nd?kpN(nd,'file')+' · '+kpSz(RL.reduce((a,m)=>a+(m.b||0),0)):'Nothing kept yet')+(opts.auto?'':' · Auto-save is off'):'Not available in this browser';$('mKc').textContent=nc?kpN(nc,'chat'):'No chats yet';
-  K.querySelectorAll('[data-k]').forEach(b=>b.hidden=!(b.dataset.k[0]==='d'?nd:nc));lbKept();const a=nc&&await cdb('readonly',s=>s.getAll());a&&($('mKc').textContent=kpN(nc,'chat')+' · '+kpSz(a.reduce((s,c)=>s+JSON.stringify(c).length,0)))}
+  K.querySelectorAll('[data-k]:not([data-k=ls])').forEach(b=>b.hidden=!(b.dataset.k[0]==='d'?nd:nc));lbKept();const a=nc&&await cdb('readonly',s=>s.getAll());a&&($('mKc').textContent=kpN(nc,'chat')+' · '+kpSz(a.reduce((s,c)=>s+JSON.stringify(c).length,0)))}
 async function kpSave(c){const u=new Set,fs=[];msg('Collecting the copies…');
   if(c)for(const m of CL){const x=CH&&CH.id===m.id?CH:CC.get(m.id)||await cdb('readonly',s=>s.get(m.id));if(!x)continue;const d=kpNm(u,x.t,'')+'/';x.svgs?.forEach((s,i)=>s&&fs.push({n:d+`figure-${i+1}.svg`,d:s}));fs.push({n:d+'chat.html',d:chPage(x)})}
   else{asNow();await rdQ;for(const m of rlR()){const r=await rdb('readonly',s=>s.get(m.id));if(r)try{fs.push({n:kpNm(u,m.n.replace(/\.svg$/i,'').replace(/(_\d{6}){1,2}$/,'')+'_'+stamp(m.t),'.svg'),d:await ungz(r.z)})}catch(_){}}}

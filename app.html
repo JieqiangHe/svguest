@@ -488,7 +488,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div id="mLog"></div>
 <div id="mComp"><div id="mChips" hidden><span id="mSelC"></span><span id="mImgs"></span></div><div id="mRoute" hidden></div>
 <div id="mAskW"><textarea id="mAsk" rows="4" placeholder="Describe a figure, or attach an image to redraw or a text file to draw from. Ask to change the last one. Enter to send, Shift+Enter for a new line."></textarea><div id="mGrip" title="Drag up to enlarge"></div></div>
-<div class="cb"><button class="ib" id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read"><svg class="chg" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></button><input type="file" id="mAttF" multiple hidden>
+<div class="cb"><button class="ib" id="mAtt" title="Attach for the AI (or paste / drop into this panel): an image (PNG, JPG, GIF, WebP, TIFF) to redraw or look at; or a text file (txt, csv, tsv, md, json, fasta…) to read"><svg class="chg" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></button><input type="file" id="mAttF" multiple hidden>
 <div class="dd" id="mCuD" hidden><button class="ddb" id="mCuB" aria-label="Context used"><svg viewBox="0 0 18 18"><circle class="r0" cx="9" cy="9" r="7"/><circle class="rv" cx="9" cy="9" r="7" transform="rotate(-90 9 9)"/></svg></button><div class="menu" id="mCuM"><b>Context</b><p id="mCu"></p><div class="bar"><i id="mCuI"></i></div><p>What the AI read for the last reply: the whole chat goes with each message, other chats don't. Near the model's limit, the chat is summarised and continues in a new one that still edits the same figure.</p></div></div>
 <div class="dd" id="mMdD"><button class="ddb" id="mMd"><span id="mMdN"></span><em id="mMdE"></em></button><div class="menu cm" id="mMm"></div></div>
 <button id="mSend"></button></div></div>
@@ -500,7 +500,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <!-- ══ 50 History and status bar ══ -->
 <div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
 <!-- ══ 05 Opening ══ -->
-<input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" hidden>
+<input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp,.tif,.tiff,image/tiff" hidden>
 <!-- ══ 32 Context menu ══ -->
 <div id="mCM" class="menu"></div>
 <!-- ══ 54 Command palette ══ -->
@@ -565,6 +565,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 03 Styles: style attribute edits, text sizes, styleSet
 // 04 Undo: MutationObserver records, commit, revert, step names
 // 05 Opening: parse, load, import, confirm dialogs, reading files
+// 05a TIFF: decode a TIFF into a PNG file (tifPng: none, PackBits, LZW, Deflate; 8 or 16 bit; strips or tiles)
 // 06 Export: file names, SVG text, PNG/JPG, PDF
 // 07 View: screen mapping, page size, fit, zoom
 // 08 Selection: selection state, status line, refresh
@@ -957,7 +958,7 @@ let noM=0;const cfm=async(q,y,n='Cancel',x='')=>{if(!noM){const t=performance.no
   const d=$('mCf'),b=d.querySelectorAll('button');d.querySelector('p').textContent=q;b[0].textContent=y;b[1].textContent=n;d.returnValue='';d.onclick=e=>e.target.tagName==='BUTTON'&&d.close(e.target.value);d.showModal();return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'))};
 const bzOn=async(s,t)=>{let i=0,n=0;while(n<3e4&&(i=s.indexOf('<',i)+1))n++;if(n<3e4&&s.length<8e6)return;const o=$('mBz');o.lastChild.textContent=t;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))},bzOff=()=>$('mBz').hidden=true;
 // readFile(f,imp): opens a file in a tab, or imports it (imp); pictures are placed
-async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(f&&isTif(f))return msg(tifM([f]));if(!f||!imp&&!tabFresh())return;
+async function readFile(f,imp){if(f&&isPic(f))return placeImg(f);if(!f||!imp&&!tabFresh())return;
   const t0=performance.now(),txt=await f.text();await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
   try{imp?doImport(txt,f.name):(load(txt,f.name),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
   const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms`)))}
@@ -965,6 +966,203 @@ async function readFile(f,imp){if(f&&isImg(f))return placeImg(f);if(f&&isTif(f))
 const upc=c=>{while(c!==root&&clipOf(c))c=c.parentNode;return c};
 function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.children].find(e=>e.localName==='namedview'),l=nv&&byId(nv.getAttributeNS(NS.inkscape,'current-layer'));
   return l&&root.contains(l)&&isLayer(l)?l:[...root.children].reverse().find(isLayer)||root}
+// ══ 05a TIFF ════
+// tifPng(f): browsers can't show TIFF, so a TIFF file is decoded here into a PNG file of the same name, which the picture code takes like any
+// other picture. Reads the first page: no compression, PackBits, LZW or Deflate (with the horizontal predictor), 8 or 16 bits, grey, RGB,
+// RGB with alpha or palette, in strips or tiles. 16-bit values are scaled so that the largest becomes 255.
+const isPic=f=>isImg(f)||isTif(f); // a picture file the canvas can place (isImg, isTif: 35)
+const TIFN=new Set([256,257,258,259,262,273,277,278,279,284,317,320,322,323,324,325,338,339]); // the tags that are read
+const TIFS=[0,1,1,2,4,8,1,1,2,4,8,4,8]; // bytes per value of each tag type
+// tifLzw(s,n): TIFF's LZW (most significant bit first, codes grow one early) to n bytes
+function tifLzw(s,n){
+  const o=new Uint8Array(n)
+  const pre=new Int32Array(4096)
+  const suf=new Uint8Array(4096)
+  const fc=new Uint8Array(4096)
+  const len=new Uint16Array(4096)
+  for(let c=0;c<256;c++){
+    suf[c]=c
+    fc[c]=c
+    len[c]=1
+  }
+  let q=0,i=0,acc=0,nb=0,sz=9,nx=258,old=-1
+  while(q<n){
+    while(nb<sz&&i<s.length){
+      acc=acc<<8|s[i++]
+      nb+=8
+    }
+    if(nb<sz)break
+    const c=acc>>(nb-sz)&((1<<sz)-1)
+    nb-=sz
+    acc&=(1<<nb)-1
+    if(c===257)break
+    if(c===256){
+      sz=9
+      nx=258
+      old=-1
+      continue
+    }
+    if(old>=0&&nx<4096){
+      pre[nx]=old
+      suf[nx]=c<nx?fc[c]:fc[old]
+      fc[nx]=fc[old]
+      len[nx]=len[old]+1
+      nx++
+      if(nx>=(1<<sz)-1&&sz<12)sz++
+    }
+    if(c>=nx)break
+    let p=q+len[c]
+    for(let x=c;p>q;x=pre[x])o[--p]=suf[x]
+    q+=len[c]
+    old=c
+  }
+  return o
+}
+function tifPack(s,n){
+  const o=new Uint8Array(n)
+  let i=0,q=0
+  while(q<n&&i<s.length){
+    const h=s[i++]<<24>>24
+    if(h>=0){
+      const m=min(h+1,n-q)
+      o.set(s.subarray(i,i+m),q)
+      i+=h+1
+      q+=h+1
+    }else if(h>-128){
+      o.fill(s[i++],q,q+1-h)
+      q+=1-h
+    }
+  }
+  return o
+}
+async function tifInf(s){
+  const r=new Response(new Blob([s]).stream().pipeThrough(new DecompressionStream('deflate')))
+  return new Uint8Array(await r.arrayBuffer())
+}
+// tifRead(f): {w,h,px (RGBA),tn (a note on what was changed or left out)}; errors it makes itself carry .own
+async function tifRead(f){
+  const bad=m=>Object.assign(Error(`${f.name}: ${m}`),{own:1})
+  const b=new Uint8Array(await f.arrayBuffer())
+  const d=new DataView(b.buffer)
+  const le=b[0]===73
+  const mg=b.length>8?d.getUint16(2,le):0
+  if(mg===43)throw bad('BigTIFF is not supported; save it as an ordinary TIFF or PNG')
+  if(mg!==42||b[0]!==b[1]||!le&&b[0]!==77)throw bad('not a TIFF file')
+  const T={}
+  const ifd=d.getUint32(4,le)
+  const cnt=d.getUint16(ifd,le)
+  for(let k=0;k<cnt;k++){
+    const e=ifd+2+k*12
+    const tag=d.getUint16(e,le)
+    if(!TIFN.has(tag))continue
+    const ty=d.getUint16(e+2,le)
+    const n=d.getUint32(e+4,le)
+    const p=n*(TIFS[ty]||1)>4?d.getUint32(e+8,le):e+8
+    const v=[]
+    for(let i=0;i<n;i++){
+      if(ty===3)v.push(d.getUint16(p+2*i,le))
+      else if(ty===4)v.push(d.getUint32(p+4*i,le))
+      else v.push(b[p+i])
+    }
+    T[tag]=v
+  }
+  const g=(t,v)=>T[t]?T[t][0]:v
+  const w=g(256),h=g(257),bps=g(258,1),spp=g(277,1),comp=g(259,1),pr=g(317,1)
+  const ph=g(262,spp>=3?2:1)
+  if(!w||!h)throw bad('no picture found')
+  if(w*h>6e7)throw bad(`too large (${w} × ${h} px); shrink it first`)
+  if(g(284,1)!==1)throw bad('separate colour planes are not supported')
+  if(g(339,1)!==1)throw bad('float and signed TIFF are not supported')
+  if(bps!==8&&bps!==16)throw bad(`${bps}-bit samples are not supported; save it as 8 or 16 bit`)
+  if(ph>3)throw bad(`${{5:'CMYK',6:'YCbCr',8:'Lab'}[ph]||'this'} colour model is not supported; convert it to RGB`)
+  if(ph===3&&(bps!==8||!T[320]))throw bad('this palette is not supported')
+  if(pr!==1&&pr!==2)throw bad('this predictor is not supported')
+  if(![1,5,8,32946,32773].includes(comp))throw bad(`compression ${comp} is not supported; save it uncompressed, or with LZW or ZIP`)
+  const tile=!!T[322]
+  const cw=tile?T[322][0]:w
+  const ch=tile?T[323][0]:min(g(278,h),h)
+  const off=T[tile?324:273]
+  const bc=T[tile?325:279]
+  const across=Math.ceil(w/cw)
+  const nc=across*Math.ceil(h/ch)
+  if(!off||!bc||off.length<nc)throw bad('the strip or tile table is damaged')
+  const m=bps===8?255:65535
+  const rowB=cw*spp*(bps>>3)
+  const S=new Uint16Array(w*h*spp)
+  for(let i=0;i<nc;i++){
+    const x0=i%across*cw
+    const y0=Math.floor(i/across)*ch
+    const rows=tile?ch:min(ch,h-y0)
+    if(off[i]+bc[i]>b.length)throw bad('the file is cut short')
+    let raw=b.subarray(off[i],off[i]+bc[i])
+    if(comp===5)raw=tifLzw(raw,rows*rowB)
+    else if(comp===32773)raw=tifPack(raw,rows*rowB)
+    else if(comp!==1)raw=await tifInf(raw)
+    const v=new Uint16Array(rows*cw*spp)
+    if(bps===8){
+      v.set(raw.subarray(0,v.length))
+    }else{
+      const dv=new DataView(raw.buffer,raw.byteOffset,raw.byteLength)
+      const nv=min(v.length,raw.byteLength>>1)
+      for(let k=0;k<nv;k++)v[k]=dv.getUint16(2*k,le)
+    }
+    if(pr===2){
+      for(let y=0;y<rows;y++){
+        const e=(y+1)*cw*spp
+        for(let k=y*cw*spp+spp;k<e;k++)v[k]=(v[k]+v[k-spp])&m
+      }
+    }
+    const cx=min(cw,w-x0)
+    for(let y=0;y<rows&&y0+y<h;y++)S.set(v.subarray(y*cw*spp,(y*cw+cx)*spp),((y0+y)*w+x0)*spp)
+  }
+  let mx=255
+  if(bps===16){
+    mx=1
+    for(let k=0;k<S.length;k++)if(S[k]>mx)mx=S[k]
+  }
+  const sc=255/mx
+  const cm=T[320]
+  const cs=ph===2?3:1
+  const al=!!T[338]&&T[338][0]>0&&spp>cs
+  const px=new Uint8ClampedArray(w*h*4)
+  for(let i=0,k=0,o=0;i<w*h;i++,k+=spp,o+=4){
+    if(ph===3){
+      px[o]=cm[S[k]]>>8
+      px[o+1]=cm[256+S[k]]>>8
+      px[o+2]=cm[512+S[k]]>>8
+    }else if(ph===2){
+      px[o]=S[k]*sc
+      px[o+1]=S[k+1]*sc
+      px[o+2]=S[k+2]*sc
+    }else{
+      const y=ph===0?255-S[k]*sc:S[k]*sc
+      px[o]=y
+      px[o+1]=y
+      px[o+2]=y
+    }
+    px[o+3]=al?S[k+cs]*sc:255
+  }
+  const nt=[]
+  if(bps===16)nt.push(`16-bit values 0–${mx} scaled to 8 bit`)
+  let pg=1
+  try{
+    for(let p=d.getUint32(ifd+2+cnt*12,le);p&&pg<1e4;p=d.getUint32(p+2+d.getUint16(p,le)*12,le))pg++
+  }catch(_){}
+  if(pg>1)nt.push(`only page 1 of ${pg}`)
+  return{w,h,px,tn:nt.length?' · '+nt.join(' · '):''}
+}
+async function tifPng(f){
+  try{
+    const r=await tifRead(f)
+    const c=cv(r.w,r.h)
+    c.getContext('2d').putImageData(new ImageData(r.px,r.w,r.h),0,0)
+    const png=await new Promise(ok=>c.toBlob(ok,'image/png'))
+    if(!png)throw Object.assign(Error(`${f.name}: too large to convert here`),{own:1})
+    return Object.assign(new File([png],f.name,{type:'image/png'}),{tn:r.tn})
+  }catch(e){
+    throw e.own?e:Error(`${f.name}: ${e.name==='RangeError'?'damaged, or too large to open here':'damaged or not a normal TIFF'}`)
+  }
+}
 // ══ 06 Export ════
 // outName stamps names (_YYMMDD_HHMMSS, old stamps stripped); png() renders on white and writes the dpi
 // (pHYs, JFIF); pdf() prints a hidden iframe.
@@ -3032,12 +3230,10 @@ function thumbs(){const rm=(e,a,i)=>(e.append(xb(()=>{a.splice(i,1);thumbs()},'R
 const shrink=(f,sz)=>new Promise((ok,no)=>{const m=new Image(),u=URL.createObjectURL(f);m.onerror=()=>{URL.revokeObjectURL(u);no(Error('Cannot read '+f.name))};
   m.onload=()=>{const r=sz?sz/max(m.width,m.height):min(1,1600/max(m.width,m.height)),c=cv(round(m.width*r),round(m.height*r)),g=c.getContext('2d');
     g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(m,0,0,c.width,c.height);URL.revokeObjectURL(u);let d=c.toDataURL('image/png');d.length>4e6&&(d=c.toDataURL('image/jpeg',.9));ok(d)};m.src=u});
-const isImg=f=>/^image\/(png|jpeg|gif|webp)$/.test(f.type),isTif=f=>/\.tiff?$/i.test(f.name)||f.type==='image/tiff',
-  tifM=L=>`${L.length>1?L.length+' TIFF files':L[0].name}: most browsers can't show TIFF, so ${L.length>1?'they':'it'} can't be placed; save ${L.length>1?'them':'it'} as PNG in ImageJ or Fiji (File › Save As › PNG; 16-bit pictures become 8-bit) and place ${L.length>1?'those':'that'}`;
+const isImg=f=>/^image\/(png|jpeg|gif|webp)$/.test(f.type),isTif=f=>/\.tiff?$/i.test(f.name)||f.type==='image/tiff';
 function note(t){msg(t);notes.push(t);thumbs();setTimeout(()=>{notes=notes.filter(x=>x!==t);thumbs()},8e3)}
 async function attach(fs){document.body.classList.contains('chat')||A.chat();
-  for(const f of fs)try{if(isImg(f)){imgs.push(await shrink(f)),rq=1;continue}
-    if(isTif(f)){note(tifM([f]));continue}
+  for(const f0 of fs)try{const f=isTif(f0)?await tifPng(f0):f0;if(isImg(f)){imgs.push(await shrink(f)),rq=1;continue}
     if(/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(f.name)||/^image\/(?!svg)/.test(f.type)){note(`${f.name}: can't read this type; attach an image or a plain-text file (save or copy the text as .txt)`);continue}
     const t=await f.text();if(/\0/.test(t.slice(0,4096))){note(`${f.name} is not a text file`);continue}
     files.push({n:f.name,t:t.slice(0,3e5)});t.length>3e5&&note(`${f.name} was cut to the first 300,000 characters`)}catch(e){note(e.message)}
@@ -3050,12 +3246,13 @@ const jpgInfo=u=>{const m=/^data:image\/jpe?g;base64,/i.exec(u||'');if(!m)return
   cmykChk=r=>{const L=r?[...(r.localName==='image'?[r]:r.getElementsByTagName('image'))].map(cmyk).filter(Boolean):[];if(!L.length)return;const n=L.length,np=L.filter(v=>v===1).length,s=n>1?`${n} photos are`:'A photo is',it=n>1?'them':'it',th=n>1?'they':'it';
     requestAnimationFrame(()=>setTimeout(()=>msg(np?`${s} CMYK ${n>1&&np<n?`(${np} without a colour profile)`:'without a colour profile'}: colours may look wrong here and in exports; convert ${it} to RGB (sRGB) in the app ${th} came from`
       :`${s} CMYK (with a colour profile): colours may differ slightly from the app ${th} came from; convert ${it} to sRGB there for exact colours`),50))};
-async function placeImg(f,u){let d=await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)}).catch(()=>'');
+async function placeImg(f,u){if(isTif(f)){try{f=await tifPng(f)}catch(e){return msg(e.message)}}
+  let d=await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)}).catch(()=>'');
   const m=new Image();m.src=d;await m.decode().catch(()=>0);if(!m.naturalWidth)return msg('Cannot read '+f.name);
   if(!/^data:image\/(png|jpeg)/.test(d)){const c=cv(m.naturalWidth,m.naturalHeight);c.getContext('2d').drawImage(m,0,0);d=c.toDataURL('image/png')}
   let w=m.naturalWidth/300*25.4/U,h=m.naturalHeight/300*25.4/U;const r=min(1,vb.w*.9/w,vb.h*.9/h);w*=r;h*=r;u=u||{x:vb.x+vb.w/2,y:vb.y+vb.h/2};
   xns('xlink');const p=curParent(),e=mk('image',{id:uid('image'),x:fc(u.x-w/2),y:fc(u.y-h/2),width:fc(w),height:fc(h),preserveAspectRatio:'none','xlink:href':d},p);
-  setT(e,ctm(p).inverse());ctx=p;setTool('sel');setSel([e]);commit();msg(`Placed ${f.name}: ${m.naturalWidth}×${m.naturalHeight} px at ${round(300/r)} dpi`);cmykChk(e)}
+  setT(e,ctm(p).inverse());ctx=p;setTool('sel');setSel([e]);commit();msg(`Placed ${f.name}: ${m.naturalWidth}×${m.naturalHeight} px at ${round(300/r)} dpi${f.tn||''}`);cmykChk(e)}
 let skip=[];
 const same=(a,b)=>a.length===b.length&&a.every((e,i)=>e===b[i]),selOn=()=>sel.length&&!skip.length&&!(sel.length===1&&sel[0]===aiG),nObj=n=>n+' object'+(n>1?'s':'');
 function selChip(){const c=$('mSelC');same(sel,skip)||(skip=[]);if(!selOn())return c.replaceChildren(),chipsUI();const e=chip('f','Selection: '+nObj(sel.length));
@@ -3925,9 +4122,8 @@ for(const h of[1,0]){const b=$(h?'mSx':'mSy');b.onpointerdown=e=>{e.stopPropagat
   b.setPointerCapture(e.pointerId);b.classList.add('on');go(e);b.onpointermove=go;b.onpointerup=b.onpointercancel=()=>{sbR[+!h]=null;b.classList.remove('on');b.onpointermove=b.onpointerup=b.onpointercancel=null;bars()}}}
 addEventListener('resize',place);
 addEventListener('dragover',e=>e.preventDefault());
-addEventListener('drop',async e=>{e.preventDefault();if(lbDrop(e))return;const a=[...e.dataTransfer.files],tf=a.filter(isTif),fs=a.filter(f=>!isTif(f)),f=fs[0],r=view.getBoundingClientRect();
-  if(tf.length){msg(tifM(tf));if(!f)return;setTimeout(()=>msg(tifM(tf)),600)}
-  if(f&&isImg(f))return fs.filter(isImg).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
+addEventListener('drop',async e=>{e.preventDefault();if(lbDrop(e))return;const fs=[...e.dataTransfer.files],f=fs[0],r=view.getBoundingClientRect();
+  if(f&&isPic(f))return fs.filter(isPic).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
 addEventListener('beforeunload',e=>{if(dirty||TABS.some((t,i)=>i!==TI&&t.dirty)){e.preventDefault();e.returnValue=''}});
 addEventListener('keyup',e=>{if(e.key===' ')space=false});addEventListener('blur',()=>space=false);
 // ══ 62 Keyboard ════
@@ -3958,8 +4154,7 @@ document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.targ
 const clipSvg=c=>{let t=c.getData('image/svg+xml')||c.getData('text/plain');if(/^\s*(<svg|<\?xml)/i.test(t))return t;const h=c.getData('text/html');if(!/<svg/i.test(h))return '';
   const d=new DOMParser().parseFromString(h,'text/html'),v=d.querySelector('svg');if(!v)return '';const b=d.body.cloneNode(true);b.querySelectorAll('svg,style,script').forEach(x=>x.remove());if(b.textContent.trim())return '';
   v.hasAttribute('xmlns')||v.setAttribute('xmlns','http://www.w3.org/2000/svg');return new XMLSerializer().serializeToString(v)};
-let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isImg),tf=[...e.clipboardData.files].filter(isTif);
-  if(!f&&tf.length){e.preventDefault();return msg(tifM(tf))}
+let pv=0,lastOut='';addEventListener('paste',e=>{if(e.target.closest&&e.target.closest('#mChat,input,textarea,.ed'))return;const f=[...e.clipboardData.files].find(isPic);
   if(f&&root){pv=0;e.preventDefault();return placeImg(f)}
   const t=clipSvg(e.clipboardData);
   if(root&&!f&&t&&t!==lastOut){pv=0;e.preventDefault();try{doImport(t,'pasted.svg');msg('Imported SVG text from the clipboard')}catch(x){msg('Cannot paste SVG text: '+x.message)}}});

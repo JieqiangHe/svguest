@@ -265,18 +265,25 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mFgC{display:flex;flex-direction:column;gap:3px}#mFgC>div{display:grid;grid-template-columns:12px 30px 46px 46px minmax(0,1fr);gap:4px;align-items:center}#mFgC b{color:var(--h4)}#mFgC input[type=number]{width:100%;min-width:0;height:22px}#mFgC input[type=color]{width:30px;height:22px}#mFgC span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--h4)}
 
 /* ══ 29a Library ══ */
-/* a drop-down under its top-bar button, in the menus' look; placed by lbPlace */
-#mLib{position:fixed;z-index:20;display:flex;flex-direction:column;width:min(340px,calc(100vw - 16px));max-height:min(620px,calc(100vh - 90px));overflow:hidden;background:var(--btn);border-radius:8px;box-shadow:var(--shm)}#mLib[hidden]{display:none}
-#mLib>header{flex:none;display:flex;padding:8px 10px 0}#mLib>header input{flex:1;min-width:0;height:26px}
-#mLbB{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px;scrollbar-width:thin}
-#mLib .row{display:flex;gap:6px}#mLib .row>button{flex:none;height:26px;padding:0 10px;white-space:nowrap}#mLib .row>i{flex:1}#mLib .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mLib .pri:not(:disabled):hover{background:var(--fg);opacity:.85}
-#mLbR{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:8px 10px;border-radius:8px;background:var(--on);font-size:11px;line-height:1.45}#mLbR>button{height:24px}#mLbR[hidden],#mLbF[hidden]{display:none}
-#mLbF{display:grid;grid-template-columns:58px minmax(0,1fr);gap:6px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--btn)}#mLbF span{color:var(--h4)}#mLbF input{height:24px;min-width:0}#mLbF [hidden]{display:none}#mLbF .row{grid-column:1/-1;justify-content:flex-end}
-#mLbC{display:flex;flex-wrap:wrap;gap:4px}#mLbC button{height:24px;padding:0 10px;border-radius:12px;font-size:11.5px}#mLbC button.on{background:var(--on);border-color:var(--onb);color:var(--onfg)}
-#mLbG{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}#mLbG>p{grid-column:1/-1;margin:16px 0;text-align:center}
-.lbt{display:flex;flex-direction:column;gap:4px;padding:5px;border:1px solid transparent;border-radius:8px;cursor:grab}.lbt:hover{background:var(--btnh)}.lbt:focus-visible{border-color:var(--onb);outline:none}
-.lbt img{width:100%;aspect-ratio:1;object-fit:contain;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff;pointer-events:none}.lbt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:11px;color:var(--h4)}
-#mLbW{flex:none;margin:0;padding:6px 12px;border-top:1px solid var(--line);color:var(--t3);font-size:11px;line-height:1.4}
+/* a drop-down under its top-bar button, in the menus' look (placed by lbPlace): one header row, then the categories and the tiles */
+#mLib{position:fixed;z-index:20;display:flex;flex-direction:column;width:min(348px,calc(100vw - 16px));max-height:min(560px,calc(100vh - 90px));overflow:hidden;background:var(--btn);border-radius:10px;box-shadow:var(--shm)}#mLib[hidden]{display:none}
+#mLib>header{flex:none;display:flex;align-items:center;gap:2px;padding:8px 6px 8px 8px}
+.lbs{flex:1;min-width:0;position:relative;display:flex;margin-right:4px}.lbs svg{position:absolute;left:8px;top:7px;width:13px;height:13px;fill:none;stroke:var(--t3);stroke-width:1.5;stroke-linecap:round;pointer-events:none}
+.lbs input{flex:1;min-width:0;height:28px;padding-left:27px;border-color:transparent;background:var(--side)}.lbs input:focus{background:var(--btn)}
+#mLib .ib{flex:none;width:28px;height:28px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mLib .ib:hover,#mLib .ib.on{background-image:none;background-color:var(--side);color:var(--fg)}
+#mLib .ib svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+#mLbF{flex:none;display:grid;grid-template-columns:62px minmax(0,1fr);gap:6px;align-items:center;margin:0 10px 8px;padding:10px;border-radius:8px;background:var(--side)}#mLbF[hidden],#mLbF [hidden]{display:none}#mLbF span{color:var(--h4)}#mLbF input{height:26px;min-width:0}
+#mLbF .row{grid-column:1/-1;display:flex;justify-content:flex-end;gap:6px;margin-top:2px}#mLbF .row>button{flex:none;height:26px;padding:0 14px}#mLib .pri{background:var(--fg);border-color:transparent;color:var(--side)}#mLib .pri:not(:disabled):hover{background:var(--fg);opacity:.85}
+#mLbB{flex:1;min-height:0;overflow:auto;padding:0 10px 10px;scrollbar-width:thin}
+#mLbC{display:flex;flex-wrap:wrap;gap:2px;margin:0 0 8px}#mLbC button{height:24px;padding:0 9px;border-color:transparent;border-radius:6px;background:transparent;color:var(--h4);font-size:11.5px}#mLbC button:hover{color:var(--fg)}#mLbC button.on{background:var(--on);color:var(--onfg)}
+#mLbG{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 6px}#mLbG>p{grid-column:1/-1;margin:18px 8px 12px;text-align:center}
+.lbt{display:flex;flex-direction:column;gap:4px;min-width:0;border-radius:8px;outline:none;cursor:grab}
+.lbt>i{display:block;aspect-ratio:1;padding:9px;border-radius:8px;background:#f1f1f1;transition:transform .12s,box-shadow .12s}:root[data-theme=dark] .lbt>i{background:#d6d6d6}
+.lbt:hover>i,.lbt:focus-visible>i{transform:translateY(-1px);box-shadow:var(--sh),0 0 0 1px var(--btnb)}.lbt:focus-visible>i{box-shadow:0 0 0 2px var(--onb)}
+.lbt img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}.lbt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:11px;color:var(--h4)}.lbt:hover span{color:var(--fg)}
+#mLbR{flex:none;display:flex;align-items:center;gap:8px;padding:6px 6px 6px 12px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mLbR[hidden]{display:none}#mLbR span{flex:1;min-width:0}#mLbR span::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 1px 0;border-radius:50%;background:#d08700}
+#mLbR button{height:22px;padding:0 9px;border-color:transparent;background:transparent;color:var(--onb);font-weight:600}#mLbR button:hover{background-color:var(--side)}
+@media (prefers-reduced-motion:reduce){.lbt>i{transition:none}}
 </style>
 <style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
 </head>
@@ -467,12 +474,11 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <details class="fgm"><summary>How it works</summary><p class="pph">For showing, not for measuring: the colour and range are an SVG filter (the range, which is Adjust picture's Black and White, then grey by Rec. 709 weights, then the colour), and the pictures' pixels are never changed. Levels are those of the embedded 8-bit picture. Merging needs pictures of the same pixel size; they are overlaid pixel to pixel as they are, not registered, in a new group beside them.</p></details></section>
 <p id="mFgS"></p></div>
 <!-- ══ 29a Library ══ -->
-<div id="mLib" hidden><header><input id="mLbQ" type="search" placeholder="Search" spellcheck="false" autocomplete="off" title="Find assets by name or category; Esc clears"></header>
-<div id="mLbB"><div class="row"><button data-a="libAdd" class="pri" title="Save the selected objects as one asset (also Right-click › Add to Library…)">Add selection</button><i></i><button id="mLbI" title="Add the assets of an exported Library (.zip) or SVG files">Import…</button><button id="mLbE" title="Download the whole Library as a .zip, one folder per category: a copy to keep, or to import in another browser or TBtools">Export</button></div>
-<div id="mLbR" hidden><span></span><button id="mLbRe" class="pri">Export now</button></div>
-<div id="mLbF" hidden><span id="mLbFl">Name</span><input id="mLbFn" spellcheck="false" autocomplete="off"><span>Category</span><input id="mLbFc" list="mLbCl" spellcheck="false" autocomplete="off" placeholder="none" title="Pick one or type a new one"><datalist id="mLbCl"></datalist><div class="row"><button id="mLbFo" class="pri">Save</button><button id="mLbFx">Cancel</button></div></div>
-<div id="mLbC"></div><div id="mLbG"></div></div><p id="mLbW"></p>
-<input type="file" id="mLbFi" accept=".zip,.svg,application/zip,image/svg+xml" multiple hidden><template id="mLbT"><div class="lbt" draggable="true" tabindex="0"><img alt="" draggable="false"><span></span></div></template></div>
+<div id="mLib" hidden><header><label class="lbs"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><input id="mLbQ" type="search" placeholder="Search the Library" spellcheck="false" autocomplete="off" title="Find assets by name or category; Esc clears"></label><button class="ib" data-a="libAdd" title="Add the selection: save the selected objects as one asset (also Right-click › Add to Library…)"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></button><button class="ib" id="mLbMo" title="Import, export, and where the Library is kept"><svg viewBox="0 0 16 16"><path d="M3.5 8h.01M8 8h.01M12.5 8h.01" stroke-width="2.4"/></svg></button></header>
+<div id="mLbF" hidden><span id="mLbFl">Name</span><input id="mLbFn" spellcheck="false" autocomplete="off"><span>Category</span><input id="mLbFc" list="mLbCl" spellcheck="false" autocomplete="off" placeholder="none" title="Pick one or type a new one"><datalist id="mLbCl"></datalist><div class="row"><button id="mLbFx">Cancel</button><button id="mLbFo" class="pri">Save</button></div></div>
+<div id="mLbB"><div id="mLbC"></div><div id="mLbG"></div></div>
+<div id="mLbR" hidden title="The Library lives only in this browser: export it now and then to keep a copy; Import takes it back"><span></span><button id="mLbRe">Export</button></div>
+<input type="file" id="mLbFi" accept=".zip,.svg,application/zip,image/svg+xml" multiple hidden><template id="mLbT"><div class="lbt" draggable="true" tabindex="0"><i><img alt="" draggable="false"></i><span></span></div></template></div>
 <!-- ══ 38 SVG Chat panel ══ -->
 <div id="mChat">
 <div id="mChH"><div class="dd" id="mChD"><button class="ddb" id="mChT" title="Switch to another chat, rename or delete one">New chat</button><div class="menu" id="mChL"></div></div><button class="ib" id="mChN" title="Start a new chat; this one is kept"><svg class="chg" viewBox="0 0 16 16"><path d="M7.5 3h-3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-3M11.2 2.8a1.3 1.3 0 0 1 1.9 1.9L8.3 9.5 6 10l.5-2.3z"/></svg></button><button class="ib" id="mChX" title="Close SVG Chat"><svg class="chg" viewBox="0 0 16 16"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7"/></svg></button></div>
@@ -2610,16 +2616,16 @@ function lbUI(){
     const t=$('mLbT').content.firstElementChild.cloneNode(true),u=URL.createObjectURL(new Blob([x.d],{type:'image/svg+xml'}));
     LB.u.push(u);
     t.dataset.p=x.p;
-    t.firstElementChild.src=u;
+    t.querySelector('img').src=u;
     t.lastElementChild.textContent=x.n;
     t.title=`${x.n}\n${[x.c||'Unsorted',lbMm(x.d)].filter(Boolean).join(' · ')}\nClick to insert it at the centre of the view, or drag it onto the canvas; right-click to rename or delete it`;
     return t;
   }));
-  if(!sh.length)G.append(el('p','pph',LB.it===null?'The Library needs IndexedDB, which this browser doesn\'t offer here (a private window?).':it.length?'No asset matches.':'Nothing here yet: select objects and click Add selection.'));
+  if(!sh.length)G.append(el('p','pph',LB.it===null?'The Library needs IndexedDB, which this browser doesn\'t offer here (a private window?).':it.length?'No asset matches.':'Nothing here yet: select objects and click +.'));
+  C.hidden=!it.length;
   const n=+ls('sgLibCh')||0,t=+ls('sgLibExp')||0,ct=+ls('sgLibCt')||Date.now(),R=$('mLbR');
   R.hidden=!(n&&(n>=LBREM.n||Date.now()-ct>LBREM.d));
-  R.firstChild.textContent=`${kpN(n,'change')} since ${t?'the last export ('+rdW(t)+')':'you started'}. The Library lives only in this browser: export it now and then to keep a copy.`;
-  $('mLbW').textContent=`${kpN(it.length,'asset')} · kept in this browser · `+(t?'exported '+rdW(t):'never exported')+(n?`, ${n} not exported`:'');
+  R.firstChild.textContent=`${kpN(n,'change')} not exported yet`;
 }
 // lbOpen(), lbX(), lbTg(): show, close or toggle the panel, a drop-down under the top bar's Library button, like a
 // menu: a press elsewhere (but on its context menu or a confirm box), Esc or the button closes it; it stays open while
@@ -2754,11 +2760,11 @@ function lbDrop(e){
   if(view.contains(e.target))lbIns(p,[e.clientX,e.clientY]);
   return true;
 }
-// lbMenu(e,L): the context menu (#mCM) with entries [label, f] (0: a separator)
+// lbMenu(e,L): the context menu (#mCM) with entries [label, f] (0: a separator; no f: a line of information)
 function lbMenu(e,L){
   e.preventDefault();
   const m=$('mCM');
-  m.replaceChildren(...L.map(x=>x?btn(x[0],x[1]):el('hr')));
+  m.replaceChildren(...L.map(x=>x?Object.assign(btn(x[0],x[1]),{disabled:!x[1]}):el('hr')));
   m.style.display='block';
   const r=m.getBoundingClientRect();
   m.style.left=max(4,min(e.clientX,innerWidth-r.width-4))+'px';
@@ -2849,11 +2855,14 @@ async function lbKept(){
   $('mKept').querySelector('[data-k=ls]').hidden=!n;
 }
 $('mLbQ').oninput=lbUI;
-$('mLbE').onclick=lbExp;
 $('mLbRe').onclick=lbExp;
-$('mLbI').onclick=()=>{
-  $('mLbFi').value='';
-  $('mLbFi').click();
+// ⋯: Import, Export and where the Library is kept, in the context menu under the button
+$('mLbMo').onclick=()=>{
+  const r=$('mLbMo').getBoundingClientRect(),n=(LB.it||[]).length,t=+ls('sgLibExp')||0;
+  lbMenu({preventDefault(){},clientX:r.right-190,clientY:r.bottom+4},[['Import…',()=>{
+    $('mLbFi').value='';
+    $('mLbFi').click();
+  }],['Export .zip',lbExp],0,[`${kpN(n,'asset')}, kept in this browser`],[t?'Last export: '+rdW(t):'Never exported']]);
 };
 $('mLbFi').onchange=e=>lbImp([...e.target.files]);
 $('mLbFo').onclick=lbSave;
@@ -3804,7 +3813,7 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
 // a bridge (.aim), not CSS :hover.
 const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim();return t.length>2?t:(b.title||'').split(/[:(]/)[0].trim()||t},AN=new Map;
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
-document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib .row>button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
+document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib header button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
 // dOpen(): the open menu; menuOff(x): closes the menus but x; dlgOpen(): a modal dialog is open
 const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open,
   menuOff=x=>{MENUS.forEach(d=>d.classList.contains('open')&&d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));SUBS.forEach(s=>x&&x.contains(s)||s.classList.remove('hv'))};

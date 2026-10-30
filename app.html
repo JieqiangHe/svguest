@@ -281,7 +281,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 .lbt>i{display:block;aspect-ratio:1;padding:9px;border-radius:8px;background:#f1f1f1;transition:transform .12s,box-shadow .12s}:root[data-theme=dark] .lbt>i{background:#d6d6d6}
 .lbt:hover>i,.lbt:focus-visible>i{transform:translateY(-1px);box-shadow:var(--sh),0 0 0 1px var(--btnb)}.lbt:focus-visible>i{box-shadow:0 0 0 2px var(--onb)}
 .lbt img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}.lbt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:11px;color:var(--h4)}.lbt:hover span{color:var(--fg)}
-#mLbR{flex:none;display:flex;align-items:center;gap:8px;padding:6px 6px 6px 12px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mLbR[hidden]{display:none}#mLbR span{flex:1;min-width:0}#mLbR span::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 1px 0;border-radius:50%;background:#d08700}
+#mLbR{flex:none;display:flex;align-items:center;gap:8px;padding:6px 6px 6px 12px;border-top:1px solid var(--line);color:var(--er);font-size:11px;line-height:1.4}#mLbR[hidden]{display:none}#mLbR span{flex:1;min-width:0}#mLbR span::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 1px 0;border-radius:50%;background:var(--er)}
 #mLbR button{height:22px;padding:0 9px;border-color:transparent;background:transparent;color:var(--onb);font-weight:600}#mLbR button:hover{background-color:var(--side)}
 @media (prefers-reduced-motion:reduce){.lbt>i{transition:none}}
 </style>
@@ -2548,10 +2548,10 @@ const fgX=()=>{adjEnd();cvView('');$('mFg').hidden=true;FG.pv=null;hud()};
 // (width and height in mm, the defs it uses inside, class styles written inline as a paste onto another canvas does),
 // so it looks the same wherever it goes, and an exported .zip of them opens anywhere and is taken back by Import, in
 // another browser or TBtools too. A browser's storage can be cleared, so the panel reminds the user to export
-// (sgLibExp: the last export, sgLibCh: changes since, sgLibCt: the first of them; LBREM). A folder on disk was
+// (sgLibExp: the last export, sgLibCh: changes since; any change shows the red line at the foot until the next
+// export, and the first time it shows it says why: sgLibTip). A folder on disk was
 // planned and dropped at the user's request (Oct 2026): only Chrome and Edge can use one.
-const LB={it:[],c:null,f:null,u:[]}, // the assets ({p,c,n,d,t}, by category and name; null without IndexedDB), the category shown (null: all), the open form, thumbnail URLs
-  LBREM={n:10,d:7*864e5}, // remind to export after this many changes, or this long after the first one
+const LB={it:[],c:null,f:null,u:[],tip:false}, // the assets ({p,c,n,d,t}, by category and name; null without IndexedDB), the category shown (null: all), the open form, thumbnail URLs, the reminder showing its explanation
   LBMAX=5e6, // characters past which saving an asset asks first (embedded pictures)
   LBTY='application/x-svguest-library'; // drag data type: an asset's path
 let LDB=null; // the sgLib database, opened on first use (idbO is in 39)
@@ -2597,7 +2597,6 @@ async function lbLoad(){
 // lbChg(): counts a change not yet exported
 function lbChg(){
   ls('sgLibCh',String((+ls('sgLibCh')||0)+1));
-  if(!+ls('sgLibCt'))ls('sgLibCt',String(Date.now()));
 }
 // lbUI(): the category chips, the tiles, the export reminder and the footer
 function lbUI(){
@@ -2623,9 +2622,10 @@ function lbUI(){
   }));
   if(!sh.length)G.append(el('p','pph',LB.it===null?'The Library needs IndexedDB, which this browser doesn\'t offer here (a private window?).':it.length?'No asset matches.':'Nothing here yet: select objects and click +.'));
   C.hidden=!it.length;
-  const n=+ls('sgLibCh')||0,t=+ls('sgLibExp')||0,ct=+ls('sgLibCt')||Date.now(),R=$('mLbR');
-  R.hidden=!(n&&(n>=LBREM.n||Date.now()-ct>LBREM.d));
-  R.firstChild.textContent=`${kpN(n,'change')} not exported yet`;
+  const n=+ls('sgLibCh')||0,R=$('mLbR');
+  R.hidden=!n;
+  LB.tip=!!n&&!ls('sgLibTip');
+  R.firstChild.textContent=LB.tip?`Kept only in this browser: clearing its data deletes the Library. Export a copy (${kpN(n,'change')} not exported).`:`${kpN(n,'change')} not exported yet`;
 }
 // lbOpen(), lbX(), lbTg(): show, close or toggle the panel, a drop-down under the top bar's Library button, like a
 // menu: a press elsewhere (but on its context menu or a confirm box), Esc or the button closes it; it stays open while
@@ -2645,6 +2645,7 @@ function lbOpen(){
   lbLoad();
 }
 function lbX(){
+  if(LB.tip)ls('sgLibTip','1'); // the explanation shows once
   $('mLib').hidden=true;
   qa('lib').classList.remove('on');
   lbForm(null);
@@ -2804,7 +2805,6 @@ async function lbExp(){
   dl(zipB(a.map(r=>({n:r.p,d:r.d}))),n);
   ls('sgLibExp',String(Date.now()));
   ls('sgLibCh','0');
-  ls('sgLibCt','0');
   if(lbOn())lbUI();
   msg(`Exported ${kpN(a.length,'asset')} to ${n}, in your downloads; the Library's Import… takes them back`);
 }

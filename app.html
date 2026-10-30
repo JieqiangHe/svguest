@@ -291,7 +291,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 #mPvL{display:flex;flex-direction:column;gap:2px;max-height:min(46vh,380px);overflow:auto;font-size:11.5px;font-variant-numeric:tabular-nums;scrollbar-width:thin}
 #mPvL details>summary{cursor:pointer;color:var(--h4);padding:2px 0}#mPvL h6{margin:4px 0 1px;font-size:11.5px;font-weight:600}
 #mPvL .st{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px;padding:1px 2px;border-radius:4px}#mPvL .st:nth-child(odd){background:var(--btn)}#mPvL .st i{font-style:normal;color:var(--t3)}#mPvL .st span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#mPvL .st.pic span::before{content:"▣ ";color:#d08700}#mPvL p{color:var(--t3)}
+#mPvL .st.pic span::before{content:"▣ ";color:#d08700}#mPvL .st small{grid-column:2/4;white-space:pre-line;overflow-wrap:anywhere;color:var(--h4);font-size:10.5px;line-height:1.4}#mPvL p{color:var(--t3)}
 #mPv .row{display:flex;gap:6px;flex-wrap:wrap}#mPv .row button{flex:1}
 </style>
 <style>/* ══ 30 Lock ══ */@namespace sodipodi url(http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd);@namespace inkscape url(http://www.inkscape.org/namespaces/inkscape);#mStage [sodipodi|insensitive]:not([inkscape|groupmode=layer]){pointer-events:none}</style>
@@ -528,7 +528,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
-<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd><dt>Provenance</dt><dd>The edit record: the file opened and every step since, with time; picture edits marked; can travel inside exported SVGs</dd></dl></section>
+<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd><dt>Provenance</dt><dd>The edit record: the file opened and every step since, with time; picture edits marked with their settings (crop in pixels, levels, gamma, curves, tint); can travel inside exported SVGs</dd></dl></section>
 <section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo; Edit › History lists the steps</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
 <section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
 <section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd><dt>Colour blindness</dt><dd>Colours that run together for colour-blind readers, the canvas as they see it, and a remap to a safe palette</dd></dl></section>
@@ -3675,7 +3675,7 @@ async function wmClean(){
 // ══ 45a Edit record ════
 // A provenance log for scientific figures: where the document came from (file name, size and SHA-256 of its text) and
 // every step made to it, with time, how many elements it touched and whether it touched an embedded picture (crops,
-// adjustments, tints, merges: what journals ask authors to disclose). It is append-only: undo and redo are logged as
+// adjustments, tints, merges: what journals ask authors to disclose), with those pictures' settings after it (pvPic). It is append-only: undo and redo are logged as
 // steps of their own. A burst of the same step (held arrow keys) is one entry with a count. The log lives outside the
 // document (in REC, per tab), so undo history and untouched exports are unaffected; svgRaw() appends it as one
 // <metadata id="svguest-record"> when Add the record is on (sgRec) or the file came with one, and load() takes such a
@@ -3688,7 +3688,7 @@ function pvLoad(txt,nm){
   const m=root.querySelector('metadata#svguest-record'),o=[];
   if(m){
     for(const q of m.getElementsByTagNameNS(PVNS,'session')){
-      const ev=[...q.getElementsByTagNameNS(PVNS,'step')].map(e=>({t:Date.parse(e.getAttribute('time'))||0,n:e.textContent,o:+e.getAttribute('objects')||0,p:e.getAttribute('picture')==='1',x:+e.getAttribute('times')||1}));
+      const ev=[...q.getElementsByTagNameNS(PVNS,'step')].map(e=>({t:Date.parse(e.getAttribute('time'))||0,n:e.textContent,o:+e.getAttribute('objects')||0,p:e.getAttribute('picture')==='1',x:+e.getAttribute('times')||1,d:e.getAttribute('detail')||''}));
       o.push({f:q.getAttribute('file')||'',b:+q.getAttribute('bytes')||0,h:q.getAttribute('sha256')||'',t:Date.parse(q.getAttribute('opened'))||0,a:q.getAttribute('app')||'',ev});
     }
     m.remove();
@@ -3713,15 +3713,77 @@ function pvLog(n,rs){
     if(!pic&&t&&t.closest&&(t.localName==='image'||t.closest('clipPath,filter,mask')))pic=true;
     if(!pic&&m.type==='childList')pic=[...m.addedNodes,...m.removedNodes].some(x=>x.nodeType===1&&(x.localName==='image'||!!x.querySelector('image')));
   }
-  const now=Date.now(),l=s.ev.at(-1);
+  const now=Date.now(),l=s.ev.at(-1),d=pic?pvPic(rs):'';
   if(l&&l.n===n&&now-l.t2<3e3){
     l.x++;
     l.t2=now;
     l.o=max(l.o,T.size);
     l.p=l.p||pic;
+    if(d)l.d=d;
   }
-  else s.ev.push({t:now,t2:now,n,o:T.size,p:pic,x:1});
+  else s.ev.push({t:now,t2:now,n,o:T.size,p:pic,x:1,d});
   pvQ();
+}
+// Picture parameters: for a step that changes what a picture shows (its crop, adjustment, tint, mask, calibration,
+// source, or the picture added or removed), the state of each such picture after the step, in numbers a methods
+// section can quote: crop in the original's pixels, levels, gamma, brightness, contrast, curves, tint, merge channel.
+// A plain move or resize of a picture records nothing here: it doesn't change its pixels. It is the state after the
+// step, not a difference, so undo and redo record the state they lead to, and a burst keeps its last state.
+const PVPA=new Set(['clip-path','filter','mask','style','href','xlink:href','preserveAspectRatio',FGC,FGK+'-ch']); // picture attributes that change what it shows
+// pvNm(i): a picture's name in the record: its id, else its place among the document's pictures
+const pvNm=i=>i.id||'picture '+([...root.getElementsByTagName('image')].indexOf(i)+1);
+// pvPic(rs): the picture parameters of a step from its mutation records, one string, pictures separated by " | "
+function pvPic(rs){
+  const I=new Set,C=new Set,R=[];
+  for(const m of rs){
+    const t=m.target;
+    if(m.type==='attributes'&&t.localName==='image'&&PVPA.has(m.attributeName))I.add(t);
+    const k=(m.type==='characterData'?t.parentNode:t);
+    const c=k&&k.closest&&k.closest('clipPath,filter,mask');
+    if(c&&c.id)C.add(c.id);
+    if(m.type==='childList'){
+      for(const x of m.addedNodes)if(x.nodeType===1){
+        if(x.localName==='image')I.add(x);
+        else if(/^(clipPath|filter|mask)$/.test(x.localName)){if(x.id)C.add(x.id)}
+        else for(const j of x.getElementsByTagName('image'))I.add(j);
+      }
+      for(const x of m.removedNodes)if(x.nodeType===1)for(const j of x.localName==='image'?[x]:x.getElementsByTagName('image'))R.push(j);
+    }
+  }
+  if(C.size)for(const i of root.getElementsByTagName('image'))if(['clip-path','filter','mask'].some(a=>C.has(refId(stGet(i,a)||''))))I.add(i);
+  const L=[...I].filter(i=>root.contains(i)).map(pvDesc);
+  for(const j of R)if(!root.contains(j))L.push(`${j.id||'picture'} removed`);
+  return L.length>20?L.slice(0,20).join(' | ')+` | +${L.length-20} more`:L.join(' | ');
+}
+// pvDesc(i): picture i as it is now, e.g. "image3 (1024×768 px): crop x 100–612, y 50–434 px; levels 12–240; gamma 0.8"
+function pvDesc(i){
+  const P=[],f=v=>f6(+(+v).toFixed(3)),cal=fgCal(i),nat=cal?[cal.ow,cal.oh]:natH(i.href&&i.href.baseVal||''),K=cropK(stGet(i,'clip-path'));
+  const kind=fgK(i)==='inset'?'zoom inset ':i.hasAttribute(FGK+'-ch')?'merge channel ':'';
+  if(K){
+    const r=K.firstElementChild,v=n=>r[n].baseVal.value,cr=fgCR(i),x0=v('x'),y0=v('y'),x1=x0+v('width'),y1=y0+v('height');
+    if(nat&&cr.w>0&&cr.h>0){
+      const px=(a,o,w,n)=>Math.round(max(0,min(n,(a-o)/w*n)));
+      const a=px(x0,cr.x,cr.w,nat[0]),b=px(x1,cr.x,cr.w,nat[0]),c=px(y0,cr.y,cr.h,nat[1]),d=px(y1,cr.y,cr.h,nat[1]);
+      P.push(`crop x ${a}–${b}, y ${c}–${d} px (${b-a}×${d-c})`);
+    }
+    else P.push(`crop x ${f(x0)}–${f(x1)}, y ${f(y0)}–${f(y1)} (picture units)`);
+  }
+  else if(stGet(i,'clip-path'))P.push('clipped');
+  if(stGet(i,'mask'))P.push('masked');
+  const ch=(i.getAttribute(FGK+'-ch')||'').match(/url\(#([^)]+)\)/);
+  if(ch)P.push(`channel of ${ch[1]}, blend ${stGet(i,'mix-blend-mode')||'normal'}`);
+  const Q=lvOf(i);
+  if(Q.lo>0||Q.hi<255)P.push(`levels ${Q.lo}–${Q.hi}`);
+  if(Q.g!==1)P.push(`gamma ${Q.g}`);
+  if(Q.b)P.push(`brightness ${Q.b>0?'+':''}${Q.b}`);
+  if(Q.k)P.push(`contrast ${Q.k>0?'+':''}${Q.k}`);
+  Q.cv.forEach((c,j)=>{if(c)P.push(`curve ${['RGB','R','G','B'][j]} ${c}`)});
+  if(Q.c)P.push(`tint ${Q.c}`);
+  const fl=stGet(i,'filter');
+  if(fl&&!byId(refId(fl)||'')?.hasAttribute(FGK+'-lut'))P.push(`filter ${fl}`);
+  if(cal)P.push(`pixel ${cal.v[2]}×${cal.v[3]} ${UL[cal.u]}`);
+  if(!P.length)P.push('uncropped, unadjusted');
+  return`${kind}${pvNm(i)}${nat?` (${nat[0]}×${nat[1]} px)`:''}: ${P.join('; ')}`;
 }
 const pvX=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'),pvIso=t=>new Date(t).toISOString().replace(/\.\d{3}Z$/,'Z');
 // pvXml(): the record as XML, earlier sessions first; this session only once it has steps
@@ -3729,7 +3791,7 @@ function pvXml(){
   const S=[...REC.o,...(REC.s&&REC.s.ev.length?[REC.s]:[])];
   if(!S.length)return'';
   const ses=S.map(q=>`<sg:session app="${pvX(q.a||'')}" opened="${pvIso(q.t)}" file="${pvX(q.f)}" bytes="${q.b}" sha256="${q.h}">`+
-    q.ev.map(e=>`<sg:step time="${pvIso(e.t)}" objects="${e.o}"${e.p?' picture="1"':''}${e.x>1?` times="${e.x}"`:''}>${pvX(e.n)}</sg:step>`).join('')+'</sg:session>');
+    q.ev.map(e=>`<sg:step time="${pvIso(e.t)}" objects="${e.o}"${e.p?' picture="1"':''}${e.x>1?` times="${e.x}"`:''}${e.d?` detail="${pvX(e.d)}"`:''}>${pvX(e.n)}</sg:step>`).join('')+'</sg:session>');
   return`<metadata id="svguest-record"><sg:record xmlns:sg="${PVNS}">${ses.join('')}</sg:record></metadata>`;
 }
 // pvPut(x): the serialised document x with the record before its closing tag, when the record is on
@@ -3742,7 +3804,7 @@ function pvPut(x){
 function pvTxt(){
   const S=[...REC.o,REC.s].filter(Boolean),d=t=>new Date(t).toLocaleString();
   return S.map(q=>[`${q.f} · opened ${d(q.t)}${q.a?' in '+q.a:''}`,`  ${q.b} bytes · SHA-256 ${q.h||'not available'}`,
-    ...q.ev.map(e=>`  ${d(e.t)}  ${e.n}${e.x>1?' ×'+e.x:''} · ${e.o} element${e.o===1?'':'s'}${e.p?' · picture':''}`),q.ev.length?'':'  no changes'].filter(Boolean).join('\n')).join('\n\n')+'\n';
+    ...q.ev.map(e=>`  ${d(e.t)}  ${e.n}${e.x>1?' ×'+e.x:''} · ${e.o} element${e.o===1?'':'s'}${e.p?' · picture':''}${e.d?'\n      '+e.d.split(' | ').join('\n      '):''}`),q.ev.length?'':'  no changes'].filter(Boolean).join('\n')).join('\n\n')+'\n';
 }
 let recR=0;const pvQ=()=>{if(!$('mPv').hidden&&!recR)recR=requestAnimationFrame(()=>{recR=0;pvUI()})};
 // pvUI(): fills the window: the source, then the sessions, this one open and newest first
@@ -3755,7 +3817,7 @@ function pvUI(){
   S.title=s.h;
   $('mPvE').checked=pvOn();
   const rows=q=>{const E=q.ev.filter(e=>!po||e.p);if(!E.length)return[el('p',0,po?'No picture edits':'No changes yet')];
-    return E.slice().reverse().map(e=>{const d=el('div','st'+(e.p?' pic':''));d.append(el('i',0,tm(e.t)),el('span',0,e.n+(e.x>1?' ×'+e.x:'')),el('i',0,e.o+' el.'));d.title=`${new Date(e.t).toLocaleString()} · ${e.o} element${e.o===1?'':'s'} changed${e.p?' · touches an embedded picture':''}`;return d})};
+    return E.slice().reverse().map(e=>{const d=el('div','st'+(e.p?' pic':''));d.append(el('i',0,tm(e.t)),el('span',0,e.n+(e.x>1?' ×'+e.x:'')),el('i',0,e.o+' el.'));if(e.d)d.append(el('small',0,e.d.split(' | ').join('\n')));d.title=`${new Date(e.t).toLocaleString()} · ${e.o} element${e.o===1?'':'s'} changed${e.p?' · touches an embedded picture':''}`;return d})};
   const L=[el('h6',0,'This session'),...rows(s)];
   for(const q of REC.o.slice().reverse()){
     const d=el('details'),sm=el('summary',0,`${q.f||'Earlier session'} · ${new Date(q.t).toLocaleString()} · ${fgN(q.ev.length,'step')}`);

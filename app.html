@@ -808,9 +808,9 @@ function isect(a,b){const x=max(a.x,b.x),y=max(a.y,b.y),w=min(a.x+a.w,b.x+b.w)-x
 // memoize(f): runs f with parent matrices (pm) and clip boxes (cached) computed once; nested calls share it
 let memo=null;
 const cached=(m,key,f)=>{if(!memo)return f();const c=memo[m];c.has(key)||c.set(key,f());return c.get(key)},memoize=f=>{if(memo)return f();memo={c:new Map(),k:new Map()};try{return f()}finally{memo=null}};
-// clipOf(e): e's clipPath; hcp(e): a clipped child of group e (cached per dv); fb(e,V): e's native box in user units
+// clipOf(e): e's clipPath; hcp(e): a clipped child of group e (cached per structure and clip version, svn and cpv: per dv, every move threw it away); fb(e,V): e's native box in user units
 const clipOf=e=>{const c=byId(refId(e.getAttribute('clip-path')||e.style.clipPath));return c&&c.getAttribute('clipPathUnits')!=='objectBoundingBox'&&c};
-const cq=new WeakMap,hcp=e=>{const c=cq.get(e);if(c&&c[0]===dv)return c[1];const r=!!e.querySelector('[clip-path]');cq.set(e,[dv,r]);return r},
+const cq=new WeakMap,hcp=e=>{const c=cq.get(e),v=svn+'/'+cpv;if(c&&c[0]===v)return c[1];const r=!!e.querySelector('[clip-path]');cq.set(e,[v,r]);return r},
   fb=(e,V)=>{if(isGrp(e)||e.hasAttribute('clip-path')||e.style.clipPath)return bbox(e);const r=e.getBoundingClientRect(),s=Z*k;return r.width||r.height?rb((r.left-V.left-tx)/s+vb.x,(r.top-V.top-ty)/s+vb.y,r.width/s,r.height/s):null};
 // Bounding boxes, in user units. lbox: e's own box (getBBox), clipped by its clip-path. mbox(e,M): the box of e
 // under matrix M, exact for circles, ellipses and straight paths even when rotated (it maps the points, not the
@@ -885,16 +885,20 @@ function quiet(f){flush();f();mo.takeRecords()}
 const hasT=n=>n.nodeType===1&&(/^(text|tspan|style)$/.test(n.localName)||!!n.querySelector('text,style')),
   tHit=rs=>rs.length>500||rs.some(r=>r.type==='childList'?r.target.closest('text,style')||[...r.addedNodes,...r.removedNodes].some(hasT):r.type==='characterData'?r.target.parentNode?.closest('style'):!(r.attributeName==='transform'&&(a=>(b=>a.a===b.a&&a.b===b.b&&a.c===b.c&&a.d===b.d)(lm(r.target)))(lms(r.oldValue))||TNA.has(r.attributeName))&&hasT(r.target));
 let hold=0;const TNA=new Set(['x','y','dx','dy','rotate','textLength','lengthAdjust','id']);
-// why: the next step's name; svd: the undo top at the last save or load; dv: document version; svn: structure version; stp(n) names it until this task ends
-let why='',svd=null,dv=0,svn=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
+// why: the next step's name; svd: the undo top at the last save or load; dv: document version; svn: structure version;
+// cpv: bumped by steps that touch a clip-path or style attribute (hcp's cache); stp(n) names it until this task ends
+let why='',svd=null,dv=0,svn=0,cpv=0;const stp=n=>{why=n;queueMicrotask(()=>why='')};
 // guess(records): a step name from what changed (Edit text, Add, Delete, Transform, Style…)
 const guess=rs=>{let a=0,d=0,t=0;const s=new Set;for(const r of rs)r.type==='childList'?(a+=r.addedNodes.length,d+=r.removedNodes.length):r.type==='characterData'?t++:s.add(r.attributeName);
   return t?'Edit text':a&&d?'Rearrange':a?'Add':d?'Delete':s.has('transform')?'Transform':['d','points','x1','x2','cx','r','rx','width','x'].some(x=>s.has(x))?'Edit shape':s.has('viewBox')?'Page size':s.has('insensitive')?'Lock':['style','fill','stroke','class','filter','display'].some(x=>s.has(x))?'Style':'Change'};
+// svB(records,u): bumps svn when they add or remove nodes, cpv when they change a clip-path or style attribute, and for
+// undo (u) lkV when they change a connector's ends (it bumped lkV on every undo, so the next commit queried 100k elements again)
+const svB=(rs,u)=>{let a=0,c=0,l=0;for(const m of rs){const n=m.attributeName;if(m.type==='childList')a=1;else if(n==='clip-path'||n==='style')c=1;else if(n==='data-sg-from'||n==='data-sg-to')l=1;if(a&&c&&(l||!u))break}svn+=a;cpv+=c;if(u)lkV+=l};
 // trim keeps 200 steps; merge joins the last two; once(f,j): all commits inside f make one step (j: join the last one)
 const trim=()=>{while(undos.length>200)undos.shift()},merge=n=>{if(undos.length>n){const x=undos.pop(),y=undos.pop(),z=y.concat(x);z.n=y.n||x.n;undos.push(z)}},
   once=(f,j)=>{const n=undos.length,m=j&&n?n:n+1;hold++;try{return f()}finally{hold--;while(undos.length>m)merge(0);trim()}};
 // commit(sync): closes pend into one named step after lnk() and fgSync() (sync false skips them), then refreshes
-function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svn+=r.some(m=>m.type==='childList')}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
+function commit(sync=true){ed&&(ed.mrk=null);sync&&(lnk(),fgSync());flush();const r=pend;if(pend.length){pend.n=why||guess(pend);undos.push(pend);hold||trim();redos=[];dirty=true;dv++;svB(r)}why='';pend=[];tHit(r)&&sizesQ();refresh();asQ()}
 // revert(records): plays them backwards
 function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   if(m.type==='attributes'){const n=m.attributeNamespace,a=m.attributeName;m.oldValue==null?t.removeAttributeNS(n,a):t.setAttributeNS(n,n?(t.getAttributeNodeNS(n,a)?.name||(PX[n]||'ns0')+':'+a):a,m.oldValue)}
@@ -902,8 +906,8 @@ function revert(rs){for(let i=rs.length;i--;){const m=rs[i],t=m.target;
   else{m.addedNodes.forEach(n=>n.remove());m.removedNodes.forEach(n=>t.insertBefore(n,m.nextSibling))}}}
 const mvs=rs=>{let n=0;for(const m of rs)m.type==='childList'&&(n+=m.addedNodes.length+m.removedNodes.length);return n},dtch=f=>{const p=root.parentNode,n=root.nextSibling;root.remove();try{f()}finally{p.insertBefore(root,n)}};
 // undo(r,q): one step back (r: forward); q: quietly, for History's jumps
-function undo(r,q){if(CR)return cropX();finish(true);if(D)return;lkV++;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[];redos=[]}
-  const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svn+=x.some(m=>m.type==='childList');why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
+function undo(r,q){if(CR)return cropX();finish(true);if(D)return;if(flush()){pend.n=guess(pend);undos.push(pend);pend=[];redos=[]}
+  const a=r?redos:undos,x=a.pop();if(!x)return;const n=mvs(x);n>5e3&&n*3>root.getElementsByTagName('*').length?dtch(()=>revert(x)):revert(x);const y=mo.takeRecords();y.n=x.n;(r?undos:redos).push(y);dirty=(undos.at(-1)??null)!==svd;dv++;svB(x,1);why='';q||msg(`${r?'Redo':'Undo'}: ${x.n||'change'}`);
   if(!root.contains(ctx))ctx=root;sel=sel.filter(e=>root.contains(e)&&!lkd(e));tHit(y)&&sizesQ();refresh();asQ()}
 
 // ══ 05 Opening ════
@@ -1178,10 +1182,22 @@ function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.t
   if(!l){F.nofill.checked=F.nostroke.checked=false;v(F.sw);F.dash.value=''}
   else{const cs=gcs(l);F.nofill.checked=cs.fill==='none';F.fill.value=hex(cs.fill);F.nostroke.checked=cs.stroke==='none';F.stroke.value=hex(cs.stroke);v(F.sw,parseFloat(cs.strokeWidth)*sc(ctm(l))*U*PT);F.dash.value=cs.strokeDasharray==='none'?'':parseFloat(cs.strokeDasharray)/parseFloat(cs.strokeWidth)<1.5?'o':'d'}
   F.fill.classList.toggle('dim',F.nofill.checked);F.stroke.classList.toggle('dim',F.nostroke.checked);const cs=l&&gcs(l);fsw('mFF',cs?cs.fill:pen.fill);fsw('mSF',cs?cs.stroke:pen.stroke);
-  let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?leaf(s,x=>ML.test(x.localName),500):ML.test(s.localName)&&s)break;
+  let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?mlIn(s):ML.test(s.localName)&&s)break;
   for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
   qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100);const N=sel.length,sd=$('mSide');$('mKind').textContent=!N?'Nothing selected':N>1?N+' objects':lyName(e);sd.classList.toggle('nos',!N);sd.classList.toggle('not',!t&&!ed);
   hxS(F.fill,l&&(F.nofill.checked?'None':F.fill.value));hxS(F.stroke,l&&(F.nostroke.checked?'None':F.stroke.value));hxS(F.tc,t&&F.tc.value)}
+// mlIn(g): g's first path, line or polyline outside defs and the like: a native query, walking leaves only when that
+// found one inside defs (the leaf walk with a script filter over 50 groups visited ~25k nodes per refresh on svglite
+// files); cached per group and structure version, since only adding or removing nodes changes the answer
+const MLC=new WeakMap; // group → [svn, its first line-like leaf]
+function mlIn(g){
+  const c=MLC.get(g);
+  if(c&&c[0]===svn)return c[1];
+  let q=g.querySelector('path,line,polyline');
+  if(q&&q.closest('defs,clipPath,mask,marker,pattern,symbol'))q=leaf(g,x=>ML.test(x.localName),500);
+  MLC.set(g,[svn,q]);
+  return q;
+}
 // hxS(c,v): the hex text beside colour field c
 const hxS=(c,v)=>c.nextElementSibling.textContent=v?v.toUpperCase().replace('NONE','None'):'';
 const fsw=(i,v)=>{const b=$(i),c=/^rgb/.test(v)?hex(v):v[0]==='#'?v:null;b.classList.toggle('no',v==='none');b.style.setProperty('--c',v==='none'?'#fff':c||'#888');c&&(b.firstChild.value=c)};
@@ -1216,8 +1232,10 @@ function bd(t){if(t.localName!=='rect'||sel.some(s=>s.contains(t))||gcs(t).fill=
 function boxed(c,R,tch){const o=[],V=view.getBoundingClientRect(),s=Z*k,big=c.childElementCount>BIG,B=big?rb((R.x-vb.x)*s+tx+V.left,(R.y-vb.y)*s+ty+V.top,R.w*s,R.h*s):R;
   for(const x of cands(c)){const q=big?(r=>rb(r.x,r.y,r.width,r.height))(x.getBoundingClientRect()):fb(x,V);if(!q||!isect(q,B))continue;
     q.x>=B.x&&q.y>=B.y&&q.x+q.w<=B.x+B.w&&q.y+q.h<=B.y+B.h?o.push(x):isGrp(x)?add(o,boxed(x,R,tch)):tch&&(big||touches(x,R))&&o.push(x)}return o}
-// cands(c,lk): c's selectable children, layers opened; lk includes locked ones
-function cands(c,lk){const o=[];for(const e of c.children){if(!isG(e)||!lk&&e.getAttributeNS(NS.sodipodi,'insensitive'))continue;if(!isLayer(e))o.push(e);else if(gcs(e).display!=='none')add(o,cands(e,lk))}return o}
+// cands(c,lk): c's selectable children, layers opened; lk includes locked ones. lkAny(): anything in the document is
+// locked (one native query per document version, so files without locks skip a lookup per element: 100k per box select)
+const lkAny=()=>{const r=lkAny.c;return r&&r[0]===dv&&r[1]===root?r[2]:(lkAny.c=[dv,root,!!root.querySelector('[*|insensitive]')])[2]};
+function cands(c,lk){const o=[],L=!lk&&lkAny();for(let e=c.firstElementChild;e;e=e.nextElementSibling){if(!isG(e)||L&&e.getAttributeNS(NS.sodipodi,'insensitive'))continue;if(!isLayer(e))o.push(e);else if(gcs(e).display!=='none')add(o,cands(e,lk))}return o}
 // inR(point,R): inside R; sr(a,b,R): segment ab crosses R
 const inR=(q,R)=>q.x>=R.x&&q.x<=R.x+R.w&&q.y>=R.y&&q.y<=R.y+R.h,
   sr=(a,b,R)=>{let t0=0,t1=1;const dx=b.x-a.x,dy=b.y-a.y;for(const[p,q]of[[-dx,a.x-R.x],[dx,R.x+R.w-a.x],[-dy,a.y-R.y],[dy,R.y+R.h-a.y]]){if(!p){if(q<0)return false;continue}const r=q/p;p<0?t0=max(t0,r):t1=min(t1,r);if(t0>t1)return false}return true};
@@ -1651,7 +1669,9 @@ function dflt(){finish(true);pen.fill='none';pen.stroke='#000000';if(!sel.length
   for(const e of lv()){if(e.localName==='image')continue;const t=e.localName==='text';setSts(e,[['fill',t?'#000000':'none'],['stroke',t?'none':'#000000']]);t&&['fill','stroke'].forEach(p=>kids(e,p))}commit()}
 let fsA='fill';const fsAct=p=>{fsA=p;$('mFS').classList.toggle('st',p==='stroke')};
 function fsNo(){finish(true);const p=fsA;stp(p==='fill'?'No fill':'No stroke');if(!sel.length){pen[p]='none';return panel()}styleSet(p,'none');commit()}
-function fsz(d){const ts=selTexts();if(!ts.length)return;ts.forEach(t=>setSize(t,max(.5,+(tsize(t)+d).toFixed(1))));why='Font size';commit()}
+// fsz(d): the selected texts d pt bigger; every size is read before any is written: alternating made each read
+// restyle the whole document (Ctrl+Shift+. on 20k texts took ~4 s)
+function fsz(d){const ts=selTexts();if(!ts.length)return;const pt=memoize(()=>ts.map(t=>max(.5,+(tsize(t)+d).toFixed(1))));ts.forEach((t,i)=>setSize(t,pt[i]));why='Font size';commit()}
 // ══ 26 Crop ════
 // CR is the open session; cropR writes a crop… clipPath in the image's own coordinates, chaining an existing
 // clip-path. Pixels are never touched.
@@ -2669,11 +2689,17 @@ function lbSvg(els){
   w.style.cssText='position:fixed;left:-9999px;top:0;visibility:hidden;font:initial;color:#000'; // the canvas's defaults (#mStage), so only what the classes gave is written
   w.append(x);
   document.body.append(w);
+  const kv=kps(lv(s),KQ),ss=[...root.querySelectorAll('style')].map(t=>t.sheet).filter(Boolean);
+  // the page's own style sheets apply to the copy too (a selected group keeps its class): off while comparing, so the copy is measured as it will look elsewhere
+  for(const h of ss)h.disabled=true;
   try{
-    const kv=kps(lv(s),KQ),lf=lv([...x.children].filter(g=>g.localName==='g').map(g=>g.lastChild));
+    const lf=lv([...x.children].filter(g=>g.localName==='g').map(g=>g.lastChild));
     if(lf.length===kv.length)kpr(lf,kv,KQ);
     return new XMLSerializer().serializeToString(x);
-  }finally{w.remove()}
+  }finally{
+    for(const h of ss)h.disabled=false;
+    w.remove();
+  }
 }
 // lbAdd(): Add selection / Add to Library…: takes the selection now and asks for its name and category
 function lbAdd(){
@@ -2951,7 +2977,8 @@ function tabShow(i){const t=TABS[TI=i];({root,prolog,name,vb,U,Z,k,tx,ty,undos,r
 // Make room for a document about to be loaded: reuse the active tab when it is an untouched blank page, else open a new one.
 // Limits, measured in headless Chromium: a document costs about 1.3 KB per element (130 MB per 100k), and switching to
 // a 100k-element one takes about 1 s. So the strip warns by the elements open in all tabs, and stops at 20 tabs.
-const TMAX=20,TWARN=3e5,THIGH=6e5,tabEls=i=>i===TI?(root?root.getElementsByTagName('*').length:0):TABS[i].n||0,
+const TMAX=20,TWARN=3e5,THIGH=6e5,tabEls=i=>i===TI?(root?(tabEls.s===svn&&tabEls.r===root?tabEls.v:(tabEls.s=svn,tabEls.r=root,tabEls.v=root.getElementsByTagName('*').length)):0):TABS[i].n||0, // the open one's count cached per structure version
+
   tabTot=()=>TABS.reduce((a,_,i)=>a+tabEls(i),0),tabMB=n=>round(n*1.3e-3+TABS.length*5);
 let TP=0;function tabFresh(){if(!root||tabBlank())return true;if(TABS.length>=TMAX){msg(`${TMAX} tabs are open, the most svguest keeps; close one to open another`);return false}
   TP=TI;tabHold();TABS.push({});TI=TABS.length-1;root=null;return true}
@@ -2963,12 +2990,16 @@ async function tabClose(i){if(D)return;if(tabDt(i)&&!await cfm(`Close ${tabNm(i)
   if(TABS.length<2){i===TI&&(load(blank(210,297),'untitled.svg'),msg('Closed; a new blank page is open'));return}
   if(i!==TI){TABS.splice(i,1);i<TI&&TI--;return tabUI()}
   finish(true);CR&&cropX();G&&ghostOff();flush();pend.length&&commit();asNow();mo.disconnect();root.remove();TABS.splice(i,1);TI=-1;tabShow(min(i,TABS.length-1))}
-function tabUI(){const w=$('mTabs');if(!w)return;const n=TABS.length,b=[];
+// tabUI(): the tab strip, rebuilt only when what it shows changes: bar() calls it after every commit, and rebuilding
+// plus reading offsetLeft forced a layout of the whole drawing each time (~13 ms per commit at 100k elements)
+function tabUI(){const w=$('mTabs');if(!w)return;const n=TABS.length,b=[],tot=n>1?tabTot():0,key=[TI,n,tot>TWARN?tabMB(tot)+(tot>THIGH?'!':''):0,...TABS.map((_,i)=>tabNm(i)+(tabDt(i)?'*':''))].join('\n');
+  if(w._k===key)return;
+  w._k=key;
   for(let i=0;i<n;i++){const t=el('div','tab'+(i===TI?' on':'')),x=el('button');x.innerHTML='<svg viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6"/></svg>';t.setAttribute('role','tab');t.setAttribute('aria-selected',i===TI);t.title=tabNm(i)+(tabDt(i)?' (not exported)':'');
     tabDt(i)&&t.append(el('i'));t.append(el('span',0,(tabNm(i)||'untitled').replace(/\.svg$/i,'')));x.title='Close';x.setAttribute('aria-label','Close '+tabNm(i));t.append(x);
     t.onpointerdown=e=>{e.button===1&&e.preventDefault()};t.onclick=e=>{x.contains(e.target)?tabClose(i):tabGo(i)};t.onauxclick=e=>{e.button===1&&tabClose(i)};b.push(t)}
-  const tot=n>1?tabTot():0;if(tot>TWARN){const m=el('span','mem'+(tot>THIGH?' hi':''),`≈ ${tabMB(tot)} MB open`);m.title=`${n} tabs hold ${tot.toLocaleString()} elements. Each 100,000 elements take about 130 MB and a second to switch to; close tabs you are not using to keep svguest quick.`;b.push(m)}
-  const nt=el('button','nt');nt.innerHTML='<svg viewBox="0 0 12 12"><path d="M6 1.5v9M1.5 6h9"/></svg>';nt.title=n>=TMAX?`${TMAX} tabs are open, the most svguest keeps`:'New canvas in a new tab';nt.disabled=n>=TMAX;nt.onclick=()=>A.new();b.push(nt);w.replaceChildren(...b);const o=w.querySelector('.on');if(o){const l=o.offsetLeft-w.offsetLeft,r=l+o.offsetWidth+30;l<w.scrollLeft?w.scrollLeft=l:r>w.scrollLeft+w.clientWidth&&(w.scrollLeft=r-w.clientWidth)}}
+  if(tot>TWARN){const m=el('span','mem'+(tot>THIGH?' hi':''),`≈ ${tabMB(tot)} MB open`);m.title=`${n} tabs hold ${tot.toLocaleString()} elements. Each 100,000 elements take about 130 MB and a second to switch to; close tabs you are not using to keep svguest quick.`;b.push(m)}
+  const nt=el('button','nt');nt.innerHTML='<svg viewBox="0 0 12 12"><path d="M6 1.5v9M1.5 6h9"/></svg>';nt.title=n>=TMAX?`${TMAX} tabs are open, the most svguest keeps`:'New canvas in a new tab';nt.disabled=n>=TMAX;nt.onclick=()=>A.new();b.push(nt);w.replaceChildren(...b);const o=w._ti!==TI&&w.querySelector('.on');w._ti=TI;if(o){const l=o.offsetLeft-w.offsetLeft,r=l+o.offsetWidth+30;l<w.scrollLeft?w.scrollLeft=l:r>w.scrollLeft+w.clientWidth&&(w.scrollLeft=r-w.clientWidth)}}
 function newDoc(){const d=$('mNew');d.returnValue='';$('mNN').value='untitled';d.showModal();$('mNN').select()}
 
 // ══ 34 SVG Chat state ════

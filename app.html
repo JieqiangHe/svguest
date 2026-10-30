@@ -1637,13 +1637,20 @@ const UFS='ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif'; 
 let ufE='',ufZ=''; // the picked families, '' for the system's
 // ufHas(f,z): f is installed: a sample in f measures differently from the fallback's; for a Chinese font (z) a Latin
 // sample too, since the system's own Chinese font is also the fallback for Chinese and measures the same in it
+// sample: 0 Latin, 1 Chinese. One canvas, and the fallbacks' widths measured once (UFW), so a check is two measurements per fallback
+let UFG=null,UFW=null; // the measuring canvas; the fallbacks' widths per sample
 function ufHas(f,z){
-  const g=cv(1,1).getContext('2d'),T=z?['中文字体界面测试','mmmmmmmmmmlli10OoWw@']:['mmmmmmmmmmlli10OoWw@'];
-  return T.some(t=>['monospace','serif','sans-serif'].some(b=>{
-    g.font='40px '+b;
-    const w=g.measureText(t).width;
-    g.font=`40px "${f}",${b}`;
-    return g.measureText(t).width!==w;
+  const T=['mmmmmmmmmmlli10OoWw@','中文字体界面测试'],B=['monospace','serif','sans-serif'];
+  if(!UFG){
+    UFG=cv(1,1).getContext('2d');
+    UFW=T.map(t=>B.map(b=>{
+      UFG.font='40px '+b;
+      return UFG.measureText(t).width;
+    }));
+  }
+  return T.slice(0,z?2:1).some((t,i)=>B.some((b,j)=>{
+    UFG.font=`40px "${f}",${b}`;
+    return UFG.measureText(t).width!==UFW[i][j];
   }));
 }
 // ufApply(): writes the stack into the page's own style element (#mUF), after the base CSS so it wins
@@ -5118,8 +5125,8 @@ const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',
 setTheme(document.documentElement.dataset.theme==='dark');
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
 views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
-lgInit()
 ufInit()
+lgInit()
 </script>
 </body>
 </html>

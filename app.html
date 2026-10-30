@@ -779,7 +779,7 @@ const CAND=('Helvetica Neue,Arial Narrow,Arial Black,Arial Rounded MT Bold,Aveni
 
 // ══ 01b Language ════
 // The interface language. ZH maps each English interface text, exactly as written in the page, to its Chinese; a text with no entry stays English.
-// A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang, else the browser's language).
+// A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).
 // lgDom() walks the interface once at startup and when the language is switched, never the drawing, the chats, the Layers rows, the tabs or anything the user typed; it keeps each original on its node (_o, _a), so switching back is exact.
 const ZH={
  "File ▾":"文件 ▾",
@@ -1585,7 +1585,7 @@ function lgSet(l){
   }
 }
 function lgInit(){
-  LNG=ls('sgLang')||(/^zh/i.test(navigator.language)?'zh':'en')
+  LNG=ls('sgLang')==='zh'?'zh':'en' // English until the user picks Chinese, whatever the browser's language (the user's rule, 31 Oct 2026)
   document.documentElement.lang=LNG==='zh'?'zh-CN':'en'
   if(LNG==='zh')lgDom()
   lgBtn()

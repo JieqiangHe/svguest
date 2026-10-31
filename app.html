@@ -62,6 +62,20 @@ input,select{font:inherit}
 @media(max-width:620px){#mHelp .hb{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}#mHn{display:flex;gap:4px;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}#mHn button{width:auto;flex:none}#mHn button small{display:none}#mHelp .r{grid-template-columns:1fr;gap:2px}}
 #mHelp dl{margin:0}
 #mHelp dd{margin:0}
+/* ══ 60a What's new ══ */
+/* a card once per version: a soft tinted head with the mark, five rows with coloured icon tiles, a primary Got it */
+#mWn{width:min(440px,calc(100vw - 32px));padding:0;border-radius:16px;background:var(--btn);overflow:hidden}#mWn::backdrop{background:#0006;backdrop-filter:blur(2px)}
+#mWn[open]{animation:wnIn .22s cubic-bezier(.2,.8,.2,1)}@keyframes wnIn{from{opacity:0;transform:translateY(8px) scale(.98)}}@media (prefers-reduced-motion:reduce){#mWn[open]{animation:none}}
+.wnh{position:relative;display:flex;align-items:center;gap:14px;padding:22px 22px 18px;background:linear-gradient(135deg,color-mix(in srgb,var(--onb) 14%,transparent),color-mix(in srgb,var(--onb) 3%,transparent) 70%)}
+.wnm{flex:none;width:44px;height:44px;padding:8px;border-radius:12px;background:var(--btn);box-shadow:var(--sh);fill:none;stroke:var(--fg)}
+.wnh small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--onb)}.wnh h3{margin:2px 0 0;font-size:19px;font-weight:600;letter-spacing:-.01em}.wnh h3 span{font-weight:400;color:var(--h4)}
+#mWnX{position:absolute;top:10px;right:10px;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;font-size:18px;line-height:28px;color:var(--h4)}#mWnX:hover{background:var(--btnh);color:var(--fg)}
+#mWnL{list-style:none;margin:0;padding:8px 14px 4px;display:flex;flex-direction:column}
+#mWnL li{display:flex;gap:12px;padding:11px 8px}#mWnL li+li{border-top:1px solid var(--line)}
+#mWnL i{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}#mWnL i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#mWnL b{display:block;font-size:13px;font-weight:600}#mWnL span{display:block;margin-top:1px;font-size:12px;line-height:1.45;color:var(--h4)}
+.wnf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px 18px}.wnf a{font-size:12px;color:var(--onb);text-decoration:none}.wnf a:hover{text-decoration:underline}.wnf a::after{content:" ↗"}
+#mWnOk{height:32px;padding:0 20px;border:0;border-radius:8px;background:var(--fg);color:var(--side);font-weight:600}#mWnOk:hover{opacity:.85}#mWn:focus{outline:none}
 /* ══ 41 Kept in this browser ══ */
 #mKept{padding:0;width:min(520px,94vw)}#mCf{max-width:min(400px,90vw)}
 #mKept:focus{outline:none}
@@ -539,6 +553,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p><label>Width <input id="mNW" type="number" value="210" min="1" step="0.1"></label> <label>Height <input id="mNH" type="number" value="297" min="1" step="0.1"></label> mm</p>
 <p><button value="ok">Create</button> <button value="">Cancel</button></p>
 </form></dialog>
+<!-- ══ 60a What's new ══ -->
+<dialog id="mWn" aria-labelledby="mWnH" tabindex="-1"><div class="wnh"><svg class="wnm" viewBox="6 4.75 228 228" aria-hidden="true"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="16"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="12"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="14"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="14"/></svg><div><small>What's new</small><h3 id="mWnH">svguest <span id="mWnV"></span></h3></div><button id="mWnX" title="Close (Esc)" aria-label="Close">×</button></div><ul id="mWnL"></ul><div class="wnf"><a id="mWnA" target="_blank" rel="noopener">Full release notes</a><button id="mWnOk" class="pri">Got it</button><button data-a="news" hidden title="Show this version's new features">What's new</button></div><template id="mWnT"><li><i><svg viewBox="0 0 16 16"><path/></svg></i><div><b></b><span></span></div></li></template></dialog>
 <!-- ══ 41 Kept in this browser ══ -->
 <dialog id="mKept" tabindex="-1"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
 <p class="kl">Copies svguest keeps for you between visits, in this browser only.</p>
@@ -625,6 +641,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 58 Fonts: font list, installed fonts
 // 59 Colour preview: live preview while a colour picker is open
 // 60 Dialogs: file input, New canvas, Help
+// 60a What's new: the card shown once per version (rows in WN, 01a)
 // 61 Events: canvas pointer and wheel, scrollbars, drop, unload
 // 62 Keyboard: shortcuts, keys under input methods, Select all
 // 63 Paste: SVG and images from the clipboard
@@ -738,7 +755,7 @@ const PROMPT={
   panel:(g,[x0,y0,x1,y1])=>` Draw only panel "${g}", whose items are listed below, with width="${fm((x1-x0)/10)}mm" height="${fm((y1-y0)/10)}mm" viewBox="${x0} ${y0} ${x1-x0} ${y1-y0}", so that the coordinates stay those of the description.`,
   cur:x=>`\n\nThe current figure, including any edits the user made by hand, as SVG:\n\`\`\`svg\n${x}\n\`\`\`\nTo change it, reply with a short sentence and a <patch>...</patch> block instead of a full SVG, unless most of it changes. Inside the patch, an element with the id of an existing one replaces it (children included), <delete ids="id1 id2"/> removes elements, and <add after="id">...</add> inserts new elements after that one (without after, at the end). Keep the ids as they are.`};
 // KI: command palette icons by data-a, 'stroke path|fill path'; add one with every new menu command
-const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',lib:'M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z',lgEn:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',lgZh:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',libAdd:'M2.5 6h11v7.5h-11zM1.5 3.5h13V6h-13zM8 7.5v4.5M5.75 9.75h4.5',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',
+const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',lib:'M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z',news:'M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1',lgEn:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',lgZh:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',libAdd:'M2.5 6h11v7.5h-11zM1.5 3.5h13V6h-13zM8 7.5v4.5M5.75 9.75h4.5',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',
   new:'M3.5 1.5h6l3 3v10h-9zM9.5 1.5v3h3M8 7v5M5.5 9.5h5',open:'M1.5 13V3h4L7 4.5h5.5V7M1.5 13l2-6h11l-2 6z',imp:'M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5|M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z',
   svg:'M2.5 2.5h9l2 2v9h-11zM5 2.5V6h5V2.5M5 13.5v-4h6v4',svgAs:'M8 13.5H2.5v-11h9l2 2V7M5 2.5V6h5V2.5M9 14.5l.5-2 4-4 1.5 1.5-4 4z',png:'M9.5 3h-8v10h11V8.5M1.5 11l3-3 2.5 2.5 2-2 3 3M11 1.5h3.5V5M14.5 1.5 10 6',
   pdf:'M4.5 6V1.5h7V6M4.5 11.5h-3V6h13v5.5h-3M4.5 9.5h7v5h-7z',undo:'M5 3 2 6l3 3M2 6h7.5a3.5 3.5 0 0 1 0 7H7',redo:'M11 3l3 3-3 3M14 6H6.5a3.5 3.5 0 0 0 0 7H9',copy:'M5.5 5.5h8v8h-8zM10.5 5.5v-3h-8v8h3',
@@ -771,6 +788,12 @@ const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste he
 // UFE, UFZ: the interface fonts offered (01c), English and Chinese, those installed (Chinese names come through ZH)
 const UFE=['Arial','Helvetica','Helvetica Neue','Segoe UI','Roboto','Inter','Calibri','Verdana','Tahoma','Avenir Next','Gill Sans','Lato','Open Sans','Source Sans 3','Noto Sans','IBM Plex Sans','Ubuntu','DejaVu Sans','Liberation Sans'],
   UFZ=['PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans SC','Noto Sans CJK SC','Hiragino Sans GB','HarmonyOS Sans SC','DengXian','SimHei','STHeiti','WenQuanYi Micro Hei','WenQuanYi Zen Hei','Source Han Serif SC','Noto Serif SC','Songti SC','SimSun','Kaiti SC','KaiTi'];
+// WN: the What's new card's rows for this version (60a): [icon path, colour, title, line]; rewrite them for each release
+const WN=[['M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z','#2f6fde','Library','Save a selection as your own asset, then click or drag it into any figure at its real size. In the top bar.'],
+  ['M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8zM8 5.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z','#1f9d6a','Colour blindness check','FigKit finds colours colour-blind readers can\'t tell apart, shows what they see and remaps to a safe palette.'],
+  ['M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z','#c77d00','TIFF pictures','Open, drop or paste TIFF images like any other picture.'],
+  ['M9 1.5 3 9h4.5L7 14.5 13 7H8.5z','#7c5cff','Faster on big figures','Selecting, moving and undoing are up to 3× faster on files with 100,000 objects.'],
+  ['M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13','#d6457a','Chinese interface (beta) and fonts','View › Language, English font and Chinese font. svguest still opens in English.']];
 // LBD: the Library's demo assets, placed once in a new Library (29a)
 const LBD=[['svguest/svguest logo.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="11 21 863 195" width="40mm" height="9.04mm"><g fill="none" stroke="#1c1c1c"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="10"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="7.5"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="9"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="9"/></g><path fill="#1c1c1c" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg>'],['svguest/TBtools-II.svg','<svg xmlns="http://www.w3.org/2000/svg" width="12mm" height="12mm" viewBox="0 0 16 16"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg>']];
 // CAND: font names tested (hasF) where queryLocalFonts is unavailable
@@ -1517,6 +1540,19 @@ const ZH={
  "Show or hide the key":"显示或隐藏密钥",
  "Open@open":"开口",
  "Language":"语言 Language",
+ "What's new":"新功能",
+ "Full release notes":"完整更新说明",
+ "Got it":"知道了",
+ "Save a selection as your own asset, then click or drag it into any figure at its real size. In the top bar.":"把选中的对象存为自己的素材，之后点击或拖到任意图里，保持原尺寸。在顶栏。",
+ "Colour blindness check":"色盲检查",
+ "FigKit finds colours colour-blind readers can't tell apart, shows what they see and remaps to a safe palette.":"FigKit 找出色盲读者分不清的颜色，显示他们看到的效果，并一键换成安全配色。",
+ "TIFF pictures":"TIFF 图片",
+ "Open, drop or paste TIFF images like any other picture.":"像其他图片一样打开、拖入或粘贴 TIFF 图片。",
+ "Faster on big figures":"大图更快",
+ "Selecting, moving and undoing are up to 3× faster on files with 100,000 objects.":"在含 10 万个对象的文件上，选择、移动和撤销最多快 3 倍。",
+ "Chinese interface (beta) and fonts":"中文界面（测试版）和字体",
+ "View › Language, English font and Chinese font. svguest still opens in English.":"在 视图 › 语言、英文字体 和 中文字体 中设置。svguest 默认仍以英文打开。",
+ "Show this version's new features":"显示这个版本的新功能",
  "English font":"英文字体",
  "Chinese font":"中文字体",
  "System default":"系统默认",
@@ -4731,7 +4767,7 @@ const A={
   bold:()=>flip('font-weight','fontWeight','bold',c=>+c.fontWeight>=600),ital:()=>flip('font-style','fontStyle','italic',c=>c.fontStyle==='italic'),und:()=>flip('text-decoration','textDecoration','underline',c=>/underline/.test(c.textDecorationLine)),
   sup:()=>ed&&document.execCommand('superscript'),sub:()=>ed&&document.execCommand('subscript'),
   theme:()=>{const d=document.documentElement.dataset.theme!=='dark';if(d===SD.matches)try{localStorage.removeItem('sgTheme')}catch(_){}else ls('sgTheme',d?'dark':'light');thFade(()=>setTheme(d))},
-  lgEn:()=>lgSet('en'),lgZh:()=>lgSet('zh'),
+  lgEn:()=>lgSet('en'),lgZh:()=>lgSet('zh'),news:()=>wnOpen(),
   help:()=>hlpOpen(),rulers:()=>toggle('rulers'),grid:()=>toggle('grid'),touch:()=>toggle('touch'),auto:()=>{toggle('auto');opts.auto?(asNow(1),msg('Auto-save on: the open file is copied into this browser as you work (File › Open recent)')):(clearTimeout(asT),msg('Auto-save off: no more copies are kept; Open recent keeps the ones it has'))},kept:()=>kpShow(),autoDir:()=>fdSet(),lib:lbTg,libAdd:lbAdd,
   portrait:()=>vb.w>vb.h&&setPage(vb.x,vb.y,vb.h,vb.w),landscape:()=>vb.h>vb.w&&setPage(vb.x,vb.y,vb.h,vb.w),
   fitPage:()=>{finish(true);const b=memoize(()=>cands(root,1).reduce((a,e)=>un(a,bbox(e)),null)),m=1/U;b?setPage(b.x-m,b.y-m,b.w+2*m,b.h+2*m):msg('Nothing to fit')},
@@ -4924,7 +4960,7 @@ $('mLf').onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();clearTimeout(Ly.f
 const MAC=/Mac|iP(hone|ad|od)/.test(navigator.platform),kTx=s=>MAC?s.replace(/Ctrl\+/g,'⌘').replace(/Shift\+/g,'⇧').replace(/Alt\+/g,'⌥').replace(/\bCtrl\b/g,'⌘').replace(/\bAlt\b/g,'⌥').replace(/\bShift\b/g,'⇧'):s;let kC=[],kR=[],kI=0,kM='';
 $('mKb').lastChild.replaceChildren(...[MAC?'⌘':'Ctrl','K'].map(t=>el('span',0,t)));MAC&&(qa('find').lastChild.textContent='Ctrl+Shift+H',document.querySelectorAll('.menu kbd,#mCM kbd').forEach(k=>k.textContent=kTx(k.textContent).replace(/^Del$/,'⌫')));
 function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim(),kt=s=>(/\(([A-Z?\\{]|(?:Ctrl|Shift|Alt)[^)]*)\)/.exec(s||'')||[])[1]||'',ad=(g,b,n,k,ic)=>b&&o.push({g,b,n,k,t:b.title||'',ic,off:b.disabled,id:b.dataset.a?'a'+b.dataset.a:'t'+b.dataset.t});
-  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['lib','Show or hide the Library'],['libAdd','Add the selection to the Library'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
+  for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['lib','Show or hide the Library'],['news',"What's new"],['libAdd','Add the selection to the Library'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
   {const dv=vOf(drawTo()),cb=(a,n,f,t)=>{const b=el('button');b.dataset.a=a;b.title=t||'';b.onclick=f;b.append(kIc('chat'));return ad('SVG Chat',b,n,''),b};
     for(const q of REG)for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);cb('m:'+v,'Draw with '+m.n,()=>pickM(v,1),h?'':`${q.add||'Add a key'} under Models and keys first`).classList.toggle('on',h&&v===dv)}cb('mConn','Models and keys…',()=>openConn())}
   for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.replace('▾','').trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
@@ -4963,7 +4999,7 @@ const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.dat
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
 document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib header button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
 // dOpen(): the open menu; menuOff(x): closes the menus but x; dlgOpen(): a modal dialog is open
-const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open,
+const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open||$('mWn').open,
   menuOff=x=>{MENUS.forEach(d=>d.classList.contains('open')&&d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));SUBS.forEach(s=>x&&x.contains(s)||s.classList.remove('hv'))};
 addEventListener('click',e=>{const d=e.target.closest('.dd'),u=e.target.closest('.sb');menuOff(d);u?u.parentNode.classList.toggle('open'):d&&(e.target.closest('.ddb')?d.classList.toggle('open')||menuOff():e.target.closest('.menu button')&&(d.classList.remove('open'),menuOff()))});
 $('mBar').addEventListener('mouseover',e=>{const d=e.target.closest('.dd');d&&!d.classList.contains('open')&&dOpen()&&(menuOff(),d.classList.add('open'))});
@@ -5062,6 +5098,39 @@ function hlpOpen(){HL||hlpInit();const d=$('mHelp');d.showModal();$('mHq').value
 $('mNew').onchange=e=>e.target.id==='mPre'?nd():e.target.name==='mOr'&&nd(1);$('mNW').oninput=$('mNH').oninput=()=>$('mPre').value='';
 $('mNew').onclose=async()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew').returnValue!=='ok'||!(w>0&&h>0))return;
   if(!tabFresh())return;const n=($('mNN').value.trim().replace(/[\\/:*?"<>|]/g,'_')||'untitled').replace(/(\.svg)?$/i,'.svg');load(blank(fm(w),fm(h)),n);msg(`New canvas ${n}: ${fm(w)}×${fm(h)} mm`)};
+// ══ 60a What's new ════
+// A card on the first start of each new version (asked for by the user, 31 Oct 2026): what changed, from WN (01a),
+// once per version (sgSeen). The version is read from #mBrand's title, so a release bumps it in the usual places only.
+// It isn't shown where storage can't keep the mark (it would come back on every start); the palette reopens it.
+const WNV=(($('mBrand').title.match(/v[\d.]+/))||[''])[0]; // this version, "v1.2.0"
+// the rows, built once at load, before the language pass (64) translates them
+$('mWnL').replaceChildren(...WN.map(([d,c,t,x])=>{
+  const r=$('mWnT').content.firstElementChild.cloneNode(true);
+  r.style.setProperty('--c',c);
+  r.querySelector('path').setAttribute('d',d);
+  r.querySelector('b').textContent=t;
+  r.querySelector('span').textContent=x;
+  return r;
+}));
+$('mWnV').textContent=WNV;
+$('mWnA').href='https://github.com/JieqiangHe/svguest/releases/tag/'+WNV;
+const wnOpen=()=>{
+  if(!$('mWn').open)$('mWn').showModal();
+  $('mWn').focus(); // the card itself, so no focus ring shows on opening; Esc closes it
+};
+const wnX=()=>$('mWn').close();
+$('mWnOk').onclick=wnX;
+$('mWnX').onclick=wnX;
+$('mWn').addEventListener('click',e=>{
+  if(e.target===$('mWn'))wnX();
+});
+// wnStart(): at startup, the card once per version, a moment after the page has drawn
+function wnStart(){
+  if(!WNV||ls('sgSeen')===WNV)return;
+  ls('sgSeen',WNV);
+  if(ls('sgSeen')!==WNV)return;
+  requestAnimationFrame(()=>setTimeout(wnOpen,350));
+}
 // ══ 61 Events ════
 view.addEventListener('pointerdown',down);addEventListener('pointermove',move);addEventListener('pointerup',up);addEventListener('pointercancel',up);
 view.addEventListener('mousedown',e=>e.target.closest('.ed,#mQ')||e.preventDefault());
@@ -5127,6 +5196,7 @@ for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungr
 views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
 ufInit()
 lgInit()
+wnStart()
 </script>
 </body>
 </html>

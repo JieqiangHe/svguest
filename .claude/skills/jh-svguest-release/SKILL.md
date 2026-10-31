@@ -76,7 +76,7 @@ Edit notes later with `gh release edit "$new" --notes-file notes.md`.
 ## 6. Check the sites
 
 - GitHub Pages: `gh api repos/JieqiangHe/svguest/pages` → `source` `{"branch":"release","path":"/"}`, `status` `built`; the cover's footer shows the new version.
-- EdgeOne (the user checks; this sandbox can't reach it): console › svguest › 项目概览 shows a new production deployment from `release` at the tagged commit (the 代码源 line may still read `main`; the commit is what counts). If it didn't auto-deploy: 构建部署 › deploy production from `release`.
+- EdgeOne (this sandbox can reach it, checked 31 Oct 2026; a cloud sandbox may not): `curl -s https://www.svguest.online/app.html | cmp - app.html` verifies the deployed build (both sites matched the tagged commit for v1.2.0). The console › svguest › 项目概览 shows a new production deployment from `release` at the tagged commit (the 代码源 line may still read `main`; the commit is what counts). If it didn't auto-deploy: 构建部署 › deploy production from `release`.
 
 ## In a cloud sandbox (claude.ai/code)
 

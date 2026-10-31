@@ -63,19 +63,25 @@ input,select{font:inherit}
 #mHelp dl{margin:0}
 #mHelp dd{margin:0}
 /* ══ 60a What's new ══ */
-/* a card once per version: a soft tinted head with the mark, five rows with coloured icon tiles, a primary Got it */
-#mWn{width:min(440px,calc(100vw - 32px));padding:0;border-radius:16px;background:var(--btn);overflow:hidden}#mWn::backdrop{background:#0006;backdrop-filter:blur(2px)}
-#mWn[open]{animation:wnIn .22s cubic-bezier(.2,.8,.2,1)}@keyframes wnIn{from{opacity:0;transform:translateY(8px) scale(.98)}}@media (prefers-reduced-motion:reduce){#mWn[open]{animation:none}}
-.wnh{position:relative;display:flex;align-items:center;gap:14px;padding:22px 22px 18px;background:linear-gradient(135deg,color-mix(in srgb,var(--onb) 14%,transparent),color-mix(in srgb,var(--onb) 3%,transparent) 70%)}
-.wnm{flex:none;width:44px;height:44px;padding:8px;border-radius:12px;background:var(--btn);box-shadow:var(--sh);fill:none;stroke:var(--fg)}
-.wnh small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--onb)}.wnh h3{margin:2px 0 0;font-size:19px;font-weight:600;letter-spacing:-.01em}.wnh h3 span{font-weight:400;color:var(--h4)}
+/* a card once per version: a hero picturing the main feature (a small Library panel), the version and its lead, four more in a 2 × 2 grid */
+#mWn{width:min(420px,calc(100vw - 32px));padding:0;border-radius:16px;background:var(--btn);overflow:hidden;box-shadow:0 0 0 1px var(--line),0 28px 70px -16px #0007}#mWn::backdrop{background:#0005;backdrop-filter:blur(2px)}#mWn:focus{outline:none}
+#mWn[open]{animation:wnIn .32s cubic-bezier(.2,.8,.2,1)}@keyframes wnIn{from{opacity:0;transform:translateY(10px) scale(.985)}}
+.wnh{position:relative;height:178px;display:grid;justify-items:center;align-items:end;overflow:hidden;background:linear-gradient(180deg,var(--side),var(--btn));border-bottom:1px solid var(--line)}
+#mWnC{position:absolute;left:16px;top:14px;padding:4px 9px;border-radius:999px;background:var(--btn);box-shadow:0 0 0 1px var(--line);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--h4)}
+.wnp{width:236px;margin-bottom:-18px;padding:10px;border-radius:12px;background:var(--btn);box-shadow:0 0 0 1px var(--line),0 12px 32px -10px #0004}
+.wnp>i{display:block;height:20px;margin-bottom:8px;border-radius:6px;background:var(--side)}
+#mWnG{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}#mWnG>b{aspect-ratio:1;display:grid;place-items:center;border-radius:7px;background:#f1f1f1}:root[data-theme=dark] #mWnG>b{background:#d6d6d6}
+#mWnG>b>i{display:block;width:58%;height:38%;border-radius:3px;background:var(--c)}#mWnG>b>i.c{width:44%;height:44%;border-radius:50%}#mWnG>b>i.l{height:2px;width:62%;border-radius:1px;transform:rotate(-30deg)}
+#mWn[open] #mWnG>b{animation:wnT .4s both cubic-bezier(.2,.8,.2,1)}@keyframes wnT{from{opacity:0;transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){#mWn[open],#mWn[open] #mWnG>b{animation:none}}
 #mWnX{position:absolute;top:10px;right:10px;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;font-size:18px;line-height:28px;color:var(--h4)}#mWnX:hover{background:var(--btnh);color:var(--fg)}
-#mWnL{list-style:none;margin:0;padding:8px 14px 4px;display:flex;flex-direction:column}
-#mWnL li{display:flex;gap:12px;padding:11px 8px}#mWnL li+li{border-top:1px solid var(--line)}
-#mWnL i{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}#mWnL i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-#mWnL b{display:block;font-size:13px;font-weight:600}#mWnL span{display:block;margin-top:1px;font-size:12px;line-height:1.45;color:var(--h4)}
-.wnf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px 18px}.wnf a{font-size:12px;color:var(--onb);text-decoration:none}.wnf a:hover{text-decoration:underline}.wnf a::after{content:" ↗"}
-#mWnOk{height:32px;padding:0 20px;border:0;border-radius:8px;background:var(--fg);color:var(--side);font-weight:600}#mWnOk:hover{opacity:.85}#mWn:focus{outline:none}
+.wnb{padding:18px 22px 4px}.wnb h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.02em}.wnb h3 small{margin-left:4px;font-size:13px;font-weight:400;letter-spacing:0;color:var(--t3)}
+#mWnP{margin:4px 0 16px;text-wrap:pretty;font-size:12.5px;line-height:1.5;color:var(--h4)}
+#mWnL{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+#mWnL li{display:flex;gap:9px;align-items:flex-start}#mWnL svg{flex:none;width:16px;height:16px;margin-top:1px;fill:none;stroke:var(--fg);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#mWnL b{display:block;font-size:12.5px;font-weight:600;line-height:1.35}#mWnL span{display:block;text-wrap:pretty;margin-top:2px;font-size:11.5px;line-height:1.45;color:var(--h4)}
+.wnf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 20px}.wnf a{font-size:12px;color:var(--h4);text-decoration:none}.wnf a:hover{color:var(--fg)}.wnf a::after{content:" ↗"}
+#mWnOk{height:34px;padding:0 20px;border:0;border-radius:9px;background:var(--fg);color:var(--btn);font-weight:600}#mWnOk:hover{opacity:.88}
 /* ══ 41 Kept in this browser ══ */
 #mKept{padding:0;width:min(520px,94vw)}#mCf{max-width:min(400px,90vw)}
 #mKept:focus{outline:none}
@@ -554,7 +560,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <p><button value="ok">Create</button> <button value="">Cancel</button></p>
 </form></dialog>
 <!-- ══ 60a What's new ══ -->
-<dialog id="mWn" aria-labelledby="mWnH" tabindex="-1"><div class="wnh"><svg class="wnm" viewBox="6 4.75 228 228" aria-hidden="true"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="16"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="12"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="14"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="14"/></svg><div><small>What's new</small><h3 id="mWnH">svguest <span id="mWnV"></span></h3></div><button id="mWnX" title="Close (Esc)" aria-label="Close">×</button></div><ul id="mWnL"></ul><div class="wnf"><a id="mWnA" target="_blank" rel="noopener">Full release notes</a><button id="mWnOk" class="pri">Got it</button><button data-a="news" hidden title="Show this version's new features">What's new</button></div><template id="mWnT"><li><i><svg viewBox="0 0 16 16"><path/></svg></i><div><b></b><span></span></div></li></template></dialog>
+<dialog id="mWn" aria-labelledby="mWnH" tabindex="-1"><div class="wnh"><span id="mWnC"></span><div class="wnp"><i></i><div id="mWnG"></div></div><button id="mWnX" title="Close (Esc)" aria-label="Close">×</button></div><div class="wnb"><h3 id="mWnH">svguest <span id="mWnV"></span> <small>What's new</small></h3><p id="mWnP"></p><ul id="mWnL"></ul></div><div class="wnf"><a id="mWnA" target="_blank" rel="noopener">Release notes</a><button id="mWnOk">Got it</button><button data-a="news" hidden title="Show this version's new features">What's new</button></div><template id="mWnT"><li><svg viewBox="0 0 16 16"><path/></svg><div><b></b><span></span></div></li></template></dialog>
 <!-- ══ 41 Kept in this browser ══ -->
 <dialog id="mKept" tabindex="-1"><form method="dialog"><header><h3>Kept in this browser</h3><button value="" title="Close (Esc)" aria-label="Close">×</button></header>
 <p class="kl">Copies svguest keeps for you between visits, in this browser only.</p>
@@ -788,12 +794,15 @@ const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste he
 // UFE, UFZ: the interface fonts offered (01c), English and Chinese, those installed (Chinese names come through ZH)
 const UFE=['Arial','Helvetica','Helvetica Neue','Segoe UI','Roboto','Inter','Calibri','Verdana','Tahoma','Avenir Next','Gill Sans','Lato','Open Sans','Source Sans 3','Noto Sans','IBM Plex Sans','Ubuntu','DejaVu Sans','Liberation Sans'],
   UFZ=['PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans SC','Noto Sans CJK SC','Hiragino Sans GB','HarmonyOS Sans SC','DengXian','SimHei','STHeiti','WenQuanYi Micro Hei','WenQuanYi Zen Hei','Source Han Serif SC','Noto Serif SC','Songti SC','SimSun','Kaiti SC','KaiTi'];
-// WN: the What's new card's rows for this version (60a): [icon path, colour, title, line]; rewrite them for each release
-const WN=[['M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z','#2f6fde','Library','Save a selection as your own asset, then click or drag it into any figure at its real size. In the top bar.'],
-  ['M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8zM8 5.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z','#1f9d6a','Colour blindness check','FigKit finds colours colour-blind readers can\'t tell apart, shows what they see and remaps to a safe palette.'],
-  ['M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z','#c77d00','TIFF pictures','Open, drop or paste TIFF images like any other picture.'],
-  ['M9 1.5 3 9h4.5L7 14.5 13 7H8.5z','#7c5cff','Faster on big figures','Selecting, moving and undoing are up to 3× faster on files with 100,000 objects.'],
-  ['M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13','#d6457a','Chinese interface (beta) and fonts','View › Language, English font and Chinese font. svguest still opens in English.']];
+// WN: the What's new card for this version (60a), rewritten for each release: the hero (a small picture of the main
+// new feature: its chip and tiles [colour, shape r/c/l]), its one-line lead, and four more rows [icon path, title, line]
+const WN={chip:'New · Library',
+  tiles:[['#3a7bd5','r'],['#e9a23b','c'],['#2a9d6a','r'],['#d6457a','l'],['#7c5cff','c'],['#262626','r'],['#9a9a9a','l'],['#3a7bd5','c']],
+  lead:'Save a selection as your own asset, then click or drag it into any figure at its real size.',
+  items:[['M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8zM8 5.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z','Colour blindness check','Find colours colour-blind readers can\'t tell apart; remap to a safe palette.'],
+    ['M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z','TIFF pictures','Open, drop or paste TIFF images directly.'],
+    ['M9 1.5 3 9h4.5L7 14.5 13 7H8.5z','Faster on big figures','Select, move and undo up to 3× faster.'],
+    ['M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13','Chinese interface (beta)','View › Language, and interface fonts.']]};
 // LBD: the Library's demo assets, placed once in a new Library (29a)
 const LBD=[['svguest/svguest logo.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="11 21 863 195" width="40mm" height="9.04mm"><g fill="none" stroke="#1c1c1c"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="10"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="7.5"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="9"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="9"/></g><path fill="#1c1c1c" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg>'],['svguest/TBtools-II.svg','<svg xmlns="http://www.w3.org/2000/svg" width="12mm" height="12mm" viewBox="0 0 16 16"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg>']];
 // CAND: font names tested (hasF) where queryLocalFonts is unavailable
@@ -1541,17 +1550,18 @@ const ZH={
  "Open@open":"开口",
  "Language":"语言 Language",
  "What's new":"新功能",
- "Full release notes":"完整更新说明",
+ "Release notes":"更新说明",
  "Got it":"知道了",
- "Save a selection as your own asset, then click or drag it into any figure at its real size. In the top bar.":"把选中的对象存为自己的素材，之后点击或拖到任意图里，保持原尺寸。在顶栏。",
+ "New · Library":"新功能 · 素材库",
+ "Save a selection as your own asset, then click or drag it into any figure at its real size.":"把选中的对象存为素材，之后点击或拖入任意图中，尺寸保持不变。",
  "Colour blindness check":"色盲检查",
- "FigKit finds colours colour-blind readers can't tell apart, shows what they see and remaps to a safe palette.":"FigKit 找出色盲读者分不清的颜色，显示他们看到的效果，并一键换成安全配色。",
+ "Find colours colour-blind readers can't tell apart; remap to a safe palette.":"找出色盲读者分不清的颜色，一键换成安全配色。",
  "TIFF pictures":"TIFF 图片",
- "Open, drop or paste TIFF images like any other picture.":"像其他图片一样打开、拖入或粘贴 TIFF 图片。",
+ "Open, drop or paste TIFF images directly.":"直接打开、拖入或粘贴 TIFF 图片。",
  "Faster on big figures":"大图更快",
- "Selecting, moving and undoing are up to 3× faster on files with 100,000 objects.":"在含 10 万个对象的文件上，选择、移动和撤销最多快 3 倍。",
- "Chinese interface (beta) and fonts":"中文界面（测试版）和字体",
- "View › Language, English font and Chinese font. svguest still opens in English.":"在 视图 › 语言、英文字体 和 中文字体 中设置。svguest 默认仍以英文打开。",
+ "Select, move and undo up to 3× faster.":"选择、移动、撤销最多快 3 倍。",
+ "Chinese interface (beta)":"中文界面（测试版）",
+ "View › Language, and interface fonts.":"视图 › 语言，以及界面字体。",
  "Show this version's new features":"显示这个版本的新功能",
  "English font":"英文字体",
  "Chinese font":"中文字体",
@@ -5103,16 +5113,24 @@ $('mNew').onclose=async()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew
 // once per version (sgSeen). The version is read from #mBrand's title, so a release bumps it in the usual places only.
 // It isn't shown where storage can't keep the mark (it would come back on every start); the palette reopens it.
 const WNV=(($('mBrand').title.match(/v[\d.]+/))||[''])[0]; // this version, "v1.2.0"
-// the rows, built once at load, before the language pass (64) translates them
-$('mWnL').replaceChildren(...WN.map(([d,c,t,x])=>{
+// the card, built once at load from WN, before the language pass (64) translates it
+$('mWnC').textContent=WN.chip;
+$('mWnG').replaceChildren(...WN.tiles.map(([c,k],i)=>{
+  const t=el('b'),m=el('i',k==='r'?'':k);
+  m.style.background=c;
+  t.style.animationDelay=(.08+i*.035)+'s';
+  t.append(m);
+  return t;
+}));
+$('mWnP').textContent=WN.lead;
+$('mWnL').replaceChildren(...WN.items.map(([d,t,x])=>{
   const r=$('mWnT').content.firstElementChild.cloneNode(true);
-  r.style.setProperty('--c',c);
   r.querySelector('path').setAttribute('d',d);
   r.querySelector('b').textContent=t;
   r.querySelector('span').textContent=x;
   return r;
 }));
-$('mWnV').textContent=WNV;
+$('mWnV').textContent=WNV.slice(1).replace(/\.0$/,''); // "1.2" for v1.2.0
 $('mWnA').href='https://github.com/JieqiangHe/svguest/releases/tag/'+WNV;
 const wnOpen=()=>{
   if(!$('mWn').open)$('mWn').showModal();

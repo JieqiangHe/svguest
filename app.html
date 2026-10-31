@@ -176,7 +176,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mTs{display:flex;flex-direction:column;gap:5px}#mSizes div{display:flex;align-items:center;gap:4px;margin:2px 0}#mSizes span{width:78px}#mSizes input{width:48px!important}#mSizes button{margin-left:auto}
 .row{display:flex;gap:3px}.row button{flex:1}:is(#mSide,#mPop,#mFg) .row{gap:6px;margin:0}:is(#mSide,#mPop,#mFg) .row>button{height:24px;min-width:0;padding:0 4px}:is(#mSide,#mPop,#mFg) select{width:100%;height:24px}#mPg{flex:1;width:auto!important;min-width:0}
 .seg{display:flex;gap:2px;min-width:0;padding:2px;border-radius:7px;background:var(--btnh)}.row .seg{flex:1}.seg.o,.seg.t{flex:none}.seg button{flex:1;height:20px;min-width:0;padding:0;display:grid;place-items:center;border:0;border-radius:5px;background:none;color:var(--h4)}.seg.o button,.seg.t button{width:26px}.seg button:hover{background:none;color:var(--fg)}.seg button.on{background:var(--btn);color:var(--fg);box-shadow:var(--sh)}
-.ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.ic rect{stroke:none}.seg.o rect{fill:none;stroke:currentColor;stroke-width:1.4}
+.ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.fl svg{stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fl .ax,.fl .ho{fill:none}.ic rect{stroke:none}.seg.o rect{fill:none;stroke:currentColor;stroke-width:1.4}
 :is(#mSide,#mPop,#mFg) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mPop,#mFg) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mPop,#mFg) .tgb svg,:is(#mSide,#mPop,#mFg) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mPop,#mFg) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mPop,#mFg) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
 .ap input[type=color].dim{opacity:.35}:is(#mSide,#mPop,#mFg) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mPop,#mFg) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mPop,#mFg) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mPop,#mFg) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mPop,#mFg) .nn:hover{border-color:var(--swb)}:is(#mSide,#mPop,#mFg) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mPop,#mFg) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mPop,#mFg) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mPop,#mFg) input::-webkit-inner-spin-button{display:none}
 /* ══ 50 History and status bar ══ */
@@ -345,7 +345,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section class="sx"><h4>Transform <small>mm</small></h4><div>
 <div class="g2" id="mTf"><label class="f">X<input type="number" step="0.1" data-f="x"></label><label class="f">Y<input type="number" step="0.1" data-f="y"></label>
 <label class="f">W<input type="number" step="0.1" data-f="w"></label><label class="f">H<input type="number" step="0.1" data-f="h"></label>
-<label class="f" title="Rotation angle in degrees (counterclockwise)">↻<input type="number" data-f="r"><em>°</em></label><label class="tgb" title="Keep the width-to-height ratio when W or H is typed"><input type="checkbox" id="mLock" checked><svg viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5 7.5 13A2.5 2.5 0 0 1 4 9.5L5.5 8"/></svg>Lock ratio</label></div></div></section>
+<label class="f" title="Rotation angle in degrees (counterclockwise)">↻<input type="number" data-f="r"><em>°</em></label><label class="tgb" title="Keep the width-to-height ratio when W or H is typed"><input type="checkbox" id="mLock" checked><svg viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5 7.5 13A2.5 2.5 0 0 1 4 9.5L5.5 8"/></svg>Lock ratio</label>
+<div class="seg ic fl"><button data-a="flipH" title="Flip horizontal: mirror left to right about the selection's centre (Shift+H)"><svg viewBox="0 0 16 16"><path class="ax" d="M8 1.5v2M8 7v2M8 12.5v2"/><path d="M2 3.5v9L6 8z"/><path class="ho" d="M14 3.5v9L10 8z"/></svg></button><button data-a="flipV" title="Flip vertical: mirror top to bottom about the selection's centre (Shift+V)"><svg viewBox="0 0 16 16"><path class="ax" d="M1.5 8h2M7 8h2M12.5 8h2"/><path d="M3.5 2h9L8 6z"/><path class="ho" d="M3.5 14h9L8 10z"/></svg></button></div></div></div></section>
 <section class="sx"><h4>Align</h4><div>
 <div class="seg ic">
 <button data-a="al" title="Align left"><svg viewBox="0 0 16 16"><path d="M2 1v14"/><rect x="4" y="3" width="10" height="4"/><rect x="4" y="9" width="6" height="4"/></svg></button>
@@ -548,7 +549,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div>
 <section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
 <section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo; Edit › History lists the steps</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
-<section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
+<section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Shift+H</kbd> <kbd>V</kbd></dt><dd>Flip horizontal, vertical (also in Transform and the right-click menu)</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
 <section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd><dt>Colour blindness</dt><dd>Colours that run together for colour-blind readers, the canvas as they see it, and a remap to a safe palette</dd></dl></section>
 <section><h4>Library</h4><dl><dt>Add</dt><dd>Select objects, then Add selection in the Library (or Right-click › Add to Library…); give it a name and a category</dd><dt>Insert</dt><dd>Click an asset to put it at the centre of the view, or drag it onto the canvas; it keeps its size in mm</dd><dt>Keep a copy</dt><dd>The Library lives in this browser: Export .zip now and then (it reminds you), Import… takes it back here or in another browser</dd></dl></section>
 </div>
@@ -611,6 +612,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 23 Marker heads: arrowheads on any path, line or polyline
 // 24 Point editing: path parsing (pparse, pmodel), anchors
 // 25 Style commands: dash, bold/italic, anchors, eyedropper style, pen, swap, transform again
+// 25a Flip: mirror the selection horizontally or vertically
 // 26 Crop: crop tool, crop clipPaths
 // 27 FigKit links: labels, frames, bars, zoom insets kept fitted (fgSync)
 // 28 FigKit tools: size, grid, space, positions, labels, frames, colours, pictures
@@ -791,7 +793,7 @@ const IC={up:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"
     mark:'<svg viewBox="6 4.75 228 228"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="20"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="14"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="16"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="16"/></svg>'};
 // CM: context menu entries: [action, label, key], 0 a separator
 const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste here','Ctrl+V'],['pplace','Paste in place','Ctrl+Shift+V'],['del','Delete','Del'],0,['group','Group','Ctrl+G'],['ungroup','Ungroup','Ctrl+Shift+G'],0,
-  ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['libAdd','Add to Library…'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
+  ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['flipH','Flip horizontal','Shift+H'],['flipV','Flip vertical','Shift+V'],0,['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['libAdd','Add to Library…'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
 // UFE, UFZ: the interface fonts offered (01c), English and Chinese, those installed (Chinese names come through ZH)
 const UFE=['Arial','Helvetica','Helvetica Neue','Segoe UI','Roboto','Inter','Calibri','Verdana','Tahoma','Avenir Next','Gill Sans','Lato','Open Sans','Source Sans 3','Noto Sans','IBM Plex Sans','Ubuntu','DejaVu Sans','Liberation Sans'],
   UFZ=['PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans SC','Noto Sans CJK SC','Hiragino Sans GB','HarmonyOS Sans SC','DengXian','SimHei','STHeiti','WenQuanYi Micro Hei','WenQuanYi Zen Hei','Source Han Serif SC','Noto Serif SC','Songti SC','SimSun','Kaiti SC','KaiTi'];
@@ -843,6 +845,11 @@ const ZH={
  "Paste in place":"原位粘贴",
  "Delete":"删除",
  "Transform again":"再次变换",
+ "Flip horizontal: mirror left to right about the selection's centre (Shift+H)":"水平翻转：以所选对象的中心左右镜像 (Shift+H)",
+ "Flip vertical: mirror top to bottom about the selection's centre (Shift+V)":"垂直翻转：以所选对象的中心上下镜像 (Shift+V)",
+ "Flip horizontal":"水平翻转",
+ "Flip vertical":"垂直翻转",
+ "Flip horizontal, vertical (also in Transform and the right-click menu)":"水平翻转、垂直翻转（也在\"变换\"和右键菜单中）",
  "Find and replace…":"查找和替换…",
  "Select ▾":"选择 ▾",
  "All":"全选",
@@ -1769,8 +1776,8 @@ const I0=new DOMMatrix();function lms(s){if(!s)return I0;const m=new DOMMatrix()
 function ctm(e){const m=new DOMMatrix();for(;e&&e!==root;e=e.parentNode){const t=e.getAttribute&&e.getAttribute('transform');t&&m.preMultiplySelf(lms(t))}return m}
 // sc(m): m's scale (√
 // det
-// ); ang(e): e's rotation in degrees, counterclockwise; q45(x,y): the vector at a 45° step, and the step
-const sc=m=>Math.sqrt(abs(m.a*m.d-m.b*m.c)),ang=e=>{const m=ctm(e);return-atan2(m.b,m.a)*180/PI},q45=(x,y)=>{const a=round(atan2(y,x)/(PI/4)),r=hypot(x,y);return[r*cos(a*PI/4),r*sin(a*PI/4),a]};
+// ); ang(e): e's rotation in degrees, counterclockwise (a mirrored e is read as flipped horizontally, then rotated); q45(x,y): the vector at a 45° step, and the step
+const sc=m=>Math.sqrt(abs(m.a*m.d-m.b*m.c)),ang=e=>{const m=ctm(e),f=m.a*m.d-m.b*m.c<0?-1:1;return-atan2(f*m.b,f*m.a)*180/PI},q45=(x,y)=>{const a=round(atan2(y,x)/(PI/4)),r=hypot(x,y);return[r*cos(a*PI/4),r*sin(a*PI/4),a]};
 // tStr(m): m as a transform attribute (null for the identity, translate() when only moved); setT writes it or removes it
 const tStr=m=>{const v=[fm(m.a),fm(m.b),fm(m.c),fm(m.d),fc(m.e),fc(m.f)];return v.join()==='1,0,0,1,0,0'?null:v.slice(0,4).join()==='1,0,0,1'?`translate(${v[4]},${v[5]})`:`matrix(${v})`};
 function setT(e,m){const t=tStr(m);t?e.setAttribute('transform',t):e.removeAttribute('transform')}
@@ -2845,6 +2852,19 @@ function fsNo(){finish(true);const p=fsA;stp(p==='fill'?'No fill':'No stroke');i
 // fsz(d): the selected texts d pt bigger; every size is read before any is written: alternating made each read
 // restyle the whole document (Ctrl+Shift+. on 20k texts took ~4 s)
 function fsz(d){const ts=selTexts();if(!ts.length)return;const pt=memoize(()=>ts.map(t=>max(.5,+(tsize(t)+d).toFixed(1))));ts.forEach((t,i)=>setSize(t,pt[i]));why='Font size';commit()}
+// ══ 25a Flip ════
+// flipSel(h): mirrors the selection about its box's centre (Illustrator's Reflect, Inkscape's H and V), as a scale of -1
+// written into each object's transform, so nothing else changes and Transform again repeats it; texts mirror too
+function flipSel(h){
+  finish(true)
+  const b=sb
+  if(!sel.length||!b)return msg('Select something to flip first')
+  const M=about(S(h?-1:1,h?1:-1),b.x+b.w/2,b.y+b.h/2)
+  keep(M,b)
+  applyM(M)
+  stp(h?'Flip horizontal':'Flip vertical')
+  commit()
+}
 // ══ 26 Crop ════
 // CR is the open session; cropR writes a crop… clipPath in the image's own coordinates, chaining an existing
 // clip-path. Pixels are never touched.
@@ -4127,7 +4147,7 @@ function bandPrev(){if(D.pvOff||D.pvT)return;D.pvT=setTimeout(()=>{const d=D;if(
 // ══ 32 Context menu ════
 // cmE keeps the event, so Paste here pastes at the pointer; Ctrl+click is ignored (macOS selection).
 function cmenu(e){e.preventDefault();if(!root||e.ctrlKey)return;finish(true);const t=hit(e);cmE=e;if(t&&!sel.some(s=>s.contains(t))){const[ob,c]=grab(t,0);ctx=c;setSel([ob])}
-  const ns=!sel.length,im=sel.length===1&&sel[0].localName==='image'&&sel[0],I=im?[['cropI','Crop image','C'],...cropK(stGet(im,'clip-path'))?[['uncrop','Remove crop']]:[],0]:[],off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,sf:ns,ss:ns,libAdd:ns,lock:ns,ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
+  const ns=!sel.length,im=sel.length===1&&sel[0].localName==='image'&&sel[0],I=im?[['cropI','Crop image','C'],...cropK(stGet(im,'clip-path'))?[['uncrop','Remove crop']]:[],0]:[],off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,flipH:ns,flipV:ns,sf:ns,ss:ns,libAdd:ns,lock:ns,ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
   m.replaceChildren(...CM.flatMap(x=>x&&x[0]==='group'?[...I,x]:[x]).map(x=>{if(!x)return el('hr');const b=el('button',0,x[1]);b.dataset.a=x[0];x[2]&&b.append(el('kbd',0,x[2]));b.disabled=!!off[x[0]];return b}));
   m.style.display='block';const r=m.getBoundingClientRect();m.style.left=max(4,min(e.clientX,innerWidth-r.width-4))+'px';m.style.top=max(4,min(e.clientY,innerHeight-r.height-4))+'px'}
 const cmOff=()=>{$('mCM').style.display=''};
@@ -4794,7 +4814,7 @@ const A={
   help:()=>hlpOpen(),rulers:()=>toggle('rulers'),grid:()=>toggle('grid'),touch:()=>toggle('touch'),auto:()=>{toggle('auto');opts.auto?(asNow(1),msg('Auto-save on: the open file is copied into this browser as you work (File › Open recent)')):(clearTimeout(asT),msg('Auto-save off: no more copies are kept; Open recent keeps the ones it has'))},kept:()=>kpShow(),autoDir:()=>fdSet(),lib:lbTg,libAdd:lbAdd,
   portrait:()=>vb.w>vb.h&&setPage(vb.x,vb.y,vb.h,vb.w),landscape:()=>vb.h>vb.w&&setPage(vb.x,vb.y,vb.h,vb.w),
   fitPage:()=>{finish(true);const b=memoize(()=>cands(root,1).reduce((a,e)=>un(a,bbox(e)),null)),m=1/U;b?setPage(b.x-m,b.y-m,b.w+2*m,b.h+2*m):msg('Nothing to fit')},
-  allText:()=>{ctx=root;setSel(texts().filter(t=>!lkd(t)))},none:()=>{ctx=root;setSel([])},svgAs:()=>{fh=null;save()},again:tAgain,pplace:()=>paste(true),pfront:()=>pasteZ(0),pback:()=>pasteZ(1),dflt,fsNo,
+  allText:()=>{ctx=root;setSel(texts().filter(t=>!lkd(t)))},none:()=>{ctx=root;setSel([])},svgAs:()=>{fh=null;save()},again:tAgain,flipH:()=>flipSel(1),flipV:()=>flipSel(0),pplace:()=>paste(true),pfront:()=>pasteZ(0),pback:()=>pasteZ(1),dflt,fsNo,
   z100:()=>zv(U*96/25.4/(Z*k)),zin:()=>zv(1.25),zout:()=>zv(.8),all:()=>setSel(cands(top_(ctx)?root:ctx)),swap:swapFS,sf:()=>alike('fill'),ss:()=>alike('stroke'),arial:()=>{texts().forEach(t=>setFont(t,'font-family','Arial'));commit()}};
 for(const c of'lcrtmb')A['a'+c]=()=>align(c);
 A.cut=()=>{copyOut();del()};A.below=()=>cmE&&selBelow(cmE,sel[0]);A.pasteHere=()=>{cmE&&(mouse=vp(cmE));paste()};
@@ -5195,7 +5215,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
     Period:e.shiftKey&&(()=>fsz(1)),Comma:e.shiftKey&&(()=>fsz(-1)),KeyG:e.shiftKey&&e.altKey&&ungroupAll,Digit2:e.altKey?A.unlock:A.lock}[e.code]||{z:()=>undo(e.shiftKey),y:()=>undo(1),c:copyOut,x:()=>{copyOut();del()},v:e.shiftKey?A.pplace:()=>{pv=1;setTimeout(()=>{pv&&paste();pv=0})},
     d:tAgain,h:A.find,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,l:e.shiftKey&&A.layers,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,u:selTexts().length&&A.und,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
   else if(ar)f=sel.length&&(()=>once(()=>nudge(ar[0],ar[1],e.shiftKey),e.repeat));
-  else f={Enter:CR&&cropOK,Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,x:e.shiftKey&&swapFS,d:dflt,'/':fsNo,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
+  else f={Enter:CR&&cropOK,Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,H:A.flipH,V:A.flipV,x:e.shiftKey&&swapFS,d:dflt,'/':fsNo,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();stp(AN.get(f)||'');f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});

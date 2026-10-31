@@ -27,8 +27,6 @@ sed -i "s/$old/$new/g" app.html index.html # macOS: sed -i ''
 grep -c "$new" app.html index.html        # expect 2 and 2
 ```
 
-The What's new card (`WN` in `app.html` › 01a Data: the hero's chip and tiles picturing the main new feature, its one-line lead, and four more rows of icon path, title and line) shows once on the first start of each version; rewrite its rows for the new version, in user terms, every claim matching the app, and add their Chinese to `ZH` (01b) word for word, or they stay English in Chinese mode. Its version and its release-notes link come from `#mBrand`'s title, so nothing else changes.
-
 The README carries no release steps (the user wants it short); this skill is the only place for them. The plugin has no version field of its own; it carries `app.html`, so rebuild it:
 
 ```bash

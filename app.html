@@ -5112,7 +5112,7 @@ $('mNew').onclose=async()=>{const w=+$('mNW').value,h=+$('mNH').value;if($('mNew
 // A card on the first start of each new version (asked for by the user, 31 Oct 2026): what changed, from WN (01a),
 // once per version (sgSeen). The version is read from #mBrand's title, so a release bumps it in the usual places only.
 // It isn't shown where storage can't keep the mark (it would come back on every start); the palette reopens it.
-const WNV=(($('mBrand').title.match(/v[\d.]+/))||[''])[0]; // this version, "v1.2.0"
+const WNV=(($('mBrand').title.match(/v[\d.]+/))||[''])[0]; // this version, as "vX.Y.Z"
 // the card, built once at load from WN, before the language pass (64) translates it
 $('mWnC').textContent=WN.chip;
 $('mWnG').replaceChildren(...WN.tiles.map(([c,k],i)=>{
@@ -5130,7 +5130,7 @@ $('mWnL').replaceChildren(...WN.items.map(([d,t,x])=>{
   r.querySelector('span').textContent=x;
   return r;
 }));
-$('mWnV').textContent=WNV.slice(1).replace(/\.0$/,''); // "1.2" for v1.2.0
+$('mWnV').textContent=WNV.slice(1).replace(/\.0$/,''); // "1.2" for version 1.2.0, "1.2.1" for 1.2.1
 $('mWnA').href='https://github.com/JieqiangHe/svguest/releases/tag/'+WNV;
 const wnOpen=()=>{
   if(!$('mWn').open)$('mWn').showModal();

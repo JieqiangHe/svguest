@@ -5000,7 +5000,7 @@ function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEa
 const kIc=a=>{const n=/^[pj][36]00$/.test(a)?'png':a,t=/^tint./.test(a)&&LUT[a.slice(4)],d=t?'M8 1.5 4.2 7.2a4.4 4.4 0 1 0 7.6 0z':KI[n]||LI[{lock:'lk',unlock:'ul',layers:'L',group:'g',fgUpd:'use'}[n]];if(!d)return null;
     const[a1,f]=d.split('|'),v=mk('svg',{viewBox:'0 0 16 16',class:'kg'});a1&&mk('path',{d:a1},v);f&&mk('path',{d:f,class:'kf'},v);t&&(v.lastChild.style.fill=lutC(a.slice(4)));return v};
 function kDraw(){const L=$('mKl');L.replaceChildren();L.scrollTop=0;let g;if(!kR.length)return L.append(el('p',0,`No command matches “${$('mKq').value.trim()}”`));
-  kR.forEach((x,i)=>{const c=x.c,r=el('div',(i===kI?'on':'')+(c.off?' d':'')),k=el('span','ki '+(c.ic||'')),v=c.b.querySelector('svg');c.g!==g&&L.append(el('h4',0,g=c.g));
+  kR.forEach((x,i)=>{const c=x.c,r=el('div',(i===kI?'on':'')+(c.off?' d':'')),k=el('span','ki '+(c.ic||'')),v=!c.b.closest('#mLib')&&c.b.querySelector('svg');c.g!==g&&L.append(el('h4',0,g=c.g));
     let w;if(v){w=v.cloneNode(true);c.ic==='t'&&(w.style.strokeWidth=gcs(v).strokeWidth);gcs(v).fill==='none'&&(w.style.fill='none');k.append(w)}else if(w=kIc(c.b.dataset.a))k.append(w);else c.b.textContent.trim().length<3&&(k.classList.add('kt'),k.append(...[...c.b.childNodes].map(n=>n.cloneNode(true))));
     r.dataset.i=i;r.setAttribute('role','option');r.title=c.t;r.append(k,el('span',0,c.n));c.b.classList.contains('on')&&r.append(el('span','kc','✓'));c.k&&r.append(el('kbd',0,kTx(c.k)));L.append(r)})}
 function kMove(d){if(!kR.length)return;kI=(kI+d+kR.length)%kR.length;const rs=$('mKl').querySelectorAll('div');rs.forEach((r,i)=>r.classList.toggle('on',i===kI));rs[kI].scrollIntoView({block:'nearest'})}

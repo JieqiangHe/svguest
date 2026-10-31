@@ -14,4 +14,6 @@ A tiny SVG editor for scientific figures, in one HTML file. Touch up figures fro
 
 https://github.com/user-attachments/assets/a6501747-b90a-4e66-8a97-4ff731155efa
 
+## Using others' graphics
+
 Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.

@@ -11,9 +11,11 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.awt.event.InputMethodEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -91,10 +93,99 @@ public class PluginInject {
             set(b, "StartDownloadCallback", (pa, tell) -> save(p, (String) call(call(call(pa, "download"), "target"), "suggestedFileName"), tell, f -> call(tell, "download", f)));
             if (set(b, "PrintHtmlCallback", (pa, tell) -> save(p, pdfName(b), tell, f -> pdf(pa, tell, f)))) set(b, "PrintCallback", (pa, tell) -> call(tell, "print"));
             else System.err.println("PluginInject: no PrintHtmlCallback in this JxBrowser, printing left to TBtools");
+            keys(p);
         } catch (Throwable e) {
             e.printStackTrace();
         }
         return true;
+    }
+
+    // JxBrowser's off-screen view often never delivers a letter to the page (a Chinese IME, or focus
+    // stuck on the Swing side). Forward the physical key; the page ignores it while a field is focused.
+    private static void keys(JPanel p) {
+        if (Boolean.TRUE.equals(p.getClientProperty("keys"))) return;
+        p.putClientProperty("keys", Boolean.TRUE);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ev -> {
+            if (ev.getID() != KeyEvent.KEY_PRESSED || !p.isShowing()) return false;
+            Component src = ev.getComponent();
+            if (src == null || !SwingUtilities.isDescendingFrom(src, p)) return false;
+            String code = domCode(ev);
+            if (code.isEmpty()) return false;
+            Object b = p.getClientProperty(PluginInject.class);
+            if (b == null) return false;
+            String js = "window.ocrpKey&&ocrpKey(" + jsStr(code) + "," + jsStr(domKey(ev, code)) + ","
+                    + ev.isShiftDown() + "," + ev.isMetaDown() + "," + ev.isControlDown() + "," + ev.isAltDown() + ")";
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    Object f = null;
+                    for (String w : new String[]{"focusedFrame", "mainFrame"}) if (f == null) try {
+                        f = call(b, w);
+                        if (f instanceof Optional) f = ((Optional<?>) f).orElse(null);
+                    } catch (NoSuchMethodException x) {
+                    }
+                    if (f != null) call(f, "executeJavaScript", js);
+                } catch (Throwable e) {
+                    System.err.println("PluginInject: key forward failed: " + e.getMessage());
+                }
+            });
+            return false;
+        });
+    }
+
+    private static String domCode(KeyEvent e) {
+        int c = e.getKeyCode();
+        if (c >= KeyEvent.VK_A && c <= KeyEvent.VK_Z) return "Key" + (char) ('A' + (c - KeyEvent.VK_A));
+        if (c >= KeyEvent.VK_0 && c <= KeyEvent.VK_9) return "Digit" + (char) ('0' + (c - KeyEvent.VK_0));
+        if (c >= KeyEvent.VK_NUMPAD0 && c <= KeyEvent.VK_NUMPAD9) return "Numpad" + (c - KeyEvent.VK_NUMPAD0);
+        switch (c) {
+            case KeyEvent.VK_ESCAPE: return "Escape";
+            case KeyEvent.VK_ENTER: return "Enter";
+            case KeyEvent.VK_SPACE: return "Space";
+            case KeyEvent.VK_COMMA: return "Comma";
+            case KeyEvent.VK_MINUS: return "Minus";
+            case KeyEvent.VK_EQUALS: return "Equal";
+            case KeyEvent.VK_SLASH: return "Slash";
+            case KeyEvent.VK_OPEN_BRACKET: return "BracketLeft";
+            case KeyEvent.VK_CLOSE_BRACKET: return "BracketRight";
+            case KeyEvent.VK_LEFT: return "ArrowLeft";
+            case KeyEvent.VK_RIGHT: return "ArrowRight";
+            case KeyEvent.VK_UP: return "ArrowUp";
+            case KeyEvent.VK_DOWN: return "ArrowDown";
+            case KeyEvent.VK_HOME: return "Home";
+            case KeyEvent.VK_END: return "End";
+            case KeyEvent.VK_PAGE_UP: return "PageUp";
+            case KeyEvent.VK_PAGE_DOWN: return "PageDown";
+            case KeyEvent.VK_BACK_SPACE: return "Backspace";
+            case KeyEvent.VK_ADD: return "NumpadAdd";
+            case KeyEvent.VK_SUBTRACT: return "NumpadSubtract";
+            default: return "";
+        }
+    }
+
+    private static String domKey(KeyEvent e, String code) {
+        if (code.startsWith("Key") && code.length() == 4) {
+            char ch = code.charAt(3);
+            return e.isShiftDown() ? String.valueOf(ch) : String.valueOf(Character.toLowerCase(ch));
+        }
+        if (code.startsWith("Digit") || code.startsWith("Numpad") && code.length() == 7) return code.substring(code.length() - 1);
+        if ("Space".equals(code)) return " ";
+        if ("Minus".equals(code)) return "-";
+        if ("Equal".equals(code)) return e.isShiftDown() ? "+" : "=";
+        if ("Slash".equals(code)) return e.isShiftDown() ? "?" : "/";
+        if ("BracketLeft".equals(code)) return "[";
+        if ("BracketRight".equals(code)) return "]";
+        if ("Comma".equals(code)) return ",";
+        return code;
+    }
+
+    private static String jsStr(String s) {
+        StringBuilder b = new StringBuilder("\"");
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '\\' || c == '"') b.append('\\');
+            b.append(c);
+        }
+        return b.append('"').toString();
     }
 
     private static synchronized void ime() {

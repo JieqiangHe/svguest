@@ -80,7 +80,7 @@ Edit notes later with `gh release edit "$new" --notes-file notes.md`.
 
 ## In a cloud sandbox (claude.ai/code)
 
-Seen 21 Oct 2026: the proxy lets `git push` of branches through, but refuses tag pushes ("remote end hung up") and the `repos/…/pages` API (403), and `gh` has no valid token. So do steps 1–3 up to `git push origin main:release`, draft the notes, and hand the user the exact commands for the tag push and step 5 to run on their Mac (`/Users/jh/a/proj/svguest`); then verify with `git ls-remote`.
+Seen 21 Oct 2026: the proxy lets `git push` of branches through, but refuses tag pushes ("remote end hung up") and the `repos/…/pages` API (403), and `gh` has no valid token. So do steps 1–3 up to `git push origin main:release`, draft the notes, and hand the user the exact commands for the tag push and step 5 to run on their Mac (`/Users/jh/a/proj/github_repo/svguest`); then verify with `git ls-remote`.
 
 ## One-time setup (done for v1.0.0, for reference)
 

@@ -179,6 +179,8 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 .ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.fl svg{stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fl .ax,.fl .ho{fill:none}.ic rect{stroke:none}.seg.o rect{fill:none;stroke:currentColor;stroke-width:1.4}
 :is(#mSide,#mPop,#mFg) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mPop,#mFg) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mPop,#mFg) .tgb svg,:is(#mSide,#mPop,#mFg) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mPop,#mFg) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mPop,#mFg) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
 .ap input[type=color].dim{opacity:.35}:is(#mSide,#mPop,#mFg) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mPop,#mFg) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mPop,#mFg) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mPop,#mFg) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mPop,#mFg) .nn:hover{border-color:var(--swb)}:is(#mSide,#mPop,#mFg) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mPop,#mFg) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mPop,#mFg) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mPop,#mFg) input::-webkit-inner-spin-button{display:none}
+/* ══ 57a Number fields ══ */
+:is(#mSide,#mPop,#mFg) .f:has(>input[type=number]:not(:disabled)),:is(#mSide,#mPop,#mFg) input[type=number]:not(:disabled){cursor:ew-resize}body.nfOn,body.nfOn *{cursor:ew-resize!important;user-select:none}#mFgC input[data-nf]{width:100%;min-width:0;height:22px}
 /* ══ 50 History and status bar ══ */
 #mSt{grid-column:1/-1;height:24px;display:flex;align-items:center;gap:16px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap}
 #mSt>span{min-width:0;overflow:hidden;text-overflow:ellipsis}#mDoc{color:var(--h4)}#mRt{flex:none;display:flex;gap:8px;position:relative;height:18px;padding-left:calc(14ch + 8px);color:var(--h4);font-variant-numeric:tabular-nums}#mPos{position:absolute;left:0;top:0;width:14ch;height:18px;line-height:18px;contain:strict;text-align:right;white-space:nowrap}#mLat{min-width:9ch}#mLat.slow{color:#c98a00}#mLat.bad{color:#e5534b}#mHm{max-height:60vh;overflow:auto}#mRm{min-width:220px}#mRm span{max-width:280px;overflow:hidden;text-overflow:ellipsis}#mHm button.fu{opacity:.55;font-style:italic}#mMsg{flex:0 1000 auto}#mCtx{max-width:300px}
@@ -543,7 +545,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <li><b>Save.</b> <kbd>Ctrl+S</kbd> exports the SVG; the File menu also exports PDF, PNG and JPG.</li>
 </ol><p class="tip">Can't find a command? <kbd>Ctrl+K</kbd> searches all of them. Every change can be undone with <kbd>Ctrl+Z</kbd>.</p></section>
 <section><h4>Select</h4><dl><dt>Click</dt><dd>Select what is under the pointer (outlined as you hover)</dd><dt>Right-click</dt><dd>Menu of common actions</dd><dt><kbd>Shift</kbd>+click</dt><dd>Add to or remove from the selection</dd><dt><kbd>Ctrl</kbd>+click</dt><dd>Select its whole group</dd><dt>Drag on empty</dt><dd>Box select everything the box touches (also on a page background); with <kbd>Ctrl</kbd>, whole objects; <kbd>Shift</kbd>+drag adds, and also starts over objects</dd><dt><kbd>Alt</kbd>+drag on empty</dt><dd>Box select only what is fully inside; View › Box select touches swaps the two</dd><dt><kbd>Alt</kbd>+click</dt><dd>Select the object below; again to go deeper</dd><dt><kbd>Esc</kbd></dt><dd>Select the enclosing group, then nothing</dd><dt><kbd>Ctrl+A</kbd></dt><dd>Select all in the group; <kbd>Ctrl+Shift+A</kbd> deselects</dd></dl></section>
-<section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (they snap to objects; <kbd>Shift</kbd>: 45°), bend it by the diamond in its middle (<kbd>Shift</kbd>: symmetric; back onto the line straightens it)</dd></dl></section>
+<section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (they snap to objects; <kbd>Shift</kbd>: 45°), bend it by the diamond in its middle (<kbd>Shift</kbd>: symmetric; back onto the line straightens it)</dd><dt>Number field</dt><dd>Drag sideways to change it (<kbd>Shift</kbd>: finer, <kbd>Ctrl</kbd>: ten steps); <kbd>Esc</kbd> puts it back; click to type</dd><dt>Type a sum</dt><dd>Number fields take sums and units: 85/2, 3.5in, 2*(10+4)</dd></dl></section>
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt>Properties tab</dt><dd>Above the Layers tab: hides or shows the side panel (also View › Properties)</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
@@ -653,6 +655,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 55 Menus: button clicks, step names, menu and submenu hover
 // 56 Layers window: #mPop, borrowing the side panel's sections
 // 57 Side panel fields: field change and key handlers (sideCh, sideK)
+// 57a Number fields: drag sideways to change a value, sums and units typed into number fields (Blender's feel)
 // 58 Fonts: font list, installed fonts
 // 59 Colour preview: live preview while a colour picker is open
 // 60 Dialogs: file input, New canvas, Help
@@ -1209,6 +1212,13 @@ const ZH={
  "Side handle":"边手柄",
  "Stretch; on text, re-wrap at that width":"拉伸；对文字则按该宽度重新换行",
  "Other handles":"其他手柄",
+ "Number field":"数字框",
+ "Drag sideways to change it (":"左右拖动可改变数值（",
+ ": finer,":"：更细，",
+ ": ten steps);":"：每次十步）；",
+ "puts it back; click to type":"恢复原值；点击可输入",
+ "Type a sum":"输入算式",
+ "Number fields take sums and units: 85/2, 3.5in, 2*(10+4)":"数字框可输入算式和单位：85/2、3.5in、2*(10+4)",
  "Rotate (":"旋转（",
  ": 15°), round a rectangle's corners, move a line's ends (they snap to objects;":"：15°），圆角矩形的圆角，移动线的端点（它们会吸附到对象；",
  ": 45°), bend it by the diamond in its middle (":"：45°），拖动线中间的菱形可使其弯曲（",
@@ -5127,7 +5137,9 @@ function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map
   for(const c of $('mSide').querySelectorAll(':scope>section')){const g=c.querySelector('h4').firstChild.data.trim();
     for(const b of c.querySelectorAll('[data-a]')){if(b.closest('#mSizes'))continue;const x=b.textContent.trim();ad(g,b,x.length>2?x:b.title.split(':')[0],kt(b.title),'f')}}
   return o}
-function kSc(c,q){const n=c.n.toLowerCase();if(n.startsWith(q))return 5;if([...n.matchAll(/[^a-z0-9]+/g)].some(m=>n.startsWith(q,m.index+m[0].length)))return 4;if(n.includes(q))return 3;
+// kWs(n,q): every word of q starts a word of n, in order ("ex pn" finds Export PNG, as Blender's menu search does)
+const kWs=(n,q)=>{const w=q.split(/\s+/).filter(Boolean);if(w.length<2)return false;const m=n.split(/[^a-z0-9µ]+/);let j=0;for(const x of m)if(j<w.length&&x.startsWith(w[j]))j++;return j===w.length};
+function kSc(c,q){const n=c.n.toLowerCase();if(n.startsWith(q))return 5;if([...n.matchAll(/[^a-z0-9]+/g)].some(m=>n.startsWith(q,m.index+m[0].length)))return 4;if(n.includes(q)||kWs(n,q))return 3;
   if((c.g+' '+c.t+' '+c.k).toLowerCase().includes(q))return 2;let j=0;for(const ch of n)ch===q[j]&&j++;return j===q.length?1:0}
 const kRc=()=>{try{return JSON.parse(ls('sgRecent')||'[]')}catch(_){return[]}};
 function kFil(){const q=$('mKq').value.trim().toLowerCase(),gi={},gm={};kC.forEach((c,i)=>c.g in gi||(gi[c.g]=i));
@@ -5211,6 +5223,136 @@ const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||
 $('mSide').addEventListener('click',e=>{const h=e.target.closest('#mSide>section>h4');h&&(h.parentNode.classList.toggle('shut'),ls('sgShut',SEC.flatMap((c,i)=>c.classList.contains('shut')?[i]:[]).join()))});addEventListener('input',e=>{const t=e.target;t.type==='color'&&t.nextElementSibling?.classList.contains('hx')&&hxS(t,t.value)},true);$('mPop').addEventListener('change',sideCh);
 $('mTx').addEventListener('focusin',()=>{const t=$('mTx')._t;!ed&&t&&root.contains(t)&&!lkd(t)&&edit(t,null,undefined,1)});
 const sideK=e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()};$('mSide').addEventListener('keydown',sideK);$('mPop').addEventListener('keydown',sideK);
+// ══ 57a Number fields ════
+// Blender's number fields (asked for by the user, 8 Nov 2026, after looking at BUI, Blender's interface as a native library,
+// which can't run in a page). A press on a number field that isn't being typed in, then a sideways drag, changes its value:
+// one step per NFX px, Shift a tenth of that, Ctrl ten steps, rounded to what it moves by. The pointer is locked where the
+// browser allows it, so a long drag never meets the screen's edge. Each frame sends input and change, as typing does, and
+// all the steps one drag commits merge into one (hold keeps trim from shifting them away); Esc puts value and drawing back.
+// A click without a drag selects the value for typing. While focused the field is a text field (data-nf), so it takes
+// sums and units (85/2, 3.5in, 2*(10+4)): nfEv works them out (a small parser, no eval) before any other handler reads
+// the value; a sum that can't be read puts the old value back. Fields: number inputs in Properties, the Layers window, FigKit.
+const NFX=4; // px of drag per step
+const NFM=/^(x|y|w|h|pw|ph)$/; // side-panel fields in mm that show no unit
+const NFU={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/96}; // length units a sum may use, in mm
+let NF=null; // the drag: t the input, v0 its value, x px moved, cx the last clientX (without pointer lock), l locked, u0 undo length, on dragging, k changes sent, q value waiting for a frame
+let nfT=0; // when the last drag ended: the click that follows it is swallowed
+// nfIn(t): t is one of the number fields this section serves (also while it is a text field)
+const nfIn=t=>t?.tagName==='INPUT'&&(t.type==='number'||t.dataset.nf)&&!!t.closest('#mSide,#mPop,#mFg');
+// nfOf(target): the number field a press on target means (the input, or its label.f box), else null
+const nfOf=x=>{
+  const t=x?.tagName==='INPUT'?x:x?.closest?.('.f')?.querySelector(':scope>input');
+  return nfIn(t)&&!t.disabled?t:null};
+// nfUn(t): the field's own unit (its <em>), when it is a length
+const nfUn=t=>{const u=t.parentNode.querySelector(':scope>em')?.textContent.trim()||(NFM.test(t.dataset.f||'')?'mm':'');return NFU[u]?u:''};
+// nfEv(s,u): the value of the sum s in a field whose unit is u ('' when it isn't a length), else null
+function nfEv(s,u){
+  const x=String(s).normalize('NFKC').replace(/[×·]/g,'*').replace(/÷/g,'/').replace(/,/g,'.').replace(/\s+/g,'').toLowerCase();
+  if(!x)return null;
+  let i=0;
+  const pk=()=>x[i],eat=c=>{if(x[i]===c){i++;return true}return false};
+  const num=()=>{
+    const m=/^(\d+\.?\d*|\.\d+)(e[+-]?\d+)?/.exec(x.slice(i));
+    if(m){i+=m[0].length;let v=+m[0];const w=/^[a-z]+/.exec(x.slice(i));
+      if(w&&NFU[w[0]]){if(!u)throw 0;i+=w[0].length;v*=NFU[w[0]]/NFU[u]}
+      return v}
+    const w=/^[a-z]+/.exec(x.slice(i));if(!w)throw 0;i+=w[0].length;
+    if(w[0]==='pi')return PI;
+    if(w[0]==='sqrt'&&eat('(')){const v=add();if(!eat(')'))throw 0;return Math.sqrt(v)}
+    throw 0};
+  const atom=()=>{if(eat('(')){const v=add();if(!eat(')'))throw 0;return v}return num()};
+  const pow=()=>{const b=atom();return eat('^')?b**una():b};
+  const una=()=>eat('-')?-una():eat('+')?una():pow();
+  const mul=()=>{let v=una();for(;;){if(eat('*'))v*=una();else if(eat('/'))v/=una();else return v}};
+  const add=()=>{let v=mul();for(;;){if(eat('+'))v+=mul();else if(eat('-'))v-=mul();else return v}};
+  try{const v=add();return i===x.length&&isFinite(v)&&abs(v)<1e7?v:null}catch{return null}}
+// nfS(v): a value as the field shows it
+const nfS=v=>String(+(+v).toPrecision(10));
+// nfLim(t,v): v kept within the field's min and max
+const nfLim=(t,v)=>{
+  const a=t.getAttribute('min'),b=t.getAttribute('max');
+  if(a!==''&&a!=null&&v<+a)v=+a;
+  if(b!==''&&b!=null&&v>+b)v=+b;
+  return v};
+// nfStep(t): what one step moves the field by (step="any" or none: 0.1)
+const nfStep=t=>{const s=+t.getAttribute('step');return s>0?s:.1};
+// nfSend(t,v): writes v and tells the panels, as typing would
+function nfSend(t,v){
+  t.value=nfS(v);
+  t.dispatchEvent(new Event('input',{bubbles:true}));
+  t.dispatchEvent(new Event('change',{bubbles:true}))}
+// nfGo(): sends the value waiting for this frame and merges what it committed into the drag's one step
+function nfGo(){
+  const d=NF;if(!d||d.q==null)return;
+  const v=d.q;d.q=null;
+  if(nfS(v)===d.t.value&&d.k)return;
+  if(!d.k)hold++;
+  d.k++;
+  nfSend(d.t,v);
+  while(undos.length>d.u0+1)merge(0)}
+function nfMove(e){
+  const d=NF;if(!d)return;
+  const l=!!document.pointerLockElement,m=l?e.movementX:e.clientX-d.cx;d.cx=e.clientX;
+  // the first event after the lock, and jumps no hand makes, are noise (Chromium reports the pointer's whole position once)
+  if(l!==d.l){d.l=l;if(l)return}
+  if(abs(m)>250)return;
+  d.x+=m*(e.shiftKey?.1:1);
+  if(!d.on){if(abs(d.x)<3)return;d.on=1;document.body.classList.add('nfOn');try{d.t.parentNode.requestPointerLock?.()?.catch?.(()=>{})}catch{}}
+  const s=nfStep(d.t),q=e.ctrlKey||e.metaKey?s*10:e.shiftKey?s/10:s;
+  const v=nfLim(d.t,round((d.v0+d.x/NFX*s)/q)*q);
+  const f=d.q==null;d.q=v;
+  if(f)requestAnimationFrame(nfGo)}
+// nfEnd(x): ends the drag; x (Esc) puts the value and the drawing back
+function nfEnd(x){
+  const d=NF;if(!d)return;
+  nfGo();NF=null;
+  removeEventListener('pointermove',nfMove,true);
+  removeEventListener('pointerup',nfUp,true);
+  removeEventListener('pointercancel',nfUp,true);
+  document.body.classList.remove('nfOn');
+  if(document.pointerLockElement)document.exitPointerLock();
+  if(d.k){
+    hold--;
+    if(x&&undos.length>d.u0){undo(0,1);redos.pop()}
+    trim();
+    if(x){d.t.value=nfS(d.v0);d.t.dispatchEvent(new Event('input',{bubbles:true}))}}
+  if(d.on)nfT=performance.now();
+  else{d.t.focus();d.t.select()}}
+const nfUp=()=>nfEnd(0);
+addEventListener('pointerdown',e=>{
+  if(e.button||NF||ed)return;
+  const t=nfOf(e.target);if(!t||document.activeElement===t)return;
+  e.preventDefault();
+  const a=document.activeElement;if(a&&a!==document.body&&a.blur)a.blur();
+  const v=nfEv(t.value,'');
+  NF={t,v0:v??(+t.getAttribute('min')||0),x:0,cx:e.clientX,u0:undos.length,on:0,k:0,q:null};
+  addEventListener('pointermove',nfMove,true);
+  addEventListener('pointerup',nfUp,true);
+  addEventListener('pointercancel',nfUp,true)},true);
+addEventListener('click',e=>{if(performance.now()-nfT<400&&nfOf(e.target)){e.preventDefault();e.stopPropagation();nfT=0}},true);
+addEventListener('keydown',e=>{
+  if(NF&&e.key==='Escape'){e.preventDefault();e.stopPropagation();nfEnd(1);return}
+  const t=e.target;if(!t.dataset?.nf)return;
+  if(e.key==='Enter'){const v=nfEv(t.value,nfUn(t));if(v!=null)t.value=nfS(v)}
+  if(e.key==='ArrowUp'||e.key==='ArrowDown'){
+    e.preventDefault();
+    const s=nfStep(t)*(e.shiftKey?10:e.altKey?.1:1),v=nfEv(t.value,nfUn(t))??(+t._v0||0);
+    nfSend(t,nfLim(t,round((v+(e.key==='ArrowUp'?s:-s))/s)*s))}},true);
+// focused, a number field is a text field, so it can hold a sum; blurred, a number field again
+addEventListener('focusin',e=>{
+  const t=e.target;if(!nfIn(t)||t.dataset.nf)return;
+  t._v0=t.value;t.dataset.nf=1;t.type='text';t.autocomplete='off';t.spellcheck=false;t.select()},true);
+addEventListener('focusout',e=>{
+  const t=e.target;if(!t.dataset?.nf)return;
+  const v=t.value.trim()===''?'':nfEv(t.value,nfUn(t));
+  delete t.dataset.nf;t.type='number';
+  t.value=v==null?t._v0:v===''?'':nfS(v)},true);
+addEventListener('change',e=>{
+  const t=e.target;if(!t.dataset?.nf||t.value.trim()==='')return;
+  const v=nfEv(t.value,nfUn(t));
+  if(v==null){e.stopImmediatePropagation();msg(`Not a number or a sum: ${t.value}`);t.value=t._v0;return}
+  t.value=nfS(v);t._v0=t.value},true);
+addEventListener('pointerlockchange',()=>{if(NF&&!document.pointerLockElement&&NF.on)nfEnd(0)});
 // ══ 58 Fonts ════
 // localFonts adds installed families (queryLocalFonts where allowed, else canvas width tests of CAND).
 const FONTS=[...$('mFonts').options].map(o=>o.value),sysF=[],fontList=()=>{const u=new Set(FONTS);root&&texts().forEach(t=>u.add(family(gcs(t))));sysF.forEach(f=>u.add(f));$('mFonts').replaceChildren(...[...u].map(f=>new Option(f)))};

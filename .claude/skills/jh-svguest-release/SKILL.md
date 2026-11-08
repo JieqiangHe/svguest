@@ -11,7 +11,7 @@ Order matters: tag before `gh release create` (otherwise gh makes its own tag on
 
 ## 1. Pick the version
 
-Semver from the last tag (`git describe --tags --abbrev=0`): bug fixes → patch, new features → minor, breaking changes to files people saved (SVG attributes, settings) → major. Ask the user if unsure.
+Semver from the last tag (`git describe --tags --abbrev=0`), by the user's rules in CLAUDE.md › Repo rules › Version numbers: bug fixes → patch, new features or a changed way of working → minor (the test: a What's new card means minor, no card means patch), broken compatibility with files, settings or the plugin people saved → major. A release takes the highest level among its changes. Ask the user if unsure.
 
 ## 2. Bump the version (commit to `main`)
 

@@ -4,7 +4,7 @@
 
 A tiny SVG editor for scientific figures, in one HTML file. Touch up figures from ggplot2, Inkscape or Adobe Illustrator in your browser or in TBtools. As a single file it may also open in the built-in viewers of VS Code or RStudio (untested). Nothing is uploaded.
 
-**Live: https://www.svguest.online** (also at https://jieqianghe.github.io/svguest/)
+**Live: https://www.svguest.online**
 
 [TBtools-II](https://github.com/CJ-Chen/TBtools-II) users can use `svguest.plugin` directly. Inside TBtools, SVG Chat can use TBtools' model for free, without an API key, or your own paid ChatGPT plan (Sign in with ChatGPT).
 

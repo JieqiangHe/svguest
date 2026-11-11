@@ -126,7 +126,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mTools svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
 #mTools a{margin-top:auto;width:36px;height:36px;display:grid;place-items:center;color:inherit;opacity:.6}#mTools a+a{margin-top:0}#mTools a.tb{opacity:.85}#mTools a.tb svg{width:21px;height:21px}#mTools a.sg svg{width:21px;height:21px}#mTools a:hover{opacity:1}
 #mTools>i{width:28px;height:1px;background:var(--line);margin:3px 0}
-#mTools .ddb{position:relative}#mTools .ddb::after{content:"";position:absolute;right:2px;bottom:2px;border:2.5px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.75}#mTools .menu{left:100%;top:0;margin:0 0 0 5px;min-width:150px}
+#mTools .ddb{position:relative}#mTools .ddb::after{content:"";position:absolute;right:2px;bottom:2px;border:2.5px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.75}#mTools .menu{left:100%;top:0;margin:0 0 0 5px;min-width:150px}#mTools .up .menu{top:auto;bottom:0}
 #mTools .menu button{width:100%;height:auto;display:flex;align-items:center;gap:8px;padding:3px 8px;border-color:transparent;background:transparent;white-space:nowrap}#mTools .menu button:hover{background:var(--btnh)}#mTools .menu button.on{background:var(--on);color:var(--onfg)}#mTools .menu button.on::before{content:none}#mTools .menu kbd{margin-left:auto;padding:0 0 0 16px;border:0;background:none;opacity:.6}
 #mFS{flex:none;width:40px;margin:3px 0 1px;border:1px solid var(--line);border-radius:12px;background:var(--fsd);box-shadow:0 1px 2px #00000012}#mFS .fs{position:relative;height:43px}#mFS svg{width:13px;height:13px;stroke-width:1.2}
 #mFS label{position:absolute;width:22px;height:22px;border:1px solid var(--swb);border-radius:3px;background-color:var(--c,#fff);cursor:pointer}#mFS label:hover{outline:2px solid var(--btnh)}#mFS label:has(:focus-visible),#mFS button:focus-visible{outline:1.5px solid var(--onb);outline-offset:1px}#mFS input{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
@@ -334,6 +334,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div class="dd" id="mLg"><button data-t="line" id="mLt" class="ddb" title="Line (\), arrow (A), inhibition (B), elbow connector (E) or brace ({): click to choose"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button><div class="menu" id="mLv"><button data-t="line" title="Line (\)"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg>Line<kbd>\</kbd></button><button data-t="arrow" title="Arrow (A): activation, positive regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 5h9v9"/></svg>Arrow<kbd>A</kbd></button><button data-t="inhibit" title="Inhibition (B): blunt-ended line, negative regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M14 2l8 8"/></svg>Inhibition<kbd>B</kbd></button><button data-t="elbow" title="Elbow connector (E): an arrow with right angles, as in pathways; its ends attach like arrows, its diamond moves the middle segment"><svg viewBox="0 0 24 24"><path d="M3 19h8V5h10M17 2l4 3-4 3"/></svg>Elbow connector<kbd>E</kbd></button><button data-t="brace" title="Brace ({): drag along what it groups; left to right points it up, right to left down, top to bottom right"><svg viewBox="0 0 24 24"><path d="M3 17Q3 12 7 12H10Q12 12 12 7Q12 12 14 12H17Q21 12 21 17"/></svg>Brace<kbd>{</kbd></button></div></div>
 <button data-t="drop" title="Eyedropper (I): click an object to give the selection its style; Alt+click applies the picked style to an object"><svg viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><path d="M8.5 8.5V5a3.5 3.5 0 0 1 7 0v3.5M7 8.5h10M10.2 8.5v9.5l1.8 4 1.8-4V8.5"/></g></svg></button><button data-t="crop" title="Crop a photo (C): click it and drag the handles or the box; Enter applies, Esc cancels"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg></button>
 <div id="mFS"><div class="fs"><label id="mFF" title="Fill: of the selection, or of new shapes when nothing is selected; click to choose a colour"><input type="color" id="mFc"></label><label id="mSF" title="Stroke: of the selection, or of new shapes when nothing is selected; click to choose a colour"><input type="color" id="mSc"></label><button data-a="swap" id="mFX" title="Swap fill and stroke (Shift+X)"><svg viewBox="0 0 12 12"><path d="M1.5 2.5h6a2 2 0 0 1 2 2v6M3.5.8 1.5 2.5l2 1.7M7.8 8.5l1.7 2 1.7-2"/></svg></button></div><div class="fr"><button data-a="dflt" id="mFD" title="Default fill and stroke: none and black (D)"><svg viewBox="0 0 12 12"><path d="M1 1h6.5v6.5H1z" style="fill:currentColor"/><path d="M4.5 4.5H11V11H4.5z" style="fill:var(--fsd)"/></svg></button><i></i><button data-a="fsNo" id="mFN" title="No colour: removes the fill or the stroke, whichever is in front (/)"><svg viewBox="0 0 12 12"><rect x="1.5" y="1.5" width="9" height="9" rx="1" style="fill:#fff;stroke:var(--swb)"/><path d="M2.6 9.4 9.4 2.6" style="stroke:#e5534b"/></svg></button></div></div><i></i>
+<div class="dd up"><button data-t="diamond" class="ddb" title="Flowchart shapes: click to choose; Shift keeps width and height equal; double-click a shape to type inside it"><svg viewBox="0 0 24 24"><path d="M12 4 21 12 12 20 3 12z"/></svg></button><div class="menu"><button data-t="diamond" title="Diamond: a decision or a filter"><svg viewBox="0 0 24 24"><path d="M12 4 21 12 12 20 3 12z"/></svg>Diamond</button><button data-t="capsule" title="Capsule: a start, an end or a sample"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/></svg>Capsule</button><button data-t="para" title="Parallelogram: data, input or output"><svg viewBox="0 0 24 24"><path d="M7 6H21L17 18H3z"/></svg>Parallelogram</button><button data-t="hexagon" title="Hexagon: a preparation step, a metabolite or a sugar ring"><svg viewBox="0 0 24 24"><path d="M7.5 5h9L21 12l-4.5 7h-9L3 12z"/></svg>Hexagon</button><button data-t="triangle" title="Triangle"><svg viewBox="0 0 24 24"><path d="M12 4 21 19H3z"/></svg>Triangle</button><button data-t="trapezoid" title="Trapezoid: flip it vertically for a funnel"><svg viewBox="0 0 24 24"><path d="M7 6h10l4 12H3z"/></svg>Trapezoid</button><button data-t="cylinder" title="Cylinder: a database or a reference genome"><svg viewBox="0 0 24 24"><path d="M5 7v10c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 7c0 1.7 3.1 3 7 3s7-1.3 7-3-3.1-3-7-3-7 1.3-7 3z"/></svg>Cylinder</button><button data-t="document" title="Document: a file"><svg viewBox="0 0 24 24"><path d="M4 5h16v12.5c-3-2.5-5-1-8 0s-5 2-8 0z"/></svg>Document</button><button data-t="note" title="Note: a sheet with a folded corner"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4zM15 4v5h5"/></svg>Note</button></div></div>
+<div class="dd up"><button data-t="barrow" class="ddb" title="Block arrows and callout: click to choose; double-click a shape to type inside it"><svg viewBox="0 0 24 24"><path d="M3 9.5h10V6l8 6-8 6v-3.5H3z"/></svg></button><div class="menu"><button data-t="barrow" title="Block arrow: drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 9.5h10V6l8 6-8 6v-3.5H3z"/></svg>Block arrow</button><button data-t="pentagon" title="Pentagon arrow: a step, or a gene; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3z"/></svg>Pentagon arrow</button><button data-t="chevron" title="Chevron: a step in a chain; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3l5-5z"/></svg>Chevron</button><button data-t="callout" title="Callout: a remark with a pointer"><svg viewBox="0 0 24 24"><path d="M4 5h16v10h-9l-4 4v-4H4z"/></svg>Callout</button></div></div>
 <a href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; svguest also runs in it as a plugin" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/></svg></a>
 <a href="https://bioanno.com/index" target="_blank" rel="noopener" title="BioAnno" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/><rect x=".6" y="5.4" width="14.8" height="5.2" rx="1.2" fill="#fffdf2" opacity=".93"/><text x="8" y="9.35" text-anchor="middle" textLength="13.4" lengthAdjust="spacingAndGlyphs" style="fill:#7a4108;stroke:none;font:700 4.2px Arial,Helvetica,sans-serif">BioAnno</text></svg></a>
 <a href="https://github.com/JieqiangHe/svguest" target="_blank" rel="noopener" title="svguest on GitHub"><svg viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
@@ -555,7 +557,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt>Properties tab</dt><dd>Above the Layers tab: hides or shows the side panel (also View › Properties)</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
-<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
+<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>Flowchart shapes and block arrows, in the two buttons under the colours: drag to draw; double-click one, or select any closed shape and press Enter, to type inside it. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, U, X² or X₂</dd><dt><kbd>Ctrl+B</kbd> <kbd>I</kbd> <kbd>U</kbd></dt><dd>Bold, italic, underline while editing; <kbd>Ctrl+U</kbd> also underlines selected texts</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
@@ -619,6 +621,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 17 Tools and ghost: Esc, setTool, the drag ghost
 // 18 Pointer: down/move/up, every canvas gesture
 // 19 Drawing: new shapes, arrowhead markers, new text
+// 19a Flow shapes: flowchart shapes and block arrows (FLW), text inside a shape (stext links)
 // 20 Text lines: lines, tspans, wrapping, the Text panel preview
 // 21 Text editing: edit/finish, in-place and Text panel editor
 // 22 Clipboard and grouping: copy, paste, delete, z-order, group, ungroup, align, nudge
@@ -808,7 +811,7 @@ const IC={up:'<svg class="chg" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"
     mark:'<svg viewBox="6 4.75 228 228"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="20"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="14"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="16"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="16"/></svg>'};
 // CM: context menu entries: [action, label, key], 0 a separator
 const CM=[['cut','Cut','Ctrl+X'],['copy','Copy','Ctrl+C'],['pasteHere','Paste here','Ctrl+V'],['pplace','Paste in place','Ctrl+Shift+V'],['del','Delete','Del'],0,['group','Group','Ctrl+G'],['ungroup','Ungroup','Ctrl+Shift+G'],0,
-  ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['flipH','Flip horizontal','Shift+H'],['flipV','Flip vertical','Shift+V'],0,['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['libAdd','Add to Library…'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
+  ['top','Bring to front','Ctrl+Shift+]'],['up','Bring forward','Ctrl+]'],['dn','Send backward','Ctrl+['],['bot','Send to back','Ctrl+Shift+['],0,['flipH','Flip horizontal','Shift+H'],['flipV','Flip vertical','Shift+V'],0,['stText','Add or edit text inside','Enter'],['below','Select the object below','Alt+click'],['sf','Select same fill'],['ss','Select same stroke'],0,['libAdd','Add to Library…'],0,['lock','Lock','Ctrl+2'],['unlock','Unlock all','Ctrl+Alt+2']];
 // UFE, UFZ: the interface fonts offered (01c), English and Chinese, those installed (Chinese names come through ZH)
 const UFE=['Arial','Helvetica','Helvetica Neue','Segoe UI','Roboto','Inter','Calibri','Verdana','Tahoma','Avenir Next','Gill Sans','Lato','Open Sans','Source Sans 3','Noto Sans','IBM Plex Sans','Ubuntu','DejaVu Sans','Liberation Sans'],
   UFZ=['PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans SC','Noto Sans CJK SC','Hiragino Sans GB','HarmonyOS Sans SC','DengXian','SimHei','STHeiti','WenQuanYi Micro Hei','WenQuanYi Zen Hei','Source Han Serif SC','Noto Serif SC','Songti SC','SimSun','Kaiti SC','KaiTi'];
@@ -919,6 +922,35 @@ const ZH={
  "Rectangle":"矩形",
  "Ellipse":"椭圆",
  "Wedge":"楔形",
+ "Diamond":"菱形",
+ "Capsule":"胶囊形",
+ "Parallelogram":"平行四边形",
+ "Hexagon":"六边形",
+ "Triangle":"三角形",
+ "Trapezoid":"梯形",
+ "Cylinder":"圆柱",
+ "Document":"文档形",
+ "Note":"便签",
+ "Block arrow":"粗箭头",
+ "Pentagon arrow":"五边形箭头",
+ "Chevron":"步骤箭头",
+ "Callout":"气泡标注",
+ "Diamond: a decision or a filter":"菱形：判断或筛选",
+ "Capsule: a start, an end or a sample":"胶囊形：开始、结束或样本",
+ "Parallelogram: data, input or output":"平行四边形：数据、输入或输出",
+ "Hexagon: a preparation step, a metabolite or a sugar ring":"六边形：准备步骤、代谢物或糖环",
+ "Trapezoid: flip it vertically for a funnel":"梯形：垂直翻转后就是漏斗",
+ "Cylinder: a database or a reference genome":"圆柱：数据库或参考基因组",
+ "Document: a file":"文档形：文件",
+ "Note: a sheet with a folded corner":"便签：带折角的纸",
+ "Block arrow: drag towards where it points":"粗箭头：朝它指向的方向拖动",
+ "Pentagon arrow: a step, or a gene; drag towards where it points":"五边形箭头：步骤或基因；朝它指向的方向拖动",
+ "Chevron: a step in a chain; drag towards where it points":"步骤箭头：一串步骤中的一步；朝它指向的方向拖动",
+ "Callout: a remark with a pointer":"气泡标注：带指向的说明",
+ "Flowchart shapes: click to choose; Shift keeps width and height equal; double-click a shape to type inside it":"流程图图形：点击选择；按住 Shift 宽高相等；双击图形可在里面输入文字",
+ "Block arrows and callout: click to choose; double-click a shape to type inside it":"粗箭头和气泡标注：点击选择；双击图形可在里面输入文字",
+ "Add or edit text inside":"添加或编辑图形内文字",
+ "Flowchart shapes and block arrows, in the two buttons under the colours: drag to draw; double-click one, or select any closed shape and press Enter, to type inside it. The text stays centred on its shape; click it once more to select the text itself":"流程图图形和粗箭头在颜色下方的两个按钮里：拖动绘制；双击图形，或选中任意闭合图形后按 Enter，可在里面输入文字。文字始终在图形中央；再点一次可选中文字本身",
  "Line":"直线",
  "Arrow":"箭头",
  "Inhibition":"抑制线",
@@ -2397,7 +2429,7 @@ function hud(M){H.replaceChildren();if(!root)return;rulers();
       mk('circle',{cx:(p[0][0]+p[1][0])/2,cy:p[0][1]-18,r:5,'data-h':'rot',style:'fill:#fff;stroke:#e8711a'},H);
       const e=sel[0];if(sel.length===1&&e.localName==='rect'){const m=ctm(e),[x,y,w,h,r]=rgeo(e),o=min(max(r,14/(Z*k*sc(m))),w/2,h/2),[cx,cy]=toS(m.transformPoint({x:x+o,y:y+o}));
         mk('title',{},mk('circle',{cx,cy,r:4.5,'data-h':'rad',style:B+'stroke-width:1.5;cursor:default'},H),'Drag to round the corners')}}}
-  if(D&&D.q){const[a,b]=[D.p,D.q],st=D.tch?'fill:#e8711a11;stroke:#e8711a;stroke-dasharray:3 2':'fill:#1a73e811;stroke:#1a73e8;stroke-dasharray:3 2';D.t==='elbow'?(c=>mk('polyline',{points:ePts(toU(a),c.h,c.v).map(toS).join(' '),style:'fill:none;stroke:#1a73e8'},H))(elR(toU(a),toU(b),[spO(D.sp0),spO(D.sp)],q=>q,3/U)):D.t in SHP?mk('path',{d:shD(SHP[D.t]({x:a[0],y:a[1]},{x:b[0],y:b[1]},Z*k/U)),style:'fill:none;stroke:#1a73e8'},H):D.t==='wedge'?mk('polygon',{points:WDG({x:a[0],y:a[1]},{x:b[0],y:b[1]}).join(' '),style:st},H)
+  if(D&&D.q){const[a,b]=[D.p,D.q],st=D.tch?'fill:#e8711a11;stroke:#e8711a;stroke-dasharray:3 2':'fill:#1a73e811;stroke:#1a73e8;stroke-dasharray:3 2';D.t==='elbow'?(c=>mk('polyline',{points:ePts(toU(a),c.h,c.v).map(toS).join(' '),style:'fill:none;stroke:#1a73e8'},H))(elR(toU(a),toU(b),[spO(D.sp0),spO(D.sp)],q=>q,3/U)):D.t in SHP?mk('path',{d:shD(SHP[D.t]({x:a[0],y:a[1]},{x:b[0],y:b[1]},Z*k/U)),style:'fill:none;stroke:#1a73e8'},H):D.t in FLW?mk('path',{d:shD(FLW[D.t](min(a[0],b[0]),min(a[1],b[1]),abs(b[0]-a[0]),abs(b[1]-a[1]),b[0]<a[0])),style:st},H):D.t==='wedge'?mk('polygon',{points:WDG({x:a[0],y:a[1]},{x:b[0],y:b[1]}).join(' '),style:st},H)
     :LNT.test(D.t)?mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],style:'stroke:#1a73e8'},H)
     :D.t==='ellipse'?mk('ellipse',{cx:(a[0]+b[0])/2,cy:(a[1]+b[1])/2,rx:abs(a[0]-b[0])/2,ry:abs(a[1]-b[1])/2,style:st},H)
     :mk('rect',{x:min(a[0],b[0]),y:min(a[1],b[1]),width:abs(a[0]-b[0]),height:abs(a[1]-b[1]),style:st},H)}}
@@ -2547,7 +2579,7 @@ function ghostOff(M){fgRs();quiet(()=>{for(let i=G.length;i--;)G[i].p.insertBefo
 // drawing, a point, a crop…). A move drag lifts the selection into the ghost layer and moves it with one CSS
 // transform; up() applies the final matrix to the real elements (applyM) and commits once.
 let D=null,mouse=null,space=false; // the drag in progress (D.t its kind); the last pointer position in view px; Space held
-function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge|text)$/.test(tool)||LNT.test(tool)?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
+function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.activeElement?.blur();const p=vp(e),u=toU(p),h=/^(rect|ellipse|wedge|text)$/.test(tool)||LNT.test(tool)||tool in FLW?null:e.target.dataset?.h,cap=()=>view.setPointerCapture(e.pointerId);mouse=p;
   if(e.button===1||e.button===0&&space){D={t:'pan',p,tx,ty};return cap()}
   if(e.button)return;
   if(tool==='crop'&&!CR){const t=hit(e),im=t&&t.closest('image')||sel.length===1&&sel[0].localName==='image'&&sel[0];if(!im)return msg('Click a photo to crop it');ctx=im.parentNode;setSel([im]);cropGo(im)}
@@ -2558,13 +2590,13 @@ function down(e){if(!root||e.target.closest('.ed'))return;finish(true);document.
   if(h==='pb'){D={t:seg(sel[0])?.e?'elb':'bend',e:sel[0],p};return cap()}
   if(h==='rad'){const e=sel[0];D={t:'rad',p,e,r0:rgeo(e)[4],q0:ctm(e).inverse().transformPoint(u)};return cap()}
   if(/^a\d+$/.test(h)){const m=pmodel(ped),an=m&&anchorsOf(m)[+h.slice(1)];if(!an)return;D={t:'anc',p,u,e:ped,m,A:an};return cap()}
-  if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t=hit(e),g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0]};return cap()}
+  if(h==='mv'&&!(cmd(e)||e.shiftKey)){const t0=hit(e),lb=stLb(t0),t=lb?fgT(lb)[0]:t0,g=t&&grab(t,0);D={t:'move',p,u,el:g&&g[0],c:g&&g[1],was:!!g&&sel.some(s=>s.contains(t)),pre:sel[0],lb};return cap()}
   if(h&&h!=='mv'&&sb){D={t:h==='rot'?'rot':'sc',h,p,u,b:sb};return cap()}
-  if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t,undefined,0,e)}else newText(u);return}
+  if(tool==='text'){const t=hit(e),tt=t&&t.closest('text');if(tt){ctx=tt.parentNode;setSel([tt]);edit(tt,t,undefined,0,e)}else if(t&&t.hasAttribute('data-sg-shape')&&stCan(t))stText(t,e);else newText(u);return}
   if(tool!=='sel'){const ln=LNT.test(tool),T=ln&&!e.shiftKey?snapT():undefined,[s,,o]=ln?e.shiftKey?[u,0,null]:lsn(u,e,T):gsn(u,e),q=e.shiftKey?p:toS(s);D={t:tool,p:q,u:toU(q),os:T,sp:o||null,sp0:ln&&o||null};return cap()}
-  const t=hit(e),w=cmd(e);
+  const t0=hit(e),w=cmd(e),lb=w||e.shiftKey?null:stLb(t0),t=lb?fgT(lb)[0]:t0;
   const bg=t&&!e.shiftKey&&bd(t);if(!t||e.shiftKey||bg){D={t:'band',p,u,add:e.shiftKey,h:t,w,tch:e.altKey!==opts.touch,bg:bg&&t};return cap()}
-  const[ob,c]=grab(t,w),was=sel.some(s=>s.contains(t)),pre=sel[0];if(!was){ctx=c;setSel([ob])}D={t:'move',p,u,el:ob,c,was,pre};cap()}
+  const[ob,c]=grab(t,w),was=sel.some(s=>s.contains(t)),pre=sel[0];if(!was){ctx=c;setSel([ob])}D={t:'move',p,u,el:ob,c,was,pre,lb};cap()}
 function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0&&p[0]<=view.clientWidth&&p[1]<=view.clientHeight&&(p[0]>view.clientWidth-28||p[1]>view.clientHeight-28)&&sbWake();posT(`${((u.x-vb.x)*U).toFixed(1)}, ${((u.y-vb.y)*U).toFixed(1)} mm`);if(!D){hoverAt(e);return rulers()}D.t!=='pan'&&(edgeE=e,edgeR||(edgeR=requestAnimationFrame(edgeTick)));
   let dx=p[0]-D.p[0],dy=p[1]-D.p[1];
   if(D.t==='pan'){tx=D.tx+dx;ty=D.ty+dy;return place()}
@@ -2593,13 +2625,13 @@ function move(e){if(!root)return;const p=vp(e),u=toU(p);mouse=p;p[0]>=0&&p[1]>=0
     M=about(S(sx||1e-3,sy||1e-3),ax,ay)}
   else if(D.t==='rot'){const cx=b.x+b.w/2,cy=b.y+b.h/2;let a=(atan2(u.y-cy,u.x-cx)-atan2(D.u.y-cy,D.u.x-cx))*180/PI;if(e.shiftKey)a=round(a/15)*15;M=about(Rot(a),cx,cy)}
   else{e.shiftKey&&/^(line|arrow|inhibit|brace)$/.test(D.t)&&([dx,dy]=q45(dx,dy));
-    if(e.shiftKey&&/rect|ellipse/.test(D.t)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.sp=null;if(!e.shiftKey&&D.t!=='band'){const ln=LNT.test(D.t),[s,g,o]=ln?lsn(toU(D.q),e,D.os===undefined?D.os=snapT():D.os):gsn(toU(D.q),e);D.q=toS(s);D.g=g;D.sp=o||null;ln&&(D.pm=1,msg(o?'On '+SNK[o.k]:''))}D.t==='band'&&bandPrev();return hud()}
+    if(e.shiftKey&&(/rect|ellipse/.test(D.t)||D.t in FLW)){const m=max(abs(dx),abs(dy));dx=dx<0?-m:m;dy=dy<0?-m:m}D.q=[D.p[0]+dx,D.p[1]+dy];D.sp=null;if(!e.shiftKey&&D.t!=='band'){const ln=LNT.test(D.t),[s,g,o]=ln?lsn(toU(D.q),e,D.os===undefined?D.os=snapT():D.os):gsn(toU(D.q),e);D.q=toS(s);D.g=g;D.sp=o||null;ln&&(D.pm=1,msg(o?'On '+SNK[o.k]:''))}D.t==='band'&&bandPrev();return hud()}
   lkPv(M);fgPv(M);D.M=M;gw.style.transform=S(Z).multiply(T(-vb.x,-vb.y)).multiply(M).multiply(T(vb.x,vb.y)).multiply(S(1/Z)).toString();hud(M)}
 // snapSet(): the snap targets of a move drag (D.s0, D.sn)
 function snapSet(){const o=new Set(sel),c=cands(top_(ctx)?root:ctx,1).filter(e=>!o.has(e)),X=[vb.x,vb.x+vb.w/2,vb.x+vb.w],Y=[vb.y,vb.y+vb.h/2,vb.y+vb.h];
   c.length<500&&memoize(()=>c.forEach(e=>{const b=bbox(e);b&&(X.push(b.x,b.x+b.w/2,b.x+b.w),Y.push(b.y,b.y+b.h/2,b.y+b.h))}));for(const G of gl)(G.h?X:Y).push(G.v);D.s0=sb;D.sn=[X,Y]}
 const tog=(t,w)=>{let[ob,c]=grab(t,w);const o=sel.find(s=>s!==ob&&s.contains(ob));o?ob=o:ctx=c;setSel(sel.includes(ob)?sel.filter(x=>x!==ob):[...sel,ob])};
-function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);d.pm&&msg('');why=(d.on||!/^(move|sc|rot)$/.test(d.t))&&{move:ev&&ev.altKey?'Duplicate':'Move',sc:'Scale',rot:'Rotate',pt:'Move line end',anc:'Edit point',rad:'Round corners',rect:'Draw rectangle',ellipse:'Draw ellipse',line:'Draw line',arrow:'Draw arrow',inhibit:'Draw inhibition',wedge:'Draw wedge',elbow:'Draw connector',brace:'Draw brace',bend:'Bend line',elb:'Move elbow'}[d.t]||'';
+function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=0;clearTimeout(d.pvT);d.pm&&msg('');why=(d.on||!/^(move|sc|rot)$/.test(d.t))&&{move:ev&&ev.altKey?'Duplicate':'Move',sc:'Scale',rot:'Rotate',pt:'Move line end',anc:'Edit point',rad:'Round corners',rect:'Draw rectangle',ellipse:'Draw ellipse',line:'Draw line',arrow:'Draw arrow',inhibit:'Draw inhibition',wedge:'Draw wedge',elbow:'Draw connector',brace:'Draw brace',bend:'Bend line',elb:'Move elbow'}[d.t]||(d.t in FLW?'Draw shape':'');
   if(d.t==='pan')return;if(d.t==='ck')return d.on&&hud();
   if(/^(rad|pt|anc|bend|elb)$/.test(d.t)){d.t==='pt'&&d.on&&lkSet(d.e,d.i,d.sp);return commit()}
   if(/^(sc|rot)$/.test(d.t)&&!d.on&&ev&&ev.shiftKey){const t=hit(ev);t&&tog(t,cmd(ev));return hud()}
@@ -2607,21 +2639,22 @@ function up(ev){if(!D)return;const d=D;D=null;cancelAnimationFrame(edgeR);edgeR=
   if(d.t==='move'&&!d.on&&ev&&ev.altKey&&!ev.shiftKey)return selBelow(ev,d.pre),hud();
   if(/^(move|sc|rot)$/.test(d.t)){lkRs(d);if(d.t==='sc'&&d.on&&d.M&&/^[ew]$/.test(d.h)&&sel.length===1&&sel[0].localName==='text'&&tryWrap(sel[0],d.b,d.M,d.h))return;
     if(G){const c=d.t==='move'&&d.M&&ev&&ev.altKey;if(c){ghostOff();once(()=>{dup();applyM(d.M);commit()})}else ghostOff(d.M);d.M&&keep(d.M,d.t==='move'?d.s0:d.b,c)}
-    else if(d.t==='move'&&d.was){ctx=d.c;sel.length===1&&sel[0]===d.el||setSel([d.el])}return}
+    else if(d.t==='move'&&d.was&&d.lb&&sel.length===1&&sel[0]===d.el)stPick(d.lb);else if(d.t==='move'&&d.was){ctx=d.c;sel.length===1&&sel[0]===d.el||setSel([d.el])}return}
   if(d.t==='band'){if(d.q){const a=toU(d.p),b=toU(d.q),R=rb(min(a.x,b.x),min(a.y,b.y),abs(a.x-b.x),abs(a.y-b.y));
       let got=memoize(()=>boxed(root,R,d.tch));d.w&&(got=order(got.map(x=>pick(x)[0])));setSel(d.add?[...sel,...got]:got,1);const ps=new Set(sel.map(x=>x.parentNode));ctx=ps.size===1?[...ps][0]:root;refresh()}
     else if(d.bg){const[ob,c]=grab(d.bg,d.w);ctx=c;setSel([ob])}else if(d.add&&d.h)tog(d.h,d.w);else if(!d.add){ctx=root;setSel([])}return hud()}
   if(d.q)create(d.t,toU(d.p),toU(d.q),[d.sp0,d.sp]);else hud()}
-function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t,undefined,0,e);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
+function dbl(e){if(CR)return cropOK();if(!root||tool!=='sel'||e.target.closest('.ed'))return;clearTimeout(stT);const t=hit(e),q=t&&t.closest('text');if(q)return edit(q,t,undefined,0,e);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&stCan(t)&&(t.hasAttribute('data-sg-shape')||stOf(t)))return stText(t,e);if(t&&!(cmd(e)||e.shiftKey||e.altKey)&&pmodel(t)){ctx=t.parentNode;setSel([t]);ped=t;hud();msg(PM)}}
 
 // ══ 19 Drawing ════
 // create() turns a drag into a shape in curParent() and attaches connector ends; MK/mark() hold the markers.
 // create(t,a,b,ends): the shape for tool t from a to b (user units), its ends attached to their snaps
-function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!/^(rect|ellipse|wedge)$/.test(t),cn=ln&&t!=='brace',hd=t==='elbow'?'arrow':t,
-    s=t==='wedge'&&pen.fill==='none'?`fill:${pen.stroke==='none'?'#000000':pen.stroke};stroke:none`:`fill:${ln?'none':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
+function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transformPoint(a),Pb=Pi.transformPoint(b),w=f6(0.5/PT/U/sc(ctm(p))),ln=!(/^(rect|ellipse|wedge)$/.test(t)||t in FLW),cn=ln&&t!=='brace',hd=t==='elbow'?'arrow':t,
+    s=t==='wedge'&&pen.fill==='none'?`fill:${pen.stroke==='none'?'#000000':pen.stroke};stroke:none`:`fill:${ln?'none':t in FLW&&pen.fill==='none'?'#ffffff':pen.fill};stroke:${ln&&pen.stroke==='none'?'#000000':pen.stroke};stroke-width:${w}`;let e;
   if(t==='rect')e=mk('rect',{id:uid('rect'),x:fc(min(Pa.x,Pb.x)),y:fc(min(Pa.y,Pb.y)),width:fc(abs(Pb.x-Pa.x)),height:fc(abs(Pb.y-Pa.y)),style:s},p);
   else if(t==='ellipse')e=mk('ellipse',{id:uid('ellipse'),cx:fc((Pa.x+Pb.x)/2),cy:fc((Pa.y+Pb.y)/2),rx:fc(abs(Pb.x-Pa.x)/2),ry:fc(abs(Pb.y-Pa.y)/2),style:s},p);
   else if(t==='wedge')e=mk('polygon',{id:uid('polygon'),points:WDG(Pa,Pb).map(q=>fc(q[0])+','+fc(q[1])).join(' '),style:s},p);
+  else if(t in FLW)e=flwMk(t,Pa,Pb,s,p);
   else e=mk('path',{id:uid('path'),d:t==='elbow'?(c=>shD(elD(Pa,c.h,c.v)))(elR(Pa,Pb,[0,1].map(i=>L&&spO(L[i])),q=>Pi.transformPoint(q),3/U/sc(ctm(p)))):t in SHP?shD(SHP[t](Pa,Pb,1/U/sc(ctm(p)))):`M ${fc(Pa.x)},${fc(Pa.y)} L ${fc(Pb.x)},${fc(Pb.y)}`,style:s+(t==='brace'?';stroke-linecap:round;stroke-linejoin:round':';stroke-linecap:butt')+(hd in MK?`;marker-end:url(#${hmk(mark(hd),pen.head)})`:'')},p);hd in MK&&mgc([MK[hd][0]]);
   cn&&L&&L.forEach((o,i)=>o&&o.e&&lkSet(e,i,o));ctx=p;setTool('sel');setSel([e],1);commit();cn&&L&&L.some(o=>o&&o.e)&&msg('Attached: the end follows the object it snapped to')}
 const MK={arrow:['ArrowTipSg','M 0,0 10,5 0,10 z',10,10,9],inhibit:['TeeSg','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenTipSg','M 1,1 9,5 1,9',10,10,9,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthTipSg','M 0,0 10,5 0,10 3,5 z',10,10,9],dot:['DotSg','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5]};
@@ -2630,6 +2663,145 @@ function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];by
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
 const arial=(p,q,pt,txt,b='')=>mk('text',{'xml:space':'preserve',id:uid('text'),x:fc(q.x),y:fc(q.y),style:`${b}font-size:${f6(pt/PT/U/sc(ctm(p)))}px;font-family:Arial;fill:#000000`},p,txt);
 function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk=flush(),t=arial(p,q,11);ctx=p;setSel([t]);edit(t,null,mrk)}
+
+// ══ 19a Flow shapes ════
+// Flowchart shapes and block arrows are plain paths (a capsule is a rounded rect) drawn into the drag's box, so point
+// editing, snapping and connectors treat them like any shape; data-sg-shape names the kind. The text inside a shape is
+// a separate <text> linked to it as a FigKit link of kind "stext" (27): it stays centred on the shape through moves,
+// scales and drags and keeps its size in pt; moved by hand, it keeps that offset. A click on the text picks its shape,
+// so a box is dragged by its middle; a second click picks the text, a double-click edits it.
+let stT=0; // the timer of stPick
+// FLX(x,w,r): maps a distance from the box's tail side to x; r: the arrow points left
+const FLX=(x,w,r)=>u=>r?x+w-u:x+u;
+// FLW[tool](x,y,w,h,r): the outline for shD, in the box x y w h; r: dragged leftwards (arrows point that way)
+const FLW={
+  diamond:(x,y,w,h)=>['M',[x+w/2,y],'L',[x+w,y+h/2],'L',[x+w/2,y+h],'L',[x,y+h/2],'Z'],
+  capsule(x,y,w,h){
+    const r=min(w,h)/2;
+    if(w>=h)return['M',[x+r,y],'L',[x+w-r,y],'A',r,r,'0 0 1',[x+w-r,y+h],'L',[x+r,y+h],'A',r,r,'0 0 1',[x+r,y],'Z'];
+    return['M',[x+w,y+r],'L',[x+w,y+h-r],'A',r,r,'0 0 1',[x,y+h-r],'L',[x,y+r],'A',r,r,'0 0 1',[x+w,y+r],'Z'];
+  },
+  para(x,y,w,h){
+    const s=min(w/4,h/2);
+    return['M',[x+s,y],'L',[x+w,y],'L',[x+w-s,y+h],'L',[x,y+h],'Z'];
+  },
+  hexagon(x,y,w,h){
+    const s=min(w/4,h/2);
+    return['M',[x+s,y],'L',[x+w-s,y],'L',[x+w,y+h/2],'L',[x+w-s,y+h],'L',[x+s,y+h],'L',[x,y+h/2],'Z'];
+  },
+  triangle:(x,y,w,h)=>['M',[x+w/2,y],'L',[x+w,y+h],'L',[x,y+h],'Z'],
+  trapezoid(x,y,w,h){
+    const s=min(w/5,h/2);
+    return['M',[x+s,y],'L',[x+w-s,y],'L',[x+w,y+h],'L',[x,y+h],'Z'];
+  },
+  cylinder(x,y,w,h){
+    const e=min(h*.15,w/4);
+    return['M',[x,y+e],'A',w/2,e,'0 0 1',[x+w,y+e],'L',[x+w,y+h-e],'A',w/2,e,'0 0 1',[x,y+h-e],'Z','M',[x,y+e],'A',w/2,e,'0 0 0',[x+w,y+e]];
+  },
+  document(x,y,w,h){
+    const d=min(h*.12,w*.15);
+    return['M',[x,y],'L',[x+w,y],'L',[x+w,y+h-d],'Q',[x+w*.75,y+h-3*d],[x+w/2,y+h-d],'Q',[x+w/4,y+h+d],[x,y+h-d],'Z'];
+  },
+  note(x,y,w,h){
+    const c=min(w,h)/4;
+    return['M',[x,y],'L',[x+w-c,y],'L',[x+w,y+c],'L',[x+w,y+h],'L',[x,y+h],'Z','M',[x+w-c,y],'L',[x+w-c,y+c],'L',[x+w,y+c]];
+  },
+  barrow(x,y,w,h,r){
+    const X=FLX(x,w,r),n=w-min(w/2,h*.75);
+    return['M',[X(0),y+h/4],'L',[X(n),y+h/4],'L',[X(n),y],'L',[X(w),y+h/2],'L',[X(n),y+h],'L',[X(n),y+h*.75],'L',[X(0),y+h*.75],'Z'];
+  },
+  pentagon(x,y,w,h,r){
+    const X=FLX(x,w,r),n=w-min(w/3,h/2);
+    return['M',[X(0),y],'L',[X(n),y],'L',[X(w),y+h/2],'L',[X(n),y+h],'L',[X(0),y+h],'Z'];
+  },
+  chevron(x,y,w,h,r){
+    const X=FLX(x,w,r),s=min(w/3,h/2);
+    return['M',[X(0),y],'L',[X(w-s),y],'L',[X(w),y+h/2],'L',[X(w-s),y+h],'L',[X(0),y+h],'L',[X(s),y+h/2],'Z'];
+  },
+  callout:(x,y,w,h)=>['M',[x,y],'L',[x+w,y],'L',[x+w,y+h*.72],'L',[x+w*.45,y+h*.72],'L',[x+w*.25,y+h],'L',[x+w*.3,y+h*.72],'L',[x,y+h*.72],'Z']};
+// FLC: where a shape's text is centred, as fractions of its box (x: any other shape)
+const FLC={x:[.5,.5],triangle:[.5,.64],callout:[.5,.36],document:[.5,.46],cylinder:[.5,.56]};
+// flwMk(t,a,b,style,parent): the flow shape t from a to b in parent's coordinates
+function flwMk(t,a,b,s,p){
+  const x=min(a.x,b.x),y=min(a.y,b.y),w=abs(b.x-a.x),h=abs(b.y-a.y);
+  let e;
+  if(t==='capsule'){
+    const r=fc(min(w,h)/2);
+    e=mk('rect',{id:uid('rect'),x:fc(x),y:fc(y),width:fc(w),height:fc(h),rx:r,ry:r,style:s},p);
+  }else e=mk('path',{id:uid('path'),d:shD(FLW[t](x,y,w,h,b.x<a.x)),style:s},p);
+  e.setAttribute('data-sg-shape',t);
+  return e;
+}
+// stCan(e): e is a closed shape that can hold text
+function stCan(e){
+  if(!e||!e.localName||fgK(e)||lkd(e))return false;
+  if(e.hasAttribute('data-sg-shape'))return true;
+  if(/^(rect|ellipse|circle|polygon)$/.test(e.localName))return true;
+  return e.localName==='path'&&/z\s*$/i.test(e.getAttribute('d')||'');
+}
+// stOf(e): the text inside shape e, or null
+function stOf(e){
+  if(!e.id)return null;
+  for(const f of fgAll()){
+    if(fgK(f)==='stext'&&root.contains(f)&&fgT(f)[0]===e)return f;
+  }
+  return null;
+}
+// stLb(t): the shape text that t is part of, when a press on it should pick its shape (the text itself not selected)
+function stLb(t){
+  const f=t&&t.closest('text');
+  if(!f||fgK(f)!=='stext'||!fgT(f)[0]||lkd(fgT(f)[0]))return null;
+  if(sel.some(s=>s.contains(f)))return null;
+  return f;
+}
+// stPick(f): selects the text f a moment later, so a double-click still arrives (a redraw under the pointer drops it)
+function stPick(f){
+  clearTimeout(stT);
+  stT=setTimeout(()=>{
+    if(D||ed||!root.contains(f))return;
+    ctx=f.parentNode;
+    setSel([f]);
+  },280);
+}
+// stWith(a): a plus the texts inside its shapes, so Delete, Copy and the z-order take them along
+function stWith(a){
+  if(!fgAll().some(f=>fgK(f)==='stext'))return a;
+  const o=[...a];
+  for(const e of a){
+    const f=e.localName&&stOf(e);
+    if(f&&!o.some(x=>x.contains(f)))o.push(f);
+  }
+  return o;
+}
+// stText(e,ev): edits the text inside shape e, adding it first; typing nothing leaves no text
+function stText(e,ev){
+  finish(true);
+  const f=stOf(e);
+  if(f){
+    ctx=f.parentNode;
+    setSel([f]);
+    edit(f,null,undefined,0,ev);
+    return;
+  }
+  if(!e.id)e.id=uid(e.localName);
+  const p=upc(e.parentNode),b=fgBox(e,p);
+  if(!b)return;
+  const c=FLC[e.getAttribute('data-sg-shape')]||FLC.x,mrk=flush();
+  const t=arial(p,{x:b.x+c[0]*b.w,y:b.y+c[1]*b.h},8,'','text-anchor:middle;');
+  t.setAttribute(FGK,'stext');
+  t.setAttribute(FGF,`url(#${e.id})`);
+  t.setAttribute(FGP,'c 0 0');
+  if(p===e.parentNode)e.after(t);
+  t.setAttribute('y',fc(at(t,'y')+.35*parseFloat(gcs(t).fontSize)));
+  FG.v++;
+  ctx=p;
+  setSel([t]);
+  edit(t,null,mrk);
+}
+// stEnter(): Enter with one closed shape selected types inside it
+function stEnter(){
+  if(sel.length===1&&stCan(sel[0]))stText(sel[0]);
+}
 
 // ══ 20 Text lines ════
 // Lines are Inkscape's sodipodi:role="line" tspans (lnKids) or Illustrator's positioned tspans (edLn); setLines
@@ -2767,7 +2939,7 @@ document.addEventListener('selectionchange',()=>{const g=getSelection();if(!ed||
 // class-computed paint (KP) so svglite styles survive.
 let clip=null; // what Copy took
 // copy(live): clip = the selection, parent matrices and referenced defs (live: no clones)
-function copy(live){finish(true);if(sel.length){const s=order(sel);clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
+function copy(live){finish(true);if(sel.length){const s=order(stWith(sel));clip={it:s.map(e=>[live?e:e.cloneNode(true),ctm(e.parentNode)]),b:sb,u:U,d:live?[]:deps(s),r:root,kp:!live&&root.querySelector('style')?kps(lv(s),KQ):null}}bar()}
 // paste(inPlace): adds clip at the pointer, or in place, ids renamed
 function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=curParent(),Pi=ctm(p).inverse(),b=clip.b,s=clip.u/U;let O=S(s),ds=clip.d.map(d=>d.cloneNode(true)),map=new Map;
   if(!inPlace&&mouse&&b){const u=toU(mouse);O=T(u.x-b.x*s-b.w*s/2,u.y-b.y*s-b.h*s/2).multiply(O)}
@@ -2775,8 +2947,8 @@ function paste(inPlace){finish(true);if(!clip)return;why=why||'Paste';const p=cu
   const mm=new Map,out=clip.it.map(([c,M])=>{const e=c.cloneNode(true);relink([e],map);reid(e,mm);setT(e,Pi.multiply(O).multiply(M).multiply(lm(c)));p.appendChild(e);return e});relink(out,mm);lkCut(out,mm);fgCut(out,mm);
   if(clip.kp&&clip.r!==root){const lf=lv(out);lf.length===clip.kp.length&&kpr(lf,clip.kp,KQ)}
   ctx=p;setSel(out,1);commit()}
-function del(){finish(true);if(!sel.length)return;sel.forEach(e=>{e.contains(ctx)&&(ctx=e.parentNode);e.remove()});setSel([],1);commit()}
-function zorder(w){const s=order(sel),q=new Set(sel),sib=(e,n)=>{do e=n?e.nextElementSibling:e.previousElementSibling;while(e&&!isG(e));return e};
+function del(){finish(true);if(!sel.length)return;stWith(sel).forEach(e=>{e.contains(ctx)&&(ctx=e.parentNode);e.remove()});setSel([],1);commit()}
+function zorder(w){const s=order(stWith(sel)),q=new Set(s),sib=(e,n)=>{do e=n?e.nextElementSibling:e.previousElementSibling;while(e&&!isG(e));return e};
   if(w==='top')s.forEach(e=>e.parentNode.appendChild(e));
   if(w==='bot')s.reverse().forEach(e=>{let f=e.parentNode.firstElementChild;while(f&&!isG(f))f=f.nextElementSibling;f!==e&&e.parentNode.insertBefore(e,f)});
   if(w==='up')s.reverse().forEach(e=>{const n=sib(e,1);n&&!q.has(n)&&n.after(e)});
@@ -3023,7 +3195,7 @@ function fgBcDel(){
 // a link whose target signature (data-figkit-at) changed; sa/fgTr/fgSts write only differences.
 const LUT={Red:[1,0,0],Green:[0,1,0],Blue:[0,0,1],Cyan:[0,1,1],Magenta:[1,0,1],Yellow:[1,1,0],Gray:[1,1,1]},lutC=n=>n==='Gray'?'#9a9a9a':`rgb(${LUT[n].map(x=>x?215:95)})`,
   lutH=n=>'#'+LUT[n].map(x=>x?'ff':'00').join('');
-const FGK='data-figkit',FGF=FGK+'-for',FGA=FGK+'-at',FGP=FGK+'-pos',FGC=FGK+'-cal',FGB=FGK+'-bar',FGR=FGK+'-roi',FGO={roi:0,inset:1,label:2,frame:2,bar:2,zline:3},FGH='#9333ea',RN=['x','y','width','height'],
+const FGK='data-figkit',FGF=FGK+'-for',FGA=FGK+'-at',FGP=FGK+'-pos',FGC=FGK+'-cal',FGB=FGK+'-bar',FGR=FGK+'-roi',FGO={roi:0,inset:1,label:2,frame:2,bar:2,stext:2,zline:3},FGH='#9333ea',RN=['x','y','width','height'],
   UM={nm:1e-3,um:1,mm:1e3},UL={nm:'nm',um:'µm',mm:'mm'},LA={at:[0,0,0,1],lt:[0,0,1,0],tl:[0,0,0,0],tr:[1,0,1,0],bl:[0,1,0,1],br:[1,1,1,1]},MC=['#ff0000','#00ff00','#0000ff','#ff00ff','#00ffff','#ffff00','#ffffff'],
   Gf={},FG={kf:null,a0:null,aq:0,zr:new WeakMap,fv:0,pv:null,st:new Set,ps:null,pd:-1,v:0,c:null,m:'',w:'fill'};
 document.querySelectorAll('[data-g]').forEach(e=>Gf[e.dataset.g]=e);
@@ -3032,7 +3204,7 @@ const fgK=e=>e&&e.getAttribute&&e.getAttribute(FGK)||'',fgT=e=>[...(e.getAttribu
   sa=(e,n,v)=>v==null?e.hasAttribute(n)&&e.removeAttribute(n):e.getAttribute(n)!==v&&e.setAttribute(n,v),fgTr=(e,m)=>sa(e,'transform',tStr(m)),
   fgS=a=>a.map(v=>typeof v=='number'?f6(v):v).join(' '),
   fgEq=(a,b)=>{if(a==null||b==null)return a===b;const x=a.trim().split(/\s+/),y=b.trim().split(/\s+/);return x.length===y.length&&x.every((v,i)=>v===y[i]||v!==''&&y[i]!==''&&isFinite(v)&&isFinite(y[i])&&abs(v-y[i])<=1e-5*max(1,abs(v),abs(y[i])))},
-  fgDeco=e=>/^(label|frame|bar|roi|zline)$/.test(fgK(e)),
+  fgDeco=e=>/^(label|frame|bar|roi|zline|stext)$/.test(fgK(e)),
   fgAll=()=>{const q=svn+','+lkV+','+FG.v;if(FG.c&&FG.c.k===q&&FG.c.r===root)return FG.c.L;const L=[...root.querySelectorAll(`[${FGF}]`)].filter(e=>fgK(e)in FGO).sort((a,b)=>FGO[fgK(a)]-FGO[fgK(b)]);FG.c={k:q,r:root,L};return L},
   fgMap=k=>new Map([...root.querySelectorAll(`[${FGK}=${k}]`)].map(e=>[fgT(e)[0],e]).filter(x=>x[0])),
   fgBox=(t,p)=>mbox(t,ctm(p).inverse().multiply(ctm(t))),
@@ -3080,6 +3252,32 @@ const FGD={
     q(f,b){const A=LA[fgPos(f)[0]]||LA.at,l=mbox(f,lm(f));return l&&[b.x+A[0]*b.w,b.y+A[1]*b.h,l.x+A[2]*l.w,l.y+A[3]*l.h]},
     place(f,t,b){const q=this.q(f,b);if(!q)return;const P=fgPos(f),o=fgV(f.parentNode,+P[1]||0,+P[2]||0);fgMv(f,q[0]+o.x-q[2],q[1]+o.y-q[3])},
     read(f,t,b){const q=this.q(f,b);if(!q)return;const P=fgPos(f),[x,y]=fgMm(f.parentNode,q[2]-q[0],q[3]-q[1]);(abs(x-(+P[1]||0))>1e-4||abs(y-(+P[2]||0))>1e-4)&&sa(f,FGP,fgS([P[0]||'at',+x.toFixed(4),+y.toFixed(4)]))}},
+  // stext: the text inside a shape (19a). Its own box is part of the signature, so an edited text is centred again,
+  // while a text moved by hand (same box) has its offset from the centre taken in.
+  stext:{
+    sig(f,[t],b){
+      const l=mbox(f,lm(f));
+      return fgS([b.x,b.y,b.w,b.h,l?l.w:0,l?l.h:0]);
+    },
+    q(f,t,b){
+      const l=mbox(f,lm(f));
+      const c=FLC[t.getAttribute('data-sg-shape')]||FLC.x;
+      return l&&[b.x+c[0]*b.w,b.y+c[1]*b.h,l.x+l.w/2,l.y+l.h/2];
+    },
+    place(f,[t],b){
+      const q=this.q(f,t,b);
+      if(!q)return;
+      const P=fgPos(f);
+      const o=fgV(f.parentNode,+P[1]||0,+P[2]||0);
+      fgMv(f,q[0]+o.x-q[2],q[1]+o.y-q[3]);
+    },
+    read(f,[t],b){
+      const q=this.q(f,t,b);
+      if(!q)return;
+      const P=fgPos(f);
+      const[x,y]=fgMm(f.parentNode,q[2]-q[0],q[3]-q[1]);
+      if(abs(x-(+P[1]||0))>1e-4||abs(y-(+P[2]||0))>1e-4)sa(f,FGP,fgS(['c',+x.toFixed(4),+y.toFixed(4)]));
+    }},
   frame:{sig:(f,t,b)=>fgS([b.x,b.y,b.w,b.h,f.getAttribute(FGP)||'',parseFloat(gcs(f).strokeWidth)||0]),
     r(f,b){const P=fgPos(f),w=parseFloat(gcs(f).strokeWidth)||0,e=(P[0]==='out'?w/2:P[0]==='mid'?0:-w/2)+fgL(f.parentNode,+P[1]||0);return[b.x-e,b.y-e,max(0,b.w+2*e),max(0,b.h+2*e)].map(fc)},
     place(f,t,b){const r=this.r(f,b);sa(f,'transform',null);RN.forEach((n,i)=>sa(f,n,r[i]))},
@@ -4292,7 +4490,7 @@ function bandPrev(){if(D.pvOff||D.pvT)return;D.pvT=setTimeout(()=>{const d=D;if(
 // ══ 32 Context menu ════
 // cmE keeps the event, so Paste here pastes at the pointer; Ctrl+click is ignored (macOS selection).
 function cmenu(e){e.preventDefault();if(!root||e.ctrlKey)return;finish(true);const t=hit(e);cmE=e;if(t&&!sel.some(s=>s.contains(t))){const[ob,c]=grab(t,0);ctx=c;setSel([ob])}
-  const ns=!sel.length,im=sel.length===1&&sel[0].localName==='image'&&sel[0],I=im?[['cropI','Crop image','C'],...cropK(stGet(im,'clip-path'))?[['uncrop','Remove crop']]:[],0]:[],off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,flipH:ns,flipV:ns,sf:ns,ss:ns,libAdd:ns,lock:ns,ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
+  const ns=!sel.length,im=sel.length===1&&sel[0].localName==='image'&&sel[0],I=im?[['cropI','Crop image','C'],...cropK(stGet(im,'clip-path'))?[['uncrop','Remove crop']]:[],0]:[],off={cut:ns,copy:ns,del:ns,group:ns,top:ns,up:ns,dn:ns,bot:ns,flipH:ns,flipV:ns,sf:ns,ss:ns,libAdd:ns,lock:ns,stText:!(sel.length===1&&stCan(sel[0])),ungroup:!sel.some(x=>isGrp(x)&&!isLayer(x)),pasteHere:!clip,pplace:!clip,below:!t,unlock:!root.querySelector('[*|insensitive]')},m=$('mCM');
   m.replaceChildren(...CM.flatMap(x=>x&&x[0]==='group'?[...I,x]:[x]).map(x=>{if(!x)return el('hr');const b=el('button',0,x[1]);b.dataset.a=x[0];x[2]&&b.append(el('kbd',0,x[2]));b.disabled=!!off[x[0]];return b}));
   m.style.display='block';const r=m.getBoundingClientRect();m.style.left=max(4,min(e.clientX,innerWidth-r.width-4))+'px';m.style.top=max(4,min(e.clientY,innerHeight-r.height-4))+'px'}
 const cmOff=()=>{$('mCM').style.display=''};
@@ -4963,7 +5161,7 @@ const A={
   z100:()=>zv(U*96/25.4/(Z*k)),zin:()=>zv(1.25),zout:()=>zv(.8),all:()=>setSel(cands(top_(ctx)?root:ctx)),swap:swapFS,sf:()=>alike('fill'),ss:()=>alike('stroke'),arial:()=>{texts().forEach(t=>setFont(t,'font-family','Arial'));commit()}};
 for(const c of'lcrtmb')A['a'+c]=()=>align(c);
 A.cut=()=>{copyOut();del()};A.below=()=>cmE&&selBelow(cmE,sel[0]);A.pasteHere=()=>{cmE&&(mouse=vp(cmE));paste()};
-A.cropI=()=>setTool('crop');A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value;s?.localName==='image'&&cropR(s,rb(v('x'),v('y'),v('width'),v('height')))};
+A.stText=stEnter;A.cropI=()=>setTool('crop');A.uncrop=()=>{const s=sel[0],v=n=>s[n].baseVal.value;s?.localName==='image'&&cropR(s,rb(v('x'),v('y'),v('width'),v('height')))};
 // ══ 47 FigKit wiring ════
 Object.assign(A,{fgSize:()=>fgOpen('size'),fgGrid:()=>fgOpen('grid'),fgSpace:()=>fgOpen('space'),fgPlace:()=>fgOpen('place'),fgLabel:()=>fgOpen('label'),fgFrame:()=>fgOpen('frame'),fgColor:()=>fgOpen('color'),fgScale:()=>fgOpen('scale'),fgZoom:()=>fgOpen('zoom'),fgAdj:()=>fgOpen('adj'),fgAdjGo,fgAdjRs:adjRs,fgAdjDel,fgChan:()=>fgOpen('chan'),xmg:()=>fgOpen('chan'),
   fgSizeGo:()=>fgRun('Size each',fgSizeCalc),fgGridGo:()=>fgRun('Arrange in a grid',fgGridCalc),fgSpaceGo:()=>fgRun('Space',fgSpaceCalc),fgTplGo:()=>fgRun('Positions',fgTplCalc),
@@ -5511,7 +5709,7 @@ addEventListener('keydown',e=>{const tg=e.target;if(tg.isContentEditable||/^(SEL
     Period:e.shiftKey&&(()=>fsz(1)),Comma:e.shiftKey&&(()=>fsz(-1)),KeyG:e.shiftKey&&e.altKey&&ungroupAll,Digit2:e.altKey?A.unlock:A.lock}[e.code]||{z:()=>undo(e.shiftKey),y:()=>undo(1),c:copyOut,x:()=>{copyOut();del()},v:e.shiftKey?A.pplace:()=>{pv=1;setTimeout(()=>{pv&&paste();pv=0})},
     d:tAgain,h:A.find,f:A.pfront,b:A.pback,g:e.shiftKey?ungroup:group,l:e.shiftKey&&A.layers,a:e.shiftKey?A.none:A.all,s:e.shiftKey?A.svgAs:A.svg,i:A.imp,u:selTexts().length&&A.und,p:e.shiftKey?A.imp:A.pdf,r:A.rulers}[kl];
   else if(ar)f=sel.length&&(()=>once(()=>nudge(ar[0],ar[1],e.shiftKey),e.repeat));
-  else f={Enter:CR&&cropOK,Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,H:A.flipH,V:A.flipV,x:e.shiftKey&&swapFS,d:dflt,'/':fsNo,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
+  else f={Enter:CR?cropOK:stEnter,Escape:esc,Delete:del,Backspace:del,Home:A.top,End:A.bot,PageUp:A.up,PageDown:A.dn,'?':A.help,X:swapFS,H:A.flipH,V:A.flipV,x:e.shiftKey&&swapFS,d:dflt,'/':fsNo,F7:A.layers}[K]||TK[kl]&&(()=>setTool(TK[kl]));
   if(f){c&&kl==='v'&&!e.shiftKey||e.preventDefault();stp(AN.get(f)||'');f()}});
 let pdn=0;addEventListener('pointerdown',()=>pdn=1,true);addEventListener('pointerup',()=>pdn=0,true);addEventListener('pointercancel',()=>pdn=0,true);
 document.addEventListener('visibilitychange',()=>{view.style.willChange=document.hidden?'auto':'';document.hidden||requestAnimationFrame(()=>{place();hud()})});

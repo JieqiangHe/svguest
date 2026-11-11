@@ -2456,7 +2456,7 @@ function hud(M){H.replaceChildren();qbQ();if(!root)return;rulers();
       mk('circle',{cx:(p[0][0]+p[1][0])/2,cy:p[0][1]-18,r:5,'data-h':'rot',style:'fill:#fff;stroke:#e8711a'},H);
       const e=sel[0];if(sel.length===1&&e.localName==='rect'){const m=ctm(e),[x,y,w,h,r]=rgeo(e),o=min(max(r,14/(Z*k*sc(m))),w/2,h/2),[cx,cy]=toS(m.transformPoint({x:x+o,y:y+o}));
         mk('title',{},mk('circle',{cx,cy,r:4.5,'data-h':'rad',style:B+'stroke-width:1.5;cursor:default'},H),'Drag to round the corners')}}}
-  if(D&&D.q){const[a,b]=[D.p,D.q],st=D.tch?'fill:#e8711a11;stroke:#e8711a;stroke-dasharray:3 2':'fill:#1a73e811;stroke:#1a73e8;stroke-dasharray:3 2';D.t==='elbow'?(c=>mk('polyline',{points:ePts(toU(a),c.h,c.v).map(toS).join(' '),style:'fill:none;stroke:#1a73e8'},H))(elR(toU(a),toU(b),[spO(D.sp0),spO(D.sp)],q=>q,3/U)):D.t in SHP?mk('path',{d:shD(SHP[D.t]({x:a[0],y:a[1]},{x:b[0],y:b[1]},Z*k/U)),style:'fill:none;stroke:#1a73e8'},H):D.t in FLW?mk('path',{d:shD(FLW[D.t](min(a[0],b[0]),min(a[1],b[1]),abs(b[0]-a[0]),abs(b[1]-a[1]),b[0]<a[0])),style:st},H):D.t==='wedge'?mk('polygon',{points:WDG({x:a[0],y:a[1]},{x:b[0],y:b[1]}).join(' '),style:st},H)
+  if(D&&D.q){const[a,b]=[D.p,D.q],st=D.tch?'fill:#e8711a11;stroke:#e8711a;stroke-dasharray:3 2':'fill:#1a73e811;stroke:#1a73e8;stroke-dasharray:3 2';D.t==='elbow'?(c=>mk('polyline',{points:ePts(toU(a),c.h,c.v).map(toS).join(' '),style:'fill:none;stroke:#1a73e8'},H))(elR(toU(a),toU(b),[spO(D.sp0),spO(D.sp)],q=>q,3/U)):D.t in SHP?mk('path',{d:shD(SHP[D.t]({x:a[0],y:a[1]},{x:b[0],y:b[1]},Z*k/U)),style:'fill:none;stroke:#1a73e8'},H):D.t in FLW?mk('path',{d:shD(FLW[D.t](min(a[0],b[0]),min(a[1],b[1]),abs(b[0]-a[0]),abs(b[1]-a[1]),b[0]<a[0],Z*k/U)),style:st},H):D.t==='wedge'?mk('polygon',{points:WDG({x:a[0],y:a[1]},{x:b[0],y:b[1]}).join(' '),style:st},H)
     :LNT.test(D.t)?mk('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],style:'stroke:#1a73e8'},H)
     :D.t==='ellipse'?mk('ellipse',{cx:(a[0]+b[0])/2,cy:(a[1]+b[1])/2,rx:abs(a[0]-b[0])/2,ry:abs(a[1]-b[1])/2,style:st},H)
     :mk('rect',{x:min(a[0],b[0]),y:min(a[1],b[1]),width:abs(a[0]-b[0]),height:abs(a[1]-b[1]),style:st},H)}}
@@ -2686,7 +2686,7 @@ function create(t,a,b,L){const p=curParent(),Pi=ctm(p).inverse(),Pa=Pi.transform
   cn&&L&&L.forEach((o,i)=>o&&o.e&&lkSet(e,i,o));ctx=p;setTool('sel');setSel([e],1);commit();cn&&L&&L.some(o=>o&&o.e)&&msg('Attached: the end follows the object it snapped to')}
 const MK={arrow:['ArrowTipSg','M 0,0 10,5 0,10 z',10,10,9],inhibit:['TeeSg','M 0,0 H 1 V 12 H 0 z',1,12,1],open:['OpenTipSg','M 1,1 9,5 1,9',10,10,9,'fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round;stroke-linejoin:round'],stealth:['StealthTipSg','M 0,0 10,5 0,10 3,5 z',10,10,9],dot:['DotSg','M 1,5 A 4,4 0 1 1 9,5 A 4,4 0 1 1 1,5 z',10,10,5],
   // hollow triangle (generalisation), hollow and filled diamonds (aggregation, composition): plain geometry, the tip on the end
-  tri:['TriangleSg','M 1,1 9,5 1,9 z',10,10,9,'fill:#ffffff;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter'],dia:['DiamondSg','M 1,5 7,1.5 13,5 7,8.5 z',14,10,13,'fill:#ffffff;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter'],diaf:['DiamondFillSg','M 1,5 7,1.5 13,5 7,8.5 z',14,10,13,'fill:context-stroke;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter']};
+  tri:['TriangleSg','M 1,1 15,7 1,13 z',16,14,15,'fill:#ffffff;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter'],dia:['DiamondSg','M 1,6 11,1 21,6 11,11 z',22,12,21,'fill:#ffffff;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter'],diaf:['DiamondFillSg','M 1,6 11,1 21,6 11,11 z',22,12,21,'fill:context-stroke;stroke:context-stroke;stroke-width:1;stroke-linejoin:miter']};
 // mark(t): adds marker MK[t] to defs once
 function mark(t){const[id,d,w,h,r,st='fill:context-stroke;stroke:none']=MK[t];byId(id)||mk('path',{d,style:st},
   mk('marker',{id,viewBox:`0 0 ${w} ${h}`,refX:r,refY:h/2,markerWidth:w,markerHeight:h,orient:'auto-start-reverse',style:'overflow:visible','inkscape:stockid':id},defs()));return id}
@@ -2753,48 +2753,58 @@ const FLW={
 // each box of a class takes its own text and a lifeline's line can be dashed.
 const flC=(cx,cy,r)=>['M',[cx-r,cy],'A',r,r,'0 1 1',[cx+r,cy],'A',r,r,'0 1 1',[cx-r,cy],'Z'];
 const flR=(x,y,w,h)=>['M',[x,y],'L',[x+w,y],'L',[x+w,y+h],'L',[x,y+h],'Z'];
+// The small parts (a class's name box, a lifeline's head, a package's tab, a component's lugs, a node's depth) have
+// sizes in mm (m: units per mm), capped by the box, so they don't grow with it; an actor keeps its proportions.
 Object.assign(FLW,{
-  uclass:(x,y,w,h)=>[...flR(x,y,w,h),'M',[x,y+h/4],'L',[x+w,y+h/4],'M',[x,y+h*.625],'L',[x+w,y+h*.625]],
-  ulife(x,y,w,h){
-    const b=min(h/3,w/2);
+  uclass(x,y,w,h,r,m){
+    const a=min(7*m,h*.3),b=a+(h-a)/2;
+    return[...flR(x,y,w,h),'M',[x,y+a],'L',[x+w,y+a],'M',[x,y+b],'L',[x+w,y+b]];
+  },
+  ulife(x,y,w,h,r,m){
+    const b=min(8*m,h/2);
     return[...flR(x,y,w,b),'M',[x+w/2,y+b],'L',[x+w/2,y+h]];
   },
   uactor(x,y,w,h){
-    const r=min(w*.3,h*.14),c=x+w/2;
-    return[...flC(c,y+r,r),'M',[c,y+2*r],'L',[c,y+h*.62],'M',[x,y+h*.4],'L',[x+w,y+h*.4],'M',[c,y+h*.62],'L',[x,y+h],'M',[c,y+h*.62],'L',[x+w,y+h]];
+    const f=min(w,h*.46),c=x+w/2,q=h*.11,hip=y+h*.62;
+    return[...flC(c,y+q,q),'M',[c,y+2*q],'L',[c,hip],'M',[c-f/2,y+h*.36],'L',[c+f/2,y+h*.36],'M',[c-f*.42,y+h],'L',[c,hip],'L',[c+f*.42,y+h]];
   },
-  upkg(x,y,w,h){
-    const a=w*.4,b=min(h/5,w/5);
+  upkg(x,y,w,h,r,m){
+    const b=min(3.5*m,h/4),a=min(14*m,w*.45);
     return['M',[x,y],'L',[x+a,y],'L',[x+a,y+b],'L',[x+w,y+b],'L',[x+w,y+h],'L',[x,y+h],'Z','M',[x,y+b],'L',[x+a,y+b]];
   },
-  ucomp(x,y,w,h){
-    const a=min(w/4,h/3),b=a/2;
-    return[...flR(x+a/2,y,w-a/2,h),...flR(x,y+h*.3-b/2,a,b),...flR(x,y+h*.7-b/2,a,b)];
+  ucomp(x,y,w,h,r,m){
+    const a=min(5*m,w/3),b=min(a/2,h/6),t=min(4*m,h*.2);
+    return[...flR(x+a/2,y,w-a/2,h),...flR(x,y+t,a,b),...flR(x,y+t+2*b,a,b)];
   },
-  unode(x,y,w,h){
-    const d=min(w,h)*.18;
+  unode(x,y,w,h,r,m){
+    const d=min(3*m,min(w,h)/4);
     return[...flR(x,y+d,w-d,h-d),'M',[x,y+d],'L',[x+d,y],'L',[x+w,y],'L',[x+w-d,y+d],'Z','M',[x+w-d,y+d],'L',[x+w,y],'L',[x+w,y+h-d],'L',[x+w-d,y+h],'Z'];
   },
   ustart:(x,y,w,h)=>flC(x+w/2,y+h/2,min(w,h)/2),
   uend(x,y,w,h){
     const r=min(w,h)/2;
-    return[...flC(x+w/2,y+h/2,r),...flC(x+w/2,y+h/2,r*.55)];
+    return[...flC(x+w/2,y+h/2,r),...flC(x+w/2,y+h/2,r*.6)];
   }});
 const FLG={
-  uclass:(x,y,w,h)=>[['rect',[x,y,w,h/4]],['rect',[x,y+h/4,w,h*.375]],['rect',[x,y+h*.625,w,h*.375]]],
-  ulife(x,y,w,h,sw){
-    const b=min(h/3,w/2);
-    return[['rect',[x,y,w,b]],['path',['M',[x+w/2,y+b],'L',[x+w/2,y+h]],`;fill:none;stroke-dasharray:${f6(sw*4)},${f6(sw*3)}`]];
+  uclass(x,y,w,h,sw,m){
+    const a=min(7*m,h*.3),b=(h-a)/2;
+    return[['rect',[x,y,w,a]],['rect',[x,y+a,w,b]],['rect',[x,y+a+b,w,b]]];
+  },
+  ulife(x,y,w,h,sw,m){
+    const b=min(8*m,h/2);
+    return[['rect',[x,y,w,b,min(1.2*m,b/4)]],['path',['M',[x+w/2,y+b],'L',[x+w/2,y+h]],`;fill:none;stroke-dasharray:${f6(sw*4)},${f6(sw*3)}`]];
   },
   uend(x,y,w,h){
     const r=min(w,h)/2;
-    return[['path',flC(x+w/2,y+h/2,r)],['path',flC(x+w/2,y+h/2,r*.55),'ink']];
+    return[['path',flC(x+w/2,y+h/2,r)],['path',flC(x+w/2,y+h/2,r*.6),'ink']];
   }};
+// FLS: extra style of a one-path kind
+const FLS={uactor:';stroke-linecap:round;stroke-linejoin:round',upkg:';stroke-linejoin:round',unode:';stroke-linejoin:round',ucomp:';stroke-linejoin:round'};
 // FLC: where a shape's text is centred, as fractions of its box (x: any other shape)
-const FLC={x:[.5,.5],upkg:[.5,.6],unode:[.44,.58],ucomp:[.56,.5],triangle:[.5,.64],callout:[.5,.36],document:[.5,.46],cylinder:[.5,.56]};
+const FLC={x:[.5,.5],upkg:[.5,.56],unode:[.46,.56],ucomp:[.54,.5],triangle:[.5,.64],callout:[.5,.36],document:[.5,.46],cylinder:[.5,.56]};
 // flwMk(t,a,b,style,parent): the flow shape t from a to b in parent's coordinates
 function flwMk(t,a,b,s,p){
-  const x=min(a.x,b.x),y=min(a.y,b.y),w=abs(b.x-a.x),h=abs(b.y-a.y);
+  const x=min(a.x,b.x),y=min(a.y,b.y),w=abs(b.x-a.x),h=abs(b.y-a.y),m=1/U/sc(ctm(p));
   let e;
   if(t==='capsule'){
     const r=fc(min(w,h)/2);
@@ -2802,12 +2812,12 @@ function flwMk(t,a,b,s,p){
   }else if(t in FLG){
     const sw=parseFloat((/stroke-width:([^;]+)/.exec(s)||[0,1])[1]);
     e=mk('g',{id:uid('g')},p);
-    for(const[n,g,x2]of FLG[t](x,y,w,h,sw)){
+    for(const[n,g,x2]of FLG[t](x,y,w,h,sw,m)){
       const st=x2==='ink'?flInk(s):s+(x2||'');
-      if(n==='rect')mk('rect',{id:uid('rect'),x:fc(g[0]),y:fc(g[1]),width:fc(g[2]),height:fc(g[3]),style:st},e);
+      if(n==='rect')mk('rect',{id:uid('rect'),x:fc(g[0]),y:fc(g[1]),width:fc(g[2]),height:fc(g[3]),...(g[4]?{rx:fc(g[4]),ry:fc(g[4])}:{}),style:st},e);
       else mk('path',{id:uid('path'),d:shD(g),style:st},e);
     }
-  }else e=mk('path',{id:uid('path'),d:shD(FLW[t](x,y,w,h,b.x<a.x)),style:t==='ustart'?flInk(s):s},p);
+  }else e=mk('path',{id:uid('path'),d:shD(FLW[t](x,y,w,h,b.x<a.x,m)),style:(t==='ustart'?flInk(s):s)+(FLS[t]||'')},p);
   e.setAttribute('data-sg-shape',t);
   return e;
 }
@@ -2885,7 +2895,8 @@ function stText(e,ev){
   const p=upc(e.parentNode),b=fgBox(e,p);
   if(!b)return;
   const c=FLC[e.getAttribute('data-sg-shape')]||FLC.x,mrk=flush();
-  const t=arial(p,{x:b.x+c[0]*b.w,y:b.y+c[1]*b.h},8,'','text-anchor:middle;');
+  const bold=p.getAttribute('data-sg-shape')==='uclass'&&e===p.firstElementChild?'font-weight:bold;':'';
+  const t=arial(p,{x:b.x+c[0]*b.w,y:b.y+c[1]*b.h},8,'',bold+'text-anchor:middle;');
   t.setAttribute(FGK,'stext');
   t.setAttribute(FGF,`url(#${e.id})`);
   t.setAttribute(FGP,'c 0 0');

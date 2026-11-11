@@ -126,7 +126,7 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mTools svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
 #mTools a{margin-top:auto;width:36px;height:36px;display:grid;place-items:center;color:inherit;opacity:.6}#mTools a+a{margin-top:0}#mTools a.tb{opacity:.85}#mTools a.tb svg{width:21px;height:21px}#mTools a.sg svg{width:21px;height:21px}#mTools a:hover{opacity:1}
 #mTools>i{width:28px;height:1px;background:var(--line);margin:3px 0}
-#mTools .ddb{position:relative}#mTools .ddb::after{content:"";position:absolute;right:2px;bottom:2px;border:2.5px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.75}#mTools .menu{left:100%;top:0;margin:0 0 0 5px;min-width:150px}
+#mTools .ddb{position:relative}#mTools .ddb::after{content:"";position:absolute;right:2px;bottom:2px;border:2.5px solid transparent;border-right-color:currentColor;border-bottom-color:currentColor;opacity:.75}#mTools .menu{left:100%;top:0;margin:0 0 0 5px;min-width:150px}#mTools .gr .menu{top:-120px;min-width:0;padding:6px;grid-template-columns:repeat(4,34px);gap:2px}#mTools .gr.open>.menu{display:grid}#mTools .gr .menu button{width:34px;height:34px;padding:0;justify-content:center;border-radius:7px}#mTools .gr .menu svg{width:20px;height:20px}
 #mTools .menu button{width:100%;height:auto;display:flex;align-items:center;gap:8px;padding:3px 8px;border-color:transparent;background:transparent;white-space:nowrap}#mTools .menu button:hover{background:var(--btnh)}#mTools .menu button.on{background:var(--on);color:var(--onfg)}#mTools .menu button.on::before{content:none}#mTools .menu kbd{margin-left:auto;padding:0 0 0 16px;border:0;background:none;opacity:.6}
 #mFS{flex:none;width:40px;margin:3px 0 1px;border:1px solid var(--line);border-radius:12px;background:var(--fsd);box-shadow:0 1px 2px #00000012}#mFS .fs{position:relative;height:43px}#mFS svg{width:13px;height:13px;stroke-width:1.2}
 #mFS label{position:absolute;width:22px;height:22px;border:1px solid var(--swb);border-radius:3px;background-color:var(--c,#fff);cursor:pointer}#mFS label:hover{outline:2px solid var(--btnh)}#mFS label:has(:focus-visible),#mFS button:focus-visible{outline:1.5px solid var(--onb);outline-offset:1px}#mFS input{position:absolute;inset:0;z-index:1;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
@@ -335,10 +335,8 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <button data-t="text" title="Text (T)"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
 <button data-t="drop" title="Eyedropper (I): click an object to give the selection its style; Alt+click applies the picked style to an object"><svg viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><path d="M8.5 8.5V5a3.5 3.5 0 0 1 7 0v3.5M7 8.5h10M10.2 8.5v9.5l1.8 4 1.8-4V8.5"/></g></svg></button><button data-t="crop" title="Crop a photo (C): click it and drag the handles or the box; Enter applies, Esc cancels"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg></button>
 <div class="dd" id="mLg"><button data-t="line" id="mLt" class="ddb" title="Line (\), arrow (A), inhibition (B) or elbow connector (E): click to choose"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button><div class="menu" id="mLv"><button data-t="line" title="Line (\)"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg>Line<kbd>\</kbd></button><button data-t="arrow" title="Arrow (A): activation, positive regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 5h9v9"/></svg>Arrow<kbd>A</kbd></button><button data-t="inhibit" title="Inhibition (B): blunt-ended line, negative regulation"><svg viewBox="0 0 24 24"><path d="M5 19 18 6M14 2l8 8"/></svg>Inhibition<kbd>B</kbd></button><button data-t="elbow" title="Elbow connector (E): an arrow with right angles, as in pathways; its ends attach like arrows, its diamond moves the middle segment"><svg viewBox="0 0 24 24"><path d="M3 19h8V5h10M17 2l4 3-4 3"/></svg>Elbow connector<kbd>E</kbd></button></div></div>
-<div class="dd"><button data-t="rect" class="ddb" title="Basic shapes: rectangle (M), ellipse (L) and more; click to choose; Shift keeps width and height equal; double-click a shape to type inside it"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg></button><div class="menu"><button data-t="rect" title="Rectangle (M), Shift for square"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg>Rectangle<kbd>M</kbd></button><button data-t="ellipse" title="Ellipse (L), Shift for circle"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></svg>Ellipse<kbd>L</kbd></button><button data-t="capsule" title="Capsule: a start, an end or a sample"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/></svg>Capsule</button><button data-t="diamond" title="Diamond: a decision or a filter"><svg viewBox="0 0 24 24"><path d="M12 4 21 12 12 20 3 12z"/></svg>Diamond</button><button data-t="triangle" title="Triangle"><svg viewBox="0 0 24 24"><path d="M12 4 21 19H3z"/></svg>Triangle</button><button data-t="para" title="Parallelogram: data, input or output"><svg viewBox="0 0 24 24"><path d="M7 6H21L17 18H3z"/></svg>Parallelogram</button><button data-t="trapezoid" title="Trapezoid: flip it vertically for a funnel"><svg viewBox="0 0 24 24"><path d="M7 6h10l4 12H3z"/></svg>Trapezoid</button><button data-t="hexagon" title="Hexagon: a preparation step, a metabolite or a sugar ring"><svg viewBox="0 0 24 24"><path d="M7.5 5h9L21 12l-4.5 7h-9L3 12z"/></svg>Hexagon</button></div></div>
-<div class="dd"><button data-t="barrow" class="ddb" title="Block arrows and the wedge (W): click to choose; double-click a block arrow to type inside it"><svg viewBox="0 0 24 24"><path d="M3 9.5h10V6l8 6-8 6v-3.5H3z"/></svg></button><div class="menu"><button data-t="barrow" title="Block arrow: drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 9.5h10V6l8 6-8 6v-3.5H3z"/></svg>Block arrow</button><button data-t="pentagon" title="Pentagon arrow: a step, or a gene; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3z"/></svg>Pentagon arrow</button><button data-t="chevron" title="Chevron: a step in a chain; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3l5-5z"/></svg>Chevron</button><button data-t="wedge" title="Wedge (W): a rising concentration, dose or time; drag from the thin end to the thick end"><svg viewBox="0 0 24 24"><path d="M3 18H21V6z"/></svg>Wedge<kbd>W</kbd></button></div></div>
-<div class="dd"><button data-t="cylinder" class="ddb" title="Symbols and notes, and the brace ({): click to choose; double-click a symbol to type inside it"><svg viewBox="0 0 24 24"><path d="M5 7v10c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 7c0 1.7 3.1 3 7 3s7-1.3 7-3-3.1-3-7-3-7 1.3-7 3z"/></svg></button><div class="menu"><button data-t="cylinder" title="Cylinder: a database or a reference genome"><svg viewBox="0 0 24 24"><path d="M5 7v10c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 7c0 1.7 3.1 3 7 3s7-1.3 7-3-3.1-3-7-3-7 1.3-7 3z"/></svg>Cylinder</button><button data-t="document" title="Document: a file"><svg viewBox="0 0 24 24"><path d="M4 5h16v12.5c-3-2.5-5-1-8 0s-5 2-8 0z"/></svg>Document</button><button data-t="note" title="Note: a sheet with a folded corner"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4zM15 4v5h5"/></svg>Note</button><button data-t="callout" title="Callout: a remark with a pointer"><svg viewBox="0 0 24 24"><path d="M4 5h16v10h-9l-4 4v-4H4z"/></svg>Callout</button><button data-t="brace" title="Brace ({): drag along what it groups; left to right points it up, right to left down, top to bottom right"><svg viewBox="0 0 24 24"><path d="M3 17Q3 12 7 12H10Q12 12 12 7Q12 12 14 12H17Q21 12 21 17"/></svg>Brace<kbd>{</kbd></button></div></div>
-<div class="dd"><button data-t="uclass" class="ddb" title="UML shapes: click to choose; double-click a box to type inside it; triangle and diamond heads for the lines are under Heads in Properties"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M4 14.5h16"/></svg></button><div class="menu"><button data-t="uclass" title="Class: three boxes for the name, the attributes and the operations; double-click each to type"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M4 14.5h16"/></svg>Class</button><button data-t="ulife" title="Lifeline: a participant with its dashed line, for sequence diagrams"><svg viewBox="0 0 24 24"><path d="M5 3h14v6H5z"/><path d="M12 9v12" stroke-dasharray="2.5 2"/></svg>Lifeline</button><button data-t="uactor" title="Actor: a person or an outside system"><svg viewBox="0 0 24 24"><path d="M12 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12 8v7M6 11h12M12 15l-5 6M12 15l5 6"/></svg>Actor</button><button data-t="upkg" title="Package: a folder that groups elements"><svg viewBox="0 0 24 24"><path d="M3 5h8v4h10v11H3zM3 9h8"/></svg>Package</button><button data-t="ucomp" title="Component"><svg viewBox="0 0 24 24"><path d="M7 4h13v16H7v-3M7 13v-2M7 7V4M4 7h6v4H4zM4 13h6v4H4z"/></svg>Component</button><button data-t="unode" title="Node: a device or a server"><svg viewBox="0 0 24 24"><path d="M3 8h14v12H3zM3 8l4-4h14l-4 4M21 4v12l-4 4"/></svg>Node</button><button data-t="ustart" title="Start node: where an activity begins"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" style="fill:currentColor"/></svg>Start node</button><button data-t="uend" title="End node: where an activity ends"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4" style="fill:currentColor"/></svg>End node</button></div></div>
+<button data-t="rect" title="Rectangle (M), Shift for square"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12"/></svg></button><button data-t="ellipse" title="Ellipse (L), Shift for circle"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5"/></svg></button>
+<div class="dd gr"><button data-t="diamond" class="ddb" title="Shapes: click to choose; Shift keeps width and height equal; double-click a shape to type inside it"><svg viewBox="0 0 24 24"><path d="M12 4 21 12 12 20 3 12z"/></svg></button><div class="menu"><button data-t="diamond" title="Diamond: a decision or a filter"><svg viewBox="0 0 24 24"><path d="M12 4 21 12 12 20 3 12z"/></svg></button><button data-t="triangle" title="Triangle"><svg viewBox="0 0 24 24"><path d="M12 4 21 19H3z"/></svg></button><button data-t="capsule" title="Capsule: a start, an end or a sample"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/></svg></button><button data-t="para" title="Parallelogram: data, input or output"><svg viewBox="0 0 24 24"><path d="M7 6H21L17 18H3z"/></svg></button><button data-t="trapezoid" title="Trapezoid: flip it vertically for a funnel"><svg viewBox="0 0 24 24"><path d="M7 6h10l4 12H3z"/></svg></button><button data-t="hexagon" title="Hexagon: a preparation step, a metabolite or a sugar ring"><svg viewBox="0 0 24 24"><path d="M7.5 5h9L21 12l-4.5 7h-9L3 12z"/></svg></button><button data-t="octagon" title="Octagon"><svg viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"/></svg></button><button data-t="cross" title="Cross"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></button><button data-t="star" title="Star"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button><button data-t="heart" title="Heart"><svg viewBox="0 0 24 24"><path d="M12 20C5 15 3 12 3 8.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 9 1.5c0 3.5-2 6.5-9 11.5z"/></svg></button><button data-t="cloud" title="Cloud"><svg viewBox="0 0 24 24"><path d="M7 19a4 4 0 0 1-.5-8A6 6 0 0 1 18 10.5a4.3 4.3 0 0 1-.5 8.5z"/></svg></button><button data-t="bolt" title="Lightning"><svg viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></svg></button><button data-t="barrow" title="Block arrow right"><svg viewBox="0 0 24 24"><path d="M3 9.5h10V6l8 6-8 6v-3.5H3z"/></svg></button><button data-t="larrow" title="Block arrow left"><svg viewBox="0 0 24 24"><path d="M21 9.5H11V6l-8 6 8 6v-3.5h10z"/></svg></button><button data-t="uarrow" title="Block arrow up"><svg viewBox="0 0 24 24"><path d="M9.5 21V11H6l6-8 6 8h-3.5v10z"/></svg></button><button data-t="darrow" title="Block arrow down"><svg viewBox="0 0 24 24"><path d="M9.5 3v10H6l6 8 6-8h-3.5V3z"/></svg></button><button data-t="pentagon" title="Pentagon arrow: a step, or a gene; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3z"/></svg></button><button data-t="chevron" title="Chevron: a step in a chain; drag towards where it points"><svg viewBox="0 0 24 24"><path d="M3 7h12l6 5-6 5H3l5-5z"/></svg></button><button data-t="wedge" title="Wedge (W): a rising concentration, dose or time; drag from the thin end to the thick end"><svg viewBox="0 0 24 24"><path d="M3 18H21V6z"/></svg></button><button data-t="delay" title="Delay: a D shape"><svg viewBox="0 0 24 24"><path d="M4 5h9a7 7 0 0 1 0 14H4z"/></svg></button><button data-t="cylinder" title="Cylinder: a database or a reference genome"><svg viewBox="0 0 24 24"><path d="M5 7v10c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 7c0 1.7 3.1 3 7 3s7-1.3 7-3-3.1-3-7-3-7 1.3-7 3z"/></svg></button><button data-t="document" title="Document: a file"><svg viewBox="0 0 24 24"><path d="M4 5h16v12.5c-3-2.5-5-1-8 0s-5 2-8 0z"/></svg></button><button data-t="mdoc" title="Documents: several files"><svg viewBox="0 0 24 24"><path d="M4 8h13v10c-3-2-4-1-6.5 0S6 19.5 4 18zM7 8V5h13v10"/></svg></button><button data-t="mrect" title="Stacked boxes: several of a kind"><svg viewBox="0 0 24 24"><path d="M4 8h13v11H4zM7 8V5h13v11h-3"/></svg></button><button data-t="note" title="Note: a sheet with a folded corner"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4zM15 4v5h5"/></svg></button><button data-t="card" title="Card: a box with a cut corner"><svg viewBox="0 0 24 24"><path d="M9 5h11v14H4V10z"/></svg></button><button data-t="callout" title="Callout: a remark with a pointer"><svg viewBox="0 0 24 24"><path d="M4 5h16v10h-9l-4 4v-4H4z"/></svg></button><button data-t="bracket" title="Square brackets"><svg viewBox="0 0 24 24"><path d="M8 4H4v16h4M16 4h4v16h-4"/></svg></button><button data-t="brace" title="Brace ({): drag along what it groups; left to right points it up, right to left down, top to bottom right"><svg viewBox="0 0 24 24"><path d="M3 17Q3 12 7 12H10Q12 12 12 7Q12 12 14 12H17Q21 12 21 17"/></svg></button><button data-t="okc" title="Check mark in a circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.3l2.8 2.9L16 9"/></svg></button><button data-t="xc" title="Cross in a circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg></button><button data-t="uend" title="End node: where an activity ends"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4" style="fill:currentColor"/></svg></button><button data-t="ustart" title="Start node: where an activity begins"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" style="fill:currentColor"/></svg></button><button data-t="uclass" title="Class: three boxes for the name, the attributes and the operations; double-click each to type"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M4 14.5h16"/></svg></button><button data-t="ulife" title="Lifeline: a participant with its dashed line, for sequence diagrams"><svg viewBox="0 0 24 24"><path d="M5 3h14v6H5z"/><path d="M12 9v12" stroke-dasharray="2.5 2"/></svg></button><button data-t="uactor" title="Actor: a person or an outside system"><svg viewBox="0 0 24 24"><path d="M12 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12 8v7M6 11h12M12 15l-5 6M12 15l5 6"/></svg></button><button data-t="upkg" title="Package: a folder that groups elements"><svg viewBox="0 0 24 24"><path d="M3 5h8v4h10v11H3zM3 9h8"/></svg></button><button data-t="ucomp" title="Component"><svg viewBox="0 0 24 24"><path d="M7 4h13v16H7v-3M7 13v-2M7 7V4M4 7h6v4H4zM4 13h6v4H4z"/></svg></button><button data-t="unode" title="Node: a device or a server"><svg viewBox="0 0 24 24"><path d="M3 8h14v12H3zM3 8l4-4h14l-4 4M21 4v12l-4 4"/></svg></button></div></div>
 <div id="mFS"><div class="fs"><label id="mFF" title="Fill: of the selection, or of new shapes when nothing is selected; click to choose a colour"><input type="color" id="mFc"></label><label id="mSF" title="Stroke: of the selection, or of new shapes when nothing is selected; click to choose a colour"><input type="color" id="mSc"></label><button data-a="swap" id="mFX" title="Swap fill and stroke (Shift+X)"><svg viewBox="0 0 12 12"><path d="M1.5 2.5h6a2 2 0 0 1 2 2v6M3.5.8 1.5 2.5l2 1.7M7.8 8.5l1.7 2 1.7-2"/></svg></button></div><div class="fr"><button data-a="dflt" id="mFD" title="Default fill and stroke: none and black (D)"><svg viewBox="0 0 12 12"><path d="M1 1h6.5v6.5H1z" style="fill:currentColor"/><path d="M4.5 4.5H11V11H4.5z" style="fill:var(--fsd)"/></svg></button><i></i><button data-a="fsNo" id="mFN" title="No colour: removes the fill or the stroke, whichever is in front (/)"><svg viewBox="0 0 12 12"><rect x="1.5" y="1.5" width="9" height="9" rx="1" style="fill:#fff;stroke:var(--swb)"/><path d="M2.6 9.4 9.4 2.6" style="stroke:#e5534b"/></svg></button></div></div><i></i>
 <a href="https://github.com/CJ-Chen/TBtools-II" target="_blank" rel="noopener" title="TBtools-II on GitHub; svguest also runs in it as a plugin" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/></svg></a>
 <a href="https://bioanno.com/index" target="_blank" rel="noopener" title="BioAnno" class="tb"><svg viewBox="0 0 16 16" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" style="stroke:#aa6418;stroke-width:.625"/><rect x=".6" y="5.4" width="14.8" height="5.2" rx="1.2" fill="#fffdf2" opacity=".93"/><text x="8" y="9.35" text-anchor="middle" textLength="13.4" lengthAdjust="spacingAndGlyphs" style="fill:#7a4108;stroke:none;font:700 4.2px Arial,Helvetica,sans-serif">BioAnno</text></svg></a>
@@ -561,7 +559,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt>Properties tab</dt><dd>Above the Layers tab: hides or shows the side panel (also View › Properties)</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
-<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>More basic shapes, block arrows, symbols and UML shapes, in the buttons under the line tools: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). The last of them holds UML shapes; triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
+<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>More shapes (flowchart, block arrows, symbols, UML), in the grid button under the ellipse: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). Triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, U, X² or X₂</dd><dt><kbd>Ctrl+B</kbd> <kbd>I</kbd> <kbd>U</kbd></dt><dd>Bold, italic, underline while editing; <kbd>Ctrl+U</kbd> also underlines selected texts</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
@@ -927,6 +925,24 @@ const ZH={
  "Rectangle":"矩形",
  "Ellipse":"椭圆",
  "Wedge":"楔形",
+ "Shapes: click to choose; Shift keeps width and height equal; double-click a shape to type inside it":"图形：点击选择；按住 Shift 宽高相等；双击图形可在里面输入文字",
+ "Octagon":"八边形",
+ "Cross":"十字",
+ "Star":"星形",
+ "Heart":"心形",
+ "Cloud":"云",
+ "Lightning":"闪电",
+ "Block arrow right":"向右粗箭头",
+ "Block arrow left":"向左粗箭头",
+ "Block arrow up":"向上粗箭头",
+ "Block arrow down":"向下粗箭头",
+ "Delay: a D shape":"延迟：D 形",
+ "Documents: several files":"多文档：多个文件",
+ "Stacked boxes: several of a kind":"叠放的框：多个同类",
+ "Card: a box with a cut corner":"卡片：切角的框",
+ "Square brackets":"方括号",
+ "Check mark in a circle":"带勾的圆",
+ "Cross in a circle":"带叉的圆",
  "Class":"类",
  "Lifeline":"生命线",
  "Actor":"参与者",
@@ -977,7 +993,7 @@ const ZH={
  "Block arrows and the wedge (W): click to choose; double-click a block arrow to type inside it":"块状箭头和楔形 (W)：点击选择；双击块状箭头可在里面输入文字",
  "Symbols and notes, and the brace ({): click to choose; double-click a symbol to type inside it":"符号与标注，以及大括号 ({)：点击选择；双击符号可在里面输入文字",
  "Add or edit text inside":"添加或编辑图形内文字",
- "More basic shapes, block arrows, symbols and UML shapes, in the buttons under the line tools: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). The last of them holds UML shapes; triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself":"更多基本形状、块状箭头、符号和 UML 图形在线条工具下方的按钮里：拖动绘制；双击这些图形、矩形或椭圆，可在里面输入文字（其他闭合图形：选中后按 Enter；节点编辑：点一下角上的控制点）。最后一个按钮里是 UML 图形；线条的三角和菱形端点在属性面板的端点里。文字始终在图形中央；再点一次可选中文字本身",
+ "More shapes (flowchart, block arrows, symbols, UML), in the grid button under the ellipse: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). Triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself":"更多图形（流程图、粗箭头、符号、UML）在椭圆下方的网格按钮里：拖动绘制；双击这些图形、矩形或椭圆，可在里面输入文字（其他闭合图形：选中后按 Enter；节点编辑：点一下角上的控制点）。线条的三角和菱形端点在属性面板的端点里。文字始终在图形中央；再点一次可选中文字本身",
  "Line":"直线",
  "Arrow":"箭头",
  "Inhibition":"抑制线",
@@ -2700,6 +2716,15 @@ function newText(u){const p=curParent(),q=ctm(p).inverse().transformPoint(u),mrk
 // scales and drags and keeps its size in pt; moved by hand, it keeps that offset. A click on the text picks its shape,
 // so a box is dragged by its middle; a second click picks the text, a double-click edits it.
 let stT=0; // the timer of stPick
+// flP(points): a closed polygon for shD; flF(x,y,w,h,points,W,H): points on a W × H grid fitted into the box
+const flP=q=>q.flatMap((p,i)=>[i?'L':'M',p]).concat('Z');
+const flF=(x,y,w,h,q,W,H)=>flP(q.map(p=>[x+p[0]/W*w,y+p[1]/H*h]));
+// flA(x,y,w,h,d): a block arrow pointing right (0), left (1), up (2) or down (3)
+function flA(x,y,w,h,d){
+  const L=d<2?w:h,K=d<2?h:w,n=L-min(L/2,K*.75);
+  const q=[[0,K/4],[n,K/4],[n,0],[L,K/2],[n,K],[n,K*.75],[0,K*.75]];
+  return flP(q.map(([u,v])=>d===0?[x+u,y+v]:d===1?[x+w-u,y+v]:d===2?[x+v,y+h-u]:[x+v,y+u]));
+}
 // FLX(x,w,r): maps a distance from the box's tail side to x; r: the arrow points left
 const FLX=(x,w,r)=>u=>r?x+w-u:x+u;
 // FLW[tool](x,y,w,h,r): the outline for shD, in the box x y w h; r: dragged leftwards (arrows point that way)
@@ -2735,9 +2760,55 @@ const FLW={
     const c=min(w,h)/4;
     return['M',[x,y],'L',[x+w-c,y],'L',[x+w,y+c],'L',[x+w,y+h],'L',[x,y+h],'Z','M',[x+w-c,y],'L',[x+w-c,y+c],'L',[x+w,y+c]];
   },
-  barrow(x,y,w,h,r){
-    const X=FLX(x,w,r),n=w-min(w/2,h*.75);
-    return['M',[X(0),y+h/4],'L',[X(n),y+h/4],'L',[X(n),y],'L',[X(w),y+h/2],'L',[X(n),y+h],'L',[X(n),y+h*.75],'L',[X(0),y+h*.75],'Z'];
+  barrow:(x,y,w,h)=>flA(x,y,w,h,0),
+  larrow:(x,y,w,h)=>flA(x,y,w,h,1),
+  uarrow:(x,y,w,h)=>flA(x,y,w,h,2),
+  darrow:(x,y,w,h)=>flA(x,y,w,h,3),
+  octagon(x,y,w,h){
+    const c=min(w,h)*.29;
+    return flP([[x+c,y],[x+w-c,y],[x+w,y+c],[x+w,y+h-c],[x+w-c,y+h],[x+c,y+h],[x,y+h-c],[x,y+c]]);
+  },
+  cross:(x,y,w,h)=>flF(x,y,w,h,[[1,0],[2,0],[2,1],[3,1],[3,2],[2,2],[2,3],[1,3],[1,2],[0,2],[0,1],[1,1]],3,3),
+  star(x,y,w,h){
+    const q=[];
+    for(let i=0;i<10;i++){
+      const a=i*PI/5,r=i%2?.4:1;
+      q.push([r*sin(a),-r*cos(a)]);
+    }
+    return flF(x,y,w,h,q.map(v=>[v[0]+sin(.4*PI),v[1]+1]),2*sin(.4*PI),1+cos(.2*PI));
+  },
+  heart:(x,y,w,h)=>['M',[x+w/2,y+h],'C',[x+w*.1,y+h*.72],[x,y+h*.48],[x,y+h*.28],'C',[x,y+h*.1],[x+w*.13,y],[x+w*.27,y],'C',[x+w*.4,y],[x+w/2,y+h*.1],[x+w/2,y+h*.25],
+    'C',[x+w/2,y+h*.1],[x+w*.6,y],[x+w*.73,y],'C',[x+w*.87,y],[x+w,y+h*.1],[x+w,y+h*.28],'C',[x+w,y+h*.48],[x+w*.9,y+h*.72],[x+w/2,y+h],'Z'],
+  cloud:(x,y,w,h)=>['M',[x+w*.25,y+h],'C',[x+w*.08,y+h],[x,y+h*.84],[x,y+h*.68],'C',[x,y+h*.52],[x+w*.08,y+h*.4],[x+w*.2,y+h*.38],'C',[x+w*.2,y+h*.14],[x+w*.36,y],[x+w*.52,y],
+    'C',[x+w*.66,y],[x+w*.78,y+h*.1],[x+w*.82,y+h*.3],'C',[x+w*.93,y+h*.34],[x+w,y+h*.48],[x+w,y+h*.64],'C',[x+w,y+h*.84],[x+w*.9,y+h],[x+w*.76,y+h],'Z'],
+  bolt:(x,y,w,h)=>flF(x,y,w,h,[[6,0],[0,11],[5,11],[3,20],[11,8],[6,8],[9,0]],11,20),
+  delay(x,y,w,h){
+    const r=min(w,h/2);
+    return['M',[x,y],'L',[x+w-r,y],'A',r,h/2,'0 0 1',[x+w-r,y+h],'L',[x,y+h],'Z'];
+  },
+  mdoc(x,y,w,h){
+    const o=min(w,h)*.12;
+    return[...FLW.document(x,y+o,w-o,h-o),'M',[x+o,y+o],'L',[x+o,y],'L',[x+w,y],'L',[x+w,y+h-2.4*o],'L',[x+w-o,y+h-2.4*o]];
+  },
+  mrect(x,y,w,h){
+    const o=min(w,h)*.12;
+    return[...flR(x,y+o,w-o,h-o),'M',[x+o,y+o],'L',[x+o,y],'L',[x+w,y],'L',[x+w,y+h-o],'L',[x+w-o,y+h-o]];
+  },
+  card(x,y,w,h){
+    const c=min(w,h)*.28;
+    return flP([[x+c,y],[x+w,y],[x+w,y+h],[x,y+h],[x,y+c]]);
+  },
+  bracket(x,y,w,h,r,m){
+    const b=min(2*m,w/4);
+    return['M',[x+b,y],'L',[x,y],'L',[x,y+h],'L',[x+b,y+h],'M',[x+w-b,y],'L',[x+w,y],'L',[x+w,y+h],'L',[x+w-b,y+h]];
+  },
+  okc(x,y,w,h){
+    const r=min(w,h)/2,c=x+w/2,d=y+h/2;
+    return[...flC(c,d,r),'M',[c-r*.45,d+r*.05],'L',[c-r*.12,d+r*.4],'L',[c+r*.48,d-r*.35]];
+  },
+  xc(x,y,w,h){
+    const r=min(w,h)/2,c=x+w/2,d=y+h/2,q=r*.42;
+    return[...flC(c,d,r),'M',[c-q,d-q],'L',[c+q,d+q],'M',[c+q,d-q],'L',[c-q,d+q]];
   },
   pentagon(x,y,w,h,r){
     const X=FLX(x,w,r),n=w-min(w/3,h/2);
@@ -2799,9 +2870,9 @@ const FLG={
     return[['path',flC(x+w/2,y+h/2,r)],['path',flC(x+w/2,y+h/2,r*.6),'ink']];
   }};
 // FLS: extra style of a one-path kind
-const FLS={uactor:';stroke-linecap:round;stroke-linejoin:round',upkg:';stroke-linejoin:round',unode:';stroke-linejoin:round',ucomp:';stroke-linejoin:round'};
+const FLS={okc:';stroke-linecap:round;stroke-linejoin:round',xc:';stroke-linecap:round',uactor:';stroke-linecap:round;stroke-linejoin:round',upkg:';stroke-linejoin:round',unode:';stroke-linejoin:round',ucomp:';stroke-linejoin:round'};
 // FLC: where a shape's text is centred, as fractions of its box (x: any other shape)
-const FLC={x:[.5,.5],upkg:[.5,.56],unode:[.46,.56],ucomp:[.54,.5],triangle:[.5,.64],callout:[.5,.36],document:[.5,.46],cylinder:[.5,.56]};
+const FLC={x:[.5,.5],mdoc:[.45,.5],mrect:[.45,.56],heart:[.5,.42],cloud:[.5,.58],star:[.5,.55],upkg:[.5,.56],unode:[.46,.56],ucomp:[.54,.5],triangle:[.5,.64],callout:[.5,.36],document:[.5,.46],cylinder:[.5,.56]};
 // flwMk(t,a,b,style,parent): the flow shape t from a to b in parent's coordinates
 function flwMk(t,a,b,s,p){
   const x=min(a.x,b.x),y=min(a.y,b.y),w=abs(b.x-a.x),h=abs(b.y-a.y),m=1/U/sc(ctm(p));
@@ -2817,7 +2888,7 @@ function flwMk(t,a,b,s,p){
       if(n==='rect')mk('rect',{id:uid('rect'),x:fc(g[0]),y:fc(g[1]),width:fc(g[2]),height:fc(g[3]),...(g[4]?{rx:fc(g[4]),ry:fc(g[4])}:{}),style:st},e);
       else mk('path',{id:uid('path'),d:shD(g),style:st},e);
     }
-  }else e=mk('path',{id:uid('path'),d:shD(FLW[t](x,y,w,h,b.x<a.x,m)),style:(t==='ustart'?flInk(s):s)+(FLS[t]||'')},p);
+  }else e=mk('path',{id:uid('path'),d:shD(FLW[t](x,y,w,h,b.x<a.x,m)),style:(t==='ustart'?flInk(s):t==='bracket'?s.replace(/fill:[^;]+/,'fill:none'):s)+(FLS[t]||'')},p);
   e.setAttribute('data-sg-shape',t);
   return e;
 }
@@ -2830,7 +2901,7 @@ function flInk(s){
 function stCan(e){
   if(!e||!e.localName||fgK(e)||lkd(e))return false;
   if(e.localName==='g')return e.hasAttribute('data-sg-shape')&&!!e.querySelector(':scope>rect');
-  if(/^(uactor|ustart)$/.test(e.getAttribute('data-sg-shape')))return false;
+  if(/^(uactor|ustart|bracket|okc|xc)$/.test(e.getAttribute('data-sg-shape')))return false;
   if(e.hasAttribute('data-sg-shape'))return true;
   if(/^(rect|ellipse|circle|polygon)$/.test(e.localName))return true;
   return e.localName==='path'&&/z\s*$/i.test(e.getAttribute('d')||'');

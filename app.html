@@ -90,7 +90,7 @@ input,select{font:inherit}
 .wnf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 20px}.wnf a{font-size:12px;color:var(--h4);text-decoration:none}.wnf a:hover{color:var(--fg)}.wnf a::after{content:" ↗"}
 #mWnOk{height:34px;padding:0 20px;border:0;border-radius:9px;background:var(--fg);color:var(--btn);font-weight:600}#mWnOk:hover{opacity:.88}
 /* ══ 41 Kept in this browser ══ */
-#mKept{padding:0;width:min(520px,94vw)}#mCf{max-width:min(400px,90vw)}
+#mKept{padding:0;width:min(520px,94vw)}#mCf,#mPdP{max-width:min(400px,90vw)}#mPdP b{overflow-wrap:anywhere}
 #mKept:focus{outline:none}
 dialog#mKept form{padding:16px 18px 18px}
 #mKept .kl{margin:2px 0 12px;color:var(--h4)}
@@ -324,7 +324,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <!-- ══ 55 Menus ══ -->
 <div id="mBar">
 <span id="mBrand" title="svguest v1.4.0"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
-<div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><div class="sub" id="mRc"><button class="sb" title="The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser">Open recent<i>›</i></button><div class="menu" id="mRm"></div></div><button data-a="auto" title="Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)">Auto-save</button><button data-a="autoDir" title="Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop">Auto-save to a folder…<small>Chrome/Edge only</small></button><button data-a="imp" title="Place an SVG, PNG or JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
+<div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG, or a page of a PDF as editable paths, text and pictures; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><div class="sub" id="mRc"><button class="sb" title="The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser">Open recent<i>›</i></button><div class="menu" id="mRm"></div></div><button data-a="auto" title="Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)">Auto-save</button><button data-a="autoDir" title="Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop">Auto-save to a folder…<small>Chrome/Edge only</small></button><button data-a="imp" title="Place an SVG, a page of a PDF, a PNG or a JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View ▾</button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button><hr><div class="sub"><button class="sb" title="The language of menus, buttons and tips; drawings and files are never translated">Language<i>›</i></button><div class="menu"><button data-a="lgEn" title="The main language, the most tested">English</button><button data-a="lgZh" title="Menus, buttons and tips in Chinese (beta): some messages stay in English; everything works as in English">中文（测试版）</button><hr><div class="sub"><button class="sb" title="The font of the interface's Latin letters and numbers; drawings are not affected">English font<i>›</i></button><div class="menu" id="mUfE"></div></div><div class="sub"><button class="sb" title="The font of Chinese in the interface, also in file and layer names; drawings are not affected">Chinese font<i>›</i></button><div class="menu" id="mUfZ"></div></div></div></div></div></div>
@@ -540,7 +540,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <!-- ══ 50 History and status bar ══ -->
 <div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets">▾</button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
 <!-- ══ 05 Opening ══ -->
-<input type="file" id="mFile" accept=".svg,image/svg+xml,image/png,image/jpeg,image/gif,image/webp,.tif,.tiff,image/tiff" hidden>
+<input type="file" id="mFile" accept=".svg,image/svg+xml,.pdf,application/pdf,image/png,image/jpeg,image/gif,image/webp,.tif,.tiff,image/tiff" hidden>
 <!-- ══ 32 Context menu ══ -->
 <div id="mCM" class="menu"></div>
 <!-- ══ 54 Command palette ══ -->
@@ -565,7 +565,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
 <div>
-<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
+<section><h4>File</h4><dl><dt>Tabs</dt><dd>Each file opens in its own tab at the top, with its own undo history; <b>+</b> starts a new canvas, × or a middle-click closes a tab</dd><dt><kbd>Ctrl+O</kbd></dt><dd>Open an SVG; a PNG or JPG is placed</dd><dt>PDF</dt><dd>Open, import or drop a PDF: one page becomes editable paths, text and pictures; CMYK colours become sRGB through the file's colour profile, or by a plain formula when it has none (the status line says which)</dd><dt>Open recent</dt><dd>The last 10 files as you left them, copied into this browser as you work (File › Auto-save turns it off; Auto-save to a folder, in Chrome or Edge, also writes them into a folder you pick); Kept in this browser… saves the copies as files</dd><dt><kbd>Ctrl+Shift+P</kbd></dt><dd>Import into this canvas (also <kbd>Ctrl+I</kbd>)</dd><dt><kbd>Ctrl+S</kbd></dt><dd>Export SVG, later to the same file; <kbd>Ctrl+Shift+S</kbd> to a new one</dd><dt><kbd>Ctrl+P</kbd></dt><dd>Vector PDF through the print dialog (best in Chrome or Edge)</dd><dt>Drop a file</dt><dd>An SVG opens or is imported; an image is placed</dd><dt>File menu</dt><dd>New; PNG or JPG at 300 or 600 dpi on white, with the dpi stored (JPG at top quality)</dd></dl></section>
 <section><h4>Edit</h4><dl><dt><kbd>Ctrl+Z</kbd></dt><dd>Undo; <kbd>Ctrl+Shift+Z</kbd> or <kbd>Ctrl+Y</kbd> redo; Edit › History lists the steps</dd><dt><kbd>Ctrl+C</kbd> <kbd>X</kbd> <kbd>V</kbd></dt><dd>Copy, cut, paste (also images and SVG text)</dd><dt><kbd>Ctrl+F</kbd> <kbd>B</kbd></dt><dd>Paste in front of or behind the selection; <kbd>Ctrl+Shift+V</kbd> in place on top</dd><dt><kbd>Ctrl+D</kbd></dt><dd>Repeat the last move, scale or rotation</dd><dt><kbd>Ctrl+H</kbd></dt><dd>Find and replace text in the figure (not in pictures)</dd><dt><kbd>Delete</kbd></dt><dd>Delete</dd><dt>Select menu</dt><dd>All text, or all with the same fill or stroke</dd></dl></section>
 <section><h4>Arrange</h4><dl><dt><kbd>Ctrl+G</kbd></dt><dd>Group; <kbd>Ctrl+Shift+G</kbd> ungroups one level, <kbd>Ctrl+Alt+Shift+G</kbd> (or <kbd>Alt</kbd>+click Ungroup) all</dd><dt><kbd>Ctrl+Shift+]</kbd></dt><dd>Bring to front; <kbd>Ctrl+Shift+[</kbd> send to back</dd><dt><kbd>Ctrl+]</kbd></dt><dd>Forward; <kbd>Ctrl+[</kbd> backward</dd><dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>Front, back; <kbd>PgUp</kbd> <kbd>PgDn</kbd> one step</dd><dt><kbd>Shift+H</kbd> <kbd>V</kbd></dt><dd>Flip horizontal, vertical (also in Transform and the right-click menu)</dd><dt><kbd>Ctrl+2</kbd></dt><dd>Lock: clicks and boxes pass through; <kbd>Ctrl+Alt+2</kbd> unlocks all</dd></dl></section>
 <section><h4>FigKit</h4><dl><dt>Size each</dt><dd>Give every selected object the same width or height, in proportion or stretched</dd><dt>Grid, align, space</dt><dd>Columns and gaps; edges or centres; the same gap, equal gaps or a total length; outlined before anything moves</dd><dt>Positions</dt><dd>Record where objects sit and put others there; swap two</dd><dt>Labels, frames</dt><dd>A, B, C… and rectangles that follow their panels; run again to update them</dd><dt>Scale bar</dt><dd>From the pixel size you enter; redrawn when the picture changes</dd><dt>Zoom inset</dt><dd>A box on a picture and its region enlarged; drag the box to change it</dd><dt>Batch crop</dt><dd>Crop one picture, select the others of the same size: Crop all gives each the same pixels</dd><dt>Adjust picture</dt><dd>Levels, gamma, brightness, contrast and curves over the picture's histogram, previewed until Apply; the pixels are unchanged</dd><dt>Pseudocolor</dt><dd>Tint grayscale pictures (Min and Max are Adjust's Black and White); merge 2 to 7 channels</dd><dt>Colour blindness</dt><dd>Colours that run together for colour-blind readers, the canvas as they see it, and a remap to a safe palette</dd></dl></section>
@@ -592,7 +592,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <li>Each browser, private window, TBtools and downloaded copy of svguest keeps its own; clearing this site's data deletes them.</li>
 <li>File › Auto-save turns the copies on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick.</li></ul>
 </form></dialog>
-<dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog>
+<dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog><dialog id="mPdP"><p><b></b></p><p><label>Page <select></select></label> <span></span></p><p><button value="ok">Open page</button> <button>Cancel</button></p></dialog>
 <!-- ══ 38 SVG Chat panel ══ -->
 <template id="mCardT"><section class="card"><header><b></b><small></small><span class="st"></span></header></section></template>
 <template id="mKeyT"><div class="kf"><input type="password" placeholder="Paste an API key" autocomplete="off" spellcheck="false"><button class="ib" title="Show or hide the key"></button></div><p class="ew"></p><p><a target="_blank" rel="noopener"></a></p><button class="lk">Remove the key</button></template>
@@ -610,6 +610,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 04 Undo: MutationObserver records, commit, revert, step names
 // 05 Opening: parse, load, import, confirm dialogs, reading files
 // 05a TIFF: decode a TIFF into a PNG file (tifPng: none, PackBits, LZW, Deflate; 8 or 16 bit; strips or tiles)
+// 05b PDF: one page of a PDF as SVG (pdfRead: objects, streams, content, text, pictures, a JPEG decoder, ICC colour)
 // 06 Export: file names, SVG text, PNG/JPG, PDF
 // 07 View: screen mapping, page size, fit, zoom
 // 08 Selection: selection state, status line, refresh
@@ -840,6 +841,16 @@ const CAND=('Helvetica Neue,Arial Narrow,Arial Black,Arial Rounded MT Bold,Aveni
   +'DejaVu Sans Mono,Liberation Serif,Liberation Mono,Noto Sans,Noto Serif,Noto Sans Mono,Roboto,Open Sans,Lato,Ubuntu,Inter,Fira Sans,PingFang SC,PingFang TC,Hiragino Sans GB,Hiragino Sans,Heiti SC,'
   +'STHeiti,Songti SC,STSong,Kaiti SC,STKaiti,Microsoft YaHei,Microsoft JhengHei,SimSun,SimHei,KaiTi,FangSong,DengXian,Noto Sans CJK SC,Noto Serif CJK SC,Source Han Sans SC,Source Han Serif SC').split(',');
 
+// 05b PDF: glyph names whose character isn't the name itself (pfGn); StandardEncoding's codes from 0xA1 (PSTD); the Symbol font's codes 0x20–0x7E and 0xA0–0xFE (PSYM)
+const PGN={space:' ',exclam:'!',quotedbl:'"',numbersign:'#',dollar:'$',percent:'%',ampersand:'&',quotesingle:"'",quoteright:'’',quoteleft:'‘',parenleft:'(',parenright:')',asterisk:'*',plus:'+',comma:',',hyphen:'-',period:'.',slash:'/',zero:'0',one:'1',two:'2',three:'3',four:'4',five:'5',six:'6',seven:'7',eight:'8',nine:'9',colon:':',semicolon:';',less:'<',equal:'=',greater:'>',question:'?',at:'@',bracketleft:'[',backslash:'\\',bracketright:']',asciicircum:'^',underscore:'_',grave:'`',braceleft:'{',bar:'|',braceright:'}',asciitilde:'~',
+  exclamdown:'¡',cent:'¢',sterling:'£',currency:'¤',yen:'¥',brokenbar:'¦',section:'§',dieresis:'¨',copyright:'©',ordfeminine:'ª',guillemotleft:'«',logicalnot:'¬',registered:'®',macron:'¯',degree:'°',plusminus:'±',twosuperior:'²',threesuperior:'³',acute:'´',mu:'µ',paragraph:'¶',periodcentered:'·',middot:'·',cedilla:'¸',onesuperior:'¹',ordmasculine:'º',guillemotright:'»',onequarter:'¼',onehalf:'½',threequarters:'¾',questiondown:'¿',multiply:'×',divide:'÷',
+  endash:'–',emdash:'—',bullet:'•',ellipsis:'…',minus:'−',fraction:'⁄',perthousand:'‰',dagger:'†',daggerdbl:'‡',quotedblleft:'“',quotedblright:'”',quotesinglbase:'‚',quotedblbase:'„',guilsinglleft:'‹',guilsinglright:'›',fi:'ﬁ',fl:'ﬂ',ff:'ff',ffi:'ffi',ffl:'ffl',florin:'ƒ',circumflex:'ˆ',tilde:'˜',ring:'˚',caron:'ˇ',breve:'˘',dotaccent:'˙',ogonek:'˛',hungarumlaut:'˝',trademark:'™',Euro:'€',dotlessi:'ı',germandbls:'ß',AE:'Æ',ae:'æ',OE:'Œ',oe:'œ',Oslash:'Ø',oslash:'ø',Lslash:'Ł',lslash:'ł',Eth:'Ð',eth:'ð',Thorn:'Þ',thorn:'þ',nbspace:' ',uni00A0:' ',sfthyphen:'-',
+  infinity:'∞',lessequal:'≤',greaterequal:'≥',notequal:'≠',approxequal:'≈',summation:'∑',product:'∏',radical:'√',integral:'∫',partialdiff:'∂',arrowright:'→',arrowleft:'←',arrowup:'↑',arrowdown:'↓',arrowboth:'↔',prime:'′',
+  Alpha:'Α',Beta:'Β',Gamma:'Γ',Delta:'Δ',Epsilon:'Ε',Zeta:'Ζ',Eta:'Η',Theta:'Θ',Iota:'Ι',Kappa:'Κ',Lambda:'Λ',Mu:'Μ',Nu:'Ν',Xi:'Ξ',Omicron:'Ο',Pi:'Π',Rho:'Ρ',Sigma:'Σ',Tau:'Τ',Upsilon:'Υ',Phi:'Φ',Chi:'Χ',Psi:'Ψ',Omega:'Ω',
+  alpha:'α',beta:'β',gamma:'γ',delta:'δ',epsilon:'ε',zeta:'ζ',eta:'η',theta:'θ',iota:'ι',kappa:'κ',lambda:'λ',nu:'ν',xi:'ξ',omicron:'ο',pi:'π',rho:'ρ',sigma:'σ',sigma1:'ς',tau:'τ',upsilon:'υ',phi:'φ',chi:'χ',psi:'ψ',omega:'ω',theta1:'ϑ',phi1:'ϕ',omega1:'ϖ'},
+  PSTD={161:'¡',162:'¢',163:'£',164:'⁄',165:'¥',166:'ƒ',167:'§',168:'¤',169:"'",170:'“',171:'«',172:'‹',173:'›',174:'ﬁ',175:'ﬂ',177:'–',178:'†',179:'‡',180:'·',182:'¶',183:'•',184:'‚',185:'„',186:'”',187:'»',188:'…',189:'‰',191:'¿',193:'`',194:'´',195:'ˆ',196:'˜',197:'¯',198:'˘',199:'˙',200:'¨',202:'˚',203:'¸',205:'˝',206:'˛',207:'ˇ',208:'—',225:'Æ',227:'ª',232:'Ł',233:'Ø',234:'Œ',235:'º',241:'æ',245:'ı',248:'ł',249:'ø',250:'œ',251:'ß'},
+  PSYM=[' !∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_ αβχδεφγηιϕκλμνοπθρστυϖωξψζ{|}∼',
+    '€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…⏐⎯↵ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈®©™∑⎛⎜⎝⎡⎢⎣⎧⎨⎩⎪ 〉∫⌠⎮⌡⎞⎟⎠⎤⎥⎦⎫⎬⎭'];
 // ══ 01b Language ════
 // The interface language. ZH maps each English interface text, exactly as written in the page, to its Chinese; a text with no entry stays English.
 // A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).
@@ -1453,11 +1464,13 @@ const ZH={
  "File › Auto-save turns the copies on or off; in Chrome or Edge, File › Auto-save to a folder also writes the open file into a folder you pick.":"文件 › 自动保存 可开关这些副本；在 Chrome 或 Edge 中，文件 › 自动保存到文件夹 还会把当前文件写入你选定的文件夹。",
  "Remove the key":"移除密钥",
  "New canvas":"新建画布",
- "Open an SVG; a PNG or JPG is placed on the canvas":"打开 SVG；PNG 或 JPG 会被放到画布上",
+ "Open an SVG, or a page of a PDF as editable paths, text and pictures; a PNG or JPG is placed on the canvas":"打开 SVG，或把 PDF 的一页打开为可编辑的路径、文字和图片；PNG 或 JPG 会被放到画布上",
+ "Place an SVG, a page of a PDF, a PNG or a JPG into this canvas (also Ctrl+I)":"把 SVG、PDF 的一页、PNG 或 JPG 放入当前画布（也可 Ctrl+I）",
+ "Open, import or drop a PDF: one page becomes editable paths, text and pictures; CMYK colours become sRGB through the file's colour profile, or by a plain formula when it has none (the status line says which)":"打开、导入或拖入 PDF：一页会变成可编辑的路径、文字和图片；CMYK 颜色按文件自带的颜色配置文件转为 sRGB，没有配置文件时按简单公式转换（状态栏会说明用的是哪种）",
+ "Open page":"打开该页",
  "The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser":"最近 10 个文件，保持你离开时的状态：副本（含未保存的修改）保存在本浏览器中",
  "Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)":"工作时把当前文件复制到本浏览器中，供\"最近打开\"使用。磁盘上的文件只有在导出（Ctrl+S）时才会改变",
  "Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop":"仅限 Chrome、Edge 等基于 Chromium 的浏览器：工作时还会把当前文件写入你选定的文件夹，文件名为 name_YYMMDD_HHMMSS.svg（取首次打开的时间），因此不会覆盖原文件；再点一次可停止",
- "Place an SVG, PNG or JPG into this canvas (also Ctrl+I)":"把 SVG、PNG 或 JPG 放入当前画布（也可用 Ctrl+I）",
  "Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg":"兼容 Inkscape 的 SVG，文件名为 name_YYMMDD_HHMMSS.svg",
  "Export SVG to a new file":"导出 SVG 到新文件",
  "PNG on white, with the dpi stored":"白底 PNG，并写入 dpi",
@@ -2086,10 +2099,16 @@ let noM=0;const cfm=async(q,y,n='Cancel',x='')=>{if(!noM){const t=performance.no
   const d=$('mCf'),b=d.querySelectorAll('button');d.querySelector('p').textContent=q;b[0].textContent=y;b[1].textContent=n;d.returnValue='';d.onclick=e=>e.target.tagName==='BUTTON'&&d.close(e.target.value);d.showModal();return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'))};
 const bzOn=async(s,t)=>{let i=0,n=0;while(n<3e4&&(i=s.indexOf('<',i)+1))n++;if(n<3e4&&s.length<8e6)return;const o=$('mBz');o.lastChild.textContent=t;o.hidden=false;await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))},bzOff=()=>$('mBz').hidden=true;
 // readFile(f,imp): opens a file in a tab, or imports it (imp); pictures are placed
-async function readFile(f,imp){if(f&&isPic(f))return placeImg(f);if(!f||!imp&&!tabFresh())return;
-  const t0=performance.now(),txt=await f.text();await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
-  try{imp?doImport(txt,f.name):(load(txt,f.name),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
-  const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms`)))}
+async function readFile(f,imp){if(f&&isPic(f))return placeImg(f);if(!f)return;
+  const t0=performance.now();let pd=null;
+  if(isPdf(f)){
+    try{pd=await pdfRead(f)}catch(e){return msg(`Cannot read ${f.name}: ${e.message}`)}
+    if(!pd)return
+  }
+  if(!imp&&!tabFresh())return;
+  const txt=pd?pd.svg:await f.text(),fn=pd?pd.nm:f.name;await bzOn(txt,`${imp?'Importing':'Opening'} ${f.name} · ${(f.size/1048576).toFixed(1)} MB…`);
+  try{imp?doImport(txt,fn):(load(txt,fn),DI=(RL.find(m=>m.n===name&&!m.u)||{}).id||null,setTimeout(()=>asNow(1),300))}catch(e){tabBack();return msg(`Cannot read ${f.name}: ${e.message}`)}finally{bzOff()}
+  const ne=root.getElementsByTagName('*').length,ms=round(performance.now()-t0);requestAnimationFrame(()=>setTimeout(()=>msg(`${imp?'Imported':'Opened'} ${f.name}${pd?pd.pg:''} · ${(f.size/1048576).toFixed(1)} MB · ${ne} elements · ${ms} ms${pd?pd.note:''}`)))}
 // curParent(): where new objects go: ctx, outside clipped groups, else the current layer
 const upc=c=>{while(c!==root&&clipOf(c))c=c.parentNode;return c};
 function curParent(){const c=upc(ctx);if(c!==root)return c;const nv=[...root.children].find(e=>e.localName==='namedview'),l=nv&&byId(nv.getAttributeNS(NS.inkscape,'current-layer'));
@@ -2289,6 +2308,2132 @@ async function tifPng(f){
     return Object.assign(new File([png],f.name,{type:'image/png'}),{tn:r.tn})
   }catch(e){
     throw e.own?e:Error(`${f.name}: ${e.name==='RangeError'?'damaged, or too large to open here':'damaged or not a normal TIFF'}`)
+  }
+}
+// ══ 05b PDF ════
+// pdfRead(f): turns one page of a PDF into SVG text, which Open and Import then take like any SVG file. A small PDF reader written for
+// figures (ggplot2's pdf() and cairo_pdf(), Illustrator, Acrobat), with no library: the cross-reference table or stream (object streams
+// included; rebuilt by scanning the file when it is damaged), Flate, LZW, ASCII85, ASCIIHex and RunLength data, then the page's content:
+// paths, clipping, text, pictures, axial and radial shadings, form XObjects and Illustrator's layers (optional content). Everything is
+// written in points (the viewBox), y down, with the CTM applied to the coordinates, so paths come out plain and editable; text becomes one
+// <text> per run of glyphs on a baseline, in the installed font of that name. Colours become sRGB: CMYK through an ICC profile (the
+// colour space's own, else the file's output intent) evaluated here, else through the plain formula, and the status line says which;
+// pictures become PNG (a JPEG in RGB or grey is kept byte for byte), so they look the same everywhere. Not read: encrypted files, JPEG 2000,
+// JBIG2 and CCITT pictures, soft masks, tiling patterns (filled grey) and mesh shadings; the notes say what was left out.
+const PDFW=new Uint8Array(256); // byte classes for the lexer: 1 white space, 2 delimiter
+for(const c of[0,9,10,12,13,32])PDFW[c]=1;
+for(const c of'()<>[]{}/%')PDFW[c.charCodeAt(0)]=2;
+const PZZ=Uint8Array.from([0,1,8,16,9,2,3,10,17,24,32,25,18,11,4,5,12,19,26,33,40,48,41,34,27,20,13,6,7,14,21,28,35,42,49,56,57,50,43,36,29,22,15,23,30,37,44,51,58,59,52,45,38,31,39,46,53,60,61,54,47,55,62,63]); // JPEG's zigzag order
+const PCOS=new Float32Array(64); // the 8-point inverse DCT: PCOS[x*8+u] = C(u)/2 cos((2x+1)uπ/16)
+for(let x=0;x<8;x++)for(let u=0;u<8;u++)PCOS[x*8+u]=(u?.5:Math.SQRT1_2/2)*Math.cos((2*x+1)*u*Math.PI/16);
+const PSR=[3.1338561,-1.6168667,-0.4906146,-0.9787684,1.9161415,.033454,.0719453,-.2289914,1.4052427]; // XYZ (D50) → linear sRGB, Bradford-adapted
+let PF=null; // the PDF being read: {b bytes, x xref (object number → offset, or [object stream, index]), c object cache, os decoded object streams, n notes}
+let PDC=null; // the page being converted (pfPage): output, defs, graphics state and its stack, the path being built, the text run
+
+// ── Lexer and objects: numbers, {n} names, {s} strings (bytes as char codes), arrays, Map dicts, {r,g} references, {d,o,l} streams, {k} keywords
+const pfMap=x=>x instanceof Map;
+function pfTok(L){
+  const b=L.b
+  let p=L.p
+  for(;;){
+    while(p<L.e&&PDFW[b[p]]===1)p++
+    if(b[p]!==37)break
+    while(p<L.e&&b[p]!==10&&b[p]!==13)p++
+  }
+  if(p>=L.e){
+    L.p=p
+    return undefined
+  }
+  const c=b[p]
+  if(c===47){
+    let q=p+1,s=''
+    while(q<L.e&&!PDFW[b[q]]){
+      if(b[q]===35&&q+2<L.e){
+        s+=String.fromCharCode(parseInt(String.fromCharCode(b[q+1],b[q+2]),16)||0)
+        q+=3
+      }else s+=String.fromCharCode(b[q++])
+    }
+    L.p=q
+    return{n:s}
+  }
+  if(c===43||c===45||c===46||c>=48&&c<=57){
+    let q=p,neg=false,v=0,f=0,d=1
+    if(c===45||c===43){
+      neg=c===45
+      q++
+    }
+    while(q<L.e){
+      const x=b[q]
+      if(x>=48&&x<=57){
+        if(f){
+          d/=10
+          v+=(x-48)*d
+        }else v=v*10+x-48
+      }else if(x===46&&!f)f=1
+      else if(x!==45)break
+      q++
+    }
+    L.p=q
+    return neg?-v:v
+  }
+  if(c===40){
+    let q=p+1,dep=1,s=''
+    while(q<L.e){
+      let x=b[q++]
+      if(x===92){
+        x=b[q++]
+        if(x===110)s+='\n'
+        else if(x===114)s+='\r'
+        else if(x===116)s+='\t'
+        else if(x===98)s+='\b'
+        else if(x===102)s+='\f'
+        else if(x===13){
+          if(b[q]===10)q++
+        }else if(x>=48&&x<=55){
+          let o=x-48
+          for(let i=0;i<2&&b[q]>=48&&b[q]<=55;i++)o=o*8+b[q++]-48
+          s+=String.fromCharCode(o&255)
+        }else if(x!==10)s+=String.fromCharCode(x)
+      }else{
+        if(x===40)dep++
+        else if(x===41&&!--dep)break
+        s+=String.fromCharCode(x)
+      }
+    }
+    L.p=q
+    return{s}
+  }
+  if(c===60){
+    if(b[p+1]===60){
+      L.p=p+2
+      return{k:'<<'}
+    }
+    let q=p+1,h=''
+    while(q<L.e&&b[q]!==62){
+      if(!PDFW[b[q]])h+=String.fromCharCode(b[q])
+      q++
+    }
+    L.p=q+1
+    if(h.length&1)h+='0'
+    let s=''
+    for(let i=0;i<h.length;i+=2)s+=String.fromCharCode(parseInt(h.substr(i,2),16)||0)
+    return{s}
+  }
+  if(c===62){
+    L.p=p+(b[p+1]===62?2:1)
+    return{k:b[p+1]===62?'>>':'>'}
+  }
+  if(c===91||c===93||c===123||c===125){
+    L.p=p+1
+    return{k:String.fromCharCode(c)}
+  }
+  if(c===41){
+    L.p=p+1
+    return pfTok(L)
+  }
+  let q=p
+  while(q<L.e&&!PDFW[b[q]])q++
+  L.p=q
+  return{k:String.fromCharCode.apply(null,b.subarray(p,q))}
+}
+// pfObj(L,t,cs): the object starting with token t (or the next); cs, in a content stream, skips the "n g R" lookahead
+function pfObj(L,t,cs){
+  if(t===undefined)t=pfTok(L)
+  if(typeof t==='number'){
+    if(cs||!Number.isInteger(t))return t
+    const p=L.p,t2=pfTok(L)
+    if(typeof t2==='number'&&Number.isInteger(t2)){
+      const t3=pfTok(L)
+      if(t3&&t3.k==='R')return{r:t,g:t2}
+    }
+    L.p=p
+    return t
+  }
+  if(!t||t.k===undefined)return t
+  const k=t.k
+  if(k==='['){
+    const a=[]
+    for(;;){
+      const x=pfTok(L)
+      if(x===undefined||x.k===']')break
+      a.push(pfObj(L,x,cs))
+    }
+    return a
+  }
+  if(k==='<<'){
+    const d=new Map
+    for(;;){
+      const x=pfTok(L)
+      if(x===undefined||x.k==='>>')break
+      if(x.n===undefined)continue
+      const v=pfObj(L,undefined,cs)
+      if(v&&v.k==='>>')break
+      d.set(x.n,v)
+    }
+    return d
+  }
+  if(k==='true')return true
+  if(k==='false')return false
+  if(k==='null')return null
+  return t
+}
+// pfFind(b,s,i): the offset of the ASCII text s in the bytes b from i, or -1
+function pfFind(b,s,i){
+  const c=s.charCodeAt(0),n=s.length
+  for(i=b.indexOf(c,i);i>=0&&i+n<=b.length;i=b.indexOf(c,i+1)){
+    let k=1
+    while(k<n&&b[i+k]===s.charCodeAt(k))k++
+    if(k===n)return i
+  }
+  return -1
+}
+const pfIs=(b,q,s)=>{
+  for(let i=0;i<s.length;i++)if(b[q+i]!==s.charCodeAt(i))return false
+  return true
+};
+// pfAt(o): the indirect object at byte offset o ("n g obj … endobj"), a stream as {d,o,l}
+function pfAt(o){
+  const b=PF.b,L={b,p:o,e:b.length}
+  pfTok(L)
+  pfTok(L)
+  const k=pfTok(L)
+  if(!k||k.k!=='obj')throw Error('damaged cross-reference')
+  const v=pfObj(L)
+  if(!pfMap(v))return v
+  const p0=L.p,t=pfTok(L)
+  if(!t||t.k!=='stream'){
+    L.p=p0
+    return v
+  }
+  let p=L.p
+  if(b[p]===13)p++
+  if(b[p]===10)p++
+  let n=pfR(v.get('Length'))
+  const at=q=>{
+    while(PDFW[b[q]]===1)q++
+    return pfIs(b,q,'endstream')
+  }
+  if(typeof n!=='number'||n<0||!at(p+n)){
+    const e=pfFind(b,'endstream',p)
+    n=(e<0?b.length:e)-p
+    while(n>0&&(b[p+n-1]===10||b[p+n-1]===13))n--
+  }
+  return{d:v,o:p,l:n}
+}
+// pfR(x): x with references followed
+function pfR(x){
+  if(!x||x.r===undefined)return x
+  const c=PF.c
+  if(c.has(x.r))return c.get(x.r)
+  c.set(x.r,null)
+  let v=null
+  const e=PF.x.get(x.r)
+  try{
+    if(typeof e==='number'&&e>0)v=pfAt(e)
+    else if(Array.isArray(e)){
+      const s=PF.os.get(e[0])
+      const o=s&&s.m.get(x.r)
+      if(o!==undefined)v=pfObj({b:s.b,p:o,e:s.b.length})
+    }
+  }catch(_){v=null}
+  c.set(x.r,v)
+  return v
+}
+const pfV=(d,k)=>pfMap(d)?pfR(d.get(k)):undefined; // a dict's value, followed
+const pfNm=x=>x&&x.n; // a name's text
+const pfNum=(x,v)=>typeof x==='number'?x:v;
+// pfStr(s): a text string (UTF-16 with its byte order mark, UTF-8, or PDFDocEncoding read as Latin-1)
+function pfStr(s){
+  if(!s)return''
+  s=s.s||''
+  const u=Uint8Array.from(s,c=>c.charCodeAt(0))
+  if(u[0]===254&&u[1]===255)return new TextDecoder('utf-16be').decode(u.subarray(2))
+  try{
+    return new TextDecoder('utf-8',{fatal:true}).decode(u)
+  }catch(_){return s}
+}
+
+// ── Data: filters, predictors
+async function pfInf(s){
+  const z=s.length>1&&(s[0]&15)===8&&(s[0]<<8|s[1])%31===0
+  const r=new Blob([s]).stream().pipeThrough(new DecompressionStream(z?'deflate':'deflate-raw')).getReader()
+  const parts=[]
+  let n=0
+  try{
+    for(;;){
+      const{done,value}=await r.read()
+      if(done)break
+      parts.push(value)
+      n+=value.length
+    }
+  }catch(_){}
+  const o=new Uint8Array(n)
+  let i=0
+  for(const p of parts){
+    o.set(p,i)
+    i+=p.length
+  }
+  return o
+}
+function pfPred(b,p){
+  const pr=pfNum(pfV(p,'Predictor'),1)
+  if(pr<2)return b
+  const co=pfNum(pfV(p,'Colors'),1),bc=pfNum(pfV(p,'BitsPerComponent'),8),cols=pfNum(pfV(p,'Columns'),1)
+  const bpp=Math.max(1,Math.ceil(co*bc/8)),rl=Math.ceil(co*bc*cols/8)
+  if(pr===2){
+    if(bc!==8)return b
+    for(let r=0;r+rl<=b.length;r+=rl)for(let i=co;i<rl;i++)b[r+i]=b[r+i]+b[r+i-co]&255
+    return b
+  }
+  const rows=Math.floor(b.length/(rl+1)),o=new Uint8Array(rows*rl)
+  for(let r=0;r<rows;r++){
+    const t=b[r*(rl+1)],s=r*(rl+1)+1,d=r*rl
+    for(let i=0;i<rl;i++){
+      const a=i>=bpp?o[d+i-bpp]:0,u=r?o[d+i-rl]:0,c=r&&i>=bpp?o[d+i-rl-bpp]:0
+      let v=b[s+i]
+      if(t===1)v+=a
+      else if(t===2)v+=u
+      else if(t===3)v+=a+u>>1
+      else if(t===4){
+        const q=a+u-c,pa=Math.abs(q-a),pb=Math.abs(q-u),pc=Math.abs(q-c)
+        v+=pa<=pb&&pa<=pc?a:pb<=pc?u:c
+      }
+      o[d+i]=v
+    }
+  }
+  return o
+}
+function pfLzw(s,ec){
+  let o=new Uint8Array(Math.max(1024,s.length*3)),q=0
+  const pre=new Int32Array(4096),suf=new Uint8Array(4096),fc=new Uint8Array(4096),len=new Uint16Array(4096)
+  for(let c=0;c<256;c++){
+    suf[c]=c
+    fc[c]=c
+    len[c]=1
+  }
+  let i=0,acc=0,nb=0,sz=9,nx=258,old=-1
+  for(;;){
+    while(nb<sz&&i<s.length){
+      acc=(acc<<8|s[i++])&0xffffff
+      nb+=8
+    }
+    if(nb<sz)break
+    const c=acc>>(nb-sz)&(1<<sz)-1
+    nb-=sz
+    if(c===257)break
+    if(c===256){
+      sz=9
+      nx=258
+      old=-1
+      continue
+    }
+    if(old>=0&&nx<4096){
+      pre[nx]=old
+      suf[nx]=c<nx?fc[c]:fc[old]
+      fc[nx]=fc[old]
+      len[nx]=len[old]+1
+      nx++
+      if(nx+ec>=1<<sz&&sz<12)sz++
+    }
+    if(c>=nx)break
+    if(q+len[c]>o.length){
+      const n=new Uint8Array(o.length*2+len[c])
+      n.set(o)
+      o=n
+    }
+    let p=q+len[c]
+    for(let x=c;p>q;x=pre[x])o[--p]=suf[x]
+    q+=len[c]
+    old=c
+  }
+  return o.subarray(0,q)
+}
+function pfA85(s){
+  const o=[]
+  let t=0,n=0,i=0
+  if(s[0]===60&&s[1]===126)i=2
+  for(;i<s.length;i++){
+    const c=s[i]
+    if(c===126)break
+    if(c===122&&n===0){
+      o.push(0,0,0,0)
+      continue
+    }
+    if(c<33||c>117)continue
+    t=t*85+c-33
+    if(++n===5){
+      o.push(t>>>24&255,t>>>16&255,t>>>8&255,t&255)
+      t=0
+      n=0
+    }
+  }
+  if(n>1){
+    for(let k=n;k<5;k++)t=t*85+84
+    o.push(...[t>>>24&255,t>>>16&255,t>>>8&255,t&255].slice(0,n-1))
+  }
+  return Uint8Array.from(o)
+}
+function pfAhx(s){
+  const o=[]
+  let h=-1
+  for(const c of s){
+    if(c===62)break
+    const v=c>=48&&c<=57?c-48:c>=65&&c<=70?c-55:c>=97&&c<=102?c-87:-1
+    if(v<0)continue
+    if(h<0)h=v
+    else{
+      o.push(h*16+v)
+      h=-1
+    }
+  }
+  if(h>=0)o.push(h*16)
+  return Uint8Array.from(o)
+}
+function pfRle(s){
+  const o=[]
+  for(let i=0;i<s.length;){
+    const n=s[i++]
+    if(n===128)break
+    if(n<128){
+      for(let k=0;k<=n&&i<s.length;k++)o.push(s[i++])
+    }else{
+      const v=s[i++]
+      for(let k=0;k<257-n;k++)o.push(v)
+    }
+  }
+  return Uint8Array.from(o)
+}
+// pfData(st): a stream's bytes through its filters: {b, f} where f names a picture format left encoded ('dct', or another unread one)
+async function pfData(st){
+  let b=st.raw||PF.b.subarray(st.o,st.o+st.l)
+  const F=pfV(st.d,'Filter')??(st.raw?pfV(st.d,'F'):undefined),P=pfV(st.d,'DecodeParms')??pfV(st.d,'DP')
+  const fl=F?[].concat(F):[],pl=[].concat(P??[])
+  for(let i=0;i<fl.length;i++){
+    const f=pfNm(pfR(fl[i])),p=pfR(pl[i])
+    if(f==='FlateDecode'||f==='Fl')b=pfPred(await pfInf(b),p)
+    else if(f==='LZWDecode'||f==='LZW')b=pfPred(pfLzw(b,pfNum(pfV(p,'EarlyChange'),1)),p)
+    else if(f==='ASCII85Decode'||f==='A85')b=pfA85(b)
+    else if(f==='ASCIIHexDecode'||f==='AHx')b=pfAhx(b)
+    else if(f==='RunLengthDecode'||f==='RL')b=pfRle(b)
+    else if(f==='DCTDecode'||f==='DCT')return{b,f:'dct',p}
+    else if(f!=='Crypt')return{b,f:f||'?'}
+  }
+  return{b,f:''}
+}
+
+// ── File structure: cross-reference, object streams, pages
+async function pfXref(){
+  const b=PF.b
+  let i=b.length-9
+  while(i>0&&!pfIs(b,i,'startxref'))i--
+  if(i<=0)throw Error('no startxref')
+  let off=pfTok({b,p:i+9,e:b.length})
+  const seen=new Set
+  while(typeof off==='number'&&off>0&&off<b.length&&!seen.has(off)){
+    seen.add(off)
+    const L={b,p:off,e:b.length}
+    const t=pfTok(L)
+    let tr
+    if(t&&t.k==='xref'){
+      for(;;){
+        const s=pfTok(L)
+        if(typeof s!=='number')break
+        const n=pfTok(L)
+        for(let k=0;k<n;k++){
+          const o=pfTok(L)
+          pfTok(L)
+          const ty=pfTok(L)
+          if(!PF.x.has(s+k))PF.x.set(s+k,ty&&ty.k==='n'?o:-1)
+        }
+      }
+      tr=pfObj(L)
+      const xs=pfMap(tr)&&tr.get('XRefStm')
+      if(typeof xs==='number')await pfXstm(pfAt(xs))
+    }else{
+      const st=pfAt(off)
+      tr=st&&st.d
+      if(!tr||pfNm(tr.get('Type'))!=='XRef')throw Error('damaged cross-reference')
+      await pfXstm(st)
+    }
+    if(!pfMap(tr))break
+    if(!PF.t)PF.t=tr
+    else for(const k of['Root','Encrypt','Info'])if(!PF.t.has(k)&&tr.has(k))PF.t.set(k,tr.get(k))
+    off=tr.get('Prev')
+  }
+  if(!PF.t)throw Error('no trailer')
+}
+async function pfXstm(st){
+  const d=st.d,w=pfV(d,'W')||[1,2,1],ix=pfV(d,'Index')||[0,pfNum(pfV(d,'Size'),0)]
+  const b=(await pfData(st)).b,rw=w[0]+w[1]+w[2]
+  const rd=(p,n)=>{
+    let v=0
+    for(let k=0;k<n;k++)v=v*256+b[p+k]
+    return v
+  }
+  let p=0
+  for(let j=0;j<ix.length;j+=2)for(let k=0;k<ix[j+1]&&p+rw<=b.length;k++,p+=rw){
+    const n=ix[j]+k,ty=w[0]?rd(p,w[0]):1,f2=rd(p+w[0],w[1]),f3=rd(p+w[0]+w[1],w[2])
+    if(PF.x.has(n))continue
+    PF.x.set(n,ty===1?f2:ty===2?[f2,f3]:-1)
+  }
+}
+// pfScan(): rebuilds the cross-reference of a damaged file from its "n g obj" headers
+function pfScan(){
+  const s=new TextDecoder('latin1').decode(PF.b)
+  PF.x=new Map
+  PF.c=new Map
+  for(const m of s.matchAll(/(?:^|[^\d])(\d+)\s+\d+\s+obj\b/g))PF.x.set(+m[1],m.index+m[0].indexOf(m[1]))
+  const t=s.lastIndexOf('trailer')
+  PF.t=t>=0?pfObj({b:PF.b,p:t+7,e:PF.b.length}):null
+  if(!pfMap(PF.t))PF.t=new Map
+  if(!PF.t.has('Root'))for(const n of PF.x.keys()){
+    const v=pfR({r:n})
+    if(pfMap(v)&&pfNm(v.get('Type'))==='Catalog'){
+      PF.t.set('Root',{r:n})
+      break
+    }
+  }
+}
+// pfOs(): decodes every object stream the cross-reference points into, so pfR stays synchronous
+async function pfOs(all){
+  const want=new Set
+  for(const e of PF.x.values())if(Array.isArray(e))want.add(e[0])
+  if(all)for(const n of PF.x.keys()){
+    const v=PF.x.get(n)
+    if(typeof v!=='number'||v<=0)continue
+    const o=pfR({r:n})
+    if(o&&o.d&&pfNm(o.d.get('Type'))==='ObjStm')want.add(n)
+  }
+  for(const n of want){
+    if(PF.os.has(n))continue
+    const st=pfR({r:n})
+    if(!st||!st.d)continue
+    const b=(await pfData(st)).b,N=pfNum(pfV(st.d,'N'),0),F=pfNum(pfV(st.d,'First'),0),L={b,p:0,e:b.length},m=new Map
+    for(let k=0;k<N;k++){
+      const on=pfTok(L),oo=pfTok(L)
+      if(typeof oo!=='number')break
+      m.set(on,F+oo)
+      if(all&&!PF.x.has(on))PF.x.set(on,[n,k])
+    }
+    PF.os.set(n,{b,m})
+  }
+}
+// pfPages(): the page dicts in order, each with what it inherits (Resources, MediaBox, CropBox, Rotate) filled in
+function pfPages(){
+  const out=[],seen=new Set
+  const walk=(n,inh)=>{
+    if(!pfMap(n)||seen.has(n)||out.length>1e4)return
+    seen.add(n)
+    const h={...inh}
+    for(const k of['Resources','MediaBox','CropBox','Rotate'])if(n.has(k))h[k]=pfR(n.get(k))
+    const kids=pfV(n,'Kids')
+    if(Array.isArray(kids))for(const k of kids)walk(pfR(k),h)
+    else if(pfNm(n.get('Type'))!=='Pages')out.push({d:n,...h})
+  }
+  walk(pfV(pfV(PF.t,'Root'),'Pages'),{})
+  return out
+}
+
+// ── Colour: ICC profiles evaluated here (lut and matrix/TRC), tables for speed, PDF colour spaces
+const pfSrgb=X=>{
+  const o=[0,0,0]
+  for(let i=0;i<3;i++){
+    let l=PSR[3*i]*X[0]+PSR[3*i+1]*X[1]+PSR[3*i+2]*X[2]
+    l=l<=0?0:l>=1?1:l
+    o[i]=l<=.0031308?12.92*l:1.055*l**(1/2.4)-.055
+  }
+  return o
+};
+const pfLab=(L,a,b)=>{
+  const fy=(L+16)/116,fi=t=>t>6/29?t*t*t:3*(6/29)**2*(t-4/29)
+  return[.9642*fi(fy+a/500),fi(fy),.8249*fi(fy-b/200)]
+};
+const pfTab=(t,x)=>{
+  const n=t.length-1,p=Math.min(Math.max(x,0),1)*n,i=Math.min(Math.floor(p),n-1)
+  return n?t[i]+(t[i+1]-t[i])*(p-i):t[0]
+};
+// pfClut(T,ni,no,g,x): multilinear lookup in an n-dimensional grid (g points per input, first input slowest)
+function pfClut(T,ni,no,g,x){
+  const o=new Array(no).fill(0),i0=[],fr=[],st=[]
+  let s=no
+  for(let d=ni-1;d>=0;d--){
+    st[d]=s
+    s*=g[d]
+  }
+  for(let d=0;d<ni;d++){
+    const p=Math.min(Math.max(x[d],0),1)*(g[d]-1)
+    i0[d]=Math.min(Math.floor(p),Math.max(g[d]-2,0))
+    fr[d]=g[d]>1?p-i0[d]:0
+  }
+  for(let c=0;c<1<<ni;c++){
+    let w=1,ix=0
+    for(let d=0;d<ni;d++){
+      const up=c>>(ni-1-d)&1
+      w*=up?fr[d]:1-fr[d]
+      ix+=(i0[d]+up)*st[d]
+    }
+    if(w)for(let k=0;k<no;k++)o[k]+=w*T[ix+k]
+  }
+  return o
+}
+function pfIcc(b){
+  if(!b||b.length<132)return null
+  const v=new DataView(b.buffer,b.byteOffset,b.byteLength)
+  const s4=o=>String.fromCharCode(b[o],b[o+1],b[o+2],b[o+3])
+  const sp=s4(16),pcs=s4(20),n=v.getUint32(128),tg={}
+  for(let i=0;i<n&&144+i*12<=b.length;i++)tg[s4(132+i*12)]=v.getUint32(136+i*12)
+  const nc={'CMYK':4,'RGB ':3,'GRAY':1}[sp]
+  if(!nc)return null
+  let d=''
+  try{
+    const o=tg.desc
+    if(o&&s4(o)==='desc')d=String.fromCharCode(...b.subarray(o+12,o+11+v.getUint32(o+8)))
+    else if(o&&s4(o)==='mluc')d=new TextDecoder('utf-16be').decode(b.subarray(o+v.getUint32(o+24),o+v.getUint32(o+24)+v.getUint32(o+20)))
+  }catch(_){}
+  d=d.replace(/\0/g,'').trim()
+  const curve=o=>{
+    const t=s4(o)
+    if(t==='curv'){
+      const k=v.getUint32(o+8)
+      if(k===0)return[x=>x,12]
+      if(k===1){
+        const g=v.getUint16(o+12)/256
+        return[x=>Math.max(x,0)**g,14]
+      }
+      const T=new Float32Array(k)
+      for(let i=0;i<k;i++)T[i]=v.getUint16(o+12+2*i)/65535
+      return[x=>pfTab(T,x),12+2*k]
+    }
+    if(t==='para'){
+      const ft=v.getUint16(o+8),np=[1,3,4,5,7][ft]||1,P=[]
+      for(let i=0;i<np;i++)P.push(v.getInt32(o+12+4*i)/65536)
+      const[g,a=1,c0=0,c=0,dd=0,e=0,f=0]=P,pw=x=>Math.max(x,0)**g
+      const fn=[x=>pw(x),x=>x>=-c0/a?pw(a*x+c0):0,x=>x>=-c0/a?pw(a*x+c0)+c:c,x=>x>=dd?pw(a*x+c0):c*x,x=>x>=dd?pw(a*x+c0)+e:c*x+f][ft]||(x=>x)
+      return[fn,12+4*np]
+    }
+    return[x=>x,12]
+  }
+  const curves=(o,k)=>{
+    const a=[]
+    for(let i=0;i<k;i++){
+      const[f,l]=curve(o)
+      a.push(f)
+      o+=l+3&~3
+    }
+    return a
+  }
+  const pcsF=(y,leg16)=>pcs==='Lab '?leg16?pfLab(y[0]*65535/65280*100,y[1]*65535/256-128,y[2]*65535/256-128):pfLab(y[0]*100,y[1]*255-128,y[2]*255-128):[y[0]*65535/32768,y[1]*65535/32768,y[2]*65535/32768]
+  const lut=o=>{
+    const t=s4(o)
+    if(t==='mft2'||t==='mft1'){
+      const two=t==='mft2',ni=b[o+8],no=b[o+9],g=b[o+10],sz=two?2:1
+      if(ni!==nc)return null
+      const ie=two?v.getUint16(o+48):256,oe=two?v.getUint16(o+50):256
+      let q=o+(two?52:48)
+      const rd=k=>{
+        const T=new Float32Array(k)
+        for(let i=0;i<k;i++)T[i]=two?v.getUint16(q+2*i)/65535:b[q+i]/255
+        q+=k*sz
+        return T
+      }
+      const it=[],ot=[]
+      for(let i=0;i<ni;i++)it.push(rd(ie))
+      const cl=rd(g**ni*no)
+      for(let i=0;i<no;i++)ot.push(rd(oe))
+      const G=new Array(ni).fill(g)
+      return x=>pcsF(pfClut(cl,ni,no,G,x.map((xi,i)=>pfTab(it[i],xi))).map((y,i)=>pfTab(ot[i],y)),two)
+    }
+    if(t==='mAB '){
+      const ni=b[o+8],no=b[o+9],oB=v.getUint32(o+12),oM=v.getUint32(o+16),oX=v.getUint32(o+20),oC=v.getUint32(o+24),oA=v.getUint32(o+28)
+      if(ni!==nc)return null
+      const A=oA?curves(o+oA,ni):null,M=oM?curves(o+oM,no):null,B=oB?curves(o+oB,no):null
+      let cl=null,G=null
+      if(oC){
+        const c=o+oC,pr=b[c+16]
+        G=[...b.subarray(c,c+ni)]
+        const k=G.reduce((a,x)=>a*x,1)*no
+        cl=new Float32Array(k)
+        for(let i=0;i<k;i++)cl[i]=pr===2?v.getUint16(c+20+2*i)/65535:b[c+20+i]/255
+      }
+      const X=[]
+      if(oX)for(let i=0;i<12;i++)X.push(v.getInt32(o+oX+4*i)/65536)
+      return x=>{
+        let y=A?x.map((xi,i)=>A[i](xi)):x
+        if(cl)y=pfClut(cl,ni,no,G,y)
+        if(M)y=y.map((yi,i)=>M[i](yi))
+        if(X.length)y=[0,1,2].map(i=>X[3*i]*y[0]+X[3*i+1]*y[1]+X[3*i+2]*y[2]+X[9+i])
+        if(B)y=y.map((yi,i)=>B[i](yi))
+        return pcsF(y,0)
+      }
+    }
+    return null
+  }
+  let f=null
+  for(const k of['A2B1','A2B0','A2B2'])if(tg[k]){
+    try{f=lut(tg[k])}catch(_){f=null}
+    if(f)break
+  }
+  const xyz=o=>[0,1,2].map(i=>v.getInt32(o+8+4*i)/65536)
+  if(!f&&sp==='RGB '&&tg.rXYZ&&tg.gXYZ&&tg.bXYZ&&tg.rTRC){
+    const C=[xyz(tg.rXYZ),xyz(tg.gXYZ),xyz(tg.bXYZ)],T=[curve(tg.rTRC)[0],curve(tg.gTRC||tg.rTRC)[0],curve(tg.bTRC||tg.rTRC)[0]]
+    f=x=>{
+      const l=x.map((xi,i)=>T[i](xi))
+      return[0,1,2].map(k=>C[0][k]*l[0]+C[1][k]*l[1]+C[2][k]*l[2])
+    }
+  }
+  if(!f&&sp==='GRAY'&&tg.kTRC){
+    const T=curve(tg.kTRC)[0]
+    f=x=>{
+      const y=T(x[0])
+      return[.9642*y,y,.8249*y]
+    }
+  }
+  if(!f)return null
+  // black point compensation, as Acrobat and Illustrator show it: the profile's darkest black (all inks, or RGB 0), made neutral and at
+  // most L* 50, is scaled to sRGB's black, white staying white
+  let yb=0
+  try{
+    const k=f(new Array(nc).fill(sp==='CMYK'?1:0))[1]
+    yb=Math.min(Math.max(k,0),.1842)
+  }catch(_){yb=0}
+  const W=[.9642,1,.8249],bp=X=>yb?X.map((v,i)=>(v-yb*W[i])/(1-yb)):X
+  return{n:nc,d,s:sp!=='CMYK'&&/sRGB|IEC ?61966/i.test(d),f:x=>pfSrgb(bp(f(x)))}
+}
+// pfTb(f,n): a table of f over an n-input grid, in 0–255 sRGB (17 points a side for CMYK, 33 for RGB, 256 for grey)
+function pfTb(f,n){
+  const g=n===1?256:n===3?33:17,N=g**n,T=new Float32Array(N*3),x=new Array(n)
+  for(let i=0;i<N;i++){
+    let r=i
+    for(let d=n-1;d>=0;d--){
+      x[d]=r%g/(g-1)
+      r=Math.floor(r/g)
+    }
+    const c=f(x)
+    T[i*3]=c[0]*255
+    T[i*3+1]=c[1]*255
+    T[i*3+2]=c[2]*255
+  }
+  return{g,n,T,G:new Array(n).fill(g)}
+}
+// pfTbIm(tb,src,np,out): pixels of n bytes each through a table, into RGBA (a pixel equal to the last one reuses its result)
+function pfTbIm(tb,src,np,out){
+  const{g,n,T}=tb,s=(g-1)/255,I=new Int32Array(256),F=new Float32Array(256)
+  for(let v=0;v<256;v++){
+    const p=v*s
+    I[v]=Math.min(Math.floor(p),g-2)
+    F[v]=p-I[v]
+  }
+  const st=[]
+  let k=3
+  for(let d=n-1;d>=0;d--){
+    st[d]=k
+    k*=g
+  }
+  let last=-1,r=0,gg=0,bb=0
+  for(let i=0,j=0,o=0;i<np;i++,j+=n,o+=4){
+    let key=0
+    for(let d=0;d<n;d++)key=key*256+src[j+d]
+    if(key!==last){
+      last=key
+      r=gg=bb=0
+      for(let c=0;c<1<<n;c++){
+        let w=1,ix=0
+        for(let d=0;d<n;d++){
+          const up=c>>(n-1-d)&1,v=src[j+d]
+          w*=up?F[v]:1-F[v]
+          ix+=(I[v]+up)*st[d]
+        }
+        if(w){
+          r+=w*T[ix]
+          gg+=w*T[ix+1]
+          bb+=w*T[ix+2]
+        }
+      }
+    }
+    out[o]=r
+    out[o+1]=gg
+    out[o+2]=bb
+    out[o+3]=255
+  }
+}
+const pfHex=c=>'#'+c.map(v=>Math.round(Math.min(Math.max(v,0),255)).toString(16).padStart(2,'0')).join('');
+// pfCsMk(n,rgb,o): a colour space object: n components, rgb(values) → [r,g,b] 0–255, init, r8 (an 8-bit image sample → a value), im (pixels into RGBA)
+function pfCsMk(n,rgb,o){
+  const cs={n,rgb,init:new Array(n).fill(0),r8:(v,k)=>v/255,...o}
+  const cache=new Map
+  cs.hex=x=>{
+    const k=x.join()
+    let h=cache.get(k)
+    if(h===undefined){
+      h=pfHex(cs.rgb(x))
+      if(cache.size>5e3)cache.clear()
+      cache.set(k,h)
+    }
+    return h
+  }
+  if(!cs.im)cs.im=(src,np,out)=>{
+    const m=new Map,x=new Array(n)
+    for(let i=0,j=0,o2=0;i<np;i++,j+=n,o2+=4){
+      let key=0
+      for(let d=0;d<n;d++)key=key*256+src[j+d]
+      let c=m.get(key)
+      if(!c){
+        for(let d=0;d<n;d++)x[d]=cs.r8(src[j+d],d)
+        c=cs.rgb(x)
+        if(m.size>1e5)m.clear()
+        m.set(key,c)
+      }
+      out[o2]=c[0]
+      out[o2+1]=c[1]
+      out[o2+2]=c[2]
+      out[o2+3]=255
+    }
+  }
+  return cs
+}
+const PFG=pfCsMk(1,x=>[x[0]*255,x[0]*255,x[0]*255],{im:(s,np,o)=>{for(let i=0;i<np;i++){o[4*i]=o[4*i+1]=o[4*i+2]=s[i];o[4*i+3]=255}}}); // DeviceGray
+const PFRGB=pfCsMk(3,x=>[x[0]*255,x[1]*255,x[2]*255],{im:(s,np,o)=>{for(let i=0;i<np;i++){o[4*i]=s[3*i];o[4*i+1]=s[3*i+1];o[4*i+2]=s[3*i+2];o[4*i+3]=255}}}); // DeviceRGB
+const pfCmyk0=x=>[255*(1-x[0])*(1-x[3]),255*(1-x[1])*(1-x[3]),255*(1-x[2])*(1-x[3])]; // CMYK by the plain formula
+// pfIccCs(st,alt): a colour space from an ICC profile stream (memoised per stream); null when the profile can't be read
+async function pfIccCs(st){
+  if(PF.ic.has(st))return PF.ic.get(st)
+  let cs=null
+  try{
+    const p=pfIcc((await pfData(st)).b)
+    if(p&&p.s)cs=p.n===3?PFRGB:PFG
+    else if(p){
+      const tb=pfTb(p.f,p.n)
+      cs=pfCsMk(p.n,x=>pfClut(tb.T,p.n,3,tb.G,x),{im:(s,np,o)=>pfTbIm(tb,s,np,o),icc:p.d||'unnamed',cm:p.n===4})
+      if(p.n===1)cs.init=[0]
+      if(p.n===4)cs.init=[0,0,0,1]
+    }
+  }catch(_){cs=null}
+  PF.ic.set(st,cs)
+  return cs
+}
+// pfCS(o,res): the colour space named or described by o, through the page's resources
+async function pfCS(o,res,dp=0){
+  o=pfR(o)
+  if(dp>8)return PFG
+  const nm=pfNm(o)
+  if(nm){
+    if(nm==='DeviceGray'||nm==='G'||nm==='CalGray')return PFG
+    if(nm==='DeviceRGB'||nm==='RGB'||nm==='CalRGB')return PFRGB
+    if(nm==='DeviceCMYK'||nm==='CMYK')return PDC.cmyk
+    if(nm==='Pattern')return{pat:1,n:1,init:[0]}
+    const r=pfV(pfV(res,'ColorSpace'),nm)
+    return r?pfCS(r,res,dp+1):PFG
+  }
+  if(!Array.isArray(o))return PFG
+  const t=pfNm(pfR(o[0]))
+  if(t==='DeviceGray'||t==='CalGray'||t==='G')return PFG
+  if(t==='DeviceRGB'||t==='CalRGB'||t==='RGB')return PFRGB
+  if(t==='DeviceCMYK'||t==='CMYK')return PDC.cmyk
+  if(t==='ICCBased'){
+    const st=pfR(o[1]),n=pfNum(pfV(st&&st.d,'N'),3)
+    const cs=st&&st.d?await pfIccCs(st):null
+    if(cs&&cs.n===n)return cs
+    const alt=pfV(st&&st.d,'Alternate')
+    if(alt)return pfCS(alt,res,dp+1)
+    return n===4?PDC.cmyk0:n===3?PFRGB:PFG
+  }
+  if(t==='Indexed'||t==='I'){
+    const base=await pfCS(o[1],res,dp+1),hi=Math.min(pfNum(pfR(o[2]),0),255),lk=pfR(o[3])
+    let lb=lk&&lk.d?(await pfData(lk)).b:Uint8Array.from((lk&&lk.s)||'',c=>c.charCodeAt(0))
+    const bn=base.n||1,pal=[]
+    for(let i=0;i<=hi;i++){
+      const x=[]
+      for(let k=0;k<bn;k++)x.push(base.r8(lb[i*bn+k]||0,k))
+      pal.push(base.pat?[128,128,128]:base.rgb(x))
+    }
+    const cs=pfCsMk(1,x=>pal[Math.min(Math.max(Math.round(x[0]),0),hi)]||[0,0,0],{idx:hi,cm:base.cm,icc:base.icc})
+    cs.im=(s,np,out)=>{
+      for(let i=0;i<np;i++){
+        const c=pal[Math.min(s[i],hi)]
+        out[4*i]=c[0]
+        out[4*i+1]=c[1]
+        out[4*i+2]=c[2]
+        out[4*i+3]=255
+      }
+    }
+    return cs
+  }
+  if(t==='Separation'||t==='DeviceN'){
+    const n=t==='Separation'?1:(pfR(o[1])||[]).length||1,alt=await pfCS(o[2],res,dp+1),fn=await pfFn(o[3])
+    if(t==='Separation'&&pfNm(pfR(o[1]))==='None')return pfCsMk(1,()=>[255,255,255],{none:1})
+    const cs=pfCsMk(n,x=>alt.rgb(fn?fn(x):x.slice(0,alt.n)),{cm:alt.cm,icc:alt.icc})
+    cs.init=new Array(n).fill(1)
+    return cs
+  }
+  if(t==='Lab'){
+    const d=pfR(o[1]),R=pfV(d,'Range')||[-100,100,-100,100]
+    const cs=pfCsMk(3,x=>pfSrgb(pfLab(x[0],x[1],x[2])).map(v=>v*255),{r8:(v,k)=>k?R[2*k-2]+v/255*(R[2*k-1]-R[2*k-2]):v/255*100})
+    return cs
+  }
+  if(t==='Pattern')return{pat:1,n:1,init:[0],base:o[1]?await pfCS(o[1],res,dp+1):null}
+  return PFG
+}
+
+// ── Functions (types 0, 2, 3 and 4) for tints and shadings
+async function pfFn(o){
+  o=pfR(o)
+  if(!o)return null
+  if(Array.isArray(o)){
+    const fs=[]
+    for(const f of o)fs.push(await pfFn(f))
+    return x=>fs.flatMap(f=>f?f(x):[0])
+  }
+  const d=o.d||o,t=pfNum(pfV(d,'FunctionType'),-1),D=pfV(d,'Domain')||[0,1],R=pfV(d,'Range')
+  const clip=(x,a)=>x.map((v,i)=>a&&a.length>2*i+1?Math.min(Math.max(v,a[2*i]),a[2*i+1]):v)
+  if(t===2){
+    const c0=pfV(d,'C0')||[0],c1=pfV(d,'C1')||[1],N=pfNum(pfV(d,'N'),1)
+    return x=>{
+      const v=Math.max(Math.min(x[0],D[1]),D[0])**N
+      return c0.map((a,i)=>a+v*(c1[i]-a))
+    }
+  }
+  if(t===3){
+    const fs=[]
+    for(const f of pfV(d,'Functions')||[])fs.push(await pfFn(f))
+    const B=pfV(d,'Bounds')||[],E=pfV(d,'Encode')||[]
+    return x=>{
+      const v=Math.max(Math.min(x[0],D[1]),D[0])
+      let i=0
+      while(i<B.length&&v>=B[i])i++
+      const a=i?B[i-1]:D[0],b=i<B.length?B[i]:D[1],e0=pfNum(E[2*i],0),e1=pfNum(E[2*i+1],1)
+      const f=fs[Math.min(i,fs.length-1)]
+      return f?f([e0+(b>a?(v-a)/(b-a):0)*(e1-e0)]):[0]
+    }
+  }
+  if(t===0&&o.d){
+    const S=pfV(d,'Size')||[2],bps=pfNum(pfV(d,'BitsPerSample'),8),E=pfV(d,'Encode')||S.flatMap(s=>[0,s-1]),Dc=pfV(d,'Decode')||R
+    const b=(await pfData(o)).b,no=R.length/2,mx=2**bps-1,n=S.reduce((a,s)=>a*s,1)*no,T=new Float32Array(n)
+    for(let i=0;i<n;i++){
+      const bo=i*bps
+      let v=0
+      if(bps>=8)for(let k=0;k<bps>>3;k++)v=v*256+(b[(bo>>3)+k]||0)
+      else v=b[bo>>3]>>(8-bps-(bo&7))&mx
+      T[i]=Dc[2*(i%no)]+v/mx*(Dc[2*(i%no)+1]-Dc[2*(i%no)])
+    }
+    const Sr=[...S].reverse()
+    return x=>{
+      const e=x.map((v,i)=>{
+        const c=Math.max(Math.min(v,D[2*i+1]),D[2*i])
+        return(E[2*i]+(c-D[2*i])/((D[2*i+1]-D[2*i])||1)*(E[2*i+1]-E[2*i]))/((S[i]-1)||1)
+      })
+      return clip(pfClut(T,S.length,no,Sr,[...e].reverse()),R)
+    }
+  }
+  if(t===4&&o.d){
+    const src=new TextDecoder('latin1').decode((await pfData(o)).b),tk=src.match(/[{}]|[^\s{}]+/g)||[]
+    let i=0
+    const prog=()=>{
+      const a=[]
+      while(i<tk.length){
+        const w=tk[i++]
+        if(w==='{')a.push(prog())
+        else if(w==='}')return a
+        else a.push(isNaN(+w)?w:+w)
+      }
+      return a
+    }
+    i=tk.indexOf('{')+1
+    const P=prog()
+    const U={abs:Math.abs,neg:v=>-v,sqrt:Math.sqrt,ceiling:Math.ceil,floor:Math.floor,round:Math.round,truncate:Math.trunc,cvi:Math.trunc,cvr:v=>v,sin:v=>Math.sin(v*Math.PI/180),cos:v=>Math.cos(v*Math.PI/180),ln:Math.log,log:Math.log10,not:v=>typeof v==='boolean'?!v:~v}
+    const B2=(w,a,b)=>({add:a+b,sub:a-b,mul:a*b,div:b?a/b:0,idiv:b?Math.trunc(a/b):0,mod:b?a%b:0,exp:a**b,atan:(Math.atan2(a,b)*180/Math.PI+360)%360,eq:a===b,ne:a!==b,gt:a>b,ge:a>=b,lt:a<b,le:a<=b,and:typeof a==='boolean'?a&&b:a&b,or:typeof a==='boolean'?a||b:a|b,xor:typeof a==='boolean'?a!==b:a^b,bitshift:b>0?a<<b:a>>-b})[w]??0
+    const run=(p,s)=>{
+      for(const w of p){
+        if(typeof w==='number'||Array.isArray(w))s.push(w)
+        else if(w==='true'||w==='false')s.push(w==='true')
+        else if(w==='if'){
+          const b=s.pop()
+          if(s.pop())run(b,s)
+        }else if(w==='ifelse'){
+          const b=s.pop(),a=s.pop()
+          run(s.pop()?a:b,s)
+        }else if(w==='dup')s.push(s[s.length-1])
+        else if(w==='pop')s.pop()
+        else if(w==='exch')s.push(s.pop(),s.pop())
+        else if(w==='index'){
+          const n=s.pop()
+          s.push(s[s.length-1-n])
+        }else if(w==='copy'){
+          const n=s.pop()
+          s.push(...s.slice(s.length-n))
+        }else if(w==='roll'){
+          const j=s.pop(),n=s.pop()
+          if(n>0){
+            const k=s.splice(s.length-n,n),r=(j%n+n)%n
+            s.push(...k.slice(n-r),...k.slice(0,n-r))
+          }
+        }else if(U[w])s.push(U[w](s.pop()))
+        else{
+          const b=s.pop(),a=s.pop()
+          s.push(B2(w,a,b))
+        }
+      }
+      return s
+    }
+    return x=>clip(run(P,clip(x,D).slice()).slice(-R.length/2),R)
+  }
+  return null
+}
+
+// ── JPEG: a baseline decoder, for CMYK pictures (a browser converts those itself, without the PDF's profile) and for ones that need their samples
+function pfHuf(cnt,sym){
+  const mx=new Int32Array(18).fill(-1),vp=new Int32Array(17),mn=new Int32Array(17)
+  let code=0,k=0
+  for(let l=1;l<=16;l++){
+    vp[l]=k
+    mn[l]=code
+    code+=cnt[l-1]
+    k+=cnt[l-1]
+    mx[l]=cnt[l-1]?code-1:-1
+    code<<=1
+  }
+  return{mx,vp,mn,s:sym}
+}
+function pfJpg(b,ct){
+  let p=2,w=0,h=0,C=null,ad=-1,ri=0,jf=0
+  const Q=[],HT={}
+  if(b[0]!==255||b[1]!==216)throw Error('not a JPEG')
+  const blk=new Float32Array(64),tmp=new Float32Array(64)
+  while(p<b.length){
+    if(b[p]!==255){
+      p++
+      continue
+    }
+    const m=b[p+1]
+    p+=2
+    if(m===216||m===1||m===255||m>=208&&m<=215){
+      if(m===255)p--
+      continue
+    }
+    if(m===217)break
+    const L=b[p]<<8|b[p+1],e=p+L
+    if(m===219){
+      for(let q=p+2;q<e;){
+        const pq=b[q]>>4,t=b[q]&15,a=new Uint16Array(64)
+        q++
+        for(let i=0;i<64;i++){
+          a[PZZ[i]]=pq?b[q]<<8|b[q+1]:b[q]
+          q+=pq?2:1
+        }
+        Q[t]=a
+      }
+    }else if(m===196){
+      for(let q=p+2;q<e;){
+        const c=b[q]>>4,id=b[q]&15,cnt=b.subarray(q+1,q+17)
+        let n=0
+        for(const v of cnt)n+=v
+        HT[c*16+id]=pfHuf(cnt,b.subarray(q+17,q+17+n))
+        q+=17+n
+      }
+    }else if(m===192||m===193){
+      if(b[p+2]!==8)throw Object.assign(Error('12-bit JPEG'),{pj:1})
+      h=b[p+3]<<8|b[p+4]
+      w=b[p+5]<<8|b[p+6]
+      C=[]
+      for(let i=0;i<b[p+7];i++){
+        const q=p+8+i*3
+        C.push({id:b[q],h:b[q+1]>>4||1,v:b[q+1]&15||1,t:b[q+2],pr:0})
+      }
+    }else if(m>=194&&m<=207&&m!==196&&m!==200&&m!==204)throw Object.assign(Error('progressive JPEG'),{pj:1})
+    else if(m===221)ri=b[p+2]<<8|b[p+3]
+    else if(m===238&&String.fromCharCode(...b.subarray(p+2,p+7))==='Adobe')ad=b[p+13]
+    else if(m===224&&String.fromCharCode(...b.subarray(p+2,p+6))==='JFIF')jf=1
+    else if(m===218){
+      if(!C||!w||!h)throw Error('damaged JPEG')
+      const Hm=Math.max(...C.map(c=>c.h)),Vm=Math.max(...C.map(c=>c.v)),mx=Math.ceil(w/(8*Hm)),my=Math.ceil(h/(8*Vm))
+      for(const c of C)if(!c.d){
+        c.bw=mx*c.h
+        c.bh=my*c.v
+        c.pw=c.bw*8
+        c.d=new Uint8Array(c.pw*c.bh*8)
+      }
+      const ns=b[p+2],S=[]
+      for(let i=0;i<ns;i++){
+        const c=C.find(x=>x.id===b[p+3+2*i])
+        if(!c)throw Error('damaged JPEG')
+        c.dc=HT[b[p+4+2*i]>>4]
+        c.ac=HT[16+(b[p+4+2*i]&15)]
+        c.pr=0
+        S.push(c)
+      }
+      let q=e,bits=0,nb=0
+      const bit=()=>{
+        if(!nb){
+          let x=b[q]
+          if(x===255){
+            if(b[q+1]===0)q+=2
+            else x=0
+          }else q++
+          bits=x|0
+          nb=8
+        }
+        nb--
+        return bits>>nb&1
+      }
+      const rcv=n=>{
+        let v=0
+        for(let i=0;i<n;i++)v=v<<1|bit()
+        return v
+      }
+      const dec=H=>{
+        if(!H)throw Error('damaged JPEG')
+        let c=bit(),l=1
+        while(l<=16&&c>H.mx[l]){
+          c=c<<1|bit()
+          l++
+        }
+        return l>16?0:H.s[H.vp[l]+c-H.mn[l]]|0
+      }
+      const ext=(v,s)=>v<1<<s-1?v-(1<<s)+1:v
+      const block=(c,bx,by)=>{
+        const qt=Q[c.t]
+        if(!qt)throw Error('damaged JPEG')
+        blk.fill(0)
+        const t=dec(c.dc)
+        c.pr+=t?ext(rcv(t),t):0
+        blk[0]=c.pr*qt[0]
+        for(let k=1;k<64;){
+          const rs=dec(c.ac),r=rs>>4,s=rs&15
+          if(!s){
+            if(r!==15)break
+            k+=16
+            continue
+          }
+          k+=r
+          if(k>63)break
+          blk[PZZ[k]]=ext(rcv(s),s)*qt[PZZ[k]]
+          k++
+        }
+        for(let y=0;y<8;y++)for(let x=0;x<8;x++){
+          let s=0
+          for(let u=0;u<8;u++)s+=PCOS[x*8+u]*blk[y*8+u]
+          tmp[y*8+x]=s
+        }
+        const D=c.d,pw=c.pw
+        if(bx>=c.bw||by>=c.bh)return
+        for(let y=0;y<8;y++){
+          const row=(by*8+y)*pw+bx*8
+          for(let x=0;x<8;x++){
+            let s=128
+            for(let v=0;v<8;v++)s+=PCOS[y*8+v]*tmp[v*8+x]
+            D[row+x]=s<0?0:s>255?255:s+.5
+          }
+        }
+      }
+      const rst=()=>{
+        nb=0
+        if(b[q]===255&&b[q+1]>=208&&b[q+1]<=215)q+=2
+        for(const c of S)c.pr=0
+      }
+      let n=0
+      if(ns===1){
+        const c=S[0],cw=Math.ceil(Math.ceil(w*c.h/Hm)/8),chh=Math.ceil(Math.ceil(h*c.v/Vm)/8)
+        for(let by=0;by<chh;by++)for(let bx=0;bx<cw;bx++){
+          if(ri&&n&&n%ri===0)rst()
+          block(c,bx,by)
+          n++
+        }
+      }else for(let my2=0;my2<my;my2++)for(let mx2=0;mx2<mx;mx2++){
+        if(ri&&n&&n%ri===0)rst()
+        for(const c of S)for(let v=0;v<c.v;v++)for(let u=0;u<c.h;u++)block(c,mx2*c.h+u,my2*c.v+v)
+        n++
+      }
+      p=q
+      while(p<b.length&&!(b[p]===255&&b[p+1]!==0&&!(b[p+1]>=208&&b[p+1]<=215)))p++
+      continue
+    }
+    p=e
+  }
+  if(!C||!C[0].d)throw Error('damaged JPEG')
+  const n=C.length,Hm=Math.max(...C.map(c=>c.h)),Vm=Math.max(...C.map(c=>c.v)),o=new Uint8Array(w*h*n)
+  for(let i=0;i<n;i++){
+    const c=C[i],sx=c.h/Hm,sy=c.v/Vm
+    for(let y=0;y<h;y++){
+      const r=Math.floor(y*sy)*c.pw
+      for(let x=0;x<w;x++)o[(y*w+x)*n+i]=c.d[r+Math.floor(x*sx)]
+    }
+  }
+  const tr=ct!==undefined?ct:ad>=0?ad:n===3?C[0].id===82&&C[1].id===71&&C[2].id===66?0:1:0
+  if(n===3&&tr||n===4&&tr===2)for(let i=0;i<o.length;i+=n){
+    const Y=o[i],cb=o[i+1]-128,cr=o[i+2]-128
+    let r=Y+1.402*cr,g=Y-.344136*cb-.714136*cr,bl=Y+1.772*cb
+    if(n===4){
+      r=255-r
+      g=255-g
+      bl=255-bl
+    }
+    o[i]=r<0?0:r>255?255:r
+    o[i+1]=g<0?0:g>255?255:g
+    o[i+2]=bl<0?0:bl>255?255:bl
+  }
+  return{w,h,n,d:o}
+}
+
+// ── Pictures: samples → RGBA through the colour space, masks, then PNG (or the JPEG itself)
+const pfB64=b=>{
+  let s=''
+  for(let i=0;i<b.length;i+=32768)s+=String.fromCharCode.apply(null,b.subarray(i,i+32768))
+  return btoa(s)
+};
+// pfSmp(b,w,h,n,bpc): the samples of a w × h picture of n components, rows padded to whole bytes, as numbers 0 … 2^bpc−1
+function pfSmp(b,w,h,n,bpc){
+  if(bpc===8)return b.length>=w*h*n?b.subarray(0,w*h*n):Uint8Array.from({length:w*h*n},(_,i)=>b[i]||0)
+  const o=new Uint16Array(w*h*n),rb=Math.ceil(w*n*bpc/8),mx=(1<<bpc)-1
+  for(let y=0;y<h;y++)for(let x=0;x<w*n;x++){
+    let v
+    if(bpc===16){
+      const q=y*rb+2*x
+      v=(b[q]||0)<<8|(b[q+1]||0)
+    }else{
+      const bi=x*bpc
+      v=(b[y*rb+(bi>>3)]||0)>>(8-bpc-(bi&7))&mx
+    }
+    o[y*w*n+x]=v
+  }
+  return o
+}
+// pfImg(st,res,inl): the picture of an image XObject or inline image as {u (data URL), w, h, t (a short reason when it can't be shown)}
+async function pfImg(st,res){
+  const d=st.d,g=k=>pfV(d,k),w=pfNum(g('Width')??g('W'),0),h=pfNum(g('Height')??g('H'),0)
+  if(!w||!h)return null
+  if(w*h>6e7)return{t:'pictures over 60 megapixels'}
+  const im=g('ImageMask')??g('IM')
+  let bpc=im?1:pfNum(g('BitsPerComponent')??g('BPC'),8)
+  const cs=im?null:await pfCS(g('ColorSpace')??g('CS')??{n:'DeviceGray'},res)
+  const D=g('Decode')??g('D'),sm=g('SMask'),mk=g('Mask')
+  const dt=await pfData(st)
+  if(dt.f&&dt.f!=='dct')return{t:{JPXDecode:'JPEG 2000 pictures',JBIG2Decode:'JBIG2 pictures',CCITTFaxDecode:'fax-coded pictures',CCF:'fax-coded pictures'}[dt.f]||'pictures in an unknown format'}
+  const n=im?1:cs.n||1
+  if(dt.f==='dct'&&!D&&!sm&&!mk&&(cs===PFRGB||cs===PFG))return{u:'data:image/jpeg;base64,'+pfB64(dt.b),w,h,j:1}
+  let smp
+  if(dt.f==='dct'){
+    try{
+      const j=pfJpg(dt.b,pfNum(pfV(dt.p,'ColorTransform'),undefined))
+      if(j.w!==w||j.h!==h||j.n!==n)throw Error('size')
+      smp=j.d
+      bpc=8
+    }catch(e){
+      const m=new Image()
+      m.src=URL.createObjectURL(new Blob([dt.b],{type:'image/jpeg'}))
+      await m.decode().catch(()=>0)
+      URL.revokeObjectURL(m.src)
+      if(!m.naturalWidth)return{t:'damaged pictures'}
+      const c=cv(w,h),x=c.getContext('2d')
+      x.drawImage(m,0,0,w,h)
+      const px=x.getImageData(0,0,w,h).data
+      if(n===4){
+        PDC.n.add('pjc')
+        return{u:c.toDataURL('image/jpeg',1),w,h,j:1}
+      }
+      smp=new Uint8Array(w*h*n)
+      for(let i=0;i<w*h;i++)for(let k=0;k<n;k++)smp[i*n+k]=px[4*i+k]
+      bpc=8
+    }
+  }else smp=pfSmp(dt.b,w,h,n,bpc)
+  const mx=(1<<bpc)-1,rgba=new Uint8ClampedArray(w*h*4)
+  if(im){
+    const c=PDC.G.fill.c||[0,0,0],paint=D&&D[0]===1?1:0
+    for(let i=0;i<w*h;i++){
+      rgba[4*i]=c[0]
+      rgba[4*i+1]=c[1]
+      rgba[4*i+2]=c[2]
+      rgba[4*i+3]=smp[i]===paint?255:0
+    }
+  }else{
+    const s8=new Uint8Array(w*h*n),L=[]
+    for(let k=0;k<n;k++){
+      const a=D?D[2*k]:0,b=D?D[2*k+1]:cs.idx!==undefined?mx:1,t=new Uint8Array(mx+1)
+      for(let v=0;v<=mx;v++){
+        const x=a+v*(b-a)/mx
+        t[v]=cs.idx!==undefined?Math.min(Math.max(Math.round(x),0),255):Math.min(Math.max(Math.round(x*255),0),255)
+      }
+      L.push(t)
+    }
+    for(let i=0;i<s8.length;i++)s8[i]=L[i%n][smp[i]]
+    cs.im(s8,w*h,rgba)
+    if(Array.isArray(mk)){
+      for(let i=0;i<w*h;i++){
+        let all=true
+        for(let k=0;k<n&&all;k++){
+          const v=smp[i*n+k]
+          all=v>=mk[2*k]&&v<=mk[2*k+1]
+        }
+        if(all)rgba[4*i+3]=0
+      }
+    }
+  }
+  const al=sm&&sm.d?sm:mk&&mk.d?mk:null
+  if(al){
+    const ad=al.d,aw=pfNum(pfV(ad,'Width'),0),ah=pfNum(pfV(ad,'Height'),0),st2=await pfData(al)
+    const ab=al===mk||pfV(ad,'ImageMask')?1:pfNum(pfV(ad,'BitsPerComponent'),8),aD=pfV(ad,'Decode')
+    let as=null,am=(1<<ab)-1
+    if(st2.f==='dct'){
+      try{
+        as=pfJpg(st2.b).d
+        am=255
+      }catch(_){as=null}
+    }else if(!st2.f)as=pfSmp(st2.b,aw,ah,1,ab)
+    if(as&&aw&&ah)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      let v=as[Math.floor(y*ah/h)*aw+Math.floor(x*aw/w)]/am
+      if(aD&&aD[0]===1)v=1-v
+      const o=4*(y*w+x)+3
+      rgba[o]=rgba[o]*(al===mk?v>=.5?0:1:v)
+    }
+  }
+  if(cs&&cs.cm)PDC.n.add(cs.icc?'cmyk:'+cs.icc:'cmyk')
+  else if(cs&&cs.icc)PDC.n.add('rgb:'+cs.icc)
+  const c=cv(w,h)
+  c.getContext('2d').putImageData(new ImageData(rgba,w,h),0,0)
+  let op=true
+  for(let i=3;i<rgba.length&&op;i+=4)op=rgba[i]===255
+  return{u:op&&dt.f==='dct'?c.toDataURL('image/jpeg',1):c.toDataURL('image/png'),w,h}
+}
+
+// ── Fonts: codes → characters (ToUnicode, else the encoding and glyph names) and widths
+function pfGn(n){
+  if(!n)return''
+  if(PGN[n])return PGN[n]
+  if(/^[A-Za-z]$/.test(n))return n
+  let m=/^uni((?:[0-9A-Fa-f]{4})+)$/.exec(n)
+  if(m)return m[1].match(/..../g).map(h=>String.fromCharCode(parseInt(h,16))).join('')
+  m=/^u([0-9A-Fa-f]{4,6})$/.exec(n)
+  if(m)return String.fromCodePoint(Math.min(parseInt(m[1],16),0x10ffff))
+  m=/^([A-Za-z])(acute|grave|circumflex|dieresis|tilde|ring|cedilla|caron)$/.exec(n)
+  if(m)return(m[1]+{acute:'́',grave:'̀',circumflex:'̂',dieresis:'̈',tilde:'̃',ring:'̊',cedilla:'̧',caron:'̌'}[m[2]]).normalize('NFC')
+  if(n.includes('.'))return pfGn(n.slice(0,n.indexOf('.')))
+  if(n.includes('_'))return n.split('_').map(pfGn).join('')
+  return''
+}
+function pfEnc(nm){
+  const a=new Array(256).fill('')
+  if(nm==='WinAnsiEncoding'||nm==='MacRomanEncoding'){
+    const t=new TextDecoder(nm==='WinAnsiEncoding'?'windows-1252':'macintosh')
+    for(let c=32;c<256;c++)a[c]=t.decode(Uint8Array.of(c))
+    a[127]=''
+    a[160]=nm==='WinAnsiEncoding'?' ':a[160]
+    a[173]=nm==='WinAnsiEncoding'?'-':a[173]
+    return a
+  }
+  if(nm==='Symbol'){
+    const lo=[...PSYM[0]],hi=[...PSYM[1]]
+    for(let c=32;c<127;c++)a[c]=lo[c-32]
+    for(let c=160;c<255;c++)a[c]=hi[c-160]
+    return a
+  }
+  for(let c=32;c<127;c++)a[c]=String.fromCharCode(c)
+  a[39]='’'
+  a[96]='‘'
+  for(const c in PSTD)a[c]=PSTD[c]
+  return a
+}
+// pfCmap(st): a CMap stream read as {u: Map code → text, c: Map code → CID, r: [bytes, lo, hi] code space ranges}
+async function pfCmap(st){
+  const b=(await pfData(st)).b,L={b,p:0,e:b.length},u=new Map,c=new Map,r=[]
+  const num=s=>{
+    let v=0
+    for(let i=0;i<s.length;i++)v=v*256+s.charCodeAt(i)
+    return v
+  }
+  const u16=s=>{
+    let o=''
+    for(let i=0;i+1<s.length;i+=2)o+=String.fromCharCode(s.charCodeAt(i)<<8|s.charCodeAt(i+1))
+    return o
+  }
+  let mode='',q=[]
+  for(;;){
+    const t=pfTok(L)
+    if(t===undefined)break
+    if(t.k&&/^begin(codespacerange|bfchar|bfrange|cidchar|cidrange)$/.test(t.k)){
+      mode=t.k.slice(5)
+      q=[]
+      continue
+    }
+    if(t.k&&t.k.startsWith('end')){
+      mode=''
+      continue
+    }
+    if(!mode)continue
+    q.push(t.k==='['?pfObj(L,t,1):t)
+    if(mode==='codespacerange'&&q.length===2){
+      r.push([q[0].s.length,num(q[0].s),num(q[1].s)])
+      q=[]
+    }else if((mode==='bfchar'||mode==='cidchar')&&q.length===2){
+      if(mode==='bfchar')u.set(num(q[0].s),q[1].s!==undefined?u16(q[1].s):pfGn(q[1].n))
+      else c.set(num(q[0].s),q[1])
+      q=[]
+    }else if((mode==='bfrange'||mode==='cidrange')&&q.length===3){
+      const lo=num(q[0].s),hi=Math.min(num(q[1].s),lo+65535),d=q[2]
+      for(let k=lo;k<=hi;k++){
+        if(mode==='cidrange')c.set(k,d+k-lo)
+        else if(Array.isArray(d))u.set(k,d[k-lo]&&d[k-lo].s!==undefined?u16(d[k-lo].s):'')
+        else if(d&&d.s!==undefined){
+          const s=u16(d.s)
+          u.set(k,s.slice(0,-1)+String.fromCharCode(s.charCodeAt(s.length-1)+k-lo))
+        }
+      }
+      q=[]
+    }
+  }
+  return{u,c,r}
+}
+// pfFont(ref): {fam, wt, it, cd (a string → codes), u (code → text), w (code → width in 1/1000 em), sp (code is a single-byte space)}
+async function pfFont(ref){
+  const o=pfR(ref)
+  if(!pfMap(o))return null
+  if(PF.fo.has(o))return PF.fo.get(o)
+  const sub=pfNm(o.get('Subtype')),base=(pfNm(pfR(o.get('BaseFont')))||'').replace(/^[A-Z]{6}\+/,'')
+  const t0=sub==='Type0',ds=t0?pfR((pfV(o,'DescendantFonts')||[])[0]):o,fd=pfV(ds,'FontDescriptor')
+  const tu=pfV(o,'ToUnicode'),tm=tu&&tu.d?await pfCmap(tu):null
+  const F={id:PF.fo.size,t3:sub==='Type3'}
+  const nm=base||pfNm(pfV(fd,'FontName'))||''
+  const sty=nm.includes('-')||nm.includes(',')?nm.slice(nm.search(/[-,]/)+1):nm
+  let fam=nm.replace(/[-,].*$/,'').replace(/(PS)?MT$|PS$|Std$|LT$/,'')
+  const k=fam.toLowerCase().replace(/[\s_]/g,'')
+  const fl=pfNum(pfV(fd,'Flags'),0)
+  if(/^(helvetica|arial|liberationsans|nimbussans|arimo)/.test(k))fam='Arial'
+  else if(/^(times|liberationserif|nimbusroman|tinos)/.test(k))fam='Times New Roman'
+  else if(/^(courier|liberationmono|nimbusmono|cousine)/.test(k))fam='Courier New'
+  else if(/^(symbol|zapf)/.test(k)||!fam)fam='Arial'
+  else{
+    // the PostScript name without its style, as installed: "MyriadPro" → "Myriad Pro", "DejaVuSansBook" → "DejaVu Sans"
+    const sp=fam.replace(/([a-z])([A-Z])/g,'$1 $2')
+    let tr=sp
+    while(/\s(Book|Regular|Roman|Normal|Medium|Light|Bold|Semibold|Black|Italic|Oblique)$/i.test(tr))tr=tr.replace(/\s\S+$/,'')
+    fam=[fam,sp,tr,tr.replace(/\s/g,''),tr.replace(/^(\S+) (\S+)/,'$1$2 ')].find(x=>hasF(x))||tr
+  }
+  F.fam=fam
+  F.gen=fam==='Times New Roman'||fl&2&&fam!=='Arial'&&fam!=='Courier New'?'Times New Roman':'Arial'
+  const fw=pfNum(pfV(fd,'FontWeight'),0)
+  F.wt=/black|heavy/i.test(sty)?900:/extrabold|ultrabold/i.test(sty)?800:/semibold|demi/i.test(sty)?600:/bold/i.test(sty)||fl&262144||fw>=700?700:/medium/i.test(sty)?500:/light/i.test(sty)?300:fw&&fw<400?fw:400
+  F.it=/italic|oblique|\bit\b/i.test(sty)||!!(fl&64)||pfNum(pfV(fd,'ItalicAngle'),0)!==0
+  if(t0){
+    const en=pfR(o.get('Encoding')),enn=pfNm(en)||''
+    const ec=en&&en.d?await pfCmap(en):null
+    const W=pfV(ds,'W')||[],dw=pfNum(pfV(ds,'DW'),1000),wm=new Map
+    for(let i=0;i<W.length;){
+      const a=pfR(W[i]),b=pfR(W[i+1])
+      if(Array.isArray(b)){
+        b.forEach((x,j)=>wm.set(a+j,pfR(x)))
+        i+=2
+      }else{
+        for(let c=a;c<=b&&c-a<65536;c++)wm.set(c,pfR(W[i+2]))
+        i+=3
+      }
+    }
+    const rg=ec&&ec.r.length?ec.r:tm&&tm.r.length&&!/Identity/.test(enn)?tm.r:null
+    const uni=/^Uni.*(UCS2|UTF16)/.test(enn)
+    F.cd=s=>{
+      const a=[]
+      for(let i=0;i<s.length;){
+        let n=2
+        if(rg){
+          n=0
+          for(let l=1;l<=4&&!n;l++){
+            let v=0
+            for(let j=0;j<l;j++)v=v*256+(s.charCodeAt(i+j)||0)
+            if(rg.some(r=>r[0]===l&&v>=r[1]&&v<=r[2]))n=l
+          }
+          if(!n)n=1
+        }
+        let v=0
+        for(let j=0;j<n;j++)v=v*256+(s.charCodeAt(i+j)||0)
+        a.push(v)
+        i+=n
+      }
+      return a
+    }
+    F.u=c=>tm&&tm.u.has(c)?tm.u.get(c):uni?String.fromCharCode(c):''
+    F.w=c=>{
+      const cid=ec&&ec.c.size?ec.c.get(c)??c:c
+      return pfNum(wm.get(cid),dw)
+    }
+    F.sp=()=>false
+  }else{
+    const en=pfR(o.get('Encoding')),sym=/^(symbol)/i.test(base)
+    let tbl=pfEnc(pfNm(en)||pfNm(pfV(en,'BaseEncoding'))||(sym?'Symbol':sub==='TrueType'&&!(fl&4)?'WinAnsiEncoding':'StandardEncoding'))
+    const df=pfV(en,'Differences')
+    if(Array.isArray(df)){
+      tbl=tbl.slice()
+      let c=0
+      for(const x of df){
+        const v=pfR(x)
+        if(typeof v==='number')c=v
+        else if(v&&v.n!==undefined){
+          if(c<256)tbl[c]=pfGn(v.n)||(sym?tbl[c]:'')
+          c++
+        }
+      }
+    }
+    const fc=pfNum(pfV(o,'FirstChar'),0),ws=pfV(o,'Widths'),mw=pfNum(pfV(fd,'MissingWidth'),0)
+    const fm2=F.t3?pfV(o,'FontMatrix')||[.001]:null
+    F.cd=s=>Array.from(s,ch=>ch.charCodeAt(0))
+    F.u=c=>tm&&tm.u.has(c)?tm.u.get(c):tbl[c]||''
+    const cvx=cv(1,1).getContext('2d')
+    cvx.font=`${F.it?'italic ':''}${F.wt} 1000px "${fam}", ${F.gen}`
+    const mc=new Map
+    F.w=c=>{
+      if(Array.isArray(ws)&&c>=fc&&c-fc<ws.length){
+        const v=pfR(ws[c-fc])
+        return fm2?v*fm2[0]*1000:v
+      }
+      if(mw)return mw
+      if(!mc.has(c))mc.set(c,cvx.measureText(F.u(c)||' ').width)
+      return mc.get(c)
+    }
+    F.sp=c=>c===32
+  }
+  PF.fo.set(o,F)
+  return F
+}
+
+// ── Content: the interpreter (pfRun), its operators (PFO), output
+const pfN=v=>{
+  const r=Math.round(v*1000)/1000
+  return String(r===0?0:r)
+};
+const pfM=(p,q)=>[p[0]*q[0]+p[1]*q[2],p[0]*q[1]+p[1]*q[3],p[2]*q[0]+p[3]*q[2],p[2]*q[1]+p[3]*q[3],p[4]*q[0]+p[5]*q[2]+q[4],p[4]*q[1]+p[5]*q[3]+q[5]]; // p, then q
+const pfX=s=>String(s).replace(/[\0-\x08\x0b\x0c\x0e-\x1f￾￿]|[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// pfPt(x,y): a point as path text; the first few also go to PDC.Pn as numbers, for pfCirc
+function pfPt(x,y){
+  const m=PDC.G.m,X=m[0]*x+m[2]*y+m[4],Y=m[1]*x+m[3]*y+m[5]
+  if(PDC.Pn.length<26)PDC.Pn.push(X,Y)
+  return pfN(X)+' '+pfN(Y)
+}
+// pfOut(s): writes an element (after any pending text run), pfOpen a group that Q or EMC closes
+function pfOut(s){
+  pfFlush()
+  PDC.o.push(s)
+}
+function pfOpen(s,k){
+  pfFlush()
+  PDC.o.push(s)
+  PDC.g.push(k)
+}
+function pfClose(n){
+  pfFlush()
+  while(PDC.g.length>n)if(PDC.g.pop()!=='M')PDC.o.push('</g>')
+}
+const pfSc=m=>Math.sqrt(Math.abs(m[0]*m[3]-m[1]*m[2])); // how much the CTM scales lengths
+// pfCirc(P): [cx, cy, r] when the path is a circle drawn as four Bézier quarters (R's points, Illustrator's ellipse tool), else null
+function pfCirc(P){
+  if(P.length<5||P.length>6||P[0][0]!=='M'||P.length===6&&P[5]!=='Z')return null
+  for(let i=1;i<5;i++)if(P[i][0]!=='C')return null
+  const q=PDC.Pn,n=[q.slice(0,2)]
+  for(let i=0;i<4;i++)n.push(q.slice(2+6*i,8+6*i))
+  if(n[4].length<6)return null
+  const e=[n[1].slice(4),n[2].slice(4),n[3].slice(4),n[4].slice(4)]
+  const cx=(e[0][0]+e[1][0]+e[2][0]+e[3][0])/4,cy=(e[0][1]+e[1][1]+e[2][1]+e[3][1])/4,r=Math.hypot(e[0][0]-cx,e[0][1]-cy)
+  if(!(r>0)||Math.hypot(n[0][0]-e[3][0],n[0][1]-e[3][1])>r*.01)return null
+  let p=n[0]
+  for(let i=1;i<5;i++){
+    const c=n[i],mx=(p[p.length-2]+3*c[0]+3*c[2]+c[4])/8,my=(p[p.length-1]+3*c[1]+3*c[3]+c[5])/8
+    if(Math.abs(Math.hypot(c[4]-cx,c[5]-cy)-r)>r*.01||Math.abs(Math.hypot(mx-cx,my-cy)-r)>r*.01)return null
+    p=c
+  }
+  return[cx,cy,r]
+}
+// pfPaint(fi,sk,eo): paints the current path (fill, stroke, even-odd), then applies a pending clip
+function pfPaint(fi,sk,eo){
+  const X=PDC,G=X.G
+  if(X.P.length&&(fi||sk)&&!G.none){
+    const sc=pfSc(G.m)
+    let a=fi?` fill="${G.fill.u||G.fill.h}"`+(G.fa<1?` fill-opacity="${pfN(G.fa)}"`:'')+(eo?' fill-rule="evenodd"':''):' fill="none"'
+    if(sk){
+      a+=` stroke="${G.stroke.u||G.stroke.h}" stroke-width="${pfN(G.lw*sc||.25)}"`
+      if(G.lc)a+=` stroke-linecap="${G.lc===1?'round':'square'}"`
+      if(G.lj)a+=` stroke-linejoin="${G.lj===1?'round':'bevel'}"`
+      else if(G.ml!==4)a+=` stroke-miterlimit="${pfN(G.ml)}"`
+      if(G.da.length&&G.da.some(v=>v>0))a+=` stroke-dasharray="${G.da.map(v=>pfN(v*sc)).join(' ')}"`+(G.dp?` stroke-dashoffset="${pfN(G.dp*sc)}"`:'')
+      if(G.sa<1)a+=` stroke-opacity="${pfN(G.sa)}"`
+    }
+    if(G.bm)a+=` style="mix-blend-mode:${G.bm}"`
+    const m=G.m,r=X.rr
+    const ci=pfCirc(X.P)
+    if(ci)pfOut(`<circle cx="${pfN(ci[0])}" cy="${pfN(ci[1])}" r="${pfN(ci[2])}"${a}/>`)
+    else if(r&&X.P.length===5&&Math.abs(m[1])<1e-9&&Math.abs(m[2])<1e-9){
+      const x0=m[0]*r[0]+m[4],x1=m[0]*(r[0]+r[2])+m[4],y0=m[3]*r[1]+m[5],y1=m[3]*(r[1]+r[3])+m[5]
+      pfOut(`<rect x="${pfN(Math.min(x0,x1))}" y="${pfN(Math.min(y0,y1))}" width="${pfN(Math.abs(x1-x0))}" height="${pfN(Math.abs(y1-y0))}"${a}/>`)
+    }else pfOut(`<path d="${X.P.join(' ')}"${a}/>`)
+    X.ne++
+  }
+  if(X.cl){
+    const d=X.P.join(' ')||'M0 0',k=d+X.cl
+    let id=X.cid.get(k)
+    if(!id){
+      id='pc'+(X.cid.size+1)
+      X.cid.set(k,id)
+      X.d.push(`<clipPath id="${id}" clipPathUnits="userSpaceOnUse"><path d="${d}"${X.cl==='e'?' clip-rule="evenodd"':''}/></clipPath>`)
+    }
+    pfOpen(`<g clip-path="url(#${id})">`,'c')
+  }
+  X.P=[]
+  X.Pn=[]
+  X.rr=null
+  X.cl=''
+}
+// pfShade(sh,m): a gradient for an axial or radial shading in the space m maps to the page; its url, or a flat colour for the other kinds
+async function pfShade(sh,res,m){
+  sh=pfR(sh)
+  const d=sh&&(sh.d||sh)
+  if(!pfMap(d))return null
+  const t=pfNum(pfV(d,'ShadingType'),0),cs=await pfCS(pfV(d,'ColorSpace'),res)
+  const fn=await pfFn(pfV(d,'Function')),Dm=pfV(d,'Domain')||[0,1],C=pfV(d,'Coords')||[]
+  if((t!==2&&t!==3)||!fn){
+    PDC.n.add('mesh and function shadings (filled with one colour)')
+    return fn?cs.hex(fn([Dm[0],Dm[0]])):'#808080'
+  }
+  const st=[]
+  let last=''
+  for(let i=0;i<=16;i++){
+    const h=cs.hex(fn([Dm[0]+(Dm[1]-Dm[0])*i/16]).slice(0,cs.n))
+    if(h!==last||i===16)st.push(`<stop offset="${pfN(i/16)}" stop-color="${h}"/>`)
+    last=h
+  }
+  if(cs.cm)PDC.n.add(cs.icc?'cmyk:'+cs.icc:'cmyk')
+  const id='pg'+ ++PDC.gn,tr=` gradientUnits="userSpaceOnUse" gradientTransform="matrix(${m.map(pfN).join(' ')})"`
+  PDC.d.push(t===2?`<linearGradient id="${id}" x1="${pfN(C[0])}" y1="${pfN(C[1])}" x2="${pfN(C[2])}" y2="${pfN(C[3])}"${tr}>${st.join('')}</linearGradient>`
+    :`<radialGradient id="${id}" cx="${pfN(C[3])}" cy="${pfN(C[4])}" r="${pfN(C[5])}" fx="${pfN(C[0])}" fy="${pfN(C[1])}" fr="${pfN(C[2])}"${tr}>${st.join('')}</radialGradient>`)
+  return`url(#${id})`
+}
+// pfCol(G,k,cs,x,res): sets G's fill (k 'fill') or stroke to the colour x in cs: {h hex, c [r,g,b]} or {u url} for a pattern
+async function pfCol(k,st,res){
+  const G=PDC.G,cs=G[k+'cs']
+  if(cs.pat){
+    const p=pfR(pfV(pfV(res,'Pattern'),pfNm(st[st.length-1])))
+    const pd=p&&(p.d||p)
+    if(pfMap(pd)&&pfNum(pfV(pd,'PatternType'),1)===2){
+      const u=await pfShade(pfV(pd,'Shading'),res,pfM(pfV(pd,'Matrix')||[1,0,0,1,0,0],G.base))
+      G[k]=u&&u.startsWith('url')?{u,h:'#808080',c:[128,128,128]}:{h:u||'#808080',c:[128,128,128]}
+    }else{
+      PDC.n.add('tiling patterns (filled grey)')
+      G[k]={h:'#808080',c:[128,128,128]}
+    }
+    return
+  }
+  const x=st.filter(v=>typeof v==='number').slice(0,cs.n)
+  while(x.length<cs.n)x.push(0)
+  const c=cs.rgb(x)
+  G[k]={h:cs.hex(x),c}
+  if(cs.cm)PDC.n.add(cs.icc?'cmyk:'+cs.icc:'cmyk')
+  else if(cs.icc)PDC.n.add('rgb:'+cs.icc)
+  G.none=!!cs.none
+}
+// ── Text: glyphs gathered into runs (one <text> per run on a baseline, a space where the gap is a word space); after the text position
+// is set again (BT, Td, Tm: mv) only a gap under 0.4 em joins, so separately placed labels such as axis ticks stay apart
+function pfGlyph(u,ox,oy,ex,ey,L){
+  const X=PDC,G=X.G,f=G.font,s=Math.sqrt(Math.abs(L[0]*L[3]-L[1]*L[2]))
+  if(!s)return
+  const n=L.map(v=>v/s),k=[f.id,pfN(s),G.fill.h,G.tr,G.fa,n.map(v=>v.toFixed(3))].join()
+  let R=X.R
+  const join=R&&R.k===k
+  if(join){
+    const dx=ox-R.ex,dy=oy-R.ey,al=(dx*n[0]+dy*n[1])/s,pe=(dx*n[2]+dy*n[3])/s
+    if(Math.abs(pe)<.08&&al>-.3&&al<.15)R.t+=u
+    else if(Math.abs(pe)<.08&&al>=.15&&al<(X.mv?.4:.8))R.t+=(/\s$/.test(R.t)||/^\s/.test(u)?'':' ')+u
+    else R=null
+  }
+  if(!join||!R){
+    pfFlush()
+    if(!u.trim())return
+    const tr=G.tr%4
+    let a=tr===1?' fill="none"':` fill="${G.fill.u||G.fill.h}"`+(G.fa<1?` fill-opacity="${pfN(G.fa)}"`:'')
+    if(tr===1||tr===2)a+=` stroke="${G.stroke.h}" stroke-width="${pfN(G.lw*pfSc(G.m)||.25)}"`
+    R=X.R={k,x:ox,y:oy,n,s,t:u,f,a}
+  }
+  R.ex=ex
+  R.ey=ey
+  X.mv=false
+}
+function pfFlush(){
+  const X=PDC,R=X.R
+  if(!R)return
+  X.R=null
+  const t=R.t.replace(/\s+$/,'')
+  if(!t)return
+  const f=R.f,n=R.n,id=Math.abs(n[0]-1)<1e-3&&Math.abs(n[3]-1)<1e-3&&Math.abs(n[1])<1e-3&&Math.abs(n[2])<1e-3
+  let a=id?` x="${pfN(R.x)}" y="${pfN(R.y)}"`:` transform="matrix(${n.map(v=>pfN(v)).join(' ')} ${pfN(R.x)} ${pfN(R.y)})"`
+  a+=` font-family="${pfX(f.fam===f.gen?f.fam:`'${f.fam}', ${f.gen}`)}" font-size="${pfN(R.s)}"`
+  if(f.wt!==400)a+=` font-weight="${f.wt===700?'bold':f.wt}"`
+  if(f.it)a+=' font-style="italic"'
+  a+=R.a
+  if(/\s\s/.test(t))a+=' xml:space="preserve"'
+  X.o.push(`<text${a}>${pfX(t)}</text>`)
+  X.ne++
+}
+function pfShow(s){
+  const X=PDC,G=X.G,f=G.font
+  if(!s)return
+  if(!f){
+    X.n.add('text in fonts the file does not define')
+    return
+  }
+  if(f.t3)X.n.add('Type 3 fonts (shown in a standard font)')
+  const vis=G.tr!==3&&G.tr!==7&&!G.none
+  for(const c of f.cd(s)){
+    const M=pfM(X.Tm,G.m),fs=G.fs,th=G.th
+    const ox=M[2]*G.ts+M[4],oy=M[3]*G.ts+M[5]
+    const L=[fs*th*M[0],fs*th*M[1],-fs*M[2],-fs*M[3]]
+    const tx=(f.w(c)/1000*fs+G.tc+(f.sp(c)?G.tw:0))*th,T=X.Tm
+    X.Tm=[T[0],T[1],T[2],T[3],T[4]+tx*T[0],T[5]+tx*T[1]]
+    const N=pfM(X.Tm,G.m)
+    let u=f.u(c)
+    if(!u){
+      u='�'
+      X.n.add('characters that could not be read (shown as �)')
+    }
+    if(vis)pfGlyph(u,ox,oy,N[2]*G.ts+N[4],N[3]*G.ts+N[5],L)
+  }
+}
+const pfTd=(x,y)=>{
+  const X=PDC
+  X.mv=true
+  X.Tlm=pfM([1,0,0,1,x,y],X.Tlm)
+  X.Tm=X.Tlm
+};
+const pfNx=()=>pfTd(0,-PDC.G.tl);
+const pfBM=b=>{
+  const n=pfNm(Array.isArray(b)?pfR(b[0]):b)||''
+  return/^(Normal|Compatible|)$/.test(n)?'':n.replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase()
+};
+async function pfDo(nm,res,dp){
+  const X=PDC,xo=pfV(pfV(res,'XObject'),nm)
+  if(!xo||!xo.d)return
+  const sub=pfNm(pfV(xo.d,'Subtype'))
+  if(sub==='Image')return pfPic(xo,res)
+  if(sub!=='Form'||dp>24||X.fs.has(xo))return
+  X.fs.add(xo)
+  PFO.q()
+  const G=X.G
+  G.m=pfM(pfV(xo.d,'Matrix')||[1,0,0,1,0,0],G.m)
+  G.base=G.m
+  if(pfV(xo.d,'Group')&&(G.fa<1||G.bm)){
+    pfOpen(`<g${G.fa<1?` opacity="${pfN(G.fa)}"`:''}${G.bm?` style="mix-blend-mode:${G.bm}"`:''}>`,'c')
+    G.fa=G.sa=1
+    G.bm=''
+  }
+  const b=(await pfData(xo)).b
+  X.P=[]
+  X.Pn=[]
+  await pfRun({b,p:0,e:b.length},pfV(xo.d,'Resources')||res,dp+1)
+  PFO.Q()
+  X.fs.delete(xo)
+}
+async function pfPic(st,res){
+  const X=PDC,G=X.G
+  let r
+  try{r=await pfImg(st,res)}catch(e){r={t:'damaged pictures'}}
+  if(!r)return
+  if(r.t){
+    X.n.add(r.t)
+    return
+  }
+  const M=pfM([1,0,0,-1,0,1],G.m),px=Math.max(Math.hypot(M[0],M[1])/r.w,Math.hypot(M[2],M[3])/r.h)
+  const sh=!pfV(st.d,'Interpolate')&&px>1.5?' style="image-rendering:optimizeSpeed;image-rendering:pixelated"':''
+  const op=G.fa<1?` opacity="${pfN(G.fa)}"`:''
+  const at=Math.abs(M[1])<1e-9&&Math.abs(M[2])<1e-9&&M[0]>0&&M[3]>0?`x="${pfN(M[4])}" y="${pfN(M[5])}" width="${pfN(M[0])}" height="${pfN(M[3])}"`:`x="0" y="0" width="1" height="1" transform="matrix(${M.map(pfN).join(' ')})"`
+  pfOut(`<image ${at} preserveAspectRatio="none"${op}${sh} xlink:href="${r.u}"/>`)
+  X.ne++
+}
+// PFO: the content operators; each takes the operand stack (st), the resources, the lexer and the form depth
+const PFO={
+  q(){
+    const X=PDC
+    X.S.push([X.G,X.g.length])
+    X.G={...X.G}
+  },
+  Q(){
+    const X=PDC
+    if(!X.S.length)return
+    const[G,n]=X.S.pop()
+    pfClose(n)
+    X.G=G
+  },
+  cm(st){PDC.G.m=pfM(st.slice(-6),PDC.G.m)},
+  w(st){PDC.G.lw=st[0]},
+  J(st){PDC.G.lc=st[0]},
+  j(st){PDC.G.lj=st[0]},
+  M(st){PDC.G.ml=st[0]},
+  d(st){
+    PDC.G.da=Array.isArray(st[0])?st[0].filter(v=>typeof v==='number'):[]
+    PDC.G.dp=pfNum(st[1],0)
+  },
+  gs(st,res){
+    const g=pfV(pfV(res,'ExtGState'),pfNm(st[0])),G=PDC.G
+    if(!pfMap(g))return
+    const v=k=>pfR(g.get(k))
+    if(g.has('LW'))G.lw=v('LW')
+    if(g.has('LC'))G.lc=v('LC')
+    if(g.has('LJ'))G.lj=v('LJ')
+    if(g.has('ML'))G.ml=v('ML')
+    if(g.has('ca'))G.fa=v('ca')
+    if(g.has('CA'))G.sa=v('CA')
+    if(g.has('BM'))G.bm=pfBM(v('BM'))
+    if(g.has('D')){
+      const D=v('D')||[]
+      G.da=(pfR(D[0])||[]).filter(x=>typeof x==='number')
+      G.dp=pfNum(D[1],0)
+    }
+    if(pfMap(v('SMask')))PDC.n.add('soft masks')
+    const F=v('Font')
+    if(Array.isArray(F))return pfFont(F[0]).then(f=>{
+      G.font=f
+      G.fs=pfNum(F[1],G.fs)
+    })
+  },
+  m(st){
+    const X=PDC
+    X.P.push('M'+pfPt(st[0],st[1]))
+    X.cx=X.sx=st[0]
+    X.cy=X.sy=st[1]
+  },
+  l(st){
+    const X=PDC
+    X.P.push('L'+pfPt(st[0],st[1]))
+    X.cx=st[0]
+    X.cy=st[1]
+  },
+  c(st){
+    const X=PDC
+    X.P.push('C'+pfPt(st[0],st[1])+' '+pfPt(st[2],st[3])+' '+pfPt(st[4],st[5]))
+    X.cx=st[4]
+    X.cy=st[5]
+  },
+  v(st){
+    const X=PDC
+    X.P.push('C'+pfPt(X.cx,X.cy)+' '+pfPt(st[0],st[1])+' '+pfPt(st[2],st[3]))
+    X.cx=st[2]
+    X.cy=st[3]
+  },
+  y(st){
+    const X=PDC
+    X.P.push('C'+pfPt(st[0],st[1])+' '+pfPt(st[2],st[3])+' '+pfPt(st[2],st[3]))
+    X.cx=st[2]
+    X.cy=st[3]
+  },
+  h(){
+    const X=PDC
+    if(X.P.length&&X.P[X.P.length-1]!=='Z')X.P.push('Z')
+    X.cx=X.sx
+    X.cy=X.sy
+  },
+  re(st){
+    const X=PDC,[x,y,w,h]=st
+    X.rr=X.P.length?null:[x,y,w,h]
+    X.P.push('M'+pfPt(x,y),'L'+pfPt(x+w,y),'L'+pfPt(x+w,y+h),'L'+pfPt(x,y+h),'Z')
+    X.cx=X.sx=x
+    X.cy=X.sy=y
+  },
+  S(){pfPaint(0,1,0)},
+  s(){
+    PFO.h()
+    pfPaint(0,1,0)
+  },
+  f(){pfPaint(1,0,0)},
+  F(){pfPaint(1,0,0)},
+  'f*'(){pfPaint(1,0,1)},
+  B(){pfPaint(1,1,0)},
+  'B*'(){pfPaint(1,1,1)},
+  b(){
+    PFO.h()
+    pfPaint(1,1,0)
+  },
+  'b*'(){
+    PFO.h()
+    pfPaint(1,1,1)
+  },
+  n(){pfPaint(0,0,0)},
+  W(){PDC.cl='n'},
+  'W*'(){PDC.cl='e'},
+  BT(){
+    PDC.Tm=PDC.Tlm=[1,0,0,1,0,0]
+    PDC.mv=true
+  },
+  ET(){},
+  Tc(st){PDC.G.tc=st[0]},
+  Tw(st){PDC.G.tw=st[0]},
+  Tz(st){PDC.G.th=st[0]/100},
+  TL(st){PDC.G.tl=st[0]},
+  Tr(st){PDC.G.tr=st[0]},
+  Ts(st){PDC.G.ts=st[0]},
+  Tf(st,res){
+    PDC.G.fs=pfNum(st[1],12)
+    return pfFont(pfV(res,'Font')?.get(pfNm(st[0]))).then(f=>{PDC.G.font=f})
+  },
+  Td(st){pfTd(st[0],st[1])},
+  TD(st){
+    PDC.G.tl=-st[1]
+    pfTd(st[0],st[1])
+  },
+  Tm(st){
+    PDC.mv=true
+    PDC.Tlm=st.slice(-6)
+    PDC.Tm=PDC.Tlm
+  },
+  'T*'(){pfNx()},
+  Tj(st){pfShow(st[0]&&st[0].s)},
+  "'"(st){
+    pfNx()
+    pfShow(st[0]&&st[0].s)
+  },
+  '"'(st){
+    PDC.G.tw=st[0]
+    PDC.G.tc=st[1]
+    pfNx()
+    pfShow(st[2]&&st[2].s)
+  },
+  TJ(st){
+    const X=PDC,G=X.G
+    for(const v of st[0]||[]){
+      if(typeof v==='number'){
+        const tx=-v/1000*G.fs*G.th,T=X.Tm
+        X.Tm=[T[0],T[1],T[2],T[3],T[4]+tx*T[0],T[5]+tx*T[1]]
+      }else if(v&&v.s)pfShow(v.s)
+    }
+  },
+  async CS(st,res){
+    const cs=await pfCS(st[0],res)
+    PDC.G.strokecs=cs
+    PDC.G.stroke=cs.pat?{h:'#808080',c:[128,128,128]}:{h:cs.hex(cs.init),c:cs.rgb(cs.init)}
+  },
+  async cs(st,res){
+    const cs=await pfCS(st[0],res)
+    PDC.G.fillcs=cs
+    PDC.G.fill=cs.pat?{h:'#808080',c:[128,128,128]}:{h:cs.hex(cs.init),c:cs.rgb(cs.init)}
+    PDC.G.none=!!cs.none
+  },
+  SC(st,res){return pfCol('stroke',st,res)},
+  SCN(st,res){return pfCol('stroke',st,res)},
+  sc(st,res){return pfCol('fill',st,res)},
+  scn(st,res){return pfCol('fill',st,res)},
+  G(st){
+    PDC.G.strokecs=PFG
+    return pfCol('stroke',st)
+  },
+  g(st){
+    PDC.G.fillcs=PFG
+    return pfCol('fill',st)
+  },
+  RG(st){
+    PDC.G.strokecs=PFRGB
+    return pfCol('stroke',st)
+  },
+  rg(st){
+    PDC.G.fillcs=PFRGB
+    return pfCol('fill',st)
+  },
+  K(st){
+    PDC.G.strokecs=PDC.cmyk
+    return pfCol('stroke',st)
+  },
+  k(st){
+    PDC.G.fillcs=PDC.cmyk
+    return pfCol('fill',st)
+  },
+  Do(st,res,L,dp){return pfDo(pfNm(st[0]),res,dp)},
+  async sh(st,res){
+    const X=PDC,u=await pfShade(pfV(pfV(res,'Shading'),pfNm(st[0])),res,X.G.m)
+    if(!u)return
+    pfOut(`<rect x="0" y="0" width="${pfN(X.W)}" height="${pfN(X.H)}" fill="${u}"${X.G.fa<1?` fill-opacity="${pfN(X.G.fa)}"`:''}/>`)
+    X.ne++
+  },
+  BI(st,res,L){
+    const d=new Map,b=L.b
+    for(;;){
+      const t=pfTok(L)
+      if(!t||t.k==='ID')break
+      if(t.n!==undefined)d.set(t.n,pfObj(L,undefined,1))
+    }
+    let p=L.p
+    if(PDFW[b[p]]===1)p++
+    const w=pfNum(pfR(d.get('W')??d.get('Width')),0),h=pfNum(pfR(d.get('H')??d.get('Height')),0)
+    let e=-1
+    if(!d.has('F')&&!d.has('Filter')){
+      const im=d.get('IM')??d.get('ImageMask'),c=pfNm(d.get('CS')??d.get('ColorSpace'))
+      const n=im?1:/^(RGB|DeviceRGB|CalRGB)$/.test(c)?3:/^(CMYK|DeviceCMYK)$/.test(c)?4:1
+      e=p+h*Math.ceil(w*n*pfNum(d.get('BPC')??d.get('BitsPerComponent'),im?1:8)/8)
+      const q=pfFind(b,'EI',e)
+      L.p=q<0?b.length:q+2
+    }else for(let q=p;;q++){
+      q=pfFind(b,'EI',q)
+      if(q<0){
+        e=L.p=b.length
+        break
+      }
+      if(PDFW[b[q-1]]===1&&(q+2>=b.length||PDFW[b[q+2]])){
+        e=q-1
+        L.p=q+2
+        break
+      }
+    }
+    if(e<0)return
+    return pfPic({d,raw:b.subarray(p,e)},res)
+  },
+  BMC(){PDC.g.push('M')},
+  BDC(st,res){
+    const X=PDC,tag=pfNm(st[0]),pr=st[1]&&st[1].n!==undefined?pfV(pfV(res,'Properties'),st[1].n):pfR(st[1])
+    if(tag==='OC'&&pfMap(pr)&&pr.has('Name')){
+      const nm=pfStr(pfR(pr.get('Name'))),off=X.off.has(pr)
+      pfOpen(`<g inkscape:label="${pfX(nm)}"${off?' style="display:none"':''}>`,'m')
+    }else X.g.push('M')
+  },
+  EMC(){
+    const X=PDC,i=Math.max(X.g.lastIndexOf('m'),X.g.lastIndexOf('M'))
+    if(i>=X.mq())pfClose(i)
+  }
+};
+async function pfRun(L,res,dp){
+  const st=[]
+  for(;;){
+    const t=pfTok(L)
+    if(t===undefined)break
+    if(typeof t==='number'||t.n!==undefined||t.s!==undefined){
+      st.push(t)
+      continue
+    }
+    const k=t.k
+    if(k==='['||k==='<<'){
+      st.push(pfObj(L,t,1))
+      continue
+    }
+    if(k==='true'||k==='false'||k==='null'){
+      st.push(k==='true'?true:k==='false'?false:null)
+      continue
+    }
+    const f=PFO[k]
+    if(f){
+      try{
+        const r=f(st,res,L,dp)
+        if(r&&r.then)await r
+      }catch(e){PDC.n.add('parts that could not be read')}
+    }
+    st.length=0
+  }
+}
+// pfPage(pg,i,n): the SVG text of one page
+async function pfPage(pg,i){
+  const box=k=>{
+    const a=pg[k]
+    return Array.isArray(a)&&a.length===4&&a.every(v=>typeof pfR(v)==='number')?a.map(pfR):null
+  }
+  let mb=box('MediaBox')||[0,0,612,792],cb=box('CropBox')
+  const nb=a=>[Math.min(a[0],a[2]),Math.min(a[1],a[3]),Math.max(a[0],a[2]),Math.max(a[1],a[3])]
+  mb=nb(mb)
+  if(cb){
+    cb=nb(cb)
+    cb=[Math.max(cb[0],mb[0]),Math.max(cb[1],mb[1]),Math.min(cb[2],mb[2]),Math.min(cb[3],mb[3])]
+  }
+  const[x0,y0,x1,y1]=cb&&cb[2]>cb[0]&&cb[3]>cb[1]?cb:mb
+  const rot=((pfNum(pg.Rotate,0)%360)+360)%360
+  const W=rot%180?y1-y0:x1-x0,H=rot%180?x1-x0:y1-y0
+  const base=rot===90?[0,1,1,0,-y0,-x0]:rot===180?[-1,0,0,1,x1,-y0]:rot===270?[0,-1,-1,0,y1,x1]:[1,0,0,-1,-x0,y1]
+  const res=pfMap(pg.Resources)?pg.Resources:new Map
+  const oc=pfV(pfV(pfV(PF.t,'Root'),'OCProperties'),'D'),off=new Set((pfV(oc,'OFF')||[]).map(pfR))
+  PDC={o:[],d:[],g:[],S:[],n:PF.n,cid:new Map,gn:0,ne:0,P:[],Pn:[],rr:null,cl:'',R:null,Tm:[1,0,0,1,0,0],Tlm:[1,0,0,1,0,0],W,H,fs:new Set,off,
+    mq(){return this.S.length?this.S[this.S.length-1][1]:0},
+    G:{m:base,base,fill:{h:'#000000',c:[0,0,0]},stroke:{h:'#000000',c:[0,0,0]},fillcs:PFG,strokecs:PFG,fa:1,sa:1,lw:1,lc:0,lj:0,ml:10,da:[],dp:0,bm:'',font:null,fs:12,tc:0,tw:0,th:1,tl:0,tr:0,ts:0,none:false}}
+  PDC.cmyk0=pfCsMk(4,pfCmyk0,{cm:1,init:[0,0,0,1]})
+  PDC.cmyk=PDC.cmyk0
+  const dc=pfV(pfV(res,'ColorSpace'),'DefaultCMYK')
+  let oi=null
+  for(const o of pfV(pfV(PF.t,'Root'),'OutputIntents')||[]){
+    const p=pfV(pfR(o),'DestOutputProfile')
+    if(p&&p.d&&pfNum(pfV(p.d,'N'),4)===4){
+      oi=await pfIccCs(p)
+      if(oi)break
+    }
+  }
+  if(dc)PDC.cmyk=await pfCS(dc,new Map)
+  else if(oi&&oi.n===4)PDC.cmyk=oi
+  if(PDC.cmyk.n!==4)PDC.cmyk=PDC.cmyk0
+  const ct=pfR(pg.d.get('Contents')),parts=[]
+  for(const c of Array.isArray(ct)?ct:[ct]){
+    const s=pfR(c)
+    if(s&&s.d)parts.push((await pfData(s)).b)
+  }
+  const n=parts.reduce((a,p)=>a+p.length+1,0),b=new Uint8Array(n)
+  let q=0
+  for(const p of parts){
+    b.set(p,q)
+    q+=p.length
+    b[q++]=10
+  }
+  await pfRun({b,p:0,e:n},res,0)
+  pfClose(0)
+  const mm=v=>pfN(v*25.4/72)
+  return{ne:PDC.ne,svg:`<svg xmlns="${NS.svg}" xmlns:xlink="${NS.xlink}" xmlns:inkscape="${NS.inkscape}" version="1.1" width="${mm(W)}mm" height="${mm(H)}mm" viewBox="0 0 ${pfN(W)} ${pfN(H)}">\n<defs>${PDC.d.join('\n')}</defs>\n<g id="pdfpage" inkscape:label="Page ${i+1}" inkscape:groupmode="layer">\n${PDC.o.join('\n')}\n</g>\n</svg>`}
+}
+// pfNote(): the status line's note on colours and what was left out
+function pfNote(){
+  const n=[...PF.n],o=[]
+  const ic=[...new Set(n.filter(x=>x.startsWith('cmyk:')).map(x=>x.slice(5)))]
+  if(ic.length)o.push(`CMYK converted to sRGB with the colour profile “${ic.join('”, “')}”`)
+  if(n.includes('cmyk'))o.push(`CMYK${ic.length?' without a profile':''} converted to sRGB by the plain formula (no colour profile in the file): colours may look brighter than in Acrobat or Illustrator`)
+  if(n.includes('pjc'))o.push('progressive CMYK JPEGs converted by the browser, without the profile')
+  const rg=[...new Set(n.filter(x=>x.startsWith('rgb:')).map(x=>x.slice(4)))]
+  if(rg.length)o.push(`converted to sRGB from “${rg.join('”, “')}”`)
+  const sk=n.filter(x=>!/^(cmyk|rgb:|pjc)/.test(x))
+  if(sk.length)o.push('left out or simplified: '+sk.join(', '))
+  return o.length?' · '+o.join(' · '):''
+}
+const isPdf=f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf'; // a PDF file (readFile, the drop handler)
+// pdfPick(nm,n): asks which page to open; the index, or -1 when cancelled
+function pdfPick(nm,n){
+  const d=$('mPdP'),s=d.querySelector('select')
+  d.querySelector('b').textContent=nm
+  d.querySelector('span').textContent='/ '+n
+  s.replaceChildren(...Array.from({length:n},(_,i)=>new Option(i+1,i)))
+  d.returnValue=''
+  d.onclick=e=>{
+    if(e.target.tagName==='BUTTON')d.close(e.target.value)
+  }
+  d.onkeydown=e=>{
+    if(e.key==='Enter'){
+      e.preventDefault()
+      d.close('ok')
+    }
+  }
+  d.showModal()
+  s.focus()
+  return new Promise(r=>d.onclose=()=>r(d.returnValue==='ok'?+s.value:-1))
+}
+// pdfRead(f): {svg, nm (the name it opens under, .svg), note, pg ("page 2 of 5" or '')} or null when the page choice is cancelled; throws with a reason
+async function pdfRead(f){
+  const b=new Uint8Array(await f.arrayBuffer())
+  if(pfFind(b.subarray(0,1024),'%PDF',0)<0)throw Error('not a PDF file')
+  PF={b,x:new Map,c:new Map,os:new Map,n:new Set,ic:new Map,fo:new Map,t:null}
+  try{
+    let pages=[]
+    try{
+      await pfXref()
+      await pfOs(0)
+      pages=pfPages()
+    }catch(_){pages=[]}
+    if(!pages.length){
+      pfScan()
+      await pfOs(1)
+      pages=pfPages()
+    }
+    if(pfV(PF.t,'Encrypt'))throw Error('it is encrypted (password-protected); save an unprotected copy first')
+    if(!pages.length)throw Error('no pages found')
+    let k=0
+    if(pages.length>1){
+      k=await pdfPick(f.name,pages.length)
+      if(k<0)return null
+    }
+    $('mBz').lastChild.textContent=`Reading ${f.name}${pages.length>1?`, page ${k+1}`:''}…`
+    $('mBz').hidden=false
+    await new Promise(r=>requestAnimationFrame(()=>setTimeout(r)))
+    const r=await pfPage(pages[k],k)
+    if(!r.ne)throw Error(PF.n.size?'nothing on that page could be read'+pfNote():'that page is empty')
+    return{svg:r.svg,nm:f.name.replace(/\.pdf$/i,'')+'.svg',note:pfNote(),pg:pages.length>1?` (page ${k+1} of ${pages.length})`:''}
+  }finally{
+    PF=null
+    PDC=null
+    bzOff()
   }
 }
 // ══ 06 Export ════
@@ -5961,7 +8106,7 @@ for(const h of[1,0]){const b=$(h?'mSx':'mSy');b.onpointerdown=e=>{e.stopPropagat
 addEventListener('resize',place);
 addEventListener('dragover',e=>e.preventDefault());
 addEventListener('drop',async e=>{e.preventDefault();if(lbDrop(e))return;const fs=[...e.dataTransfer.files],f=fs[0],r=view.getBoundingClientRect();
-  if(f&&isPic(f))return fs.filter(isPic).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
+  if(f&&isPic(f))return fs.filter(isPic).forEach((g,i)=>placeImg(g,toU([e.clientX-r.x+i*20,e.clientY-r.y+i*20])));if(f&&!isPdf(f)&&!/\.svg$/i.test(f.name)&&f.type!=='image/svg+xml')return attach(fs);f&&readFile(f,!!(root&&cands(root,1).length&&await cfm(`Import ${f.name} into the current canvas?`,'Import','Open as new','\n(Cancel = open it as a new file)')))});
 addEventListener('beforeunload',e=>{if(dirty||TABS.some((t,i)=>i!==TI&&t.dirty)){e.preventDefault();e.returnValue=''}});
 addEventListener('keyup',e=>{if(e.key===' ')space=false});addEventListener('blur',()=>space=false);
 // ══ 62 Keyboard ════

@@ -42,13 +42,14 @@ input,select{font:inherit}
 #mKb svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}#mKb kbd{margin-left:6px;display:flex;gap:2px;flex:none}#mKb>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mKb kbd,#mK kbd{border:0;background:none;padding:0;opacity:.6}#mKb kbd{opacity:1}#mKb kbd span{display:grid;place-items:center;min-width:17px;height:16px;padding:0 4px;font:500 10.5px/1 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--h4);background:var(--side);border:1px solid var(--btnb);border-radius:4px}
 /* ══ 59a Colour picker ══ */
 #mCpk{position:fixed;z-index:40;width:288px;padding:8px;background:var(--side);border-radius:10px;box-shadow:var(--shm);color:var(--fg);font-size:11.5px;-webkit-user-select:none;user-select:none}#mCpk[hidden]{display:none}
+#mCpT{display:flex;align-items:center;gap:6px;height:24px;margin:-4px -2px 6px 0;cursor:move;touch-action:none}#mCpT b{flex:1;min-width:0;overflow:hidden;font-size:12px;font-weight:600;white-space:nowrap;text-overflow:ellipsis}#mCpT button{flex:none;width:22px;height:22px;padding:0;border-color:transparent;background:transparent;color:var(--h4);font-size:16px;line-height:1;cursor:pointer}
 #mCpA{position:relative;height:150px;border-radius:6px;cursor:crosshair;touch-action:none;background-image:linear-gradient(#0000,#000),linear-gradient(90deg,#fff,#fff0);box-shadow:inset 0 0 0 1px var(--swb)}
 #mCpA i,#mCpH i{position:absolute;width:12px;height:12px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #0007,inset 0 0 0 1px #0004;transform:translate(-50%,-50%);pointer-events:none}
 #mCpk .cr{display:flex;align-items:center;gap:10px;margin:8px 0}#mCpk .cr>button{flex:none;width:24px;height:24px;padding:0;display:grid;place-items:center}#mCpk svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 #mCpH{position:relative;flex:1;height:12px;border-radius:6px;cursor:pointer;touch-action:none;background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}#mCpH i{top:50%;width:14px;height:14px}
-#mCpO{flex:none;display:flex;width:48px;height:24px;overflow:hidden;border-radius:6px;box-shadow:inset 0 0 0 1px var(--swb)}#mCpO i{flex:1;box-shadow:inset 0 0 0 1px var(--swb)}#mCpB{cursor:pointer}
-#mCpk .cv{display:flex;gap:4px}#mCpk .cv label{flex:1;display:flex;align-items:center;gap:3px;min-width:0;height:24px;padding:0 4px 0 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn)}#mCpk .cv label:focus-within{border-color:var(--onb)}#mCpk .cv label:first-child{flex:none;width:110px;padding-right:1px}
-#mCpk .cv em{flex:none;width:9px;font-style:normal;color:var(--t3)}#mCpk .cv input{flex:1;width:0;min-width:0;height:100%;padding:0;border:0;border-radius:0;background:none;color:inherit;font:inherit;font-variant-numeric:tabular-nums;outline:0;box-shadow:none;-webkit-user-select:text;user-select:text}#mCpX{text-transform:uppercase}
+#mCpO{position:relative;flex:none;display:flex;width:44px;height:22px;overflow:hidden;border-radius:6px}#mCpO::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--swb);pointer-events:none}#mCpO i{flex:1}#mCpB{cursor:pointer}
+#mCpk .cv{display:flex;gap:4px}#mCpk .cn{margin-top:4px}#mCpk .cn select{flex:none;width:62px;height:24px;padding:0 2px 0 6px}#mCpk .cv label{flex:1;display:flex;align-items:center;gap:3px;min-width:0;height:24px;padding:0 4px 0 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn)}#mCpk .cv label:focus-within{border-color:var(--onb)}#mCpk .cv label:first-child{padding-right:1px}
+#mCpk .cv em{flex:none;min-width:9px;font-style:normal;color:var(--t3)}#mCpk .cv input{flex:1;width:0;min-width:0;height:100%;padding:0;border:0;border-radius:0;background:none;color:inherit;font:inherit;font-variant-numeric:tabular-nums;outline:0;box-shadow:none;-webkit-user-select:text;user-select:text}#mCpX{text-transform:uppercase}
 #mCpC{flex:none;width:20px;height:20px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}
 #mCpk h6{margin:9px 0 4px;font-size:11px;font-weight:500;color:var(--h4)}#mCpk .sw{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;min-height:20px}#mCpk .sw:empty::after{content:attr(data-ph);grid-column:1/-1;align-self:center;color:var(--t3)}
 #mCpk .sw button{height:20px;min-width:0;padding:0;border:0;border-radius:4px;box-shadow:inset 0 0 0 1px var(--swb);cursor:pointer}#mCpk .sw button:hover{transform:scale(1.15)}#mCpk .sw button.on{outline:1.5px solid var(--onb);outline-offset:1px}
@@ -559,9 +560,9 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <!-- ══ 54 Command palette ══ -->
 <div id="mK" hidden><div role="dialog" aria-label="Commands"><input id="mKq" placeholder="Type a command…" spellcheck="false" autocomplete="off"><div id="mKl" role="listbox"></div><p><kbd>↑↓</kbd>Navigate<kbd>↵</kbd>Run<kbd>Esc</kbd>Close</p></div></div>
 <!-- ══ 59a Colour picker ══ -->
-<div id="mCpk" hidden><div id="mCpA"><i></i></div>
+<div id="mCpk" hidden><header id="mCpT" title="Drag to move the picker; double-click to put it back beside the field"><b></b><button id="mCpQ" title="Close (Esc)">×</button></header><div id="mCpA"><i></i></div>
 <div class="cr"><button id="mCpE" title="Pick a colour from anywhere on the screen"><svg viewBox="0 0 16 16"><path d="M9.6 3.8l2.6 2.6M11 2.4a1.8 1.8 0 0 1 2.6 2.6l-2 2-2.6-2.6zM9.4 5.2 3.3 11.3l-.8 2.2 2.2-.8 6.1-6.1"/></svg></button><div id="mCpH"><i></i></div><div id="mCpO"><i title="The colour now"></i><i id="mCpB" title="The colour before: click to go back to it"></i></div></div>
-<div class="cv"><label title="Type or paste a colour: #2F6DB5, 2f6db5, rgb(47, 109, 181), 47 109 181 or a name such as steelblue. A pasted colour applies at once; Enter applies a typed one"><input id="mCpX" spellcheck="false" autocomplete="off" maxlength="60" aria-label="HEX"><button id="mCpC" title="Copy the HEX code"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h.5"/></svg></button></label><label title="Red, 0 to 255"><em>R</em><input id="mCpR" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Green, 0 to 255"><em>G</em><input id="mCpG" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Blue, 0 to 255"><em>B</em><input id="mCpU" inputmode="numeric" autocomplete="off" maxlength="3"></label></div>
+<div class="cv"><label title="Type or paste a colour: #2F6DB5, 2f6db5, rgb(47, 109, 181), 47 109 181 or a name such as steelblue. A pasted colour applies at once; Enter applies a typed one"><input id="mCpX" spellcheck="false" autocomplete="off" maxlength="60" aria-label="HEX"><button id="mCpC" title="Copy the HEX code"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h.5"/></svg></button></label></div><div class="cv cn"><select id="mCpS" title="Show the colour as RGB, HSB or HSL"><option value="rgb">RGB</option><option value="hsb">HSB</option><option value="hsl">HSL</option></select><label title="Red, 0 to 255"><em>R</em><input id="mCpR" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Green, 0 to 255"><em>G</em><input id="mCpG" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Blue, 0 to 255"><em>B</em><input id="mCpU" inputmode="numeric" autocomplete="off" maxlength="3"></label></div>
 <h6>In this figure</h6><div class="sw" id="mCpD" data-ph="The figure's colours show here"></div>
 <h6>Recent</h6><div class="sw" id="mCpN" data-ph="Colours you pick show here"></div>
 <div class="ph"><select id="mCpP" title="Palette"><option value="my">My palette</option><option value="oi">Okabe–Ito</option><option value="tb">Tol bright</option><option value="tv">Tol vibrant</option><option value="gr">Greys</option><option value="ba">Basic</option></select><button id="mCpM" title="Add this colour to My palette; right-click a swatch to remove it">+</button></div><div class="sw" id="mCpL"></div></div>
@@ -800,6 +801,10 @@ const CVD={
 // CPP: the colour picker's own swatch sets (59a), offered beside the three in CVD.pal: greys and plain colours
 const CPP={gr:['#000000','#262626','#404040','#595959','#737373','#8c8c8c','#a6a6a6','#bfbfbf','#d9d9d9','#ffffff'],
   ba:['#ff0000','#ff8000','#ffff00','#00ff00','#00ffff','#0000ff','#8000ff','#ff00ff','#000000','#ffffff']};
+// CPM: the colour picker's number modes (59a): for each box its letter, tooltip and largest value
+const CPM={rgb:[['R','Red, 0 to 255',255],['G','Green, 0 to 255',255],['B','Blue, 0 to 255',255]],
+  hsb:[['H','Hue, 0 to 360°',360],['S','Saturation, 0 to 100%',100],['B','Brightness, 0 to 100%',100]],
+  hsl:[['H','Hue, 0 to 360°',360],['S','Saturation, 0 to 100%',100],['L','Lightness, 0 to 100%',100]]};
 // PROMPT: every prompt sent to the models (sys, sum, look, con, units, whole, panel, cur…)
 const PROMPT={
   sys:()=>`You draw scientific figures as SVG for an Inkscape-compatible editor. Reply with at most one short sentence plus exactly one complete SVG in a \`\`\`svg block. Use xmlns="http://www.w3.org/2000/svg" and width/height in mm with a viewBox in tenths of a millimetre (e.g. width="80mm" height="60mm" viewBox="0 0 800 600"), so coordinates are whole numbers. Set text between 6 and 8 pt (font-size 21-28); write gene symbols such as SnRK2 or MdNAC1 in italics (font-style="italic") and all other text upright; use 3-5 muted colours and consistent 0.5-1 pt stroke widths. Text must be real <text> elements in Arial. No scripts, external images, external fonts or foreignObject. Keep every element and detail, but write the SVG compactly: whole-number coordinates, relative path commands, <polyline> for data series, attributes shared by several elements on a <g> instead of repeating them, short ids (a1, a2, ...) on elements and groups, and no comments, metadata or indentation. When asked for changes, return the full updated SVG unless the request asks for a <patch>. If the user attaches an image, redraw that figure as editable vector SVG: keep its layout, shapes, arrows, colours and text labels (as <text>); simplify photos and textures into flat shapes. Size the figure to its content: about 85 mm wide for a single-column figure or 180 mm for double-column, never the page size. The page is ${fm(vb.w*U)}x${fm(vb.h*U)} mm.`+chSum(),
@@ -882,6 +887,12 @@ const PGN={space:' ',exclam:'!',quotedbl:'"',numbersign:'#',dollar:'$',percent:'
 // A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).
 // lgDom() walks the interface once at startup and when the language is switched, never the drawing, the chats, the Layers rows, the tabs or anything the user typed; it keeps each original on its node (_o, _a), so switching back is exact.
 const ZH={
+ "Show the colour as RGB, HSB or HSL":"以 RGB、HSB 或 HSL 显示颜色",
+ "Hue, 0 to 360°":"色相，0 到 360°",
+ "Saturation, 0 to 100%":"饱和度，0 到 100%",
+ "Brightness, 0 to 100%":"明度，0 到 100%",
+ "Lightness, 0 to 100%":"亮度，0 到 100%",
+ "Drag to move the picker; double-click to put it back beside the field":"拖动可移动色盘；双击放回颜色栏旁边",
  "New · Colour picker":"新功能 · 色盘",
  "Every colour field now opens the same colour picker, in place of the system's: drag to choose, or paste a colour code and it applies at once.":"所有颜色栏现在都打开同一个色盘，不再使用系统色盘：拖动选色，或粘贴色号，粘贴后立即生效。",
  "Paste any code":"粘贴任意色号",
@@ -8121,6 +8132,10 @@ let cpkSk=null; // the input whose own field was pressed to close the picker, so
 let cpkDv=-1; // In this figure: the dv its colours were read at
 let cpkDc=[]; // In this figure: the drawing's colours, most used first
 let cpkLb=null; // the colour field pressed, outside its swatch, while a text is edited
+let cpkMd='rgb'; // the boxes' mode: rgb, hsb or hsl (CPM, sgCpMd)
+const CPB=['mCpR','mCpG','mCpU']; // the three number boxes, whatever the mode
+let cpkAt=null; // where the picker was dragged to {x,y}; it opens there until the title bar is double-clicked
+let cpkMv=null; // a title-bar drag: the pointer's offset in the picker {x,y}
 let cpkCx=null; // a 2D context that reads any CSS colour (cpkParse)
 // cpkHsv: '#rrggbb' to [hue 0-360, saturation 0-1, value 0-1]; cpkHex: back
 function cpkHsv(c){
@@ -8198,9 +8213,10 @@ function cpkDraw(){
   $('mCpO').firstChild.style.background=c;
   $('mCpB').style.background=CPK.o;
   if(!CPK.ty)x.value=c.toUpperCase();
-  ['mCpR','mCpG','mCpU'].forEach((id,i)=>{
+  const n=cpkVals();
+  CPB.forEach((id,i)=>{
     const e=$(id);
-    if(e!==f||!CPK.ty)e.value=parseInt(c.slice(1+2*i,3+2*i),16);
+    if(e!==f||!CPK.ty)e.value=n[i];
   });
   for(const b of $('mCpk').querySelectorAll('.sw button'))b.classList.toggle('on',b.dataset.c===c);
 }
@@ -8250,7 +8266,25 @@ function cpkSw(){
   if(CPK)cpkDraw();
 }
 // cpkPlace: beside the panel or window the field is in (left of it, else right), so the field stays in view
+// cpkAtXY(x,y): the picker's top left, kept on screen
+function cpkAtXY(x,y){
+  const p=$('mCpk');
+  p.style.left=max(8,min(x,innerWidth-p.offsetWidth-8))+'px';
+  p.style.top=max(8,min(y,innerHeight-p.offsetHeight-8))+'px';
+}
+// cpkName(t): the field's name for the title bar: Fill, Stroke, Text colour, or the row's label in FigKit
+function cpkName(t){
+  if(t.id==='mFc')return lbT('Fill');
+  if(t.id==='mSc')return lbT('Stroke');
+  const l=t.closest('label'),k=t.closest('.kv,.r');
+  const n=t.title||l&&l.title||k&&k.firstElementChild&&k.firstElementChild.textContent||'';
+  return n.trim()||lbT('Colour');
+}
 function cpkPlace(){
+  if(cpkAt){
+    cpkAtXY(cpkAt.x,cpkAt.y);
+    return;
+  }
   const p=$('mCpk'),t=CPK.t,r=(t.closest('label')||t).getBoundingClientRect();
   const b=(t.closest('#mSide,#mTools,.win')||t).getBoundingClientRect(),w=p.offsetWidth,h=p.offsetHeight;
   let x=b.left-w-8,y=r.top-60;
@@ -8260,8 +8294,7 @@ function cpkPlace(){
     y=r.bottom+6;
     if(y+h>innerHeight-8)y=r.top-h-6;
   }
-  p.style.left=max(8,min(x,innerWidth-w-8))+'px';
-  p.style.top=max(8,min(y,innerHeight-h-8))+'px';
+  cpkAtXY(x,y);
 }
 function cpkOpen(t){
   if(CPK)cpkClose();
@@ -8269,6 +8302,7 @@ function cpkOpen(t){
   CPK={t,o:c,c,h:q[0],s:q[1],v:q[2],dg:0,ch:0,ty:0};
   t._v0=t.value;
   $('mCpk').hidden=false;
+  $('mCpT').firstChild.textContent=cpkName(t);
   cpkSw();
   cpkPlace();
   if(!ed){
@@ -8341,13 +8375,48 @@ function cpkType(go){
   cpkCommit();
   x.select();
 }
-// cpkRgb(go): the R, G and B boxes, as cpkType
-function cpkRgb(go){
-  const a=['mCpR','mCpG','mCpU'].map(id=>$(id).value.trim());
-  const ok=a.every(v=>/^\d{1,3}$/.test(v)&&+v<256);
+// cpkVals: the three numbers the boxes show in the current mode, from the picker's HSV (so a grey keeps its hue)
+function cpkVals(){
+  const{h,s,v,c}=CPK;
+  if(cpkMd==='hsb')return[round(h)%360,round(s*100),round(v*100)];
+  if(cpkMd==='hsl'){
+    const l=v*(1-s/2),m=min(l,1-l);
+    return[round(h)%360,round(m?(v-l)/m*100:0),round(l*100)];
+  }
+  return[0,1,2].map(i=>parseInt(c.slice(1+2*i,3+2*i),16));
+}
+// cpkMode(m): switches the boxes to RGB, HSB or HSL (sgCpMd)
+function cpkMode(m){
+  cpkMd=CPM[m]?m:'rgb';
+  $('mCpS').value=cpkMd;
+  CPM[cpkMd].forEach(([k,t],i)=>{
+    const l=$(CPB[i]).parentNode;
+    l.firstChild.textContent=k;
+    l.title=t;
+    lgAt(l);
+  });
+  if(CPK)cpkDraw();
+}
+// cpkTri(go): the three boxes, as cpkType: read in the current mode
+function cpkTri(go){
+  const a=CPB.map(id=>$(id).value.trim()),M=CPM[cpkMd];
+  const ok=a.every((v,i)=>/^\d{1,3}(\.\d*)?$/.test(v)&&+v<=M[i][2]);
   if(!go){
     CPK.ty=1;
-    if(ok)cpkPut('#'+a.map(v=>(+v).toString(16).padStart(2,'0')).join(''));
+    if(!ok)return;
+    const n=a.map(Number);
+    if(cpkMd==='rgb'){
+      cpkPut('#'+n.map(v=>round(v).toString(16).padStart(2,'0')).join(''));
+      return;
+    }
+    let s=n[1]/100,v=n[2]/100;
+    if(cpkMd==='hsl'){
+      const l=v;
+      v=l+s*min(l,1-l);
+      s=v?2*(1-l/v):0;
+    }
+    Object.assign(CPK,{h:n[0]%360,s,v});
+    cpkPut(cpkHex(CPK.h,s,v),1);
     return;
   }
   CPK.ty=0;
@@ -8403,7 +8472,7 @@ function cpkKey(e){
   if(e.key!=='Enter')return;
   e.preventDefault();
   if(t.id==='mCpX')cpkType(1);
-  else if(t.tagName==='INPUT')cpkRgb(1);
+  else if(t.tagName==='INPUT')cpkTri(1);
 }
 addEventListener('click',cpkClick,true);
 addEventListener('keydown',cpkKey,true);
@@ -8430,6 +8499,29 @@ for(const a of[$('mCpA'),$('mCpH')]){
     cpkCommit();
   };
 }
+// the title bar moves the picker; the place is kept for the next field until a double-click puts it back beside the field
+$('mCpT').onpointerdown=e=>{
+  if(e.button||e.target.closest('button'))return;
+  const r=$('mCpk').getBoundingClientRect();
+  cpkMv={x:e.clientX-r.left,y:e.clientY-r.top};
+  $('mCpT').setPointerCapture(e.pointerId);
+};
+$('mCpT').onpointermove=e=>{
+  if(!cpkMv)return;
+  cpkAtXY(e.clientX-cpkMv.x,e.clientY-cpkMv.y);
+};
+$('mCpT').onpointerup=$('mCpT').onpointercancel=()=>{
+  if(!cpkMv)return;
+  cpkMv=null;
+  const r=$('mCpk').getBoundingClientRect();
+  cpkAt={x:r.left,y:r.top};
+};
+$('mCpT').ondblclick=e=>{
+  if(e.target.closest('button')||!CPK)return;
+  cpkAt=null;
+  cpkPlace();
+};
+$('mCpQ').onclick=()=>cpkClose();
 // a press on anything but a box leaves the focus where it is (the text being edited keeps its selected characters)
 $('mCpk').onmousedown=e=>{
   if(!/^(INPUT|SELECT|OPTION)$/.test(e.target.tagName))e.preventDefault();
@@ -8480,10 +8572,10 @@ $('mCpX').onblur=()=>{
   cpkDraw();
   cpkCommit();
 };
-for(const id of['mCpR','mCpG','mCpU']){
-  $(id).oninput=()=>cpkRgb();
+for(const id of CPB){
+  $(id).oninput=()=>cpkTri();
   $(id).onblur=()=>{
-    if(CPK&&CPK.ty)cpkRgb(1);
+    if(CPK&&CPK.ty)cpkTri(1);
   };
   $(id).onfocus=e=>e.target.select();
 }
@@ -8503,6 +8595,12 @@ $('mCpP').onchange=e=>{
   ls('sgCpPal',$('mCpP').value);
   cpkSw();
 };
+$('mCpS').onchange=e=>{
+  e.stopPropagation();
+  ls('sgCpMd',$('mCpS').value);
+  cpkMode($('mCpS').value);
+};
+cpkMode(ls('sgCpMd')||'rgb');
 $('mCpP').value=ls('sgCpPal')||'my';
 if(!$('mCpP').value)$('mCpP').value='my';
 // ══ 60 Dialogs ════

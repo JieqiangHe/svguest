@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- svguest v1.6.1 © 2026 Jieqiang He, GPL-3.0-or-later -->
+<!-- svguest v1.6.2 © 2026 Jieqiang He, GPL-3.0-or-later -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -46,6 +46,7 @@ input,select{font:inherit}
 #mCpA{position:relative;height:150px;border-radius:6px;cursor:crosshair;touch-action:none;background-image:linear-gradient(#0000,#000),linear-gradient(90deg,#fff,#fff0);box-shadow:inset 0 0 0 1px var(--swb)}
 #mCpA i,#mCpH i{position:absolute;width:12px;height:12px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #0007,inset 0 0 0 1px #0004;transform:translate(-50%,-50%);pointer-events:none}
 #mCpk .cr{display:flex;align-items:center;gap:10px;margin:8px 0}#mCpk .cr>button{flex:none;width:24px;height:24px;padding:0;display:grid;place-items:center}#mCpk svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+#mCpk .cr>button[hidden]{display:none}
 #mCpH{position:relative;flex:1;height:12px;border-radius:6px;cursor:pointer;touch-action:none;background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}#mCpH i{top:50%;width:14px;height:14px}
 #mCpO{position:relative;flex:none;display:flex;width:44px;height:22px;overflow:hidden;border-radius:6px}#mCpO::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--swb);pointer-events:none}#mCpO i{flex:1}#mCpB{cursor:pointer}
 #mCpk .cv{display:flex;gap:4px}#mCpk .cn{margin-top:4px}#mCpk .cn select{flex:none;width:62px;height:24px;padding:0 2px 0 6px}#mCpk .cv label{flex:1;display:flex;align-items:center;gap:3px;min-width:0;height:24px;padding:0 4px 0 5px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn)}#mCpk .cv label:focus-within{border-color:var(--onb)}#mCpk .cv label:first-child{padding-right:1px}
@@ -54,6 +55,11 @@ input,select{font:inherit}
 #mCpk h6{margin:9px 0 4px;font-size:11px;font-weight:500;color:var(--h4)}#mCpk .sw{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;min-height:20px}#mCpk .sw:empty::after{content:attr(data-ph);grid-column:1/-1;align-self:center;color:var(--t3)}
 #mCpk .sw button{height:20px;min-width:0;padding:0;border:0;border-radius:4px;box-shadow:inset 0 0 0 1px var(--swb);cursor:pointer}#mCpk .sw button:hover{transform:scale(1.15)}#mCpk .sw button.on{outline:1.5px solid var(--onb);outline-offset:1px}
 #mCpk .ph{display:flex;gap:4px;margin:9px 0 4px}#mCpk .ph select{flex:1;min-width:0;height:22px}#mCpk .ph button{flex:none;width:22px;height:22px;padding:0}
+/* ══ 59b Figure colour sampling ══ */
+#mCpPick{position:fixed;inset:0;z-index:80;cursor:wait}#mCpPick[hidden],#mCpLoupe[hidden]{display:none}
+#mCpShot{position:absolute;box-shadow:0 0 0 1px var(--line)}#mCpPick.ready{cursor:crosshair}
+#mCpPick .tip{position:absolute;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 24px);padding:6px 8px 6px 12px;border:1px solid var(--btnb);border-radius:9px;background:var(--side);color:var(--fg);box-shadow:var(--shm);cursor:default}#mCpPick .tip button{white-space:nowrap}
+#mCpLoupe{position:absolute;width:104px;padding:5px;border:1px solid var(--btnb);border-radius:8px;background:var(--side);box-shadow:var(--shm);pointer-events:none;text-align:center}#mCpLoupe canvas{display:block;width:92px;height:92px;image-rendering:pixelated;border-radius:3px}#mCpLoupe span{display:block;margin-top:3px;font:11px/16px ui-monospace,monospace}
 /* ══ 60 Dialogs ══ */
 #mHelp{padding:0;width:min(880px,96vw);max-width:none;height:min(640px,90vh);max-height:none;overflow:hidden}
 #mHelp form,#mKept form{padding:12px 20px;font-size:12.5px;line-height:1.45}
@@ -337,7 +343,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <body>
 <!-- ══ 55 Menus ══ -->
 <div id="mBar">
-<span id="mBrand" title="svguest v1.6.1"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
+<span id="mBrand" title="svguest v1.6.2"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
 <div class="dd"><button class="ddb">File ▾</button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG, or a page of a PDF or an Illustrator .ai as editable paths, text and pictures; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><div class="sub" id="mRc"><button class="sb" title="The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser">Open recent<i>›</i></button><div class="menu" id="mRm"></div></div><button data-a="auto" title="Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)">Auto-save</button><button data-a="autoDir" title="Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop">Auto-save to a folder…<small>Chrome/Edge only</small></button><button data-a="imp" title="Place an SVG, a page of a PDF or .ai, a PNG or a JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
 <div class="dd"><button class="ddb">Edit ▾</button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select ▾</button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
@@ -561,11 +567,13 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div id="mK" hidden><div role="dialog" aria-label="Commands"><input id="mKq" placeholder="Type a command…" spellcheck="false" autocomplete="off"><div id="mKl" role="listbox"></div><p><kbd>↑↓</kbd>Navigate<kbd>↵</kbd>Run<kbd>Esc</kbd>Close</p></div></div>
 <!-- ══ 59a Colour picker ══ -->
 <div id="mCpk" hidden><header id="mCpT" title="Drag to move the picker; double-click to put it back beside the field"><b></b><button id="mCpQ" title="Close (Esc)">×</button></header><div id="mCpA"><i></i></div>
-<div class="cr"><button id="mCpE" title="Pick a colour from anywhere on the screen"><svg viewBox="0 0 16 16"><path d="M9.6 3.8l2.6 2.6M11 2.4a1.8 1.8 0 0 1 2.6 2.6l-2 2-2.6-2.6zM9.4 5.2 3.3 11.3l-.8 2.2 2.2-.8 6.1-6.1"/></svg></button><div id="mCpH"><i></i></div><div id="mCpO"><i title="The colour now"></i><i id="mCpB" title="The colour before: click to go back to it"></i></div></div>
+<div class="cr"><button id="mCpF" title="Pick a colour from the figure, including pictures"><svg viewBox="0 0 16 16"><path d="M9.6 3.8l2.6 2.6M11 2.4a1.8 1.8 0 0 1 2.6 2.6l-2 2-2.6-2.6zM9.4 5.2 3.3 11.3l-.8 2.2 2.2-.8 6.1-6.1"/></svg></button><button id="mCpE" title="Pick a colour from anywhere on the screen"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="9" rx="1"/><path d="M5 14h6M8 11.5V14M6 7h4M8 5v4"/></svg></button><div id="mCpH"><i></i></div><div id="mCpO"><i title="The colour now"></i><i id="mCpB" title="The colour before: click to go back to it"></i></div></div>
 <div class="cv"><label title="Type or paste a colour: #2F6DB5, 2f6db5, rgb(47, 109, 181), 47 109 181 or a name such as steelblue. A pasted colour applies at once; Enter applies a typed one"><input id="mCpX" spellcheck="false" autocomplete="off" maxlength="60" aria-label="HEX"><button id="mCpC" title="Copy the HEX code"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h.5"/></svg></button></label></div><div class="cv cn"><select id="mCpS" title="Show the colour as RGB, HSB or HSL"><option value="rgb">RGB</option><option value="hsb">HSB</option><option value="hsl">HSL</option></select><label title="Red, 0 to 255"><em>R</em><input id="mCpR" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Green, 0 to 255"><em>G</em><input id="mCpG" inputmode="numeric" autocomplete="off" maxlength="3"></label><label title="Blue, 0 to 255"><em>B</em><input id="mCpU" inputmode="numeric" autocomplete="off" maxlength="3"></label></div>
 <h6>In this figure</h6><div class="sw" id="mCpD" data-ph="The figure's colours show here"></div>
 <h6>Recent</h6><div class="sw" id="mCpN" data-ph="Colours you pick show here"></div>
-<div class="ph"><select id="mCpP" title="Palette"><option value="my">My palette</option><option value="oi">Okabe–Ito</option><option value="tb">Tol bright</option><option value="tv">Tol vibrant</option><option value="gr">Greys</option><option value="ba">Basic</option></select><button id="mCpM" title="Add this colour to My palette; right-click a swatch to remove it">+</button></div><div class="sw" id="mCpL"></div></div>
+<div class="ph"><select id="mCpP" title="Palette"><option value="my">My palette</option><option value="oi">Okabe–Ito</option><option value="tb">Tol bright</option><option value="tv">Tol vibrant</option><option value="gr">Greys</option><option value="ba">Basic</option></select><button id="mCpM" title="Add this colour to My palette; right-click a swatch to remove it">+</button></div><div class="sw" id="mCpL"></div>
+<!-- ══ 59b Figure colour sampling ══ -->
+<div id="mCpPick" hidden><canvas id="mCpShot"></canvas><div class="tip"><span>Click a colour in the figure; Esc cancels</span><button id="mCpCancel">Cancel</button></div><div id="mCpLoupe" hidden><canvas width="92" height="92"></canvas><span></span></div></div></div>
 <!-- ══ 60 Dialogs ══ -->
 <dialog id="mHelp" aria-label="Help"><form method="dialog"><header><h3>Help</h3><label class="hq"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg><input id="mHq" type="search" placeholder="Search help…" autocomplete="off" spellcheck="false" aria-label="Search help"></label><button value="" title="Close (Esc)" aria-label="Close">×</button></header><div class="hb"><nav id="mHn" aria-label="Help topics"></nav><div class="cols" id="mHc">
 <div>
@@ -581,7 +589,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt>Properties tab</dt><dd>Above the Layers tab: hides or shows the side panel (also View › Properties)</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
 </div>
 <div>
-<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>More shapes (flowchart, block arrows, symbols, UML), in the grid button under the ellipse: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). Triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Colours</dt><dd>Every colour field opens the same picker: drag the square and the hue bar, or type or paste a code (#2F6DB5, rgb(47, 109, 181), a colour name); a pasted code applies at once and the copy button copies the HEX code. Its swatches are the figure's colours, recent ones and palettes (My palette is FigKit › Colours' palette); its eyedropper picks from the screen (Chrome and Edge)</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
+<section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>More shapes (flowchart, block arrows, symbols, UML), in the grid button under the ellipse: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). Triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Colours</dt><dd>Every colour field opens the same picker: drag the square and the hue bar, or type or paste a code (#2F6DB5, rgb(47, 109, 181), a colour name); a pasted code applies at once and the copy button copies the HEX code. Its swatches are the figure's colours, recent ones and palettes (My palette is FigKit › Colours' palette); its eyedropper picks colours from the figure and its pictures in any modern browser; the screen button also picks outside the page where supported</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
 <section><h4>Text</h4><dl><dt>Double-click</dt><dd>Edit in place; <kbd>Enter</kbd> new line, <kbd>Esc</kbd> finishes</dd><dt>Text panel</dt><dd>Or edit the selected text in the box at the top of the Text panel; the canvas follows as you type</dd><dt>Part of a text</dt><dd>Select characters while editing, then set Size, Font, Color, B, I, U, X² or X₂</dd><dt><kbd>Ctrl+B</kbd> <kbd>I</kbd> <kbd>U</kbd></dt><dd>Bold, italic, underline while editing; <kbd>Ctrl+U</kbd> also underlines selected texts</dd><dt><kbd>Ctrl+Shift+=</kbd></dt><dd>Superscript while editing; with <kbd>Alt</kbd>, subscript</dd><dt><kbd>Ctrl+Shift+.</kbd></dt><dd>Size up 1 pt; <kbd>Ctrl+Shift+,</kbd> down</dd><dt>Left/Center/Right</dt><dd>Anchor the text; it stays in place</dd><dt>Font</dt><dd>Also lists this computer's fonts (Chrome and Edge ask once)</dd></dl></section>
 <section><h4>SVG Chat</h4><dl><dt>Model</dt><dd>Beside Send: the model that draws, its thinking, and which model reads images (Auto: the drawing model when it can, else one that can)</dd><dt>Models and keys</dt><dd>Your GLM or DeepSeek API key, tested when entered; TBtools' model needs none</dd><dt><kbd>Enter</kbd></dt><dd>Send; <kbd>Shift+Enter</kbd> new line</dd><dt>Chats</dt><dd>svguest opens on a new chat; the title switches to an earlier one, renames or deletes it; each is kept in this browser (Kept in this browser… saves them as files) and the AI reads only the current one; near the model's context limit a chat is summarised and continues in a new one</dd><dt>Attach</dt><dd>An image to redraw or a text file to draw from (or paste, drop)</dd><dt>Selection</dt><dd>Select objects first to ask about them or have them changed in place</dd><dt>Retry</dt><dd>Under the latest drawing: ask again, with this model or another</dd><dt>Long replies</dt><dd>Cut off at the token limit, they continue automatically, up to 3 times</dd><dt>Waiting</dt><dd>A seconds counter shows it is working; Stop cancels</dd></dl></section>
 </div>
@@ -694,6 +702,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 58 Fonts: font list, installed fonts
 // 59 Colour preview: live preview while a colour picker is open
 // 59a Colour picker: one picker for every colour field (#mCpk), in place of the system's: HSV, codes typed or pasted, swatches
+// 59b Figure colour sampling: a viewport-sized SVG snapshot, read locally as pixels in every browser
 // 60 Dialogs: file input, New canvas, Help
 // 60a What's new: the card shown once per version (rows in WN, 01a)
 // 61 Events: canvas pointer and wheel, scrollbars, drop, unload
@@ -903,6 +912,10 @@ const ZH={
  "Pick from the screen":"从屏幕取色",
  "The eyedropper in the picker takes a colour from anywhere on the screen, in Chrome and Edge.":"色盘里的吸管可从屏幕任意位置取色（Chrome 和 Edge）。",
  "Pick a colour from anywhere on the screen":"从屏幕任意位置吸取颜色",
+ "Pick a colour from the figure, including pictures":"从图形及其图片中取色",
+ "Click a colour in the figure; Esc cancels":"点击图中的颜色；Esc 取消",
+ "Figure colour picking cannot read HTML content or linked resources; import the image file first":"图内取色无法读取 HTML 内容或外链资源，请先导入图片文件",
+ "Could not read the figure colours":"无法读取图中的颜色",
  "The colour now":"当前颜色",
  "The colour before: click to go back to it":"之前的颜色：点击恢复",
  "Type or paste a colour: #2F6DB5, 2f6db5, rgb(47, 109, 181), 47 109 181 or a name such as steelblue. A pasted colour applies at once; Enter applies a typed one":"输入或粘贴颜色：#2F6DB5、2f6db5、rgb(47, 109, 181)、47 109 181，或 steelblue 这样的颜色名。粘贴后立即生效；输入后按 Enter 生效",
@@ -921,7 +934,7 @@ const ZH={
  "Greys":"灰阶",
  "Basic":"基本色",
  "Add this colour to My palette; right-click a swatch to remove it":"把当前颜色加入我的色板；右键点击色块可移除",
- "Every colour field opens the same picker: drag the square and the hue bar, or type or paste a code (#2F6DB5, rgb(47, 109, 181), a colour name); a pasted code applies at once and the copy button copies the HEX code. Its swatches are the figure's colours, recent ones and palettes (My palette is FigKit › Colours' palette); its eyedropper picks from the screen (Chrome and Edge)":"所有颜色栏都打开同一个色盘：拖动色块和色相条，或输入、粘贴色号（#2F6DB5、rgb(47, 109, 181)、颜色名）；粘贴后立即生效，复制按钮复制色号。色块列出图中颜色、最近使用的颜色和配色方案（我的色板就是 FigKit › 颜色 的色板）；吸管可从屏幕取色（Chrome 和 Edge）",
+ "Every colour field opens the same picker: drag the square and the hue bar, or type or paste a code (#2F6DB5, rgb(47, 109, 181), a colour name); a pasted code applies at once and the copy button copies the HEX code. Its swatches are the figure's colours, recent ones and palettes (My palette is FigKit › Colours' palette); its eyedropper picks colours from the figure and its pictures in any modern browser; the screen button also picks outside the page where supported":"所有颜色栏都打开同一个色盘：拖动色块和色相条，或输入、粘贴色号（#2F6DB5、rgb(47, 109, 181)、颜色名）；粘贴后立即生效，复制按钮复制色号。色块列出图中颜色、最近使用的颜色和配色方案（我的色板就是 FigKit › 颜色 的色板）；吸管可在现代浏览器中从图形及其图片取色，支持的浏览器还可用屏幕按钮从页面外取色",
  "File ▾":"文件 ▾",
  "New":"新建",
  "Open":"打开",
@@ -8314,6 +8327,7 @@ function cpkOpen(t){
 // cpkClose(x): x (Esc) drops a colour that was typed but not entered; otherwise it is applied first
 function cpkClose(x){
   if(!CPK)return;
+  cpkPickEnd();
   if(x&&CPK.ch){
     CPK.t.value=CPK.t._v0;
     CPK.ch=0;
@@ -8436,9 +8450,10 @@ function cpkCopy(){
   else fb();
 }
 async function cpkEye(){
+  const p=CPK;
   try{
     const r=await new EyeDropper().open();
-    if(!CPK)return;
+    if(!p||CPK!==p)return;
     CPK.ty=0;
     cpkPut(cpkParse(r.sRGBHex),0,1);
     cpkCommit();
@@ -8460,6 +8475,12 @@ function cpkClick(e){
 }
 function cpkKey(e){
   if(!CPK)return;
+  if(cpkPick){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if(e.key==='Escape')cpkPickEnd();
+    return;
+  }
   const t=e.target;
   if(e.key==='Escape'){
     e.preventDefault();
@@ -8585,7 +8606,7 @@ $('mCpC').onclick=e=>{
   cpkCopy();
 };
 $('mCpE').onclick=cpkEye;
-$('mCpE').hidden=!window.EyeDropper;
+$('mCpE').hidden=typeof window.EyeDropper!=='function';
 $('mCpM').onclick=()=>{
   if(!fgPal().includes(CPK.c))fgPalW([...fgPal(),CPK.c]);
   cpkSw();
@@ -8603,6 +8624,183 @@ $('mCpS').onchange=e=>{
 cpkMode(ls('sgCpMd')||'rgb');
 $('mCpP').value=ls('sgCpPal')||'my';
 if(!$('mCpP').value)$('mCpP').value='my';
+// ══ 59b Figure colour sampling ════
+// Rasterise only the visible part of a copy, keeping its original viewport inside a second SVG. Percentages,
+// gradients and embedded pictures then keep their geometry even at a large zoom. The live document is never touched.
+let cpkPick=null; // the active snapshot: owning picker, document, view bounds, bitmap and temporary object URL
+function cpkPickEnd(){
+  const q=cpkPick;
+  cpkPick=null;
+  $('mCpPick').hidden=true;
+  $('mCpLoupe').hidden=true;
+  if(q&&q.url)URL.revokeObjectURL(q.url);
+  $('mCpShot').width=$('mCpShot').height=1;
+}
+async function cpkFigure(){
+  if(!CPK||!root)return;
+  cpkPickEnd();
+  const r=view.getBoundingClientRect(),z=Z*k,d=min(devicePixelRatio||1,2,4096/max(r.width,r.height));
+  const q={p:CPK,doc:root,v:dv,r,x:tx,y:ty,w:vb.w*z,h:vb.h*z,url:null,g:null};
+  cpkPick=q;
+  const o=$('mCpPick'),c=$('mCpShot'),tip=o.querySelector('.tip');
+  o.classList.remove('ready');
+  o.hidden=false;
+  c.width=max(1,round(r.width*d));
+  c.height=max(1,round(r.height*d));
+  c.style.cssText=`left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px`;
+  tip.style.cssText=`left:${max(12,r.left+12)}px;top:${r.top+12}px`;
+  try{
+    const s=root.cloneNode(true),v=document.createElementNS(NS.svg,'svg');
+    // SVG images cannot load outside resources reliably; refusing them avoids silently sampling a missing picture.
+    const outside=h=>h&&!/^(#|data:)/i.test(h.trim());
+    for(const e of[s,...s.querySelectorAll('*')]){
+      if(e.localName==='foreignObject')throw Error('Figure colour picking cannot read HTML content or linked resources; import the image file first');
+      if(/^(image|feImage|use)$/.test(e.localName)&&outside(e.getAttribute('href')||e.getAttributeNS(NS.xlink,'href')))throw Error('Figure colour picking cannot read HTML content or linked resources; import the image file first');
+      const css=e.localName==='style'?e.textContent:'';
+      if(/@import\b/i.test(css))throw Error('Figure colour picking cannot read HTML content or linked resources; import the image file first');
+      for(const a of[css,...[...e.attributes].map(a=>a.value)]){
+        for(const m of a.matchAll(/url\(\s*(['"]?)(.*?)\1\s*\)/gi))if(outside(m[2]))throw Error('Figure colour picking cannot read HTML content or linked resources; import the image file first');
+      }
+    }
+    // In-place text lives in an HTML editor while its SVG is hidden. Mirror it into the copy, keeping the live
+    // editor and its selected characters intact so the picked colour still applies to just those characters.
+    if(ed){
+      const copy=n=>{
+        const p=[];
+        for(;n!==root;n=n.parentNode)p.unshift([...n.parentNode.childNodes].indexOf(n));
+        return p.reduce((n,i)=>n.childNodes[i],s);
+      };
+      const t=copy(ed.t),pv=ed.pv&&copy(ed.pv),lns=edLines(ed.d);
+      if(pv)pv.remove();
+      if(ed.vis==null)t.removeAttribute('visibility');
+      else t.setAttribute('visibility',ed.vis);
+      if(JSON.stringify(lns)!==ed.r0){
+        const host=el('div'),ns=root.hasAttribute('xmlns:sodipodi');
+        host.style.cssText='position:fixed;left:-100000px;top:0;visibility:hidden;font:initial;color:#000';
+        host.append(s);
+        document.body.append(host);
+        try{
+          quiet(()=>{
+            try{
+              setLines(t,ed.ip.reduce((n,i)=>n.childNodes[i],t),ed.L,edMap(ed.ks,lns));
+              noTL(t);
+            }finally{
+              if(!ns)root.removeAttribute('xmlns:sodipodi');
+            }
+          });
+        }finally{
+          host.remove();
+        }
+      }
+    }
+    // Include the colour preview without committing it or changing the selection.
+    if(cpS)for(const e of s.querySelectorAll('[data-mcp],[data-mcp] tspan')){
+      for(const p of CPR.style)e.style.setProperty(p,CPR.style.getPropertyValue(p),'important');
+    }
+    s.setAttribute('x',vb.x);
+    s.setAttribute('y',vb.y);
+    s.setAttribute('width',vb.w);
+    s.setAttribute('height',vb.h);
+    s.style.setProperty('width',vb.w+'px','important');
+    s.style.setProperty('height',vb.h+'px','important');
+    s.style.setProperty('overflow','visible','important');
+    v.setAttribute('width',c.width);
+    v.setAttribute('height',c.height);
+    v.setAttribute('viewBox',`${vb.x-tx/z} ${vb.y-ty/z} ${r.width/z} ${r.height/z}`);
+    v.setAttribute('preserveAspectRatio','none');
+    // An independent SVG image keeps selectors such as `svg svg` and `:root` from matching the extra viewport.
+    const image=document.createElementNS(NS.svg,'image');
+    image.setAttribute('x',vb.x);
+    image.setAttribute('y',vb.y);
+    image.setAttribute('width',vb.w);
+    image.setAttribute('height',vb.h);
+    image.setAttribute('preserveAspectRatio','none');
+    image.setAttribute('href','data:image/svg+xml;charset=utf-8,'+encodeURIComponent(new XMLSerializer().serializeToString(s)));
+    v.append(image);
+    q.url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(v)],{type:'image/svg+xml'}));
+    const im=new Image();
+    im.src=q.url;
+    await im.decode();
+    if(cpkPick!==q)return;
+    if(CPK!==q.p||root!==q.doc||dv!==q.v){
+      cpkPickEnd();
+      return;
+    }
+    const g=c.getContext('2d',{willReadFrequently:true}),sx=c.width/r.width,sy=c.height/r.height;
+    g.fillStyle=gcs(view).backgroundColor;
+    g.fillRect(0,0,c.width,c.height);
+    g.save();
+    g.beginPath();
+    g.rect(tx*sx,ty*sy,q.w*sx,q.h*sy);
+    g.clip();
+    g.fillStyle='#fff';
+    g.fillRect(0,0,c.width,c.height);
+    g.drawImage(im,0,0,c.width,c.height);
+    g.restore();
+    g.getImageData(0,0,1,1); // a blocked canvas must fail before offering a colour
+    q.g=g;
+    o.classList.add('ready');
+  }catch(e){
+    if(cpkPick===q){
+      cpkPickEnd();
+      msg(lbT(e.message==='Figure colour picking cannot read HTML content or linked resources; import the image file first'?e.message:'Could not read the figure colours'));
+    }
+  }finally{
+    if(q.url)URL.revokeObjectURL(q.url);
+    q.url=null;
+  }
+}
+function cpkPixel(e){
+  const q=cpkPick;
+  if(!q||!q.g)return null;
+  if(CPK!==q.p||root!==q.doc||dv!==q.v){
+    cpkPickEnd();
+    return null;
+  }
+  const x=e.clientX-q.r.left,y=e.clientY-q.r.top,c=$('mCpShot');
+  if(x<0||y<0||x>=q.r.width||y>=q.r.height||x<q.x||y<q.y||x>=q.x+q.w||y>=q.y+q.h)return null;
+  const px=min(c.width-1,Math.floor(x*c.width/q.r.width)),py=min(c.height-1,Math.floor(y*c.height/q.r.height));
+  const p=q.g.getImageData(px,py,1,1).data;
+  return{x:px,y:py,c:'#'+[...p].slice(0,3).map(v=>v.toString(16).padStart(2,'0')).join('')};
+}
+$('mCpF').onclick=cpkFigure;
+$('mCpCancel').onclick=cpkPickEnd;
+$('mCpPick').onpointerdown=e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  if(e.button||e.target.closest('.tip'))return;
+  const p=cpkPixel(e);
+  if(!p)return;
+  cpkPickEnd();
+  CPK.ty=0;
+  cpkPut(p.c,0,1);
+  cpkCommit();
+};
+$('mCpPick').onpointermove=e=>{
+  e.stopPropagation();
+  const p=e.target.closest('.tip')?null:cpkPixel(e),l=$('mCpLoupe');
+  l.hidden=!p;
+  if(!p)return;
+  const g=l.firstChild.getContext('2d');
+  g.fillStyle='#fff';
+  g.fillRect(0,0,92,92);
+  g.imageSmoothingEnabled=false;
+  g.drawImage($('mCpShot'),p.x-5,p.y-5,11,11,2,2,88,88);
+  g.strokeStyle='#fff';
+  g.lineWidth=3;
+  g.strokeRect(42,42,8,8);
+  g.strokeStyle='#222';
+  g.lineWidth=1;
+  g.strokeRect(42,42,8,8);
+  l.lastChild.textContent=p.c.toUpperCase();
+  l.style.left=max(4,min(innerWidth-108,e.clientX+20))+'px';
+  l.style.top=max(4,min(innerHeight-132,e.clientY+20))+'px';
+};
+$('mCpPick').oncontextmenu=e=>{
+  e.preventDefault();
+  cpkPickEnd();
+};
+$('mCpPick').onwheel=e=>e.preventDefault();
 // ══ 60 Dialogs ════
 $('mFile').onchange=e=>readFile(e.target.files[0],fileMode);
 $('mPre').append(...[...F.pg.options].slice(1).map(o=>new Option(`${o.text} (${o.value.split(',').map(round).join('×')} mm)`,o.value)),new Option('Custom',''));

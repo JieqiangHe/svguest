@@ -255,7 +255,7 @@ body.smc #mSide{display:flex;flex-direction:column;padding-bottom:0}body.smc #mS
 #mLay.flt,#mChat.flt{position:fixed;z-index:16;border:0;border-radius:10px;overflow:hidden;resize:both;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s}#mLay.flt{min-width:200px;min-height:160px}#mChat.flt{min-width:280px;min-height:360px}
 #mLay.flt>header,#mChat.flt>#mChH{background:var(--bar);cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}:is(#mLay,#mChat).flt.wbk{box-shadow:var(--sh)}:is(#mLay,#mChat).flt.wbk>:is(header,#mChH){background:var(--side)}:is(#mLay,#mChat).zm{resize:none}
 /* while the canvas is dragged the windows fade and let the pointer through */
-body.cvd :is(.blkw,#mLay.flt,#mChat.flt){opacity:.25;pointer-events:none}
+body.bkcd :is(.blkw,#mLay.flt,#mChat.flt){opacity:.25;pointer-events:none}
 /* dragging */
 body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor:grabbing!important}body.bkMv *{cursor:move!important}
 .bkDr :is(#mSide,#mSideL)>section::after{content:"";position:absolute;inset:0}.bkSrc{opacity:.55}
@@ -987,6 +987,7 @@ const ZH={
  "Float, dock left or right, collapse, hide; Show only when it applies, for floating sections. View › Layout has presets, Blocks, Lock layout, Export and Import":"浮动、停靠到左侧或右侧、收起、隐藏；浮动分区还可选“仅在适用时显示”。视图 › 布局里有预设、分区、锁定布局、导出和导入",
  "Drag to another place in a column, onto the other column or onto the canvas":"拖到本栏的其他位置、另一栏或画布上",
  "Drag to move; drop it on a column to dock it":"拖动可移动；放到栏上即可停靠",
+ "Drag to the other side, or onto the canvas to float it":"拖到另一侧，或拖到画布上使其浮动",
  "Float as a window you can move and resize; click again to dock it back":"浮动为可移动、可调整大小的窗口；再次点击停靠回去",
  "Float or dock":"浮动或停靠",
  "Shows only when it applies":"仅在适用时显示",
@@ -7801,7 +7802,7 @@ function winTop(id,fresh){
   WINS.splice(WINS.indexOf(id),1);
   WINS.push(id);
   WINS.forEach((x,i)=>{
-    $(x).style.zIndex=16+i;
+    $(x).style.zIndex=20-WINS.length+i; // the front one at 19, under the menus (20): up to 11 windows (45b)
     $(x).classList.toggle('wbk',x!==id);
   });
 }
@@ -7945,7 +7946,7 @@ function bkUse(n){
   bkSave();
   if(n==='ai'&&!document.body.classList.contains('chat'))A.chat();
   if(!BL.p)A.props();
-  msg(`Layout: ${bkT({my:'My layout',def:'Default',txt:'Text',ai:'AI drawing',sm:'Small screen'}[n])}`)}
+  msg(`Layout: ${bkT({my:'My layout',def:'Default',txt:'Text',ai:'AI drawing',sm:'Small screen'}[n])}`+(bkSmall?'; it shows when the window is wider than 1100 px':''))}
 // bkReset(): every section back in the right column, widths and windows too; My layout is kept for going back
 function bkReset(){
   BL={...bkNew(),c:BL.c,my:BL.my};
@@ -8003,7 +8004,10 @@ function bkHome(id){
 function bkPlace(w,id){
   let r=BF.rect[id];
   if(!r||!(r.w>0)||r.l==null||r.t==null)r=BF.rect[id]={...r,...bkHome(id)};
-  if(w.classList.contains('zm'))return;
+  if(w.classList.contains('zm')){
+    const v=view.getBoundingClientRect();
+    return Object.assign(w.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});
+  }
   const big=id==='layers'||id==='chat',W=min(r.w,innerWidth-16),H=big?min(r.h||420,innerHeight-16):0;
   w._w=W;
   w._h=H;
@@ -8108,11 +8112,13 @@ function bkFloat(id,at){
   if(src.contains(document.activeElement))document.activeElement.blur();
   bkMine();
   bkApply();
-  bkSave()}
+  bkSave();
+  if(id==='layers'&&!lyOn())A.layers();
+  if(id==='chat'&&!document.body.classList.contains('chat'))A.chat()}
 // bkDock(id,s,before,i): docks a block in column s, before the section before (or at index i, or last)
 function bkDock(id,s,before,i){
   if(bkSmall)return;
-  const f=BF.keys.includes(id);
+  const f=BF.keys.includes(id),was=JSON.stringify([BL.r,BL.l,BL.side,BL.hid]);
   BF.keys=BF.keys.filter(k=>k!==id);
   if(BK.includes(id)){
     BL.r=BL.r.filter(k=>k!==id);
@@ -8123,6 +8129,7 @@ function bkDock(id,s,before,i){
   }else BL.side[id]=s;
   const w=bkEl(id);
   if(f&&w.contains(document.activeElement))document.activeElement.blur();
+  if(!f&&was===JSON.stringify([BL.r,BL.l,BL.side,BL.hid]))return;
   bkMine();
   bkApply();
   bkSave();
@@ -8142,9 +8149,9 @@ function bkShut(id){
   }else E.shut=E.shut.includes(id)?E.shut.filter(k=>k!==id):[...E.shut,id];
   bkApply();
   if(!bkSmall)bkSave()}
-// bkHide(id): hides a block; View › Layout › Blocks shows it again
+// bkHide(id): hides a block; View › Layout › Blocks shows it again (in Small screen, only until the window is wider)
 function bkHide(id){
-  if(BL.lock||bkSmall)return;
+  if(BL.lock)return;
   if(id==='layers'){
     if(lyOn())A.layers();
     return;
@@ -8153,12 +8160,12 @@ function bkHide(id){
     if(document.body.classList.contains('chat'))A.chat();
     return;
   }
-  const w=BF.keys.includes(id)?BKW[id]:BKS[id];
+  const E=bkLay(),w=BF.keys.includes(id)&&!bkSmall?BKW[id]:BKS[id];
   if(w.contains(document.activeElement))document.activeElement.blur();
-  if(!BL.hid.includes(id))BL.hid.push(id);
-  bkMine();
+  if(!E.hid.includes(id))E.hid.push(id);
+  if(E===BL)bkMine();
   bkApply();
-  bkSave();
+  if(E===BL)bkSave();
   msg(`${bkT(BN[id])}: hidden; View › Layout › Blocks shows it again`)}
 // bkShow(id): Blocks › a block: shows or hides it
 function bkShow(id){
@@ -8169,7 +8176,7 @@ function bkShow(id){
   E.hid=E.hid.filter(k=>k!==id);
   if(E===BL)bkMine();
   bkApply();
-  bkSave();
+  if(E===BL)bkSave();
   if(!BF.keys.includes(id)&&document.body.classList.contains('noP'))A.props()}
 // bkAutoT(id): Show only when it applies, for a floating section
 function bkAutoT(id){
@@ -8272,10 +8279,8 @@ function bkMoveOff(){
   $('mBkSx').hidden=$('mBkSy').hidden=true}
 // bkZoom(w): Layers' and SVG Chat's windows fill the canvas on a double-click on their title, and come back on another
 function bkZoom(w){
-  const z=w.classList.toggle('zm');
-  if(!z)return bkPlace(w,w.dataset.b);
-  const r=view.getBoundingClientRect();
-  Object.assign(w.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'})}
+  w.classList.toggle('zm');
+  bkPlace(w,w.dataset.b)}
 // bkResize(): Small screen below 1100 px; windows clamped back into view
 function bkResize(){
   const s=innerWidth<BSM;
@@ -8362,7 +8367,7 @@ function bkGrip(id,w){
   const g=el('button','grip');
   g.type='button';
   g.dataset.b=id;
-  g.title=w?'Drag to move; drop it on a column to dock it':'Drag to another place in a column, onto the other column or onto the canvas';
+  g.title=w?'Drag to move; drop it on a column to dock it':BK.includes(id)?'Drag to another place in a column, onto the other column or onto the canvas':'Drag to the other side, or onto the canvas to float it';
   g.innerHTML='<svg viewBox="0 0 8 14" aria-hidden="true"><circle cx="2" cy="2" r="1.2"/><circle cx="6" cy="2" r="1.2"/><circle cx="2" cy="7" r="1.2"/><circle cx="6" cy="7" r="1.2"/><circle cx="2" cy="12" r="1.2"/><circle cx="6" cy="12" r="1.2"/></svg>';
   if(!w)g.addEventListener('keydown',bkKey);
   return g}
@@ -8452,7 +8457,7 @@ function bkInit(){
     try{o=JSON.parse(await f.text())}catch(_){}
     const L=o&&o.svguest==='layout'&&bkOk(o.sgLayout);
     if(!L)return msg(`${f.name} is not a svguest layout file: nothing was changed`);
-    BL={...L,p:BL.p,c:BL.c};
+    BL={...L,p:BL.p,c:BL.c,my:BL.my};
     BF=bfOk(o.sgFloat);
     bkFix();
     bkApply();
@@ -8499,7 +8504,7 @@ A.bkImp=()=>{
   f.value='';
   f.click()};
 A.bkDockAll=()=>{
-  for(const id of BF.keys.slice())bkBack(id)};
+  for(const id of BF.keys.slice().reverse())bkBack(id)}; // the last floated first, so each goes back where it was
 }
 // the drags: pointer events on the document, so a drag goes on over any panel
 document.addEventListener('pointerdown',e=>{
@@ -8509,13 +8514,15 @@ document.addEventListener('pointerdown',e=>{
     const w=hd.parentNode;
     if(w.classList.contains('zm'))return;
     e.preventDefault();
-    BM={w,id:w.dataset.b,x0:e.clientX,y0:e.clientY,dx:e.clientX-w.offsetLeft,dy:e.clientY-w.offsetTop,on:0};
+    BM={w,id:w.dataset.b,x0:e.clientX,y0:e.clientY,dx:e.clientX-w.offsetLeft,dy:e.clientY-w.offsetTop,ol:w.style.left,ot:w.style.top,on:0};
+    hd.setPointerCapture(e.pointerId);
     if(!w.classList.contains('blkw')&&WINS.includes(w.id))winTop(w.id);
     return;
   }
   if(g&&!BL.lock){
     e.preventDefault();
     BD={id:g.dataset.b,g,x0:e.clientX,y0:e.clientY,on:0};
+    g.setPointerCapture(e.pointerId);
   }
 });
 addEventListener('pointerdown',e=>{
@@ -8524,7 +8531,7 @@ addEventListener('pointerdown',e=>{
 },true);
 addEventListener('pointermove',e=>{
   const c=!!(D&&D.on&&D.t!=='pan'),b=document.body;
-  if(c!==b.classList.contains('cvd'))b.classList.toggle('cvd',c);
+  if(c!==b.classList.contains('bkcd'))b.classList.toggle('bkcd',c);
   if(BD){
     const d=BD;
     if(!d.on&&hypot(e.clientX-d.x0,e.clientY-d.y0)<4)return;
@@ -8538,7 +8545,7 @@ addEventListener('pointermove',e=>{
     const m=BM;
     if(!m.on&&hypot(e.clientX-m.x0,e.clientY-m.y0)<3)return;
     if(!m.on)bkMoveOn(m);
-    const[l,t]=bkSnapTo(m.w,e.clientX-m.dx,e.clientY-m.dy);
+    const W=m.w.offsetWidth,[l,t]=bkSnapTo(m.w,max(8,min(e.clientX-m.dx,innerWidth-min(W,innerWidth-16)-8)),max(8,min(e.clientY-m.dy,innerHeight-42)));
     m.w.style.left=l+'px';
     m.w.style.top=t+'px';
     const q=BL.lock?null:bkTgt(e.clientX,e.clientY,m.id);
@@ -8547,7 +8554,7 @@ addEventListener('pointermove',e=>{
   }
 });
 const bkUp=e=>{
-  document.body.classList.remove('cvd');
+  document.body.classList.remove('bkcd');
   if(BD){
     const d=BD,g=d.gh&&d.gh.getBoundingClientRect();
     BD=null;
@@ -8571,10 +8578,25 @@ const bkUp=e=>{
   }
 };
 addEventListener('pointerup',bkUp);
+addEventListener('keydown',e=>{
+  if(e.key!=='Escape'||!(BD&&BD.on||BM&&BM.on))return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  if(BD){
+    bkDragOff(BD);
+    BD=null;
+  }
+  if(BM){
+    BM.w.style.left=BM.ol;
+    BM.w.style.top=BM.ot;
+    BM=null;
+    bkMoveOff();
+  }
+},true);
 addEventListener('pointercancel',bkUp);
 document.addEventListener('click',e=>{
   const h=e.target.closest&&e.target.closest(':is(#mSide,#mSideL)>section>h4');
-  if(h&&!e.target.closest('.fb'))bkShut(h.parentNode.dataset.b);
+  if(h&&!e.target.closest('.fb,.grip'))bkShut(h.parentNode.dataset.b);
 });
 document.addEventListener('dblclick',e=>{
   const h=e.target.closest&&e.target.closest('#mLay.flt>header,#mChat.flt>#mChH');

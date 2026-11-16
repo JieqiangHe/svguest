@@ -238,15 +238,15 @@ body.nos .sx>div,body.not #mTsec>div,body.nos #mAp>.r:not(.ks)>*{opacity:.45;poi
 body.smc #mSide{display:flex;flex-direction:column;padding-bottom:0}body.smc #mSide>#mChat{flex:1;min-height:520px;margin:0 -8px;border-left:0;border-top:1px solid var(--h4b)}body.smc #mSide>section{flex:none}body.noP.smc #mSide>:not(#mChat){display:none}
 #mLay.bkl,#mChat.bkl{border-left:0;border-right:1px solid var(--line)}
 :is(#mSide,#mSideL)>section{position:relative}
-.grip{position:absolute;left:0;top:0;width:8px;height:30px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:none!important;color:var(--t3);opacity:.45;cursor:grab;touch-action:none}.grip svg{width:7px;height:12px;fill:currentColor;stroke:none}
+.grip{position:absolute;left:0;top:0;width:8.6px;height:30px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:none!important;color:var(--t3);opacity:.45;cursor:grab;touch-action:none}.grip svg{width:4.6px;height:7.6px;fill:currentColor;stroke:none}body:not(.bkLk,.sm) :is(#mSide,#mSideL)>section>h4{padding-left:5px}
 .grip:hover,.grip.pk,.grip:focus-visible{opacity:1;color:var(--fg)}.grip:focus{outline:none}.grip:focus-visible,.grip.pk{box-shadow:inset 0 0 0 1.5px var(--onb)}
-:is(.blkw>header,#mLay>header,#mChH)>.grip{position:static;flex:none;width:12px;height:24px;margin-right:2px;border-radius:4px;cursor:move}#mLay>header>.grip{cursor:grab}#mLay.flt>header>.grip{cursor:move}#mChH>.grip{margin-left:-2px}
+:is(.blkw>header,#mLay>header,#mChH)>.grip{position:static;flex:none;width:10px;height:24px;margin:0;border-radius:4px;cursor:move}#mLay>header>.grip{cursor:grab}#mLay.flt>header>.grip{cursor:move}#mChat #mChH>.grip{margin:0 3px 0 -4px}#mLay>header>.grip{margin-right:-1px}body:not(.bkLk,.sm) #mLay>header{padding-left:0}
 .fb,#mLay header .fb{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:none;color:var(--h4)}.fb:hover,#mLay header .fb:hover{background:var(--btnh);color:var(--fg)}.fb svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fb.on,.fb.on:hover,#mLay header .fb.on{background:var(--on);color:var(--onb)}
 :is(#mSide,#mSideL)>section>h4 .fb{margin-left:auto}:is(#mSide,#mSideL)>section>h4:has(.fb)::after{margin-left:4px}#mLay.flt .fb,#mChat.flt .fb{width:26px;height:24px}
 .bkLk .grip,.bkLk .fb,.bkLk .blkw .wx,.sm .grip,.sm .fb{display:none!important}
 /* the windows of floating sections */
 .blkw{min-width:200px;max-width:480px;resize:horizontal;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s,visibility 0s}.blkw.wbk{box-shadow:var(--sh)}
-.blkw>header{padding-left:2px}.blkw>header>button:last-child{margin-left:0}.blkw>header .fb{width:26px;height:24px;margin-left:auto}.blkw>header .au{font-size:11px;color:var(--t3)}
+.blkw>header{padding-left:0}.bkLk .blkw>header{padding-left:12px}.blkw>header>button:last-child{margin-left:0}.blkw>header .fb{width:26px;height:24px;margin-left:auto}.blkw>header .au{font-size:11px;color:var(--t3)}
 .blkw .wch{flex:none;width:26px;height:24px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:none;color:var(--h4)}.blkw .wch:hover{background:var(--btnh);color:var(--fg)}.blkw .wch::after{content:"";width:5px;height:5px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg)}.blkw.shut .wch::after{transform:rotate(-45deg)}
 .blkw>section>h4,.blkw>section>.grip{display:none}.blkw>section>div{display:flex;flex-direction:column;gap:5px}
 .blkw.shut{resize:none;padding-bottom:0}.blkw.shut>section{display:none}.blkw.shut>header{margin-bottom:0;border-bottom:0}
@@ -951,7 +951,7 @@ const PGN={space:' ',exclam:'!',quotedbl:'"',numbersign:'#',dollar:'$',percent:'
 // 45b Layout: each block's name (BN), each preset's (BNP), the grip's six dots (BKG)
 const BN={page:'Page',transform:'Transform',align:'Align',arrange:'Arrange',text:'Text',appearance:'Appearance',alltext:'All text',layers:'Layers',chat:'SVG Chat'},
   BNP={my:'My layout',def:'Default',txt:'Text',ai:'AI drawing',sm:'Small screen'},
-  BKG='<svg viewBox="0 0 8 14" aria-hidden="true"><circle cx="2" cy="2" r="1.2"/><circle cx="6" cy="2" r="1.2"/><circle cx="2" cy="7" r="1.2"/><circle cx="6" cy="7" r="1.2"/><circle cx="2" cy="12" r="1.2"/><circle cx="6" cy="12" r="1.2"/></svg>';
+  BKG='<svg viewBox="0 0 4.6 7.6" aria-hidden="true"><circle cx=".8" cy=".8" r=".8"/><circle cx="3.8" cy=".8" r=".8"/><circle cx=".8" cy="3.8" r=".8"/><circle cx="3.8" cy="3.8" r=".8"/><circle cx=".8" cy="6.8" r=".8"/><circle cx="3.8" cy="6.8" r=".8"/></svg>'; // 1.6 px dots 3 px apart: 7.6 px tall, between the 12 px title's x-height and cap height
 // ══ 01b Language ════
 // The interface language. ZH maps each English interface text, exactly as written in the page, to its Chinese; a text with no entry stays English.
 // A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).

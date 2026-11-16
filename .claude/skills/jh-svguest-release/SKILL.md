@@ -57,15 +57,17 @@ Draft in English, short, in a file outside the repo (scratchpad), and show it to
 
 - one sentence on what svguest is (the tagline from README), then `**Live:** https://www.svguest.online`;
 - what changed since the last release (`git log --oneline <old>..<new>`), grouped as a few bullets in user terms, not commit messages; the first release listed the main features instead;
-- the TBtools plugin: download `svguest.plugin`, TBtools-II › Install Plugin; SVG Chat with TBtools' built-in model needs **TBtools v2.558 or later**, no API key; or the user's own paid ChatGPT plan;
-- `app.html` is the whole editor, offline in any modern browser; licence GPL-3.0-or-later.
+- the TBtools plugin: download `svguest_vX.Y.Z.plugin`, TBtools-II › Install Plugin; SVG Chat with TBtools' built-in model needs **TBtools v2.558 or later**, no API key; or the user's own paid ChatGPT plan;
+- `app_vX.Y.Z.html` is the whole editor, offline in any modern browser; licence GPL-3.0-or-later.
 
 Every claim must match the app (CLAUDE.md › Cover page has the rules). The notes live on the Release page only: never commit `notes.md`.
 
 ## 5. Publish
 
 ```bash
-gh release create "$new" svguest.plugin app.html --title "svguest $new" --notes-file notes.md --latest
+a=$(mktemp -d); v=${new#v}   # release assets carry the version; the repo keeps app.html / svguest.plugin
+cp app.html "$a/app_v$v.html"; cp svguest.plugin "$a/svguest_v$v.plugin"
+gh release create "$new" "$a/app_v$v.html" "$a/svguest_v$v.plugin" --title "svguest $new" --notes-file notes.md --latest
 gh release view "$new"
 gh api repos/JieqiangHe/svguest/releases/latest --jq .tag_name   # expect $new
 rm notes.md; git status                                           # clean

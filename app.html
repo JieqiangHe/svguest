@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- svguest v1.7.0 © 2026 Jieqiang He, GPL-3.0-or-later -->
+<!-- svguest v1.8.0 © 2026 Jieqiang He, GPL-3.0-or-later -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -206,21 +206,21 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mSide{overflow:auto;padding:0 8px 8px;background:var(--side);border-left:1px solid var(--line)}
 #mPh,#mLay>header{height:36px;flex:none}
 #mPh{position:sticky;top:0;z-index:2;display:flex;align-items:baseline;gap:6px;margin:0 -8px;padding:9px 8px 7px;background:var(--side);border-bottom:1px solid var(--h4b)}#mPh b{font-size:12.5px}#mPh button{align-self:center;margin:-2px 0 -2px auto;padding:0 6px;font-size:15px;line-height:18px}#mKind{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t3)}
-#mSide>section{margin:0 -8px;padding:0 8px 9px;border-bottom:1px solid var(--h4b)}#mSide>section:last-child{border:0}#mSide>section>div{display:flex;flex-direction:column;gap:5px}#mSide>section.shut{padding-bottom:0}#mSide>section.shut>div{display:none}
-#mSide>section>h4{display:flex;align-items:center;height:30px;margin:0;font-size:12px;color:var(--fg);cursor:pointer;user-select:none}#mSide>section>h4 small{margin-left:5px}#mSide>section>h4::after{content:"";width:5px;height:5px;margin:0 3px 0 auto;border:solid var(--t3);border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg);transition:transform .15s}#mSide>section.shut>h4::after{transform:rotate(-45deg)}
-#mSide.nos .sx>div,#mSide.not #mTsec>div,#mSide.nos #mAp>.r:not(.ks)>*{opacity:.45;pointer-events:none}
-#mPop h4{margin:6px -8px 4px;padding:6px 8px 0;font-size:12px;color:var(--fg);border-top:1px solid var(--h4b)}:is(#mSide,#mPop,#mFg) h4 small{font-weight:normal;color:var(--t3)}
-:is(#mSide,#mPop,#mFg) .g2{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px}:is(#mSide,#mPop,#mFg) .kv{display:grid;grid-template-columns:46px minmax(0,1fr);gap:5px 6px;align-items:center}:is(#mSide,#mPop,#mFg) .kv>.r{display:contents}:is(#mSide,#mPop,#mFg) .kv span{color:var(--h4)}:is(#mSide,#mPop,#mFg) :is(.kv>div:not(.r),.r>div){display:flex;align-items:center;gap:5px;min-width:0}:is(#mSide,#mPop,#mFg) :is(.kv>div:not(.r),.r>div)>:is(.f,select,span){flex:1}:is(#mSide,#mPop,#mFg) .kv>div>.f.c{flex:1.4}:is(#mSide,#mPop,#mFg) .kv>input{height:24px;min-width:0}
-:is(#mSide,#mPop,#mFg) .f{display:flex;align-items:center;gap:4px;min-width:0;height:24px;margin:0;padding:0 6px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);color:var(--t3);cursor:text}:is(#mSide,#mPop,#mFg) .f:focus-within{border-color:var(--onb)}:is(#mSide,#mPop,#mFg) .f:has(:disabled){opacity:.5}:is(#mSide,#mPop,#mFg) .f em{font-style:normal}
-:is(#mSide,#mPop,#mFg) .f input{flex:1;width:0;min-width:0;height:100%;padding:0;border:0;border-radius:0;background:none;color:var(--fg);-moz-appearance:textfield}:is(#mSide,#mPop,#mFg) .f.c{cursor:pointer}:is(#mSide,#mPop,#mFg) .f.c input{flex:none;width:16px;height:16px;padding:0;border:1px solid var(--btnb);border-radius:4px;cursor:pointer}:is(#mSide,#mPop,#mFg) .f .hx{flex:1;min-width:0;overflow:hidden;color:var(--fg);white-space:nowrap;font-variant-numeric:tabular-nums}
+:is(#mSide,#mSideL)>section{margin:0 -8px;padding:0 8px 9px;border-bottom:1px solid var(--h4b)}:is(#mSide,#mSideL)>section:last-child{border:0}:is(#mSide,#mSideL)>section>div{display:flex;flex-direction:column;gap:5px}:is(#mSide,#mSideL)>section.shut{padding-bottom:0}:is(#mSide,#mSideL)>section.shut>div{display:none}
+:is(#mSide,#mSideL)>section>h4{display:flex;align-items:center;height:30px;margin:0;font-size:12px;color:var(--fg);cursor:pointer;user-select:none}:is(#mSide,#mSideL)>section>h4 small{margin-left:5px}:is(#mSide,#mSideL)>section>h4::after{content:"";width:5px;height:5px;margin:0 3px 0 auto;border:solid var(--t3);border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg);transition:transform .15s}:is(#mSide,#mSideL)>section.shut>h4::after{transform:rotate(-45deg)}
+body.nos .sx>div,body.not #mTsec>div,body.nos #mAp>.r:not(.ks)>*{opacity:.45;pointer-events:none}
+#mPop h4{margin:6px -8px 4px;padding:6px 8px 0;font-size:12px;color:var(--fg);border-top:1px solid var(--h4b)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) h4 small{font-weight:normal;color:var(--t3)}
+:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .g2{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .kv{display:grid;grid-template-columns:46px minmax(0,1fr);gap:5px 6px;align-items:center}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .kv>.r{display:contents}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .kv span{color:var(--h4)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) :is(.kv>div:not(.r),.r>div){display:flex;align-items:center;gap:5px;min-width:0}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) :is(.kv>div:not(.r),.r>div)>:is(.f,select,span){flex:1}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .kv>div>.f.c{flex:1.4}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .kv>input{height:24px;min-width:0}
+:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f{display:flex;align-items:center;gap:4px;min-width:0;height:24px;margin:0;padding:0 6px;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);color:var(--t3);cursor:text}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f:focus-within{border-color:var(--onb)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f:has(:disabled){opacity:.5}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f em{font-style:normal}
+:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f input{flex:1;width:0;min-width:0;height:100%;padding:0;border:0;border-radius:0;background:none;color:var(--fg);-moz-appearance:textfield}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f.c{cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f.c input{flex:none;width:16px;height:16px;padding:0;border:1px solid var(--btnb);border-radius:4px;cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f .hx{flex:1;min-width:0;overflow:hidden;color:var(--fg);white-space:nowrap;font-variant-numeric:tabular-nums}
 #mTs{display:flex;flex-direction:column;gap:5px}#mSizes div{display:flex;align-items:center;gap:4px;margin:2px 0}#mSizes span{width:78px}#mSizes input{width:48px!important}#mSizes button{margin-left:auto}
-.row{display:flex;gap:3px}.row button{flex:1}:is(#mSide,#mPop,#mFg) .row{gap:6px;margin:0}:is(#mSide,#mPop,#mFg) .row>button{height:24px;min-width:0;padding:0 4px}:is(#mSide,#mPop,#mFg) select{width:100%;height:24px}#mPg{flex:1;width:auto!important;min-width:0}
+.row{display:flex;gap:3px}.row button{flex:1}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .row{gap:6px;margin:0}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .row>button{height:24px;min-width:0;padding:0 4px}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) select{width:100%;height:24px}#mPg{flex:1;width:auto!important;min-width:0}
 .seg{display:flex;gap:2px;min-width:0;padding:2px;border-radius:7px;background:var(--btnh)}.row .seg{flex:1}.seg.o,.seg.t{flex:none}.seg button{flex:1;height:20px;min-width:0;padding:0;display:grid;place-items:center;border:0;border-radius:5px;background:none;color:var(--h4)}.seg.o button,.seg.t button{width:26px}.seg button:hover{background:none;color:var(--fg)}.seg button.on{background:var(--btn);color:var(--fg);box-shadow:var(--sh)}
 .ic svg{width:16px;height:16px;fill:currentColor;stroke:currentColor}.fl svg{stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fl .ax,.fl .ho{fill:none}.ic rect{stroke:none}.seg.o rect{fill:none;stroke:currentColor;stroke-width:1.4}
-:is(#mSide,#mPop,#mFg) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mPop,#mFg) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mPop,#mFg) .tgb svg,:is(#mSide,#mPop,#mFg) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mPop,#mFg) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mPop,#mFg) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
-.ap input[type=color].dim{opacity:.35}:is(#mSide,#mPop,#mFg) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mPop,#mFg) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mPop,#mFg) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mPop,#mFg) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mPop,#mFg) .nn:hover{border-color:var(--swb)}:is(#mSide,#mPop,#mFg) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mPop,#mFg) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mPop,#mFg) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mPop,#mFg) input::-webkit-inner-spin-button{display:none}
+:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb svg,:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
+.ap input[type=color].dim{opacity:.35}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn:hover{border-color:var(--swb)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) input::-webkit-inner-spin-button{display:none}
 /* ══ 57a Number fields ══ */
-:is(#mSide,#mPop,#mFg) .f:has(>input[type=number]:not(:disabled)),:is(#mSide,#mPop,#mFg) input[type=number]:not(:disabled){cursor:ew-resize}body.nfOn,body.nfOn *{cursor:ew-resize!important;user-select:none}#mFgC input[data-nf]{width:100%;min-width:0;height:22px}
+:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f:has(>input[type=number]:not(:disabled)),:is(#mSide,#mSideL,#mPop,#mFg,.blkw) input[type=number]:not(:disabled){cursor:ew-resize}body.nfOn,body.nfOn *{cursor:ew-resize!important;user-select:none}#mFgC input[data-nf]{width:100%;min-width:0;height:22px}
 /* ══ 50 History and status bar ══ */
 #mSt{grid-column:1/-1;height:24px;display:flex;align-items:center;gap:16px;padding:2px 2px 2px 8px;background:var(--bar);border-top:1px solid var(--line);white-space:nowrap}
 #mSt>span{min-width:0;overflow:hidden;text-overflow:ellipsis}#mDoc{color:var(--h4)}#mRt{flex:none;display:flex;gap:8px;position:relative;height:18px;padding-left:calc(14ch + 8px);color:var(--h4);font-variant-numeric:tabular-nums}#mPos{position:absolute;left:0;top:0;width:14ch;height:18px;line-height:18px;contain:strict;text-align:right;white-space:nowrap}#mLat{min-width:9ch}#mLat.slow{color:#c98a00}#mLat.bad{color:#e5534b}#mHm{max-height:60vh;overflow:auto}#mRm{min-width:220px}#mRm span{max-width:280px;overflow:hidden;text-overflow:ellipsis}#mHm button.fu{opacity:.55;font-style:italic}#mMsg{flex:0 1000 auto}#mCtx{max-width:300px}
@@ -231,11 +231,52 @@ kbd{font:11px ui-monospace,monospace;padding:0 4px;border:1px solid var(--line);
 #mZs::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-moz-range-track{height:2px;border-radius:1px;background:#8a8a8a88}#mZs::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-4.5px;border:1px solid var(--swb);border-radius:50%;background:var(--btn);box-shadow:0 1px 2px #0003}#mZs::-moz-range-thumb{width:9px;height:9px;border:1px solid var(--swb);border-radius:50%;background:var(--btn)}#mZs:hover::-webkit-slider-thumb{border-color:var(--fg)}#mZs:hover::-moz-range-thumb{border-color:var(--fg)}#mSt>i{width:1px;height:14px;flex:none;margin-left:auto;background:var(--line)}
 /* ══ 21 Text editing ══ */
 .ed{position:absolute;white-space:pre;width:max-content;max-width:none;overflow:visible;overflow-wrap:normal;outline:1px solid #1a73e8;background:#fffd;min-width:4px;line-height:1.2;padding:0 1px}.ed sup,.ed sub{font-size:65%}.ed.pl{outline:none;background:none}.ed.pl>div{position:relative;width:max-content;min-width:4px;outline:1px solid #1a73e8;background:#fffd}.ed.pc>div{margin:0 auto}.ed.pe>div{margin-left:auto}#mTx{position:static;display:block;width:100%;min-height:42px;max-height:160px;overflow:auto;margin:0;padding:3px 5px;white-space:pre-wrap;overflow-wrap:anywhere;outline:none;border:1px solid var(--btnb);border-radius:6px;background:#fff;color:#000;font-size:13px;line-height:1.35;cursor:text}#mTx:focus{border-color:var(--onb);box-shadow:0 0 0 1px var(--onb)}#mTx[contenteditable=false]{cursor:default}#mTx.pl{white-space:pre}#mTx.pl>div{outline:none;background:none;line-height:1.2}[data-theme=dark] #mTx{color-scheme:light;filter:invert(1) hue-rotate(180deg);background:#d9d9d9;border-color:#bfbfbf}[data-theme=dark] #mTx:focus{border-color:#5c5c5c;box-shadow:none}[data-theme=dark] #mTx::selection,[data-theme=dark] #mTx ::selection{background:#48a1ff;color:#000}#mTx:empty::before{content:attr(data-ph);color:#888;font:12px system-ui,sans-serif;font-style:normal;font-weight:normal}::selection{background:#1a73e8;color:#fff}
-/* ══ 51 Panel toggles ══ */
-body.chat{grid-template-columns:48px 1fr 236px 300px}body.lay{grid-template-columns:48px 1fr 220px 236px}body.lay.chat{grid-template-columns:48px 1fr 220px 236px 300px}.lay #mSide{grid-area:2/4}.lay #mChat{grid-area:2/5}
-body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48px 1fr 0 300px}body.noP.lay{grid-template-columns:48px 1fr 220px 0}body.noP.lay.chat{grid-template-columns:48px 1fr 220px 0 300px}.noP #mSide{display:none}
+/* ══ 45b Layout ══ */
+/* the composable layout: sections dock in #mSide (right) or #mSideL (left), or float as .blkw windows; Layers and SVG Chat float as .flt; the grid's columns come from bkGrid */
+#mSideL{overflow:auto;padding:0 8px 8px;background:var(--side);border-right:1px solid var(--line);scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
+:is(#mSide,#mSideL).e0,.noP :is(#mSide,#mSideL){display:none}:is(#mSide,#mSideL):not(:has(>#mPh)){padding-top:6px}
+body.smc #mSide{display:flex;flex-direction:column;padding-bottom:0}body.smc #mSide>#mChat{flex:1;min-height:520px;margin:0 -8px;border-left:0;border-top:1px solid var(--h4b)}body.smc #mSide>section{flex:none}body.noP.smc #mSide>:not(#mChat){display:none}
+#mLay.bkl,#mChat.bkl{border-left:0;border-right:1px solid var(--line)}
+:is(#mSide,#mSideL)>section{position:relative}
+.grip{position:absolute;left:0;top:0;width:8px;height:30px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:none!important;color:var(--t3);opacity:.45;cursor:grab;touch-action:none}.grip svg{width:7px;height:12px;fill:currentColor;stroke:none}
+.grip:hover,.grip.pk,.grip:focus-visible{opacity:1;color:var(--fg)}.grip:focus{outline:none}.grip:focus-visible,.grip.pk{box-shadow:inset 0 0 0 1.5px var(--onb)}
+:is(.blkw>header,#mLay>header,#mChH)>.grip{position:static;flex:none;width:12px;height:24px;margin-right:2px;border-radius:4px;cursor:move}#mLay>header>.grip{cursor:grab}#mLay.flt>header>.grip{cursor:move}#mChH>.grip{margin-left:-2px}
+.fb,#mLay header .fb{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:none;color:var(--h4)}.fb:hover,#mLay header .fb:hover{background:var(--btnh);color:var(--fg)}.fb svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fb.on,.fb.on:hover,#mLay header .fb.on{background:var(--on);color:var(--onb)}
+:is(#mSide,#mSideL)>section>h4 .fb{margin-left:auto}:is(#mSide,#mSideL)>section>h4:has(.fb)::after{margin-left:4px}#mLay.flt .fb,#mChat.flt .fb{width:26px;height:24px}
+.bkLk .grip,.bkLk .fb,.bkLk .blkw .wx,.sm .grip,.sm .fb{display:none!important}
+/* the windows of floating sections */
+.blkw{min-width:200px;max-width:480px;resize:horizontal;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s,visibility 0s}.blkw.wbk{box-shadow:var(--sh)}
+.blkw>header{padding-left:2px}.blkw>header>button:last-child{margin-left:0}.blkw>header .fb{width:26px;height:24px;margin-left:auto}.blkw>header .au{font-size:11px;color:var(--t3)}
+.blkw .wch{flex:none;width:26px;height:24px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:none;color:var(--h4)}.blkw .wch:hover{background:var(--btnh);color:var(--fg)}.blkw .wch::after{content:"";width:5px;height:5px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg)}.blkw.shut .wch::after{transform:rotate(-45deg)}
+.blkw>section>h4,.blkw>section>.grip{display:none}.blkw>section>div{display:flex;flex-direction:column;gap:5px}
+.blkw.shut{resize:none;padding-bottom:0}.blkw.shut>section{display:none}.blkw.shut>header{margin-bottom:0;border-bottom:0}
+.blkw.na{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .12s,visibility 0s .12s}
+/* Layers and SVG Chat floating */
+#mLay.flt,#mChat.flt{position:fixed;z-index:16;border:0;border-radius:10px;overflow:hidden;resize:both;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s}#mLay.flt{min-width:200px;min-height:160px}#mChat.flt{min-width:280px;min-height:360px}
+#mLay.flt>header,#mChat.flt>#mChH{background:var(--bar);cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}:is(#mLay,#mChat).flt.wbk{box-shadow:var(--sh)}:is(#mLay,#mChat).flt.wbk>:is(header,#mChH){background:var(--side)}:is(#mLay,#mChat).zm{resize:none}
+/* while the canvas is dragged the windows fade and let the pointer through */
+body.cvd :is(.blkw,#mLay.flt,#mChat.flt){opacity:.25;pointer-events:none}
+/* dragging */
+body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor:grabbing!important}body.bkMv *{cursor:move!important}
+.bkDr :is(#mSide,#mSideL)>section::after{content:"";position:absolute;inset:0}.bkSrc{opacity:.55}
+#mBkGh{position:fixed;z-index:45;display:flex;flex-direction:column;padding:0 8px 8px;border-radius:8px;background:var(--side);box-shadow:var(--shm);opacity:.92;pointer-events:none}#mBkGh b{display:flex;align-items:center;gap:7px;height:30px;font-size:12px;color:var(--fg)}#mBkGh svg{width:7px;height:12px;fill:var(--t3)}#mBkGh i{height:8px;border-radius:3px;background:var(--btnh)}
+#mBkIn{position:fixed;z-index:45;background:var(--onb);pointer-events:none}#mBkIn[hidden],.bkz[hidden],.bksn[hidden],.bksp[hidden]{display:none}#mBkIn:not(.v)::before,#mBkIn:not(.v)::after{content:"";position:absolute;top:-3px;width:8px;height:8px;border:2px solid var(--onb);border-radius:50%;background:var(--side)}#mBkIn::before{left:-8px}#mBkIn::after{right:-8px}
+.bkz{position:fixed;z-index:44;width:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:var(--on);box-shadow:inset 0 0 0 2px var(--onb);color:var(--onb);font-size:11px;writing-mode:vertical-rl;pointer-events:none}.bkz.hot{background:var(--onb);color:#fff}
+.bksn{position:fixed;z-index:44;background:var(--onb);pointer-events:none}
+.bksp{position:fixed;z-index:5;width:9px;cursor:col-resize;touch-action:none}.bksp::after{content:"";position:absolute;left:3px;top:0;bottom:0;width:3px;background:var(--onb);opacity:0;transition:opacity .12s}.bksp:hover::after,.bksp.on::after,.bksp:focus-visible::after{opacity:1}.bksp:focus{outline:none}
+#mBkSm{flex:none;font-size:11px;color:var(--t3);cursor:pointer}#mBkSm:hover{color:var(--fg)}
+@media(pointer:coarse){.grip{opacity:.6}}
+@media(prefers-reduced-motion:reduce){.blkw,.blkw.na,.bksp::after,#mLay.flt,#mChat.flt{transition:none}}
+/* the What's new hero of v1.8: a canvas, a docked column and a floating window snapped beside it */
+#mWnG.ly{display:block;position:relative;height:118px;border-radius:7px;background:var(--view);overflow:hidden}#mWnG.ly>*{position:absolute;border-radius:4px}
+#mWnG.ly .pg{left:10px;top:10px;width:96px;height:98px;border-radius:2px;background:#fff;box-shadow:0 1px 3px #0003}#mWnG.ly .pg::before{content:"";position:absolute;left:14px;top:18px;width:44px;height:30px;border:2px solid #4c8df6;border-radius:3px}#mWnG.ly .pg::after{content:"";position:absolute;left:30px;top:60px;width:52px;height:20px;border-radius:50%;background:#e2a33c}
+#mWnG.ly .cl{right:0;top:0;bottom:0;width:62px;border-radius:0;background:var(--side);border-left:1px solid var(--line)}#mWnG.ly .cl i,#mWnG.ly .fw i{display:block;height:6px;margin:7px 7px 0;border-radius:2px;background:var(--btnh)}#mWnG.ly .cl i:nth-child(odd),#mWnG.ly .fw i:first-child{background:var(--t3);opacity:.5;width:50%}
+#mWnG.ly .fw{right:72px;top:22px;width:66px;height:62px;background:var(--side);box-shadow:var(--shm);border-radius:6px}#mWnG.ly .fw::before{content:"";display:block;height:12px;border-radius:6px 6px 0 0;background:var(--bar)}
+#mWnG.ly .sn{right:71px;top:12px;width:1px;height:82px;border-radius:0;background:var(--onb)}
+#mWn[open] #mWnG.ly .fw{animation:wnF .9s both cubic-bezier(.2,.8,.2,1) .15s}@keyframes wnF{from{opacity:0;transform:translate(-30px,14px)}}
+@media (prefers-reduced-motion:reduce){#mWn[open] #mWnG.ly .fw{animation:none}}
 /* ══ 53 Layers ══ */
-#mLay{display:none;grid-area:2/3;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
+#mLay{display:none;flex-direction:column;min-height:0;background:var(--side);border-left:1px solid var(--line)}.lay #mLay{display:flex}#mLay header{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 8px;border-bottom:1px solid var(--h4b)}#mLay header b{color:var(--h4)}#mLf{flex:1;min-width:0}#mLay header button{padding:0 6px;font-size:15px;line-height:18px}
 #mLm{display:flex;align-items:center;gap:6px;padding:2px 4px 2px 8px;background:#ffd60026;border-bottom:1px solid var(--h4b);color:var(--h4);font-size:11.5px}#mLm[hidden]{display:none}#mLm span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mLm button{border-color:transparent;background:transparent;padding:0 5px;font-size:14px;line-height:18px}#mLm button:hover{background:var(--btnh)}#mLl mark{background:#ffd60073;color:inherit;border-radius:2px}
 #mLl{flex:1;overflow:auto;position:relative}#mLl>div{position:relative}#mLl p{margin:8px;color:var(--h4)}#mLl .r{position:absolute;left:0;right:0;height:20px;display:flex;align-items:center;gap:4px;padding-right:2px;white-space:nowrap;cursor:default}#mLl .r:hover,#mLl .r.hv{background:var(--btnh)}#mLl .r.on{background:var(--on);color:var(--onfg)}[data-theme=dark] #mLl .r.on{background:#26344d;color:var(--fg)}
 #mLl .r>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}#mLl small{opacity:.55;margin-left:4px}#mLl svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}#mLl .t{opacity:.7}#mLl .r>.c{width:12px;flex:none;display:grid;place-items:center}#mLl .c svg{width:10px;height:10px;stroke-width:1.8}#mLl .r.o .c svg{transform:rotate(90deg)}
@@ -247,7 +288,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 .ki.t svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}.ki.f svg{fill:currentColor;stroke:currentColor}.ki.f rect{stroke:none}#mK>div>p{margin:0;padding:5px 8px 2px;border-top:1px solid var(--line);color:var(--h4);font-size:11px}#mK>div>p kbd{margin:0 3px 0 10px}#mK>div>p kbd:first-child{margin-left:0}
 @media(prefers-reduced-motion:no-preference){#mK{animation:mKf .15s}}@keyframes mKf{from{opacity:0}}
 /* ══ 38 SVG Chat panel ══ */
-#mChat{display:none;grid-area:2/4;flex-direction:column;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
+#mChat{display:none;flex-direction:column;overflow:hidden;background:var(--side);border-left:1px solid var(--line)}.chat #mChat{display:flex}#mChat [hidden]{display:none!important}
 #mChat .chg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}#mChat .ib{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;border-color:transparent;background:transparent;color:var(--h4)}#mChat .ib:hover{background:var(--btnh);color:var(--fg)}
 #mChH{position:relative;flex:none;display:flex;align-items:center;gap:1px;height:34px;padding:0 4px;border-bottom:1px solid var(--line)}#mChD{position:static;flex:1;min-width:0}#mChT{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;font-weight:600;padding:3px 6px;border-color:transparent;background:transparent}#mChT::after{content:'';display:inline-block;width:7px;height:4px;margin-left:5px;vertical-align:1px;background:currentColor;clip-path:polygon(0 0,100% 0,50% 100%);color:var(--t3)}#mChT:hover,#mChD.open>#mChT{background:var(--btnh)}#mChL{left:4px;right:4px;width:auto;max-height:55vh;overflow:auto}#mChL .ci{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:0 2px;padding:4px 6px;border-radius:6px;cursor:pointer}#mChL .ci:hover{background:var(--btnh)}#mChL .ci.on{background:var(--on);color:var(--onfg)}#mChL .ci.on small{color:inherit;opacity:.65}[data-theme=dark] #mChL .ci.on{background:#26344d;color:var(--fg)}[data-theme=dark] #mChL .ci.on small{color:var(--h4);opacity:1}#mChL .ci b{grid-column:1;grid-row:1;text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mChL .ci small{grid-column:1;grid-row:2;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--h4);font-size:11px}#mChL .ci button{grid-row:1/3;display:block;width:auto;min-width:0;padding:1px 5px;border:0;background:transparent;opacity:0}#mChL .ci [data-x=r]{grid-column:2}#mChL .ci [data-x=d]{grid-column:3}#mChL .ci:hover button{opacity:.75}#mChL .ci button:hover{opacity:1;background:var(--btn)}#mChL .ci input{min-width:0}#mChL .tm{padding:4px 6px;color:var(--h4)}#mChL hr{border:0;border-top:1px solid var(--line);margin:4px 2px}#mChL>button{display:block;width:100%;padding:4px 6px;border:0;background:transparent;text-align:left;color:var(--h4)}#mChL>button:hover{background:var(--btnh);color:var(--fg)}
 #mCb{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}#mHello{margin:10px 10px 0;padding-left:8px;border-left:3px solid var(--line);color:var(--h4);font-style:italic;line-height:1.45}#mHello b{font-style:normal}
@@ -353,11 +394,11 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <body>
 <!-- ══ 55 Menus ══ -->
 <div id="mBar">
-<span id="mBrand" title="svguest v1.7.0"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
+<span id="mBrand" title="svguest v1.8.0"><svg viewBox="11 21 863 195" role="img" aria-label="svguest"><g fill="none" stroke="currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="12"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="9"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="10.5"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="10.5"/></g><path fill="currentColor" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg></span><i></i>
 <div class="dd"><button class="ddb">File<i class="ca"></i></button><div class="menu"><button data-a="new" title="New canvas">New</button><button data-a="open" title="Open an SVG, or a page of a PDF or an Illustrator .ai as editable paths, text and pictures; a PNG or JPG is placed on the canvas">Open<kbd>Ctrl+O</kbd></button><div class="sub" id="mRc"><button class="sb" title="The last 10 files, as you left them: copies, unsaved changes included, are kept in this browser">Open recent<i>›</i></button><div class="menu" id="mRm"></div></div><button data-a="auto" title="Copy the open file into this browser as you work, for Open recent. Your file on disk changes only when you export (Ctrl+S)">Auto-save</button><button data-a="autoDir" title="Chrome, Edge and other Chromium-based browsers only: also write the open file into a folder you pick as you work, as name_YYMMDD_HHMMSS.svg (from when it was first opened), so your original is never overwritten; click again to stop">Auto-save to a folder…<small>Chrome/Edge only</small></button><button data-a="imp" title="Place an SVG, a page of a PDF or .ai, a PNG or a JPG into this canvas (also Ctrl+I)">Import<kbd>Ctrl+Shift+P</kbd></button><hr><button data-a="svg" title="Inkscape-compatible SVG named name_YYMMDD_HHMMSS.svg">Export SVG<kbd>Ctrl+S</kbd></button><button data-a="svgAs" title="Export SVG to a new file">Export SVG as…<kbd>Ctrl+Shift+S</kbd></button><div class="sub"><button class="sb" title="PNG on white, with the dpi stored">Export PNG<i>›</i></button><div class="menu"><button data-a="p300">300 dpi</button><button data-a="p600">600 dpi</button></div></div><div class="sub"><button class="sb" title="White background, highest quality">Export JPG<i>›</i></button><div class="menu"><button data-a="j300">300 dpi</button><button data-a="j600">600 dpi</button></div></div><button data-a="pdf" title="Save as vector PDF via the print dialog (best in Chrome/Edge)">Export PDF (print)<kbd>Ctrl+P</kbd></button></div></div>
 <div class="dd"><button class="ddb">Edit<i class="ca"></i></button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select<i class="ca"></i></button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
-<div class="dd"><button class="ddb">View<i class="ca"></i></button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button><hr><div class="sub"><button class="sb" title="The language of menus, buttons and tips; drawings and files are never translated">Language<i>›</i></button><div class="menu"><button data-a="lgEn" title="The main language, the most tested">English</button><button data-a="lgZh" title="Menus, buttons and tips in Chinese (beta): some messages stay in English; everything works as in English">中文（测试版）</button><hr><div class="sub"><button class="sb" title="The font of the interface's Latin letters and numbers; drawings are not affected">English font<i>›</i></button><div class="menu" id="mUfE"></div></div><div class="sub"><button class="sb" title="The font of Chinese in the interface, also in file and layer names; drawings are not affected">Chinese font<i>›</i></button><div class="menu" id="mUfZ"></div></div></div></div></div></div>
+<div class="dd"><button class="ddb">View<i class="ca"></i></button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><div class="sub" id="mBkM"><button class="sb" title="Arrange the panels: presets, the sections shown, lock, export">Layout<i>›</i></button><div class="menu"><button data-a="bkMy" title="The last arrangement you made by hand">My layout</button><button data-a="bkDf" title="The usual panel: every section in the right column">Default</button><button data-a="bkTx" title="Text floats beside the figure; the other sections stay on the right">Text</button><button data-a="bkAi" title="SVG Chat on the right, the main sections on the left">AI drawing</button><button data-a="bkSm" title="Used by itself below 1100 px">Small screen</button><hr><div class="sub"><button class="sb" title="Show or hide each section, Layers and SVG Chat">Blocks<i>›</i></button><div class="menu" id="mBkB"></div></div><hr><button data-a="bkLock" title="Stop sections from being moved, floated or hidden">Lock layout</button><hr><button data-a="bkExp" title="Save the arrangement as a JSON file">Export layout…</button><button data-a="bkImp" title="Load an arrangement saved with Export layout">Import layout…</button></div></div><button data-a="bkReset" title="Every section back to its place, sizes too">Reset layout</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button><hr><div class="sub"><button class="sb" title="The language of menus, buttons and tips; drawings and files are never translated">Language<i>›</i></button><div class="menu"><button data-a="lgEn" title="The main language, the most tested">English</button><button data-a="lgZh" title="Menus, buttons and tips in Chinese (beta): some messages stay in English; everything works as in English">中文（测试版）</button><hr><div class="sub"><button class="sb" title="The font of the interface's Latin letters and numbers; drawings are not affected">English font<i>›</i></button><div class="menu" id="mUfE"></div></div><div class="sub"><button class="sb" title="The font of Chinese in the interface, also in file and layer names; drawings are not affected">Chinese font<i>›</i></button><div class="menu" id="mUfZ"></div></div></div></div></div></div>
 <div class="dd" id="mFgD"><button class="ddb">FigKit<i class="ca"></i></button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgBc" title="Give pictures of the same size the same crop, in their own pixels">Batch crop…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="lib" title="Your own assets: save a selection, insert it again at its size; kept in this browser, export to keep a copy">Library</button><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
 </div>
 <!-- ══ 17 Tools and ghost ══ -->
@@ -378,19 +419,21 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div><svg id="mGF" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><svg id="mCrS" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true"><mask id="mCrM" maskUnits="userSpaceOnUse"><rect id="mCrO" fill="#6b6b6b"/><rect id="mCrI" fill="#fff"/></mask></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mBk" hidden title="Centre the page in the window (Ctrl+0 fits it)"><svg viewBox="0 0 16 16"><path d="M2.5 3.5h11v9h-11zM8 6v4M6 8h4"/></svg>Back to page</button><div id="mQb" hidden><button data-a="qbPlain" data-q="ln" title="Plain line: no heads"><svg viewBox="0 0 16 16"><path d="M2.5 8h11"/></svg></button><button data-a="qbArrow" data-q="ln" title="Arrow: a head at the end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9.5 4.5 13 8l-3.5 3.5"/></svg></button><button data-a="qbInh" data-q="ln" title="Inhibition: a blunt end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M13 4v8"/></svg></button><button data-a="qbText" data-q="sh" title="Type inside the shape"><svg viewBox="0 0 16 16"><path d="M4 4.5V3h8v1.5M8 3v10M6.5 13h3"/></svg></button><button data-a="cropI" data-q="im" title="Crop image"><svg viewBox="0 0 16 16"><path d="M4 1.5v10.5h10.5M1.5 4h10.5v10.5"/></svg></button><button data-a="qbDash" data-q="ds" title="Dashed or solid line"><svg viewBox="0 0 16 16"><path d="M1.5 8h3M6.5 8h3M11.5 8h3"/></svg></button></div><button id="mGc" hidden title="Remove every guide (also View › Clear guides)"></button><div id="mCr" hidden><button id="mCrA" title="Apply the crop (Enter or double-click)">Apply crop</button><button id="mCrX" title="Cancel (Esc)">Cancel</button></div><div id="mBz" hidden><i></i><span></span></div><div id="mQ" hidden><div><span class="qi"><input id="mQf" placeholder="Find" spellcheck="false" autocomplete="off"><button id="mQc" title="Match case">Aa</button><button id="mQw" title="Whole word"><u>ab</u></button></span><span id="mQn"></span><button id="mQp" title="Previous (Shift+Enter)">↑</button><button id="mQx" title="Next (Enter)">↓</button><button id="mQl" title="List the matches in Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button><button id="mQz" title="Close (Esc)">×</button></div><div><input id="mQr" placeholder="Replace" spellcheck="false" autocomplete="off"><button id="mQo" title="Replace this one and go to the next (Enter)">Replace</button><button id="mQa" title="Replace every match">All</button></div></div><div id="mDk"><button id="mPb" data-a="props" title="Properties: hide or show the side panel"><svg viewBox="0 0 16 16"><path d="M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z"/></svg><span>Properties</span></button><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg><span>Layers</span></button></div></div>
 <!-- ══ 53 Layers ══ -->
 <div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLm" hidden><span></span><button title="Back to every object (closes Find and replace)">×</button></div><div id="mLl"><div></div></div></div>
+<!-- ══ 45b Layout ══ -->
+<div id="mSideL" class="bkh e0"></div><div id="mBkSpL" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkSpR" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkZl" class="bkz" hidden>Dock left</div><div id="mBkZr" class="bkz" hidden>Dock right</div><div id="mBkIn" hidden></div><div id="mBkSx" class="bksn" hidden></div><div id="mBkSy" class="bksn" hidden></div><input type="file" id="mBkF" accept=".json,application/json" hidden>
 <!-- ══ 13 Side panel ══ -->
-<div id="mSide">
+<div id="mSide" class="bkh">
 <header id="mPh"><b>Properties</b><small id="mKind"></small><button data-a="props" title="Hide; the Properties tab at the canvas's right edge shows it again" aria-label="Hide">×</button></header>
-<section><h4>Page <small>mm</small></h4><div>
+<section data-b="page"><h4>Page <small>mm</small></h4><div>
 <div class="row"><select data-f="pg" id="mPg" title="Page size"><option value="">Custom</option><option value="210,297">A4</option><option value="297,420">A3</option><option value="148,210">A5</option><option value="215.9,279.4">US Letter</option></select><span class="seg ic o"><button data-a="portrait" title="Portrait"><svg viewBox="0 0 16 16"><rect x="4.5" y="2" width="7" height="12" rx="1.2"/></svg></button><button data-a="landscape" title="Landscape"><svg viewBox="0 0 16 16"><rect x="2" y="4.5" width="12" height="7" rx="1.2"/></svg></button></span></div>
 <div class="g2"><label class="f">W<input type="number" step="1" min="1" data-f="pw"></label><label class="f">H<input type="number" step="1" min="1" data-f="ph"></label></div>
 <div class="row"><button data-a="fitPage" title="Resize the page to the drawing (1 mm margin). Anything outside the page is not exported.">Fit page to content</button></div></div></section>
-<section class="sx"><h4>Transform <small>mm</small></h4><div>
+<section data-b="transform" class="sx"><h4>Transform <small>mm</small></h4><div>
 <div class="g2" id="mTf"><label class="f">X<input type="number" step="0.1" data-f="x"></label><label class="f">Y<input type="number" step="0.1" data-f="y"></label>
 <label class="f">W<input type="number" step="0.1" data-f="w"></label><label class="f">H<input type="number" step="0.1" data-f="h"></label>
 <label class="f" title="Rotation angle in degrees (counterclockwise)">↻<input type="number" data-f="r"><em>°</em></label><label class="tgb" title="Keep the width-to-height ratio when W or H is typed"><input type="checkbox" id="mLock" checked><svg viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5 7.5 13A2.5 2.5 0 0 1 4 9.5L5.5 8"/></svg>Lock ratio</label>
 <div class="seg ic fl"><button data-a="flipH" title="Flip horizontal: mirror left to right about the selection's centre (Shift+H)"><svg viewBox="0 0 16 16"><path class="ax" d="M8 1.5v2M8 7v2M8 12.5v2"/><path d="M2 3.5v9L6 8z"/><path class="ho" d="M14 3.5v9L10 8z"/></svg></button><button data-a="flipV" title="Flip vertical: mirror top to bottom about the selection's centre (Shift+V)"><svg viewBox="0 0 16 16"><path class="ax" d="M1.5 8h2M7 8h2M12.5 8h2"/><path d="M3.5 2h9L8 6z"/><path class="ho" d="M3.5 14h9L8 10z"/></svg></button></div></div></div></section>
-<section class="sx"><h4>Align</h4><div>
+<section data-b="align" class="sx"><h4>Align</h4><div>
 <div class="seg ic">
 <button data-a="al" title="Align left"><svg viewBox="0 0 16 16"><path d="M2 1v14"/><rect x="4" y="3" width="10" height="4"/><rect x="4" y="9" width="6" height="4"/></svg></button>
 <button data-a="ac" title="Align horizontal centers"><svg viewBox="0 0 16 16"><path d="M8 1v14"/><rect x="3" y="3" width="10" height="4"/><rect x="5" y="9" width="6" height="4"/></svg></button>
@@ -400,12 +443,12 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <button data-a="ab" title="Align bottom"><svg viewBox="0 0 16 16"><path d="M1 14h14"/><rect x="3" y="2" width="4" height="10"/><rect x="9" y="6" width="4" height="6"/></svg></button>
 </div>
 <select id="mRel"><option value="">Relative to selection</option><option value="1">Relative to page</option></select></div></section>
-<section class="sx"><h4>Arrange</h4><div>
+<section data-b="arrange" class="sx"><h4>Arrange</h4><div>
 <div class="row"><button data-a="group" title="Group (Ctrl+G)">Group</button><button data-a="ungroup" title="Ungroup one level (Ctrl+Shift+G); Alt+click or Ctrl+Alt+Shift+G ungroups all levels">Ungroup</button></div>
 <div class="row"><button data-a="top" title="Bring to front (Ctrl+Shift+])">Bring to front</button><button data-a="up" title="Bring forward (Ctrl+])">Forward</button></div>
 <div class="row"><button data-a="bot" title="Send to back (Ctrl+Shift+[)">Send to back</button><button data-a="dn" title="Send backward (Ctrl+[)">Backward</button></div>
 </div></section>
-<section id="mTsec"><h4>Text</h4><div>
+<section data-b="text" id="mTsec"><h4>Text</h4><div>
 <div id="mTs"><div id="mTx" class="ed" spellcheck="false" data-ph="Select one text to edit it here" title="The selected text: type here and the canvas follows; Enter starts a new line, Esc or a click elsewhere finishes. Select characters to restyle only them"></div>
 <div class="kv"><span>Font</span><label class="f"><input list="mFonts" data-f="ff"></label>
 <span>Size</span><div><label class="f"><input type="number" step="0.5" min="0.5" data-f="fs"><em>pt</em></label><label class="f c" title="Text colour"><input type="color" data-f="tc"><span class="hx"></span></label></div></div>
@@ -415,14 +458,14 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <button data-a="tar" title="Text right: lines end at the anchor point; the text keeps its place"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="2.5"/><rect x="6" y="6.75" width="8" height="2.5"/><rect x="4" y="10.5" width="10" height="2.5"/></svg></button>
 </span></div></div>
 <datalist id="mFonts"><option>Arial<option>Helvetica<option>Liberation Sans<option>Times New Roman<option>Courier New<option>Symbol</datalist></div></section>
-<section><h4>Appearance</h4><div>
+<section data-b="appearance"><h4>Appearance</h4><div>
 <div class="kv ap" id="mAp"><div class="r"><span>Fill</span><div><label class="f c"><input type="color" data-f="fill" title="Fill colour"><span class="hx"></span></label><label class="nn" title="No fill"><input type="checkbox" data-f="nofill"><i></i></label></div></div>
 <div class="r"><span>Stroke</span><div><label class="f c"><input type="color" data-f="stroke" title="Stroke colour"><span class="hx"></span></label><label class="nn" title="No stroke"><input type="checkbox" data-f="nostroke"><i></i></label></div></div>
 <div class="r"><span>Width</span><div><label class="f"><input type="number" step="0.1" min="0" data-f="sw"><em>pt</em></label><select data-f="dash" title="Line style"><option value="">Solid</option><option value="d">Dashed</option><option value="o">Dotted</option></select></div></div>
 <div class="r hd"><span>Heads</span><div><select data-f="h0" title="Head at the start of the line or path"><option value="">None</option><option value="arrow">Arrow</option><option value="open">Open</option><option value="stealth">Stealth</option><option value="inhibit">Bar</option><option value="dot">Dot</option><option value="tri">Triangle</option><option value="dia">Diamond</option><option value="diaf">Filled diamond</option><option value="x" hidden>Custom</option></select><button data-a="hsw" class="ib" title="Swap the start and end heads">⇄</button><select data-f="h1" title="Head at the end of the line or path"><option value="">None</option><option value="arrow">Arrow</option><option value="open">Open</option><option value="stealth">Stealth</option><option value="inhibit">Bar</option><option value="dot">Dot</option><option value="tri">Triangle</option><option value="dia">Diamond</option><option value="diaf">Filled diamond</option><option value="x" hidden>Custom</option></select></div></div>
 <div class="r hd ks"><span>Scale</span><div><label class="f" title="Size of the start head, % of the original; heads also grow with the line width"><input type="number" step="25" min="10" data-f="k0"><em>%</em></label><button data-a="hlk" class="ib" title="Link the start and end scales"><svg viewBox="0 0 16 16"><path d="M6.5 9.5l3-3M7 4.5l1.5-1.5a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5 7.5 13A2.5 2.5 0 0 1 4 9.5L5.5 8"/></svg></button><label class="f" title="Size of the end head, %; new arrows and blunt ends use the last size"><input type="number" step="25" min="10" data-f="k1"><em>%</em></label></div></div>
 <div class="r"><span>Opacity</span><div><label class="f"><input type="number" min="0" max="100" step="5" data-f="op"><em>%</em></label><span></span></div></div></div></div></section>
-<section><h4>All text</h4><div>
+<section data-b="alltext"><h4>All text</h4><div>
 <div class="row"><button data-a="arial">All to Arial</button></div>
 <div id="mSizes"></div></div></section>
 </div><div id="mPop" class="win" hidden><header><span id="mPopI"></span><b id="mPopT"></b><button id="mPopX" title="Close (Esc)">×</button></header>
@@ -568,7 +611,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 </div>
 </div>
 <!-- ══ 50 History and status bar ══ -->
-<div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets"><i class="ca"></i></button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
+<div id="mSt"><span id="mDoc" title="File, number of objects and memory used by the page"></span><span id="mMsg"></span><span id="mCtx"></span><span id="mSel"></span><i></i><span id="mBkSm" hidden title="Your own layout comes back when the window is wider">Small screen layout</span><span id="mRt"><span id="mPos" title="Pointer position on the page"></span><span id="mLat"></span></span><div id="mZw"><div class="dd"><input id="mZoom" spellcheck="false" autocomplete="off" title="Zoom: type a percentage and press Enter"><button class="ddb" title="Zoom presets"><i class="ca"></i></button><div class="menu" id="mZm"></div></div><button data-a="zout" title="Zoom out (Ctrl+-)">−</button><input type="range" id="mZs" min="0" max="1000" step="1" title="Zoom: 5% to 2000%"><button data-a="zin" title="Zoom in (Ctrl+=)">+</button></div><button data-a="theme"><svg class="kg" viewBox="0 0 16 16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z"/><path class="kf" d="M8 2a6 6 0 0 0 0 12z"/></svg></button></div>
 <!-- ══ 05 Opening ══ -->
 <input type="file" id="mFile" accept=".svg,image/svg+xml,.pdf,application/pdf,.ai,.cdr,image/png,image/jpeg,image/gif,image/webp,.tif,.tiff,image/tiff" hidden>
 <!-- ══ 32 Context menu ══ -->
@@ -597,6 +640,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 <section><h4>Select</h4><dl><dt>Click</dt><dd>Select what is under the pointer (outlined as you hover)</dd><dt>Right-click</dt><dd>Menu of common actions</dd><dt><kbd>Shift</kbd>+click</dt><dd>Add to or remove from the selection</dd><dt><kbd>Ctrl</kbd>+click</dt><dd>Select its whole group</dd><dt>Drag on empty</dt><dd>Box select everything the box touches (also on a page background); with <kbd>Ctrl</kbd>, whole objects; <kbd>Shift</kbd>+drag adds, and also starts over objects</dd><dt><kbd>Alt</kbd>+drag on empty</dt><dd>Box select only what is fully inside; View › Box select touches swaps the two</dd><dt><kbd>Alt</kbd>+click</dt><dd>Select the object below; again to go deeper</dd><dt><kbd>Esc</kbd></dt><dd>Select the enclosing group, then nothing</dd><dt><kbd>Ctrl+A</kbd></dt><dd>Select all in the group; <kbd>Ctrl+Shift+A</kbd> deselects</dd></dl></section>
 <section><h4>Move and resize</h4><dl><dt>Drag</dt><dd>Move, also by the centre dot; snaps to the page and objects (<kbd>Ctrl</kbd>: off); <kbd>Shift</kbd>: 45°</dd><dt><kbd>Alt</kbd>+drag</dt><dd>Move a copy; <kbd>Ctrl+D</kbd> repeats</dd><dt><kbd>← ↑ → ↓</kbd></dt><dd>Nudge 0.1 mm; with <kbd>Shift</kbd> 1 mm</dd><dt>Corner handle</dt><dd>Scale (<kbd>Shift</kbd>: freely); click it, or double-click a shape, to drag single points</dd><dt>Side handle</dt><dd>Stretch; on text, re-wrap at that width</dd><dt>Other handles</dt><dd>Rotate (<kbd>Shift</kbd>: 15°), round a rectangle's corners, move a line's ends (they snap to objects; <kbd>Shift</kbd>: 45°), bend it by the diamond in its middle (<kbd>Shift</kbd>: symmetric; back onto the line straightens it)</dd><dt>Number field</dt><dd>Drag sideways to change it (<kbd>Shift</kbd>: finer, <kbd>Ctrl</kbd>: ten steps); <kbd>Esc</kbd> puts it back; click to type</dd><dt>Type a sum</dt><dd>Number fields take sums and units: 85/2, 3.5in, 2*(10+4)</dd></dl></section>
 <section><h4>View</h4><dl><dt>Wheel</dt><dd>Scroll (<kbd>Shift</kbd>: sideways), or drag the scrollbars</dd><dt><kbd>Ctrl</kbd>+wheel</dt><dd>Zoom (also <kbd>Alt</kbd>+wheel, or pinch)</dd><dt>Drag to an edge</dt><dd>Scrolls the view while you move, size or box select</dd><dt><kbd>Space</kbd>+drag</dt><dd>Pan (or the middle button)</dd><dt><kbd>Ctrl+0</kbd></dt><dd>Fit; <kbd>Ctrl+1</kbd> actual size, <kbd>Ctrl+=</kbd> <kbd>Ctrl+-</kbd> zoom</dd><dt>Zoom box</dt><dd>Bottom right: type a %, pick one, or drag the slider</dd><dt><kbd>Ctrl+R</kbd></dt><dd>Rulers: click to pin a guide, click its mark to remove it; <kbd>Ctrl+'</kbd> grid</dd><dt><kbd>Ctrl+Shift+L</kbd></dt><dd>Layers (also <kbd>F7</kbd>, or the button at the canvas's top right): every object, front first; click one to select it, click it again to edit its properties in a window</dd><dt>Properties tab</dt><dd>Above the Layers tab: hides or shows the side panel (also View › Properties)</dd><dt><kbd>?</kbd></dt><dd>This help; <kbd>Ctrl+K</kbd> search and run any command</dd></dl></section>
+<section><h4>Layout</h4><dl><dt>Move sections</dt><dd>Drag a section by the dotted grip at the left of its title: drop it between two sections, on the other column or on the canvas. The arrangement is kept in this browser; View › Reset layout puts everything back.</dd><dt>Float a section</dt><dd>The window button at the right of a section's title lifts it out as a floating window: drag it by its title, resize it from the bottom-right corner. Click the button again to dock it back.</dd><dt>Right-click a title</dt><dd>Float, dock left or right, collapse, hide; Show only when it applies, for floating sections. View › Layout has presets, Blocks, Lock layout, Export and Import</dd></dl></section>
 </div>
 <div>
 <section><h4>Draw</h4><dl><dt><kbd>V</kbd> <kbd>T</kbd></dt><dd>Select (also <kbd>Esc</kbd>); text: click to type or to edit</dd><dt><kbd>M</kbd> <kbd>L</kbd> <kbd>\</kbd></dt><dd>Rectangle, ellipse, line; <kbd>Shift</kbd>: square, circle, 45°</dd><dt><kbd>A</kbd> <kbd>B</kbd></dt><dd>Arrow, inhibition (blunt end), in one button with the line; ends snap to objects' points and outlines (<kbd>Ctrl</kbd>: off) and stay attached as the objects move; moving the arrow itself detaches it; Heads and Scale in Appearance set each end</dd><dt><kbd>W</kbd> <kbd>E</kbd> <kbd>{</kbd></dt><dd>Wedge (drag from the thin end), elbow connector (attaches like an arrow; its diamond moves the middle), brace (drag along what it groups: left to right points up)</dd><dt><kbd>Enter</kbd></dt><dd>More shapes (flowchart, block arrows, symbols, UML), in the grid button under the ellipse: drag to draw; double-click one, or a rectangle or an ellipse, to type inside it (any other closed shape: select it and press Enter; point editing: click a corner handle). Triangle and diamond line heads are under Heads in Properties. The text stays centred on its shape; click it once more to select the text itself</dd><dt><kbd>I</kbd></dt><dd>Eyedropper: click an object to give the selection its style; <kbd>Alt</kbd>+click gives an object the picked style</dd><dt><kbd>C</kbd></dt><dd>Crop a photo: click it, drag the handles; Enter applies, Esc cancels</dd><dt>Colours</dt><dd>Every colour field opens the same picker: drag the square and the hue bar, or type or paste a code (#2F6DB5, rgb(47, 109, 181), a colour name); a pasted code applies at once and the copy button copies the HEX code. Its swatches are the figure's colours, recent ones and palettes (My palette is FigKit › Colours' palette); its eyedropper picks colours from the figure and its pictures in any modern browser; the screen button also picks outside the page where supported</dd><dt>Swatches</dt><dd>Fill and stroke of the selection, or of new shapes; <kbd>Shift+X</kbd> swaps, <kbd>D</kbd> sets none and black, <kbd>/</kbd> removes the one in front</dd></dl></section>
@@ -696,6 +740,7 @@ body.noP{grid-template-columns:48px 1fr 0}body.noP.chat{grid-template-columns:48
 // 42 Auto-save to a folder: folder writes through File System Access
 // 43 Save: Ctrl+S, save as
 // 45a Windows: the floating windows' cascading order
+// 45b Layout: the composable layout: blocks docked left or right or floating, the generated grid, presets, sgLayout/sgFloat
 // 46 Actions: A: the action behind every data-a button
 // 47 FigKit wiring: FigKit actions and window events
 // 48 More actions: zoom steps, z-order, anchors, chat, guides
@@ -835,7 +880,7 @@ const PROMPT={
   panel:(g,[x0,y0,x1,y1])=>` Draw only panel "${g}", whose items are listed below, with width="${fm((x1-x0)/10)}mm" height="${fm((y1-y0)/10)}mm" viewBox="${x0} ${y0} ${x1-x0} ${y1-y0}", so that the coordinates stay those of the description.`,
   cur:x=>`\n\nThe current figure, including any edits the user made by hand, as SVG:\n\`\`\`svg\n${x}\n\`\`\`\nTo change it, reply with a short sentence and a <patch>...</patch> block instead of a full SVG, unless most of it changes. Inside the patch, an element with the id of an existing one replaces it (children included), <delete ids="id1 id2"/> removes elements, and <add after="id">...</add> inserts new elements after that one (without after, at the end). Keep the ids as they are.`};
 // KI: command palette icons by data-a, 'stroke path|fill path'; add one with every new menu command
-const KI={help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',lib:'M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z',news:'M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1',lgEn:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',lgZh:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',libAdd:'M2.5 6h11v7.5h-11zM1.5 3.5h13V6h-13zM8 7.5v4.5M5.75 9.75h4.5',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',
+const KI={bkFloat:'M5.5 2.5h8v7.5h-8zM10.5 10v2.5a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2',bkLayout:'M1.5 2.5h13v11h-13zM10.5 2.5v11M10.5 6.5h4M10.5 10h4',bkExp:'M8 10V2M5 5l3-3 3 3M2.5 9.5v4h11v-4',bkImp:'M8 2v8M5 7l3 3 3-3M2.5 9.5v4h11v-4',bkApply:'M2.5 3.5h11v9h-11zM5 8l2 2 4-4',help:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM6.1 6.2a2 2 0 1 1 2.6 1.9c-.5.2-.7.6-.7 1.1v.6M8 11.5v.2',chat:'M2.5 3h11v7.5H8L4.5 13v-2.5h-2z',props:'M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z',lib:'M2 2.5h3v11H2zM6 2.5h3v11H6zM10.2 3.3l2.9-.8 2.4 10.4-2.9.8z',news:'M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1',lgEn:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',lgZh:'M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM1.5 8h13M8 1.5c-2.2 2.2-2.2 10.8 0 13M8 1.5c2.2 2.2 2.2 10.8 0 13',libAdd:'M2.5 6h11v7.5h-11zM1.5 3.5h13V6h-13zM8 7.5v4.5M5.75 9.75h4.5',theme:'M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z|M8 2a6 6 0 0 0 0 12z',
   new:'M3.5 1.5h6l3 3v10h-9zM9.5 1.5v3h3M8 7v5M5.5 9.5h5',open:'M1.5 13V3h4L7 4.5h5.5V7M1.5 13l2-6h11l-2 6z',imp:'M1.5 3h13v10h-13zM1.5 11 5 7.5l3 3 2-2 3.5 3.5|M11 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z',
   svg:'M2.5 2.5h9l2 2v9h-11zM5 2.5V6h5V2.5M5 13.5v-4h6v4',svgAs:'M8 13.5H2.5v-11h9l2 2V7M5 2.5V6h5V2.5M9 14.5l.5-2 4-4 1.5 1.5-4 4z',png:'M9.5 3h-8v10h11V8.5M1.5 11l3-3 2.5 2.5 2-2 3 3M11 1.5h3.5V5M14.5 1.5 10 6',
   pdf:'M4.5 6V1.5h7V6M4.5 11.5h-3V6h13v5.5h-3M4.5 9.5h7v5h-7z',undo:'M5 3 2 6l3 3M2 6h7.5a3.5 3.5 0 0 1 0 7H7',redo:'M11 3l3 3-3 3M14 6H6.5a3.5 3.5 0 0 0 0 7H9',copy:'M5.5 5.5h8v8h-8zM10.5 5.5v-3h-8v8h3',
@@ -871,15 +916,15 @@ const UFE=['Arial','Helvetica','Helvetica Neue','Segoe UI','Roboto','Inter','Cal
 // WN: the What's new card for this version (60a), rewritten for each release: the hero (a small picture of the main
 // new feature: tiles [colour, shape r/c/l, m: l mirrored], fields, files, shapes, or glyphs [character, m|s: the two
 // embedded interface fonts]), its one-line lead, and four more rows [icon path, title, line]
-const WN={chip:'New · Interface fonts',
-  // glyphs: the hero's tiles (v1.7: the interface's own fonts, shown in themselves)
-  glyphs:[['A',''],['g',''],['123',''],['→',''],['字','c'],['中','c'],['文','c'],['⇄','c']],
+const WN={chip:'New · Your own layout',
+  // layout: the hero is a small picture of the composable layout (v1.8): a canvas, a docked column, a window snapped beside it
+  layout:1,
   tiles:[],
-  lead:'The interface now carries its own two open-licensed fonts, Inter and Noto Sans SC, built into the file: menus, panels and dialogs look the same on every computer, and drawings are untouched.',
-  items:[['M2.5 5h8v8h-8zM5.5 5V2.5h8v8H11','One look everywhere','Windows, macOS, Linux and TBtools draw the same interface in the same two fonts; nothing depends on what the computer has installed.'],
-    ['M2.5 3.5h11v6.5H8.5l-3 2.5v-2.5h-3z','Chinese built in','The Chinese interface (中文（测试版）) uses an embedded subset of Noto Sans SC: the interface\'s own characters, with Chinese punctuation.'],
-    ['M2.5 4h5M2.5 7h5M2.5 10h3.5M10.5 4.5l2 2 3-3.5','Your pick still wins','View › Language › English font and Chinese font still offer installed fonts; a pick replaces the embedded one for that language.'],
-    ['M2.5 2.5h11v11h-11zM2.5 10.5l3-2.5 2.5 2 2-1.5 3.5 3','Drawings untouched','Text on the canvas, SVG files and every export are exactly as before: the two fonts are for the interface only.']]};
+  lead:'Arrange the panels your way: drag a section by its ⠿ handle to reorder it, drop it in a left or right column, or pull it onto the canvas as a small window.',
+  items:[['M5.5 2.5h8v7.5h-8zM10.5 10v2.5a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2','Float any section','Text, Appearance or any other section can float beside your figure; it fades while you drag objects under it.'],
+    ['M1.5 2.5h13v11h-13zM10.5 2.5v11M10.5 6.5h4M10.5 10h4','Two dock columns','Dock sections on the left or the right, and drag a column\'s edge to make it wider.'],
+    ['M13.5 6.5A5.5 5.5 0 0 0 3.2 5M2.5 9.5a5.5 5.5 0 0 0 10.3 1.5M3 2v3h3M13 14v-3h-3','Presets and reset','View › Layout has Default, Text, AI drawing and Small screen; Reset brings back the usual panel.'],
+    ['M2.5 3.5h11v9h-11zM5 8l2 2 4-4','Nothing to relearn','Until you move something the panel looks as before, collapsed sections included. Layouts stay in this browser and export as JSON.']]};
 // LBD: the Library's demo assets, placed once in a new Library (29a)
 const LBD=[['svguest/svguest logo.svg','<svg xmlns="http://www.w3.org/2000/svg" viewBox="11 21 863 195" width="40mm" height="9.04mm"><g fill="none" stroke="#1c1c1c"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="10"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="7.5"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="9"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="9"/></g><path fill="#1c1c1c" d="M367.9 151.9Q367.9 164.4 357.7 171.5Q347.5 178.6 329.4 178.6Q311.7 178.6 302.3 173Q292.8 167.4 289.7 155.5L309.4 152.6Q311 158.7 315.1 161.3Q319.2 163.8 329.4 163.8Q338.8 163.8 343.1 161.4Q347.4 159 347.4 153.9Q347.4 149.8 343.9 147.4Q340.5 144.9 332.2 143.3Q313.3 139.5 306.7 136.3Q300.1 133.1 296.6 128Q293.1 122.8 293.1 115.4Q293.1 103 302.7 96.1Q312.2 89.3 329.6 89.3Q344.9 89.3 354.3 95.2Q363.6 101.2 365.9 112.5L346.1 114.6Q345.2 109.3 341.4 106.7Q337.7 104.1 329.6 104.1Q321.6 104.1 317.6 106.2Q313.7 108.2 313.7 113Q313.7 116.7 316.7 118.9Q319.8 121.1 327 122.5Q337.1 124.6 345 126.8Q352.8 129 357.5 132Q362.3 135 365.1 139.7Q367.9 144.5 367.9 151.9ZM428.7 177H401.9L371.2 90.9H394.8L409.8 139.1Q411 143 415.5 158.9Q416.3 155.7 418.7 147.5Q421.2 139.3 437 90.9H460.4ZM504.5 211.5Q488.7 211.5 479.1 205.5Q469.5 199.5 467.3 188.4L489.7 185.7Q490.9 190.9 494.8 193.9Q498.7 196.8 505.1 196.8Q514.4 196.8 518.7 191.1Q523 185.4 523 174.1V169.5L523.1 161H523Q515.6 176.8 495.3 176.8Q480.3 176.8 472 165.5Q463.7 154.3 463.7 133.3Q463.7 112.2 472.2 100.7Q480.8 89.3 497 89.3Q515.8 89.3 523 104.8H523.4Q523.4 102 523.7 97.2Q524.1 92.4 524.5 90.9H545.7Q545.2 99.5 545.2 110.8V174.4Q545.2 192.7 534.8 202.1Q524.3 211.5 504.5 211.5ZM523.1 132.8Q523.1 119.5 518.4 112.1Q513.7 104.6 504.9 104.6Q487 104.6 487 133.3Q487 161.3 504.8 161.3Q513.7 161.3 518.4 153.9Q523.1 146.5 523.1 132.8ZM584.9 90.9V139.2Q584.9 161.9 600.2 161.9Q608.3 161.9 613.3 154.9Q618.3 148 618.3 137.1V90.9H640.6V157.8Q640.6 168.7 641.3 177H619.9Q619 165.5 619 159.9H618.6Q614.1 169.7 607.2 174.1Q600.4 178.6 590.9 178.6Q577.2 178.6 569.9 170.2Q562.6 161.8 562.6 145.6V90.9ZM694.5 178.6Q675.1 178.6 664.7 167.1Q654.3 155.6 654.3 133.6Q654.3 112.3 664.9 100.8Q675.4 89.3 694.8 89.3Q713.4 89.3 723.2 101.6Q732.9 113.9 732.9 137.6V138.3H677.7Q677.7 150.8 682.4 157.2Q687.1 163.6 695.6 163.6Q707.5 163.6 710.6 153.4L731.7 155.2Q722.5 178.6 694.5 178.6ZM694.5 103.4Q686.7 103.4 682.4 108.9Q678.1 114.4 677.9 124.3H711.3Q710.7 113.8 706.3 108.6Q701.9 103.4 694.5 103.4ZM818.4 151.9Q818.4 164.4 808.1 171.5Q797.9 178.6 779.9 178.6Q762.1 178.6 752.7 173Q743.3 167.4 740.2 155.5L759.8 152.6Q761.5 158.7 765.6 161.3Q769.7 163.8 779.9 163.8Q789.2 163.8 793.5 161.4Q797.8 159 797.8 153.9Q797.8 149.8 794.4 147.4Q790.9 144.9 782.6 143.3Q763.7 139.5 757.1 136.3Q750.5 133.1 747 128Q743.6 122.8 743.6 115.4Q743.6 103 753.1 96.1Q762.6 89.3 780 89.3Q795.4 89.3 804.7 95.2Q814.1 101.2 816.4 112.5L796.6 114.6Q795.6 109.3 791.9 106.7Q788.1 104.1 780 104.1Q772.1 104.1 768.1 106.2Q764.1 108.2 764.1 113Q764.1 116.7 767.2 118.9Q770.2 121.1 777.5 122.5Q787.6 124.6 795.4 126.8Q803.2 129 808 132Q812.7 135 815.5 139.7Q818.4 144.5 818.4 151.9ZM854.4 178.4Q844.5 178.4 839.2 173.1Q833.9 167.7 833.9 156.8V106H823V90.9H835L842 70.7H856V90.9H872.3V106H856V150.8Q856 157 858.3 160Q860.7 163 865.7 163Q868.4 163 873.2 161.9V175.7Q865 178.4 854.4 178.4Z"/></svg>'],['svguest/TBtools-II.svg','<svg xmlns="http://www.w3.org/2000/svg" width="12mm" height="12mm" viewBox="0 0 16 16"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg>']];
 // CAND: font names tested (hasF) where queryLocalFonts is unavailable
@@ -908,6 +953,65 @@ const PGN={space:' ',exclam:'!',quotedbl:'"',numbersign:'#',dollar:'$',percent:'
 // A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).
 // lgDom() walks the interface once at startup and when the language is switched, never the drawing, the chats, the Layers rows, the tabs or anything the user typed; it keeps each original on its node (_o, _a), so switching back is exact.
 const ZH={
+ "Arrange the panels: presets, the sections shown, lock, export":"摆放面板：预设、显示哪些分区、锁定、导出",
+ "Layout":"布局",
+ "The last arrangement you made by hand":"你上一次手动调整的布局",
+ "My layout":"我的布局",
+ "The usual panel: every section in the right column":"常规面板：所有分区都在右栏",
+ "Default":"默认",
+ "Text floats beside the figure; the other sections stay on the right":"Text 浮在图旁边，其余分区留在右栏",
+ "AI drawing":"AI 绘图",
+ "SVG Chat on the right, the main sections on the left":"SVG Chat 在右侧，主要分区在左栏",
+ "Small screen":"小屏幕",
+ "Used by itself below 1100 px":"窗口窄于 1100 px 时自动使用",
+ "Show or hide each section, Layers and SVG Chat":"显示或隐藏每个分区、图层和 SVG Chat",
+ "Blocks":"分区",
+ "Stop sections from being moved, floated or hidden":"禁止移动、浮动或隐藏分区",
+ "Lock layout":"锁定布局",
+ "Save the arrangement as a JSON file":"把布局保存为 JSON 文件",
+ "Export layout…":"导出布局…",
+ "Load an arrangement saved with Export layout":"载入用“导出布局”保存的布局",
+ "Import layout…":"导入布局…",
+ "Every section back to its place, sizes too":"所有分区回到原位，尺寸也一并复原",
+ "Reset layout":"重置布局",
+ "Drag to resize the column; double-click resets it":"拖动可调整栏宽；双击复原",
+ "Dock left":"停靠到左侧",
+ "Dock right":"停靠到右侧",
+ "Your own layout comes back when the window is wider":"窗口变宽后会恢复你自己的布局",
+ "Small screen layout":"小屏幕布局",
+ "Move sections":"移动分区",
+ "Drag a section by the dotted grip at the left of its title: drop it between two sections, on the other column or on the canvas. The arrangement is kept in this browser; View › Reset layout puts everything back.":"按住分区标题左侧的点状手柄拖动：放在两个分区之间、另一栏或画布上。布局保存在此浏览器中；视图 › 重置布局可全部复原。",
+ "Float a section":"浮动分区",
+ "The window button at the right of a section's title lifts it out as a floating window: drag it by its title, resize it from the bottom-right corner. Click the button again to dock it back.":"分区标题右侧的窗口按钮会把它变成浮动窗口：拖动标题移动，拖动右下角调整大小。再次点击该按钮即可停靠回去。",
+ "Right-click a title":"右键点击标题",
+ "Float, dock left or right, collapse, hide; Show only when it applies, for floating sections. View › Layout has presets, Blocks, Lock layout, Export and Import":"浮动、停靠到左侧或右侧、收起、隐藏；浮动分区还可选“仅在适用时显示”。视图 › 布局里有预设、分区、锁定布局、导出和导入",
+ "Drag to another place in a column, onto the other column or onto the canvas":"拖到本栏的其他位置、另一栏或画布上",
+ "Drag to move; drop it on a column to dock it":"拖动可移动；放到栏上即可停靠",
+ "Float as a window you can move and resize; click again to dock it back":"浮动为可移动、可调整大小的窗口；再次点击停靠回去",
+ "Float or dock":"浮动或停靠",
+ "Shows only when it applies":"仅在适用时显示",
+ "Collapse":"收起",
+ "Expand":"展开",
+ "Hide (View › Layout › Blocks shows it again)":"隐藏（视图 › 布局 › 分区可重新显示）",
+ "waiting":"等待中",
+ "auto":"自动",
+ "Float":"浮动",
+ "Dock":"停靠",
+ "Show only when it applies":"仅在适用时显示",
+ "show only when it applies":"仅在适用时显示",
+ "For floating blocks":"用于浮动分区",
+ "Dock all floating blocks":"停靠所有浮动分区",
+ "SVG Chat":"SVG Chat",
+ "New · Your own layout":"新功能 · 你自己的布局",
+ "Arrange the panels your way: drag a section by its ⠿ handle to reorder it, drop it in a left or right column, or pull it onto the canvas as a small window.":"按你的方式摆放面板：拖动分区的 ⠿ 手柄可重新排序，放到左栏或右栏，或拖到画布上成为小窗口。",
+ "Float any section":"任意分区可浮动",
+ "Text, Appearance or any other section can float beside your figure; it fades while you drag objects under it.":"Text、Appearance 或任何其他分区都可以浮在图旁边；在它下方拖动对象时它会淡出。",
+ "Two dock columns":"两条停靠栏",
+ "Dock sections on the left or the right, and drag a column's edge to make it wider.":"把分区停靠在左侧或右侧，拖动栏的边缘可加宽。",
+ "Presets and reset":"预设与重置",
+ "View › Layout has Default, Text, AI drawing and Small screen; Reset brings back the usual panel.":"视图 › 布局里有默认、文本、AI 绘图和小屏幕；重置可恢复常规面板。",
+ "Nothing to relearn":"无需重新学习",
+ "Until you move something the panel looks as before, collapsed sections included. Layouts stay in this browser and export as JSON.":"在你动手调整之前，面板和以前一样，收起的分区也保持不变。布局保存在此浏览器中，并可导出为 JSON。",
  "Show the colour as RGB, HSB or HSL":"以 RGB、HSB 或 HSL 显示颜色",
  "Hue, 0 to 360°":"色相，0 到 360°",
  "Saturation, 0 to 100%":"饱和度，0 到 100%",
@@ -4803,7 +4907,7 @@ function panel(){popSync();const b=sb,v=(f,x)=>f.value=x==null||isNaN(x)?'':+x.t
   F.fill.classList.toggle('dim',F.nofill.checked);F.stroke.classList.toggle('dim',F.nostroke.checked);const cs=l&&gcs(l);fsw('mFF',cs?cs.fill:pen.fill);fsw('mSF',cs?cs.stroke:pen.stroke);
   let ml=null;for(const s of sel.slice(0,50))if(ml=isGrp(s)?mlIn(s):ML.test(s.localName)&&s)break;
   for(const j of[0,1]){const i=ml&&refId(gcs(ml).getPropertyValue(MP[j*2])),b=i&&i.replace(/_h\d+$/,''),h=F['h'+j],k=F['k'+j];h.value=i?Object.keys(MK).find(t=>MK[t][0]===b)||'x':'';h.disabled=!ml;k.disabled=e?!i:!j;v(k,i?hp(i):e||!j?null:pen.head)}
-  qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100);const N=sel.length,sd=$('mSide');$('mKind').textContent=!N?'Nothing selected':N>1?N+' objects':lyName(e);sd.classList.toggle('nos',!N);sd.classList.toggle('not',!t&&!ed);
+  qa('hsw').disabled=!ml;v(F.op,e&&gcs(e).opacity*100);const N=sel.length;$('mKind').textContent=!N?'Nothing selected':N>1?N+' objects':lyName(e);document.body.classList.toggle('nos',!N);document.body.classList.toggle('not',!t&&!ed);bkAuto();
   hxS(F.fill,l&&(F.nofill.checked?'None':F.fill.value));hxS(F.stroke,l&&(F.nostroke.checked?'None':F.stroke.value));hxS(F.tc,t&&F.tc.value)}
 // mlIn(g): g's first path, line or polyline outside defs and the like: a native query, walking leaves only when that
 // found one inside defs (the leaf walk with a script filter over 50 groups visited ~25k nodes per refresh on svglite
@@ -7675,7 +7779,7 @@ let fh=null;const save=async()=>{const b=new Blob([svgText()],{type:'image/svg+x
   catch(e){if(e.name==='AbortError')return;fh=null;dl(b,n);dirty=false;svd=undos.at(-1)??null;bar();asNow(1);return msg('Exported '+n)}
   dirty=false;svd=undos.at(-1)??null;bar();asNow(1);msg('Exported '+n)};
 // ══ 45a Windows ════
-// Floating windows (.win: FigKit and the Layers window) share one look and stack like windows in
+// Floating windows (.win: FigKit, the Layers window and floating sections, 45b) share one look and stack like windows in
 // classic Windows: they keep their order front to back (WINS, front last), the front one has the active title bar, and
 // one that opens while others are open cascades one title bar down and right of the front one, so every title bar
 // stays in view; with none open it takes its last place, or the first step of the cascade in the canvas's top right.
@@ -7705,6 +7809,819 @@ addEventListener('pointerdown',e=>{
   const w=e.target.closest&&e.target.closest('.win');
   if(w)winTop(w.id);
 },true);
+// ══ 45b Layout ════
+// ── The composable layout (v1.8; AGENTS.md › Composable UI). The blocks are the side panel's seven sections, Layers and
+// SVG Chat. A section docks in the right column (#mSide) or the left one (#mSideL), in any order, or floats in a window of
+// its own (BKW, a .win stacked by winTop); Layers and SVG Chat keep their full-height columns, beside the sections on
+// either side, or float themselves. Nodes are moved, never cloned (as popOpen does), so F, listeners and #mTx keep working.
+// The grid's columns are generated here (bkGrid). State: BL (sgLayout: columns, widths, hidden and collapsed blocks, lock,
+// the preset in use, My layout, whether Properties and SVG Chat are open) and BF (sgFloat: the floating blocks and each
+// window's rectangle); each key is removed while it equals the default, as plsig does. Below 1100 px a Small screen layout
+// (SM) applies by itself and is never saved. Dragging uses pointer events, not HTML5 drag and drop (untried in TBtools).
+const BK=['page','transform','align','arrange','text','appearance','alltext'], // the sections, in their default order
+  BX=[...BK,'layers','chat'], // every block
+  BN={page:'Page',transform:'Transform',align:'Align',arrange:'Arrange',text:'Text',appearance:'Appearance',alltext:'All text',layers:'Layers',chat:'SVG Chat'},
+  BKS=Object.fromEntries(BK.map(b=>[b,document.querySelector(`#mSide>section[data-b=${b}]`)])), // each section
+  BKW={}, // each section's window, made by bkInit
+  BW0=236,BWMIN=200,BWMAX=360,BSM=1100, // a column's width: default, least, most; Small screen below this window width
+  BPRE={bkMy:'my',bkDf:'def',bkTx:'txt',bkAi:'ai',bkSm:'sm'}, // View › Layout's presets
+  bkNew=()=>({v:1,pre:'def',r:BK.slice(),l:[],w:{l:BW0,r:BW0},side:{layers:'r',chat:'r'},hid:[],shut:[],lock:0,p:1,c:0}),
+  bkEl=id=>id==='layers'?$('mLay'):id==='chat'?$('mChat'):BKW[id], // what floats for a block
+  bkCl=w=>round(min(BWMAX,max(BWMIN,w))),
+  bkT=k=>LNG==='zh'&&lgZ(k)||k, // text built after the language pass
+  bkJ=o=>JSON.parse(JSON.stringify(o));
+let BL=bkNew(),BF={keys:[],rect:{}},SM=null,bkSmall=false,BD=null,BM=null,bkRT=0,bkST=0; // layout; floats; Small screen's layout and whether it is on; a block drag; a window move; timers
+const bkLay=()=>bkSmall?SM:BL; // the layout in force
+// bkOk(o): a stored or imported layout made safe (unknown ids and duplicates dropped, widths clamped), null if o isn't one
+function bkOk(o,inner){
+  if(!o||typeof o!=='object'||o.v!==1||!Array.isArray(o.r)||!Array.isArray(o.l))return null;
+  const d=bkNew(),seen=new Set(),ids=a=>a.filter(b=>BK.includes(b)&&!seen.has(b)&&seen.add(b)),ok=a=>Array.isArray(a)?BK.filter(b=>a.includes(b)):[];
+  d.r=ids(o.r);
+  d.l=ids(o.l);
+  for(const s of['l','r'])d.w[s]=bkCl(+(o.w&&o.w[s])||BW0);
+  for(const b of['layers','chat'])d.side[b]=o.side&&o.side[b]==='l'?'l':'r';
+  d.hid=ok(o.hid);
+  d.shut=ok(o.shut);
+  d.lock=o.lock?1:0;
+  d.pre=Object.values(BPRE).includes(o.pre)?o.pre:'my';
+  d.p=o.p===0?0:1;
+  d.c=o.c?1:0;
+  if(!inner&&o.my&&typeof o.my==='object'){
+    const L=bkOk(o.my.L,1);
+    if(L)d.my={L,F:bfOk(o.my.F)};
+  }
+  return d}
+// bfOk(o): the floating blocks and window rectangles, made safe
+function bfOk(o){
+  const f={keys:[],rect:{}},n=v=>typeof v==='number'&&isFinite(v)?round(v):undefined;
+  if(!o||typeof o!=='object')return f;
+  if(Array.isArray(o.keys))f.keys=BX.filter(b=>o.keys.includes(b));
+  for(const b of BX){
+    const r=o.rect&&o.rect[b];
+    if(!r||typeof r!=='object')continue;
+    const q={l:n(r.l),t:n(r.t),w:n(r.w),h:n(r.h)};
+    if(r.shut)q.shut=1;
+    if(r.auto)q.auto=1;
+    if(r.ds==='l'||r.ds==='r')q.ds=r.ds;
+    if(n(r.di)>=0)q.di=n(r.di);
+    for(const k in q)if(q[k]===undefined)delete q[k];
+    f.rect[b]=q;
+  }
+  return f}
+// bkFix(): every section in exactly one place: a column or a window
+function bkFix(){
+  BL.r=BL.r.filter(b=>!BF.keys.includes(b));
+  BL.l=BL.l.filter(b=>!BF.keys.includes(b));
+  for(const b of BK)if(!BL.r.includes(b)&&!BL.l.includes(b)&&!BF.keys.includes(b))BL.r.push(b);
+}
+const bkSnap=()=>bkJ({L:{...BL,my:undefined},F:BF});
+// bkSave(): writes sgLayout and sgFloat, or removes each while it equals the default
+function bkSave(){
+  clearTimeout(bkST);
+  if(BL.pre==='my')BL.my=bkSnap();
+  const d=JSON.stringify(bkNew()),s=JSON.stringify(BL),f=JSON.stringify(BF);
+  try{
+    if(s===d)localStorage.removeItem('sgLayout');
+    else localStorage.sgLayout=s;
+    if(!BF.keys.length&&!Object.keys(BF.rect).length)localStorage.removeItem('sgFloat');
+    else localStorage.sgFloat=f;
+  }catch(_){}
+}
+const bkSaveSoon=()=>{clearTimeout(bkST);bkST=setTimeout(bkSave,300)};
+const bkMine=()=>{BL.pre='my'}; // a change by hand: View › Layout ticks My layout, which follows it
+// bkLoad(): reads the saved layout; once, maps the older sgShut (sections collapsed, by index), sgProps and sgChat into it
+function bkLoad(){
+  let o=null,f=null;
+  try{o=JSON.parse(ls('sgLayout')||'null')}catch(_){}
+  try{f=JSON.parse(ls('sgFloat')||'null')}catch(_){}
+  BL=bkOk(o)||bkNew();
+  BF=bfOk(f);
+  if(ls('sgLayout')==null){
+    const sh=(ls('sgShut')||'').split(',');
+    BL.shut=BK.filter((b,i)=>sh.includes(i+''));
+    BL.p=ls('sgProps')==='0'?0:1;
+    BL.c=ls('sgChat')==='1'?1:0;
+    try{
+      for(const k of['sgShut','sgProps','sgChat'])localStorage.removeItem(k);
+    }catch(_){}
+  }
+  bkFix();
+  bkSave()}
+// bkPreset(n): a preset's layout and floating blocks
+function bkPreset(n){
+  const d=bkNew(),k=[];
+  d.pre=n;
+  if(n==='txt'){
+    d.r=['transform','align','arrange','appearance','page','alltext'];
+    d.shut=['page','alltext'];
+    k.push('text');
+  }
+  if(n==='ai'){
+    d.r=[];
+    d.l=['transform','text','appearance','page','align','arrange','alltext'];
+    d.shut=['page','align','arrange','alltext'];
+  }
+  if(n==='sm'){
+    d.w.r=220;
+    d.shut=BK.filter(b=>!['transform','text','appearance'].includes(b));
+  }
+  return[d,k]}
+// bkUse(n): switches to a preset, or back to My layout; the windows' rectangles and Lock stay
+function bkUse(n){
+  if(n==='my'&&!BL.my)return msg('No layout of your own yet: move, float or hide a section first');
+  const keep={lock:BL.lock,p:BL.p,c:BL.c,my:BL.my},rect=BF.rect;
+  if(n==='my'){
+    BL=bkOk(keep.my.L,1)||bkNew();
+    BF=bkJ(keep.my.F);
+  }else{
+    const[d,k]=bkPreset(n);
+    BL=d;
+    BF={keys:k,rect};
+  }
+  Object.assign(BL,keep);
+  BL.pre=n;
+  bkFix();
+  bkApply();
+  bkSave();
+  if(n==='ai'&&!document.body.classList.contains('chat'))A.chat();
+  if(!BL.p)A.props();
+  msg(`Layout: ${bkT({my:'My layout',def:'Default',txt:'Text',ai:'AI drawing',sm:'Small screen'}[n])}`)}
+// bkReset(): every section back in the right column, widths and windows too; My layout is kept for going back
+function bkReset(){
+  BL={...bkNew(),c:BL.c,my:BL.my};
+  BF={keys:[],rect:{}};
+  bkApply();
+  bkSave();
+  if(document.body.classList.contains('noP'))A.props();
+  msg('Layout reset: every section is back in the right column')}
+// bkGrid(): the grid's columns, from the canvas outwards: Layers, the sections' column, SVG Chat (mirrored on the left)
+function bkGrid(){
+  const b=document.body,E=bkLay(),fk=bkSmall?[]:BF.keys,on=c=>b.classList.contains(c),cols=[['48px',$('mTools')]];
+  const side=s=>{
+    const a=[],c=$(s==='l'?'mSideL':'mSide'),n=E[s].some(id=>!E.hid.includes(id)||fk.includes(id));
+    c.classList.toggle('e0',!E[s].some(id=>!E.hid.includes(id)));
+    if(on('lay')&&!fk.includes('layers')&&E.side.layers===s)a.push(['220px',$('mLay')]);
+    if(n&&!on('noP')||s==='r'&&on('smc'))a.push([E.w[s]+'px',c]);
+    if(on('chat')&&!fk.includes('chat')&&E.side.chat===s&&!bkSmall)a.push(['300px',$('mChat')]);
+    return a};
+  cols.push(...side('l').reverse(),['1fr',view],...side('r'));
+  b.style.gridTemplateColumns=cols.map(c=>c[0]).join(' ');
+  cols.forEach(([,e],i)=>e.style.gridArea='2/'+(i+1));
+  bkSp()}
+// bkSp(): the splitters on the columns' inner edges
+function bkSp(){
+  requestAnimationFrame(()=>{
+    for(const s of['l','r']){
+      const p=$(s==='l'?'mBkSpL':'mBkSpR'),r=$(s==='l'?'mSideL':'mSide').getBoundingClientRect(),v=r.width>0&&!bkSmall&&!BL.lock;
+      p.hidden=!v;
+      if(!v)continue;
+      p.style.left=(s==='l'?r.right:r.left)-4+'px';
+      p.style.top=r.top+'px';
+      p.style.height=r.height+'px';
+    }
+  })}
+// bkWin(id,on): adds a window to the stacking order (45a) or takes it out
+function bkWin(id,on){
+  const i=WINS.indexOf(id),w=$(id);
+  if(on&&i<0){
+    WINS.push(id);
+    winTop(id);
+  }
+  if(!on&&i>=0){
+    WINS.splice(i,1);
+    w.classList.remove('wbk');
+    w.style.zIndex='';
+  }
+}
+// bkHome(id): where a block floats the first time: the canvas's top right; SVG Chat at its bottom right
+function bkHome(id){
+  const v=view.getBoundingClientRect(),t=v.top+(opts.rulers?RW:0)+8;
+  if(id==='chat')return{l:v.right-320-40,t:max(t,v.bottom-520-16),w:320,h:520};
+  if(id==='layers')return{l:v.right-260-40,t,w:260,h:420};
+  return{l:v.right-BW0-40,t,w:BW0}}
+// bkPlace(w,id): puts a window on its rectangle, clamped into the window 8 px from each edge
+function bkPlace(w,id){
+  let r=BF.rect[id];
+  if(!r||!(r.w>0)||r.l==null||r.t==null)r=BF.rect[id]={...r,...bkHome(id)};
+  if(w.classList.contains('zm'))return;
+  const big=id==='layers'||id==='chat',W=min(r.w,innerWidth-16),H=big?min(r.h||420,innerHeight-16):0;
+  w._w=W;
+  w._h=H;
+  w.style.width=W+'px';
+  if(big)w.style.height=H+'px';
+  const h=big?H:max(34,w.offsetHeight);
+  w.style.left=max(8,min(r.l,innerWidth-W-8))+'px';
+  w.style.top=max(8,min(r.t,innerHeight-h-8))+'px'}
+// bkApply(): moves every block where the layout says, then the grid, the windows, the menus
+function bkApply(){
+  const E=bkLay(),fk=bkSmall?[]:BF.keys,b=document.body,shut=bkSmall&&b.classList.contains('chat')?BK:E.shut,host={r:$('mSide'),l:$('mSideL')};
+  if(ed&&ed.sd)finish(true);
+  for(const s of['r','l']){
+    const c=host[s],now=[...c.children].filter(n=>n.dataset.b).map(n=>n.dataset.b).join();
+    if(now!==E[s].join())for(const id of E[s])c.append(BKS[id]);
+  }
+  for(const id of BK){
+    const S=BKS[id],W=BKW[id],f=fk.includes(id),h=E.hid.includes(id),r=BF.rect[id]||{};
+    if(f&&S.parentNode!==W)W.append(S);
+    S.hidden=h&&!f;
+    S.classList.toggle('shut',!f&&shut.includes(id));
+    W.hidden=!f||h;
+    W.classList.toggle('shut',!!r.shut);
+    W.querySelector('.au').hidden=!r.auto;
+  }
+  const cc=bkSmall&&b.classList.contains('chat'),ch=$('mChat');
+  if(cc&&ch.parentNode!==host.r)host.r.append(ch);
+  if(!cc&&ch.parentNode===host.r)$('mSt').before(ch);
+  b.classList.toggle('smc',cc);
+  const ph=$('mPh'),pc=E.l.includes('transform')||!E.r.some(id=>!E.hid.includes(id))&&E.l.length?host.l:host.r;
+  if(ph.parentNode!==pc)pc.prepend(ph);
+  for(const id of['layers','chat']){
+    const e=bkEl(id),f=fk.includes(id);
+    e.classList.toggle('flt',f);
+    e.classList.toggle('bkl',!f&&E.side[id]==='l');
+    if(!f){
+      e.classList.remove('zm');
+      for(const p of['left','top','width','height'])e.style[p]='';
+    }
+  }
+  for(const id of BX){
+    const e=bkEl(id);
+    bkWin(e.id,fk.includes(id));
+    e.querySelector('.fb')?.classList.toggle('on',fk.includes(id));
+  }
+  b.classList.toggle('bkLk',!!BL.lock);
+  b.classList.toggle('sm',bkSmall);
+  $('mBkSm').hidden=!bkSmall;
+  bkGrid();
+  for(const id of fk)bkPlace(bkEl(id),id);
+  bkAuto();
+  bkMenu();
+  $('mTx')._v=-1;
+  if(root){
+    panel();
+    place();
+  }
+}
+// bkVis(id): whether a block shows
+const bkVis=id=>id==='layers'?lyOn():id==='chat'?document.body.classList.contains('chat'):!bkLay().hid.includes(id);
+// bkMenu(): ticks in View › Layout
+function bkMenu(){
+  const P=bkSmall?'sm':BL.pre;
+  for(const a in BPRE)qa(a).classList.toggle('on',P===BPRE[a]);
+  qa('bkMy').disabled=!BL.my;
+  qa('bkLock').classList.toggle('on',!!BL.lock);
+  for(const id of BX){
+    const b=qa('bkV'+id);
+    b.classList.toggle('on',bkVis(id));
+    b.querySelector('small').hidden=!(BKW[id]&&BKW[id].classList.contains('na')&&!BKW[id].hidden);
+  }
+}
+// bkAuto(): Show only when it applies: a floating section that opted in fades out while it doesn't apply
+function bkAuto(){
+  const b=document.body,nos=b.classList.contains('nos'),not=b.classList.contains('not'),off={transform:nos,align:nos,arrange:nos,appearance:nos,text:not};
+  let ch=0;
+  for(const id of BK){
+    const W=BKW[id],na=!!(BF.rect[id]?.auto&&BF.keys.includes(id)&&!bkSmall&&off[id]);
+    if(W.classList.contains('na')===na)continue;
+    if(na&&W.contains(document.activeElement))document.activeElement.blur();
+    W.classList.toggle('na',na);
+    ch=1;
+  }
+  if(ch)bkMenu();
+}
+// bkFloat(id,at): lifts a block into a window, 28 px right and down of where it was (plsig), or at the point it was dropped
+function bkFloat(id,at){
+  if(BF.keys.includes(id)||BL.lock||bkSmall)return;
+  const sec=BK.includes(id),src=sec?BKS[id]:bkEl(id),r=src.getBoundingClientRect(),o=BF.rect[id]||{};
+  if(sec){
+    o.ds=BL.l.includes(id)?'l':'r';
+    o.di=max(0,BL[o.ds].indexOf(id));
+    BL.r=BL.r.filter(k=>k!==id);
+    BL.l=BL.l.filter(k=>k!==id);
+    BL.hid=BL.hid.filter(k=>k!==id);
+  }
+  const p=at||(sec&&r.width&&r.height?{l:r.left+28,t:r.top+28}:null);
+  if(sec)BF.rect[id]={...o,...p||bkHome(id),w:o.w||max(BWMIN,round(r.width)||BW0)};
+  else BF.rect[id]=o.w?{...o,...p}:{...bkHome(id),...p};
+  for(const k of['l','t'])BF.rect[id][k]=round(BF.rect[id][k]);
+  BF.keys.push(id);
+  if(src.contains(document.activeElement))document.activeElement.blur();
+  bkMine();
+  bkApply();
+  bkSave()}
+// bkDock(id,s,before,i): docks a block in column s, before the section before (or at index i, or last)
+function bkDock(id,s,before,i){
+  if(bkSmall)return;
+  const f=BF.keys.includes(id);
+  BF.keys=BF.keys.filter(k=>k!==id);
+  if(BK.includes(id)){
+    BL.r=BL.r.filter(k=>k!==id);
+    BL.l=BL.l.filter(k=>k!==id);
+    BL.hid=BL.hid.filter(k=>k!==id);
+    const a=BL[s],j=before?a.indexOf(before):i!=null?min(i,a.length):-1;
+    a.splice(j<0?a.length:j,0,id);
+  }else BL.side[id]=s;
+  const w=bkEl(id);
+  if(f&&w.contains(document.activeElement))document.activeElement.blur();
+  bkMine();
+  bkApply();
+  bkSave();
+  if(BK.includes(id)&&document.body.classList.contains('noP'))A.props()}
+// bkBack(id): the window's float button: back to the column and place it came from
+function bkBack(id){
+  const o=BF.rect[id]||{};
+  if(BK.includes(id))bkDock(id,o.ds||'r',null,o.di);
+  else bkDock(id,BL.side[id])}
+// bkShut(id): collapses a section to its title, or opens it
+function bkShut(id){
+  const E=bkLay();
+  if(BF.keys.includes(id)&&!bkSmall){
+    const r=BF.rect[id];
+    if(r.shut)delete r.shut;
+    else r.shut=1;
+  }else E.shut=E.shut.includes(id)?E.shut.filter(k=>k!==id):[...E.shut,id];
+  bkApply();
+  if(!bkSmall)bkSave()}
+// bkHide(id): hides a block; View › Layout › Blocks shows it again
+function bkHide(id){
+  if(BL.lock||bkSmall)return;
+  if(id==='layers'){
+    if(lyOn())A.layers();
+    return;
+  }
+  if(id==='chat'){
+    if(document.body.classList.contains('chat'))A.chat();
+    return;
+  }
+  const w=BF.keys.includes(id)?BKW[id]:BKS[id];
+  if(w.contains(document.activeElement))document.activeElement.blur();
+  if(!BL.hid.includes(id))BL.hid.push(id);
+  bkMine();
+  bkApply();
+  bkSave();
+  msg(`${bkT(BN[id])}: hidden; View › Layout › Blocks shows it again`)}
+// bkShow(id): Blocks › a block: shows or hides it
+function bkShow(id){
+  if(id==='layers')return A.layers();
+  if(id==='chat')return A.chat();
+  if(!bkLay().hid.includes(id))return bkHide(id);
+  const E=bkLay();
+  E.hid=E.hid.filter(k=>k!==id);
+  if(E===BL)bkMine();
+  bkApply();
+  bkSave();
+  if(!BF.keys.includes(id)&&document.body.classList.contains('noP'))A.props()}
+// bkAutoT(id): Show only when it applies, for a floating section
+function bkAutoT(id){
+  const r=BF.rect[id];
+  if(!r||!BF.keys.includes(id))return msg('Show only when it applies is for floating sections: float it first');
+  if(r.auto)delete r.auto;
+  else r.auto=1;
+  bkApply();
+  bkSave()}
+// bkWins(): the floating windows that show
+const bkWins=()=>[...BK.map(b=>BKW[b]),$('mLay'),$('mChat')].filter(w=>w.offsetWidth&&(w.classList.contains('blkw')||w.classList.contains('flt'))&&!w.classList.contains('na'));
+// bkTgt(x,y,id): where a block dropped at x,y goes: {s,before,line} in a column or on a Dock strip, {f} on the canvas, or null
+function bkTgt(x,y,id){
+  const inR=(e,p)=>{const r=e.getBoundingClientRect();return r.width&&x>=r.left-(p||0)&&x<=r.right+(p||0)&&y>=r.top&&y<=r.bottom},v=view.getBoundingClientRect();
+  for(const s of['l','r'])if(!$(s==='l'?'mBkZl':'mBkZr').hidden&&inR($(s==='l'?'mBkZl':'mBkZr'),8))return{s,z:1};
+  if(BK.includes(id)){
+    for(const s of['l','r']){
+      const c=$(s==='l'?'mSideL':'mSide');
+      if(!inR(c))continue;
+      const L=[...c.children].filter(n=>n.dataset.b&&n.dataset.b!==id&&!n.hidden),r=c.getBoundingClientRect();
+      let i=0;
+      for(const n of L){
+        const q=n.getBoundingClientRect();
+        if(y>q.top+q.height/2)i++;
+      }
+      const ly=i<L.length?L[i].getBoundingClientRect().top:L.length?L.at(-1).getBoundingClientRect().bottom:r.top+($('mPh').parentNode===c?36:6);
+      return{s,before:L[i]?.dataset.b,line:[r.left+6,ly,r.width-12]};
+    }
+  }else if(x<v.left||x>v.right)return{s:x<v.left?'l':'r',line:[x<v.left?v.left:v.right-2,v.top,0,v.height]};
+  if(x>=v.left&&x<=v.right&&y>=v.top&&y<=v.bottom)return{f:1};
+  return null}
+// bkLine(t): the insertion line (or the Dock strip lit) for a target
+function bkLine(t){
+  const n=$('mBkIn'),l=t&&t.line;
+  n.hidden=!l;
+  n.classList.toggle('v',!!(l&&l[3]));
+  if(l)Object.assign(n.style,{left:l[0]+'px',top:l[1]-1+'px',width:l[3]?'2px':l[2]+'px',height:l[3]?l[3]+'px':'2px'});
+  $('mBkZl').classList.toggle('hot',!!(t&&t.z&&t.s==='l'));
+  $('mBkZr').classList.toggle('hot',!!(t&&t.z&&t.s==='r'));
+}
+// bkZones(on): the Dock left / Dock right strips on the canvas's edges, while a side has no column to drop on
+function bkZones(on){
+  const v=view.getBoundingClientRect(),t=v.top+(opts.rulers?RW:0)+6,h=v.bottom-t-6;
+  for(const s of['l','r']){
+    const z=$(s==='l'?'mBkZl':'mBkZr'),show=on&&!$(s==='l'?'mSideL':'mSide').offsetWidth;
+    z.hidden=!show;
+    z.classList.remove('hot');
+    if(show)Object.assign(z.style,{left:(s==='l'?v.left+(opts.rulers?RW:0)+6:v.right-28-30)+'px',top:t+'px',height:h+'px'});
+  }
+}
+// bkSnapTo(w,l,t): window w at l,t, snapped within 8 px to the window's edges, other windows and the columns (8 px apart)
+function bkSnapTo(w,l,t){
+  const W=w.offsetWidth,H=w.offsetHeight,S=8,X=[[S,0],[innerWidth-S-W,1]],Y=[[S,0],[innerHeight-S-H,1]];
+  for(const o of[...bkWins().filter(x=>x!==w),...[$('mSide'),$('mSideL')].filter(c=>c.offsetWidth)]){
+    const r=o.getBoundingClientRect();
+    X.push([r.left,0],[r.right-W,1],[r.right+S,0],[r.left-S-W,1]);
+    Y.push([r.top,0],[r.bottom-H,1],[r.bottom+S,0],[r.top-S-H,1]);
+  }
+  const pick=(A,v)=>{let b=null;for(const a of A)if(abs(a[0]-v)<S&&(!b||abs(a[0]-v)<abs(b[0]-v)))b=a;return b},bx=pick(X,l),by=pick(Y,t),sx=$('mBkSx'),sy=$('mBkSy');
+  if(bx)l=bx[0];
+  if(by)t=by[0];
+  sx.hidden=!bx;
+  sy.hidden=!by;
+  if(bx)Object.assign(sx.style,{left:l+(bx[1]?W:0)+'px',top:t-10+'px',width:'1px',height:H+20+'px'});
+  if(by)Object.assign(sy.style,{left:l-10+'px',top:t+(by[1]?H:0)+'px',width:W+20+'px',height:'1px'});
+  return[l,t]}
+// A block drag (BD): from a section's grip, or Layers' or SVG Chat's while docked; a ghost of the title follows
+function bkDragOn(d){
+  d.on=1;
+  const src=BK.includes(d.id)?BKS[d.id]:bkEl(d.id),hd=src.querySelector('h4,header,#mChH')||src,r=hd.getBoundingClientRect(),g=el('div'),t=el('b');
+  d.dx=d.x0-r.left;
+  d.dy=d.y0-r.top;
+  g.id='mBkGh';
+  g.style.width=min(max(r.width,160),300)+'px';
+  t.append(d.g.firstChild.cloneNode(true),bkT(BN[d.id]));
+  g.append(t,el('i'));
+  $('mCM').before(g);
+  d.gh=g;
+  d.src=src;
+  src.classList.add('bkSrc');
+  document.body.classList.add('bkDr');
+  menuOff();
+  cmOff();
+  bkZones(1)}
+function bkDragOff(d){
+  d.gh?.remove();
+  d.src?.classList.remove('bkSrc');
+  document.body.classList.remove('bkDr');
+  bkZones(0);
+  bkLine(null)}
+// A window move (BM): by its title bar; over a column it shows where it would dock, and docks there when let go
+function bkMoveOn(m){
+  m.on=1;
+  document.body.classList.add('bkMv');
+  if(!BL.lock)bkZones(1)}
+function bkMoveOff(){
+  document.body.classList.remove('bkMv');
+  bkZones(0);
+  bkLine(null);
+  $('mBkSx').hidden=$('mBkSy').hidden=true}
+// bkZoom(w): Layers' and SVG Chat's windows fill the canvas on a double-click on their title, and come back on another
+function bkZoom(w){
+  const z=w.classList.toggle('zm');
+  if(!z)return bkPlace(w,w.dataset.b);
+  const r=view.getBoundingClientRect();
+  Object.assign(w.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'})}
+// bkResize(): Small screen below 1100 px; windows clamped back into view
+function bkResize(){
+  const s=innerWidth<BSM;
+  if(s!==bkSmall){
+    bkSmall=s;
+    if(s)SM={...bkPreset('sm')[0],hid:BL.hid.slice()};
+    bkApply();
+    return;
+  }
+  for(const id of bkSmall?[]:BF.keys)bkPlace(bkEl(id),id);
+  bkSp()}
+// bkCM(e,id): the right-click menu of a block's title
+function bkCM(e,id){
+  menuOff();
+  const E=bkLay(),f=BF.keys.includes(id)&&!bkSmall,sec=BK.includes(id),lk=!!BL.lock||bkSmall,s=f?'':sec?E.l.includes(id)?'l':'r':E.side[id],r=BF.rect[id]||{},I=[];
+  if(!f)I.push(['Float',()=>bkFloat(id),0,lk]);
+  I.push(['Dock left',()=>bkDock(id,'l'),s==='l',lk||s==='l'],['Dock right',()=>bkDock(id,'r'),s==='r',lk||s==='r'],0);
+  if(sec)I.push([(f?r.shut:E.shut.includes(id))?'Expand':'Collapse',()=>bkShut(id),0,0]);
+  I.push(['Hide',()=>bkHide(id),0,lk],0);
+  if(sec)I.push(['Show only when it applies',()=>bkAutoT(id),f&&r.auto,!f,f?'':'For floating blocks'],0);
+  I.push(['Lock layout',A.bkLock,!!BL.lock,bkSmall]);
+  if(!f)I.push(['Reset layout',bkReset,0,0]);
+  const m=$('mCM');
+  m.replaceChildren(...I.map(x=>{
+    if(!x)return el('hr');
+    const b=el('button',x[2]?'on':'',bkT(x[0]));
+    b.disabled=!!x[3];
+    if(x[4])b.title=bkT(x[4]);
+    b.onclick=()=>{cmOff();x[1]()};
+    return b}));
+  m.style.display='block';
+  const q=m.getBoundingClientRect();
+  m.style.left=max(4,min(e.clientX,innerWidth-q.width-4))+'px';
+  m.style.top=max(4,min(e.clientY,innerHeight-q.height-4))+'px'}
+// bkKey(e): a grip from the keyboard: Space or Enter picks the section up, arrows move it, Enter drops, Esc puts it back
+function bkKey(e){
+  const g=e.currentTarget,id=g.closest('[data-b]').dataset.b,k=e.key;
+  if(!BK.includes(id)||BF.keys.includes(id)||BL.lock||bkSmall)return;
+  if(!g.classList.contains('pk')){
+    if(k!==' '&&k!=='Enter')return;
+    e.preventDefault();
+    e.stopPropagation();
+    g.classList.add('pk');
+    g._o=bkJ([BL.r,BL.l]);
+    return msg('Moving the section: ↑ ↓ within its column, ← → to the other column, Enter puts it down, Esc puts it back');
+  }
+  const s=BL.l.includes(id)?'l':'r',a=BL[s],i=a.indexOf(id);
+  if(/^Arrow(Up|Down|Left|Right)$/.test(k)){
+    e.preventDefault();
+    e.stopPropagation();
+    if(k==='ArrowUp'||k==='ArrowDown'){
+      const j=i+(k==='ArrowUp'?-1:1);
+      if(j<0||j>=a.length)return;
+      a.splice(i,1);
+      a.splice(j,0,id);
+    }else{
+      const t=k==='ArrowLeft'?'l':'r';
+      if(t===s)return;
+      a.splice(i,1);
+      BL[t].splice(min(i,BL[t].length),0,id);
+    }
+    bkApply();
+    g.focus();
+    return;
+  }
+  g.classList.remove('pk');
+  if(k==='Escape'){
+    e.preventDefault();
+    e.stopPropagation();
+    [BL.r,BL.l]=g._o;
+    bkApply();
+    g.focus();
+    return msg('');
+  }
+  if(k===' '||k==='Enter'){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  if(JSON.stringify([BL.r,BL.l])!==JSON.stringify(g._o))bkMine();
+  bkSave();
+  msg('')}
+// bkGrip(id), bkFb(): the ⠿ handle and the float button (plsig's, always shown; Lock layout and Small screen hide them)
+function bkGrip(id,w){
+  const g=el('button','grip');
+  g.type='button';
+  g.dataset.b=id;
+  g.title=w?'Drag to move; drop it on a column to dock it':'Drag to another place in a column, onto the other column or onto the canvas';
+  g.innerHTML='<svg viewBox="0 0 8 14" aria-hidden="true"><circle cx="2" cy="2" r="1.2"/><circle cx="6" cy="2" r="1.2"/><circle cx="2" cy="7" r="1.2"/><circle cx="6" cy="7" r="1.2"/><circle cx="2" cy="12" r="1.2"/><circle cx="6" cy="12" r="1.2"/></svg>';
+  if(!w)g.addEventListener('keydown',bkKey);
+  return g}
+function bkFb(id){
+  const f=el('button','fb');
+  f.type='button';
+  f.title='Float as a window you can move and resize; click again to dock it back';
+  f.setAttribute('aria-label','Float or dock');
+  f.innerHTML=`<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${KI.bkFloat}"/></svg>`;
+  f.onclick=()=>{
+    if(BF.keys.includes(id))bkBack(id);
+    else bkFloat(id);
+  };
+  return f}
+// bkInit(): at startup: the saved layout, the handles and windows, the listeners, View › Layout › Blocks
+function bkInit(){
+  bkActs();
+  bkLoad();
+  for(const id of BK){
+    const S=BKS[id],W=el('div','win blkw'),H=el('header'),u=el('small','au','auto'),c=el('button','wch'),x=el('button','wx','×');
+    S.prepend(bkGrip(id));
+    S.querySelector('h4').append(bkFb(id));
+    S.addEventListener('change',sideCh);
+    S.addEventListener('keydown',sideK);
+    W.id='mBw'+id;
+    W.dataset.b=id;
+    W.hidden=true;
+    u.hidden=true;
+    u.title='Shows only when it applies';
+    c.type=x.type='button';
+    c.title='Collapse';
+    x.title='Hide (View › Layout › Blocks shows it again)';
+    c.onclick=()=>bkShut(id);
+    x.onclick=()=>bkHide(id);
+    H.append(bkGrip(id,1),el('b',0,BN[id]),u,bkFb(id),c,x);
+    W.append(H);
+    $('mPop').before(W);
+    BKW[id]=W;
+    bkRO.observe(W);
+  }
+  for(const id of['layers','chat']){
+    const e=bkEl(id),h=id==='layers'?e.querySelector('header'):$('mChH');
+    e.dataset.b=id;
+    h.prepend(bkGrip(id));
+    (id==='layers'?h.lastElementChild:$('mChN')).before(bkFb(id));
+    bkRO.observe(e);
+  }
+  $('mBkB').replaceChildren(...BX.map(id=>{
+    const b=el('button',0,BN[id]),w=el('small',0,'waiting');
+    b.dataset.a='bkV'+id;
+    w.hidden=true;
+    w.title='Shows only when it applies';
+    b.append(w);
+    A['bkV'+id]=()=>bkShow(id);
+    KI['bkV'+id]=LI.eye;
+    return b}));
+  for(const[n,f]of[['Zl','l'],['Zr','r']])$('mBk'+n).dataset.s=f;
+  for(const s of['l','r']){
+    const p=$(s==='l'?'mBkSpL':'mBkSpR'),c=()=>$(s==='l'?'mSideL':'mSide'),done=()=>{bkMine();bkSave()};
+    p.onpointerdown=e=>{
+      if(e.button)return;
+      e.preventDefault();
+      p.setPointerCapture(e.pointerId);
+      p.classList.add('on');
+      p.onpointermove=m=>{const r=c().getBoundingClientRect();bkWidth(s,s==='l'?m.clientX-r.left:r.right-m.clientX)};
+      p.onpointerup=p.onpointercancel=()=>{p.classList.remove('on');p.onpointermove=p.onpointerup=p.onpointercancel=null;done()};
+    };
+    p.ondblclick=()=>{bkWidth(s,BW0);done()};
+    p.onkeydown=e=>{
+      const d={ArrowLeft:-1,ArrowRight:1}[e.key];
+      if(!d)return;
+      e.preventDefault();
+      e.stopPropagation();
+      bkWidth(s,BL.w[s]+(e.shiftKey?80:20)*d*(s==='r'?-1:1));
+      done()};
+  }
+  $('mBkSm').onclick=e=>{
+    e.stopPropagation();
+    const m=$('mBkM');
+    menuOff();
+    m.closest('.dd').classList.add('open');
+    m.classList.add('open')};
+  $('mBkF').onchange=async e=>{
+    const f=e.target.files[0];
+    if(!f)return;
+    let o=null;
+    try{o=JSON.parse(await f.text())}catch(_){}
+    const L=o&&o.svguest==='layout'&&bkOk(o.sgLayout);
+    if(!L)return msg(`${f.name} is not a svguest layout file: nothing was changed`);
+    BL={...L,p:BL.p,c:BL.c};
+    BF=bfOk(o.sgFloat);
+    bkFix();
+    bkApply();
+    bkSave();
+    msg('Layout imported')};
+  bkSmall=innerWidth<BSM;
+  if(bkSmall)SM={...bkPreset('sm')[0],hid:BL.hid.slice()};
+  sideOn(!!BL.p);
+  if(BL.c){
+    document.body.classList.add('chat');
+    qa('chat').classList.add('on');
+  }
+  bkApply()}
+function bkWidth(s,w){
+  BL.w[s]=bkCl(w);
+  bkGrid();
+  if(root)place()}
+// a window's size, kept when the user resizes it from its corner (CSS resize writes the inline width and height)
+const bkRO=new ResizeObserver(es=>{
+  for(const x of es){
+    const w=x.target,id=w.dataset.b,r=BF.rect[id];
+    if(!r||!BF.keys.includes(id)||bkSmall||w.classList.contains('zm')||!w.offsetWidth)continue;
+    const W=parseFloat(w.style.width),H=parseFloat(w.style.height),big=id==='layers'||id==='chat';
+    if(!(abs(W-w._w)>1||big&&abs(H-w._h)>1))continue;
+    w._w=r.w=round(W);
+    if(big)w._h=r.h=round(H);
+    bkMine();
+    bkSaveSoon();
+  }
+});
+// bkActs(): View › Layout's actions (A is declared in 46, after this section)
+function bkActs(){
+A.bkMy=()=>bkUse('my');A.bkDf=()=>bkUse('def');A.bkTx=()=>bkUse('txt');A.bkAi=()=>bkUse('ai');A.bkSm=()=>bkUse('sm');A.bkReset=bkReset;
+A.bkLock=()=>{
+  BL.lock=BL.lock?0:1;
+  bkApply();
+  bkSave();
+  msg(BL.lock?'Layout locked: sections can\'t be moved, floated or hidden until you unlock it':'Layout unlocked')};
+A.bkExp=()=>{
+  dl(new Blob([JSON.stringify({svguest:'layout',sgLayout:{...BL,my:undefined},sgFloat:BF},null,1)],{type:'application/json'}),'svguest-layout.json');
+  msg('Layout saved as svguest-layout.json, in your downloads')};
+A.bkImp=()=>{
+  const f=$('mBkF');
+  f.value='';
+  f.click()};
+A.bkDockAll=()=>{
+  for(const id of BF.keys.slice())bkBack(id)};
+}
+// the drags: pointer events on the document, so a drag goes on over any panel
+document.addEventListener('pointerdown',e=>{
+  if(e.button||bkSmall||!e.target.closest)return;
+  const t=e.target,g=t.closest('.grip'),hd=t.closest('.blkw>header,#mLay.flt>header,#mChat.flt>#mChH');
+  if(hd&&(g||!t.closest('button,input,select,.menu'))){
+    const w=hd.parentNode;
+    if(w.classList.contains('zm'))return;
+    e.preventDefault();
+    BM={w,id:w.dataset.b,x0:e.clientX,y0:e.clientY,dx:e.clientX-w.offsetLeft,dy:e.clientY-w.offsetTop,on:0};
+    if(!w.classList.contains('blkw')&&WINS.includes(w.id))winTop(w.id);
+    return;
+  }
+  if(g&&!BL.lock){
+    e.preventDefault();
+    BD={id:g.dataset.b,g,x0:e.clientX,y0:e.clientY,on:0};
+  }
+});
+addEventListener('pointerdown',e=>{
+  const w=e.target.closest&&e.target.closest('#mLay.flt,#mChat.flt');
+  if(w&&WINS.includes(w.id))winTop(w.id);
+},true);
+addEventListener('pointermove',e=>{
+  const c=!!(D&&D.on&&D.t!=='pan'),b=document.body;
+  if(c!==b.classList.contains('cvd'))b.classList.toggle('cvd',c);
+  if(BD){
+    const d=BD;
+    if(!d.on&&hypot(e.clientX-d.x0,e.clientY-d.y0)<4)return;
+    if(!d.on)bkDragOn(d);
+    d.gh.style.left=e.clientX-d.dx+'px';
+    d.gh.style.top=e.clientY-d.dy+'px';
+    d.t=bkTgt(e.clientX,e.clientY,d.id);
+    bkLine(d.t);
+  }
+  if(BM){
+    const m=BM;
+    if(!m.on&&hypot(e.clientX-m.x0,e.clientY-m.y0)<3)return;
+    if(!m.on)bkMoveOn(m);
+    const[l,t]=bkSnapTo(m.w,e.clientX-m.dx,e.clientY-m.dy);
+    m.w.style.left=l+'px';
+    m.w.style.top=t+'px';
+    const q=BL.lock?null:bkTgt(e.clientX,e.clientY,m.id);
+    m.t=q&&!q.f?q:null;
+    bkLine(m.t);
+  }
+});
+const bkUp=e=>{
+  document.body.classList.remove('cvd');
+  if(BD){
+    const d=BD,g=d.gh&&d.gh.getBoundingClientRect();
+    BD=null;
+    if(!d.on)return;
+    bkDragOff(d);
+    if(e.type==='pointercancel'||!d.t)return;
+    if(d.t.f)bkFloat(d.id,{l:g.left,t:g.top});
+    else bkDock(d.id,d.t.s,d.t.before);
+  }
+  if(BM){
+    const m=BM;
+    BM=null;
+    if(!m.on)return;
+    bkMoveOff();
+    if(m.t&&e.type!=='pointercancel')return bkDock(m.id,m.t.s,m.t.before);
+    const r=BF.rect[m.id];
+    r.l=m.w.offsetLeft;
+    r.t=m.w.offsetTop;
+    bkMine();
+    bkSave();
+  }
+};
+addEventListener('pointerup',bkUp);
+addEventListener('pointercancel',bkUp);
+document.addEventListener('click',e=>{
+  const h=e.target.closest&&e.target.closest(':is(#mSide,#mSideL)>section>h4');
+  if(h&&!e.target.closest('.fb'))bkShut(h.parentNode.dataset.b);
+});
+document.addEventListener('dblclick',e=>{
+  const h=e.target.closest&&e.target.closest('#mLay.flt>header,#mChat.flt>#mChH');
+  if(h&&!e.target.closest('button,input,.menu'))bkZoom(h.parentNode);
+});
+document.addEventListener('contextmenu',e=>{
+  const h=e.target.closest&&e.target.closest(':is(#mSide,#mSideL)>section>h4,.blkw>header,#mLay>header,#mChH');
+  if(!h||e.target.closest('input,textarea')||!root)return;
+  e.preventDefault();
+  bkCM(e,h.closest('[data-b]').dataset.b);
+});
+addEventListener('resize',()=>{
+  clearTimeout(bkRT);
+  bkRT=setTimeout(bkResize,150);
+  bkSp();
+});
+// bkCmds(): the command palette's Layout group (54): presets, each block floated or docked, shown or hidden, Show only when it applies
+function bkCmds(){
+  const o=[],f=(a,n,ic,fn,on,off)=>{
+    const b=el('button',on?'on':''),v=kIc(ic);
+    b.dataset.a=a;
+    b.disabled=!!off;
+    b.onclick=fn;
+    if(v)b.append(v);
+    o.push([b,n])};
+  for(const a in BPRE)o.push([qa(a),bkT('Layout')+': '+qa(a).firstChild.data.trim()]);
+  for(const id of BX){
+    const fl=BF.keys.includes(id);
+    f('bkF'+id,bkT(fl?'Dock':'Float')+' '+bkT(BN[id]),'bkFloat',()=>fl?bkBack(id):bkFloat(id),fl,BL.lock||bkSmall);
+  }
+  for(const id of BX){
+    const v=bkVis(id);
+    f('bkS'+id,bkT(v?'Hide':'Show')+' '+bkT(BN[id]),v?'bkHid':'bkShw',()=>bkShow(id),0,v&&BL.lock&&id!=='layers'&&id!=='chat');
+  }
+  for(const id of BK){
+    const fl=BF.keys.includes(id);
+    f('bkA'+id,bkT(BN[id])+': '+bkT('show only when it applies'),'bkApply',()=>bkAutoT(id),fl&&BF.rect[id]?.auto,!fl);
+  }
+  f('bkDockAll',bkT('Dock all floating blocks'),'bkFloat',A.bkDockAll,0,!BF.keys.length||BL.lock||bkSmall);
+  for(const a of['bkLock','bkReset','bkExp','bkImp'])o.push([qa(a),qa(a).firstChild.data.trim()]);
+  return o}
+for(const a in BPRE)KI[a]=KI.bkLayout;
+KI.bkLock=LI.lk;
+KI.bkShw=LI.eye;
+KI.bkHid=LI.off;
+KI.bkReset=KI.again;
+KI.bkDockAll=KI.bkFloat;
 // ══ 46 Actions ════
 // Buttons, menus, keys and the palette all call A[data-a]; AN (filled at startup) names undo steps after them.
 const A={
@@ -7809,7 +8726,7 @@ cvDraw();
 const zv=(f,p)=>{const z=zPct()*f;z>.03&&z<2.6e5&&zoomAt(p||(r=>[r.width/2,r.height/2])(view.getBoundingClientRect()),f)};
 for(const w of['top','up','dn','bot'])A[w]=()=>zorder(w);
 for(const a in ANC)A[a]=()=>anchor(ANC[a]);
-A.chat=()=>{const on=document.body.classList.toggle('chat');ls('sgChat',on?1:0);qa('chat').classList.toggle('on',on);place();on&&$('mAsk').focus()};
+A.chat=()=>{const on=document.body.classList.toggle('chat');BL.c=on?1:0;bkSave();qa('chat').classList.toggle('on',on);if(bkSmall)bkApply();else bkGrid();bkMenu();if(on&&BF.keys.includes('chat'))winTop('mChat');place();on&&$('mAsk').focus()};
 A.gclr=()=>{gl=[];bar();hud();msg('Removed all guides')};
 // ══ 49 Find and replace ════
 // fqRun collects matches in unlocked texts; fqRep edits the text nodes in place, so tspan formatting survives.
@@ -7844,9 +8761,9 @@ setInterval(()=>{const a=LT.a,l=$('mLat');if(!a.length)return;const m=a.reduce((
 // ══ 51 Panel toggles ════
 let hlk=0;A.hlk=()=>{hlk=!hlk;qa('hlk').classList.toggle('on',hlk)};
 A.hsw=()=>{finish(true);for(const e of mkl()){const c=gcs(e),u=v=>(v=refId(c.getPropertyValue(v)))&&`url(#${v})`,a=u('marker-start'),b=u('marker-end');(a||b)&&(mset(e,'marker-start',b),mset(e,'marker-end',a))}commit()};
-A.layers=()=>{const on=document.body.classList.toggle('lay');qa('layers').classList.toggle('on',on);$('mLb').classList.toggle('on',on);place();on?(Ly.ps=[],lyBuild(1)):(hov=null,hud())};
+A.layers=()=>{const on=document.body.classList.toggle('lay');qa('layers').classList.toggle('on',on);$('mLb').classList.toggle('on',on);bkGrid();bkMenu();if(on&&BF.keys.includes('layers'))winTop('mLay');place();on?(Ly.ps=[],lyBuild(1)):(hov=null,hud())};
 function sideOn(on){document.body.classList.toggle('noP',!on);qa('props').classList.toggle('on',on);$('mPb').classList.toggle('on',on)}
-A.props=()=>{const on=document.body.classList.contains('noP'),sd=$('mSide'),tb=$('mTx');sideOn(on);ls('sgProps',on?1:0);if(on){sd.contains(tb)&&(tb._v=-1);panel()}else{ed&&ed.sd&&sd.contains(tb)&&finish(true);sd.contains(document.activeElement)&&document.activeElement.blur()}place()};
+A.props=()=>{const on=document.body.classList.contains('noP'),sd={contains:n=>$('mSide').contains(n)||$('mSideL').contains(n)},tb=$('mTx');sideOn(on);BL.p=on?1:0;bkSave();bkGrid();if(on){sd.contains(tb)&&(tb._v=-1);panel()}else{ed&&ed.sd&&sd.contains(tb)&&finish(true);sd.contains(document.activeElement)&&document.activeElement.blur()}place()};
 // ══ 52 Zoom box ════
 // zPct: 100 % is 96 dpi real size; the slider is logarithmic from 5 to 2000 %.
 const zPct=()=>Z*k/U*2540/96,zTo=p=>{p=parseFloat(p);p>0&&isFinite(p)&&zv(p/zPct())},
@@ -7910,10 +8827,11 @@ function kCol(){const o=[],tx=b=>[...b.childNodes].filter(n=>n.nodeType===3).map
   for(const[a,n]of[['help','Shortcuts and tips'],['chat','Show or hide SVG Chat'],['lib','Show or hide the Library'],['news',"What's new"],['libAdd','Add the selection to the Library'],['theme','Switch light or dark theme']])ad('General',qa(a),n,a==='help'?'?':'');
   {const dv=vOf(drawTo()),cb=(a,n,f,t)=>{const b=el('button');b.dataset.a=a;b.title=t||'';b.onclick=f;b.append(kIc('chat'));return ad('SVG Chat',b,n,''),b};
     for(const q of REG)for(const m of q.ms){const v=vOf({p:q.p,m:m.id}),h=hasP(q.p);cb('m:'+v,'Draw with '+m.n,()=>pickM(v,1),h?'':`${q.add||'Add a key'} under Models and keys first`).classList.toggle('on',h&&v===dv)}cb('mConn','Models and keys…',()=>openConn())}
-  for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.trim();for(const b of d.querySelectorAll('.menu button[data-a]'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
+  for(const d of $('mBar').querySelectorAll('.dd')){const g=d.querySelector('.ddb').textContent.trim();for(const b of d.querySelectorAll('.menu button[data-a]:not([data-a^=bk])'))ad(g,b,(s=>s?tx(s.firstChild)+' ':'')(b.closest('.sub'))+tx(b),b.querySelector('kbd')?.textContent||'')}
   for(const b of [...$('mTools').querySelectorAll('[data-t]:not(.ddb)'),...$('mFS').querySelectorAll('[data-a]')])ad('Tools',b,/^[^(:]*/.exec(b.title)[0].trim(),kt(b.title),'t');
-  for(const c of $('mSide').querySelectorAll(':scope>section')){const g=c.querySelector('h4').firstChild.data.trim();
+  for(const c of BK.map(b=>BKS[b])){const g=c.querySelector('h4').firstChild.data.trim();
     for(const b of c.querySelectorAll('[data-a]')){if(b.closest('#mSizes'))continue;const x=b.textContent.trim();ad(g,b,x.length>2?x:b.title.split(':')[0],kt(b.title),'f')}}
+  for(const[b,n]of bkCmds())ad(bkT('Layout'),b,n,'');
   return o}
 // kWs(n,q): every word of q starts a word of n, in order ("ex pn" finds Export PNG, as Blender's menu search does)
 const kWs=(n,q)=>{const w=q.split(/\s+/).filter(Boolean);if(w.length<2)return false;const m=n.split(/[^a-z0-9µ]+/);let j=0;for(const x of m)if(j<w.length&&x.startsWith(w[j]))j++;return j===w.length};
@@ -7946,7 +8864,7 @@ addEventListener('keydown',e=>{const o=!$('mK').hidden,t=e.target,k=e.key.toLowe
 // a bridge (.aim), not CSS :hover.
 const bName=b=>{const t=[...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.data).join('').trim();return t.length>2?t:(b.title||'').split(/[:(]/)[0].trim()||t},AN=new Map;
 document.body.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!root&&!/new|open/.test(b.dataset.a))return;b.dataset.a&&stp(bName(b));b.dataset.a&&A[b.dataset.a]?(b.dataset.a==='ungroup'&&e.altKey?ungroupAll:A[b.dataset.a])():b.dataset.t&&setTool(b.dataset.t)});
-document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mPop button,#mFg button,#mLib header button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
+document.body.addEventListener('mousedown',e=>e.target.closest('#mBar button,#mTools button,#mSide button,#mSideL button,.blkw button,#mPop button,#mFg button,#mLib header button,#mCM button,#mSt button,#mLay button,#mLb,#mPb,#mGc,#mBk')&&e.preventDefault());
 // dOpen(): the open menu; menuOff(x): closes the menus but x; dlgOpen(): a modal dialog is open
 const MENUS=[...document.querySelectorAll('.dd,.sub')],SUBS=MENUS.filter(d=>d.classList.contains('sub')),dOpen=()=>MENUS.find(d=>d.classList.contains('open')&&d.classList.contains('dd')),dlgOpen=()=>$('mHelp').open||$('mNew').open||$('mKept').open||$('mCf').open||$('mWn').open,
   menuOff=x=>{MENUS.forEach(d=>d.classList.contains('open')&&d!==x&&!(x&&x.contains(d)&&d.classList.contains('sub'))&&d.classList.remove('open'));SUBS.forEach(s=>x&&x.contains(s)||s.classList.remove('hv'))};
@@ -7997,10 +8915,10 @@ const sideCh=e=>{const f=e.target.dataset.f,t=e.target,v=+t.value;if(!f||!root||
   else if(f==='h0'||f==='h1')headSet(+f[1],t.value);
   else if(f==='k0'||f==='k1')v>0&&heads(round(v),hlk?[0,2]:[f==='k0'?0:2]);
   else if(f==='op')sel.forEach(e=>setSt(e,'opacity',fm(min(100,max(0,v))/100)));
-  /checkbox|select|color/.test(t.type)&&t.blur();commit()};$('mSide').addEventListener('change',sideCh);const SEC=[...$('mSide').querySelectorAll(':scope>section')];(ls('sgShut')||'').split(',').forEach(i=>SEC[i]?.classList.add('shut'));
-$('mSide').addEventListener('click',e=>{const h=e.target.closest('#mSide>section>h4');h&&(h.parentNode.classList.toggle('shut'),ls('sgShut',SEC.flatMap((c,i)=>c.classList.contains('shut')?[i]:[]).join()))});addEventListener('input',e=>{const t=e.target;t.type==='color'&&t.nextElementSibling?.classList.contains('hx')&&hxS(t,t.value)},true);$('mPop').addEventListener('change',sideCh);
+  /checkbox|select|color/.test(t.type)&&t.blur();commit()};
+addEventListener('input',e=>{const t=e.target;t.type==='color'&&t.nextElementSibling?.classList.contains('hx')&&hxS(t,t.value)},true);$('mPop').addEventListener('change',sideCh);
 $('mTx').addEventListener('focusin',()=>{const t=$('mTx')._t;!ed&&t&&root.contains(t)&&!lkd(t)&&edit(t,null,undefined,1)});
-const sideK=e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()};$('mSide').addEventListener('keydown',sideK);$('mPop').addEventListener('keydown',sideK);
+const sideK=e=>{if(!/^(Enter|Escape)$/.test(e.key))return;ed&&e.preventDefault();e.target.blur();edFocus()};$('mPop').addEventListener('keydown',sideK);
 // ══ 57a Number fields ════
 // Blender's number fields (asked for by the user, 8 Nov 2026, after looking at BUI, Blender's interface as a native library,
 // which can't run in a page). A press on a number field that isn't being typed in, then a sideways drag, changes its value:
@@ -8016,7 +8934,7 @@ const NFU={mm:1,cm:10,in:25.4,pt:25.4/72,pc:25.4/6,px:25.4/96}; // length units 
 let NF=null; // the drag: t the input, v0 its value, x px moved, cx the last clientX (without pointer lock), l locked, u0 undo length, on dragging, k changes sent, q value waiting for a frame
 let nfT=0; // when the last drag ended: the click that follows it is swallowed
 // nfIn(t): t is one of the number fields this section serves (also while it is a text field)
-const nfIn=t=>t?.tagName==='INPUT'&&(t.type==='number'||t.dataset.nf)&&!!t.closest('#mSide,#mPop,#mFg');
+const nfIn=t=>t?.tagName==='INPUT'&&(t.type==='number'||t.dataset.nf)&&!!t.closest('#mSide,#mSideL,#mPop,#mFg,.blkw');
 // nfOf(target): the number field a press on target means (the input, or its label.f box), else null
 const nfOf=x=>{
   const t=x?.tagName==='INPUT'?x:x?.closest?.('.f')?.querySelector(':scope>input');
@@ -8319,7 +9237,7 @@ function cpkPlace(){
     return;
   }
   const p=$('mCpk'),t=CPK.t,r=(t.closest('label')||t).getBoundingClientRect();
-  const b=(t.closest('#mSide,#mTools,.win')||t).getBoundingClientRect(),w=p.offsetWidth,h=p.offsetHeight;
+  const b=(t.closest('#mSide,#mSideL,#mTools,.win')||t).getBoundingClientRect(),w=p.offsetWidth,h=p.offsetHeight;
   let x=b.left-w-8,y=r.top-60;
   if(x<8)x=b.right+8;
   if(x+w>innerWidth-8){
@@ -8897,6 +9815,13 @@ if(WN.glyphs){ // v1.7: tiles of characters in the two embedded interface fonts,
     return b;
   }));
 }
+if(WN.layout){ // v1.8: a canvas, a docked column and a floating window snapped beside it
+  const c=el('div','cl'),w=el('div','fw');
+  $('mWnG').classList.add('ly');
+  for(let i=0;i<7;i++)c.append(el('i'));
+  for(let i=0;i<4;i++)w.append(el('i'));
+  $('mWnG').replaceChildren(el('div','pg'),c,el('div','sn'),w);
+}
 $('mWnG').append(...WN.tiles.map(([c,k],i)=>{
   const t=el('b'),m=el('i',k==='r'?'':k);
   m.style.background=c;
@@ -8992,8 +9917,9 @@ function thFade(f){
 }
 const SD=matchMedia('(prefers-color-scheme:dark)');SD.addEventListener('change',e=>ls('sgTheme')||thFade(()=>setTheme(e.matches)));
 setTheme(document.documentElement.dataset.theme==='dark');
+bkInit();
 for(const a in A){const b=qa(a);b&&AN.set(A[a],bName(b))}AN.set(ungroupAll,'Ungroup all');
-views();sideOn(ls('sgProps')!=='0');ls('sgChat')==='1'&&(document.body.classList.add('chat'),qa('chat').classList.add('on'));load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
+views();load(blank(210,297),'untitled.svg');msg('Open or drop an SVG file, or start a new canvas. Scroll to move around, Ctrl+scroll (or pinch) to zoom.');RL[0]?.u&&msg(`Unsaved changes to ${RL[0].n} (${rdW(RL[0].t)}) were kept: File › Open recent`);
 ufInit()
 lgInit()
 wnStart()

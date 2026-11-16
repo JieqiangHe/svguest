@@ -119,4 +119,4 @@ What every change should be checked against (all established practice, see CLAUD
 
 ## Preferences in localStorage (name → meaning)
 
-`sgTheme`, `sgRulers`, `sgGrid`, `sgTouch`, `sgChat`, `sgRecent`, `sgShut`, `sgProps`, `sgChatList`, `sgAuto`, `sgDocs`, `sgDocCrash`, `sgFkTpl`, `sgFkPal`, `sgFkSeen`, `sgFkMore`, `sgSeen`, `sgCpRec`, `sgCpPal`, `sgCpMd`, `sgUiEn`, `sgUiZh`, `sgLangNote`, `sgLang`, `sgLib*`, `sgDraw`, `sgVis`, `sgThink`, `sgThinkR`, `sg<Glm|Ds>{Key,Ep}`, `sgGlmRelay`. IndexedDB: `sgDocs`, `sgChats`, `sgLib`, `sgDir`. Full meanings in CLAUDE.md › Preferences.
+`sgTheme`, `sgRulers`, `sgGrid`, `sgTouch`, `sgRecent`, `sgLayout` and `sgFloat` (v1.8; they replaced `sgShut`, `sgProps` and `sgChat`, migrated once), `sgChatList`, `sgAuto`, `sgDocs`, `sgDocCrash`, `sgFkTpl`, `sgFkPal`, `sgFkSeen`, `sgFkMore`, `sgSeen`, `sgCpRec`, `sgCpPal`, `sgCpMd`, `sgUiEn`, `sgUiZh`, `sgLangNote`, `sgLang`, `sgLib*`, `sgDraw`, `sgVis`, `sgThink`, `sgThinkR`, `sg<Glm|Ds>{Key,Ep}`, `sgGlmRelay`. IndexedDB: `sgDocs`, `sgChats`, `sgLib`, `sgDir`. Full meanings in CLAUDE.md › Preferences.

@@ -75,22 +75,20 @@ input,select{font:inherit}
 #mPs [hidden],#mPsPreview [hidden],#mPsMore[hidden]{display:none!important}
 #mPs{position:relative;inset:auto;display:none;flex-direction:column;min-width:0;min-height:0;width:auto;height:auto;margin:0;padding:0;overflow:hidden;border:0;border-radius:0;background:var(--side);color:var(--fg);box-shadow:none;font-size:12px;container-type:inline-size}
 #mPs:not([hidden]){display:flex}
-#mPsHead{position:relative;display:flex;align-items:flex-start;flex:none;gap:5px;padding:8px 7px 7px 2px;border-bottom:1px solid var(--line);user-select:none}
-#mPsHead>.grip{margin-top:1px}
-#mPsHead>.fb{margin-top:1px}
+#mPsHead{position:relative;display:flex;align-items:flex-start;flex:none;gap:4px;padding:7px 6px 6px 2px;border-bottom:1px solid var(--line);user-select:none}
+#mPsHead>.grip{height:22px;margin-top:0}
 #mPs.bkl{border-right:1px solid var(--line)}
 #mPs:not(.bkl){border-left:1px solid var(--line)}
 #mPs.flt{min-width:min(220px,calc(100vw - 16px));min-height:min(260px,calc(100dvh - 16px));max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border:0}
 #mPsTitle{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-#mPsSource{flex:1;min-width:0;padding-right:2px}
-#mPsFiles{display:block;width:100%;min-width:0;height:22px;padding:0 19px 0 0;border:0;border-radius:0;background:transparent;color:var(--fg);font-size:12px;font-weight:500;line-height:22px;text-overflow:ellipsis;cursor:default;touch-action:auto}
-#mPsFiles:focus-visible{outline:2px solid var(--onb);outline-offset:2px;border-radius:3px}
-#mPsInfo{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:3px;color:var(--t3);font-size:10px;line-height:17px}
-#mPs .psHeadActions{display:flex;align-items:center;gap:0;flex:none;padding-top:1px}
-#mPs .psHeadActions>button{height:24px;width:22px;min-width:22px;padding:0 4px;border-color:transparent;background:transparent;color:var(--h4);cursor:default;touch-action:auto}
+#mPsSource{display:flex;flex-direction:column;align-items:flex-start;flex:1;min-width:0;padding-right:2px}
+#mPsFiles{display:block;width:100%;min-width:0;height:24px;color:var(--fg);font-size:12px;touch-action:auto}
+#mPsInfo{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:2px;color:var(--t3);font-size:10px;line-height:16px}
+#mPs .psHeadActions{display:flex;align-items:center;gap:2px;flex:none}
+#mPs .psHeadActions>button{display:grid;place-items:center;height:22px;width:22px;min-width:22px;padding:0;border-color:transparent;background:transparent;color:var(--h4);line-height:1;cursor:default;touch-action:auto}
 #mPs .psHeadActions>button:hover{background:var(--btnh)}
-#mPsX{font-size:17px;line-height:22px}
-#mPsMoreBtn{font-size:15px;letter-spacing:1px}
+#mPsX>svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+#mPsMoreBtn>svg{width:14px;height:14px;fill:currentColor}
 #mPsMore{position:fixed;inset:auto;z-index:38;width:230px;max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);overflow:auto;margin:0;padding:5px;border:1px solid var(--btnb);border-radius:7px;background:var(--btn);color:var(--fg);box-shadow:var(--shm);font-size:11px}
 #mPsMore>p{margin:2px 6px 5px;color:var(--t3);font-size:10px}
 #mPsMore button{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:28px;padding:5px 8px;border-color:transparent;background:transparent;text-align:left}
@@ -132,8 +130,6 @@ input,select{font:inherit}
 #mPs>footer{display:flex;flex-direction:column;align-items:stretch;gap:6px;flex:none;padding:8px 10px 10px;border-top:1px solid var(--line)}
 #mPsCount{min-width:0;color:var(--t3);font-size:10px;font-variant-numeric:tabular-nums}
 #mPs>footer>button{min-height:27px;padding:3px 9px;white-space:nowrap}
-#mPsOpen{background:var(--fg);border-color:transparent;color:var(--side)}
-#mPsOpen:not(:disabled):hover{background:var(--fg);background-image:none;opacity:.9}
 #mPsPreview{width:min(820px,calc(100vw - 24px));height:min(740px,calc(100dvh - 24px));max-width:none;max-height:none;padding:0;overflow:hidden;font-size:12px}
 #mPsPreview[open]{display:flex;flex-direction:column}
 #mPsPreview>header{display:flex;align-items:center;gap:10px;flex:none;padding:11px 13px;border-bottom:1px solid var(--line)}
@@ -357,7 +353,7 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 .bkDr :is(#mSide,#mSideL)>section::after{content:"";position:absolute;inset:0}.bkSrc{opacity:.55}
 #mBkGh{position:fixed;z-index:45;display:flex;flex-direction:column;padding:0 8px 8px;border-radius:8px;background:var(--side);box-shadow:var(--shm);opacity:.92;pointer-events:none}#mBkGh b{display:flex;align-items:center;gap:7px;height:30px;font-size:12px;color:var(--fg)}#mBkGh svg{width:7px;height:12px;fill:var(--t3)}#mBkGh i{height:8px;border-radius:3px;background:var(--btnh)}
 #mBkIn{position:fixed;z-index:45;background:var(--onb);pointer-events:none}#mBkIn[hidden],.bkz[hidden],.bksn[hidden],.bksp[hidden]{display:none}#mBkIn:not(.v)::before,#mBkIn:not(.v)::after{content:"";position:absolute;top:-3px;width:8px;height:8px;border:2px solid var(--onb);border-radius:50%;background:var(--side)}#mBkIn::before{left:-8px}#mBkIn::after{right:-8px}
-.bkz{position:fixed;z-index:44;width:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:var(--on);box-shadow:inset 0 0 0 2px var(--onb);color:var(--onb);font-size:11px;writing-mode:vertical-rl;pointer-events:none}.bkz.hot{background:var(--onb);color:#fff}
+.bkz{position:fixed;z-index:44;width:28px;pointer-events:none}
 .bksn{position:fixed;z-index:44;background:var(--onb);pointer-events:none}
 .bksp{position:fixed;z-index:5;width:9px;cursor:col-resize;touch-action:none}.bksp::after{content:"";position:absolute;left:3px;top:0;bottom:0;width:3px;background:var(--onb);opacity:0;transition:opacity .12s}.bksp:hover::after,.bksp.on::after,.bksp:focus-visible::after{opacity:1}.bksp:focus{outline:none}
 #mBkSm{flex:none;font-size:11px;color:var(--t3);cursor:pointer}#mBkSm:hover{color:var(--fg)}
@@ -516,7 +512,7 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 <!-- ══ 53 Layers ══ -->
 <div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLm" hidden><span></span><button title="Back to every object (closes Find and replace)">×</button></div><div id="mLl"><div></div></div></div>
 <!-- ══ 45b Layout ══ -->
-<div id="mSideL" class="bkh e0"></div><div id="mBkSpL" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkSpR" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkZl" class="bkz" hidden>Dock left</div><div id="mBkZr" class="bkz" hidden>Dock right</div><div id="mBkIn" hidden></div><div id="mBkSx" class="bksn" hidden></div><div id="mBkSy" class="bksn" hidden></div><div id="mBkSpPages" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><input type="file" id="mBkF" accept=".json,application/json" hidden>
+<div id="mSideL" class="bkh e0"></div><div id="mBkSpL" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkSpR" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkZl" class="bkz" hidden></div><div id="mBkZr" class="bkz" hidden></div><div id="mBkIn" hidden></div><div id="mBkSx" class="bksn" hidden></div><div id="mBkSy" class="bksn" hidden></div><div id="mBkSpPages" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><input type="file" id="mBkF" accept=".json,application/json" hidden>
 <!-- ══ 13 Side panel ══ -->
 <div id="mSide" class="bkh">
 <header id="mPh"><b>Properties</b><small id="mKind"></small><button data-a="props" title="Hide; the Properties tab at the canvas's right edge shows it again" aria-label="Hide">×</button></header>
@@ -774,7 +770,7 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog><dialog id="mPdP"><p><b></b></p><p><label>Page <select></select></label> <span></span></p><p><button value="ok">Open page</button> <button>Cancel</button></p></dialog>
 <!-- ══ 05c PDF sources ══ -->
 <div id="mPs" data-b="pages" role="region" aria-labelledby="mPsTitle" aria-describedby="mPsInfo" hidden>
- <header id="mPsHead"><span id="mPsTitle" data-ps-label="Choose pages">Choose pages</span><div id="mPsSource"><select id="mPsFiles" aria-label="Source file"></select><span id="mPsInfo"></span></div><div class="psHeadActions"><button id="mPsMoreBtn" type="button" title="More options" aria-label="More options" aria-expanded="false" aria-controls="mPsMore">···</button><button id="mPsX" type="button" title="Close page chooser" aria-label="Close page chooser">×</button></div></header>
+ <header id="mPsHead"><span id="mPsTitle" data-ps-label="Choose pages">Choose pages</span><div id="mPsSource"><select id="mPsFiles" aria-label="Source file"></select><span id="mPsInfo"></span></div><div class="psHeadActions"><button id="mPsMoreBtn" type="button" title="More options" aria-label="More options" aria-expanded="false" aria-controls="mPsMore"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="3.6" cy="8" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="12.4" cy="8" r="1.25"/></svg></button><button id="mPsX" type="button" title="Close page chooser" aria-label="Close page chooser"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 2l6 6M8 2L2 8"/></svg></button></div></header>
  <div id="mPsTools"><label><input id="mPsAll" type="checkbox"><span data-ps-label="Select all">Select all</span></label><span id="mPsOrder"></span></div>
  <div id="mPsScroll"><div id="mPsGrid"></div><p id="mPsEmpty" hidden></p></div>
  <p id="mPsNotice" role="status" aria-live="polite" hidden></p>
@@ -7050,7 +7046,6 @@ function pdfExportSource(){
 }
 function pdfExportActions(){
   const workspace=typeof pdfIsDocumentTab==='function'&&pdfIsDocumentTab();
-  qa('pdfDocument').disabled=!PDFS.sources.length;
   for(const action of ['svg','svgAs'])qa(action).hidden=workspace;
   for(const action of ['auto','autoDir']){
     const button=qa(action);
@@ -11322,10 +11317,10 @@ function bkAutoT(id){
 // bkWins(): the floating windows that show
 function bkWins(){
   return[...BK.map(b=>BKW[b]),$('mLay'),$('mChat'),$('mPs')].filter(w=>w.offsetWidth&&(w.classList.contains('blkw')||w.classList.contains('flt'))&&!w.classList.contains('na'))}
-// bkTgt(x,y,id): where a block dropped at x,y goes: {s,before,line} in a column or on a Dock strip, {f} on the canvas, or null
+// bkTgt(x,y,id): where a block dropped at x,y goes: {s,before,line} in a column or on an edge strip, {f} on the canvas, or null
 function bkTgt(x,y,id){
   const inR=(e,p)=>{const r=e.getBoundingClientRect();return r.width&&x>=r.left-(p||0)&&x<=r.right+(p||0)&&y>=r.top&&y<=r.bottom},v=view.getBoundingClientRect();
-  for(const s of['l','r'])if(!$(s==='l'?'mBkZl':'mBkZr').hidden&&inR($(s==='l'?'mBkZl':'mBkZr'),8))return{s,z:1};
+  for(const s of['l','r'])if(!$(s==='l'?'mBkZl':'mBkZr').hidden&&inR($(s==='l'?'mBkZl':'mBkZr'),8))return{s,z:1,line:[s==='l'?v.left:v.right-2,v.top,0,v.height]};
   if(BK.includes(id)){
     for(const s of['l','r']){
       const c=$(s==='l'?'mSideL':'mSide');
@@ -11342,22 +11337,19 @@ function bkTgt(x,y,id){
   }else if(x<v.left||x>v.right)return{s:x<v.left?'l':'r',line:[x<v.left?v.left:v.right-2,v.top,0,v.height]};
   if(x>=v.left&&x<=v.right&&y>=v.top&&y<=v.bottom)return{f:1};
   return null}
-// bkLine(t): the insertion line (or the Dock strip lit) for a target
+// bkLine(t): the insertion line for a target
 function bkLine(t){
   const n=$('mBkIn'),l=t&&t.line;
   n.hidden=!l;
   n.classList.toggle('v',!!(l&&l[3]));
   if(l)Object.assign(n.style,{left:l[0]+'px',top:l[1]-1+'px',width:l[3]?'2px':l[2]+'px',height:l[3]?l[3]+'px':'2px'});
-  $('mBkZl').classList.toggle('hot',!!(t&&t.z&&t.s==='l'));
-  $('mBkZr').classList.toggle('hot',!!(t&&t.z&&t.s==='r'));
 }
-// bkZones(on): the Dock left / Dock right strips on the canvas's edges, while a side has no column to drop on
+// bkZones(on): the invisible drop strips on the canvas's edges, while a side has no column to drop on (the insertion line shows the target)
 function bkZones(on){
   const v=view.getBoundingClientRect(),t=v.top+(opts.rulers?RW:0)+6,h=v.bottom-t-6;
   for(const s of['l','r']){
     const z=$(s==='l'?'mBkZl':'mBkZr'),show=on&&!$(s==='l'?'mSideL':'mSide').offsetWidth;
     z.hidden=!show;
-    z.classList.remove('hot');
     if(show)Object.assign(z.style,{left:(s==='l'?v.left+(opts.rulers?RW:0)+6:v.right-28-30)+'px',top:t+'px',height:h+'px'});
   }
 }

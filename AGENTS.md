@@ -2,13 +2,13 @@
 
 This file provides guidance to coding agents working in this repository.
 
-`CLAUDE.md` in the same directory is the same guidance in long form: every rule below, with its date, the measurements behind it and the history of what was tried and dropped. Read the matching section there before a non-trivial change — it is 216 KB, so grep it rather than reading it whole.
+`CLAUDE.md` in the same directory is the same guidance in long form: every rule below, with its date, the measurements behind it and the history of what was tried and dropped. Read the matching section there before a non-trivial change — it is 226 KB, so grep it rather than reading it whole.
 
 ## What this repository is
 
 svguest, a one-file SVG editor for touching up ggplot2/svglite/Inkscape figures.
 
-- `app.html` — the whole editor (1.09 MB: CSS, JS and two base64 fonts inline). This is the product.
+- `app.html` — the whole editor (1.28 MB: CSS, JS and two base64 fonts inline). This is the product.
 - `index.html` — the cover page (static, English only, not shipped in the plugin).
 - `svguest.plugin` — TBtools plugin; it carries its own copy of `app.html` as `svguest/index.html`.
 - `fonts/` — `build-fonts.py`, the two subset woff2 files and their SIL OFL texts. `fonts/src/` holds the downloaded originals and is gitignored.
@@ -54,12 +54,17 @@ Push with SSH; HTTPS auth fails here: `git push git@github.com:JieqiangHe/svgues
 
 ## Verification in practice
 
-There is no test command. Verification means headless Chromium scripts kept **outside** the repo (a scratchpad under `/tmp`), and they are thrown away afterwards:
+There is no test command. Verification means headless Chromium scripts kept **outside** the repo (a scratchpad under `/tmp`), and they are thrown away afterwards.
+
+Playwright is already installed in micromamba, with its Chromium downloaded — do not `npm i` anything and do not run `playwright install`:
 
 ```bash
-mkdir -p /tmp/pwtest && cd /tmp/pwtest && npm init -y && npm i playwright && npx playwright install chromium
-# ... script ... then: rm -rf /tmp/pwtest
+PW=~/.local/share/mamba/envs/playwright_1.65.1
+NODE=~/.local/share/mamba/envs/nodejs_26.13.0/bin/node
+$NODE -e "const {chromium}=require('$PW/lib/node_modules/playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1280,height:800},deviceScaleFactor:2,colorScheme:'dark'});await p.goto('file://$PWD/app.html');await p.screenshot({path:'/tmp/shot.png'});await b.close()})()"
 ```
+
+`$PW/bin/playwright --version` says 1.65.1; the browser lives in `~/Library/Caches/ms-playwright/chromium_headless_shell-1255`. On the app's `file://` origin `localStorage` works, which is how the release images are set up: write `sgTheme`, `sgLang`, `sgSeen` (and omit `sgSeen` to make the What's new card open) with `page.evaluate`, then `page.reload()`; `colorScheme:'dark'` is followed when no `sgTheme` is saved. Element screenshots (`locator('#mWn').screenshot({omitBackground:true})`) give the card alone.
 
 What every change should be checked against (all established practice, see CLAUDE.md › Testing):
 
@@ -102,6 +107,7 @@ What every change should be checked against (all established practice, see CLAUD
 - MAJOR.MINOR.PATCH: PATCH for fixes, wording and styling that leave how people work unchanged; MINOR for new features or a changed way of working (a What's new card means MINOR); MAJOR only when files, settings or the plugin saved before stop working. A release takes the highest level among its changes.
 - The version string appears in exactly four places: `app.html` head comment and the `#mBrand` `title`; `index.html` head comment and the footer.
 - The What's new card (`WN` in `01a Data`) is shown once per minor version; rewrite its chip, lead and four rows for each release, and add their Chinese to `ZH` word for word.
+- The card belongs to its minor version: **never edit `WN` or its hero for a PATCH**. If the card must change soon after its minor release (v1.9.0's did on 17 Nov 2026), ask the user first — the clean fix is to fold it into that same version (delete the release and tag, re-tag the corrected commit, move `release` forward, re-publish), not to ship a patch carrying a new card.
 - When you redraw the What's new hero (`#mWnG`), check that the chip (`#mWnC`, top left) still clears the picture: the hero's height must leave a visible gap under the chip, as v1.7's 104 px grid does. v1.8.0 first shipped a 118 px layout picture whose frame ran 8.8 px up under "NEW · YOUR OWN LAYOUT" (the user caught it, 16 Nov 2026); it was cut back to 104 px. Before release, screenshot `#mWn` in EN and ZH, dark and light, and measure the chip's bottom against the hero's top (≥ 4 px), at 1100 px and at the small-screen width.
 - Release order: bump, rebuild the plugin, syntax-check, commit to `main`, `git tag -a vX.Y.Z`, push the tag, `git push origin main:release`, then `gh release create vX.Y.Z app_vX.Y.Z.html svguest_vX.Y.Z.plugin`. Tag before `gh release create`, or gh makes its own tag.
 - Release assets carry the version, the repo files don't: in the repo keep `app.html` and `svguest.plugin` as they are; for `gh release create` copy them to `app_vX.Y.Z.html` and `svguest_vX.Y.Z.plugin` (e.g. `app_v1.8.0.html`, `svguest_v1.8.0.plugin`; the user's rule, 16 Nov 2026) and name those in the release notes.

@@ -317,7 +317,15 @@ body.nos .sx>div,body.not #mTsec>div,body.nos #mAp>.r:not(.ks)>*{opacity:.45;poi
 :is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;color:var(--h4);cursor:pointer;user-select:none}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb input{position:absolute;opacity:0;pointer-events:none}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb svg,:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb:has(input:checked){background:var(--on);border-color:transparent;color:var(--onb)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .tgb:has(input:focus-visible){outline:2px solid var(--onb)}
 .ap input[type=color].dim{opacity:.35}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn{position:relative;flex:none;width:24px;height:24px;margin:0;border:1px solid var(--btnb);border-radius:6px;background:var(--btn);cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn i{position:absolute;inset:4px;pointer-events:none;background:linear-gradient(to top right,#0000 44%,var(--swb) 44%,var(--swb) 56%,#0000 56%);opacity:.45}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn input:checked+i{background-image:linear-gradient(to top right,#0000 42%,#e5534b 42%,#e5534b 58%,#0000 58%);opacity:1}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn:hover{border-color:var(--swb)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .nn:has(input:checked){background:var(--on);border-color:transparent}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border-color:transparent;background:none;color:var(--h4)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) .ib:hover{background:var(--btnh);color:var(--fg)}:is(#mSide,#mSideL,#mPop,#mFg,.blkw) input::-webkit-inner-spin-button{display:none}
 /* ══ 07a Paper colour ══ */
-#mPaperColours>button{flex:none;width:18px;height:18px;min-width:18px;padding:0;border-radius:4px;background:var(--c)}#mPaperColours>button.on,#mPaperColours>.on{outline:2px solid var(--onb);outline-offset:1px}#mPaperColours>.f.c{flex:none;padding:0 3px;gap:2px;cursor:pointer}#mPaperColours>.f.c span{color:var(--h4)}
+#mPaperSettings{display:flex;flex-direction:column;gap:5px}#mPaperSettings>span{color:var(--h4)}
+#mPaperColours{display:flex;align-items:center;gap:8px;padding:3px}
+#mPaperColours>button,#mPaperColours>label.f.c{position:relative;display:grid;place-items:center;box-sizing:border-box;flex:0 0 26px;width:26px;min-width:26px;height:26px;min-height:26px;margin:0;padding:0;border:1px solid var(--swb);border-radius:5px;cursor:pointer}
+#mPaperColours>button{background:var(--c)}#mPaperColours>button:hover{background-image:none;border-color:var(--fg)}
+#mPaperColours>button.on,#mPaperColours>label.on,#mPaperColours>button:focus-visible,#mPaperColours>label:has(input:focus-visible){outline:2px solid var(--onb);outline-offset:2px}
+#mPaperColours>label.f.c{background:var(--btn)}#mPaperColours>label.f.c.on{background:var(--c)}
+#mPaperColours>label.f.c>input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:pointer}
+#mPaperColours>label.f.c>span{pointer-events:none;color:var(--h4);font-size:20px;line-height:1}
+#mPaperColours>label.f.c.on>span{position:absolute;right:1px;bottom:1px;display:grid;place-items:center;width:10px;height:10px;border-radius:2px;background:var(--btn);color:var(--fg);font-size:11px;line-height:1}
 /* ══ 57a Number fields ══ */
 :is(#mSide,#mSideL,#mPop,#mFg,.blkw) .f:has(>input[type=number]:not(:disabled)),:is(#mSide,#mSideL,#mPop,#mFg,.blkw) input[type=number]:not(:disabled){cursor:ew-resize}body.nfOn,body.nfOn *{cursor:ew-resize!important;user-select:none}#mFgC input[data-nf]{width:100%;min-width:0;height:22px}
 /* ══ 50 History and status bar ══ */
@@ -527,8 +535,9 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 <section data-b="page"><h4>Page <small>mm</small></h4><div>
 <div class="row"><select data-f="pg" id="mPg" title="Page size"><option value="">Custom</option><option value="210,297">A4</option><option value="297,420">A3</option><option value="148,210">A5</option><option value="215.9,279.4">US Letter</option></select><span class="seg ic o"><button data-a="portrait" title="Portrait"><svg viewBox="0 0 16 16"><rect x="4.5" y="2" width="7" height="12" rx="1.2"/></svg></button><button data-a="landscape" title="Landscape"><svg viewBox="0 0 16 16"><rect x="2" y="4.5" width="12" height="7" rx="1.2"/></svg></button></span></div>
 <div class="g2"><label class="f">W<input type="number" step="1" min="1" data-f="pw"></label><label class="f">H<input type="number" step="1" min="1" data-f="ph"></label></div>
-<div class="kv"><span>Paper</span><div id="mPaperColours"><label class="f c" title="Custom paper colour"><input type="color" data-f="paper" title="Custom paper colour"><span>…</span></label></div></div>
-<p id="mPaperNote" class="pph" hidden>The drawing has its own background, which may cover the paper colour. Edit it in Layers.</p>
+<div id="mPaperSettings"><span>Background</span>
+<div id="mPaperColours" role="group" aria-label="Background"><label class="f c" title="Custom background colour"><input type="color" data-f="paper" title="Custom background colour" aria-label="Custom background colour"><span aria-hidden="true">+</span></label></div></div>
+<p id="mPaperNote" class="pph" hidden>The drawing has its own background, which may cover this colour. Edit it in Layers.</p>
 <div class="row"><button data-a="fitPage" title="Resize the page to the drawing (1 mm margin). Anything outside the page is not exported.">Fit page to content</button></div></div></section>
 <section data-b="transform" class="sx"><h4>Transform <small>mm</small></h4><div>
 <div class="g2" id="mTf"><label class="f">X<input type="number" step="0.1" data-f="x"></label><label class="f">Y<input type="number" step="0.1" data-f="y"></label>
@@ -943,7 +952,7 @@ const order=a=>{const u=[...new Set(a)];if(u.length<64||!root)return u.sort((x,y
   add=(a,b)=>{for(const x of b)a.push(x);return a};
 
 // ══ 01a Data ════
-const PAPER_COLOURS=[['#ffffff','White paper'],['#000000','Black paper'],['#f5f0e6','Ivory paper'],['#f2f2f2','Light grey paper']]; // opaque paper presets; the usual picker supplies custom colours
+const PAPER_COLOURS=[['#ffffff','White background'],['#000000','Black background'],['#f5f0e6','Ivory background'],['#f2f2f2','Light grey background']]; // opaque paper presets; the usual picker supplies custom colours
 // Constant data kept apart from the code: prompts, icons, labels, font names. Plain literals that use nothing
 // declared later, so they can sit before every section that reads them.
 // CVD: colour vision deficiencies for 28b. t: key, name, the cone that is weak or missing; m: Machado, Oliveira and
@@ -1097,14 +1106,14 @@ const BN={page:'Page',transform:'Transform',align:'Align',arrange:'Arrange',text
 // A word with two meanings gets "text@value" for an <option> with that value. LNG is 'zh' or 'en' (saved in sgLang; a first visit is always English).
 // lgDom() walks the interface once at startup and when the language is switched, never the drawing, the chats, the Layers rows, the tabs or anything the user typed; it keeps each original on its node (_o, _a), so switching back is exact.
 const ZH={
- "Paper":"纸色",
- "Paper colour":"纸张颜色",
- "Custom paper colour":"自定义纸张颜色",
- "White paper":"白色纸张",
- "Black paper":"黑色纸张",
- "Ivory paper":"米白纸张",
- "Light grey paper":"浅灰纸张",
- "The drawing has its own background, which may cover the paper colour. Edit it in Layers.":"原图自带背景，可能会遮住纸张颜色。可在图层中修改。",
+ "Background":"背景",
+ "Background colour":"背景颜色",
+ "Custom background colour":"自定义背景颜色",
+ "White background":"白色背景",
+ "Black background":"黑色背景",
+ "Ivory background":"米白背景",
+ "Light grey background":"浅灰背景",
+ "The drawing has its own background, which may cover this colour. Edit it in Layers.":"原图自带背景，可能会遮住此颜色。可在图层中修改。",
  "Arrange the panels: presets, the sections shown, lock, export":"摆放面板：预设、显示哪些分区、锁定、导出",
  "Layout":"布局",
  "The last arrangement you made by hand":"你上一次手动调整的布局",
@@ -7774,7 +7783,7 @@ function paperSet(c){
   c=c.toLowerCase();
   if(paperColour()===c)return paperPanel();
   root.setAttribute('data-sg-paper',c);
-  why='Paper colour';
+  why='Background colour';
   commit();
 }
 let paperNotice=null; // last document/version and whether its artwork may hide a different paper colour
@@ -7811,7 +7820,9 @@ function paperPanel(){
     b.setAttribute('aria-pressed',String(on));
     if(on)preset=true;
   }
-  F.paper.closest('label').classList.toggle('on',!preset);
+  const custom=F.paper.closest('label');
+  custom.classList.toggle('on',!preset);
+  custom.style.setProperty('--c',c);
   if(!paperNotice||paperNotice.root!==root||paperNotice.v!==dv){
     paperNotice={root,v:dv,covered:!!paperColour()&&memoize(()=>paperCovered(c))};
   }
@@ -7819,6 +7830,14 @@ function paperPanel(){
 }
 {
   const row=$('mPaperColours');
+  row.addEventListener('keydown',e=>{
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    const t=e.target.closest('button,input[type=color]');
+    if(!t)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(!e.repeat)t.click();
+  });
   for(const [c,n] of PAPER_COLOURS){
     const b=btn('',()=>paperSet(c),n);
     b.dataset.paper=c;

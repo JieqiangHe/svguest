@@ -127,9 +127,12 @@ input,select{font:inherit}
 #mPsEmpty{margin:0;padding:25px 15px;color:var(--h4);text-align:center}
 #mPsNotice{flex:none;max-height:64px;overflow:auto;margin:0;padding:7px 10px;border-top:1px solid var(--line);color:var(--h4);font-size:10px}
 #mPsNotice.err{color:var(--er)}
+#mPsNotice.busy{background:var(--on);border-top-color:transparent;color:var(--onb);font-size:11px;font-weight:500}
 #mPs>footer{display:flex;flex-direction:column;align-items:stretch;gap:6px;flex:none;padding:8px 10px 10px;border-top:1px solid var(--line)}
 #mPsCount{min-width:0;color:var(--t3);font-size:10px;font-variant-numeric:tabular-nums}
 #mPs>footer>button{min-height:27px;padding:3px 9px;white-space:nowrap}
+#mPs>footer>button.busy{background:var(--on);border-color:transparent;color:var(--onb)}
+#mPs>footer>button.busy:disabled{opacity:1}
 #mPsPreview{width:min(820px,calc(100vw - 24px));height:min(740px,calc(100dvh - 24px));max-width:none;max-height:none;padding:0;overflow:hidden;font-size:12px}
 #mPsPreview[open]{display:flex;flex-direction:column}
 #mPsPreview>header{display:flex;align-items:center;gap:10px;flex:none;padding:11px 13px;border-bottom:1px solid var(--line)}
@@ -5969,6 +5972,7 @@ function psUiButtons(){
   let text=psUiText(PSUI.busy?'Opening pages…':'Open selected in tabs');
   if(!PSUI.busy&&n>1)text+=' ('+n+')';
   psUiSet(normal,text);
+  normal.classList.toggle('busy',!!PSUI.busy);
   normal.title=need>room?psUiText('{needed} new tabs needed; {available} available.',{needed:need,available:room}):'';
   copy.title=copies>room?psUiText('{needed} new tabs needed; {available} available.',{needed:copies,available:room}):psUiText('Create independent tabs and keep edited pages');
   $('mPsFiles').disabled=PSUI.busy;
@@ -6049,6 +6053,7 @@ function pdfBrowserUpdate(){
     e.querySelector('.psHit').setAttribute('aria-current',editing?'page':'false');
   }
   psUiButtons();
+  $('mPsNotice').classList.toggle('busy',!!PSUI.busy);
   if(PSUI.large>=0){
     psUiSet($('mPsLargePage'),psUiText('Page {n}',{n:PSUI.large+1}));
     $('mPsPreviewTitle').textContent=s.name+' · '+psUiText('Original preview');

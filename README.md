@@ -22,7 +22,7 @@ Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textb
 
 ## Acknowledgements
 
-<p align="center">Thanks to <a href="https://github.com/CJ-Chen/TBtools-II">TBtools-II</a> and its author, Chengjie Chen (<a href="https://github.com/CJ-Chen">@CJ-Chen</a>), for hosting svguest as a plugin and for opening TBtools' model to SVG Chat, and to <a href="https://bioanno.com/index">BioAnno</a> for its support.</p>
+<p align="left">Thanks to <a href="https://github.com/CJ-Chen/TBtools-II">TBtools-II</a> and its author, Chengjie Chen (<a href="https://github.com/CJ-Chen">@CJ-Chen</a>), for hosting svguest as a plugin and for opening TBtools' model to SVG Chat, and to <a href="https://bioanno.com/index">BioAnno</a> for its support.</p>
 
 ## Similar software
 

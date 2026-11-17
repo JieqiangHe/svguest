@@ -18,7 +18,9 @@ A tiny SVG editor for scientific figures, in one HTML file. Touch up figures fro
 
 Do not use or trace figures from BioRender, Figdraw, icon sites, papers or textbooks and publish them as your own; when you use others' graphics, follow their license, credit the source, and obtain permission where required.
 
-## Other projects
+## Similar software
+
+You may also like these open-source vector editors:
 
 - [VectorCraft](https://github.com/storytold/vectorcraft) — an open-source vector illustration app by the ArtCraft team, for desktop and the web.
 - [Vector Studio](https://ves.puter.com/) — a browser-based vector editor from the [Everything project](https://github.com/HeyPuter/everything/tree/main/src/vector-studio).

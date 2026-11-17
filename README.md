@@ -1,4 +1,4 @@
-<h1 align="center">
+<h1>
   <picture><source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg"><img src="logo.svg" alt="svguest" height="40"></picture>
 </h1>
 

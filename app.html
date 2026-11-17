@@ -72,34 +72,22 @@ input,select{font:inherit}
 /* ══ 05c PDF sources ══ */
 #mWork{display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);min-width:0;min-height:0;overflow:hidden}
 #mWork>#mView{grid-area:1/1;min-width:0;min-height:0}
-#mPsDock{position:relative;min-width:0;min-height:0;overflow:visible;background:var(--side)}
-#mWork[data-pages=left]{grid-template-columns:auto minmax(0,1fr)}
-#mWork[data-pages=left]>#mPsDock{grid-area:1/1;border-right:1px solid var(--line)}
-#mWork[data-pages=left]>#mView{grid-area:1/2}
-#mWork[data-pages=right]{grid-template-columns:minmax(0,1fr) auto}
-#mWork[data-pages=right]>#mPsDock{grid-area:1/2;border-left:1px solid var(--line)}
-#mWork[data-pages=right]>#mView{grid-area:1/1}
-#mWork[data-pages=top]{grid-template-rows:auto minmax(0,1fr)}
-#mWork[data-pages=top]>#mPsDock{grid-area:1/1;border-bottom:1px solid var(--line)}
-#mWork[data-pages=top]>#mView{grid-area:2/1}
-#mWork[data-pages=bottom]{grid-template-rows:minmax(0,1fr) auto}
-#mWork[data-pages=bottom]>#mPsDock{grid-area:2/1;border-top:1px solid var(--line)}
-#mWork[data-pages=bottom]>#mView{grid-area:1/1}
-#mPsDock[hidden],#mPsBtn[hidden],#mPs [hidden],#mPsPreview [hidden],#mPsMore[hidden],#mPsSnap[hidden]{display:none!important}
-#mPsBtn{flex:none;min-height:26px;margin:0 4px;padding:2px 7px;white-space:nowrap}
-#mPs{position:fixed;inset:auto;width:320px;height:560px;max-width:none;max-height:none;margin:0;padding:0;overflow:hidden;border:1px solid var(--btnb);border-radius:9px;background:var(--side);color:var(--fg);box-shadow:var(--shm);font-size:12px;z-index:18;container-type:inline-size}
-#mPs[open]{display:flex;flex-direction:column}
-#mPs.psDocked{position:relative;inset:auto;width:100%;height:100%;border:0;border-radius:0;box-shadow:none;z-index:auto}
-#mPsHead{position:relative;display:flex;align-items:flex-start;flex:none;gap:8px;padding:11px 10px 9px;border-bottom:1px solid var(--line);touch-action:none;cursor:grab;user-select:none}
-#mPs.psMoving #mPsHead{cursor:grabbing}
-.bkLk #mPsHead{cursor:default}.bkLk #mPsResize,.bkLk #mPsSplit{display:none}
+#mPs [hidden],#mPsPreview [hidden],#mPsMore[hidden]{display:none!important}
+#mPs{position:relative;inset:auto;display:none;flex-direction:column;min-width:0;min-height:0;width:auto;height:auto;margin:0;padding:0;overflow:hidden;border:0;border-radius:0;background:var(--side);color:var(--fg);box-shadow:none;font-size:12px;container-type:inline-size}
+#mPs:not([hidden]){display:flex}
+#mPsHead{position:relative;display:flex;align-items:flex-start;flex:none;gap:5px;padding:8px 7px 7px 2px;border-bottom:1px solid var(--line);user-select:none}
+#mPsHead>.grip{margin-top:1px}
+#mPsHead>.fb{margin-top:1px}
+#mPs.bkl{border-right:1px solid var(--line)}
+#mPs:not(.bkl){border-left:1px solid var(--line)}
+#mPs.flt{min-width:min(220px,calc(100vw - 16px));min-height:min(260px,calc(100dvh - 16px));max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border:0}
 #mPsTitle{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 #mPsSource{flex:1;min-width:0;padding-right:2px}
 #mPsFiles{display:block;width:100%;min-width:0;height:22px;padding:0 19px 0 0;border:0;border-radius:0;background:transparent;color:var(--fg);font-size:12px;font-weight:500;line-height:22px;text-overflow:ellipsis;cursor:default;touch-action:auto}
 #mPsFiles:focus-visible{outline:2px solid var(--onb);outline-offset:2px;border-radius:3px}
 #mPsInfo{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:3px;color:var(--t3);font-size:10px;line-height:17px}
-#mPs .psHeadActions{display:flex;align-items:center;gap:1px;flex:none;padding-top:1px}
-#mPs .psHeadActions>button{height:24px;min-width:23px;padding:0 4px;border-color:transparent;background:transparent;color:var(--h4);cursor:default;touch-action:auto}
+#mPs .psHeadActions{display:flex;align-items:center;gap:0;flex:none;padding-top:1px}
+#mPs .psHeadActions>button{height:24px;width:22px;min-width:22px;padding:0 4px;border-color:transparent;background:transparent;color:var(--h4);cursor:default;touch-action:auto}
 #mPs .psHeadActions>button:hover{background:var(--btnh)}
 #mPsX{font-size:17px;line-height:22px}
 #mPsMoreBtn{font-size:15px;letter-spacing:1px}
@@ -117,8 +105,9 @@ input,select{font:inherit}
 #mPsScroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--sbt) transparent}
 #mPsGrid{display:grid;grid-template-columns:minmax(0,1fr);align-items:start;gap:12px;padding:0 11px 12px}
 #mPs .psPage{min-width:0}
-#mPs .psThumb{position:relative;display:flex;align-items:center;justify-content:center;min-height:90px;aspect-ratio:1/1.05;padding:25px 11px 10px;border:1px solid var(--btnb);border-radius:5px;background:var(--view)}
-#mPs .psThumb>img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;pointer-events:none}
+#mPs .psThumb{position:relative;display:flex;align-items:center;justify-content:center;min-height:90px;aspect-ratio:1/1.05;padding:25px 11px 10px;overflow:hidden;border:1px solid var(--btnb);border-radius:5px;background:var(--view)}
+/* An absolute image has a definite preview box; intrinsic bitmap dimensions cannot expand an auto-height flex item. */
+#mPs .psThumb>img{position:absolute;top:25px;left:11px;display:block;width:calc(100% - 22px);height:calc(100% - 35px);max-width:calc(100% - 22px);max-height:calc(100% - 35px);min-width:0;min-height:0;object-fit:contain;pointer-events:none}
 #mPs .psPage.on .psThumb{background:var(--btnh)}
 #mPs .psPage.current .psThumb{border-color:var(--onb);box-shadow:0 0 0 1px var(--onb)}
 #mPs .psPage.current .psPageName{color:var(--fg);font-weight:500}
@@ -145,26 +134,6 @@ input,select{font:inherit}
 #mPs>footer>button{min-height:27px;padding:3px 9px;white-space:nowrap}
 #mPsOpen{background:var(--fg);border-color:transparent;color:var(--side)}
 #mPsOpen:not(:disabled):hover{background:var(--fg);background-image:none;opacity:.9}
-#mPsSplit{position:absolute;z-index:4;touch-action:none}
-#mWork[data-pages=left] #mPsSplit{top:0;bottom:0;right:-3px;width:7px;cursor:ew-resize}
-#mWork[data-pages=right] #mPsSplit{top:0;bottom:0;left:-3px;width:7px;cursor:ew-resize}
-#mWork[data-pages=top] #mPsSplit{left:0;right:0;bottom:-3px;height:7px;cursor:ns-resize}
-#mWork[data-pages=bottom] #mPsSplit{left:0;right:0;top:-3px;height:7px;cursor:ns-resize}
-#mPsSplit:hover,#mPsSplit:focus-visible{background:var(--onb);outline:none}
-#mPsResize{position:absolute;bottom:0;right:0;width:15px;height:15px;cursor:nwse-resize;touch-action:none;background:linear-gradient(135deg,transparent 65%,var(--t3) 66%,var(--t3) 70%,transparent 71%,transparent 80%,var(--t3) 81%,var(--t3) 85%,transparent 86%)}
-#mPs.psDocked #mPsResize{display:none}
-#mPsSnap{position:fixed;z-index:35;pointer-events:none;border:2px solid var(--onb);border-radius:5px;background:#4587df22;box-shadow:inset 0 0 0 1px #ffffff22}
-#mPs.psHorizontal{display:grid;grid-template: auto minmax(0,1fr)/190px minmax(0,1fr);column-gap:0}
-#mPs.psHorizontal>#mPsHead{grid-area:1/1/3/2;display:block;border-bottom:0;border-right:1px solid var(--line);padding:10px}
-#mPs.psHorizontal .psHeadActions{justify-content:flex-end;margin-top:6px}
-#mPs.psHorizontal>#mPsTools{grid-area:1/2;padding:5px 12px;min-height:26px}
-#mPs.psHorizontal>#mPsScroll{grid-area:2/2}
-#mPs.psHorizontal>#mPsScroll #mPsGrid{display:flex;align-items:stretch;width:max-content;min-width:100%;height:100%;gap:10px;padding:0 12px 8px}
-#mPs.psHorizontal .psPage{flex:none;display:flex;flex-direction:column;width:148px;height:100%}
-#mPs.psHorizontal .psThumb{flex:1;min-height:46px;aspect-ratio:auto;padding:23px 8px 4px}
-#mPs.psHorizontal>#mPsNotice{position:absolute;left:190px;right:0;bottom:0;z-index:3;background:var(--side)}
-#mPs.psHorizontal>footer{position:absolute;left:0;bottom:0;width:190px;border-top:1px solid var(--line);padding:8px 10px;background:var(--side)}
-#mPs.psHorizontal #mPsCount{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 #mPsPreview{width:min(820px,calc(100vw - 24px));height:min(740px,calc(100dvh - 24px));max-width:none;max-height:none;padding:0;overflow:hidden;font-size:12px}
 #mPsPreview[open]{display:flex;flex-direction:column}
 #mPsPreview>header{display:flex;align-items:center;gap:10px;flex:none;padding:11px 13px;border-bottom:1px solid var(--line)}
@@ -175,10 +144,9 @@ input,select{font:inherit}
 #mPsPaging>button{width:28px;height:25px;padding:0}
 #mPsLargePage{font-weight:400;font-variant-numeric:tabular-nums}
 #mPsLarge{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:14px;margin:0 13px 13px;background:var(--view);border-radius:5px;overscroll-behavior:contain}
-#mPsLargeImage{display:block;max-width:100%;max-height:100%;object-fit:contain;background:white;box-shadow:0 1px 4px #0003}
+#mPsLargeImage{position:absolute;inset:14px;display:block;width:calc(100% - 28px);height:calc(100% - 28px);max-width:calc(100% - 28px);max-height:calc(100% - 28px);min-width:0;min-height:0;object-fit:contain;box-shadow:none}
 #mPsLargeHint{position:absolute;left:12px;right:12px;bottom:8px;margin:0;padding:5px;color:var(--fg);background:var(--side);border-radius:4px;font-size:10px;text-align:center}
 #mPsLargeHint.err{color:var(--er)}
-@container(max-width:440px){#mPs.psHorizontal{grid-template-columns:130px minmax(0,1fr)}#mPs.psHorizontal>footer{width:130px}#mPs.psHorizontal>#mPsNotice{left:130px}#mPs.psHorizontal>#mPsHead{padding:8px}#mPs.psHorizontal .psPage{width:124px}}
 
 /* ══ 60 Dialogs ══ */
 #mHelp{padding:0;width:min(880px,96vw);max-width:none;height:min(640px,90vh);max-height:none;overflow:hidden}
@@ -352,7 +320,7 @@ body.smc #mSide{display:flex;flex-direction:column;padding-bottom:0}body.smc #mS
 :is(#mSide,#mSideL)>section{position:relative}
 .grip{position:absolute;left:0;top:0;width:8.6px;height:30px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:none!important;color:var(--t3);opacity:.45;cursor:grab;touch-action:none}.grip svg{width:4.6px;height:7.6px;fill:currentColor;stroke:none}body:not(.bkLk,.sm) :is(#mSide,#mSideL)>section>h4{padding-left:5px}
 .grip:hover,.grip.pk,.grip:focus-visible{opacity:1;color:var(--fg)}.grip:focus{outline:none}.grip:focus-visible,.grip.pk{box-shadow:inset 0 0 0 1.5px var(--onb)}
-:is(.blkw>header,#mLay>header,#mChH)>.grip{position:static;flex:none;width:10px;height:24px;margin:0;border-radius:4px;cursor:move}#mLay>header>.grip{cursor:grab}#mLay.flt>header>.grip{cursor:move}#mChat #mChH>.grip{margin:0 3px 0 -4px}#mLay>header>.grip{margin-right:-1px}body:not(.bkLk,.sm) #mLay>header{padding-left:0}
+:is(.blkw>header,#mLay>header,#mChH,#mPs>header)>.grip{position:static;flex:none;width:10px;height:24px;margin:0;border-radius:4px;cursor:move}#mLay>header>.grip{cursor:grab}#mLay.flt>header>.grip{cursor:move}#mChat #mChH>.grip{margin:0 3px 0 -4px}#mLay>header>.grip{margin-right:-1px}body:not(.bkLk,.sm) #mLay>header{padding-left:0}
 .fb,#mLay header .fb{flex:none;width:22px;height:22px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:none;color:var(--h4)}.fb:hover,#mLay header .fb:hover{background:var(--btnh);color:var(--fg)}.fb svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}.fb.on,.fb.on:hover,#mLay header .fb.on{background:var(--on);color:var(--onb)}
 :is(#mSide,#mSideL)>section>h4 .fb{margin-left:auto}:is(#mSide,#mSideL)>section>h4:has(.fb)::after{margin-left:4px}#mLay.flt .fb,#mChat.flt .fb{width:26px;height:24px}
 .bkLk .grip,.bkLk .fb,.bkLk .blkw .wx,.sm .grip,.sm .fb{display:none!important}
@@ -364,10 +332,10 @@ body.smc #mSide{display:flex;flex-direction:column;padding-bottom:0}body.smc #mS
 .blkw.shut{resize:none;padding-bottom:0}.blkw.shut>section{display:none}.blkw.shut>header{margin-bottom:0;border-bottom:0}
 .blkw.na{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .12s,visibility 0s .12s}
 /* Layers and SVG Chat floating */
-#mLay.flt,#mChat.flt{position:fixed;z-index:16;border:0;border-radius:10px;overflow:hidden;resize:both;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s}#mLay.flt{min-width:200px;min-height:160px}#mChat.flt{min-width:280px;min-height:360px}
-#mLay.flt>header,#mChat.flt>#mChH{background:var(--bar);cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}:is(#mLay,#mChat).flt.wbk{box-shadow:var(--sh)}:is(#mLay,#mChat).flt.wbk>:is(header,#mChH){background:var(--side)}:is(#mLay,#mChat).zm{resize:none}
+#mLay.flt,#mChat.flt,#mPs.flt{position:fixed;z-index:16;border:0;border-radius:10px;overflow:hidden;resize:both;box-shadow:var(--shm),0 18px 48px -12px #00000059;transition:opacity .12s}#mLay.flt{min-width:200px;min-height:160px}#mChat.flt{min-width:280px;min-height:360px}
+#mLay.flt>header,#mChat.flt>#mChH,#mPs.flt>header{background:var(--bar);cursor:move;touch-action:none;user-select:none;-webkit-user-select:none}:is(#mLay,#mChat,#mPs).flt.wbk{box-shadow:var(--sh)}:is(#mLay,#mChat,#mPs).flt.wbk>:is(header,#mChH){background:var(--side)}:is(#mLay,#mChat,#mPs).zm{resize:none}
 /* while the canvas is dragged the windows fade and let the pointer through */
-body.bkcd :is(.blkw,#mLay.flt,#mChat.flt){opacity:.25;pointer-events:none}
+body.bkcd :is(.blkw,#mLay.flt,#mChat.flt,#mPs.flt){opacity:.25;pointer-events:none}
 /* dragging */
 body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor:grabbing!important}body.bkMv *{cursor:move!important}
 .bkDr :is(#mSide,#mSideL)>section::after{content:"";position:absolute;inset:0}.bkSrc{opacity:.55}
@@ -378,7 +346,7 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 .bksp{position:fixed;z-index:5;width:9px;cursor:col-resize;touch-action:none}.bksp::after{content:"";position:absolute;left:3px;top:0;bottom:0;width:3px;background:var(--onb);opacity:0;transition:opacity .12s}.bksp:hover::after,.bksp.on::after,.bksp:focus-visible::after{opacity:1}.bksp:focus{outline:none}
 #mBkSm{flex:none;font-size:11px;color:var(--t3);cursor:pointer}#mBkSm:hover{color:var(--fg)}
 @media(pointer:coarse){.grip{opacity:.6}}
-@media(prefers-reduced-motion:reduce){.blkw,.blkw.na,.bksp::after,#mLay.flt,#mChat.flt{transition:none}}
+@media(prefers-reduced-motion:reduce){.blkw,.blkw.na,.bksp::after,#mLay.flt,#mChat.flt,#mPs.flt{transition:none}}
 /* the What's new hero of v1.8: a canvas, a docked column and a floating window snapped beside it */
 #mWnG.ly{display:block;position:relative;height:104px;border-radius:7px;background:var(--view);overflow:hidden}#mWnG.ly>*{position:absolute;border-radius:4px}
 #mWnG.ly .pg{left:10px;top:10px;width:96px;height:84px;border-radius:2px;background:#fff;box-shadow:0 1px 3px #0003}#mWnG.ly .pg::before{content:"";position:absolute;left:14px;top:14px;width:44px;height:27px;border:2px solid #4c8df6;border-radius:3px}#mWnG.ly .pg::after{content:"";position:absolute;left:30px;top:51px;width:52px;height:18px;border-radius:50%;background:#e2a33c}
@@ -511,7 +479,7 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 <div class="dd"><button class="ddb">Edit<i class="ca"></i></button><div class="menu"><button data-a="undo">Undo<kbd>Ctrl+Z</kbd></button><button data-a="redo">Redo<kbd>Ctrl+Shift+Z</kbd></button><div class="sub" id="mHi"><button class="sb" title="Every step you can undo or redo; pick one to go back or forward to it">History<i>›</i></button><div class="menu" id="mHm"></div></div><hr><button data-a="copy">Copy<kbd>Ctrl+C</kbd></button><button data-a="paste" title="Paste copied objects at the cursor (Ctrl+V also pastes images)">Paste<kbd>Ctrl+V</kbd></button><button data-a="pfront" title="Paste where it was copied, just in front of the selection">Paste in front<kbd>Ctrl+F</kbd></button><button data-a="pback" title="Paste where it was copied, just behind the selection">Paste in back<kbd>Ctrl+B</kbd></button><button data-a="pplace" title="Paste where it was copied, on top">Paste in place<kbd>Ctrl+Shift+V</kbd></button><button data-a="del">Delete<kbd>Del</kbd></button><hr><button data-a="again" title="Repeat the last move, scale or rotation (with its copy, after an Alt+drag)">Transform again<kbd>Ctrl+D</kbd></button><hr><button data-a="find" title="Find text in the figure and replace it">Find and replace…<kbd>Ctrl+H</kbd></button></div></div>
 <div class="dd"><button class="ddb">Select<i class="ca"></i></button><div class="menu"><button data-a="all" title="Everything in the current group">All<kbd>Ctrl+A</kbd></button><button data-a="none">Deselect<kbd>Ctrl+Shift+A</kbd></button><button data-a="allText" title="Every text in the document">All text</button><hr><button data-a="sf" title="Every shape (or every text) with the fill of the selected one">Same fill</button><button data-a="ss" title="Every shape (or every text) with the stroke of the selected one">Same stroke</button><hr><button data-a="lock" title="Locked objects can't be clicked or box-selected, so a box can be dragged over them; Inkscape keeps the lock">Lock<kbd>Ctrl+2</kbd></button><button data-a="unlock" title="Unlock every locked object and select them">Unlock all<kbd>Ctrl+Alt+2</kbd></button></div></div>
 <div class="dd"><button class="ddb">View<i class="ca"></i></button><div class="menu"><button data-a="rulers" title="Click a ruler to pin a guide; click the guide's mark to remove it, drag it to move it">Rulers<kbd>Ctrl+R</kbd></button><button data-a="grid" title="Page grid; spacing follows zoom; not exported">Grid<kbd>Ctrl+'</kbd></button><button data-a="touch" title="On (as in Illustrator): a drag box-selects everything the box touches and Alt+drag only what is fully inside; off: the other way round">Box select touches</button><button data-a="gclr" title="Remove every guide pinned from the rulers; guides are not exported">Clear guides</button><button data-a="layers" title="Every object, front to back: select ones that are hard to click, hide or lock them (also F7)">Layers<kbd>Ctrl+Shift+L</kbd></button><button data-a="props" title="The side panel; the Properties tab at the canvas's right edge also hides or shows it">Properties</button><div class="sub" id="mBkM"><button class="sb" title="Arrange the panels: presets, the sections shown, lock, export">Layout<i>›</i></button><div class="menu"><button data-a="bkMy" title="The last arrangement you made by hand">My layout</button><button data-a="bkDf" title="The usual panel: every section in the right column">Default</button><button data-a="bkTx" title="Text floats beside the figure; the other sections stay on the right">Text</button><button data-a="bkAi" title="SVG Chat on the right, the main sections on the left">AI drawing</button><button data-a="bkSm" title="Used by itself below 1100 px">Small screen</button><hr><div class="sub"><button class="sb" title="Show or hide each section, Layers and SVG Chat">Blocks<i>›</i></button><div class="menu" id="mBkB"></div></div><hr><button data-a="bkLock" title="Stop sections from being moved, floated or hidden">Lock layout</button><hr><button data-a="bkExp" title="Save the arrangement as a JSON file">Export layout…</button><button data-a="bkImp" title="Load an arrangement saved with Export layout">Import layout…</button></div></div><button data-a="bkReset" title="Every section back to its place, sizes too">Reset layout</button><hr><button data-a="fit">Fit to window<kbd>Ctrl+0</kbd></button><button data-a="z100" title="Real size on a 96 dpi screen">Actual size<kbd>Ctrl+1</kbd></button><button data-a="zin">Zoom in<kbd>Ctrl+=</kbd></button><button data-a="zout">Zoom out<kbd>Ctrl+-</kbd></button><hr><div class="sub"><button class="sb" title="The language of menus, buttons and tips; drawings and files are never translated">Language<i>›</i></button><div class="menu"><button data-a="lgEn" title="The main language, the most tested">English</button><button data-a="lgZh" title="Menus, buttons and tips in Chinese (beta): some messages stay in English; everything works as in English">中文（测试版）</button><hr><div class="sub"><button class="sb" title="The font of the interface's Latin letters and numbers; drawings are not affected">English font<i>›</i></button><div class="menu" id="mUfE"></div></div><div class="sub"><button class="sb" title="The font of Chinese in the interface, also in file and layer names; drawings are not affected">Chinese font<i>›</i></button><div class="menu" id="mUfZ"></div></div></div></div></div></div>
-<div class="dd" id="mFgD"><button class="ddb">FigKit<i class="ca"></i></button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgBc" title="Give pictures of the same size the same crop, in their own pixels">Batch crop…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="lib" title="Your own assets: save a selection, insert it again at its size; kept in this browser, export to keep a copy">Library</button><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mPsBtn" type="button" data-a="pdfSources" title="Choose more pages from PDF and Illustrator files opened in this session." hidden>Choose pages…</button><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
+<div class="dd" id="mFgD"><button class="ddb">FigKit<i class="ca"></i></button><div class="menu"><button data-a="fgSize" title="Give each selected object a width or height of its own, in proportion or stretched">Size each…</button><button data-a="fgGrid" title="Arrange the selection in rows and columns with gaps, previewed before anything moves">Arrange in a grid…</button><button data-a="fgSpace" title="Align edges or centres; space objects by a fixed gap, equal gaps, equal centre distances or a total length">Align and space…</button><button data-a="fgPlace" title="Record where objects sit and put other objects in the same places">Positions…</button><button data-a="fgSwap" title="Swap the places of the two selected objects (their centres)">Swap two</button><hr><button data-a="fgLabel" title="A, B, C… as editable text that follows each panel">Panel labels…</button><button data-a="fgFrame" title="A rectangle around each panel that follows it">Frames…</button><button data-a="fgColor" title="Colours by HEX or RGB, and a palette of your own">Colours…</button><button data-a="fgCvd" title="Check whether the colours stay apart for colour-blind readers, view the figure as they see it, and remap to a colour-blind-safe palette">Colour blindness…</button><hr><button data-a="fgScale" title="Enter a picture's pixel size, then add a scale bar whose length follows the picture">Scale bar…</button><button data-a="fgZoom" title="A box on a picture and an enlarged copy of that region, linked to each other">Zoom inset…</button><button data-a="fgBc" title="Give pictures of the same size the same crop, in their own pixels">Batch crop…</button><button data-a="fgAdj" title="Levels, brightness, contrast and curves for pictures; the pixels are not changed">Adjust picture…</button><div class="sub"><button class="sb" title="Colour grayscale pictures like an ImageJ LUT; the pixels are not changed">Pseudocolor<i>›</i></button><div class="menu"><button data-a="tintRed">Red</button><button data-a="tintGreen">Green</button><button data-a="tintBlue">Blue</button><button data-a="tintCyan">Cyan</button><button data-a="tintMagenta">Magenta</button><button data-a="tintYellow">Yellow</button><button data-a="tintGray">Gray</button><hr><button data-a="tint">Remove tint</button><button data-a="fgChan" title="Any colour, with the display range (min and max)">Colour and range…</button></div></div><button data-a="xmg" title="Overlay 2 to 7 pictures of the same pixel size, each in its colour">Merge channels…</button><hr><button data-a="fgUpd" title="Put every panel label, frame, scale bar and zoom inset back in line with what it belongs to">Update linked objects</button></div></div><button data-a="lib" title="Your own assets: save a selection, insert it again at its size; kept in this browser, export to keep a copy">Library</button><button data-a="chat" title="Draw and edit with AI (GLM or DeepSeek): describe a figure, attach a reference, or ask about the selection">SVG Chat</button><button data-a="help" title="Shortcuts and tips (?)">Help</button><i></i><div id="mTabs" role="tablist" aria-label="Open documents"></div><button id="mKb" title="Search and run any command"><svg viewBox="0 0 16 16"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.3 10.3 4 4"/></svg><span>Search</span><kbd>Ctrl+K</kbd></button>
 </div>
 <!-- ══ 17 Tools and ghost ══ -->
 <div id="mTools">
@@ -528,11 +496,11 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 <a href="https://www.svguest.online/" target="_blank" rel="noopener" title="svguest website: www.svguest.online" class="sg"><svg viewBox="6 4.75 228 228" style="fill:none;stroke:currentColor"><path d="M29 85.86L113 36.14M127 36.14L211 85.86" stroke-width="16"/><path d="M15 83h14v14H15zM113 25h14v14h-14zM211 83h14v14h-14z" stroke-width="12"/><path d="M98 111V101Q98 95 104 95H136Q142 95 142 101V111" stroke-width="15"/><rect x="44" y="111" width="152" height="100" rx="5" stroke-width="15"/></svg></a>
 </div>
 <!-- ══ 07 View ══ -->
-<div id="mWork"><div id="mPsDock" hidden><div id="mPsSplit" role="separator" aria-label="Resize page chooser" tabindex="0"></div></div><div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div><svg id="mGF" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><svg id="mCrS" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true"><mask id="mCrM" maskUnits="userSpaceOnUse"><rect id="mCrO" fill="#6b6b6b"/><rect id="mCrI" fill="#fff"/></mask></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mBk" hidden title="Centre the page in the window (Ctrl+0 fits it)"><svg viewBox="0 0 16 16"><path d="M2.5 3.5h11v9h-11zM8 6v4M6 8h4"/></svg>Back to page</button><div id="mQb" hidden><button data-a="qbPlain" data-q="ln" title="Plain line: no heads"><svg viewBox="0 0 16 16"><path d="M2.5 8h11"/></svg></button><button data-a="qbArrow" data-q="ln" title="Arrow: a head at the end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9.5 4.5 13 8l-3.5 3.5"/></svg></button><button data-a="qbInh" data-q="ln" title="Inhibition: a blunt end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M13 4v8"/></svg></button><button data-a="qbText" data-q="sh" title="Type inside the shape"><svg viewBox="0 0 16 16"><path d="M4 4.5V3h8v1.5M8 3v10M6.5 13h3"/></svg></button><button data-a="cropI" data-q="im" title="Crop image"><svg viewBox="0 0 16 16"><path d="M4 1.5v10.5h10.5M1.5 4h10.5v10.5"/></svg></button><button data-a="qbDash" data-q="ds" title="Dashed or solid line"><svg viewBox="0 0 16 16"><path d="M1.5 8h3M6.5 8h3M11.5 8h3"/></svg></button></div><button id="mGc" hidden title="Remove every guide (also View › Clear guides)"></button><div id="mCr" hidden><button id="mCrA" title="Apply the crop (Enter or double-click)">Apply crop</button><button id="mCrX" title="Cancel (Esc)">Cancel</button></div><div id="mBz" role="status" aria-live="polite" hidden><i></i><button id="mBzCancel" type="button" title="Cancel reading file" hidden>Cancel</button><span></span></div><div id="mQ" hidden><div><span class="qi"><input id="mQf" placeholder="Find" spellcheck="false" autocomplete="off"><button id="mQc" title="Match case">Aa</button><button id="mQw" title="Whole word"><u>ab</u></button></span><span id="mQn"></span><button id="mQp" title="Previous (Shift+Enter)">↑</button><button id="mQx" title="Next (Enter)">↓</button><button id="mQl" title="List the matches in Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button><button id="mQz" title="Close (Esc)">×</button></div><div><input id="mQr" placeholder="Replace" spellcheck="false" autocomplete="off"><button id="mQo" title="Replace this one and go to the next (Enter)">Replace</button><button id="mQa" title="Replace every match">All</button></div></div><div id="mDk"><button id="mPb" data-a="props" title="Properties: hide or show the side panel"><svg viewBox="0 0 16 16"><path d="M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z"/></svg><span>Properties</span></button><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg><span>Layers</span></button></div></div></div>
+<div id="mWork"><div id="mView"><div id="mStage"><div id="mPage"></div><svg id="mGrid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path class="mi"/><path class="ma"/></svg><div id="mGW"><svg id="mGhost" xmlns="http://www.w3.org/2000/svg"></svg></div><svg id="mGF" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="mCap"></div><svg id="mHud" xmlns="http://www.w3.org/2000/svg"></svg><svg id="mCrS" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true"><mask id="mCrM" maskUnits="userSpaceOnUse"><rect id="mCrO" fill="#6b6b6b"/><rect id="mCrI" fill="#fff"/></mask></svg><canvas id="mRx"></canvas><canvas id="mRy"></canvas><div id="mSx"><i></i></div><div id="mSy"><i></i></div><button id="mBk" hidden title="Centre the page in the window (Ctrl+0 fits it)"><svg viewBox="0 0 16 16"><path d="M2.5 3.5h11v9h-11zM8 6v4M6 8h4"/></svg>Back to page</button><div id="mQb" hidden><button data-a="qbPlain" data-q="ln" title="Plain line: no heads"><svg viewBox="0 0 16 16"><path d="M2.5 8h11"/></svg></button><button data-a="qbArrow" data-q="ln" title="Arrow: a head at the end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9.5 4.5 13 8l-3.5 3.5"/></svg></button><button data-a="qbInh" data-q="ln" title="Inhibition: a blunt end"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M13 4v8"/></svg></button><button data-a="qbText" data-q="sh" title="Type inside the shape"><svg viewBox="0 0 16 16"><path d="M4 4.5V3h8v1.5M8 3v10M6.5 13h3"/></svg></button><button data-a="cropI" data-q="im" title="Crop image"><svg viewBox="0 0 16 16"><path d="M4 1.5v10.5h10.5M1.5 4h10.5v10.5"/></svg></button><button data-a="qbDash" data-q="ds" title="Dashed or solid line"><svg viewBox="0 0 16 16"><path d="M1.5 8h3M6.5 8h3M11.5 8h3"/></svg></button></div><button id="mGc" hidden title="Remove every guide (also View › Clear guides)"></button><div id="mCr" hidden><button id="mCrA" title="Apply the crop (Enter or double-click)">Apply crop</button><button id="mCrX" title="Cancel (Esc)">Cancel</button></div><div id="mBz" role="status" aria-live="polite" hidden><i></i><button id="mBzCancel" type="button" title="Cancel reading file" hidden>Cancel</button><span></span></div><div id="mQ" hidden><div><span class="qi"><input id="mQf" placeholder="Find" spellcheck="false" autocomplete="off"><button id="mQc" title="Match case">Aa</button><button id="mQw" title="Whole word"><u>ab</u></button></span><span id="mQn"></span><button id="mQp" title="Previous (Shift+Enter)">↑</button><button id="mQx" title="Next (Enter)">↓</button><button id="mQl" title="List the matches in Layers"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg></button><button id="mQz" title="Close (Esc)">×</button></div><div><input id="mQr" placeholder="Replace" spellcheck="false" autocomplete="off"><button id="mQo" title="Replace this one and go to the next (Enter)">Replace</button><button id="mQa" title="Replace every match">All</button></div></div><div id="mDk"><button id="mPb" data-a="props" title="Properties: hide or show the side panel"><svg viewBox="0 0 16 16"><path d="M1.5 4.5h3M7.5 4.5h7M4.5 3h3v3h-3zM1.5 11.5h7M11.5 11.5h3M8.5 10h3v3h-3z"/></svg><span>Properties</span></button><button id="mLb" data-a="layers" title="Layers (Ctrl+Shift+L)"><svg viewBox="0 0 16 16"><path d="M8 2 1.5 5.5 8 9l6.5-3.5zM1.5 8.5 8 12l6.5-3.5"/></svg><span>Layers</span></button></div></div></div>
 <!-- ══ 53 Layers ══ -->
 <div id="mLay"><header><b title="The top of the list is in front">Layers</b><input id="mLf" type="search" placeholder="Find" spellcheck="false" autocomplete="off" title="Find by text, name, type or id; Enter selects every match, Esc clears"><button data-a="layers" title="Close" aria-label="Close">×</button></header><div id="mLm" hidden><span></span><button title="Back to every object (closes Find and replace)">×</button></div><div id="mLl"><div></div></div></div>
 <!-- ══ 45b Layout ══ -->
-<div id="mSideL" class="bkh e0"></div><div id="mBkSpL" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkSpR" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkZl" class="bkz" hidden>Dock left</div><div id="mBkZr" class="bkz" hidden>Dock right</div><div id="mBkIn" hidden></div><div id="mBkSx" class="bksn" hidden></div><div id="mBkSy" class="bksn" hidden></div><input type="file" id="mBkF" accept=".json,application/json" hidden>
+<div id="mSideL" class="bkh e0"></div><div id="mBkSpL" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkSpR" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><div id="mBkZl" class="bkz" hidden>Dock left</div><div id="mBkZr" class="bkz" hidden>Dock right</div><div id="mBkIn" hidden></div><div id="mBkSx" class="bksn" hidden></div><div id="mBkSy" class="bksn" hidden></div><div id="mBkSpPages" class="bksp" hidden tabindex="0" role="separator" aria-orientation="vertical" title="Drag to resize the column; double-click resets it"></div><input type="file" id="mBkF" accept=".json,application/json" hidden>
 <!-- ══ 13 Side panel ══ -->
 <div id="mSide" class="bkh">
 <header id="mPh"><b>Properties</b><small id="mKind"></small><button data-a="props" title="Hide; the Properties tab at the canvas's right edge shows it again" aria-label="Hide">×</button></header>
@@ -789,15 +757,15 @@ body.bkDr,body.bkMv{user-select:none;-webkit-user-select:none}body.bkDr *{cursor
 </form></dialog>
 <dialog id="mCf"><p></p><p><button value="ok"></button> <button></button></p></dialog><dialog id="mPdP"><p><b></b></p><p><label>Page <select></select></label> <span></span></p><p><button value="ok">Open page</button> <button>Cancel</button></p></dialog>
 <!-- ══ 05c PDF sources ══ -->
-<dialog id="mPs" aria-labelledby="mPsTitle" aria-describedby="mPsInfo" aria-modal="false">
- <header id="mPsHead" title="Drag to move the page chooser"><span id="mPsTitle" data-ps-label="Choose pages">Choose pages</span><div id="mPsSource"><select id="mPsFiles" aria-label="Source file"></select><span id="mPsInfo"></span></div><div class="psHeadActions"><button id="mPsMoreBtn" type="button" title="More options" aria-label="More options" aria-expanded="false" aria-controls="mPsMore">···</button><button id="mPsX" type="button" title="Close page chooser" aria-label="Close page chooser">×</button></div></header>
+<div id="mPs" data-b="pages" role="region" aria-labelledby="mPsTitle" aria-describedby="mPsInfo" hidden>
+ <header id="mPsHead"><span id="mPsTitle" data-ps-label="Choose pages">Choose pages</span><div id="mPsSource"><select id="mPsFiles" aria-label="Source file"></select><span id="mPsInfo"></span></div><div class="psHeadActions"><button id="mPsMoreBtn" type="button" title="More options" aria-label="More options" aria-expanded="false" aria-controls="mPsMore">···</button><button id="mPsX" type="button" title="Close page chooser" aria-label="Close page chooser">×</button></div></header>
  <div id="mPsTools"><label><input id="mPsAll" type="checkbox"><span data-ps-label="Select all">Select all</span></label><span id="mPsOrder"></span></div>
  <div id="mPsScroll"><div id="mPsGrid"></div><p id="mPsEmpty" hidden></p></div>
  <p id="mPsNotice" role="status" aria-live="polite" hidden></p>
- <footer><span id="mPsCount" aria-live="polite"></span><button id="mPsCancel" type="button" data-ps-label="Cancel" hidden>Cancel</button><button id="mPsOpen" type="button" data-ps-label="Open selected">Open selected</button></footer><div id="mPsResize" role="separator" aria-label="Resize page chooser" tabindex="0"></div>
-</dialog>
-<div id="mPsMore" role="group" aria-label="More options" hidden><p data-ps-label="Position">Position</p><button type="button" data-ps-position="left" data-ps-label="Dock left">Dock left</button><button type="button" data-ps-position="right" data-ps-label="Dock right">Dock right</button><button type="button" data-ps-position="top" data-ps-label="Dock top">Dock top</button><button type="button" data-ps-position="bottom" data-ps-label="Dock bottom">Dock bottom</button><button type="button" data-ps-position="float" data-ps-label="Floating window">Floating window</button><button id="mPsCopies" type="button" title="Create independent tabs and keep edited pages" data-ps-label="Open original copies">Open original copies</button><p id="mPsSession" data-ps-label="Original files and editing drafts stay in this session. Refreshing clears them.">Original files and editing drafts stay in this session. Refreshing clears them.</p></div>
-<div id="mPsSnap" hidden></div>
+ <footer><span id="mPsCount" aria-live="polite"></span><button id="mPsCancel" type="button" data-ps-label="Cancel" hidden>Cancel</button><button id="mPsOpen" type="button" data-ps-label="Open selected">Open selected</button></footer>
+</div>
+<div id="mPsMore" role="group" aria-label="More options" hidden><button id="mPsCopies" type="button" title="Create independent tabs and keep edited pages" data-ps-label="Open original copies">Open original copies</button><p id="mPsSession" data-ps-label="Original files and editing drafts stay in this session. Refreshing clears them.">Original files and editing drafts stay in this session. Refreshing clears them.</p></div>
+
 <dialog id="mPsPreview" aria-labelledby="mPsPreviewTitle"><header><span id="mPsPreviewTitle"></span><button id="mPsBack" type="button" title="Back to pages" aria-label="Back to pages">×</button></header><div id="mPsZoom"><label><input id="mPsLargeSelect" type="checkbox"><span data-ps-label="Select this page">Select this page</span></label><div id="mPsPaging"><button id="mPsPrev" type="button" title="Previous page" aria-label="Previous page">‹</button><b id="mPsLargePage"></b><button id="mPsNext" type="button" title="Next page" aria-label="Next page">›</button></div></div><div id="mPsLarge"><img id="mPsLargeImage" alt="" hidden><p id="mPsLargeHint" hidden></p></div></dialog>
 <template id="mPsPageT"><div class="psPage"><div class="psThumb"><img alt="" hidden><span class="psHint"></span><button class="psHit" type="button" aria-label="Open page" title="Open or switch to this page"></button><label class="psChoose"><input type="checkbox" aria-label="Select page"><i hidden></i></label><button class="psZoom" type="button" title="Preview original page" aria-label="Preview original page"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.1"/><path d="m9.5 9.5 4 4M4.6 6.5h3.8M6.5 4.6v3.8"/></svg></button></div><div class="psCaption"><span class="psPageName"></span><span class="psState"></span></div></div></template>
 
@@ -1076,7 +1044,7 @@ const PGN={space:' ',exclam:'!',quotedbl:'"',numbersign:'#',dollar:'$',percent:'
   PSYM=[' !∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_ αβχδεφγηιϕκλμνοπθρστυϖωξψζ{|}∼',
     '€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…⏐⎯↵ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈®©™∑⎛⎜⎝⎡⎢⎣⎧⎨⎩⎪ 〉∫⌠⎮⌡⎞⎟⎠⎤⎥⎦⎫⎬⎭'];
 // 45b Layout: each block's name (BN), each preset's (BNP), the grip's six dots (BKG)
-const BN={page:'Page',transform:'Transform',align:'Align',arrange:'Arrange',text:'Text',appearance:'Appearance',alltext:'All text',layers:'Layers',chat:'SVG Chat'},
+const BN={page:'Page',transform:'Transform',align:'Align',arrange:'Arrange',text:'Text',appearance:'Appearance',alltext:'All text',layers:'Layers',chat:'SVG Chat',pages:'Pages'},
   BNP={my:'My layout',def:'Default',txt:'Text',ai:'AI drawing',sm:'Small screen'},
   BKG='<svg viewBox="0 0 4.6 7.6" aria-hidden="true"><circle cx=".8" cy=".8" r=".8"/><circle cx="3.8" cy=".8" r=".8"/><circle cx=".8" cy="3.8" r=".8"/><circle cx="3.8" cy="3.8" r=".8"/><circle cx=".8" cy="6.8" r=".8"/><circle cx="3.8" cy="6.8" r=".8"/></svg>'; // 1.6 px dots 3 px apart: 7.6 px tall, between the 12 px title's x-height and cap height
 // ══ 01b Language ════
@@ -1192,7 +1160,7 @@ const ZH={
  "Original previews":"原页预览",
  "Original preview":"原页预览",
  "Select all pages":"全选页面",
- "Pages":"页网格",
+ "Pages":"页面",
  "Select this page":"选择此页",
  "Previous page":"上一页",
  "Next page":"下一页",
@@ -5015,7 +4983,7 @@ let pdfLink=null; // active document's {sid,page,copy}; tabGet/tabShow carry it 
 
 // The browser holds original-page previews only. Opening restores drafts through the document manager.
 // Visible cards queue one raster at a time; aborting invalidates late results before another PDF job starts.
-const PSUI={position:'left',preferred:'left',sizes:{left:240,right:240,top:228,bottom:228,float:{x:null,y:null,w:320,h:560}},docked:false,preferDock:true,shown:false,scrolls:new Map,resizeObserver:null,drag:null,source:null,selected:[],orders:new Map,cards:[],visible:new Set,states:new Map,queue:[],queued:new Set,observer:null,epoch:0,controller:null,work:null,runningThumb:-1,large:-1,largeCache:new Map,previewEpoch:0,previewController:null,previewWork:null,previewKey:'',busy:false,bound:false,filesKey:'',lang:'',clock:0}; // one movable page pane; preferences contain layout only, never source contents
+const PSUI={position:'left',docked:true,shown:false,scrolls:new Map,resizeObserver:null,resizeTimer:0,source:null,selected:[],orders:new Map,cards:[],visible:new Set,states:new Map,queue:[],queued:new Set,observer:null,epoch:0,controller:null,work:null,runningThumb:-1,large:-1,largeCache:new Map,previewEpoch:0,previewController:null,previewWork:null,previewKey:'',busy:false,bound:false,filesKey:'',lang:'',clock:0}; // page content state; native v1.8 BL/BF own placement and window rectangles
 
 // pdfAbort/pdfTick: keep cancellation out of the reader's recoverable-damage fallbacks; give long pages time to paint.
 function pdfAbort(signal=PDFSIGNAL){
@@ -5507,7 +5475,7 @@ async function pdfOpenPages(source,indices,copies=false){
     for(let position=0;position<pages.length;position++){
       const page=pages[position];
       pdfAbort(signal);
-      if($('mPs').open)psUiNotice(psUiText('Opening page {n} of {total}…',{n:position+1,total:pages.length}));
+      if(!$('mPs').hidden)psUiNotice(psUiText('Opening page {n} of {total}…',{n:position+1,total:pages.length}));
       if(!copies&&pdfFindTab(source,page)>=0){
         prepared.push({page,existing:true});
         continue;
@@ -5703,12 +5671,12 @@ function psUiWords(){
   for(const id of ['mPs','mPsMore','mPsPreview']){
     for(const e of $(id).querySelectorAll('[data-ps-label]'))psUiSet(e,psUiText(e.dataset.psLabel));
   }
-  for(const [id,k] of [['mPsX','Close page chooser'],['mPsFiles','Source file'],['mPsPrev','Previous page'],['mPsNext','Next page'],['mPsMoreBtn','More options'],['mPsBack','Back to pages'],['mPsResize','Resize page chooser'],['mPsSplit','Resize page chooser']]){
+  for(const [id,k] of [['mPsX','Close page chooser'],['mPsFiles','Source file'],['mPsPrev','Previous page'],['mPsNext','Next page'],['mPsMoreBtn','More options'],['mPsBack','Back to pages']]){
     const e=$(id);
     e.setAttribute('aria-label',psUiText(k));
     e.title=psUiText(k);
   }
-  $('mPsHead').title=psUiText('Drag to move the page chooser');
+
 }
 function psUiStop(){
   PSUI.epoch++;
@@ -5720,10 +5688,9 @@ function psUiStop(){
   PSUI.visible.clear();
 }
 function psUiSaveScroll(){
-  if(!PSUI.source||!$('mPs').open)return;
+  if(!PSUI.source||$('mPs').hidden)return;
   const old=PSUI.scrolls.get(PSUI.source.id)||{top:0,left:0};
-  if(PSUI.position==='top'||PSUI.position==='bottom')old.left=$('mPsScroll').scrollLeft;
-  else old.top=$('mPsScroll').scrollTop;
+  old.top=$('mPsScroll').scrollTop;
   PSUI.scrolls.set(PSUI.source.id,old);
 }
 function psUiRestoreScroll(){
@@ -5743,289 +5710,53 @@ function psUiRestoreView(v){
   }
   place();
 }
-function psUiLoadPrefs(){
-  let saved;
-  try{saved=JSON.parse(ls('sgPdfPane')||'null');}catch(_){}
-  if(!saved||typeof saved!=='object')return;
-  if(['left','right','top','bottom','float'].includes(saved.position))PSUI.preferred=saved.position;
-  for(const p of ['left','right','top','bottom']){
-    const n=Number(saved.sizes?.[p]);
-    if(Number.isFinite(n)&&n>=120&&n<=1000)PSUI.sizes[p]=n;
+// Placement is delegated to the same v1.8 block/window functions as Layers and SVG Chat.
+function psUiNativeSync(){
+  const d=$('mPs'),visible=!!PDFS.sources.length&&PSUI.shown,floating=bkFloats().includes('pages');
+  d.hidden=!visible;
+  d.classList.toggle('flt',floating);
+  d.classList.toggle('bkl',bkLay().side.pages==='l');
+  PSUI.position=floating?'float':bkLay().side.pages==='l'?'left':'right';
+  PSUI.docked=!floating;
+  bkWin(d.id,visible&&floating);
+  d.querySelector('.fb')?.classList.toggle('on',floating);
+  if(!floating){
+    d.classList.remove('zm');
+    for(const key of ['left','top','width','height'])d.style[key]='';
   }
-  const f=saved.sizes?.float;
-  if(f&&typeof f==='object'){
-    for(const k of ['x','y','w','h']){
-      const n=Number(f[k]);
-      if(f[k]!=null&&Number.isFinite(n)&&Math.abs(n)<20000)PSUI.sizes.float[k]=n;
-    }
-  }
+  if(!visible)psUiMore(false);
 }
-function psUiSavePrefs(){
-  ls('sgPdfPane',JSON.stringify({position:PSUI.preferred,sizes:PSUI.sizes}));
-}
-function psUiCanDock(p){
-  const w=$('mWork'),r=w.getBoundingClientRect();
-  if(p!=='float'&&(r.bottom>innerHeight-8||r.top<0))return false;
-  if(p==='left'||p==='right')return w.clientWidth>=400&&w.clientHeight>=280;
-  if(p==='top'||p==='bottom')return w.clientWidth>=340&&w.clientHeight>=330;
-  return true;
-}
-function psUiCanPin(){return psUiCanDock('left');}
-function psUiSize(){
-  const d=$('mPs'),holder=$('mPsDock'),work=$('mWork'),p=PSUI.position;
-  if(!d.open)return;
-  if(p==='float'){
-    const f=PSUI.sizes.float;
-    const w=Math.max(0,Math.min(Math.max(230,f.w),innerWidth-16));
-    const h=Math.max(0,Math.min(Math.max(240,f.h),innerHeight-16));
-    const r=view.getBoundingClientRect();
-    let x=f.x==null?r.left+Math.max(8,(r.width-w)/2):f.x;
-    let y=f.y==null?r.top+24:f.y;
-    x=Math.max(8,Math.min(innerWidth-w-8,x));
-    y=Math.max(8,Math.min(innerHeight-h-8,y));
-    Object.assign(d.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
-    return;
-  }
-  if(p==='left'||p==='right'){
-    holder.style.width=Math.max(180,Math.min(440,PSUI.sizes[p],work.clientWidth-220))+'px';
-    holder.style.height='';
-  }else{
-    holder.style.width='';
-    holder.style.height=Math.max(150,Math.min(360,PSUI.sizes[p],work.clientHeight-180))+'px';
-  }
-  $('mPsSplit').setAttribute('aria-orientation',p==='left'||p==='right'?'vertical':'horizontal');
-  psUiCardSize();
-}
-function psUiCardSize(){
-  if(!PSUI.cards.length)return;
-  const horizontal=PSUI.position==='top'||PSUI.position==='bottom';
-  const h=Math.max(68,$('mPsScroll').clientHeight-34);
-  for(const e of PSUI.cards){
-    if(horizontal)e.style.width=Math.max(95,Math.min(240,h*.78))+'px';
-    else e.style.width='';
-  }
-}
-
-// Only this local work-area grid changes; existing Properties, Layers, Chat and the canvas node stay in place.
-function psUiLocked(){return typeof BL==='object'&&!!BL.lock;}
-function psUiDock(position,persist=true){
-  if(persist&&psUiLocked())return;
-  if(!['left','right','top','bottom','float'].includes(position))return;
-  const d=$('mPs'),holder=$('mPsDock'),work=$('mWork'),v=psUiView();
-  psUiSaveScroll();
-  psUiMore(false);
-  if(persist)PSUI.preferred=position;
-  const p=psUiCanDock(position)?position:'float';
-  PSUI.position=p;
-  PSUI.docked=p!=='float';
-  PSUI.preferDock=PSUI.docked;
-  PSUI.shown=true;
-  d.classList.toggle('psDocked',PSUI.docked);
-  d.classList.toggle('psHorizontal',p==='top'||p==='bottom');
-  d.dataset.position=p;
-  holder.hidden=!PSUI.docked;
-  if(PSUI.docked){
-    work.dataset.pages=p;
-    holder.insertBefore(d,$('mPsSplit'));
-    d.removeAttribute('style');
-  }else{
-    delete work.dataset.pages;
-    document.body.appendChild(d);
-  }
-  d.setAttribute('aria-modal','false');
-  if(!d.open)d.show();
-  bkWin('mPs',!PSUI.docked);
-  if(!PSUI.docked)winTop('mPs');
-  psUiSize();
-  psUiRestoreScroll();
-  psUiRestoreView(v);
-  pdfBrowserUpdate();
-  psUiObserve();
-  if(persist)psUiSavePrefs();
-}
-function psUiPresent(docked){psUiDock(docked?PSUI.preferred==='float'?'left':PSUI.preferred:'float',false);}
 function psUiPosition(){
-  if(!$('mPs').open)return;
-  const v=psUiView();
-  const wanted=psUiCanDock(PSUI.preferred)?PSUI.preferred:'float';
-  if(!PSUI.drag&&wanted!==PSUI.position){
-    psUiDock(PSUI.preferred,false);
-    return;
-  }
-  psUiSize();
-  psUiRestoreView(v);
+  if($('mPs').hidden)return;
+  if($('mPs').classList.contains('flt'))bkPlace($('mPs'),'pages');
   if(!$('mPsMore').hidden)psUiMore(true);
 }
 function psUiMore(show){
-  const m=$('mPsMore');
-  m.hidden=!show;
+  const menu=$('mPsMore');
+  menu.hidden=!show;
   $('mPsMoreBtn').setAttribute('aria-expanded',String(show));
   if(!show)return;
-  for(const b of m.querySelectorAll('[data-ps-position]')){
-    b.classList.toggle('on',b.dataset.psPosition===PSUI.preferred);
-    b.disabled=PSUI.busy||psUiLocked()||!psUiCanDock(b.dataset.psPosition);
-  }
   const r=$('mPsMoreBtn').getBoundingClientRect();
-  const x=Math.max(8,Math.min(innerWidth-m.offsetWidth-8,r.right-m.offsetWidth));
-  const y=r.bottom+m.offsetHeight+6<=innerHeight-8?r.bottom+5:Math.max(8,r.top-m.offsetHeight-5);
-  m.style.left=x+'px';
-  m.style.top=y+'px';
-}
-function psUiSnapAt(x,y){
-  const r=$('mWork').getBoundingClientRect();
-  if(x<r.left-20||x>r.right+20||y<r.top-20||y>r.bottom+20)return null;
-  const distances=[['left',Math.abs(x-r.left)],['right',Math.abs(x-r.right)],['top',Math.abs(y-r.top)],['bottom',Math.abs(y-r.bottom)]];
-  distances.sort((a,b)=>a[1]-b[1]);
-  const p=distances[0][1]<56?distances[0][0]:null;
-  return p&&psUiCanDock(p)?p:null;
-}
-function psUiSnap(p){
-  const e=$('mPsSnap');
-  e.hidden=!p;
-  if(!p)return;
-  const r=$('mWork').getBoundingClientRect();
-  let x=r.left,y=r.top,w=r.width,h=r.height;
-  if(p==='left'||p==='right'){
-    w=Math.max(180,Math.min(440,PSUI.sizes[p],r.width-220));
-    if(p==='right')x=r.right-w;
-  }else{
-    h=Math.max(150,Math.min(360,PSUI.sizes[p],r.height-180));
-    if(p==='bottom')y=r.bottom-h;
-  }
-  Object.assign(e.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
-}
-function psUiDragStart(e,resize=false){
-  if(e.button!==0||PSUI.busy||D||PSUI.drag||psUiLocked()||BD||BM)return;
-  if(!resize&&e.target.closest('button,select,input,label'))return;
-  e.preventDefault();
-  e.stopPropagation();
-  psUiMore(false);
-  const d=$('mPs'),r=d.getBoundingClientRect(),start={x:e.clientX,y:e.clientY};
-  const state={kind:resize?'resize':'move',id:e.pointerId,target:e.currentTarget,position:PSUI.position,preferred:PSUI.preferred,sizes:JSON.parse(JSON.stringify(PSUI.sizes)),rect:r,view:psUiView(),start,moved:false,snap:null,event:null,raf:0};
-  PSUI.drag=state;
-  state.target.setPointerCapture(e.pointerId);
-  d.classList.add('psMoving');
-  state.target.addEventListener('pointermove',psUiDragMove);
-  state.target.addEventListener('pointerup',psUiDragEnd);
-  state.target.addEventListener('pointercancel',psUiDragCancel);
-}
-function psUiDragMove(e){
-  const s=PSUI.drag;
-  if(!s||s.id!==e.pointerId)return;
-  e.preventDefault();
-  s.event={x:e.clientX,y:e.clientY};
-  if(!s.raf)s.raf=requestAnimationFrame(psUiDragFrame);
-}
-function psUiDragFrame(){
-  const s=PSUI.drag;
-  if(!s||!s.event)return;
-  s.raf=0;
-  const dx=s.event.x-s.start.x,dy=s.event.y-s.start.y;
-  if(!s.moved&&Math.abs(dx)+Math.abs(dy)<4)return;
-  if(!s.moved){
-    s.moved=true;
-    if(s.kind==='move'&&PSUI.position!=='float'){
-      PSUI.sizes.float={x:s.rect.left,y:s.rect.top,w:Math.max(250,Math.min(360,s.rect.width)),h:Math.max(320,Math.min(560,s.rect.height))};
-      psUiDock('float',false);
-      s.target.setPointerCapture(s.id);
-    }
-  }
-  if(s.kind==='move'){
-    const f=PSUI.sizes.float;
-    f.x=s.rect.left+dx;
-    f.y=s.rect.top+dy;
-    psUiSize();
-    s.snap=psUiSnapAt(s.event.x,s.event.y);
-    psUiSnap(s.snap);
-    return;
-  }
-  const p=s.position;
-  if(p==='float'){
-    PSUI.sizes.float.w=s.rect.width+dx;
-    PSUI.sizes.float.h=s.rect.height+dy;
-  }else{
-    const n=p==='left'?dx:p==='right'?-dx:p==='top'?dy:-dy;
-    PSUI.sizes[p]=s.sizes[p]+n;
-  }
-  psUiSize();
-  psUiRestoreView(s.view);
-}
-function psUiDragFinish(cancel){
-  const s=PSUI.drag;
-  if(!s)return;
-  if(s.raf){
-    cancelAnimationFrame(s.raf);
-    s.raf=0;
-    if(!cancel)psUiDragFrame();
-  }
-  s.target.removeEventListener('pointermove',psUiDragMove);
-  s.target.removeEventListener('pointerup',psUiDragEnd);
-  s.target.removeEventListener('pointercancel',psUiDragCancel);
-  if(s.target.hasPointerCapture(s.id))s.target.releasePointerCapture(s.id);
-  PSUI.drag=null;
-  $('mPs').classList.remove('psMoving');
-  psUiSnap(null);
-  if(cancel){
-    PSUI.sizes=s.sizes;
-    PSUI.preferred=s.preferred;
-    psUiDock(s.position,false);
-  }else if(s.moved){
-    if(s.kind==='move')psUiDock(s.snap||'float');
-    else{
-      const p=PSUI.position;
-      if(p==='left'||p==='right')PSUI.sizes[p]=$('mPsDock').offsetWidth;
-      else if(p==='top'||p==='bottom')PSUI.sizes[p]=$('mPsDock').offsetHeight;
-      else{
-        const r=$('mPs').getBoundingClientRect();
-        Object.assign(PSUI.sizes.float,{x:r.x,y:r.y,w:r.width,h:r.height});
-      }
-      psUiSavePrefs();
-    }
-    psUiObserve();
-  }
-}
-function psUiDragEnd(e){if(PSUI.drag?.id===e.pointerId)psUiDragFinish(false);}
-function psUiDragCancel(e){if(PSUI.drag?.id===e.pointerId)psUiDragFinish(true);}
-function psUiResetSize(){
-  if(psUiLocked())return;
-  const p=PSUI.position,v=psUiView();
-  if(p==='float')PSUI.sizes.float={x:null,y:null,w:320,h:560};
-  else PSUI.sizes[p]=p==='left'||p==='right'?240:228;
-  psUiSize();
-  psUiRestoreView(v);
-  psUiSavePrefs();
-  psUiObserve();
+  menu.style.left=Math.max(8,Math.min(innerWidth-menu.offsetWidth-8,r.right-menu.offsetWidth))+'px';
+  menu.style.top=(r.bottom+menu.offsetHeight+6<=innerHeight-8?r.bottom+5:Math.max(8,r.top-menu.offsetHeight-5))+'px';
 }
 function pdfBrowserClose(){
-  const d=$('mPs');
-  if(!d)return;
-  if(PSUI.drag)psUiDragFinish(true);
-  const v=psUiView();
+  const pageView=psUiView();
   psUiSaveScroll();
   if(PSUI.busy)pdfCancelOpen();
   psUiGridView();
   PSUI.shown=false;
   psUiStop();
   psUiMore(false);
-  if(d.open)d.close();
-  bkWin('mPs',false);
-  $('mPsDock').hidden=true;
-  delete $('mWork').dataset.pages;
-  document.body.appendChild(d);
-  psUiRestoreView(v);
-  $('mPsBtn').classList.remove('on');
+  bkApply();
+  psUiRestoreView(pageView);
 }
-function psUiPin(){psUiDock(PSUI.docked?'float':'left');}
 function psUiBind(){
   if(PSUI.bound)return;
   PSUI.bound=true;
-  psUiLoadPrefs();
   const d=$('mPs'),preview=$('mPsPreview');
-  d.addEventListener('pointerdown',()=>{
-    if(PSUI.position==='float'&&WINS.includes('mPs'))winTop('mPs');
-  },true);
-  document.body.append($('mPsMore'),$('mPsSnap'),preview);
-  d.addEventListener('close',()=>{if(!d.open&&PSUI.shown)pdfBrowserClose();});
+  Object.defineProperty(d,'open',{get:()=>!d.hidden,configurable:true});
+  document.body.append($('mPsMore'),preview);
   d.addEventListener('keydown',psUiKey);
   $('mPsMore').addEventListener('keydown',psUiKey);
   preview.addEventListener('keydown',psUiKey);
@@ -6033,42 +5764,19 @@ function psUiBind(){
   preview.addEventListener('close',()=>{if(!preview.open&&PSUI.large>=0)psUiGridView();});
   $('mPsX').onclick=pdfBrowserClose;
   $('mPsCancel').onclick=pdfCancelOpen;
-  $('mPsHead').onpointerdown=e=>psUiDragStart(e);
-  $('mPsResize').onpointerdown=e=>psUiDragStart(e,true);
-  $('mPsSplit').onpointerdown=e=>psUiDragStart(e,true);
-  $('mPsSplit').ondblclick=psUiResetSize;
-  $('mPsResize').ondblclick=psUiResetSize;
-  for(const id of ['mPsResize','mPsSplit'])$(id).addEventListener('keydown',e=>{
-    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key))return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(psUiLocked())return;
-    if(e.key==='Home')return psUiResetSize();
-    const p=PSUI.position,v=psUiView(),n=(e.shiftKey?30:10)*(['ArrowLeft','ArrowUp'].includes(e.key)?-1:1);
-    if(p==='float'){
-      if(['ArrowLeft','ArrowRight'].includes(e.key))PSUI.sizes.float.w+=n;
-      else PSUI.sizes.float.h+=n;
-    }else PSUI.sizes[p]+=n*(p==='right'||p==='bottom'?-1:1);
-    psUiSize();
-    psUiRestoreView(v);
-    psUiSavePrefs();
-  });
   $('mPsMoreBtn').onclick=()=>psUiMore($('mPsMore').hidden);
-  for(const b of $('mPsMore').querySelectorAll('[data-ps-position]'))b.onclick=()=>psUiDock(b.dataset.psPosition);
   document.addEventListener('pointerdown',e=>{
     if(!e.target.closest('#mPsMore,#mPsMoreBtn'))psUiMore(false);
   });
   $('mPsFiles').onchange=()=>{
-    const s=PDFS.sources.find(x=>String(x.id)===$('mPsFiles').value);
-    if(s)psUiSource(s);
+    const source=PDFS.sources.find(x=>String(x.id)===$('mPsFiles').value);
+    if(source)psUiSource(source);
   };
   $('mPsAll').onchange=()=>{
     if(PSUI.busy)return;
     if($('mPsAll').checked){
       const seen=new Set(PSUI.selected);
-      for(let i=0;i<psUiCount(PSUI.source);i++){
-        if(!seen.has(i))PSUI.selected.push(i);
-      }
+      for(let i=0;i<psUiCount(PSUI.source);i++)if(!seen.has(i))PSUI.selected.push(i);
     }else PSUI.selected=[];
     psUiSelection();
   };
@@ -6083,30 +5791,23 @@ function psUiBind(){
     $(id).addEventListener('drop',e=>{
       e.preventDefault();
       e.stopPropagation();
-      const f=e.dataTransfer.files[0];
-      if(f&&/\.(pdf|ai)$/i.test(f.name))pdfManage(f);
+      const file=e.dataTransfer.files[0];
+      if(file&&/\.(pdf|ai)$/i.test(file.name))pdfManage(file);
     });
   }
-  document.addEventListener('keydown',e=>{
-    if(PSUI.drag&&e.key==='Escape'){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      psUiDragFinish(true);
-    }
-  },true);
-  addEventListener('resize',psUiPosition);
-  if(typeof ResizeObserver==='function'){
-    PSUI.resizeObserver=new ResizeObserver(()=>{
-      if(!PSUI.drag)psUiPosition();
-    });
-    PSUI.resizeObserver.observe($('mWork'));
-  }
+  PSUI.resizeObserver=new ResizeObserver(()=>{
+    clearTimeout(PSUI.resizeTimer);
+    PSUI.resizeTimer=setTimeout(()=>{
+      if(!$('mPs').hidden)psUiObserve();
+      if(!$('mPsMore').hidden)psUiMore(true);
+    },140);
+  });
+  PSUI.resizeObserver.observe(d);
 }
 function psUiKey(e){
   if(e.key==='Escape'){
     e.preventDefault();
-    if(PSUI.drag)psUiDragFinish(true);
-    else if(!$('mPsMore').hidden)psUiMore(false);
+    if(!$('mPsMore').hidden)psUiMore(false);
     else if($('mPsPreview').open)psUiGridView();
     else pdfBrowserClose();
   }else if(e.key==='Enter'&&e.target.closest('.psHit')){
@@ -6127,11 +5828,15 @@ function pdfBrowser(source){
   if(!s&&pdfLink)s=PDFS.sources.find(x=>x.id===pdfLink.sid);
   if(!s)s=PDFS.active||PDFS.sources[0];
   if(s!==PSUI.source)psUiSource(s,true);
-  psUiDock(PSUI.preferred,false);
-  $('mPsBtn').classList.add('on');
+  const pageView=psUiView();
+  PSUI.shown=true;
+  bkApply();
+  psUiRestoreView(pageView);
+  pdfBrowserUpdate();
+  psUiObserve();
 }
 function pdfBrowserFollow(){
-  if(!$('mPs').open||PSUI.busy||PSUI.drag)return;
+  if($('mPs').hidden||PSUI.busy||BD||BM)return;
   if(pdfLink){
     const s=PDFS.sources.find(x=>x.id===pdfLink.sid);
     if(s&&s!==PSUI.source)psUiSource(s);
@@ -6181,7 +5886,6 @@ function psUiBuild(){
   psUiSet($('mPsEmpty'),psUiText('This file has no pages.'));
   $('mPsTools').hidden=!n;
   $('mPsSource').hidden=!s;
-  psUiCardSize();
   psUiSelection();
 }
 function psUiCardWords(i){
@@ -6262,13 +5966,10 @@ function psUiButtons(){
   $('mPsNotice').dataset.quota=need>room?'1':'0';
 }
 function pdfBrowserUpdate(){
-  const button=$('mPsBtn');
-  if(button){
-    button.hidden=!PDFS.sources.length;
-    button.disabled=PSUI.busy;
-    button.title=psUiText('Choose more pages from PDF and Illustrator files opened in this session.');
-    psUiSet(button,psUiText('Choose pages…'));
-    button.classList.toggle('on',$('mPs').open);
+  const entry=qa('bkVpages');
+  if(entry){
+    entry.hidden=!PDFS.sources.length;
+    entry.classList.toggle('on',PSUI.shown);
   }
   const d=$('mPs');
   if(!d||!d.open)return;
@@ -6320,7 +6021,7 @@ function pdfBrowserUpdate(){
   }
 }
 function psUiObserve(){
-  if(!$('mPs').open||PSUI.busy||!PSUI.source||PSUI.drag)return;
+  if($('mPs').hidden||PSUI.busy||!PSUI.source||PSUI.drag)return;
   if(PSUI.observer)PSUI.observer.disconnect();
   PSUI.visible.clear();
   if(typeof IntersectionObserver!=='function'){
@@ -6351,7 +6052,7 @@ function psUiThumbLimit(){
 function psUiQueue(i,large=false){
   if(large)return psUiPreviewQueue(i);
   const s=PSUI.source;
-  if(!s||PSUI.busy||!$('mPs').open||PSUI.drag)return;
+  if(!s||PSUI.busy||$('mPs').hidden||PSUI.drag)return;
   const key='thumb:'+i,limit=psUiThumbLimit(),r=s.thumbs.get(i);
   if(r){
     r.used=++PSUI.clock;
@@ -6367,7 +6068,7 @@ function psUiPump(){
   if(PSUI.work||PSUI.busy||!PSUI.queue.length)return;
   const epoch=PSUI.epoch;
   const work=(async()=>{
-    while(PSUI.queue.length&&epoch===PSUI.epoch&&!PSUI.busy&&$('mPs').open){
+    while(PSUI.queue.length&&epoch===PSUI.epoch&&!PSUI.busy&&!$('mPs').hidden){
       const job=PSUI.queue.shift();
       if(job.source!==PSUI.source)continue;
       if(!PSUI.visible.has(job.index)&&typeof IntersectionObserver==='function'){
@@ -6379,7 +6080,7 @@ function psUiPump(){
       PSUI.runningThumb=job.index;
       try{
         const r=await pdfThumb(job.source,job.index,ac.signal,job.limit);
-        if(ac.signal.aborted||epoch!==PSUI.epoch||!$('mPs').open)continue;
+        if(ac.signal.aborted||epoch!==PSUI.epoch||$('mPs').hidden)continue;
         const rec={url:URL.createObjectURL(r.blob),width:r.width,height:r.height,bytes:r.blob.size+r.width*r.height*4,limit:job.limit,note:r.note||'',used:++PSUI.clock};
         const old=job.source.thumbs.get(job.index);
         job.source.thumbs.set(job.index,rec);
@@ -6543,7 +6244,7 @@ function psUiGridView(){
   if($('mPsPreview').open)$('mPsPreview').close();
   $('mPsLargeImage').removeAttribute('src');
   $('mPsLargeImage').hidden=true;
-  if(previous>=0&&$('mPs').open){
+  if(previous>=0&&!$('mPs').hidden){
     PSUI.cards[previous]?.querySelector('.psZoom').focus({preventScroll:true});
     psUiObserve();
   }
@@ -6568,7 +6269,7 @@ async function psUiOpen(copies,only){
   pdfBrowserUpdate();
   try{
     if(PSUI.work)await PSUI.work;
-    if(epoch!==PSUI.epoch||!$('mPs').open)return;
+    if(epoch!==PSUI.epoch||$('mPs').hidden)return;
     const ok=await pdfOpenPages(s,indices,copies);
     if(ok){
       if(!only){
@@ -6576,13 +6277,13 @@ async function psUiOpen(copies,only){
         psUiSelection();
       }
       psUiNotice('');
-    }else if($('mPs').open)psUiNotice(psUiText('Pages were not opened. Your selection is unchanged.'));
+    }else if(!$('mPs').hidden)psUiNotice(psUiText('Pages were not opened. Your selection is unchanged.'));
   }catch(error){
-    if($('mPs').open)psUiNotice(String(error?.message||error),true);
+    if(!$('mPs').hidden)psUiNotice(String(error?.message||error),true);
   }finally{
     PSUI.busy=false;
     pdfBrowserUpdate();
-    if($('mPs').open){
+    if(!$('mPs').hidden){
       pdfBrowserFollow();
       psUiObserve();
     }
@@ -6604,7 +6305,7 @@ function psAtSavedPoint(){
 function psTabSleeping(i){return !!TABS[i]?.sleep;}
 function psSleepYield(){return new Promise(resolve=>setTimeout(resolve,0));}
 function psSleepBlocked(){
-  return !!(PDFS.loading||PDFS.opening||PSUI.busy||PSUI.drag||PSUI.dragging||BD||BM||D||G||CR||ed||tabClose.busy||tabGo.b);
+  return !!(PDFS.loading||PDFS.opening||PSUI.busy||PSUI.dragging||BD||BM||D||G||CR||ed||tabClose.busy||tabGo.b);
 }
 function psSleepSchedule(){
   clearTimeout(PSTABS.timer);
@@ -6975,7 +6676,7 @@ function syncPage(){const b=root.viewBox.baseVal,u=unitOf(root,b.width);if(b.x==
   vb=rb(b.x,b.y,b.width,b.height);U=u;ghost.setAttribute('viewBox',root.getAttribute('viewBox'));fit()}
 function setPage(x,y,w,h){if(!(w>0&&h>0))return;finish(true);root.setAttribute('viewBox',[x,y,w,h].map(fm).join(' '));root.setAttribute('width',fm(w*U)+'mm');root.setAttribute('height',fm(h*U)+'mm');commit()}
 // fit(): the page to the window (sets Z); zoomAt(p,f): zooms by f about view point p (k only)
-function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min((r.width-o-40)/vb.w,(r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
+function fit(){ed&&document.activeElement.blur();finish(true);const r=view.getBoundingClientRect(),o=opts.rulers?RW:0;Z=min(max(1,r.width-o-40)/vb.w,max(1,r.height-o-40)/vb.h);k=1;tx=o+(r.width-o-vb.w*Z)/2;ty=o+(r.height-o-vb.h*Z)/2;size();place()}
 function zoomAt(p,f){finish(true);k*=f;tx=p[0]-(p[0]-tx)*f;ty=p[1]-(p[1]-ty)*f;place();clearTimeout(zt);zt=setTimeout(grid,250)}
 
 // ══ 08 Selection ════
@@ -10165,13 +9866,13 @@ addEventListener('pointerdown',e=>{
 // window's rectangle); each key is removed while it equals the default, as plsig does. Below 1100 px a Small screen layout
 // (SM) applies by itself and is never saved. Dragging uses pointer events, not HTML5 drag and drop (untried in TBtools).
 const BK=['page','transform','align','arrange','text','appearance','alltext'], // the sections, in their default order
-  BX=[...BK,'layers','chat'], // every block
+  BX=[...BK,'layers','chat','pages'], // every block
   BKS=Object.fromEntries(BK.map(b=>[b,document.querySelector(`#mSide>section[data-b=${b}]`)])), // each section
   BKW={}, // each section's window, made by bkInit
   BW0=236,BWMIN=200,BWMAX=360,BSM=1100, // a column's width: default, least, most; Small screen below this window width
   BPRE={bkMy:'my',bkDf:'def',bkTx:'txt',bkAi:'ai',bkSm:'sm'}, // View › Layout's presets
-  bkNew=()=>({v:1,pre:'def',r:BK.slice(),l:[],w:{l:BW0,r:BW0},side:{layers:'r',chat:'r'},hid:[],shut:[],lock:0,p:1,c:0}),
-  bkEl=id=>id==='layers'?$('mLay'):id==='chat'?$('mChat'):BKW[id], // what floats for a block
+  bkNew=()=>({v:1,pre:'def',r:BK.slice(),l:[],w:{l:BW0,r:BW0,pages:220},side:{layers:'r',chat:'r',pages:'l'},hid:[],shut:[],lock:0,p:1,c:0}),
+  bkEl=id=>id==='layers'?$('mLay'):id==='chat'?$('mChat'):id==='pages'?$('mPs'):BKW[id], // what floats for a block
   bkCl=w=>round(min(BWMAX,max(BWMIN,w))),
   bkT=k=>LNG==='zh'&&lgZ(k)||k, // text built after the language pass
   bkJ=o=>JSON.parse(JSON.stringify(o)),
@@ -10183,6 +9884,25 @@ let BL=bkNew(),BF={keys:[],rect:{}},SM=null,bkSmall=false,BD=null,BM=null,bkRT=0
 // bkLay(): the layout in force
 function bkLay(){
   return bkSmall?SM:BL}
+// Pages are a native large block. If a narrow layout has no room for both page list and canvas,
+// temporarily use its normal native floating rectangle without changing the preferred dock side.
+function bkFloats(){
+  const ids=bkSmall?[]:BF.keys.slice();
+  if(!PSUI.shown||!PDFS.sources.length)return ids.filter(id=>id!=='pages');
+  const E=bkLay(),b=document.body;
+  let used=48;
+  for(const side of ['l','r']){
+    const n=E[side].some(id=>!E.hid.includes(id)||ids.includes(id));
+    if(n&&!b.classList.contains('noP')||side==='r'&&b.classList.contains('smc'))used+=E.w[side];
+    if(b.classList.contains('lay')&&!ids.includes('layers')&&E.side.layers===side)used+=220;
+    if(b.classList.contains('chat')&&!ids.includes('chat')&&E.side.chat===side&&!bkSmall)used+=300;
+  }
+  const workspace=$('mWork').getBoundingClientRect();
+  if(BF.keys.includes('pages')||innerWidth-used<(E.w.pages||BW0)+220||workspace.bottom>innerHeight-8){
+    if(!ids.includes('pages'))ids.push('pages');
+  }
+  return ids;
+}
 // bkOk(o): a stored or imported layout made safe (unknown ids and duplicates dropped, widths clamped), null if o isn't one
 function bkOk(o,inner){
   if(!o||typeof o!=='object'||o.v!==1||!Array.isArray(o.r)||!Array.isArray(o.l))return null;
@@ -10191,6 +9911,8 @@ function bkOk(o,inner){
   d.l=ids(o.l);
   for(const s of['l','r'])d.w[s]=bkCl(+(o.w&&o.w[s])||BW0);
   for(const b of['layers','chat'])d.side[b]=o.side&&o.side[b]==='l'?'l':'r';
+  d.side.pages=o.side?.pages==='r'?'r':'l';
+  d.w.pages=bkCl(+o.w?.pages||220);
   d.hid=ok(o.hid);
   d.shut=ok(o.shut);
   d.lock=o.lock?1:0;
@@ -10312,10 +10034,11 @@ function bkReset(){
   msg('Layout reset: every section is back in the right column')}
 // bkGrid(): the grid's columns, from the canvas outwards: Layers, the sections' column, SVG Chat (mirrored on the left)
 function bkGrid(){
-  const b=document.body,E=bkLay(),fk=bkSmall?[]:BF.keys,on=c=>b.classList.contains(c),cols=[['48px',$('mTools')]];
+  const b=document.body,E=bkLay(),fk=bkFloats(),on=c=>b.classList.contains(c),cols=[['48px',$('mTools')]];
   const side=s=>{
     const a=[],c=$(s==='l'?'mSideL':'mSide'),n=E[s].some(id=>!E.hid.includes(id)||fk.includes(id));
     c.classList.toggle('e0',!E[s].some(id=>!E.hid.includes(id)));
+    if(PSUI.shown&&PDFS.sources.length&&!fk.includes('pages')&&E.side.pages===s)a.push([(E.w.pages||BW0)+'px',$('mPs')]);
     if(on('lay')&&!fk.includes('layers')&&E.side.layers===s)a.push(['220px',$('mLay')]);
     if(n&&!on('noP')||s==='r'&&on('smc'))a.push([E.w[s]+'px',c]);
     if(on('chat')&&!fk.includes('chat')&&E.side.chat===s&&!bkSmall)a.push(['300px',$('mChat')]);
@@ -10327,11 +10050,11 @@ function bkGrid(){
 // bkSp(): the splitters on the columns' inner edges
 function bkSp(){
   requestAnimationFrame(()=>{
-    for(const s of['l','r']){
-      const p=$(s==='l'?'mBkSpL':'mBkSpR'),r=$(s==='l'?'mSideL':'mSide').getBoundingClientRect(),v=r.width>0&&!bkSmall&&!BL.lock;
+    for(const s of['l','r','pages']){
+      const e=s==='pages'?$('mPs'):$(s==='l'?'mSideL':'mSide'),p=$(s==='pages'?'mBkSpPages':s==='l'?'mBkSpL':'mBkSpR'),r=e.getBoundingClientRect(),left=s==='pages'?bkLay().side.pages==='l':s==='l',v=r.width>0&&!bkSmall&&!BL.lock&&(s!=='pages'||!e.classList.contains('flt'));
       p.hidden=!v;
       if(!v)continue;
-      p.style.left=(s==='l'?r.right:r.left)-4+'px';
+      p.style.left=(left?r.right:r.left)-4+'px';
       p.style.top=r.top+'px';
       p.style.height=r.height+'px';
     }
@@ -10352,6 +10075,7 @@ function bkWin(id,on){
 // bkHome(id): where a block floats the first time: the canvas's top right; SVG Chat at its bottom right
 function bkHome(id){
   const v=view.getBoundingClientRect(),t=v.top+(opts.rulers?RW:0)+8;
+  if(id==='pages')return{l:v.left+28,t,w:260,h:420};
   if(id==='chat')return{l:v.right-320-40,t:max(t,v.bottom-520-16),w:320,h:520};
   if(id==='layers')return{l:v.right-260-40,t,w:260,h:420};
   return{l:v.right-BW0-40,t,w:BW0}}
@@ -10363,7 +10087,7 @@ function bkPlace(w,id){
     const v=view.getBoundingClientRect();
     return Object.assign(w.style,{left:v.left+'px',top:v.top+'px',width:v.width+'px',height:v.height+'px'});
   }
-  const big=id==='layers'||id==='chat',W=min(r.w,innerWidth-16),H=big?min(r.h||420,innerHeight-16):0;
+  const big=id==='layers'||id==='chat'||id==='pages',W=min(r.w,innerWidth-16),H=big?min(r.h||420,innerHeight-16):0;
   w._w=W;
   w._h=H;
   w.style.width=W+'px';
@@ -10373,7 +10097,7 @@ function bkPlace(w,id){
   w.style.top=max(8,min(r.t,innerHeight-h-8))+'px'}
 // bkApply(): moves every block where the layout says, then the grid, the windows, the menus
 function bkApply(){
-  const E=bkLay(),fk=bkSmall?[]:BF.keys,b=document.body,shut=E.shut,host={r:$('mSide'),l:$('mSideL')};
+  const E=bkLay(),fk=bkFloats(),b=document.body,shut=E.shut,host={r:$('mSide'),l:$('mSideL')};
   if(ed&&ed.sd)finish(true);
   for(const s of['r','l']){
     const c=host[s],now=[...c.children].filter(n=>n.dataset.b).map(n=>n.dataset.b).join();
@@ -10394,7 +10118,7 @@ function bkApply(){
   b.classList.toggle('smc',cc);
   const ph=$('mPh'),pc=E.l.includes('transform')||!E.r.some(id=>!E.hid.includes(id))&&E.l.length?host.l:host.r;
   if(ph.parentNode!==pc)pc.prepend(ph);
-  for(const id of['layers','chat']){
+  for(const id of['layers','chat','pages']){
     const e=bkEl(id),f=fk.includes(id);
     e.classList.toggle('flt',f);
     e.classList.toggle('bkl',!f&&E.side[id]==='l');
@@ -10411,6 +10135,7 @@ function bkApply(){
   b.classList.toggle('bkLk',!!BL.lock);
   b.classList.toggle('sm',bkSmall);
   $('mBkSm').hidden=!bkSmall;
+  psUiNativeSync();
   bkGrid();
   for(const id of fk)bkPlace(bkEl(id),id);
   bkAuto();
@@ -10423,7 +10148,7 @@ function bkApply(){
 }
 // bkVis(id): whether a block shows
 function bkVis(id){
-  return id==='layers'?lyOn():id==='chat'?document.body.classList.contains('chat'):!bkLay().hid.includes(id)}
+  return id==='pages'?!!PDFS.sources.length&&PSUI.shown:id==='layers'?lyOn():id==='chat'?document.body.classList.contains('chat'):!bkLay().hid.includes(id)}
 // bkMenu(): ticks in View › Layout
 function bkMenu(){
   const P=bkSmall?'sm':BL.pre;
@@ -10432,6 +10157,7 @@ function bkMenu(){
   qa('bkLock').classList.toggle('on',!!BL.lock);
   for(const id of BX){
     const b=qa('bkV'+id);
+    if(id==='pages')b.hidden=!PDFS.sources.length;
     b.classList.toggle('on',bkVis(id));
     b.querySelector('small').hidden=!(BKW[id]&&BKW[id].classList.contains('na')&&!BKW[id].hidden);
   }
@@ -10451,7 +10177,8 @@ function bkAuto(){
 }
 // bkFloat(id,at): lifts a block into a window, 28 px right and down of where it was (plsig), or at the point it was dropped
 function bkFloat(id,at){
-  if(BF.keys.includes(id)||BL.lock||bkSmall)return;
+  if(BF.keys.includes(id)||BL.lock||bkSmall&&id!=='pages'||id==='pages'&&!PDFS.sources.length)return;
+  const pageView=id==='pages'?psUiView():null;
   const sec=BK.includes(id),src=sec?BKS[id]:bkEl(id),r=src.getBoundingClientRect(),o=BF.rect[id]||{};
   if(sec){
     o.ds=BL.l.includes(id)?'l':'r';
@@ -10469,11 +10196,13 @@ function bkFloat(id,at){
   bkMine();
   bkApply();
   bkSave();
+  if(pageView)psUiRestoreView(pageView);
   if(id==='layers'&&!lyOn())A.layers();
   if(id==='chat'&&!document.body.classList.contains('chat'))A.chat()}
 // bkDock(id,s,before,i): docks a block in column s, before the section before (or at index i, or last)
 function bkDock(id,s,before,i){
-  if(bkSmall)return;
+  if(bkSmall&&id!=='pages')return;
+  const pageView=id==='pages'?psUiView():null;
   const f=BF.keys.includes(id),was=JSON.stringify([BL.r,BL.l,BL.side,BL.hid]);
   BF.keys=BF.keys.filter(k=>k!==id);
   if(BK.includes(id)){
@@ -10489,6 +10218,7 @@ function bkDock(id,s,before,i){
   bkMine();
   bkApply();
   bkSave();
+  if(pageView)psUiRestoreView(pageView);
   if(BK.includes(id)&&document.body.classList.contains('noP'))A.props()}
 // bkBack(id): the window's float button: back to the column and place it came from
 function bkBack(id){
@@ -10508,6 +10238,7 @@ function bkShut(id){
 // bkHide(id): hides a block; View › Layout › Blocks shows it again (in Small screen, only until the window is wider)
 function bkHide(id){
   if(BL.lock)return;
+  if(id==='pages')return pdfBrowserClose();
   if(id==='layers'){
     if(lyOn())A.layers();
     return;
@@ -10525,6 +10256,7 @@ function bkHide(id){
   msg(`${bkT(BN[id])}: hidden; View › Layout › Blocks shows it again`)}
 // bkShow(id): Blocks › a block: shows or hides it
 function bkShow(id){
+  if(id==='pages')return PSUI.shown?pdfBrowserClose():pdfBrowser();
   if(id==='layers')return A.layers();
   if(id==='chat')return A.chat();
   if(!bkLay().hid.includes(id))return bkHide(id);
@@ -10544,7 +10276,7 @@ function bkAutoT(id){
   bkSave()}
 // bkWins(): the floating windows that show
 function bkWins(){
-  return[...BK.map(b=>BKW[b]),$('mLay'),$('mChat')].filter(w=>w.offsetWidth&&(w.classList.contains('blkw')||w.classList.contains('flt'))&&!w.classList.contains('na'))}
+  return[...BK.map(b=>BKW[b]),$('mLay'),$('mChat'),$('mPs')].filter(w=>w.offsetWidth&&(w.classList.contains('blkw')||w.classList.contains('flt'))&&!w.classList.contains('na'))}
 // bkTgt(x,y,id): where a block dropped at x,y goes: {s,before,line} in a column or on a Dock strip, {f} on the canvas, or null
 function bkTgt(x,y,id){
   const inR=(e,p)=>{const r=e.getBoundingClientRect();return r.width&&x>=r.left-(p||0)&&x<=r.right+(p||0)&&y>=r.top&&y<=r.bottom},v=view.getBoundingClientRect();
@@ -10641,6 +10373,8 @@ function bkZoom(w){
 // bkSmNew(): Small screen's layout, from the user's hidden blocks; with SVG Chat open every section starts collapsed
 function bkSmNew(){
   SM={...bkPreset('sm')[0],hid:BL.hid.slice()};
+  SM.side.pages=BL.side.pages;
+  SM.w.pages=BL.w.pages;
   if(document.body.classList.contains('chat'))SM.shut=BK.slice()}
 // bkResize(): Small screen below 1100 px; windows clamped back into view
 function bkResize(){
@@ -10651,7 +10385,11 @@ function bkResize(){
     bkApply();
     return;
   }
-  for(const id of bkSmall?[]:BF.keys)bkPlace(bkEl(id),id);
+  if(PSUI.shown&&$('mPs').classList.contains('flt')!==bkFloats().includes('pages')){
+    bkApply();
+    return;
+  }
+  for(const id of bkFloats())bkPlace(bkEl(id),id);
   bkSp()}
 // bkCM(e,id): the right-click menu of a block's title
 function bkCM(e,id){
@@ -10779,11 +10517,11 @@ function bkInit(){
     BKW[id]=W;
     bkRO.observe(W);
   }
-  for(const id of['layers','chat']){
-    const e=bkEl(id),h=id==='layers'?e.querySelector('header'):$('mChH');
+  for(const id of['layers','chat','pages']){
+    const e=bkEl(id),h=id==='chat'?$('mChH'):e.querySelector('header');
     e.dataset.b=id;
     h.prepend(bkGrip(id));
-    (id==='layers'?h.lastElementChild:$('mChN')).before(bkFb(id));
+    (id==='chat'?$('mChN'):h.lastElementChild).before(bkFb(id));
     bkRO.observe(e);
   }
   $('mBkB').replaceChildren(...BX.map(id=>{
@@ -10796,8 +10534,8 @@ function bkInit(){
     KI['bkV'+id]=LI.eye;
     return b}));
   for(const[n,f]of[['Zl','l'],['Zr','r']])$('mBk'+n).dataset.s=f;
-  for(const s of['l','r']){
-    const p=$(s==='l'?'mBkSpL':'mBkSpR'),c=()=>$(s==='l'?'mSideL':'mSide'),done=()=>{bkMine();bkSave()};
+  for(const s of['l','r','pages']){
+    const p=$(s==='pages'?'mBkSpPages':s==='l'?'mBkSpL':'mBkSpR'),c=()=>s==='pages'?$('mPs'):$(s==='l'?'mSideL':'mSide'),left=()=>s==='pages'?bkLay().side.pages==='l':s==='l',done=()=>{bkMine();bkSave()};
     p.onpointerdown=e=>{
       if(e.button)return;
       e.preventDefault();
@@ -10805,7 +10543,7 @@ function bkInit(){
       p.classList.add('on');
       p.onpointermove=m=>{
         const r=c().getBoundingClientRect();
-        bkWidth(s,s==='l'?m.clientX-r.left:r.right-m.clientX)};
+        bkWidth(s,left()?m.clientX-r.left:r.right-m.clientX)};
       p.onpointerup=p.onpointercancel=()=>{
         p.classList.remove('on');
         p.onpointermove=p.onpointerup=p.onpointercancel=null;
@@ -10819,7 +10557,7 @@ function bkInit(){
       if(!d)return;
       e.preventDefault();
       e.stopPropagation();
-      bkWidth(s,BL.w[s]+(e.shiftKey?80:20)*d*(s==='r'?-1:1));
+      bkWidth(s,BL.w[s]+(e.shiftKey?80:20)*d*(left()?1:-1));
       done()};
   }
   $('mBkSm').onclick=e=>{
@@ -10856,8 +10594,8 @@ function bkWidth(s,w){
 // bkSized(w): a window resized from its corner keeps its new size
 function bkSized(w){
   const id=w.dataset.b,r=BF.rect[id];
-  if(!r||!BF.keys.includes(id)||bkSmall||w.classList.contains('zm')||!w.offsetWidth)return;
-  const W=parseFloat(w.style.width),H=parseFloat(w.style.height),big=id==='layers'||id==='chat';
+  if(!r||!bkFloats().includes(id)||bkSmall&&id!=='pages'||w.classList.contains('zm')||!w.offsetWidth)return;
+  const W=parseFloat(w.style.width),H=parseFloat(w.style.height),big=id==='layers'||id==='chat'||id==='pages';
   if(!(abs(W-w._w)>1||big&&abs(H-w._h)>1))return;
   w._w=r.w=round(W);
   if(big)w._h=r.h=round(H);
@@ -10884,8 +10622,8 @@ A.bkDockAll=()=>{
 }
 // the drags: pointer events on the document, so a drag goes on over any panel
 document.addEventListener('pointerdown',e=>{
-  if(e.button||bkSmall||!e.target.closest)return;
-  const t=e.target,g=t.closest('.grip'),hd=t.closest('.blkw>header,#mLay.flt>header,#mChat.flt>#mChH');
+  if(e.button||!e.target.closest||bkSmall&&!e.target.closest('#mPs.flt'))return;
+  const t=e.target,g=t.closest('.grip'),hd=t.closest('.blkw>header,#mLay.flt>header,#mChat.flt>#mChH,#mPs.flt>header');
   if(hd&&(g||!t.closest('button,input,select,.menu'))){
     const w=hd.parentNode;
     if(w.classList.contains('zm'))return;
@@ -10902,7 +10640,7 @@ document.addEventListener('pointerdown',e=>{
   }
 });
 addEventListener('pointerdown',e=>{
-  const w=e.target.closest&&e.target.closest('#mLay.flt,#mChat.flt');
+  const w=e.target.closest&&e.target.closest('#mLay.flt,#mChat.flt,#mPs.flt');
   if(w&&WINS.includes(w.id))winTop(w.id);
 },true);
 addEventListener('pointermove',e=>{
@@ -10976,11 +10714,11 @@ document.addEventListener('click',e=>{
   if(h&&!e.target.closest('.fb,.grip'))bkShut(h.parentNode.dataset.b);
 });
 document.addEventListener('dblclick',e=>{
-  const h=e.target.closest&&e.target.closest('#mLay.flt>header,#mChat.flt>#mChH');
+  const h=e.target.closest&&e.target.closest('#mLay.flt>header,#mChat.flt>#mChH,#mPs.flt>header');
   if(h&&!e.target.closest('button,input,.menu'))bkZoom(h.parentNode);
 });
 document.addEventListener('contextmenu',e=>{
-  const h=e.target.closest&&e.target.closest(':is(#mSide,#mSideL)>section>h4,.blkw>header,#mLay>header,#mChH');
+  const h=e.target.closest&&e.target.closest(':is(#mSide,#mSideL)>section>h4,.blkw>header,#mLay>header,#mChH,#mPs>header');
   if(!h||e.target.closest('input,textarea')||!root)return;
   e.preventDefault();
   bkCM(e,h.closest('[data-b]').dataset.b);
@@ -11001,10 +10739,12 @@ function bkCmds(){
     o.push([b,n])};
   for(const a in BPRE)o.push([qa(a),bkT('Layout')+': '+qa(a).firstChild.data.trim()]);
   for(const id of BX){
+    if(id==='pages'&&!PDFS.sources.length)continue;
     const fl=BF.keys.includes(id);
     f('bkF'+id,bkT(fl?'Dock':'Float')+' '+bkT(BN[id]),'bkFloat',()=>fl?bkBack(id):bkFloat(id),fl,BL.lock||bkSmall);
   }
   for(const id of BX){
+    if(id==='pages'&&!PDFS.sources.length)continue;
     const v=bkVis(id);
     f('bkS'+id,bkT(v?'Hide':'Show')+' '+bkT(BN[id]),v?'bkHid':'bkShw',()=>bkShow(id),0,v&&BL.lock&&id!=='layers'&&id!=='chat');
   }

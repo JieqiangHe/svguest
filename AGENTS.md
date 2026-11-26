@@ -120,7 +120,7 @@ What every change should be checked against (all established practice, see CLAUD
 ## Plugin-only gift codes
 
 - The TBtools plugin build adds gift codes to SVG Chat (`.claude/skills/jh-html-to-tbtools-plugin/assets/svguest-gift.js`, inlined by `svguest-stage.sh`). `app.html` must never contain gift code; the public site has none. Details in that skill's SKILL.md › Gift codes; the Worker it calls lives outside this repo.
-- Never put the AI service's address or any key in the repo: the module knows only the Worker's URL (`GIFT_API`).
+- Never put the AI service's address or any key in the repo: the module knows only the Worker's URL (`GIFT_API`). The campaign-ended sentence is fixed wording from the user; keep it exact, and keep the ended state reversible (never cache it).
 
 ## Rules that are easy to break
 

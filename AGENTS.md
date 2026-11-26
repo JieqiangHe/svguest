@@ -117,10 +117,10 @@ What every change should be checked against (all established practice, see CLAUD
 - After a MINOR release the user wants two images, both dark: the What's new card alone in English (`whatsnew-en-dark.png`, 1100×820 at DPR 2, `omitBackground`), and a Chinese long-form page rendered as JPEG (820 CSS px at DPR 2, `svguest-X.Y-<feature>-dark.jpg`). Details in CLAUDE.md › Release images.
 - `.gitattributes` marks `.claude` and `CLAUDE.md` as `export-ignore`; add `AGENTS.md` there too.
 
-## Plugin-only gift codes
+## Plugin-only free AI uses
 
-- The TBtools plugin build adds gift codes to SVG Chat (`.claude/skills/jh-html-to-tbtools-plugin/assets/svguest-gift.js`, inlined by `svguest-stage.sh`). `app.html` must never contain gift code; the public site has none. Details in that skill's SKILL.md › Gift codes; the Worker it calls lives outside this repo.
-- Never put the AI service's address or any key in the repo: the module knows only the Worker's URL (`GIFT_API`). The campaign-ended sentence is fixed wording from the user; keep it exact, and keep the ended state reversible (never cache it).
+- The TBtools plugin build gives every computer 3 free AI calls in SVG Chat (no codes) (`.claude/skills/jh-html-to-tbtools-plugin/assets/svguest-gift.js`, inlined by `svguest-stage.sh`). `app.html` must never contain this code; the public site has none. Details in that skill's SKILL.md › Free uses; the Worker it calls lives outside this repo.
+- Never put the AI service's address or any key in the repo: the module knows only the Worker's URL (`GIFT_API`). The campaign-ended sentence (“…礼品的机会…”) and the footer line are fixed wording from the user; keep them exact, and keep the ended state reversible (never cache it).
 
 ## Rules that are easy to break
 

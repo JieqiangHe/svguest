@@ -240,8 +240,13 @@ input,select{font:inherit}
 @keyframes wnAr{0%,68%{opacity:0;transform:translateY(4px) scale(.96)}73%{opacity:1;transform:scale(1.04)}76%,95%{opacity:1;transform:none}98%,100%{opacity:0;transform:translateY(4px) scale(.96)}}
 @media (prefers-reduced-motion:reduce){#mWn[open] #mWnG.ad,#mWn[open] #mWnG .aq>span,#mWn[open] #mWnG .ap>u,#mWn[open] #mWnG .as>span:nth-child(n),#mWn[open] #mWnG .ao{animation:none}#mWn[open] #mWnG .aq::after{display:none}}
 /* where to find it and a link (WN.note), the version's other changes (WN.also), and the earlier versions, folded */
-#mWnN{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:16px 0 0;padding:9px 12px;border-radius:9px;background:var(--wad-s);box-shadow:inset 0 0 0 1px var(--wad-r);font-size:12px}#mWnN[hidden]{display:none}
-#mWnN>span{font-weight:600}#mWnN>small{font-size:11px;color:var(--h4)}#mWnN>a{margin-left:auto;font-weight:600;color:var(--wad-t);text-decoration:none;white-space:nowrap}#mWnN>a:hover{text-decoration:underline}#mWnN>a::after{content:" ↗"}
+#mWnN{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 10px;margin:16px 0 0;padding:8px 8px 8px 12px;border-radius:9px;background:var(--wad-s);box-shadow:inset 0 0 0 1px var(--wad-r);font-size:12px}#mWnN[hidden]{display:none}
+#mWnN>span{font-weight:600}
+#mWnN>a{display:inline-flex;align-items:center;gap:5px;margin-left:auto;height:26px;padding:0 9px 0 6px;border-radius:999px;font-weight:600;font-size:11.5px;line-height:1;color:var(--wad-k);background:#f9e44d;box-shadow:inset 0 0 0 1px #e9af00,0 1px 2px #aa64181f;text-decoration:none;white-space:nowrap}
+#mWnN>a:hover{background:#e9af00;box-shadow:inset 0 0 0 1px #aa641880,0 1px 2px #aa641833}
+#mWnN>a:focus-visible{outline:2px solid var(--wad-b);outline-offset:2px}
+#mWnN>a::after{content:"↗";margin-left:1px;font-size:10px;font-weight:700;opacity:.65}
+#mWnN>a>i{flex:none;width:15px;height:15px}#mWnN>a>i>svg{display:block;width:15px;height:15px}
 #mWnO{margin-top:16px}#mWnO[hidden]{display:none}#mWnO>h4{margin:0 0 8px;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}#mWnO>ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 #mWnO li{display:flex;gap:9px;align-items:flex-start}#mWnO svg{flex:none;width:16px;height:16px;margin-top:1px;fill:none;stroke:var(--fg);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}#mWnO b{display:block;font-size:12px;font-weight:600;line-height:1.35}#mWnO span{display:block;text-wrap:pretty;margin-top:1px;font-size:11.5px;line-height:1.45;color:var(--h4)}
 #mWnE{margin:16px 0 0;border-top:1px solid var(--line)}#mWnE[hidden]{display:none}#mWnE>summary{display:flex;align-items:center;gap:7px;padding:11px 0 8px;cursor:pointer;list-style:none;font-size:12px;font-weight:600;color:var(--h4)}#mWnE>summary::-webkit-details-marker{display:none}#mWnE>summary:hover{color:var(--fg)}
@@ -1106,9 +1111,9 @@ const WNS=[{v:'1.11',chip:'Try · TBtools AI Dev',t:'Try TBtools AI Dev',
     ['M2.5 3.5h11v7.5h-6.5l-3 2.5v-2.5h-1.5zM5.5 7.2h5','Keep chatting to change it','Ask for more in the same chat: it rebuilds the same plugin and swaps it in.'],
     ['M3.2 8a4.8 4.8 0 1 0 1.4-3.4M3.2 2.4v2.8h2.8M8 5.4V8l1.9 1.3','Roll back any step','Every step is versioned, so you can go back to the last build that compiled.'],
     ['M8 1.8l5 2v4.1c0 3-2.1 5.1-5 6.3-2.9-1.2-5-3.3-5-6.3V3.8zM5.7 8.1l1.6 1.6 3-3.2','The harness upgrade','Built-in Skills, Hooks and acceptance gates: if the checks fail, it does not call it done.']],
-  note:{at:'In TBtools: Plugin › AI Dev',linux:'On Linux: Others › Plugin › AI Dev',dl:'Download TBtools',href:'https://www.yuque.com/cjchen/hirv8i/xq65ml'},
+  note:{at:'In TBtools: Plugin › AI Dev',dl:'Download TBtools',href:'https://www.yuque.com/cjchen/hirv8i/xq65ml'},
   also:[['M2.5 3.5h11v9h-11zM2.5 10.5l3-3 2.5 2.5 2-2 3.5 3.5M10.3 6.2h.01','GLM-5.4 in SVG Chat','Zhipu’s new model, which reads images, is in the GLM list. Its pay-as-you-go API is not open yet.'],
-    ['M2.5 6h11v2.5h-11zM3.5 8.5v5h9v-5M8 6v7.5M8 6C6.4 6 4.6 4.9 5.2 3.4 5.9 1.8 8 4 8 6c0-2 2.1-4.2 2.8-2.6C11.4 4.9 9.6 6 8 6','TBtools plugin: free AI drawing trial','Inside TBtools, the svguest plugin’s SVG Chat can draw with AI for free, a few times on each computer.']]},
+    ['M2.5 6h11v2.5h-11zM3.5 8.5v5h9v-5M8 6v7.5M8 6C6.4 6 4.6 4.9 5.2 3.4 5.9 1.8 8 4 8 6c0-2 2.1-4.2 2.8-2.6C11.4 4.9 9.6 6 8 6','TBtools plugin: free AI drawing trial','Inside TBtools, the svguest plugin’s SVG Chat can draw with AI for free, 5 times on each computer.']]},
   {v:'1.10',chip:'New · Page background',t:'Page background colours',x:'Set the paper in Properties › Page; it is kept in the file and in every export.',
   // paper (v1.10): the hero is the Background row of Properties › Page beside the page itself; the ring walks the
   // swatches (wnPs) and the page takes each colour in step (wnPp): PAPER_COLOURS' four presets, then the custom field
@@ -1264,13 +1269,12 @@ const ZH={
  "The harness upgrade":"harness 升级",
  "Built-in Skills, Hooks and acceptance gates: if the checks fail, it does not call it done.":"内置 Skills、Hooks 与验收门禁：检查不通过，就不算完成。",
  "In TBtools: Plugin › AI Dev":"在 TBtools 中：Plugin › AI Dev",
- "On Linux: Others › Plugin › AI Dev":"Linux 版：Others › Plugin › AI Dev",
  "Download TBtools":"下载 TBtools",
  "Also in this version":"本版本还有",
  "GLM-5.4 in SVG Chat":"SVG Chat 加入 GLM-5.4",
  "Zhipu’s new model, which reads images, is in the GLM list. Its pay-as-you-go API is not open yet.":"智谱能看图的新模型已加入 GLM 列表。它的按量付费 API 尚未开放。",
  "TBtools plugin: free AI drawing trial":"TBtools 插件版：免费 AI 绘图体验",
- "Inside TBtools, the svguest plugin’s SVG Chat can draw with AI for free, a few times on each computer.":"在 TBtools 里，svguest 插件的 SVG Chat 每台电脑都能免费用 AI 画几次图。",
+ "Inside TBtools, the svguest plugin’s SVG Chat can draw with AI for free, 5 times on each computer.":"在 TBtools 里，svguest 插件的 SVG Chat 每台电脑都能免费用 AI 画 5 次图。",
  "Earlier versions":"以前的版本",
  "Try TBtools AI Dev":"试试 TBtools AI Dev",
  "Try TBtools AI Dev after its harness upgrade; GLM-5.4 in SVG Chat; a free AI drawing trial in the TBtools plugin.":"试试升级了 harness 的 TBtools AI Dev；SVG Chat 加入 GLM-5.4；TBtools 插件版可免费体验 AI 绘图。",
@@ -13317,11 +13321,14 @@ $('mWnL').replaceChildren(...WN.items.map(([d,t,x])=>{
 }));
 // where to find the feature and a link to it, then the version's other changes in smaller rows
 if(WN.note){
-  const n=WN.note,a=el('a',0,n.dl);
+  const n=WN.note,a=el('a'),ic=el('i');
   a.href=n.href;
   a.target='_blank';
   a.rel='noopener';
-  $('mWnN').replaceChildren(el('span',0,n.at),el('small',0,n.linux),a);
+  ic.innerHTML=TBL;
+  ic.firstChild.setAttribute('aria-hidden','true');
+  a.append(ic,document.createTextNode(n.dl));
+  $('mWnN').replaceChildren(el('span',0,n.at),a);
   $('mWnN').hidden=false;
 }
 if(WN.also){

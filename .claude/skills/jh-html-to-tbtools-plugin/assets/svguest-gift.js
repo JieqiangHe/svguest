@@ -8,7 +8,7 @@
 // written in English and Chinese (GT, FT, AD...), picked by LNG at each render (lgSet is wrapped to re-render).
 // Saved: sgGiftDev (random id of this computer; clearing it only asks the Worker for a fresh allowance, which the Worker
 // limits per network), sgGiftQ (last known uses), sgGiftAd (which AI Dev cards were closed).
-(()=>{const GIFT_API='https://svguest-gift.REPLACE-ME.workers.dev'; // the deployed Worker, no trailing slash
+(()=>{const GIFT_API='https://svguest-gift.jieqiang-he-dawn.workers.dev'; // the deployed Worker, no trailing slash
 if(/REPLACE-ME/.test(GIFT_API)||typeof call!=='function'||typeof regAdd!=='function'||typeof sse!=='function')return;
 if(!window.tbtools&&!window.TBSIWC)return; // only inside TBtools
 const zh=()=>LNG==='zh',T=(e,z)=>zh()?z:e,

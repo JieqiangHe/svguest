@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/story.mp4",
+      "destination": "/asset/story.mp4",
+      "statusCode": 301
+    }
+  ]
+}

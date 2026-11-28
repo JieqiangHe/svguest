@@ -12,8 +12,9 @@ svguest, a one-file SVG editor for touching up ggplot2/svglite/Inkscape figures.
 - `index.html` — the cover page (static, English only, not shipped in the plugin).
 - `svguest.plugin` — TBtools plugin; it carries its own copy of `app.html` as `svguest/index.html`.
 - `fonts/` — `build-fonts.py`, the two subset woff2 files and their SIL OFL texts. `fonts/src/` holds the downloaded originals and is gitignored.
-- `asset/` contains `logo.svg`, `logo-dark.svg`, `tbtools.svg` and `bioanno.svg`.
-- `story.mp4`, `README.md`, `LICENSE`, `CLAUDE.md`.
+- `asset/` contains `logo.svg`, `logo-dark.svg`, `tbtools.svg`, `bioanno.svg` and the cover video `story.mp4`.
+- `edgeone.json` redirects the original video URL on www.svguest.online.
+- `README.md`, `LICENSE`, `CLAUDE.md`.
 - Live at https://www.svguest.online and https://jieqianghe.github.io/svguest/, both deployed from the `release` branch, which moves only when a version ships.
 
 There is no build step, no package manager, no bundler and no test suite in the repo. Do not add one.

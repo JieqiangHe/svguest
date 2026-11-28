@@ -1,5 +1,5 @@
 <h1>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg"><img src="logo.svg" alt="svguest" height="40"></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="asset/logo-dark.svg"><img src="asset/logo.svg" alt="svguest" height="40"></picture>
 </h1>
 
 > I once paid for Adobe, then fell for open-source Inkscape, but at heart I've always loved lightweight tools, ideally ones that run right in the browser; now that AI is here, we can hand-craft the manual parts of our workflows exactly the way we want.

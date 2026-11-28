@@ -86,7 +86,7 @@ const WHERE=['Open it in TBtools: ','在 TBtools 里打开：'],AIPATH=['Plugin 
   FREE=['Free, built-in model, no API key needed','免费使用，内置模型，无需自备 API key'],
   FEAT=[['Describe it in one sentence; AI Dev builds a plugin you can open right away.','说一句话，AI Dev 帮你做出可直接打开的插件。'],['Plans first, builds after you approve: compile, package, sample check.','先出计划，你批准后才动手：编译、打包、样例验证。'],['Not right? Keep chatting; every step can be rolled back.','不满意就接着聊，每步可回退。']],
   HV=['Harness upgrade','Harness 升级'],
-  // the TBtools logo: tbtools.svg from the repo root, byte for byte (only aria-hidden and stroke:none were added on the root, as the app's own TBtools links do, so no host CSS can stroke it);
+  // the TBtools logo: asset/tbtools.svg, byte for byte (only aria-hidden and stroke:none were added on the root, as the app's own TBtools links do, so no host CSS can stroke it);
   // shown at 24px (1.5 px per unit: the grid lines fall on whole pixels). Never animate its parts: the card animates around it
   LOGO='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" style="stroke:none"><rect width="16" height="16" rx="3.6" fill="#f9e44d"/><path fill="#e9af00" d="M8 0h4v12H8zM4 4h4v4H4zM4 12h4v4H4zM12 0h.4a3.6 3.6 0 0 1 3.6 3.6V4h-4zM0 12h4v4h-.4A3.6 3.6 0 0 1 0 12.4z"/><path d="M4 0v16M8 0v16M12 0v16M0 4h16M0 8h16M0 12h16" stroke="#aa6418" stroke-width=".625"/></svg>',
   adFill=(n,o={})=>{n.className='aid'+(o.sm?' sm':'');n.replaceChildren();const top=o.top;
